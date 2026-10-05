@@ -2,7 +2,7 @@
 
 Se lee solo para el trabajo que lo pide (mapa de docs en `START_HERE.md` §7). Las marcas son las de siempre: sin marca = **decidido**; *(propuesta)*; *(a confirmar)*.
 
-Índice: §1 qué es e inventario · §2 cómo compila y ejecuta el usuario · §3 proceso completo (R1-R13) · §4 mapa de paquetes · §5 convenciones (R16) · §6 autocomprobación de `rules/` · §7 arte · §8 entorno de desarrollo e investigación de API (R14, R15) · §9 preferencias del usuario · §10 chuleta de depuración.
+Índice: §1 qué es e inventario · §2 cómo compila y ejecuta el usuario · §3 proceso completo (R1-R13, R17) · §4 mapa de paquetes · §5 convenciones (R16) · §6 autocomprobación de `rules/` · §7 arte · §8 entorno de desarrollo e investigación de API (R14, R15) · §9 preferencias del usuario · §10 chuleta de depuración.
 
 ---
 
@@ -59,14 +59,14 @@ El usuario trabaja en su PC con el proyecto Gradle del zip; el sandbox de Claude
 
 * **Requisitos:** JDK 25. `settings.gradle` incluye el plugin *foojay*, que puede descargar el JDK por su cuenta. El wrapper de Gradle viene en el zip (`gradlew`, `gradlew.bat`).
 * **Compilar:** `./gradlew build` (jar en `build/libs/lsmmod-1.0.0.jar`, porque `archivesName = mod_id` y `version = mod_version`).
-* **Jugar:** `./gradlew runClient`. Otras *runs* definidas en `build.gradle`: `server` (con `--nogui`), `gameTestServer`, `data`.
+* **Jugar:** `./gradlew runClient` abre el juego **directo desde el código fuente**: no hay que copiar ningún jar a una carpeta `mods`. Antes de arrancar, la tarea `applyClientOptions` (ojo: `prepareClientRun` ya la define el plugin de NeoForge y chocaba) copia `tools/run-defaults/options.txt` (las opciones del usuario: pantalla completa, 15 chunks, 260 fps...) a `run/options.txt` **solo si `run/options.txt` no existe**; para aplicar una versión nueva, borrar `run/options.txt` una vez. Otras *runs* definidas en `build.gradle`: `server` (con `--nogui`), `gameTestServer`, `data`.
 * **Carpeta de ejecución:** `run/` (está en `.gitignore`). El log es `run/logs/latest.log`; al cargar el mod escribe la línea `LSM Mod loaded`.
 * **Si algo raro pasa con dependencias:** `./gradlew --refresh-dependencies`; para limpiar, `./gradlew clean` (del README de la plantilla).
 * **Cómo reporta el usuario:** "compiló", "funcionó", o pega el error o el log. Nada más; ver `START_HERE.md` §3.
 
 ---
 
-## 3. Proceso completo (R1-R13, con su porqué)
+## 3. Proceso completo (R1-R13 y R17, con su porqué)
 
 **R1. Qué se lee.** Claude lee SOLO `START_HERE.md` al empezar. Los demás docs, solo para el trabajo que nombra el mapa de docs. Nunca `DESIGN`, `API_NOTES` o `history/` "para orientarse": en bunnidogs el contexto único creció hasta 350 KB y tardaba en leerse en cada conversación; por eso aquí hay un doc por trabajo.
 
@@ -94,6 +94,8 @@ El usuario trabaja en su PC con el proyecto Gradle del zip; el sandbox de Claude
 
 **R13. Entrega.** El zip con el mismo nombre de carpeta y de archivo que se subió, sin `run/` ni `build/`, entregado con `present_files`, y respuesta corta: qué hace / qué NO está compilado / qué probar / qué sigue. El comando está en `START_HERE.md` §5.
 
+**R17. La respuesta empieza por la lista exacta de archivos tocados.** Cada respuesta que cambie algo en el proyecto abre con tres grupos: **añadidos**, **modificados** y **borrados** (los vacíos se omiten), cada archivo en su propia línea con la ruta completa desde la raíz del proyecto (p. ej. `docs/CHUNKS.md`, no "CHUNKS"). La lista sale de comparar la carpeta contra una copia base tomada al empezar el turno (`diff -rq`, comandos en `START_HERE.md` §5), nunca de memoria, y debe coincidir con lo que lleva el zip. Si el turno no tocó archivos, la respuesta dice "ningún archivo modificado". Por qué: el usuario sustituye archivos a mano o revisa cambios; una lista de memoria que omita un archivo le cuesta un error difícil de rastrear.
+
 ---
 
 ## 4. Mapa de paquetes
@@ -109,12 +111,12 @@ Raíz: `net.nicomar2009.lsmmod` (`src/main/java/net/nicomar2009/lsmmod/`).
 | `entity/` | `SeatEntity` |
 | `registry/` | `ModBlocks`, `ModItems`, `ModBlockEntities`, `ModEntities`, `ModCreativeTabs` |
 | `client/` | `ClientSetup` (renderer de la entidad asiento) |
+| `rules/` | `NpcGroup`, `NpcState`, `PlayerGear`, `Hostility` (lógica pura de hostilidad, desde `N0`; sin imports de Minecraft; aún no la usa ningún código del juego) |
 
 **Planeados (`PLANNED`, no existen):**
 
 | Paquete | Para qué |
 |---|---|
-| `rules/` | Lógica pura: **sin imports de Minecraft** y con autocomprobación (§6) |
 | `npc/` | Entidades y comportamiento de los NPC |
 | `effect/` | Efectos propios |
 | `worldgen/` | Generación del colegio |
@@ -148,15 +150,17 @@ Si hacen falta `item/` (clases de items) u otros, se añaden entonces *(propuest
 
 ---
 
-## 6. Autocomprobación de `rules/` (`PLANNED`)
+## 6. Autocomprobación de `rules/`
 
-`tools/RulesCheck.java` **nace con el primer chunk de lógica pura**, no antes. Revisará lo que viva en `rules/`: la matriz de hostilidad, la inmunidad por prendas, la condición del Director con el 90 % de primaria, la composición de olas y los stats. Reglas de uso: R9 (una corrida, tests chicos, sin sabotaje). Comando en `START_HERE.md` §5.
+`tools/RulesCheck.java` **existe desde `N0`** (hostilidad: 19 comprobaciones). Revisa lo que viva en `rules/`; irá creciendo con: la condición del Director con el 90 % de primaria, la composición de olas y los stats. Reglas de uso: R9 (una corrida, tests chicos, sin sabotaje). Comando en `START_HERE.md` §5.
 
 `tools/ParseAll.java` **sí existe** (revisa solo la sintaxis de todo el Java; nunca resuelve tipos, así que no sustituye al compilador).
 
 ---
 
 ## 7. Arte (D3, decisión abierta)
+
+**Recursos sin usar:** van en `newresources/` (raíz del proyecto, fuera de `src/`; ver su README). Cuando un chunk los use, los mueve a `src/main/resources/`.
 
 Hoy no hay scripts de arte ni modelos de entidad. **Pick propuesto:** texturas de items simples generadas con Pillow como placeholder para que el usuario las sustituya; los modelos de bloque y de entidad los hace el usuario hasta que diga otra cosa. Si se acepta, los scripts irían en `tools/art/` *(propuesta)*.
 

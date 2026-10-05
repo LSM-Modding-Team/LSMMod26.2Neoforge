@@ -10,6 +10,7 @@ Marcas: sin marca = **decidido**; *(propuesta)*; *(a confirmar)*.
 
 * **B0, baseline** (6 bloques: 3 sillas, 2 pupitres, 1 casillero; ver `docs/REFERENCE.md` §1). *(a confirmar)*: el usuario no ha reportado compile ni prueba.
 * **B0.1, limpieza de B0:** clave `lang` del asiento, receta del pupitre de alumno, descripción del mod, comentarios. *(a confirmar)*: sin compile ni prueba.
+* **N0, hostilidad como lógica pura** (primer trozo de M3: `rules/` y `RulesCheck`). *(a confirmar)*: sin compile; la precedencia es un pick sin aceptar.
 * **Documentación:** Tanda A (`START_HERE`, `README`, `CHUNKS`, `ROADMAP`, `REFERENCE`, `tools/ParseAll.java`) Tanda B (`DESIGN_SOURCE_v1`, `DESIGN`, `MECHANICS_SPECS`, `NPC_SPECS`), Tanda C (`ITEM_SPECS`, `ARMOR_SPECS`, `BLOCK_SPECS`, `WORLD_SPECS`, `BOSS_SPECS`) y Tanda D (`INTEGRATION_BUNNIDOGS`, `API_NOTES`, `FEATURES`, `history/SESSION_LOG`, `history/CHUNKS_FULL`; `DOCS_PLAN` pasó a `history/`). **Plan de docs completo.** `RAID_PLAN.md` también escrito. Falta solo el plan de `N1` (antes de M4).
 
 ---

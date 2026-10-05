@@ -12,6 +12,9 @@ Un **chunk** es lo que se entrega en un turno: algo que el usuario compila y pru
 
 | Id | Qué hizo | Estado |
 |---|---|---|
+| `T0.1` | **Arreglo de T0** (sin features): la tarea se llama ahora `applyClientOptions`, porque `prepareClientRun` ya existe en el plugin de NeoForge. Misma lógica. Además nace la carpeta `newresources/` con su README (recursos sin usar, fuera de `src/`, no se empaqueta). Riesgo: otro choque de nombres o error de Gradle; si pasa, pega el error | **NOT COMPILED** (sin confirmar) |
+| `T0` | **Tooling, sin código del mod:** tarea `prepareClientRun` que copiaba `tools/run-defaults/options.txt` a `run/options.txt` antes de `runClient`. **Falló en el arranque de Gradle** (reporte del usuario): el nombre ya existía en el plugin | **SUPERSEDED** por `T0.1` |
+| `N0` | **Hostilidad como lógica pura** (sin API de Minecraft, nada visible en el juego): `rules/{NpcGroup, NpcState, PlayerGear, Hostility}` y `tools/RulesCheck.java`. Decidido: el Traje gana a todo; apaciguado no ataca; inmunidad por prenda del grupo; Estudioso = nivel del uniforme de profesor. Pick sin aceptar: precedencia del sticker y de "provocado" (`MECHANICS_SPECS.md` §6.5). Sin rellenar: V4, V6 (2+ piezas), V13, V16. `RulesCheck` 19/19, `ParseAll` 19 archivos, 0 errores. Riesgo de compilación: bajo (Java puro, `record` y `switch` de expresión; el mod usa Java 25) | **NOT COMPILED** (sin confirmar) |
 | `B0.1` | **Limpieza de B0** (sin features, sin API nueva de Minecraft): clave `lang` del asiento (`entity.lsmmod.seat`), receta nueva de `students_desk`, descripción real en `neoforge.mods.toml`, comentarios corregidos en 4 clases. Solo JSON, TOML y comentarios; `ParseAll` 15 archivos, 0 errores (solo sintaxis). Riesgo de compilación: ninguno nuevo; el único riesgo es un JSON/TOML mal formado, que solo aparece al cargar el juego. Detalle: `docs/REFERENCE.md` §1 | **NOT COMPILED** (sin confirmar) |
 | `B0` | **Baseline:** lo que ya había al empezar el proyecto de docs. 6 bloques (3 sillas con `SeatEntity`, 2 pupitres de dos mitades con 27 slots, 1 casillero con 54 slots), pestaña creativa `lsm_mod`, modelos, texturas, blockstates, loot tables, 5 recetas (falta la del pupitre de alumno) y `lang/en_us.json`. Nadie ha reportado compile ni prueba. Inventario completo y sospechosos de compilación: `docs/REFERENCE.md` §1 | **NOT COMPILED** (sin confirmar) |
 
@@ -27,7 +30,6 @@ Un chunk nuevo necesita antes su spec (Tandas B y C de docs). Cada fila correspo
 | `B2` | Bloques que faltan del diseño §4 sin API nueva (kiosko, campana, laptops, PC, casilleros con loot, objetos perdidos) | M1 | `PLANNED` |
 | `I1` | Items simples: regla y sus tiers, bola de papel, folder, cuaderno, celular, consumibles | M2 | `PLANNED` |
 | `I2` | Efectos propios: Estudioso, Trackeo, Bad Omen LSM | M2 | `PLANNED` |
-| `N0` | Primer chunk de lógica pura en `rules/`: matriz de hostilidad, y con él nace `tools/RulesCheck.java` | M3 | `PLANNED` |
 | `A1` | Armadura (API de equipment de 26.x: **riesgo**) | M3 | `PLANNED` |
 | `N1` | NPC base: una entidad de alumno con stats, rasgos, estados y zona propia; luego el llamado | M4 | `PLANNED` |
 | `W1` | Estructura del colegio por jigsaw, aulas y colocación de NPC | M5 | `PLANNED` |

@@ -4,7 +4,7 @@
 
 **Implementan este spec (todos `PLANNED`, ver `docs/CHUNKS.md`):** `N0` (matriz de hostilidad en `rules/`, nace `RulesCheck`), `I2` (efectos), `N1` (llamados), `R1` (patrullas y raids; antes `RAID_PLAN.md`).
 
-Marcas: sin marca = **decidido**; *(propuesta)*; *(a confirmar)*. `V#` = vacío detectado, en `docs/DESIGN.md` §5.3. **Si algo no está en el diseño, aquí dice "sin definir": no se rellena.** Qué hizo cada chunk distinto del plan: ninguno todavía.
+Marcas: sin marca = **decidido**; *(propuesta)*; *(a confirmar)*. `V#` = vacío detectado, en `docs/DESIGN.md` §5.3. **Si algo no está en el diseño, aquí dice "sin definir": no se rellena.** Qué hizo cada chunk distinto del plan: `N0` (§6.5).
 
 ---
 
@@ -137,6 +137,21 @@ El **único** orden definido es que el **Traje** gana a todo ("sin importar lo q
 ### 6.4 Forma prevista para `rules/` *(propuesta, sin código)*
 
 Función pura, sin imports de Minecraft: entra (grupo del NPC, estado, piezas puestas por grupo, efectos activos, disparador) → sale (¿te ataca?, ¿rango de visión relativo?). Los grupos y disparadores de arriba son su vocabulario; añadir un grupo o disparador = una entrada de tabla más (R16).
+
+### 6.5 Lo que hizo `N0` (entregado, `NOT COMPILED`)
+
+Código en `rules/` (`Hostility.attacksPlayer(grupo, estado, provocado, equipo)` y `visionMultiplier(equipo)`). Orden que aplica:
+
+| # | Regla | Origen |
+|---|---|---|
+| 1 | Traje de Manuel Tirado: no te ataca nadie | **Decidido** |
+| 2 | NPC apaciguado: no te ataca | **Decidido** (por definición) |
+| 3 | Profesor y llevas sticker: te ataca | **Pick sin aceptar** (gana a inmunidad y Estudioso) |
+| 4 | NPC provocado (lo atacaste o un item lo enojó): te ataca | **Pick sin aceptar** (inmunidad y Estudioso solo calman la hostilidad no provocada) |
+| 5 | Una pieza del grupo, o Estudioso ante profesores: no te ataca | **Decidido** el efecto; su lugar en el orden es pick |
+| 6 | Si no, lo que diga el estado (enojado ataca, neutral no) | Pick |
+
+Diferencias con el plan de §6.4: la función no recibe "disparador" ni devuelve la visión junto al ataque (son dos funciones); "provocado" es un dato que pone quien llama (el golpe, la bola de papel); el **set completo no aparece**: para el veredicto es redundante con la inmunidad por pieza (el set solo vale para el grupo del uniforme, `ARMOR_SPECS.md` §3), así que no cambia el resultado. **No modelado a propósito:** "verte atacar a otros" (V4; necesita tipos de NPC, llega con `N1`), Ardilla PUCP (depende de zonas), Trackeo y su relación con la visión (V6), cuaderno (V13), piezas mezcladas (V16). `visionMultiplier`: 0 piezas 1.0, 1 pieza 0.5 *(propuesta)*, 2 o más sin valor (V6). Riesgo de compilación: bajo; Java puro (`record`, `switch` como expresión).
 
 ---
 

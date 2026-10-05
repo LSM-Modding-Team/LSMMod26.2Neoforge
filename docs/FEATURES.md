@@ -42,6 +42,12 @@ Seis bloques. Nombres del juego en inglés por ahora (`lang/en_us.json`); el arc
 
 ---
 
+## Lógica de hostilidad (N0, `NOT COMPILED`): todavía no se nota en el juego
+
+`N0` añade solo las reglas de "quién te ataca" como código puro; **no hay ningún NPC que las use**, así que no hay nada que probar dentro del juego. Cuando existan los NPC (`N1`), las reglas serán: el **Traje de Manuel Tirado** hace que nadie te ataque; un NPC **apaciguado** no te ataca; **una prenda** del grupo (alumno o profesor) hace que ese grupo no te ataque; **Estudioso** hace que los profesores te vean neutral; el **sticker** hace que los profesores te ataquen igual; y un NPC al que atacas **sí** te ataca. Las prendas reducen además lo lejos que te ven los NPC (una pieza: la mitad). El orden entre el sticker y atacar al NPC es una propuesta mía que puedes cambiar (`docs/MECHANICS_SPECS.md` §6.5).
+
+---
+
 ## Lo que todavía NO existe
 
 Todo el resto del diseño está planeado y **no se puede usar ni encontrar**: items (regla, folder, cuaderno, instrumentos...), prendas y uniformes, NPC (alumnos, profesores, jefes), el colegio como estructura del mundo, el mapa, las raids, los efectos (Bad Omen LSM, Trackeo, Estudioso...), los discos y la música. Dónde está planeado cada uno: `docs/ROADMAP.md` y los specs de `START_HERE.md` §7.
