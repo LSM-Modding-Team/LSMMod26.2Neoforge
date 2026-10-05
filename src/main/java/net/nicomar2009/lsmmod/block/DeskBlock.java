@@ -186,14 +186,23 @@ public class DeskBlock extends Block implements EntityBlock {
 
     // ---- Storage --------------------------------------------------------------------------
 
+    /** Whether this desk has an inventory. Subclasses without storage (the teacher's desk) return false. */
+    protected boolean hasStorage() {
+        return true;
+    }
+
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         // Only the LEFT half has an inventory; the RIGHT half redirects to it
-        return state.getValue(PART) == DeskPart.LEFT ? new DeskBlockEntity(pos, state) : null;
+        return hasStorage() && state.getValue(PART) == DeskPart.LEFT ? new DeskBlockEntity(pos, state) : null;
     }
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        // Decorative desks (no storage) ignore the click
+        if (!hasStorage()) {
+            return InteractionResult.PASS;
+        }
         // Opening the menu only runs on the server; the client just swings the arm
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS;

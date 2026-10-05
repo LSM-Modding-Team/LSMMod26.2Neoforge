@@ -5,8 +5,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * Teacher's desk: same behaviour as the student's desk (two halves, one shared inventory),
- * but with its own hitbox derived from teachersdeskleft.json / teachersdeskright.json.
+ * Teacher's desk: same two-half placement as the student's desk, but purely decorative (no inventory),
+ * with its own hitbox derived from teachersdeskleft.json / teachersdeskright.json.
  */
 public class TeachersDeskBlock extends DeskBlock {
     // Boxes in pixels (0-16) for the native orientation (FACING = SOUTH, y rotation 0), for the LEFT half,
@@ -22,5 +22,10 @@ public class TeachersDeskBlock extends DeskBlock {
 
     public TeachersDeskBlock(Properties properties) {
         super(properties, LEFT_NATIVE);
+    }
+
+    @Override
+    protected boolean hasStorage() {
+        return false;
     }
 }

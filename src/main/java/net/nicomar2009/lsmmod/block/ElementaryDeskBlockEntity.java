@@ -6,7 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.inventory.DispenserMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -14,17 +14,14 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.nicomar2009.lsmmod.registry.ModBlockEntities;
 
-/**
- * Inventory of the students' desk. Behaves like a barrel: 27 slots (3 rows), no extra features.
- * To get a double-chest sized desk use 54 slots and ChestMenu.sixRows(...).
- */
-public class DeskBlockEntity extends RandomizableContainerBlockEntity {
-    private static final int CONTAINER_SIZE = 27;
+/** Inventory of the elementary desk: 9 slots (3x3, same layout as a dispenser) and nothing else. */
+public class ElementaryDeskBlockEntity extends RandomizableContainerBlockEntity {
+    private static final int CONTAINER_SIZE = 9;
 
     private NonNullList<ItemStack> items = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY);
 
-    public DeskBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.STUDENTS_DESK.get(), pos, state);
+    public ElementaryDeskBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.ELEMENTARY_DESK.get(), pos, state);
     }
 
     @Override
@@ -62,11 +59,12 @@ public class DeskBlockEntity extends RandomizableContainerBlockEntity {
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable("container.lsmmod.students_desk");
+        return Component.translatable("container.lsmmod.elementary_desk");
     }
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return ChestMenu.threeRows(containerId, inventory, this);
+        // The only new Minecraft API of this chunk: the vanilla 3x3 menu (dispenser/dropper screen)
+        return new DispenserMenu(containerId, inventory, this);
     }
 }
