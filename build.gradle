@@ -102,6 +102,22 @@ neoForge {
     }
 }
 
+// Dev convenience: `./gradlew runClient` launches the game straight from the sources (no jar, no mods folder).
+// Before it starts, copy our default options.txt into run/ if run/ has none yet.
+// To apply a changed tools/run-defaults/options.txt, delete run/options.txt once.
+tasks.register('prepareClientRun') {
+    doLast {
+        def source = file('tools/run-defaults/options.txt')
+        def target = file('run/options.txt')
+        if (source.exists() && !target.exists()) {
+            target.parentFile.mkdirs()
+            target.bytes = source.bytes
+        }
+    }
+}
+// Lazy lookup by name, so it still works whatever the moddev plugin does when it creates the run tasks.
+tasks.matching { it.name == 'runClient' }.configureEach { dependsOn 'prepareClientRun' }
+
 // Sets up a dependency configuration called 'localRuntime'.
 // This configuration should be used instead of 'runtimeOnly' to declare
 // a dependency that will be present for runtime testing but that is
