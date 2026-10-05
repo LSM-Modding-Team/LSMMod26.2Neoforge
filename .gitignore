@@ -38,3 +38,10 @@ run/
 **/src/generated/**/.cache/
 repo/
 !**/src/**/repo/
+
+### Reusable build harness ###
+.build-tools/
+
+# Version the reusable harness, despite the generic build/ ignore rule.
+!tools/build/
+!tools/build/**

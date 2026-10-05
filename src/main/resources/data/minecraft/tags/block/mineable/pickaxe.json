@@ -1,8 +1,14 @@
 {
-	"values": [
-		"lsmmod:high_school_chair",
-		"lsmmod:elementary_chair",
-		"lsmmod:locker",
-		"lsmmod:teachers_chair"
-	]
+  "values": [
+    "lsmmod:high_school_chair",
+    "lsmmod:elementary_chair",
+    "lsmmod:locker",
+    "lsmmod:teachers_chair",
+    "lsmmod:englishroomchair",
+    "lsmmod:hallchair",
+    "lsmmod:plasticchair_white",
+    "lsmmod:plasticchair_red",
+    "lsmmod:plasticchair_white_arms",
+    "lsmmod:plasticchair_red_arms"
+  ]
 }

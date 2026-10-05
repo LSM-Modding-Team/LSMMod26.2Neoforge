@@ -2,6 +2,8 @@
 
 Proyecto **LSM Mod** (`lsmmod`): mod de NeoForge para Minecraft 26.2. Los demás docs se leen **solo** para el trabajo que nombra el mapa de la sección 7. No leas `DESIGN`, `API_NOTES` ni `history/` "para orientarte" (R1).
 
+**Git:** trabajar y hacer push siempre a la rama existente `master`. No crear ramas nuevas. Antes de publicar, traer los cambios de `origin/master` e integrarlos conservando el trabajo de otras conversaciones. No usar force-push.
+
 Idioma: los docs están en español, el código, los identificadores y los comentarios en inglés. Respondes en el idioma en que escribe el usuario.
 
 ---
@@ -30,10 +32,14 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
-**Última edición:** sesión 5, 2026-10-04 (`T0.2`: arreglo de la configuration cache; antes, `T0.1`: nombre de la tarea de Gradle y carpeta `newresources/`; antes, chunk `N0`: lógica pura de hostilidad en `rules/`; nace `tools/RulesCheck.java`; después, tooling: `./gradlew runClient` con las opciones del usuario, `T0`).
+**Actualización 2026-10-05:** `school_shield` utiliza los modelos y los nueve PNG originales de `escudo.zip`, de 16×16 por pieza. Se coloca completo como un suelo horizontal de bloques completos 3×3. Distribución: `9 5 8 / 2 1 3 / 7 4 6`; lsm1 es el centro. Se corrigen las rutas de textura de los modelos, se preservan geometría y caras originales, y se guarda el proyecto editable en `newresources/escudo/bbmodels/`. El item muestra el escudo completo de 48×48. Se mantiene la retirada conjunta con un solo drop, sin ampliación ni comportamiento de alfombra. **Compilación verificada:** `bash tools/build/compile.sh build --offline`, BUILD SUCCESSFUL. Prueba en Minecraft pendiente.
 
-* **Último chunk entregado:** **T0.2 (arreglo de tooling: `applyClientOptions` sin `file()` dentro de `doLast`). Estado: NOT COMPILED.** `T0` (nombre de tarea duplicado) y `T0.1` (rompía la configuration cache) fallaron en Gradle y quedaron `SUPERSEDED`. En el último reporte Gradle ya descargó assets y generó los artefactos de Minecraft (`createMinecraftArtifacts` terminó); el mod todavía no se ha compilado ni arrancado.
-* **Último chunk de código del mod:** **N0 (matriz de hostilidad en `rules/`). Estado: NOT COMPILED.** Los anteriores, **B0.1** y **B0** (los 6 bloques), siguen **sin confirmar**: nadie ha reportado si compilan ni si funcionan.
+**Harness persistente:** `bash tools/build/compile.sh` (o `bash tools/build/compile.sh build --offline` con las dependencias en caché). Configura Java 25, proxy/TLS y cachés; instalación inicial cuando hace falta. Ver `tools/build/README.md` y `AGENTS.md`. Este proyecto puede compilarse desde otras conversaciones; las prohibiciones antiguas por falta de Gradle no aplican al entorno actual.
+
+**Historial anterior:** sesión 5, 2026-10-04 (`T0.2`: arreglo de la configuration cache; antes, `T0.1`: nombre de la tarea de Gradle y carpeta `newresources/`; antes, chunk `N0`: lógica pura de hostilidad en `rules/`; nace `tools/RulesCheck.java`; después, tooling: `./gradlew runClient` con las opciones del usuario, `T0`).
+
+* **Chunk histórico de tooling:** **T0.2 (arreglo de tooling: `applyClientOptions` sin `file()` dentro de `doLast`). Estado: NOT COMPILED.** `T0` (nombre de tarea duplicado) y `T0.1` (rompía la configuration cache) fallaron en Gradle y quedaron `SUPERSEDED`. En el último reporte Gradle ya descargó assets y generó los artefactos de Minecraft (`createMinecraftArtifacts` terminó); el mod todavía no se ha compilado ni arrancado.
+* **Chunk histórico de lógica:** **N0 (matriz de hostilidad en `rules/`). Estado: NOT COMPILED.** Los anteriores, **B0.1** y **B0** (los 6 bloques), siguen **sin confirmar**: nadie ha reportado si compilan ni si funcionan.
 * **Qué hizo N0 (sin API de Minecraft, nada visible en el juego):** paquete `rules/` con `NpcGroup`, `NpcState`, `PlayerGear` y `Hostility` (`attacksPlayer`, `visionMultiplier`), más `tools/RulesCheck.java` (19 comprobaciones, 19 pasan; `ParseAll` 19 archivos, 0 errores). **La precedencia (`MECHANICS_SPECS.md` §6.3) es un pick MÍO sin aceptar**: está aislado en un solo método (`Hostility.attacksPlayer`). Lo no definido (V4, V6, V13, V16) NO se rellenó. Detalle: `docs/MECHANICS_SPECS.md` §6.5.
 * **Qué hizo B0.1 (sin features, sin API nueva):** clave `lang` del asiento corregida (`entity.lsmmod.seat`); receta nueva de `students_desk` (`PPP`/`SCS`/`S S`: tablones, palos, cofre; *(propuesta)*); descripción real en `neoforge.mods.toml`; comentarios corregidos en `ModBlocks`, `ModItems`, `SeatEntity`, `ModEntities`. Detalle: `docs/history/CHUNKS_FULL.md`.
 * **Qué verificar en el juego (cierra B0 y B0.1):** `./gradlew build` y `./gradlew runClient`; en la pestaña creativa "LSM Mod" salen 6 bloques; las sillas se montan con clic derecho; el pupitre de alumno y el del profesor ocupan 2 bloques y abren 27 slots; el casillero abre 54 slots; la receta del pupitre de alumno funciona (`docs/FEATURES.md` lo explica).
@@ -63,7 +69,7 @@ El usuario habla suelto, en español o inglés. Nunca le pidas plantillas ni for
 
 ## 4. Quién hace qué
 
-* **El usuario compila y prueba** (R3). El sandbox no tiene Minecraft ni Gradle: solo chequeo de sintaxis y autocomprobación de lógica pura. **Nunca digas que compila ni que funciona.** Estados de chunk: `PLANNED` / `ACCEPTED` / `NOT COMPILED` (entregado sin reporte) → `COMPILES` ("compiló") → `WORKS` ("funcionó") / `SUPERSEDED`. Solo el reporte del usuario cambia el estado.
+* **Compila con el harness** (R3 actualizado por el usuario). Usa `bash tools/build/compile.sh`; informa COMPILES únicamente si Gradle terminó correctamente. La prueba dentro de Minecraft se verifica aparte: WORKS exige una prueba real o el reporte del usuario. No afirmes funcionamiento solo porque compiló.
 * **Un chunk por turno** (R5): algo que el usuario compile y pruebe en pocos minutos (2-6 archivos). Di qué dejaste fuera a propósito. Ante la duda se recorta el chunk, nunca los docs ni el zip.
 * **A lo sumo UNA API nueva de Minecraft por chunk** (R6), señalada como el error de compilación más probable. Copia patrones que ya compilaron. La lógica que pueda ser Java puro va a `rules/`; el pegamento con Minecraft es delgado.
 * **Verificación mínima** (R9): el usuario pidió "menos checks". Autocomprobación solo si cambió lógica pura, una vez por turno, sin pruebas de sabotaje, tests chicos, nunca tras cambios de recursos, arte, docs o pegamento.
@@ -80,7 +86,7 @@ Descomprimir (la carpeta del zip se llama `LSMMod26.2Neoforge-master`, con punto
 cd /home/claude && unzip -q /mnt/user-data/uploads/LSMMod26_2Neoforge-master.zip && cd LSMMod26.2Neoforge-master
 ```
 
-Probar el mod (lo ejecuta el usuario; el sandbox no tiene Gradle): `./gradlew runClient` abre el juego directo desde el código, sin tocar la carpeta `mods`, con las opciones de `tools/run-defaults/options.txt`. Recordar este comando al pedir pruebas.
+Probar el mod (requiere Minecraft y una pantalla): `./gradlew runClient` abre el juego directo desde el código, sin tocar la carpeta `mods`, con las opciones de `tools/run-defaults/options.txt`. Recordar este comando al pedir pruebas.
 
 Sintaxis de todo el Java (`ParseAll`, solo parse; el JRE del sandbox es 21 y el mod usa Java 25):
 ```

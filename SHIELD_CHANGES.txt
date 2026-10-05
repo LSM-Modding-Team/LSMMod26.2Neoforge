@@ -1,0 +1,51 @@
+ M AGENTS.md
+ M README.md
+ M START_HERE.md
+ M docs/BLOCK_SPECS.md
+ M docs/CHUNKS.md
+ M docs/FEATURES.md
+ M docs/history/SESSION_LOG.md
+ M src/main/resources/assets/lsmmod/items/school_shield.json
+ D src/main/resources/assets/lsmmod/models/block/school_shield.json
+ M src/main/resources/assets/lsmmod/models/block/school_shield_0_0.json
+ M src/main/resources/assets/lsmmod/models/block/school_shield_0_1.json
+ M src/main/resources/assets/lsmmod/models/block/school_shield_0_2.json
+ M src/main/resources/assets/lsmmod/models/block/school_shield_1_0.json
+ M src/main/resources/assets/lsmmod/models/block/school_shield_1_1.json
+ M src/main/resources/assets/lsmmod/models/block/school_shield_1_2.json
+ M src/main/resources/assets/lsmmod/models/block/school_shield_2_0.json
+ M src/main/resources/assets/lsmmod/models/block/school_shield_2_1.json
+ M src/main/resources/assets/lsmmod/models/block/school_shield_2_2.json
+ D src/main/resources/assets/lsmmod/textures/block/school_shield.png
+?? newresources/escudo/README.md
+?? newresources/escudo/bbmodels/lsm1.bbmodel
+?? newresources/escudo/bbmodels/lsm2.bbmodel
+?? newresources/escudo/bbmodels/lsm3.bbmodel
+?? newresources/escudo/bbmodels/lsm4.bbmodel
+?? newresources/escudo/bbmodels/lsm5.bbmodel
+?? newresources/escudo/bbmodels/lsm6.bbmodel
+?? newresources/escudo/bbmodels/lsm7.bbmodel
+?? newresources/escudo/bbmodels/lsm8.bbmodel
+?? newresources/escudo/bbmodels/lsm9.bbmodel
+?? src/main/resources/assets/lsmmod/models/block/lsm1.json
+?? src/main/resources/assets/lsmmod/models/block/lsm2.json
+?? src/main/resources/assets/lsmmod/models/block/lsm3.json
+?? src/main/resources/assets/lsmmod/models/block/lsm4.json
+?? src/main/resources/assets/lsmmod/models/block/lsm5.json
+?? src/main/resources/assets/lsmmod/models/block/lsm6.json
+?? src/main/resources/assets/lsmmod/models/block/lsm7.json
+?? src/main/resources/assets/lsmmod/models/block/lsm8.json
+?? src/main/resources/assets/lsmmod/models/block/lsm9.json
+?? src/main/resources/assets/lsmmod/models/item/school_shield.json
+?? src/main/resources/assets/lsmmod/textures/block/lsm1.png
+?? src/main/resources/assets/lsmmod/textures/block/lsm2.png
+?? src/main/resources/assets/lsmmod/textures/block/lsm3.png
+?? src/main/resources/assets/lsmmod/textures/block/lsm4.png
+?? src/main/resources/assets/lsmmod/textures/block/lsm5.png
+?? src/main/resources/assets/lsmmod/textures/block/lsm6.png
+?? src/main/resources/assets/lsmmod/textures/block/lsm7.png
+?? src/main/resources/assets/lsmmod/textures/block/lsm8.png
+?? src/main/resources/assets/lsmmod/textures/block/lsm9.png
+?? src/main/resources/assets/lsmmod/textures/item/school_shield.png
+
+Estado vigente: recursos de escudo.zip, nueve PNG originales 16x16, centro lsm1; suelo 3x3 de bloques completos; item mosaico 48x48. BUILD SUCCESSFUL. Publicación en master; sin ramas nuevas.

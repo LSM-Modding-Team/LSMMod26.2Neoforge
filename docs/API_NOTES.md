@@ -109,3 +109,11 @@ Status words: **COMPILED** = the user's compile accepted it (names and types are
 
 ## Older per-session research
 Moved to `docs/history/API_HISTORY.md` (sections: Where each fact comes from; Verified from the NeoForge 26.2.x test sources; CONFIRMED BY COMPILING; Phase 1-4 assumptions and confirmations; Session 3-11 findings; Model space cheat sheet). Grep it by section name.
+
+## School shield (2026-10-05, corrected floor version)
+
+Placement reuses the existing desk pattern: `getStateForPlacement` validates all nine positions; `setPlacedBy(Level, BlockPos, BlockState, LivingEntity, ItemStack)` immediately creates the eight other tiles. `updateShape` schedules `tick(BlockState, ServerLevel, BlockPos, RandomSource)` to check integrity. The floor layout uses `facing.getClockWise()` for columns and `facing` for rows, with no Y offset. North-facing top-face UV regions rotate 0/90/180/270 for north/east/south/west. Only row=1,column=1 has a loot drop. No click handler or assembled state remains. The previous overlay message is removed.
+
+COMPILED: esta implementación pasó `bash tools/build/compile.sh build --offline` en Java 25 / NeoForge 26.2.0.88. Prueba en juego pendiente.
+
+B-SHIELD.2 revertido: se restauran modelos cúbicos opacos y se elimina canSurvive del escudo.

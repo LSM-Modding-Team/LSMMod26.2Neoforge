@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=south": {
+      "model": "lsmmod:block/hallchair"
+    },
+    "facing=west": {
+      "model": "lsmmod:block/hallchair",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "lsmmod:block/hallchair",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "lsmmod:block/hallchair",
+      "y": 270
+    }
+  }
+}

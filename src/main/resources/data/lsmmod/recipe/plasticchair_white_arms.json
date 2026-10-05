@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "Q": "minecraft:quartz",
+    "D": "minecraft:white_dye"
+  },
+  "pattern": [
+    "QDQ",
+    "QQQ",
+    "Q Q"
+  ],
+  "result": {
+    "id": "lsmmod:plasticchair_white_arms",
+    "count": 1
+  }
+}

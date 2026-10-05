@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "Q": "minecraft:quartz",
+    "D": "minecraft:red_dye"
+  },
+  "pattern": [
+    "QD ",
+    "QQQ",
+    "Q Q"
+  ],
+  "result": {
+    "id": "lsmmod:plasticchair_red",
+    "count": 1
+  }
+}

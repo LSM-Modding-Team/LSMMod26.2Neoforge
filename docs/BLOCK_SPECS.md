@@ -16,7 +16,7 @@ Marcas: sin marca = **decidido**; *(propuesta)*; *(a confirmar)*. `V#` / `P#` = 
 | **Carpetas** (pupitres) del Aula interactiva/inglés: gris, con CPU y espacio adicional para teclado | Decorativas. | Parcial: 2 pupitres de dos mitades con 27 slots (§3) |
 | **Mesa de kiosko** | Decorativa. Ahí está la mamá de cuarto. | No |
 | **San Martín de Porres** | Click derecho: regeneración ~30 s. Pasivo: regenera automáticamente a profesores y alumnos cercanos, **más a profesores**. Legendario: tarda muchísimo en minarse. Dos se usan en el ritual (`BOSS_SPECS.md`). | No |
-| **Escudo** (3x3) | Al pisarlo: Bad Omen LSM; todos los mobs te trackean (5 min, +25 % de daño); llama al azar a 6-10 profesores y 10-20 alumnos durante 60 s *(propuesta)*. Los profesores salen de su aula de forma temporal. | No |
+| **Escudo** (3x3) | Al pisarlo: Bad Omen LSM; todos los mobs te trackean (5 min, +25 % de daño); llama al azar a 6-10 profesores y 10-20 alumnos durante 60 s *(propuesta)*. Los profesores salen de su aula de forma temporal. | Visual: sí; efectos pendientes |
 | **Laptop (común)** | Reproduce el disco en un radio de 6 bloques *(propuesta)*. | No |
 | **Laptop de Moisés** (mayor rareza) | Reproduce el disco en toda la estructura. Click derecho alterna entre himno y marcha del colegio. | No |
 | **PC** (Aula interactiva y escritorio negro) | Click derecho: **Estudioso 3 min**. 20 % de que llame a un profesor agresivo. Cooldown de 5 min por PC *(propuesta)*. Atrae al **alumno vicioso**, que se sienta a usarla. Si se la rompes, el vicioso te persigue hasta matarte (de un golpe). | No |
@@ -79,3 +79,11 @@ Lo que hay hoy (leído del código): 3 sillas (`high_school_chair`, `elementary_
 ## 6. Vacíos que tocan este doc
 
 V14 (mapeo de sillas y pupitres), V17 (laptops y discos), V18 (trueque del kiosko), V22 (Ardilla). Detalle en `docs/DESIGN.md` §5.
+
+## Escudo 3×3: recursos definitivos del ZIP (2026-10-05)
+
+`school_shield` coloca nueve bloques completos de una sola vez en el plano X/Z, centrados donde se coloca el item. Estados: facing, column, row. Sin ampliación y sin comportamiento de alfombra. Orientación hacia donde mira el jugador; retirada conjunta con un solo drop. Efectos de NPC pendientes.
+
+Recursos aportados por el usuario: escudo.zip, nueve PNG originales de 16×16 y sus modelos cúbicos con seis caras, más los bbmodels editables. Se corrigen las referencias erróneas a lsm2 y las rutas sin namespace. Texturas y partículas de cada modelo: lsmmod:block/lsmN. La geometría y los PNG se conservan intactos. Posiciones desde arriba: `9 5 8 / 2 1 3 / 7 4 6`; lsm1 es el centro. Los modelos school_shield_row_col apuntan al lsmN correspondiente. El item usa un mosaico de 48×48 formado con los nueve PNG originales, sin alterar sus píxeles. Los bbmodels se conservan en newresources/escudo/bbmodels.
+
+Se retiran la textura generada y el antiguo modelo del item. BUILD SUCCESSFUL con el harness; comprobados los bytes de las texturas, las caras originales, las 36 variantes y los píxeles del mosaico. Prueba en Minecraft pendiente.

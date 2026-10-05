@@ -11,3 +11,33 @@ Historia, no estado. El estado vive en `START_HERE.md` §2. Una sesión = una co
   Después, a pedido del usuario: nueva regla R17 (la respuesta empieza por la lista exacta de archivos añadidos/modificados/borrados, sacada con `diff -rq` contra una copia base). Solo docs.
   El usuario reportó que `T0` rompía Gradle (`prepareClientRun` ya existía en el plugin). `T0.1`: tarea renombrada a `applyClientOptions`; nueva carpeta `newresources/` con README (recursos sin usar).
   El usuario reportó que `T0.1` fallaba: `file()` dentro de `doLast` rompe la configuration cache de Gradle 9.2.1. `T0.2`: los `File` se resuelven al configurar. Nota para el futuro en `REFERENCE.md` §10.
+
+### 2026-10-05 — Escudo solicitado por el usuario
+
+Se añadió el bloque school_shield y su item, estados y modelos para un único escudo de 3×3. El centro crea ocho piezas al clic derecho; no sobrescribe bloques y el conjunto devuelve un solo item. Textura recreada de la referencia con fondo y borde blanco. Prueba dentro del juego pendiente.
+
+Verificación del escudo: Gradle BUILD SUCCESSFUL (Java 25, NeoForge 26.2.0.88). Sintaxis Java y JSON válidos; comprobado el mapeo UV de las nueve piezas en cuatro orientaciones. Prueba en juego pendiente.
+
+### 2026-10-05 — Corrección del escudo y harness persistente
+
+El usuario corrigió la petición: suelo horizontal completo desde su colocación, sin ampliación. Se actualizan colocación, modelos y textura pixelada de 96×96, cuatro colores, 32×32 por pieza. Se guardan tools/build/compile.sh y environment.sh, con selección/instalación de Java 25, proxy/TLS y cachés. AGENTS.md, START_HERE y REFERENCE documentan la compilación para próximas conversaciones.
+
+El harness persistente se ejecutó correctamente: BUILD SUCCESSFUL. La versión anterior queda sustituida por esta corrección. Se verifican layout horizontal, textura y recursos; sin prueba dentro de Minecraft.
+
+### 2026-10-05 — Alfombra del escudo
+
+A petición del usuario, se reduce la altura a 1/16 y se exige soporte como en CarpetBlock. Se elimina el fondo blanco exterior mediante transparencia, conservando el borde fino; modelos recortados al contorno. BUILD SUCCESSFUL usando el harness persistente. Prueba en Minecraft pendiente.
+
+### 2026-10-05 — Restaurar y publicar
+
+El usuario pide volver al bloque completo anterior a la alfombra y hacer push. Se restauran geometría, colisión, textura, dureza y sonido de B-SHIELD.1. Se conservan la colocación inmediata 3×3 y el harness reutilizable, incluyendo una excepción de .gitignore para versionar tools/build.
+
+Compilación de la restauración: BUILD SUCCESSFUL. Rama de publicación: work.
+
+### 2026-10-05 — Preferencia Git y corrección del destino
+
+El usuario confirma: trabajar y pushear siempre en master, sin crear ramas. Se guarda en AGENTS.md, START_HERE.md y REFERENCE.md §9. Se aplica el escudo sobre el master remoto actual, conservando las sillas añadidas en otra conversación y combinando registros y traducciones.
+
+### 2026-10-05 — Integrar escudo.zip
+
+El usuario aporta nueve PNG, modelos exportados y bbmodels. Se usan sus PNG intactos y la geometría original, corrigiendo referencias a lsm2 y namespaces. Distribución 9 5 8 / 2 1 3 / 7 4 6, con lsm1 en el centro y mosaico de inventario 48×48. BUILD SUCCESSFUL; publicación directa a master.
