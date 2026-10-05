@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"key": {
+		"P": "#minecraft:planks",
+		"S": "minecraft:stick",
+		"B": "minecraft:barrel"
+	},
+	"pattern": [
+		"PPP",
+		"SBS",
+		"S S"
+	],
+	"result": {
+		"id": "lsmmod:elementary_desk",
+		"count": 1
+	}
+}

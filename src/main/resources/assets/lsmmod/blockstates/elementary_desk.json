@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=east":  { "model": "lsmmod:block/elementary_desk" },
+    "facing=south": { "model": "lsmmod:block/elementary_desk", "y": 90 },
+    "facing=west":  { "model": "lsmmod:block/elementary_desk", "y": 180 },
+    "facing=north": { "model": "lsmmod:block/elementary_desk", "y": 270 }
+  }
+}

@@ -7,7 +7,8 @@
   "container.lsmmod.students_desk": "Student's Desk",
   "block.lsmmod.locker": "Locker",
   "container.lsmmod.locker": "Locker",
+  "block.lsmmod.elementary_desk": "Elementary Desk",
+  "container.lsmmod.elementary_desk": "Elementary Desk",
   "block.lsmmod.teachers_chair": "Teacher's Chair",
-  "block.lsmmod.teachers_desk": "Teacher's Desk",
-  "container.lsmmod.teachers_desk": "Teacher's Desk"
+  "block.lsmmod.teachers_desk": "Teacher's Desk"
 }
