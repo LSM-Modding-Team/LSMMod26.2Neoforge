@@ -10,3 +10,4 @@ Historia, no estado. El estado vive en `START_HERE.md` §2. Una sesión = una co
   Después, el usuario recordó `./gradlew runClient` y mandó su `options.txt`: tarea `prepareClientRun` en `build.gradle` y `tools/run-defaults/options.txt` (`T0`).
   Después, a pedido del usuario: nueva regla R17 (la respuesta empieza por la lista exacta de archivos añadidos/modificados/borrados, sacada con `diff -rq` contra una copia base). Solo docs.
   El usuario reportó que `T0` rompía Gradle (`prepareClientRun` ya existía en el plugin). `T0.1`: tarea renombrada a `applyClientOptions`; nueva carpeta `newresources/` con README (recursos sin usar).
+  El usuario reportó que `T0.1` fallaba: `file()` dentro de `doLast` rompe la configuration cache de Gradle 9.2.1. `T0.2`: los `File` se resuelven al configurar. Nota para el futuro en `REFERENCE.md` §10.
