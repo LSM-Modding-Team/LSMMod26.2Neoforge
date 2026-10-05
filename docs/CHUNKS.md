@@ -65,3 +65,5 @@ Restauración verificada: BUILD SUCCESSFUL con el harness; modelos de cubo compl
 * 2026-10-05 — Laptops visuales: laptop y moises_laptop, modelos/texturas, registro de bloque/item y drops. COMPILES (Java 25, build offline en Windows); prueba en Minecraft pendiente. Sin funciones.
 
 * 2026-10-05 — PC visual: bloque pc con monitor escolar de grosor moderado, textura/modelo, registro e item. COMPILES (Java 25, build offline Windows). Sin funciones; prueba en Minecraft pendiente.
+
+* 2026-10-05 — Mesa de computación computer_desk (1×1×2), alojamiento exclusivo de una PC con clic derecho, modelos vacío/ocupado y devolución de PC. COMPILES (Java 25, offline Windows); prueba en Minecraft pendiente.

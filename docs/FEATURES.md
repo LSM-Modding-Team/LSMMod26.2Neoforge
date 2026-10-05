@@ -67,3 +67,6 @@ En la pestaña LSM Mod aparecen Laptop y Laptop de Moisés. Se colocan abiertas,
 
 ### PC escolar (2026-10-05)
 El bloque PC escolar está en la pestaña LSM Mod. Representa únicamente un monitor con marco oscuro, carcasa de grosor moderado, soporte y base. Se orienta hacia el jugador al colocarlo y deja su propio item al romperse. Todavía no tiene efectos ni interfaz. Compilación verificada; prueba en Minecraft pendiente.
+
+### Mesa de computación (2026-10-05)
+En la pestaña LSM Mod aparece Mesa de computación. Necesita dos espacios verticales libres y ocupa una sola columna. Clic derecho con PC escolar instala una unidad y muestra monitor, teclado y CPU pequeña. No acepta otros objetos ni una segunda PC. Shift + clic derecho con mano vacía retira la PC; romper la mesa en supervivencia permite recuperar la mesa y la PC. El estado se conserva en el mundo. Todavía no tiene funciones electrónicas. Compilación correcta; prueba en Minecraft pendiente.

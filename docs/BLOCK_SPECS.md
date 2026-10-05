@@ -31,6 +31,8 @@ Los datos de cada efecto (Estudioso, Trackeo, Bad Omen LSM, Regeneración San Ma
 
 ## 2. Notas por bloque
 
+* **Mesa de computación (`computer_desk`, 2026-10-05).** Petición actual del usuario: un bloque de huella y dos de alto, con un único alojamiento que solo acepta una PC. El clic derecho con `lsmmod:pc` consume una unidad en supervivencia y activa la representación de monitor, teclado y CPU pequeña. Otros items y una segunda PC se rechazan. Shift + clic derecho con mano vacía devuelve la PC (al inventario o al suelo si está lleno). El alojamiento fijo se guarda como `has_pc`, sin block entity ni menú; ambas mitades comparten el estado. La mitad inferior tiene los drops de la mesa y la PC ocupante; la retirada de la otra mitad reutiliza `TwoTallBlock`. Los pistones no la desplazan. Modelo con madera, estructura oscura, bandeja de teclado, repisa y panel trasero, inspirado en la fotografía aportada. Formas de colisión generadas desde los mismos elementos del modelo, para ambos estados y las cuatro orientaciones. No añade funciones electrónicas de la PC. Nueva llamada utilizada: `useItemOn`, verificada por compilación. BUILD SUCCESSFUL; prueba real de colocación, guardado y drops pendiente.
+
 * **Escudo.** 3x3; el disparador "pisarlo" y todo lo que provoca está en `MECHANICS_SPECS.md` §6.1. Dónde va dentro del colegio: sin definir (`WORLD_SPECS.md`).
 * **PC.** El 20 % "llama a un profesor agresivo": qué es un "profesor agresivo" y a cuál llama: sin definir. El vicioso es un NPC (`NPC_SPECS.md` §2).
 

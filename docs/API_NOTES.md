@@ -117,3 +117,5 @@ Placement reuses the existing desk pattern: `getStateForPlacement` validates all
 COMPILED: esta implementación pasó `bash tools/build/compile.sh build --offline` en Java 25 / NeoForge 26.2.0.88. Prueba en juego pendiente.
 
 B-SHIELD.2 revertido: se restauran modelos cúbicos opacos y se elimina canSurvive del escudo.
+
+* 2026-10-05 — ComputerDeskBlock: useItemOn(ItemStack, BlockState, Level, BlockPos, Player, InteractionHand, BlockHitResult) devuelve InteractionResult y permite insertar exclusivamente PC con clic derecho. Firma confirmada mediante compilación Java 25/NeoForge 26.2 (BUILD SUCCESSFUL); no se consultó documentación externa.

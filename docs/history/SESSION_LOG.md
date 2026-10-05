@@ -63,3 +63,7 @@ BUILD SUCCESSFUL con Java 25 y wrapper Windows offline; Bash encontró CRLF. Pru
 2026-10-05: Se añade pc como monitor escolar de gama media-baja, con grosor moderado y soporte.
 Modelo/textura propios, registro de bloque/item y recursos; sin torre, periféricos ni funciones.
 BUILD SUCCESSFUL en Java 25 con wrapper Windows offline. Prueba en Minecraft pendiente.
+
+2026-10-05: Mesa de computación basada en la fotografía, una columna de dos bloques y un alojamiento exclusivo para PC.
+Estado persistente has_pc; inserción con clic derecho, retirada con Shift y mano vacía, representación conjunta de monitor/teclado/CPU pequeña.
+BUILD SUCCESSFUL con Java 25 y wrapper Windows offline. Prueba en Minecraft pendiente.
