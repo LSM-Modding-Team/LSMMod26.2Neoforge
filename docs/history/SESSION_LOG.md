@@ -51,3 +51,7 @@ Al integrar los cambios remotos de San Martín de Porres se detectó la eliminac
 ### 2026-10-05 — Orientación según la referencia del escudo
 
 Se ajusta la composición completa (orden y UV superiores) para mostrar borde recto arriba y punta abajo, con la marca negra sobre el centro. Se conserva end_stone_bricks y se actualizan inventario y bbmodels. BUILD SUCCESSFUL; validación de mosaico y modelos píxel a píxel.
+
+### 2026-10-05 — Registro de las seis sillas nuevas
+
+2026-10-05: se completan los registros de bloque e item de englishroomchair, hallchair y las cuatro plasticchair, utilizando NewChairShapes. La pestaña creativa las incluye automáticamente. Se conservan las tres sillas originales y school_shield. Compilación verificada en Windows con Java 25 y gradlew.bat build --offline: BUILD SUCCESSFUL. Prueba en Minecraft pendiente.

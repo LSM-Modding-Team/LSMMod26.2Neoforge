@@ -59,3 +59,5 @@ Restauración verificada: BUILD SUCCESSFUL con el harness; modelos de cubo compl
 * **B-SHIELD.FIX (2026-10-05): COMPILES.** Alinea las partes blancas y la franja dorada marcadas por el usuario; cambia el fondo a end_stone_bricks vanilla. Inventario y bbmodels sincronizados. BUILD SUCCESSFUL; prueba en juego pendiente.
 
 * **B-SHIELD.ORIENT (2026-10-05): COMPILES.** Composición según la referencia: borde recto arriba, punta abajo, UV superiores 180° y distribución invertida, con inventario y bbmodels sincronizados.
+
+* **B-CHAIRS.REGISTRY (2026-10-05): COMPILES.** 2026-10-05: se completan los registros de bloque e item de englishroomchair, hallchair y las cuatro plasticchair, utilizando NewChairShapes. La pestaña creativa las incluye automáticamente. Se conservan las tres sillas originales y school_shield. Compilación verificada en Windows con Java 25 y gradlew.bat build --offline: BUILD SUCCESSFUL. Prueba en Minecraft pendiente.

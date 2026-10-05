@@ -30,3 +30,7 @@ Recetas (mesa de trabajo):
 
 Para revisar en el juego, colocar las seis variantes mirando en cada dirección,
 comprobar asiento, colisión y drop, y revisar los íconos del inventario.
+
+## Registro completado
+
+2026-10-05: se completan los registros de bloque e item de englishroomchair, hallchair y las cuatro plasticchair, utilizando NewChairShapes. La pestaña creativa las incluye automáticamente. Se conservan las tres sillas originales y school_shield. Compilación verificada en Windows con Java 25 y gradlew.bat build --offline: BUILD SUCCESSFUL. Prueba en Minecraft pendiente.

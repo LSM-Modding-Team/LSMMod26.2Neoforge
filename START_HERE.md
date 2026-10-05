@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+**Actualización de registros 2026-10-05:** 2026-10-05: se completan los registros de bloque e item de englishroomchair, hallchair y las cuatro plasticchair, utilizando NewChairShapes. La pestaña creativa las incluye automáticamente. Se conservan las tres sillas originales y school_shield. Compilación verificada en Windows con Java 25 y gradlew.bat build --offline: BUILD SUCCESSFUL. Prueba en Minecraft pendiente.
+
 **Actualización 2026-10-05:** `school_shield` utiliza los modelos y las nueve texturas de `escudo.zip`, de 16×16 por pieza, con las uniones del símbolo y de la franja dorada corregidas y fondo real de `end_stone_bricks`. Se coloca completo como un suelo horizontal de bloques completos 3×3. Distribución: `6 4 7 / 3 1 2 / 8 5 9`; lsm1 es el centro. Se corrigen las rutas de textura de los modelos, se preservan geometría y caras originales, y se guarda el proyecto editable en `newresources/escudo/bbmodels/`. El item muestra el escudo completo de 48×48. Se mantiene la retirada conjunta con un solo drop, sin ampliación ni comportamiento de alfombra. **Compilación verificada:** `bash tools/build/compile.sh build --offline`, BUILD SUCCESSFUL. Prueba en Minecraft pendiente.
 
 **Harness persistente:** `bash tools/build/compile.sh` (o `bash tools/build/compile.sh build --offline` con las dependencias en caché). Configura Java 25, proxy/TLS y cachés; instalación inicial cuando hace falta. Ver `tools/build/README.md` y `AGENTS.md`. Este proyecto puede compilarse desde otras conversaciones; las prohibiciones antiguas por falta de Gradle no aplican al entorno actual.
