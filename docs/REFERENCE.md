@@ -200,6 +200,8 @@ mkdir nf && cd nf && git init -q && git remote add origin https://github.com/neo
 
 ## 10. Chuleta de depuración
 
+**Gradle (reportado por el usuario, 9.2.1):** la *configuration cache* está activa. En `build.gradle`, dentro de `doFirst`/`doLast` **no se llama a métodos del proyecto** (`file(...)`, `project...`, `layout`...): se resuelven fuera, al configurar, y el bloque solo usa esas variables. Los nombres `prepareClientRun` y similares ya los define el plugin de NeoForge: comprobar antes de registrar una tarea con un nombre "obvio".
+
 **Hoy (B0), con comandos de vanilla:**
 
 * Dar un bloque: `/give @s lsmmod:locker`, y lo mismo con `high_school_chair`, `elementary_chair`, `teachers_chair`, `students_desk`, `teachers_desk`. **Los pupitres hay que colocarlos con el item**: la segunda mitad la crea `setPlacedBy`, así que un `/setblock` dejaría una sola mitad.
