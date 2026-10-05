@@ -73,3 +73,5 @@ Restauración verificada: BUILD SUCCESSFUL con el harness; modelos de cubo compl
 * 2026-10-05 — Corrección visual computer_desk: sin techo, paredes de madera con cantos negros, bandeja retraída/desplegada según PC, eliminación de caras superpuestas. COMPILES; confirmación visual Minecraft pendiente.
 
 * 2026-10-05 — Acabado computer_desk: costados con perfil superior curvo, relieve trasero de 1×2 píxeles y mouse al instalar PC. COMPILES; comprobación visual Minecraft pendiente.
+
+* 2026-10-05 — Simplificación computer_desk: tres cajas por costado, escalones enteros, densidad de textura uniforme. COMPILES; revisión Minecraft pendiente.

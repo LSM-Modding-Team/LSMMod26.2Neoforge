@@ -78,3 +78,5 @@ En la pestaña LSM Mod aparece el escritorio gris de 2 bloques de ancho, 1 de fo
 La mesa de madera tiene paredes laterales y cantos negros pintados, sin techo ni patas metálicas. La bandeja queda retraída mientras está vacía; al instalar la PC se despliega con el teclado. El monitor y la CPU pequeña permanecen juntos sobre la cubierta. Al retirar la PC, se retrae la bandeja. Se corrigen las caras superpuestas del modelo; compilación correcta y confirmación visual en Minecraft pendiente.
 
 La mesa de computación incorpora costados redondeados por arriba y un pequeño relieve trasero. Al instalar la PC también aparece un mouse sobre la cubierta, junto al monitor. Compilación verificada; aspecto en Minecraft pendiente.
+
+La mesa de computación usa ahora esquinas de dos escalones grandes, sin la curva subdividida anterior; mantiene mouse, relieve y bandeja retráctil.

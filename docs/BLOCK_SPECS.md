@@ -107,3 +107,5 @@ Se desplaza la parte blanca de lsm2 tres píxeles hacia abajo y la continuación
 ### Orientación según la nueva referencia
 
 Se invierten conjuntamente la distribución de piezas y sus UV superiores (rotation=180), conservando el centro lsm1. Resultado: borde recto arriba, punta abajo y símbolo negro sobre el centro. Posiciones 6 4 7 / 3 1 2 / 8 5 9. Inventario y bbmodels actualizados. Se verifica que cada píxel del mosaico coincide con los UV renderizados; BUILD SUCCESSFUL. Prueba en Minecraft pendiente.
+
+Corrección 2026-10-05: se sustituye la curva fina de computer_desk por tres cajas por costado, dos escalones enteros y UV de madera con densidad uniforme. Se eliminan las subdivisiones de 0,25 píxeles. Colisiones sincronizadas; mouse y relieve conservados. Compilación correcta; revisión visual Minecraft pendiente.

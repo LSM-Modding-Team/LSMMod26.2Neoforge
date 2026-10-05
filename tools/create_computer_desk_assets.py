@@ -1,7 +1,6 @@
 """Build the two-block school computer workstation and matching collision shapes."""
 import copy
 import json
-import math
 from pathlib import Path
 from PIL import Image, ImageDraw
 
@@ -49,18 +48,12 @@ furniture = [box([1,13,0],[15,28,1]), box([0,28,0],[16,29,2]),
              box([1,5,1],[15,8,2]),
              box([1,12.4,2],[1.2,13.4,12],'paint'),
              box([14.8,12.4,2],[15,13.4,12],'paint')]
-# Approximate a quarter-circle at the upper front of each wooden side wall.
-# Thin adjacent strips stay compatible with vanilla cuboid models and collisions.
+# A coarse pixel-grid corner: three boxes per side, with integer coordinates only.
+# No fractional subdivisions or smooth curve tessellation.
 for x in [0, 15]:
     furniture.append(box([x,0,1],[x+1,24,12], overrides={'south':[8,0,16,8]}))
-    furniture.append(box([x,24,1],[x+1,28,8], overrides={'up':[8,0,16,8]}))
-    for step in range(16):
-        start = 8 + step*.25
-        end = start + .25
-        height = 24 + math.sqrt(max(0, 16-(end-8)**2))
-        if height > 24:
-            furniture.append(box([x,24,start],[x+1,height,end],
-                                 overrides={'up':[8,0,16,8], 'south':[8,0,16,8]}))
+    furniture.append(box([x,24,1],[x+1,28,9], overrides={'up':[8,0,16,8], 'south':[8,0,16,8]}))
+    furniture.append(box([x,24,9],[x+1,26,11], overrides={'up':[8,0,16,8], 'south':[8,0,16,8]}))
 retracted_tray = box([1.25,12.6,2],[14.75,13.2,9])
 extended_tray = box([1.25,12.6,7],[14.75,13.2,15.5])
 equipment = [box([2,13.2,10],[14,13.85,14.5],'keys'),
@@ -106,6 +99,12 @@ def split(elements, half):
         part['to'][1] = min(hi, part['to'][1]) - lo
         if element['from'][1] < lo: part['faces'].pop('down', None)
         if element['to'][1] > hi: part['faces'].pop('up', None)
+        # Keep the wood texel density identical on large panels and corner steps.
+        dimensions = [part['to'][i]-part['from'][i] for i in range(3)]
+        for face, definition in part['faces'].items():
+            if definition['texture'] == '#desk' and definition['uv'] == [0,0,8,8]:
+                axes = (0,2) if face in ['up','down'] else (2,1) if face in ['east','west'] else (0,1)
+                definition['uv'] = [0,0,dimensions[axes[0]]/2,dimensions[axes[1]]/2]
         out.append(part)
     return out
 

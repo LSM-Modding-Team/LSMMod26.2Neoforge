@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+**Simplificación 2026-10-05:** los costados de `computer_desk` usan tres cajas cada uno, con dos escalones de coordenadas enteras; se elimina la curva de segmentos de 0,25 píxeles. UV de madera con densidad uniforme entre paneles y escalones. Relieve, mouse y bandeja conservados. Modelos y colisiones regenerados. BUILD SUCCESSFUL; revisión visual en Minecraft pendiente.
+
 **Acabado de mesa de computación 2026-10-05:** `computer_desk` añade perfil superior curvo en ambos costados (arco aproximado con segmentos finos de 0,25 píxeles), relieve trasero de 1 píxel de alto y 2 de fondo, y mouse pequeño con rueda sobre la cubierta cuando tiene PC. Modelos, item y colisiones regenerados; bandeja retráctil conservada. BUILD SUCCESSFUL con Java 25 offline Windows; comprobación visual en Minecraft pendiente.
 
 **Corrección de mesa de computación 2026-10-05:** se ajusta `computer_desk` a las fotografías: sin techo ni estructura de patas metálicas, con paredes laterales de madera y bordes pintados negros. Bandeja retraída sin PC y desplegada con PC; monitor y CPU pequeña sobre la cubierta. Se eliminan caras internas cubiertas y caras de corte duplicadas entre mitades para corregir superposiciones. Colisiones y modelo de inventario sincronizados. BUILD SUCCESSFUL con Java 25 offline Windows; confirmación visual del parpadeo dentro de Minecraft pendiente. El escritorio gris conserva su diseño.

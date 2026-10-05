@@ -78,3 +78,6 @@ BUILD SUCCESSFUL con Java 25 offline Windows. Confirmación del flickering en Mi
 
 2026-10-05: Se afinan los costados curvos de computer_desk, se añade relieve trasero de un píxel de alto y mouse pequeño ligado a has_pc.
 Modelos y colisiones sincronizados. BUILD SUCCESSFUL; comprobación visual en Minecraft pendiente.
+
+2026-10-05: Se retira la curva excesivamente subdividida de computer_desk: tres cajas por costado y UV de madera uniformes.
+Compilación correcta; revisión visual Minecraft pendiente.
