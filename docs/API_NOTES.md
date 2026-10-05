@@ -119,3 +119,5 @@ COMPILED: esta implementación pasó `bash tools/build/compile.sh build --offlin
 B-SHIELD.2 revertido: se restauran modelos cúbicos opacos y se elimina canSurvive del escudo.
 
 * 2026-10-05 — ComputerDeskBlock: useItemOn(ItemStack, BlockState, Level, BlockPos, Player, InteractionHand, BlockHitResult) devuelve InteractionResult y permite insertar exclusivamente PC con clic derecho. Firma confirmada mediante compilación Java 25/NeoForge 26.2 (BUILD SUCCESSFUL); no se consultó documentación externa.
+
+2026-10-05: school_bell decorativo con modelo y textura originales de newresources. Solo caras laterales firmes (isFaceSturdy); caída con drop al perder soporte mediante updateShape/tick. Sin sonido ni redstone. BUILD SUCCESSFUL; prueba Minecraft pendiente.

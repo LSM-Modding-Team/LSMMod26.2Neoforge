@@ -113,3 +113,5 @@ Corrección 2026-10-05: se sustituye la curva fina de computer_desk por tres caj
 Corrección del escritorio gris (2026-10-05): split recorta UV proporcionalmente, respetando orientación de caras, y retira caras artificiales de corte entre celdas. Corrige repetición de la pantalla en la columna derecha. Soportes laterales de CPU alcanzan la cubierta. Bandeja mantiene posición vacía y sale 1 píxel al instalar PC; teclado acompaña el movimiento. Modelos y colisiones regenerados. BUILD SUCCESSFUL; revisión visual Minecraft pendiente.
 
 2026-10-05: gray_computer_desk añade mouse pequeño con rueda sobre la cubierta, visible solo con PC. Modelos y colisiones sincronizados. BUILD SUCCESSFUL; revisión visual pendiente.
+
+2026-10-05: school_bell (Timbre escolar) usa newresources/school_bell.json y PNG originales; solo se coloca sobre caras laterales con soporte firme, cuatro orientaciones, forma ajustada al modelo y drop al perder la pared. Bloque/item en pestaña LSM Mod; sin sonido, interacción ni redstone. BUILD SUCCESSFUL con Java 25 y harness offline usando caché existente. Prueba dentro de Minecraft pendiente.

@@ -84,3 +84,5 @@ La mesa de computación usa ahora esquinas de dos escalones grandes, sin la curv
 La bandeja del escritorio gris mantiene su posición original vacío y sale un píxel al instalar la PC, junto con el teclado; vuelve a retraerse al retirarla. Se corrigen la textura dividida del monitor y el soporte lateral de CPU.
 
 El escritorio gris muestra también un mouse pequeño sobre la cubierta al instalar la PC.
+
+2026-10-05: school_bell (Timbre escolar) usa newresources/school_bell.json y PNG originales; solo se coloca sobre caras laterales con soporte firme, cuatro orientaciones, forma ajustada al modelo y drop al perder la pared. Bloque/item en pestaña LSM Mod; sin sonido, interacción ni redstone. BUILD SUCCESSFUL con Java 25 y harness offline usando caché existente. Prueba dentro de Minecraft pendiente.

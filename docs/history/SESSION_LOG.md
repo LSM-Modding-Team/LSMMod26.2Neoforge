@@ -86,3 +86,5 @@ Compilación correcta; revisión visual Minecraft pendiente.
 Bandeja sale un píxel con PC; modelo y colisiones sincronizados. BUILD SUCCESSFUL; revisión Minecraft pendiente.
 
 2026-10-05: Mouse pequeño sobre gray_computer_desk con PC instalada; modelos y colisiones regenerados. BUILD SUCCESSFUL; revisión visual pendiente.
+
+2026-10-05: school_bell (Timbre escolar) usa newresources/school_bell.json y PNG originales; solo se coloca sobre caras laterales con soporte firme, cuatro orientaciones, forma ajustada al modelo y drop al perder la pared. Bloque/item en pestaña LSM Mod; sin sonido, interacción ni redstone. BUILD SUCCESSFUL con Java 25 y harness offline usando caché existente. Prueba dentro de Minecraft pendiente.

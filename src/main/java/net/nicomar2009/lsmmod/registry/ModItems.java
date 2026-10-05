@@ -78,6 +78,9 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> GRAY_COMPUTER_DESK =
             ITEMS.registerSimpleBlockItem(ModBlocks.GRAY_COMPUTER_DESK);
 
+    public static final DeferredItem<BlockItem> SCHOOL_BELL =
+            ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_BELL);
+
     private ModItems() {
     }
 

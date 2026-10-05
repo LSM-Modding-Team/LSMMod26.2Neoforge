@@ -175,3 +175,5 @@ Vienen de `docs/history/DOCS_PLAN.md` §5 (movido a `history/` al terminar la Ta
   * **Ninguna decisión de balance nueva.**
   * `RAID_PLAN.md` (solo docs): gestor de raids propio en vez de reutilizar la de vanilla *(pick, por verificar)*; una raid por jugador; sin nidos cerca el omen sigue corriendo. Ningún número nuevo. Vacíos V25 y V26.
 * **N0 (sesión 5):** orden de precedencia de `MECHANICS_SPECS.md` §6.5 como **pick sin aceptar** (Traje > apaciguado > sticker en profesores > provocado > inmunidad o Estudioso > estado). Estudioso se trata como el nivel del uniforme de profesor (lo dice el diseño). Una sola pieza de la prenda del grupo basta para la inmunidad (§6.2). El set completo no cambia el veredicto. Visión con 1 pieza = 0.5 *(propuesta del diseño)*; con 2 o más, sin valor (V6). V4, V6, V13 y V16 siguen abiertos y no se tocaron.
+
+2026-10-05: school_bell decorativo con modelo y textura originales de newresources. Solo caras laterales firmes (isFaceSturdy); caída con drop al perder soporte mediante updateShape/tick. Sin sonido ni redstone. BUILD SUCCESSFUL; prueba Minecraft pendiente.

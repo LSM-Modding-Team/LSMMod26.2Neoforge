@@ -1,0 +1,1 @@
+{"variants":{"facing=east":{"model":"lsmmod:block/school_bell"},"facing=south":{"model":"lsmmod:block/school_bell","y":90},"facing=west":{"model":"lsmmod:block/school_bell","y":180},"facing=north":{"model":"lsmmod:block/school_bell","y":270}}}

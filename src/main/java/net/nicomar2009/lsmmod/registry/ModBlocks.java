@@ -10,6 +10,7 @@ import net.nicomar2009.lsmmod.block.SchoolShieldBlock;
 import net.nicomar2009.lsmmod.block.ChairBlock;
 import net.nicomar2009.lsmmod.block.LaptopBlock;
 import net.nicomar2009.lsmmod.block.MonitorBlock;
+import net.nicomar2009.lsmmod.block.SchoolBellBlock;
 import net.nicomar2009.lsmmod.block.ComputerDeskBlock;
 import net.nicomar2009.lsmmod.block.GrayComputerDeskBlock;
 import net.nicomar2009.lsmmod.block.NewChairShapes;
@@ -118,6 +119,10 @@ public final class ModBlocks {
     public static final DeferredBlock<GrayComputerDeskBlock> GRAY_COMPUTER_DESK = BLOCKS.registerBlock(
             "gray_computer_desk", GrayComputerDeskBlock::new,
             props -> props.strength(2.5F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<SchoolBellBlock> SCHOOL_BELL = BLOCKS.registerBlock(
+            "school_bell", SchoolBellBlock::new,
+            props -> props.strength(1.0F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.DESTROY));
 
     private ModBlocks() {
     }

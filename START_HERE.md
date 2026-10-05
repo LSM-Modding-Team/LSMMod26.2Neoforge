@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+2026-10-05: school_bell (Timbre escolar) usa el modelo y PNG originales de newresources. Solo paredes con soporte firme, cuatro orientaciones y drop al perder la pared. Sin sonido ni función de timbre. BUILD SUCCESSFUL con Java 25 y harness offline; prueba Minecraft pendiente.
+
 **Mouse escritorio gris 2026-10-05:** `gray_computer_desk` muestra un mouse pequeño sobre la cubierta cuando tiene PC. Modelos y colisiones sincronizados. BUILD SUCCESSFUL; revisión visual en Minecraft pendiente.
 
 **Corrección escritorio gris 2026-10-05:** el recorte de modelos de `gray_computer_desk` ahora recorta también los UV y elimina caras artificiales de unión entre celdas, evitando la repetición del monitor en la columna derecha. Soportes del alojamiento lateral de CPU llegan hasta la cubierta. Bandeja en posición anterior por defecto; avanza 1 píxel junto al teclado con PC instalada. Modelos y colisiones sincronizados. BUILD SUCCESSFUL; comprobación visual en Minecraft pendiente.
