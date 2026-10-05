@@ -1,0 +1,7 @@
+{
+  "music_disc.lsm_anthem": {
+    "sounds": [
+      { "name": "lsmmod:records/lsm_anthem", "stream": true }
+    ]
+  }
+}

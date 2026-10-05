@@ -1,6 +1,12 @@
 package net.nicomar2009.lsmmod.registry;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.JukeboxSong;
+import net.minecraft.world.item.Rarity;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -80,6 +86,17 @@ public final class ModItems {
 
     public static final DeferredItem<BlockItem> SCHOOL_BELL =
             ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_BELL);
+
+    public static final ResourceKey<JukeboxSong> LSM_ANTHEM_SONG = ResourceKey.create(
+            Registries.JUKEBOX_SONG,
+            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "lsm_anthem"));
+
+    public static final DeferredItem<Item> LSM_ANTHEM = ITEMS.registerItem(
+            "lsm_anthem",
+            Item::new, props -> props
+                    .stacksTo(1)
+                    .rarity(Rarity.RARE)
+                    .jukeboxPlayable(LSM_ANTHEM_SONG));
 
     private ModItems() {
     }

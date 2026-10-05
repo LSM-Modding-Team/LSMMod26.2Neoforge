@@ -10,7 +10,8 @@
   "block.lsmmod.moises_laptop": "Laptop de Moisés",
   "block.lsmmod.pc": "PC escolar",
   "block.lsmmod.computer_desk": "Mesa de computación",
-  "block.lsmmod.gray_computer_desk": "Escritorio gris de computación"
-,
-  "block.lsmmod.school_bell": "Timbre escolar"
+  "block.lsmmod.gray_computer_desk": "Escritorio gris de computación",
+  "block.lsmmod.school_bell": "Timbre escolar",
+  "item.lsmmod.lsm_anthem": "Disco: Himno del Colegio Libertador San Martín",
+  "jukebox_song.lsmmod.lsm_anthem": "Tobías Vílchez Pinedo - Himno LSM"
 }
