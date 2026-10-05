@@ -59,7 +59,7 @@ El usuario trabaja en su PC con el proyecto Gradle del zip; el sandbox de Claude
 
 * **Requisitos:** JDK 25. `settings.gradle` incluye el plugin *foojay*, que puede descargar el JDK por su cuenta. El wrapper de Gradle viene en el zip (`gradlew`, `gradlew.bat`).
 * **Compilar:** `./gradlew build` (jar en `build/libs/lsmmod-1.0.0.jar`, porque `archivesName = mod_id` y `version = mod_version`).
-* **Jugar:** `./gradlew runClient` abre el juego **directo desde el código fuente**: no hay que copiar ningún jar a una carpeta `mods`. Antes de arrancar, la tarea `prepareClientRun` copia `tools/run-defaults/options.txt` (las opciones del usuario: pantalla completa, 15 chunks, 260 fps...) a `run/options.txt` **solo si `run/options.txt` no existe**; para aplicar una versión nueva, borrar `run/options.txt` una vez. Otras *runs* definidas en `build.gradle`: `server` (con `--nogui`), `gameTestServer`, `data`.
+* **Jugar:** `./gradlew runClient` abre el juego **directo desde el código fuente**: no hay que copiar ningún jar a una carpeta `mods`. Antes de arrancar, la tarea `applyClientOptions` (ojo: `prepareClientRun` ya la define el plugin de NeoForge y chocaba) copia `tools/run-defaults/options.txt` (las opciones del usuario: pantalla completa, 15 chunks, 260 fps...) a `run/options.txt` **solo si `run/options.txt` no existe**; para aplicar una versión nueva, borrar `run/options.txt` una vez. Otras *runs* definidas en `build.gradle`: `server` (con `--nogui`), `gameTestServer`, `data`.
 * **Carpeta de ejecución:** `run/` (está en `.gitignore`). El log es `run/logs/latest.log`; al cargar el mod escribe la línea `LSM Mod loaded`.
 * **Si algo raro pasa con dependencias:** `./gradlew --refresh-dependencies`; para limpiar, `./gradlew clean` (del README de la plantilla).
 * **Cómo reporta el usuario:** "compiló", "funcionó", o pega el error o el log. Nada más; ver `START_HERE.md` §3.
@@ -159,6 +159,8 @@ Si hacen falta `item/` (clases de items) u otros, se añaden entonces *(propuest
 ---
 
 ## 7. Arte (D3, decisión abierta)
+
+**Recursos sin usar:** van en `newresources/` (raíz del proyecto, fuera de `src/`; ver su README). Cuando un chunk los use, los mueve a `src/main/resources/`.
 
 Hoy no hay scripts de arte ni modelos de entidad. **Pick propuesto:** texturas de items simples generadas con Pillow como placeholder para que el usuario las sustituya; los modelos de bloque y de entidad los hace el usuario hasta que diga otra cosa. Si se acepta, los scripts irían en `tools/art/` *(propuesta)*.
 

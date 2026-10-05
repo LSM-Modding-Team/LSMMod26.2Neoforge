@@ -9,3 +9,4 @@ Historia, no estado. El estado vive en `START_HERE.md` §2. Una sesión = una co
 * **Sesión 5** (2026-10-04). El usuario dijo "continúa" a secas; B0 y B0.1 seguían sin confirmar. Chunk `N0`: `rules/` con `NpcGroup`, `NpcState`, `PlayerGear`, `Hostility` y `tools/RulesCheck.java` (19/19). Sin API de Minecraft. La precedencia quedó como pick sin aceptar y V4, V6, V13, V16 sin rellenar.
   Después, el usuario recordó `./gradlew runClient` y mandó su `options.txt`: tarea `prepareClientRun` en `build.gradle` y `tools/run-defaults/options.txt` (`T0`).
   Después, a pedido del usuario: nueva regla R17 (la respuesta empieza por la lista exacta de archivos añadidos/modificados/borrados, sacada con `diff -rq` contra una copia base). Solo docs.
+  El usuario reportó que `T0` rompía Gradle (`prepareClientRun` ya existía en el plugin). `T0.1`: tarea renombrada a `applyClientOptions`; nueva carpeta `newresources/` con README (recursos sin usar).

@@ -30,9 +30,10 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
-**Última edición:** sesión 5, 2026-10-04 (chunk `N0`: lógica pura de hostilidad en `rules/`; nace `tools/RulesCheck.java`; después, tooling: `./gradlew runClient` con las opciones del usuario, `T0`).
+**Última edición:** sesión 5, 2026-10-04 (`T0.1`: arreglo del nombre de la tarea de Gradle y carpeta `newresources/`; antes, chunk `N0`: lógica pura de hostilidad en `rules/`; nace `tools/RulesCheck.java`; después, tooling: `./gradlew runClient` con las opciones del usuario, `T0`).
 
-* **Último chunk de código entregado:** **N0 (matriz de hostilidad en `rules/`). Estado: NOT COMPILED.** Los anteriores, **B0.1** y **B0** (los 6 bloques), siguen **sin confirmar**: nadie ha reportado si compilan ni si funcionan.
+* **Último chunk entregado:** **T0.1 (arreglo de tooling: tarea `applyClientOptions` + carpeta `newresources/`). Estado: NOT COMPILED.** `T0` falló en Gradle (nombre de tarea duplicado) y quedó `SUPERSEDED`; es el primer reporte real del usuario: Gradle llegó a evaluar `build.gradle`, pero todavía no sabemos si el mod compila.
+* **Último chunk de código del mod:** **N0 (matriz de hostilidad en `rules/`). Estado: NOT COMPILED.** Los anteriores, **B0.1** y **B0** (los 6 bloques), siguen **sin confirmar**: nadie ha reportado si compilan ni si funcionan.
 * **Qué hizo N0 (sin API de Minecraft, nada visible en el juego):** paquete `rules/` con `NpcGroup`, `NpcState`, `PlayerGear` y `Hostility` (`attacksPlayer`, `visionMultiplier`), más `tools/RulesCheck.java` (19 comprobaciones, 19 pasan; `ParseAll` 19 archivos, 0 errores). **La precedencia (`MECHANICS_SPECS.md` §6.3) es un pick MÍO sin aceptar**: está aislado en un solo método (`Hostility.attacksPlayer`). Lo no definido (V4, V6, V13, V16) NO se rellenó. Detalle: `docs/MECHANICS_SPECS.md` §6.5.
 * **Qué hizo B0.1 (sin features, sin API nueva):** clave `lang` del asiento corregida (`entity.lsmmod.seat`); receta nueva de `students_desk` (`PPP`/`SCS`/`S S`: tablones, palos, cofre; *(propuesta)*); descripción real en `neoforge.mods.toml`; comentarios corregidos en `ModBlocks`, `ModItems`, `SeatEntity`, `ModEntities`. Detalle: `docs/history/CHUNKS_FULL.md`.
 * **Qué verificar en el juego (cierra B0 y B0.1):** `./gradlew build` y `./gradlew runClient`; en la pestaña creativa "LSM Mod" salen 6 bloques; las sillas se montan con clic derecho; el pupitre de alumno y el del profesor ocupan 2 bloques y abren 27 slots; el casillero abre 54 slots; la receta del pupitre de alumno funciona (`docs/FEATURES.md` lo explica).
@@ -154,6 +155,7 @@ Todos los docs del plan existen desde la sesión 4. `PLANNED` = se escribe solo 
 | Cadena de eventos, Director, Hidalgo, Yahu, ritual, boss | `docs/BOSS_SPECS.md` | existe |
 | Cruce con el mod bunnidogs | `docs/INTEGRATION_BUNNIDOGS.md` | existe |
 | Patrullas y raids propias (plan, sin código) | `docs/RAID_PLAN.md` | existe |
+| Recursos (texturas, modelos...) que todavía no usa nada | `newresources/README.md` | existe (carpeta vacía) |
 | Otro tema grande antes de codificarlo (p. ej. el plan de `N1`) | `docs/<TEMA>_PLAN.md` | `PLANNED` (se escribe cuando haga falta) |
 | El diseño original, literal | `docs/history/DESIGN_SOURCE_v1.md` | existe (literal; nunca se edita) |
 | El plan de documentación que se ejecutó | `docs/history/DOCS_PLAN.md` | existe (histórico) |
