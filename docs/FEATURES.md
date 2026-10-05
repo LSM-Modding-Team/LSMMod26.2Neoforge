@@ -82,3 +82,5 @@ La mesa de computación incorpora costados redondeados por arriba y un pequeño 
 La mesa de computación usa ahora esquinas de dos escalones grandes, sin la curva subdividida anterior; mantiene mouse, relieve y bandeja retráctil.
 
 La bandeja del escritorio gris mantiene su posición original vacío y sale un píxel al instalar la PC, junto con el teclado; vuelve a retraerse al retirarla. Se corrigen la textura dividida del monitor y el soporte lateral de CPU.
+
+El escritorio gris muestra también un mouse pequeño sobre la cubierta al instalar la PC.

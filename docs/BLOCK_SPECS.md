@@ -111,3 +111,5 @@ Se invierten conjuntamente la distribución de piezas y sus UV superiores (rotat
 Corrección 2026-10-05: se sustituye la curva fina de computer_desk por tres cajas por costado, dos escalones enteros y UV de madera con densidad uniforme. Se eliminan las subdivisiones de 0,25 píxeles. Colisiones sincronizadas; mouse y relieve conservados. Compilación correcta; revisión visual Minecraft pendiente.
 
 Corrección del escritorio gris (2026-10-05): split recorta UV proporcionalmente, respetando orientación de caras, y retira caras artificiales de corte entre celdas. Corrige repetición de la pantalla en la columna derecha. Soportes laterales de CPU alcanzan la cubierta. Bandeja mantiene posición vacía y sale 1 píxel al instalar PC; teclado acompaña el movimiento. Modelos y colisiones regenerados. BUILD SUCCESSFUL; revisión visual Minecraft pendiente.
+
+2026-10-05: gray_computer_desk añade mouse pequeño con rueda sobre la cubierta, visible solo con PC. Modelos y colisiones sincronizados. BUILD SUCCESSFUL; revisión visual pendiente.

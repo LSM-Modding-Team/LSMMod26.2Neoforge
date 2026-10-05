@@ -23,7 +23,10 @@ retracted_tray = box([3,12,4],[23,13,15])
 extended_tray = box([3,12,5],[23,13,16])
 equipment = [box([5,13,9],[21,13.7,15],'equipment',[0,8,8,16]),
              box([25,3,4],[28.5,11,12],'equipment',[8,0,16,8]),
-             box([25,3,12],[28.5,11,12.08],'equipment',[8,8,16,16])]
+             box([25,3,12],[28.5,11,12.08],'equipment',[8,8,16,16]),
+             box([22,18,10],[24,18.3,13],'equipment',[8,0,16,8]),
+             box([22.2,18.3,10.2],[23.8,18.8,12.8],'equipment',[8,0,16,8]),
+             box([22.85,18.8,10.7],[23.15,18.9,11.3],'equipment',[0,8,8,16])]
 pc = json.loads((A / 'models/block/pc.json').read_text(encoding='utf-8'))
 for element in pc['elements']:
     part = copy.deepcopy(element)
