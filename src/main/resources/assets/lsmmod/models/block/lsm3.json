@@ -61,7 +61,8 @@
             16,
             16
           ],
-          "texture": "#1"
+          "texture": "#1",
+          "rotation": 180
         },
         "down": {
           "uv": [

@@ -47,3 +47,7 @@ El usuario aporta nueve PNG, modelos exportados y bbmodels. Se usan sus PNG inta
 Corrección de las uniones marcadas en azul moviendo los píxeles de lsm2, lsm7 y la franja de lsm6. Fondo de end_stone_bricks real de Minecraft 26.2, mosaico de inventario y bbmodels sincronizados. BUILD SUCCESSFUL; publicación a master y entrega del JAR.
 
 Al integrar los cambios remotos de San Martín de Porres se detectó la eliminación del registro del escudo. Se restaura su bloque, item y nombre inglés conservando el nuevo bloque de la estatua; compilación del conjunto verificada antes de entregar el JAR.
+
+### 2026-10-05 — Orientación según la referencia del escudo
+
+Se ajusta la composición completa (orden y UV superiores) para mostrar borde recto arriba y punta abajo, con la marca negra sobre el centro. Se conserva end_stone_bricks y se actualizan inventario y bbmodels. BUILD SUCCESSFUL; validación de mosaico y modelos píxel a píxel.
