@@ -32,4 +32,5 @@ Arte generado con scripts (decisión D3, abierta): iría en `tools/art/`; lo que
 
 | Archivo | Para qué es | Qué falta para usarlo |
 |---|---|---|
-| *(ninguno)* | — | — |
+| *school_bell.json* | modelo de la campana | añadir el bloque |
+| *school_bell.png* | textura de la campana | añadir el bloque |
