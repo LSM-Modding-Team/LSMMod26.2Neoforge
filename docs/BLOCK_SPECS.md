@@ -16,7 +16,7 @@ Marcas: sin marca = **decidido**; *(propuesta)*; *(a confirmar)*. `V#` / `P#` = 
 | **Carpetas** (pupitres) del Aula interactiva/inglés: gris, con CPU y espacio adicional para teclado | Decorativas. | Parcial: 2 pupitres de dos mitades con 27 slots (§3) |
 | **Mesa de kiosko** | Decorativa. Ahí está la mamá de cuarto. | No |
 | **San Martín de Porres** | Click derecho: regeneración ~30 s. Pasivo: regenera automáticamente a profesores y alumnos cercanos, **más a profesores**. Legendario: tarda muchísimo en minarse. Dos se usan en el ritual (`BOSS_SPECS.md`). | No |
-| **Escudo** (3x3) | Al pisarlo: Bad Omen LSM; todos los mobs te trackean (5 min, +25 % de daño); llama al azar a 6-10 profesores y 10-20 alumnos durante 60 s *(propuesta)*. Los profesores salen de su aula de forma temporal. | No |
+| **Escudo** (3x3) | Al pisarlo: Bad Omen LSM; todos los mobs te trackean (5 min, +25 % de daño); llama al azar a 6-10 profesores y 10-20 alumnos durante 60 s *(propuesta)*. Los profesores salen de su aula de forma temporal. | Visual: sí; efectos pendientes |
 | **Laptop (común)** | Reproduce el disco en un radio de 6 bloques *(propuesta)*. | No |
 | **Laptop de Moisés** (mayor rareza) | Reproduce el disco en toda la estructura. Click derecho alterna entre himno y marcha del colegio. | No |
 | **PC** (Aula interactiva y escritorio negro) | Click derecho: **Estudioso 3 min**. 20 % de que llame a un profesor agresivo. Cooldown de 5 min por PC *(propuesta)*. Atrae al **alumno vicioso**, que se sienta a usarla. Si se la rompes, el vicioso te persigue hasta matarte (de un golpe). | No |
@@ -79,3 +79,15 @@ Lo que hay hoy (leído del código): 3 sillas (`high_school_chair`, `elementary_
 ## 6. Vacíos que tocan este doc
 
 V14 (mapeo de sillas y pupitres), V17 (laptops y discos), V18 (trueque del kiosko), V22 (Ardilla). Detalle en `docs/DESIGN.md` §5.
+
+## Escudo 3×3: implementación visual (corrección 2026-10-05)
+
+Petición vigente del usuario: bloque simple, completo al colocarlo, horizontal en el suelo, escudo hacia arriba y textura pixelada estilo Minecraft. `school_shield` coloca nueve bloques completos en el plano X/Z, centrados en la posición de colocación. Estados: `facing`, `column`, `row`; se eliminó `assembled` y la interacción de ampliación. La orientación sigue al jugador. Los nueve modelos muestran regiones de la misma textura de 96×96 (32×32 por pieza), con cuatro colores planos y borde blanco. El item muestra el escudo completo. Se comprueba espacio reemplazable, altura, chunks, borde y permiso de interacción antes de colocar. La retirada conjunta y el único drop del centro se mantienen. Los efectos al pisarlo del diseño siguen pendientes.
+
+La textura se creó con la herramienta de imágenes a partir de la referencia y se exportó a resolución de juego con muestreo por puntos y paleta fija; no hay suavizado ni degradados. El harness persistente vive en `tools/build/`.
+
+Verificación de esta corrección: BUILD SUCCESSFUL con `bash tools/build/compile.sh build --offline`. Se comprobó la textura de 96×96, las nueve posiciones horizontales y los UV superiores en las cuatro orientaciones. Prueba en Minecraft pendiente.
+
+### Restauración del bloque completo
+
+A petición del usuario se revierte B-SHIELD.2: altura de bloque completo, dureza 2.5, sonido de metal, textura opaca de B-SHIELD.1 y modelos cúbicos con caras laterales y base blancas. Se elimina la dependencia de soporte inferior y el generador de modelos recortados. Se conserva el harness reutilizable.

@@ -55,7 +55,7 @@ Se lee solo para el trabajo que lo pide (mapa de docs en `START_HERE.md` §7). L
 
 ## 2. Cómo compila y ejecuta el usuario
 
-El usuario trabaja en su PC con el proyecto Gradle del zip; el sandbox de Claude no puede compilar (§8).
+El usuario puede compilar en su PC con el wrapper Gradle. En el entorno cloud, el harness reutilizable es `bash tools/build/compile.sh` (ver `tools/build/README.md`).
 
 * **Requisitos:** JDK 25. `settings.gradle` incluye el plugin *foojay*, que puede descargar el JDK por su cuenta. El wrapper de Gradle viene en el zip (`gradlew`, `gradlew.bat`).
 * **Compilar:** `./gradlew build` (jar en `build/libs/lsmmod-1.0.0.jar`, porque `archivesName = mod_id` y `version = mod_version`).
@@ -72,7 +72,7 @@ El usuario trabaja en su PC con el proyecto Gradle del zip; el sandbox de Claude
 
 **R2. Estado siempre verdadero.** El bloque ESTADO ACTUAL de `START_HERE` se edita al final de cada sesión. Si un doc dice algo que ya no es cierto, es peor que si no existiera: se corrige o se borra en el mismo turno.
 
-**R3. El usuario compila y prueba.** El sandbox no tiene Minecraft ni Gradle: solo chequeo de sintaxis (`ParseAll`) y autocomprobación de lógica pura. **Nunca decir que compila o que funciona.** Estados: `NOT COMPILED` (entregado sin reporte) → `COMPILES` ("compiló") → `WORKS` ("funcionó"). Solo el reporte del usuario cambia el estado.
+**R3. Compilación y prueba real se registran por separado.** A petición del usuario, se guarda el harness en `tools/build/`. El agente compila con `bash tools/build/compile.sh`, respeta los permisos del entorno y reporta el resultado real. COMPILES requiere Gradle exitoso; WORKS requiere una prueba en Minecraft o un reporte del usuario. Las limitaciones del sandbox histórico no aplican al entorno cloud actual.
 
 **R4. Cómo leer al usuario.** Tabla en `START_HERE.md` §3. Habla suelto, en español o inglés; se responde en su idioma. Errores o log pegado: se arreglan PRIMERO, como chunk propio y sin features nuevas.
 
@@ -170,7 +170,7 @@ Lo que existe: 8 texturas de bloque en `assets/lsmmod/textures/block/` y modelos
 
 ## 8. Entorno de desarrollo e investigación de API (R14, R15)
 
-**Sandbox (R15).** JRE 21 con el módulo del compilador pero **sin binario `javac`**: se usa `java -m jdk.compiler/com.sun.tools.javac.Main` (o el lanzador de un solo archivo: `java archivo.java`). Python con Pillow. `github.com` y `raw.githubusercontent.com` casi siempre alcanzables; Maven y Gradle no. Eso es lo que impide compilar el mod aquí.
+**Entorno cloud (R15 actualizado).** El harness selecciona Java 25 e instala el JDK cuando falta, configura proxy/TLS sin guardar credenciales y reutiliza las cachés de Gradle. Hay que respetar la política de red y los permisos de ejecución del entorno. Ver `tools/build/README.md`; si el sandbox impide los sockets locales de Gradle, usar el mecanismo de permisos disponible. La primera preparación de Minecraft puede tardar varios minutos.
 
 **Investigación de API (R14).** Primero el QUICK INDEX de `docs/API_NOTES.md` (existe desde la sesión 4, con la tabla vacía y el mapa de riesgo; el de bunnidogs, con las mismas versiones, está en `docs/history/bunnidogs_patterns/API_NOTES.md` y se enlaza desde ahí). Si falta, clon parcial de NeoForge 26.2.x (~30 s):
 

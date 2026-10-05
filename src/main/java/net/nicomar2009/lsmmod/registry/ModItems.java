@@ -55,6 +55,8 @@ public final class ModItems {
 
     public static final DeferredItem<BlockItem> PLASTICCHAIR_RED_ARMS =
             ITEMS.registerSimpleBlockItem(ModBlocks.PLASTICCHAIR_RED_ARMS);
+    public static final DeferredItem<BlockItem> SCHOOL_SHIELD =
+            ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_SHIELD);
 
     private ModItems() {
     }

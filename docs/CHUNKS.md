@@ -39,3 +39,17 @@ Un chunk nuevo necesita antes su spec (Tandas B y C de docs). Cada fila correspo
 | `X1` | Integración con bunnidogs (decisión D1 antes) | M6 | `PLANNED` |
 | `K1` | Hidalgo, Yahu, fantasma, condición del Director, ataúd, ritual, boss final, traje | M7 | `PLANNED` |
 | `S1` | Música (discos, laptops) y advancements que explican las palabras nuevas | M8 | `PLANNED` |
+
+* **B-SHIELD (2026-10-05):** escudo visual 3×3 con centro ampliable al clic derecho, validación de espacio y retirada conjunta; efectos de NPC pendientes. Sin prueba en juego.
+
+Verificación del escudo: Gradle BUILD SUCCESSFUL (Java 25, NeoForge 26.2.0.88). Sintaxis Java y JSON válidos; comprobado el mapeo UV de las nueve piezas en cuatro orientaciones. Prueba en juego pendiente.
+
+* **B-SHIELD.1 (2026-10-05):** reemplaza la versión vertical ampliable por un suelo 3×3 completo al colocarlo; textura pixelada 96×96. Harness reutilizable y documentación para próximas conversaciones. Prueba en juego pendiente.
+
+B-SHIELD queda SUPERSEDED por B-SHIELD.1. B-SHIELD.1: COMPILES (harness, BUILD SUCCESSFUL); WORKS pendiente de prueba real.
+
+* **B-SHIELD.2 (2026-10-05): COMPILES.** Alfombra 3×3 de 1/16 de alto, soporte vanilla, sonido de lana, textura exterior transparente con borde fino y modelos recortados al contorno. Sustituye el grosor completo de B-SHIELD.1. Prueba en juego pendiente.
+
+* **Restauración B-SHIELD.1 (2026-10-05):** B-SHIELD.2 queda REVERTED a petición del usuario. Vuelven los bloques completos 3×3 y la textura opaca anterior; se conserva el harness.
+
+Restauración verificada: BUILD SUCCESSFUL con el harness; modelos de cubo completo y textura opaca 96×96 comprobados. Prueba en juego pendiente.

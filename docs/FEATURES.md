@@ -2,7 +2,7 @@
 
 Guía del jugador. Crece **un párrafo por chunk** (R8): cuando un chunk añade algo que se ve o se usa en el juego, se explica aquí, con las palabras que el juego usa (R11).
 
-**Estado: nada de esto está confirmado.** Todo lo de abajo viene de leer el código de B0 y B0.1; el usuario no ha reportado que compile ni que funcione (`docs/CHUNKS.md`). Si algo no se comporta como dice este archivo, lo que manda es lo que pase en el juego y hay que corregir este archivo.
+**Estado:** el proyecto compila con Java 25 / NeoForge 26.2.0.88. La compilación se comprueba con el harness en `tools/build/`. La prueba del escudo corregido dentro de Minecraft está pendiente; si difiere de esta guía, hay que corregirla.
 
 Dónde está todo: pestaña creativa **"LSM Mod"** (icono: el libro de vanilla). Muestra todo lo registrado, así que un item nuevo aparece sin tocar la pestaña.
 
@@ -53,3 +53,7 @@ Seis bloques. Nombres del juego en inglés por ahora (`lang/en_us.json`); el arc
 Todo el resto del diseño está planeado y **no se puede usar ni encontrar**: items (regla, folder, cuaderno, instrumentos...), prendas y uniformes, NPC (alumnos, profesores, jefes), el colegio como estructura del mundo, el mapa, las raids, los efectos (Bad Omen LSM, Trackeo, Estudioso...), los discos y la música. Dónde está planeado cada uno: `docs/ROADMAP.md` y los specs de `START_HERE.md` §7.
 
 Cuando un chunk añada una de esas cosas, aquí aparecerá un párrafo con cómo se obtiene, cómo se usa, qué se ve o se oye en el juego al activarla y qué palabra nueva introduce. Ejemplos de palabras que van a necesitar explicación dentro del juego (R11): *neutral*, *enojado*, *apaciguado*, *Trackeo*, *Estudioso*, *Bad Omen LSM*, *Expulsión*.
+
+## Escudo del colegio (school_shield)
+
+Selecciona el Escudo del colegio en la pestaña LSM Mod y colócalo en el suelo. El item pone el conjunto completo de 3×3 de una sola vez, con el centro en el lugar donde lo colocas. El escudo queda mirando hacia arriba y su parte superior apunta hacia donde miras al colocarlo. Es una única textura pixelada con un borde blanco; los lados y la base son blancos. Necesita nueve posiciones libres o reemplazables, a la misma altura. No requiere clic adicional y no tiene ampliación. Romper una pieza retira el conjunto y devuelve un solo item en supervivencia, ninguno en creativo. Sin receta ni efectos de NPC por ahora. Prueba en Minecraft pendiente.

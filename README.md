@@ -2,14 +2,14 @@
 
 Mod de **NeoForge** (`lsmmod`) para **Minecraft 26.2** (NeoForge 26.2.0.88, Java 25), ambientado en un colegio: un dungeon con NPC (alumnos y profesores) muy fuertes que se quedan en su zona, armas y armadura, raids y un boss final.
 
-**Qué existe hoy:** 6 bloques: 3 sillas (`high_school_chair`, `elementary_chair`, `teachers_chair`) en las que te puedes sentar, 2 pupitres de dos mitades con 27 slots (`students_desk`, `teachers_desk`) y un casillero con 54 slots (`locker`), todos en la pestaña creativa "LSM Mod". **Todavía no se ha confirmado que compile ni que funcione.** Todo lo demás (items, NPC, estructura, raids, jefes) está planeado: ver `docs/ROADMAP.md`.
+**Qué existe hoy:** 3 sillas, 2 pupitres de dos mitades, un pupitre de primaria, un casillero y el escudo del colegio. El escudo se coloca completo como un suelo de 3×3 con una sola imagen pixelada y borde blanco. Todos aparecen en la pestaña creativa LSM Mod. La compilación del proyecto está verificada; prueba del escudo dentro de Minecraft pendiente. Los NPC, estructura, raids y jefes siguen planeados: `docs/ROADMAP.md`.
 
 ## Ejecutar
 
 Hace falta JDK 25 (el proyecto puede descargarlo solo con el plugin foojay de `settings.gradle`).
 
 ```
-./gradlew build        # compila y genera build/libs/lsmmod-1.0.0.jar
+bash tools/build/compile.sh # prepara Java 25 y genera build/libs/lsmmod-1.0.0.jar
 ./gradlew runClient    # abre Minecraft con el mod
 ```
 
@@ -24,7 +24,7 @@ Este zip está hecho para continuarse solo. Sube el zip a una conversación nuev
 * **Pega los errores o el log**: Claude los arregla antes de añadir nada nuevo.
 * **"continúa con X"**: Claude hace X (si es grande, primero escribe un plan).
 
-Claude solo lee `START_HERE.md` al empezar. El compilado y las pruebas los haces tú: Claude no puede ejecutar Minecraft ni Gradle.
+Lee `AGENTS.md` y `START_HERE.md` al empezar. El harness guardado permite compilar en futuras conversaciones: `bash tools/build/compile.sh`. Consulta `tools/build/README.md` para Java 25, cachés y proxy. La prueba dentro de Minecraft es independiente de la compilación.
 
 ## Docs de un vistazo
 
