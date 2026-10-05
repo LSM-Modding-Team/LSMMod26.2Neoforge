@@ -67,3 +67,7 @@ BUILD SUCCESSFUL en Java 25 con wrapper Windows offline. Prueba en Minecraft pen
 2026-10-05: Mesa de computación basada en la fotografía, una columna de dos bloques y un alojamiento exclusivo para PC.
 Estado persistente has_pc; inserción con clic derecho, retirada con Shift y mano vacía, representación conjunta de monitor/teclado/CPU pequeña.
 BUILD SUCCESSFUL con Java 25 y wrapper Windows offline. Prueba en Minecraft pendiente.
+
+2026-10-05: Escritorio gris de 2×1×2 con la textura exacta de la silla del aula interactiva.
+Bandeja inferior de teclado y soporte lateral de CPU; un alojamiento de PC persistente compartido por cuatro partes, usando la interacción anterior.
+BUILD SUCCESSFUL con Java 25 offline Windows; colocación, drops y guardado dentro de Minecraft pendientes.

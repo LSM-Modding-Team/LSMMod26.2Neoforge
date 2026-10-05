@@ -70,3 +70,6 @@ El bloque PC escolar está en la pestaña LSM Mod. Representa únicamente un mon
 
 ### Mesa de computación (2026-10-05)
 En la pestaña LSM Mod aparece Mesa de computación. Necesita dos espacios verticales libres y ocupa una sola columna. Clic derecho con PC escolar instala una unidad y muestra monitor, teclado y CPU pequeña. No acepta otros objetos ni una segunda PC. Shift + clic derecho con mano vacía retira la PC; romper la mesa en supervivencia permite recuperar la mesa y la PC. El estado se conserva en el mundo. Todavía no tiene funciones electrónicas. Compilación correcta; prueba en Minecraft pendiente.
+
+### Escritorio gris de computación (2026-10-05)
+En la pestaña LSM Mod aparece el escritorio gris de 2 bloques de ancho, 1 de fondo y 2 de alto. Usa el mismo gris que la silla del aula interactiva. Requiere los cuatro espacios libres. Clic derecho con PC escolar en cualquier parte instala una sola PC y muestra monitor, teclado en la bandeja bajo la cubierta y CPU pequeña junto al lateral derecho. Rechaza otros objetos y una segunda PC. Shift + clic derecho con mano vacía devuelve la PC. Se retira completo al romperlo y en supervivencia entrega el escritorio y la PC instalada. Compilación verificada; prueba en Minecraft pendiente.

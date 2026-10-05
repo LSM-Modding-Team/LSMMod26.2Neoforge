@@ -9,5 +9,6 @@
   "block.lsmmod.laptop": "Laptop",
   "block.lsmmod.moises_laptop": "Laptop de Moisés",
   "block.lsmmod.pc": "PC escolar",
-  "block.lsmmod.computer_desk": "Mesa de computación"
+  "block.lsmmod.computer_desk": "Mesa de computación",
+  "block.lsmmod.gray_computer_desk": "Escritorio gris de computación"
 }

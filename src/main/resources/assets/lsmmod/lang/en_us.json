@@ -16,5 +16,6 @@
   "block.lsmmod.laptop": "Laptop",
   "block.lsmmod.moises_laptop": "Moisés’ Laptop",
   "block.lsmmod.pc": "School PC",
-  "block.lsmmod.computer_desk": "Computer desk"
+  "block.lsmmod.computer_desk": "Computer desk",
+  "block.lsmmod.gray_computer_desk": "Gray computer desk"
 }

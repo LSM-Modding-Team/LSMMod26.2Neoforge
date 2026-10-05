@@ -69,7 +69,7 @@ public class ComputerDeskBlock extends TwoTallBlock {
         return InteractionResult.SUCCESS;
     }
 
-    private boolean setOccupied(Level level, BlockPos pos, BlockState state, boolean occupied) {
+    protected boolean setOccupied(Level level, BlockPos pos, BlockState state, boolean occupied) {
         BlockPos lower = state.getValue(HALF) == DoubleBlockHalf.LOWER ? pos : pos.below();
         BlockState bottom = level.getBlockState(lower);
         BlockState top = level.getBlockState(lower.above());

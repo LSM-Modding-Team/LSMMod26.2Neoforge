@@ -1,0 +1,53 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "lsmmod:gray_computer_desk",
+          "properties": {
+            "column": "0",
+            "half": "lower"
+          }
+        },
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lsmmod:gray_computer_desk"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "lsmmod:gray_computer_desk",
+          "properties": {
+            "column": "0",
+            "half": "lower"
+          }
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "lsmmod:gray_computer_desk",
+          "properties": {
+            "has_pc": "true"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lsmmod:pc"
+        }
+      ]
+    }
+  ]
+}
