@@ -63,3 +63,5 @@ Restauración verificada: BUILD SUCCESSFUL con el harness; modelos de cubo compl
 * **B-CHAIRS.REGISTRY (2026-10-05): COMPILES.** 2026-10-05: se completan los registros de bloque e item de englishroomchair, hallchair y las cuatro plasticchair, utilizando NewChairShapes. La pestaña creativa las incluye automáticamente. Se conservan las tres sillas originales y school_shield. Compilación verificada en Windows con Java 25 y gradlew.bat build --offline: BUILD SUCCESSFUL. Prueba en Minecraft pendiente.
 
 * 2026-10-05 — Laptops visuales: laptop y moises_laptop, modelos/texturas, registro de bloque/item y drops. COMPILES (Java 25, build offline en Windows); prueba en Minecraft pendiente. Sin funciones.
+
+* 2026-10-05 — PC visual: bloque pc con monitor escolar de grosor moderado, textura/modelo, registro e item. COMPILES (Java 25, build offline Windows). Sin funciones; prueba en Minecraft pendiente.

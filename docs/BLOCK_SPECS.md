@@ -19,7 +19,7 @@ Marcas: sin marca = **decidido**; *(propuesta)*; *(a confirmar)*. `V#` / `P#` = 
 | **Escudo** (3x3) | Al pisarlo: Bad Omen LSM; todos los mobs te trackean (5 min, +25 % de daño); llama al azar a 6-10 profesores y 10-20 alumnos durante 60 s *(propuesta)*. Los profesores salen de su aula de forma temporal. | Visual: sí; efectos pendientes |
 | **Laptop (común)** | Reproduce el disco en un radio de 6 bloques *(propuesta)*. | Visual y registro: sí (`laptop`); funciones pendientes |
 | **Laptop de Moisés** (mayor rareza) | Reproduce el disco en toda la estructura. Click derecho alterna entre himno y marcha del colegio. | Visual y registro: sí (`moises_laptop`); funciones pendientes |
-| **PC** (Aula interactiva y escritorio negro) | Click derecho: **Estudioso 3 min**. 20 % de que llame a un profesor agresivo. Cooldown de 5 min por PC *(propuesta)*. Atrae al **alumno vicioso**, que se sienta a usarla. Si se la rompes, el vicioso te persigue hasta matarte (de un golpe). | No |
+| **PC** (Aula interactiva y escritorio negro) | Click derecho: **Estudioso 3 min**. 20 % de que llame a un profesor agresivo. Cooldown de 5 min por PC *(propuesta)*. Atrae al **alumno vicioso**, que se sienta a usarla. Si se la rompes, el vicioso te persigue hasta matarte (de un golpe). | Visual y registro: sí (`pc`); funciones pendientes |
 | **Campana de recreo** | Los NPC salen al patio (salvo algunos alumnos) durante **90 s**, tiempo para lootear ~2 salones. Cooldown de 15 min *(propuesta)*. | No |
 | **Casilleros** | Contenedores con loot table baja (§4). | **Sí:** `locker`, 54 slots |
 | **Objetos perdidos** | Contienen ropa de alumno **segura**. | No |
@@ -33,6 +33,8 @@ Los datos de cada efecto (Estudioso, Trackeo, Bad Omen LSM, Regeneración San Ma
 
 * **Escudo.** 3x3; el disparador "pisarlo" y todo lo que provoca está en `MECHANICS_SPECS.md` §6.1. Dónde va dentro del colegio: sin definir (`WORLD_SPECS.md`).
 * **PC.** El 20 % "llama a un profesor agresivo": qué es un "profesor agresivo" y a cuál llama: sin definir. El vicioso es un NPC (`NPC_SPECS.md` §2).
+
+  Visual implementado 2026-10-05 por petición del usuario: únicamente monitor escolar de gama media-baja, con grosor intermedio entre una pantalla delgada y un CRT de caja. Marco y carcasa gris oscuro, trasera escalonada con ventilación, pantalla azul, soporte y base. Sin torre ni periféricos. Modelo JSON y atlas pixel art de 64×64 generados con `tools/create_pc_assets.py`. Registro `pc`, item, cuatro orientaciones, colisión del monitor y soporte, drop propio y traducciones. Sin funciones, recetas ni API nueva; reutiliza el patrón de orientación existente. BUILD SUCCESSFUL con Java 25; prueba en Minecraft pendiente.
 * **Laptops.** Cómo se carga el disco, y si el himno y la marcha son discos o sonidos fijos de la laptop de Moisés: sin definir (V17).
 
   Implementación visual 2026-10-05: dos portátiles abiertos de un bloque, orientación horizontal y forma de selección/colisión adaptada a la base y pantalla. La común usa gris oscuro y plateado, inspirada en un portátil HP habitual de gama media-baja; Moisés usa oro, teclado y panel táctil celestes y un diamante en la tapa. Texturas pixel art propias de 64×64 y modelos JSON generados con `tools/create_laptop_assets.py`. Incluyen items, pestaña creativa, traducciones y drop propio. Sin recetas ni funciones electrónicas por petición del usuario. Ninguna familia nueva de API: se reutiliza el patrón de orientación de los muebles existentes. BUILD SUCCESSFUL en Windows con Java 25; prueba en Minecraft pendiente.

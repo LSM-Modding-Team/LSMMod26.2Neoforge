@@ -64,3 +64,6 @@ Las seis sillas nuevas se incluyen en la pestaña LSM Mod como ítems independie
 
 ### Laptops decorativas (2026-10-05)
 En la pestaña LSM Mod aparecen Laptop y Laptop de Moisés. Se colocan abiertas, orientadas hacia el jugador, y se recuperan al romperlas. La común es gris/plateada; la de Moisés es dorada con detalles celestes de diamante. Todavía no reproducen música ni abren una interfaz. Compilación verificada; prueba en Minecraft pendiente.
+
+### PC escolar (2026-10-05)
+El bloque PC escolar está en la pestaña LSM Mod. Representa únicamente un monitor con marco oscuro, carcasa de grosor moderado, soporte y base. Se orienta hacia el jugador al colocarlo y deja su propio item al romperse. Todavía no tiene efectos ni interfaz. Compilación verificada; prueba en Minecraft pendiente.

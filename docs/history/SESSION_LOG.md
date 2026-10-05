@@ -59,3 +59,7 @@ Se ajusta la composición completa (orden y UV superiores) para mostrar borde re
 2026-10-05: Se crean las dos laptops solicitadas, únicamente visuales y registradas, sin funciones.
 Modelos abiertos y texturas propias: gris/plateado para laptop; oro/diamante para moises_laptop.
 BUILD SUCCESSFUL con Java 25 y wrapper Windows offline; Bash encontró CRLF. Prueba en Minecraft pendiente.
+
+2026-10-05: Se añade pc como monitor escolar de gama media-baja, con grosor moderado y soporte.
+Modelo/textura propios, registro de bloque/item y recursos; sin torre, periféricos ni funciones.
+BUILD SUCCESSFUL en Java 25 con wrapper Windows offline. Prueba en Minecraft pendiente.

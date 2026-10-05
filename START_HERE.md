@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+**PC escolar 2026-10-05:** se añade `pc`, representada únicamente por un monitor LCD escolar de gama media-baja: marco oscuro, carcasa de grosor moderado con trasera escalonada y rejillas, soporte y base. Modelo y textura propios, registro de bloque/item, cuatro orientaciones, colisión ajustada, traducciones y drop. Sin torre, teclado ni funciones. Compilación verificada con Java 25 y wrapper Windows offline: BUILD SUCCESSFUL. Prueba dentro de Minecraft pendiente.
+
 **Laptops 2026-10-05:** se añaden `laptop` (gris/plateada, portátil convencional de gama media-baja) y `moises_laptop` (oro con detalles celestes de diamante). Modelos abiertos con teclado, panel táctil, pantalla y cámara; texturas propias de 64×64, registros de bloque/item, nombres en español/inglés y drops. Bloques decorativos orientables, sin interacción, inventario ni música. Aparecen automáticamente en la pestaña LSM Mod. Compilación verificada con Java 25 y `gradlew.bat build --offline --max-workers=4`: BUILD SUCCESSFUL. El intento con Bash encontró scripts con CRLF; se usó la alternativa Windows documentada. Prueba dentro de Minecraft pendiente.
 
 **Actualización de registros 2026-10-05:** 2026-10-05: se completan los registros de bloque e item de englishroomchair, hallchair y las cuatro plasticchair, utilizando NewChairShapes. La pestaña creativa las incluye automáticamente. Se conservan las tres sillas originales y school_shield. Compilación verificada en Windows con Java 25 y gradlew.bat build --offline: BUILD SUCCESSFUL. Prueba en Minecraft pendiente.
