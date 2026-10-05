@@ -191,6 +191,8 @@ mkdir nf && cd nf && git init -q && git remote add origin https://github.com/neo
 
 ## 9. Preferencias del usuario (aprendidas)
 
+* **Git:** trabajar y hacer push siempre a la rama existente `master`. No crear ramas nuevas. Antes de publicar, traer los cambios de `origin/master` e integrarlos conservando el trabajo de otras conversaciones. No usar force-push.
+
 * Pidió **menos checks** (R9) y feedback suelto, sin plantillas (R12).
 * Habla en español o inglés, sin formalidad; "sigue con tus picks" acepta todos los picks pendientes.
 * Quiere **plan antes de código** para lo grande (R10) y que el zip se continúe solo, sin depender de otros zips.

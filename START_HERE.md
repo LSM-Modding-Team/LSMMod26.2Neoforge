@@ -2,6 +2,8 @@
 
 Proyecto **LSM Mod** (`lsmmod`): mod de NeoForge para Minecraft 26.2. Los demás docs se leen **solo** para el trabajo que nombra el mapa de la sección 7. No leas `DESIGN`, `API_NOTES` ni `history/` "para orientarte" (R1).
 
+**Git:** trabajar y hacer push siempre a la rama existente `master`. No crear ramas nuevas. Antes de publicar, traer los cambios de `origin/master` e integrarlos conservando el trabajo de otras conversaciones. No usar force-push.
+
 Idioma: los docs están en español, el código, los identificadores y los comentarios en inglés. Respondes en el idioma en que escribe el usuario.
 
 ---

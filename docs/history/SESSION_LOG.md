@@ -33,3 +33,7 @@ A petición del usuario, se reduce la altura a 1/16 y se exige soporte como en C
 El usuario pide volver al bloque completo anterior a la alfombra y hacer push. Se restauran geometría, colisión, textura, dureza y sonido de B-SHIELD.1. Se conservan la colocación inmediata 3×3 y el harness reutilizable, incluyendo una excepción de .gitignore para versionar tools/build.
 
 Compilación de la restauración: BUILD SUCCESSFUL. Rama de publicación: work.
+
+### 2026-10-05 — Preferencia Git y corrección del destino
+
+El usuario confirma: trabajar y pushear siempre en master, sin crear ramas. Se guarda en AGENTS.md, START_HERE.md y REFERENCE.md §9. Se aplica el escudo sobre el master remoto actual, conservando las sillas añadidas en otra conversación y combinando registros y traducciones.
