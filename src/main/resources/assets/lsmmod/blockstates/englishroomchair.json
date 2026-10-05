@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=south": {
+      "model": "lsmmod:block/englishroomchair"
+    },
+    "facing=west": {
+      "model": "lsmmod:block/englishroomchair",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "lsmmod:block/englishroomchair",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "lsmmod:block/englishroomchair",
+      "y": 270
+    }
+  }
+}

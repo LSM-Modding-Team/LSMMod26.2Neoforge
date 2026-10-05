@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=south": {
+      "model": "lsmmod:block/plasticchair_red"
+    },
+    "facing=west": {
+      "model": "lsmmod:block/plasticchair_red",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "lsmmod:block/plasticchair_red",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "lsmmod:block/plasticchair_red",
+      "y": 270
+    }
+  }
+}

@@ -6,7 +6,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.nicomar2009.lsmmod.LSMMod;
 
-/** Item registry. Today it only holds the block items of the 7 blocks; standalone items are planned. */
+/** Furniture block items. */
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
@@ -37,6 +37,24 @@ public final class ModItems {
     // Block item for the elementary desk (a single block with 9 slots)
     public static final DeferredItem<BlockItem> ELEMENTARY_DESK =
             ITEMS.registerSimpleBlockItem(ModBlocks.ELEMENTARY_DESK);
+
+    public static final DeferredItem<BlockItem> ENGLISHROOMCHAIR =
+            ITEMS.registerSimpleBlockItem(ModBlocks.ENGLISHROOMCHAIR);
+
+    public static final DeferredItem<BlockItem> HALLCHAIR =
+            ITEMS.registerSimpleBlockItem(ModBlocks.HALLCHAIR);
+
+    public static final DeferredItem<BlockItem> PLASTICCHAIR_WHITE =
+            ITEMS.registerSimpleBlockItem(ModBlocks.PLASTICCHAIR_WHITE);
+
+    public static final DeferredItem<BlockItem> PLASTICCHAIR_RED =
+            ITEMS.registerSimpleBlockItem(ModBlocks.PLASTICCHAIR_RED);
+
+    public static final DeferredItem<BlockItem> PLASTICCHAIR_WHITE_ARMS =
+            ITEMS.registerSimpleBlockItem(ModBlocks.PLASTICCHAIR_WHITE_ARMS);
+
+    public static final DeferredItem<BlockItem> PLASTICCHAIR_RED_ARMS =
+            ITEMS.registerSimpleBlockItem(ModBlocks.PLASTICCHAIR_RED_ARMS);
 
     private ModItems() {
     }

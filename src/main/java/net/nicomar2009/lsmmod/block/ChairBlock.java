@@ -52,10 +52,16 @@ public class ChairBlock extends Block {
 
     // Indexed by Direction.get2DDataValue(): SOUTH=0, WEST=1, NORTH=2, EAST=3.
     // This is also the number of clockwise 90-degree turns, matching the blockstate "y" rotations.
-    private static final VoxelShape[] SHAPES = buildRotatedShapes(NATIVE_SHAPE);
+    private final VoxelShape[] shapes;
 
     public ChairBlock(Properties properties) {
+        this(properties, NATIVE_SHAPE);
+    }
+
+    /** Allows new chair models to provide their own collision and selection geometry. */
+    public ChairBlock(Properties properties, VoxelShape nativeShape) {
         super(properties);
+        this.shapes = buildRotatedShapes(nativeShape);
         // Default orientation matches the model's native orientation
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.SOUTH));
     }
@@ -105,7 +111,7 @@ public class ChairBlock extends Block {
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPES[state.getValue(FACING).get2DDataValue()];
+        return shapes[state.getValue(FACING).get2DDataValue()];
     }
 
     // ---- Sitting --------------------------------------------------------------------------

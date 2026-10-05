@@ -7,12 +7,13 @@ import net.nicomar2009.lsmmod.LSMMod;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.PushReaction;
 import net.nicomar2009.lsmmod.block.ChairBlock;
+import net.nicomar2009.lsmmod.block.NewChairShapes;
 import net.nicomar2009.lsmmod.block.DeskBlock;
 import net.nicomar2009.lsmmod.block.ElementaryDeskBlock;
 import net.nicomar2009.lsmmod.block.LockerBlock;
 import net.nicomar2009.lsmmod.block.TeachersDeskBlock;
 
-/** Block registry: 3 chairs, 2 two-half desks, 1 single-block desk and 1 locker. */
+/** Furniture block registry. */
 public final class ModBlocks {
     // Specialized register: it sets the block's resource key (required since 1.21.2) automatically
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(LSMMod.MOD_ID);
@@ -61,6 +62,36 @@ public final class ModBlocks {
             props -> props
                     .strength(2.0F)
                     .noOcclusion());
+
+    public static final DeferredBlock<ChairBlock> ENGLISHROOMCHAIR = BLOCKS.registerBlock(
+            "englishroomchair",
+            props -> new ChairBlock(props, NewChairShapes.ENGLISHROOMCHAIR),
+            props -> props.strength(2.0F).noOcclusion());
+
+    public static final DeferredBlock<ChairBlock> HALLCHAIR = BLOCKS.registerBlock(
+            "hallchair",
+            props -> new ChairBlock(props, NewChairShapes.HALLCHAIR),
+            props -> props.strength(2.0F).noOcclusion());
+
+    public static final DeferredBlock<ChairBlock> PLASTICCHAIR_WHITE = BLOCKS.registerBlock(
+            "plasticchair_white",
+            props -> new ChairBlock(props, NewChairShapes.PLASTICCHAIR),
+            props -> props.strength(2.0F).noOcclusion());
+
+    public static final DeferredBlock<ChairBlock> PLASTICCHAIR_RED = BLOCKS.registerBlock(
+            "plasticchair_red",
+            props -> new ChairBlock(props, NewChairShapes.PLASTICCHAIR),
+            props -> props.strength(2.0F).noOcclusion());
+
+    public static final DeferredBlock<ChairBlock> PLASTICCHAIR_WHITE_ARMS = BLOCKS.registerBlock(
+            "plasticchair_white_arms",
+            props -> new ChairBlock(props, NewChairShapes.PLASTICCHAIR_ARMS),
+            props -> props.strength(2.0F).noOcclusion());
+
+    public static final DeferredBlock<ChairBlock> PLASTICCHAIR_RED_ARMS = BLOCKS.registerBlock(
+            "plasticchair_red_arms",
+            props -> new ChairBlock(props, NewChairShapes.PLASTICCHAIR_ARMS),
+            props -> props.strength(2.0F).noOcclusion());
 
     private ModBlocks() {
     }

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "L": "minecraft:light_gray_wool"
+  },
+  "pattern": [
+    "L  ",
+    "LLL",
+    "I I"
+  ],
+  "result": {
+    "id": "lsmmod:englishroomchair",
+    "count": 1
+  }
+}
