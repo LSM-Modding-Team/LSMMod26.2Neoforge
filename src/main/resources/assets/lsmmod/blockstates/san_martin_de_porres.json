@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "facing=north,half=lower": { "model": "lsmmod:block/san_martin_de_porres_down", "y": 270 },
+    "facing=east,half=lower":  { "model": "lsmmod:block/san_martin_de_porres_down" },
+    "facing=south,half=lower": { "model": "lsmmod:block/san_martin_de_porres_down", "y": 90 },
+    "facing=west,half=lower":  { "model": "lsmmod:block/san_martin_de_porres_down", "y": 180 },
+
+    "facing=north,half=upper": { "model": "lsmmod:block/san_martin_de_porres_up", "y": 270 },
+    "facing=east,half=upper":  { "model": "lsmmod:block/san_martin_de_porres_up" },
+    "facing=south,half=upper": { "model": "lsmmod:block/san_martin_de_porres_up", "y": 90 },
+    "facing=west,half=upper":  { "model": "lsmmod:block/san_martin_de_porres_up", "y": 180 }
+  }
+}

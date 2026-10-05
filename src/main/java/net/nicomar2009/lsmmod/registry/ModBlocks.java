@@ -11,6 +11,7 @@ import net.nicomar2009.lsmmod.block.DeskBlock;
 import net.nicomar2009.lsmmod.block.ElementaryDeskBlock;
 import net.nicomar2009.lsmmod.block.LockerBlock;
 import net.nicomar2009.lsmmod.block.TeachersDeskBlock;
+import net.nicomar2009.lsmmod.block.TwoTallBlock;
 
 /** Block registry: 3 chairs, 2 two-half desks, 1 single-block desk and 1 locker. */
 public final class ModBlocks {
@@ -85,6 +86,16 @@ public final class ModBlocks {
                     .sound(SoundType.WOOD)
                     // The model is not a full cube, so neighbouring faces must not be culled
                     .noOcclusion());
+
+    /** Block 1.8 */
+    public static final DeferredBlock<TwoTallBlock> SAN_MARTIN_DE_PORRES = BLOCKS.registerBlock(
+            "san_martin_de_porres",
+            TwoTallBlock::new,
+            props -> props
+                    .strength(4.0f)
+                    .sound(SoundType.AMETHYST)
+                    .noOcclusion()
+                    .pushReaction(PushReaction.BLOCK));
 
     public static void register(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);

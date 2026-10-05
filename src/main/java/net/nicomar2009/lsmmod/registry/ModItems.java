@@ -38,6 +38,10 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> ELEMENTARY_DESK =
             ITEMS.registerSimpleBlockItem(ModBlocks.ELEMENTARY_DESK);
 
+    // Block item for the statue of San Martín De Porres (a double block)
+    public static final DeferredItem<BlockItem> SAN_MARTIN_DE_PORRES =
+            ITEMS.registerSimpleBlockItem(ModBlocks.SAN_MARTIN_DE_PORRES);
+
     private ModItems() {
     }
 
