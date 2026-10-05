@@ -30,7 +30,10 @@ Arte generado con scripts (decisión D3, abierta): iría en `tools/art/`; lo que
 
 ## Recursos que hay ahora
 
-| Archivo | Para qué es | Qué falta para usarlo |
-|---|---|---|
-| *school_bell.json* | modelo de la campana | añadir el bloque |
-| *school_bell.png* | textura de la campana | añadir el bloque |
+| Archivo | Para qué es | Qué falta para usarlo | Descripción del bloque |
+|---|---|---|---|
+| *school_bell.json* | modelo de la campana | añadir el bloque | Los NPC salen al patio (salvo algunos alumnos) durante 90 s, tiempo para lootear ~2 salones. Cooldown de 15 min (propuesta). |
+| *school_bell.png* | textura de la campana | añadir el bloque | Los NPC salen al patio (salvo algunos alumnos) durante 90 s, tiempo para lootear ~2 salones. Cooldown de 15 min (propuesta). |
+| *elementary_desk.json* | modelo de la carpeta | añadir el bloque | Función decorativa y de almacenamiento, ofreciendo 9 slots para almacenar objetos. **A diferencia de las otras carpetas, esta únicamente consiste de un único bloque, no de una combinación de 2** |
+| *elementary_desk.png* | textura de la carpeta | añadir el bloque | Función decorativa y de almacenamiento, ofreciendo 9 slots para almacenar objetos. **A diferencia de las otras carpetas, esta únicamente consiste de un único bloque, no de una combinación de 2** |
+
