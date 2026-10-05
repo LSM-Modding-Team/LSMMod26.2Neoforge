@@ -41,3 +41,7 @@ El usuario confirma: trabajar y pushear siempre en master, sin crear ramas. Se g
 ### 2026-10-05 — Integrar escudo.zip
 
 El usuario aporta nueve PNG, modelos exportados y bbmodels. Se usan sus PNG intactos y la geometría original, corrigiendo referencias a lsm2 y namespaces. Distribución 9 5 8 / 2 1 3 / 7 4 6, con lsm1 en el centro y mosaico de inventario 48×48. BUILD SUCCESSFUL; publicación directa a master.
+
+### 2026-10-05 — Uniones del escudo y ladrillos del End
+
+Corrección de las uniones marcadas en azul moviendo los píxeles de lsm2, lsm7 y la franja de lsm6. Fondo de end_stone_bricks real de Minecraft 26.2, mosaico de inventario y bbmodels sincronizados. BUILD SUCCESSFUL; publicación a master y entrega del JAR.
