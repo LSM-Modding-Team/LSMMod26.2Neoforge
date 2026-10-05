@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+2026-10-05: se corrige el fondo de school_shield compensando el giro de 180° de los UV superiores: los píxeles de end_stone_bricks se giran en cada PNG sin mover el símbolo ni sus uniones. Mosaico de inventario y texturas embebidas de los nueve bbmodels sincronizados. BUILD SUCCESSFUL con Java 25 y harness offline; prueba visual dentro de Minecraft pendiente.
+
 2026-10-05: school_bell (Timbre escolar) usa el modelo y PNG originales de newresources. Solo paredes con soporte firme, cuatro orientaciones y drop al perder la pared. Sin sonido ni función de timbre. BUILD SUCCESSFUL con Java 25 y harness offline; prueba Minecraft pendiente.
 
 **Mouse escritorio gris 2026-10-05:** `gray_computer_desk` muestra un mouse pequeño sobre la cubierta cuando tiene PC. Modelos y colisiones sincronizados. BUILD SUCCESSFUL; revisión visual en Minecraft pendiente.

@@ -115,3 +115,7 @@ Corrección del escritorio gris (2026-10-05): split recorta UV proporcionalmente
 2026-10-05: gray_computer_desk añade mouse pequeño con rueda sobre la cubierta, visible solo con PC. Modelos y colisiones sincronizados. BUILD SUCCESSFUL; revisión visual pendiente.
 
 2026-10-05: school_bell (Timbre escolar) usa newresources/school_bell.json y PNG originales; solo se coloca sobre caras laterales con soporte firme, cuatro orientaciones, forma ajustada al modelo y drop al perder la pared. Bloque/item en pestaña LSM Mod; sin sonido, interacción ni redstone. BUILD SUCCESSFUL con Java 25 y harness offline usando caché existente. Prueba dentro de Minecraft pendiente.
+
+### Orientación del fondo del escudo
+
+2026-10-05: se corrige el fondo de school_shield compensando el giro de 180° de los UV superiores: los píxeles de end_stone_bricks se giran en cada PNG sin mover el símbolo ni sus uniones. Mosaico de inventario y texturas embebidas de los nueve bbmodels sincronizados. BUILD SUCCESSFUL con Java 25 y harness offline; prueba visual dentro de Minecraft pendiente.
