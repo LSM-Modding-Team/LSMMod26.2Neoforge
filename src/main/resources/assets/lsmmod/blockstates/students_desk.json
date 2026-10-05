@@ -1,0 +1,34 @@
+{
+	"variants": {
+		"facing=south,part=right": {
+			"model": "lsmmod:block/studentsdeskleft"
+		},
+		"facing=south,part=left": {
+			"model": "lsmmod:block/studentsdeskright"
+		},
+		"facing=west,part=right": {
+			"model": "lsmmod:block/studentsdeskleft",
+			"y": 90
+		},
+		"facing=west,part=left": {
+			"model": "lsmmod:block/studentsdeskright",
+			"y": 90
+		},
+		"facing=north,part=right": {
+			"model": "lsmmod:block/studentsdeskleft",
+			"y": 180
+		},
+		"facing=north,part=left": {
+			"model": "lsmmod:block/studentsdeskright",
+			"y": 180
+		},
+		"facing=east,part=right": {
+			"model": "lsmmod:block/studentsdeskleft",
+			"y": 270
+		},
+		"facing=east,part=left": {
+			"model": "lsmmod:block/studentsdeskright",
+			"y": 270
+		}
+	}
+}

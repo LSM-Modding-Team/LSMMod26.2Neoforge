@@ -1,0 +1,13 @@
+{
+  "itemGroup.lsm_mod": "LSM Mod",
+  "block.lsmmod.high_school_chair": "High School Chair",
+  "block.lsmmod.elementary_chair": "Elementary Chair",
+  "entity.lsmmod.chair_seat": "Chair Seat",
+  "block.lsmmod.students_desk": "Student's Desk",
+  "container.lsmmod.students_desk": "Student's Desk",
+  "block.lsmmod.locker": "Locker",
+  "container.lsmmod.locker": "Locker",
+  "block.lsmmod.teachers_chair": "Teacher's Chair",
+  "block.lsmmod.teachers_desk": "Teacher's Desk",
+  "container.lsmmod.teachers_desk": "Teacher's Desk"
+}

@@ -1,0 +1,7 @@
+{
+	"parent": "lsmmod:block/classroom_chair_base",
+	"textures": {
+		"0": "lsmmod:block/high_school_chair",
+		"particle": "lsmmod:block/high_school_chair"
+	}
+}

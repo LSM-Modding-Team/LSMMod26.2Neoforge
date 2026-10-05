@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"key": {
+		"S": "minecraft:smooth_stone_slab",
+		"I": "minecraft:iron_ingot"
+	},
+	"pattern": [
+		"S  ",
+		"SSS",
+		"I I"
+	],
+	"result": {
+		"id": "lsmmod:high_school_chair",
+		"count": 1
+	}
+}

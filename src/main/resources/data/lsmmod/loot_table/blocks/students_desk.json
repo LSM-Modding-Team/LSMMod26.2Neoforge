@@ -1,0 +1,39 @@
+{
+	"type": "minecraft:block",
+	"random_sequence": "lsmmod:blocks/students_desk",
+	"pools": [
+		{
+			"rolls": 1.0,
+			"bonus_rolls": 0.0,
+			"conditions": [
+				{
+					"condition": "minecraft:survives_explosion"
+				}
+			],
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"name": "lsmmod:students_desk",
+					"conditions": [
+						{
+							"condition": "minecraft:block_state_property",
+							"block": "lsmmod:students_desk",
+							"properties": {
+								"part": "left"
+							}
+						}
+					],
+					"functions": [
+						{
+							"function": "minecraft:copy_components",
+							"source": "block_entity",
+							"include": [
+								"minecraft:custom_name"
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

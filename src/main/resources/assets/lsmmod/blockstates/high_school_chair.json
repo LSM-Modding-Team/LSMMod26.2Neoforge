@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=south": { "model": "lsmmod:block/high_school_chair" },
+    "facing=west":  { "model": "lsmmod:block/high_school_chair", "y": 90 },
+    "facing=north": { "model": "lsmmod:block/high_school_chair", "y": 180 },
+    "facing=east":  { "model": "lsmmod:block/high_school_chair", "y": 270 }
+  }
+}

@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"key": {
+		"B": "minecraft:iron_block",
+		"C": "minecraft:copper_block",
+		"I": "minecraft:iron_ingot",
+		"P": "minecraft:copper_ingot"
+	},
+	"pattern": [
+		"IPI",
+		"B C",
+		"IPI"
+	],
+	"result": {
+		"id": "lsmmod:locker",
+		"count": 1
+	}
+}

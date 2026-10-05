@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=east":  { "model": "lsmmod:block/locker" },
+    "facing=south": { "model": "lsmmod:block/locker", "y": 90 },
+    "facing=west":  { "model": "lsmmod:block/locker", "y": 180 },
+    "facing=north": { "model": "lsmmod:block/locker", "y": 270 }
+  }
+}

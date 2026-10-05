@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"key": {
+		"G": "minecraft:gold_ingot",
+		"I": "minecraft:iron_ingot"
+	},
+	"pattern": [
+		"G  ",
+		"GGG",
+		"I I"
+	],
+	"result": {
+		"id": "lsmmod:elementary_chair",
+		"count": 1
+	}
+}
