@@ -75,3 +75,6 @@ BUILD SUCCESSFUL con Java 25 offline Windows; colocación, drops y guardado dent
 2026-10-05: Correcciones de computer_desk siguiendo dos fotografías: sin techo, paredes laterales de madera, bordes negros y bandeja deslizante ligada a has_pc.
 CPU compacta sobre la cubierta junto al monitor; se eliminan caras internas y de corte superpuestas, con colisiones sincronizadas.
 BUILD SUCCESSFUL con Java 25 offline Windows. Confirmación del flickering en Minecraft pendiente.
+
+2026-10-05: Se afinan los costados curvos de computer_desk, se añade relieve trasero de un píxel de alto y mouse pequeño ligado a has_pc.
+Modelos y colisiones sincronizados. BUILD SUCCESSFUL; comprobación visual en Minecraft pendiente.

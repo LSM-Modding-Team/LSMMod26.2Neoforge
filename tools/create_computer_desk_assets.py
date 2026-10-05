@@ -1,6 +1,7 @@
 """Build the two-block school computer workstation and matching collision shapes."""
 import copy
 import json
+import math
 from pathlib import Path
 from PIL import Image, ImageDraw
 
@@ -42,18 +43,33 @@ def box(start, end, texture='wood', overrides=None):
     return {'from': start, 'to': end, 'faces': faces}
 
 # Wooden side panels support the desktop; their front edges are painted black.
-# No roof, freestanding metal legs or frame below the sliding keyboard tray.
-furniture = [box([0,0,1],[1,28,12], overrides={'south':[8,0,16,8]}),
-             box([15,0,1],[16,28,12], overrides={'south':[8,0,16,8]}),
-             box([1,13,0],[15,28,1]), box([1,16,1],[15,17,12]),
+# The narrow rear header is one pixel high and two deep, rather than a roof.
+furniture = [box([1,13,0],[15,28,1]), box([0,28,0],[16,29,2]),
+             box([1,16,1],[15,17,12]),
              box([1,5,1],[15,8,2]),
              box([1,12.4,2],[1.2,13.4,12],'paint'),
              box([14.8,12.4,2],[15,13.4,12],'paint')]
+# Approximate a quarter-circle at the upper front of each wooden side wall.
+# Thin adjacent strips stay compatible with vanilla cuboid models and collisions.
+for x in [0, 15]:
+    furniture.append(box([x,0,1],[x+1,24,12], overrides={'south':[8,0,16,8]}))
+    furniture.append(box([x,24,1],[x+1,28,8], overrides={'up':[8,0,16,8]}))
+    for step in range(16):
+        start = 8 + step*.25
+        end = start + .25
+        height = 24 + math.sqrt(max(0, 16-(end-8)**2))
+        if height > 24:
+            furniture.append(box([x,24,start],[x+1,height,end],
+                                 overrides={'up':[8,0,16,8], 'south':[8,0,16,8]}))
 retracted_tray = box([1.25,12.6,2],[14.75,13.2,9])
 extended_tray = box([1.25,12.6,7],[14.75,13.2,15.5])
 equipment = [box([2,13.2,10],[14,13.85,14.5],'keys'),
              box([10.5,17,3],[14.5,19.4,8],'paint'),
-             box([10.5,17,8],[14.5,19.4,8.08],'cpu')]
+             box([10.5,17,8],[14.5,19.4,8.08],'cpu'),
+             # Small mouse on the desktop, with a raised body and scroll wheel.
+             box([6.8,17,9.1],[8.4,17.25,11.3],'paint'),
+             box([7,17.25,9.3],[8.2,17.65,11.1],'paint'),
+             box([7.48,17.65,9.65],[7.72,17.75,10.05],'keys')]
 # Reuse the existing PC monitor at a reduced size, preserving its texture UVs.
 pc = json.loads((A / 'models/block/pc.json').read_text(encoding='utf-8'))
 for element in pc['elements']:
