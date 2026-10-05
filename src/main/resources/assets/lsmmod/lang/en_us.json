@@ -17,7 +17,8 @@
   "block.lsmmod.moises_laptop": "Moisés’ Laptop",
   "block.lsmmod.pc": "School PC",
   "block.lsmmod.computer_desk": "Computer desk",
-  "block.lsmmod.gray_computer_desk": "Gray computer desk"
-,
-  "block.lsmmod.school_bell": "School Bell"
+  "block.lsmmod.gray_computer_desk": "Gray computer desk",
+  "block.lsmmod.school_bell": "School Bell",
+  "item.lsmmod.lsm_anthem": "Music Disc: Anthem of School Libertador San Martin",
+  "jukebox_song.lsmmod.lsm_anthem": "Tobías Vílchez Pinedo - Himno LSM"
 }

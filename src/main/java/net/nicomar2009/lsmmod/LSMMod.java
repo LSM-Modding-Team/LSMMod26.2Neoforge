@@ -8,6 +8,7 @@ import net.nicomar2009.lsmmod.registry.ModBlocks;
 import net.nicomar2009.lsmmod.registry.ModCreativeTabs;
 import net.nicomar2009.lsmmod.registry.ModEntities;
 import net.nicomar2009.lsmmod.registry.ModItems;
+import net.nicomar2009.lsmmod.registry.ModSounds;
 import org.slf4j.Logger;
 
 /** Mod entry point. */
@@ -24,6 +25,7 @@ public class LSMMod {
         ModItems.register(modEventBus);
         ModEntities.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
+        ModSounds.SOUNDS.register(modEventBus);
         LOGGER.info("LSM Mod loaded");
     }
 }

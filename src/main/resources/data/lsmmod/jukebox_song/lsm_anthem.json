@@ -1,0 +1,6 @@
+{
+  "sound_event": "lsmmod:music_disc.lsm_anthem",
+  "description": { "translate": "jukebox_song.lsmmod.lsm_anthem" },
+  "length_in_seconds": 97.596,
+  "comparator_output": 12
+}
