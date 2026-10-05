@@ -36,21 +36,24 @@ for x in range(36, 61, 3):
 im.save(A / 'textures/block/computer_desk.png')
 
 def box(start, end, texture='wood', overrides=None):
-    uv = {'wood': [0,0,8,8], 'metal': [8,0,16,8], 'keys': [0,8,8,16], 'cpu': [8,8,16,16]}[texture]
+    uv = {'wood': [0,0,8,8], 'paint': [8,0,16,8], 'keys': [0,8,8,16], 'cpu': [8,8,16,16]}[texture]
     faces = {f: {'texture': '#desk', 'uv': uv} for f in ['north','south','east','west','up','down']}
     for face, coords in (overrides or {}).items(): faces[face]['uv'] = coords
     return {'from': start, 'to': end, 'faces': faces}
 
-# Single-column workstation: lower keyboard worktop and elevated monitor shelf.
-furniture = [box([0,12,1],[16,13,16]), box([0,16,0],[16,17,10]),
-             box([0,13,0],[16,31,1]), box([0,29,1],[16,31,10]),
-             box([0,0,0],[1,29,1],'metal'), box([15,0,0],[16,29,1],'metal'),
-             box([0,0,14],[1,12,16],'metal'), box([15,0,14],[16,12,16],'metal'),
-             box([0,2,0],[1,3,16],'metal'), box([15,2,0],[16,3,16],'metal'),
-             box([1,9,0],[15,11,1])]
-equipment = [box([2,13,10.2],[14,13.65,14.5],'keys'),
-             box([10,17,3],[15,19.4,8],'metal'),
-             box([10,17,8],[15,19.4,8.08],'cpu')]
+# Wooden side panels support the desktop; their front edges are painted black.
+# No roof, freestanding metal legs or frame below the sliding keyboard tray.
+furniture = [box([0,0,1],[1,28,12], overrides={'south':[8,0,16,8]}),
+             box([15,0,1],[16,28,12], overrides={'south':[8,0,16,8]}),
+             box([1,13,0],[15,28,1]), box([1,16,1],[15,17,12]),
+             box([1,5,1],[15,8,2]),
+             box([1,12.4,2],[1.2,13.4,12],'paint'),
+             box([14.8,12.4,2],[15,13.4,12],'paint')]
+retracted_tray = box([1.25,12.6,2],[14.75,13.2,9])
+extended_tray = box([1.25,12.6,7],[14.75,13.2,15.5])
+equipment = [box([2,13.2,10],[14,13.85,14.5],'keys'),
+             box([10.5,17,3],[14.5,19.4,8],'paint'),
+             box([10.5,17,8],[14.5,19.4,8.08],'cpu')]
 # Reuse the existing PC monitor at a reduced size, preserving its texture UVs.
 pc = json.loads((A / 'models/block/pc.json').read_text(encoding='utf-8'))
 for element in pc['elements']:
@@ -60,6 +63,23 @@ for element in pc['elements']:
     for face in part['faces'].values(): face['texture'] = '#pc'
     equipment.append(part)
 
+def hide_internal_faces(elements):
+    """Remove faces completely buried in neighboring geometry, including joins."""
+    elements = copy.deepcopy(elements)
+    for element in elements:
+        for face, axis, positive in [('west',0,False),('east',0,True),('down',1,False),
+                                     ('up',1,True),('north',2,False),('south',2,True)]:
+            plane = element['to' if positive else 'from'][axis]
+            other_axes = [i for i in range(3) if i != axis]
+            for other in elements:
+                if other is element: continue
+                covers = all(other['from'][i] <= element['from'][i] and other['to'][i] >= element['to'][i] for i in other_axes)
+                buried = (other['from'][axis] <= plane < other['to'][axis]) if positive else (other['from'][axis] < plane <= other['to'][axis])
+                if covers and buried:
+                    element['faces'].pop(face, None)
+                    break
+    return elements
+
 def split(elements, half):
     out = []
     lo, hi = half * 16, (half + 1) * 16
@@ -68,6 +88,8 @@ def split(elements, half):
         part = copy.deepcopy(element)
         part['from'][1] = max(lo, part['from'][1]) - lo
         part['to'][1] = min(hi, part['to'][1]) - lo
+        if element['from'][1] < lo: part['faces'].pop('down', None)
+        if element['to'][1] > hi: part['faces'].pop('up', None)
         out.append(part)
     return out
 
@@ -77,7 +99,8 @@ for half, label in [(0,'lower'), (1,'upper')]:
     shape_states = []
     for occupied in [False, True]:
         name = f'computer_desk_{label}' + ('_pc' if occupied else '')
-        elements = split(furniture + (equipment if occupied else []), half)
+        full_model = hide_internal_faces(furniture + [extended_tray if occupied else retracted_tray] + (equipment if occupied else []))
+        elements = split(full_model, half)
         shape_states.append(elements)
         write(A / f'models/block/{name}.json', {
             'parent': 'minecraft:block/block',
@@ -90,7 +113,7 @@ write(A / 'blockstates/computer_desk.json', {'variants':variants})
 write(A / 'models/item/computer_desk.json', {
     'parent':'minecraft:block/block',
     'textures':{'desk':'lsmmod:block/computer_desk', 'particle':'lsmmod:block/computer_desk'},
-    'elements':furniture,
+    'elements':hide_internal_faces(furniture + [retracted_tray]),
     'display':{'gui':{'rotation':[20,135,0], 'translation':[0,-5,0], 'scale':[.45,.45,.45]},
                'ground':{'translation':[0,1,0], 'scale':[.25,.25,.25]},
                'fixed':{'translation':[0,-5,0], 'scale':[.4,.4,.4]}}})

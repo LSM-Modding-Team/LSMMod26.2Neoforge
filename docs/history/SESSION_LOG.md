@@ -71,3 +71,7 @@ BUILD SUCCESSFUL con Java 25 y wrapper Windows offline. Prueba en Minecraft pend
 2026-10-05: Escritorio gris de 2×1×2 con la textura exacta de la silla del aula interactiva.
 Bandeja inferior de teclado y soporte lateral de CPU; un alojamiento de PC persistente compartido por cuatro partes, usando la interacción anterior.
 BUILD SUCCESSFUL con Java 25 offline Windows; colocación, drops y guardado dentro de Minecraft pendientes.
+
+2026-10-05: Correcciones de computer_desk siguiendo dos fotografías: sin techo, paredes laterales de madera, bordes negros y bandeja deslizante ligada a has_pc.
+CPU compacta sobre la cubierta junto al monitor; se eliminan caras internas y de corte superpuestas, con colisiones sincronizadas.
+BUILD SUCCESSFUL con Java 25 offline Windows. Confirmación del flickering en Minecraft pendiente.

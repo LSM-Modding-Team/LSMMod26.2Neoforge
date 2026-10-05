@@ -73,3 +73,6 @@ En la pestaña LSM Mod aparece Mesa de computación. Necesita dos espacios verti
 
 ### Escritorio gris de computación (2026-10-05)
 En la pestaña LSM Mod aparece el escritorio gris de 2 bloques de ancho, 1 de fondo y 2 de alto. Usa el mismo gris que la silla del aula interactiva. Requiere los cuatro espacios libres. Clic derecho con PC escolar en cualquier parte instala una sola PC y muestra monitor, teclado en la bandeja bajo la cubierta y CPU pequeña junto al lateral derecho. Rechaza otros objetos y una segunda PC. Shift + clic derecho con mano vacía devuelve la PC. Se retira completo al romperlo y en supervivencia entrega el escritorio y la PC instalada. Compilación verificada; prueba en Minecraft pendiente.
+
+### Corrección visual de la mesa de computación (2026-10-05)
+La mesa de madera tiene paredes laterales y cantos negros pintados, sin techo ni patas metálicas. La bandeja queda retraída mientras está vacía; al instalar la PC se despliega con el teclado. El monitor y la CPU pequeña permanecen juntos sobre la cubierta. Al retirar la PC, se retrae la bandeja. Se corrigen las caras superpuestas del modelo; compilación correcta y confirmación visual en Minecraft pendiente.
