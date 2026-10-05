@@ -2,7 +2,7 @@
 
 Mod de **NeoForge** (`lsmmod`) para **Minecraft 26.2** (NeoForge 26.2.0.88, Java 25), ambientado en un colegio: un dungeon con NPC (alumnos y profesores) muy fuertes que se quedan en su zona, armas y armadura, raids y un boss final.
 
-**Qué existe hoy:** 3 sillas, 2 pupitres de dos mitades, un pupitre de primaria, un casillero y el escudo del colegio. El escudo se coloca completo como un suelo de 3×3 con una sola imagen pixelada y borde blanco. Todos aparecen en la pestaña creativa LSM Mod. La compilación del proyecto está verificada; prueba del escudo dentro de Minecraft pendiente. Los NPC, estructura, raids y jefes siguen planeados: `docs/ROADMAP.md`.
+**Qué existe hoy:** 3 sillas, 2 pupitres de dos mitades, un pupitre de primaria, un casillero y el escudo del colegio. El escudo se coloca completo como un suelo de 3×3 con el escudo pixelado de `escudo.zip` (nueve piezas de 16×16). Todos aparecen en la pestaña creativa LSM Mod. La compilación del proyecto está verificada; prueba del escudo dentro de Minecraft pendiente. Los NPC, estructura, raids y jefes siguen planeados: `docs/ROADMAP.md`.
 
 ## Ejecutar
 

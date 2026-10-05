@@ -53,3 +53,5 @@ B-SHIELD queda SUPERSEDED por B-SHIELD.1. B-SHIELD.1: COMPILES (harness, BUILD S
 * **Restauración B-SHIELD.1 (2026-10-05):** B-SHIELD.2 queda REVERTED a petición del usuario. Vuelven los bloques completos 3×3 y la textura opaca anterior; se conserva el harness.
 
 Restauración verificada: BUILD SUCCESSFUL con el harness; modelos de cubo completo y textura opaca 96×96 comprobados. Prueba en juego pendiente.
+
+* **B-SHIELD.ZIP (2026-10-05): COMPILES.** Integra las nueve texturas y modelos aportados, con lsm1 como centro; corrige rutas y orden de piezas, añade mosaico de inventario y conserva bbmodels. Sustituye el arte generado. BUILD SUCCESSFUL; prueba en juego pendiente.

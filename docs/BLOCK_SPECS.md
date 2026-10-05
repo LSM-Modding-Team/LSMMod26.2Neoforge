@@ -80,14 +80,10 @@ Lo que hay hoy (leído del código): 3 sillas (`high_school_chair`, `elementary_
 
 V14 (mapeo de sillas y pupitres), V17 (laptops y discos), V18 (trueque del kiosko), V22 (Ardilla). Detalle en `docs/DESIGN.md` §5.
 
-## Escudo 3×3: implementación visual (corrección 2026-10-05)
+## Escudo 3×3: recursos definitivos del ZIP (2026-10-05)
 
-Petición vigente del usuario: bloque simple, completo al colocarlo, horizontal en el suelo, escudo hacia arriba y textura pixelada estilo Minecraft. `school_shield` coloca nueve bloques completos en el plano X/Z, centrados en la posición de colocación. Estados: `facing`, `column`, `row`; se eliminó `assembled` y la interacción de ampliación. La orientación sigue al jugador. Los nueve modelos muestran regiones de la misma textura de 96×96 (32×32 por pieza), con cuatro colores planos y borde blanco. El item muestra el escudo completo. Se comprueba espacio reemplazable, altura, chunks, borde y permiso de interacción antes de colocar. La retirada conjunta y el único drop del centro se mantienen. Los efectos al pisarlo del diseño siguen pendientes.
+`school_shield` coloca nueve bloques completos de una sola vez en el plano X/Z, centrados donde se coloca el item. Estados: facing, column, row. Sin ampliación y sin comportamiento de alfombra. Orientación hacia donde mira el jugador; retirada conjunta con un solo drop. Efectos de NPC pendientes.
 
-La textura se creó con la herramienta de imágenes a partir de la referencia y se exportó a resolución de juego con muestreo por puntos y paleta fija; no hay suavizado ni degradados. El harness persistente vive en `tools/build/`.
+Recursos aportados por el usuario: escudo.zip, nueve PNG originales de 16×16 y sus modelos cúbicos con seis caras, más los bbmodels editables. Se corrigen las referencias erróneas a lsm2 y las rutas sin namespace. Texturas y partículas de cada modelo: lsmmod:block/lsmN. La geometría y los PNG se conservan intactos. Posiciones desde arriba: `9 5 8 / 2 1 3 / 7 4 6`; lsm1 es el centro. Los modelos school_shield_row_col apuntan al lsmN correspondiente. El item usa un mosaico de 48×48 formado con los nueve PNG originales, sin alterar sus píxeles. Los bbmodels se conservan en newresources/escudo/bbmodels.
 
-Verificación de esta corrección: BUILD SUCCESSFUL con `bash tools/build/compile.sh build --offline`. Se comprobó la textura de 96×96, las nueve posiciones horizontales y los UV superiores en las cuatro orientaciones. Prueba en Minecraft pendiente.
-
-### Restauración del bloque completo
-
-A petición del usuario se revierte B-SHIELD.2: altura de bloque completo, dureza 2.5, sonido de metal, textura opaca de B-SHIELD.1 y modelos cúbicos con caras laterales y base blancas. Se elimina la dependencia de soporte inferior y el generador de modelos recortados. Se conserva el harness reutilizable.
+Se retiran la textura generada y el antiguo modelo del item. BUILD SUCCESSFUL con el harness; comprobados los bytes de las texturas, las caras originales, las 36 variantes y los píxeles del mosaico. Prueba en Minecraft pendiente.

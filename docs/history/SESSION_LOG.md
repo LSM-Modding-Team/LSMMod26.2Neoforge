@@ -37,3 +37,7 @@ Compilación de la restauración: BUILD SUCCESSFUL. Rama de publicación: work.
 ### 2026-10-05 — Preferencia Git y corrección del destino
 
 El usuario confirma: trabajar y pushear siempre en master, sin crear ramas. Se guarda en AGENTS.md, START_HERE.md y REFERENCE.md §9. Se aplica el escudo sobre el master remoto actual, conservando las sillas añadidas en otra conversación y combinando registros y traducciones.
+
+### 2026-10-05 — Integrar escudo.zip
+
+El usuario aporta nueve PNG, modelos exportados y bbmodels. Se usan sus PNG intactos y la geometría original, corrigiendo referencias a lsm2 y namespaces. Distribución 9 5 8 / 2 1 3 / 7 4 6, con lsm1 en el centro y mosaico de inventario 48×48. BUILD SUCCESSFUL; publicación directa a master.

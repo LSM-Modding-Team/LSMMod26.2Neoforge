@@ -1,9 +1,9 @@
 {
-  "parent": "minecraft:block/block",
+  "format_version": "1.21.11",
+  "credit": "Made with Blockbench",
   "textures": {
-    "shield": "lsmmod:block/school_shield",
-    "back": "minecraft:block/white_concrete",
-    "particle": "lsmmod:block/school_shield"
+    "1": "lsmmod:block/lsm8",
+    "particle": "lsmmod:block/lsm8"
   },
   "elements": [
     {
@@ -19,60 +19,61 @@
       ],
       "faces": {
         "north": {
-          "texture": "#back",
           "uv": [
             0,
             0,
             16,
             16
-          ]
-        },
-        "south": {
-          "texture": "#back",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
+          ],
+          "texture": "#1"
         },
         "east": {
-          "texture": "#back",
           "uv": [
             0,
             0,
             16,
             16
-          ]
+          ],
+          "texture": "#1"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#1"
         },
         "west": {
-          "texture": "#back",
           "uv": [
             0,
             0,
             16,
             16
-          ]
+          ],
+          "texture": "#1"
         },
         "up": {
-          "texture": "#shield",
           "uv": [
             0,
             0,
             16,
             16
-          ]
+          ],
+          "texture": "#1"
         },
         "down": {
-          "texture": "#back",
           "uv": [
             0,
             0,
             16,
             16
-          ]
+          ],
+          "texture": "#1"
         }
       }
     }
-  ]
+  ],
+  "parent": "minecraft:block/block"
 }

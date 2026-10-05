@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "lsmmod:block/school_shield"
+    "model": "lsmmod:item/school_shield"
   }
 }
