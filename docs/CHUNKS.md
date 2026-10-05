@@ -75,3 +75,5 @@ Restauración verificada: BUILD SUCCESSFUL con el harness; modelos de cubo compl
 * 2026-10-05 — Acabado computer_desk: costados con perfil superior curvo, relieve trasero de 1×2 píxeles y mouse al instalar PC. COMPILES; comprobación visual Minecraft pendiente.
 
 * 2026-10-05 — Simplificación computer_desk: tres cajas por costado, escalones enteros, densidad de textura uniforme. COMPILES; revisión Minecraft pendiente.
+
+* 2026-10-05 — Corrección gray_computer_desk: UV y uniones del monitor, soporte CPU y bandeja extensible un píxel. COMPILES; revisión Minecraft pendiente.

@@ -9,14 +9,14 @@ final class GrayComputerDeskShapes {
         SHAPES[0][0][0][0] = Shapes.or(
                 Block.box(1, 0, 1, 3, 16, 15),
                 Block.box(3, 2, 1, 16, 6, 2),
-                Block.box(3, 12, 4, 16, 13, 15),
-                Block.box(3, 13, 4, 4, 16, 14));
+                Block.box(3, 13, 4, 4, 16, 14),
+                Block.box(3, 12, 4, 16, 13, 15));
         SHAPES[0][0][1][0] = Shapes.or(
                 Block.box(1, 0, 1, 3, 16, 15),
                 Block.box(3, 2, 1, 16, 6, 2),
-                Block.box(3, 12, 4, 16, 13, 15),
                 Block.box(3, 13, 4, 4, 16, 14),
-                Block.box(5, 13, 8, 16, 13.7, 14));
+                Block.box(3, 12, 5, 16, 13, 16),
+                Block.box(5, 13, 9, 16, 13.7, 15));
         SHAPES[0][1][0][0] = Shapes.or(
                 Block.box(0, 0, 0, 16, 2, 16));
         SHAPES[0][1][1][0] = Shapes.or(
@@ -30,20 +30,20 @@ final class GrayComputerDeskShapes {
         SHAPES[1][0][0][0] = Shapes.or(
                 Block.box(13, 0, 1, 15, 16, 15),
                 Block.box(0, 2, 1, 13, 6, 2),
-                Block.box(0, 12, 4, 7, 13, 15),
                 Block.box(6, 13, 4, 7, 16, 14),
                 Block.box(8, 2, 3, 13, 3, 14),
-                Block.box(8, 3, 3, 9, 14, 4),
-                Block.box(8, 3, 13, 9, 14, 14));
+                Block.box(8, 3, 3, 9, 16, 4),
+                Block.box(8, 3, 13, 9, 16, 14),
+                Block.box(0, 12, 4, 7, 13, 15));
         SHAPES[1][0][1][0] = Shapes.or(
                 Block.box(13, 0, 1, 15, 16, 15),
                 Block.box(0, 2, 1, 13, 6, 2),
-                Block.box(0, 12, 4, 7, 13, 15),
                 Block.box(6, 13, 4, 7, 16, 14),
                 Block.box(8, 2, 3, 13, 3, 14),
-                Block.box(8, 3, 3, 9, 14, 4),
-                Block.box(8, 3, 13, 9, 14, 14),
-                Block.box(0, 13, 8, 5, 13.7, 14),
+                Block.box(8, 3, 3, 9, 16, 4),
+                Block.box(8, 3, 13, 9, 16, 14),
+                Block.box(0, 12, 5, 7, 13, 16),
+                Block.box(0, 13, 9, 5, 13.7, 15),
                 Block.box(9, 3, 4, 12.5, 11, 12),
                 Block.box(9, 3, 12, 12.5, 11, 12.08));
         SHAPES[1][1][0][0] = Shapes.or(

@@ -80,3 +80,5 @@ La mesa de madera tiene paredes laterales y cantos negros pintados, sin techo ni
 La mesa de computación incorpora costados redondeados por arriba y un pequeño relieve trasero. Al instalar la PC también aparece un mouse sobre la cubierta, junto al monitor. Compilación verificada; aspecto en Minecraft pendiente.
 
 La mesa de computación usa ahora esquinas de dos escalones grandes, sin la curva subdividida anterior; mantiene mouse, relieve y bandeja retráctil.
+
+La bandeja del escritorio gris mantiene su posición original vacío y sale un píxel al instalar la PC, junto con el teclado; vuelve a retraerse al retirarla. Se corrigen la textura dividida del monitor y el soporte lateral de CPU.

@@ -81,3 +81,6 @@ Modelos y colisiones sincronizados. BUILD SUCCESSFUL; comprobación visual en Mi
 
 2026-10-05: Se retira la curva excesivamente subdividida de computer_desk: tres cajas por costado y UV de madera uniformes.
 Compilación correcta; revisión visual Minecraft pendiente.
+
+2026-10-05: Correcciones gray_computer_desk según captura: UV recortados sin repetición, caras de corte eliminadas y soporte CPU hasta cubierta.
+Bandeja sale un píxel con PC; modelo y colisiones sincronizados. BUILD SUCCESSFUL; revisión Minecraft pendiente.

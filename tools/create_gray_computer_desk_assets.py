@@ -16,10 +16,12 @@ def box(start, end, texture='gray', uv=None):
 # Gray panels, recessed empty keyboard tray and a lateral open CPU cradle.
 furniture = [box([0,16,0],[32,18,16]), box([1,0,1],[3,16,15]),
              box([29,0,1],[31,16,15]), box([3,2,1],[29,6,2]),
-             box([3,12,4],[23,13,15]), box([3,13,4],[4,16,14]),
+             box([3,13,4],[4,16,14]),
              box([22,13,4],[23,16,14]), box([24,2,3],[29,3,14]),
-             box([24,3,3],[25,14,4]), box([24,3,13],[25,14,14])]
-equipment = [box([5,13,8],[21,13.7,14],'equipment',[0,8,8,16]),
+             box([24,3,3],[25,16,4]), box([24,3,13],[25,16,14])]
+retracted_tray = box([3,12,4],[23,13,15])
+extended_tray = box([3,12,5],[23,13,16])
+equipment = [box([5,13,9],[21,13.7,15],'equipment',[0,8,8,16]),
              box([25,3,4],[28.5,11,12],'equipment',[8,0,16,8]),
              box([25,3,12],[28.5,11,12.08],'equipment',[8,8,16,16])]
 pc = json.loads((A / 'models/block/pc.json').read_text(encoding='utf-8'))
@@ -42,6 +44,28 @@ def split(elements, column, half):
         for axis in range(3):
             part['from'][axis] = max(lower[axis], part['from'][axis])-lower[axis]
             part['to'][axis] = min(upper[axis], part['to'][axis])-lower[axis]
+        # Clip UVs with the geometry: otherwise the right cell repeats the screen.
+        axes = {'south':(0,False,1,True), 'north':(0,True,1,True),
+                'east':(2,True,1,True), 'west':(2,False,1,True),
+                'up':(0,False,2,False), 'down':(0,False,2,True)}
+        for face, definition in list(part['faces'].items()):
+            normal = {'west':(0,False),'east':(0,True),'down':(1,False),
+                      'up':(1,True),'north':(2,False),'south':(2,True)}[face]
+            axis, positive = normal
+            if (positive and element['to'][axis] > upper[axis]) or (not positive and element['from'][axis] < lower[axis]):
+                del part['faces'][face]
+                continue
+            old_uv = element['faces'][face]['uv']
+            clipped_uv = []
+            for uv_axis in range(2):
+                axis, reverse = axes[face][uv_axis*2:uv_axis*2+2]
+                size = element['to'][axis]-element['from'][axis]
+                start = (max(lower[axis],element['from'][axis])-element['from'][axis])/size
+                end = (min(upper[axis],element['to'][axis])-element['from'][axis])/size
+                if reverse: start, end = 1-end, 1-start
+                origin, extent = old_uv[uv_axis], old_uv[uv_axis+2]-old_uv[uv_axis]
+                clipped_uv.append((origin+extent*start,origin+extent*end))
+            definition['uv'] = [clipped_uv[0][0],clipped_uv[1][0],clipped_uv[0][1],clipped_uv[1][1]]
         out.append(part)
     return out
 
@@ -59,7 +83,7 @@ for column in range(2):
     for half, label in [(0,'lower'),(1,'upper')]:
         for occupied in [False, True]:
             name = f'gray_computer_desk_{column}_{label}' + ('_pc' if occupied else '')
-            elements = split(furniture + (equipment if occupied else []), column, half)
+            elements = split(furniture + [extended_tray if occupied else retracted_tray] + (equipment if occupied else []), column, half)
             write(A / f'models/block/{name}.json', {'parent':'minecraft:block/block', 'textures':textures,'elements':elements})
             for facing, angle in [('south',0),('west',90),('north',180),('east',270)]:
                 variants[f'column={column},facing={facing},half={label},has_pc={str(occupied).lower()}'] = {'model':f'lsmmod:block/{name}', 'y':angle}
@@ -80,7 +104,7 @@ java += '''        for (int c=0; c<2; c++) for (int h=0; h<2; h++) for (int p=0;
 (ROOT / 'src/main/java/net/nicomar2009/lsmmod/block/GrayComputerDeskShapes.java').write_text(java, encoding='utf-8')
 write(A / 'blockstates/gray_computer_desk.json', {'variants':variants})
 # Keep the inventory model within vanilla element bounds, centered about x=8.
-item = copy.deepcopy(furniture)
+item = copy.deepcopy(furniture + [retracted_tray])
 for element in item:
     for corner in ['from','to']:
         element[corner][0] = element[corner][0]*.5
