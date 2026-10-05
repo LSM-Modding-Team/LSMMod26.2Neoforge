@@ -1,0 +1,147 @@
+# START_HERE: lee SOLO este archivo al empezar
+
+Proyecto **LSM Mod** (`lsmmod`): mod de NeoForge para Minecraft 26.2. Los demás docs se leen **solo** para el trabajo que nombra el mapa de la sección 7. No leas `DESIGN`, `API_NOTES` ni `history/` "para orientarte" (R1).
+
+Idioma: los docs están en español, el código, los identificadores y los comentarios en inglés. Respondes en el idioma en que escribe el usuario.
+
+---
+
+## 1. Qué es (30 s) y vocabulario fijo
+
+Mod ambientado en un **colegio** (dungeon): estructura del colegio, NPC (alumnos y profesores) muy fuertes que se quedan en su zona, armas y armadura, raids, minibosses y un boss final. Hoy existen solo 6 bloques (3 sillas, 2 pupitres, 1 casillero); todo lo demás está `PLANNED`. Detalle: `docs/REFERENCE.md` §1.
+
+Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; *(propuesta)* = valor de balance elegido, ajustable; *(a confirmar)* = supuesto sin validar.
+
+**Vocabulario fijo** (una palabra, un significado; no uses sinónimos). Definiciones del diseño original §2 (`docs/DESIGN.md` §2); ya no son provisionales.
+
+| Palabra | Significado único |
+|---|---|
+| neutral | No ataca salvo que lo ataques o veas que atacas (según el tipo de NPC) |
+| enojado | Hostil activo hacia el jugador |
+| apaciguado | Hostilidad suspendida temporalmente |
+| trackeo | El efecto propio "Trackeo" del jugador: los NPC te localizan (como con glowing), se mueven más rápido y hacen más daño; no se usa la palabra para nada más |
+| llamar | Excepción a quedarse en su zona: el NPC llamado acude rápido desde donde esté y luego vuelve a su posición |
+| importantes / no importantes | Importantes: hay que matarlos para volver vulnerable al Director (son todos salvo los no importantes). No importantes: Bianca, Lucio, Deivis y un décimo de los alumnos de primaria. Una columna en `NPC_SPECS` |
+| colegio | La estructura generada del mundo (jigsaw), no el concepto de escuela |
+| patrulla | Un profesor (capitán) acompañado de unos alumnos; matar al capitán da Bad Omen LSM. Distinta de una raid |
+| raid | Ataque por olas con alumnos y profesores, propio de LSM (no la raid de aldeas de vanilla); la dispara el Bad Omen LSM |
+
+---
+
+## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
+
+**Última edición:** sesión 4, 2026-10-04 (solo docs: Tanda D, sincronización de los specs de la Tanda C y `RAID_PLAN.md`).
+
+* **Último chunk de código entregado:** **B0.1 (limpieza de B0). Estado: SIN CONFIRMAR / NOT COMPILED.** B0 (los 6 bloques que ya estaban) tampoco está confirmado: nadie ha reportado si compila ni si funciona. La sesión 4 **no tocó el mod**.
+* **Qué hizo B0.1 (sin features, sin API nueva):** clave `lang` del asiento corregida (`entity.lsmmod.seat`); receta nueva de `students_desk` (`PPP`/`SCS`/`S S`: tablones, palos, cofre; *(propuesta)*); descripción real en `neoforge.mods.toml`; comentarios corregidos en `ModBlocks`, `ModItems`, `SeatEntity`, `ModEntities`. Detalle: `docs/history/CHUNKS_FULL.md`.
+* **Qué verificar en el juego (cierra B0 y B0.1):** `./gradlew build` y `./gradlew runClient`; en la pestaña creativa "LSM Mod" salen 6 bloques; las sillas se montan con clic derecho; el pupitre de alumno y el del profesor ocupan 2 bloques y abren 27 slots; el casillero abre 54 slots; la receta del pupitre de alumno funciona (`docs/FEATURES.md` lo explica).
+* **Docs: el plan está completo (Tandas A-D).** Los 5 specs de la Tanda C (`ITEM`, `ARMOR`, `BLOCK`, `WORLD`, `BOSS`) no estaban en el zip: el usuario los subió en la sesión 4 y se copiaron a `docs/`. En esta sesión: `DESIGN.md`, `NPC_SPECS.md` y `MECHANICS_SPECS.md` se sincronizaron con lo que el usuario resolvió (V1, V5, V12); nuevos `INTEGRATION_BUNNIDOGS.md`, `API_NOTES.md` (tabla vacía y mapa de riesgo), `FEATURES.md`, `history/SESSION_LOG.md`, `history/CHUNKS_FULL.md`; `DOCS_PLAN.md` pasó a `docs/history/`. Ninguna decisión de balance nueva.
+* **Hay que decirle al usuario:** (1) **Resueltos por él:** V1, V5, V12. **Abiertos:** V2-V4, V6-V11 y **V13-V26** (`docs/DESIGN.md` §5.3), más los pendientes P1-P7 y los supuestos A1-A3. (2) Los picks de `docs/BLOCK_SPECS.md` §3 (no borrar ni renombrar bloques, dejar que las sillas se monten, dejar los 27 slots de las carpetas) y D1-D7 siguen sin respuesta; "sigue con tus picks" acepta todos. (3) **Hace falta `bunnidogs-mod.zip`** antes del hito M4: aquí solo está su `API_NOTES.md`, no su código compilado (D5), y los datos de `docs/INTEGRATION_BUNNIDOGS.md` §2 no se han re-verificado.
+* **Próximos candidatos:** (a) el usuario confirma B0 y B0.1 ("compiló" / "funcionó" / errores); (b) el usuario responde los vacíos y las decisiones, o dice "sigue con tus picks"; (c) un primer chunk de código: `B1` (alinear bloques; ya tiene spec, pero depende de los picks abiertos de V14) o `N0` (matriz de hostilidad en `rules/`; V1 y V5 ya están resueltos, quedan V4, V6, V9, V13, V16 y el pick de precedencia, `docs/MECHANICS_SPECS.md` §6.3); (d) el usuario acepta o ajusta `docs/RAID_PLAN.md` (escrito en la sesión 4, solo docs); falta el plan de `N1` (R10) antes de M4.
+* **Decisiones abiertas:** D1-D7 y los vacíos viven en `docs/DESIGN.md` §6 y §5.3. **D2 (docs en español) se aplicó como pick** y se cambia si el usuario dice otra cosa.
+* **Discrepancias código ↔ diseño sin resolver:** tabla en `docs/BLOCK_SPECS.md` §3; inventario en `docs/REFERENCE.md` §1.
+
+---
+
+## 3. Cómo leer al usuario (R4)
+
+El usuario habla suelto, en español o inglés. Nunca le pidas plantillas ni formularios (R12).
+
+| Dice | Haces |
+|---|---|
+| "funcionó / anduvo / todo bien" | El último chunk pasa a `WORKS`; haces el siguiente chunk |
+| "compiló" | El último chunk pasa a `COMPILES` |
+| Errores o log pegado | Arreglarlos PRIMERO, como chunk propio, sin features nuevas |
+| "continúa" a secas | Dices en una línea que el último chunk está sin confirmar y haces un chunk pequeño |
+| "continúa con X" | Haces X; si es grande o no tiene spec, plan en `docs/` primero y sin codificar hasta que lo diga |
+| "elige tú" / "tus picks" / "sigue con tus picks" | Eliges y justificas en una línea |
+| "solo docs" / "limpia" | Tocas solo docs y tooling |
+
+---
+
+## 4. Quién hace qué
+
+* **El usuario compila y prueba** (R3). El sandbox no tiene Minecraft ni Gradle: solo chequeo de sintaxis y autocomprobación de lógica pura. **Nunca digas que compila ni que funciona.** Estados de chunk: `PLANNED` / `ACCEPTED` / `NOT COMPILED` (entregado sin reporte) → `COMPILES` ("compiló") → `WORKS` ("funcionó") / `SUPERSEDED`. Solo el reporte del usuario cambia el estado.
+* **Un chunk por turno** (R5): algo que el usuario compile y pruebe en pocos minutos (2-6 archivos). Di qué dejaste fuera a propósito. Ante la duda se recorta el chunk, nunca los docs ni el zip.
+* **A lo sumo UNA API nueva de Minecraft por chunk** (R6), señalada como el error de compilación más probable. Copia patrones que ya compilaron. La lógica que pueda ser Java puro va a `rules/`; el pegamento con Minecraft es delgado.
+* **Verificación mínima** (R9): el usuario pidió "menos checks". Autocomprobación solo si cambió lógica pura, una vez por turno, sin pruebas de sabotaje, tests chicos, nunca tras cambios de recursos, arte, docs o pegamento.
+* **Plan primero** (R10) para lo grande; en decisiones menores propones un pick y el usuario lo acepta en una línea. Una función debe poder leerse **en el mundo** (R11): señal visible o audible y palabra explicada en el juego y en `FEATURES`.
+
+Proceso completo (R1-R13 con su texto largo): `docs/REFERENCE.md` §3. Reglas técnicas: R14 y R15 en §8, R16 en §5.
+
+---
+
+## 5. Comandos para copiar y pegar
+
+Descomprimir (la carpeta del zip se llama `LSMMod26.2Neoforge-master`, con punto):
+```
+cd /home/claude && unzip -q /mnt/user-data/uploads/LSMMod26_2Neoforge-master.zip && cd LSMMod26.2Neoforge-master
+```
+
+Sintaxis de todo el Java (`ParseAll`, solo parse; el JRE del sandbox es 21 y el mod usa Java 25):
+```
+java tools/ParseAll.java
+```
+
+Autocomprobación de `rules/`: **PLANNED**, no existe todavía (`tools/RulesCheck.java` nace con el primer chunk de lógica pura). Cuando exista:
+```
+java -m jdk.compiler/com.sun.tools.javac.Main -d /tmp/rc src/main/java/net/nicomar2009/lsmmod/rules/*.java tools/RulesCheck.java && java -cp /tmp/rc RulesCheck
+```
+
+Arte: **no hay script todavía** (decisión D3 abierta). El sandbox tiene Python con Pillow.
+
+Entrega (R13): mismo nombre de zip y de carpeta que se subió, sin `run/` ni `build/`:
+```
+cd /home/claude && zip -qr -y /mnt/user-data/outputs/LSMMod26_2Neoforge-master.zip LSMMod26.2Neoforge-master -x '*/run/*' '*/build/*' '*/.gradle/*'
+```
+Luego `present_files` y respuesta corta: qué hace / qué NO está compilado / qué probar / qué sigue.
+
+---
+
+## 6. El bucle de un chunk (R7, R8)
+
+1. **Código y recursos** del chunk (2-6 archivos).
+2. `java tools/ParseAll.java`.
+3. Solo si cambió lógica pura: un grupo pequeño en `RulesCheck` y UNA corrida.
+4. **Docs.** Toca solo esto:
+   * ESTADO ACTUAL de este archivo (sección 2);
+   * una línea en `docs/CHUNKS.md`;
+   * el spec del área: qué hizo el chunk, diferencias con el plan, riesgos de compilación;
+   * una fila nueva en `docs/API_NOTES.md` si se consultó algo de la API;
+   * "decisiones sin preguntar" en `docs/DESIGN.md` y un párrafo en `docs/FEATURES.md`;
+   * 2-4 líneas en `docs/history/SESSION_LOG.md`.
+   Si un doc de la sección 7 queda desactualizado, corrígelo en el mismo turno (R2).
+5. **Zip** (sección 5).
+
+El orden es así a propósito: quedarse sin espacio cuesta pulido, nunca un zip roto.
+
+---
+
+## 7. Mapa de docs: trabajo → archivo
+
+Todos los docs del plan existen desde la sesión 4. `PLANNED` = se escribe solo cuando haga falta.
+
+| Trabajo | Archivo | Estado |
+|---|---|---|
+| Qué chunks hubo y su estado | `docs/CHUNKS.md` | existe |
+| Hitos, qué sigue, ideas sin spec | `docs/ROADMAP.md` | existe |
+| Hechos estables, proceso largo, paquetes, convenciones, depuración | `docs/REFERENCE.md` | existe |
+| Investigar una API de Minecraft/NeoForge (índice rápido, mapa de riesgo) | `docs/API_NOTES.md` | existe (tabla de búsqueda vacía); lo que compiló en bunnidogs: `docs/history/bunnidogs_patterns/API_NOTES.md` |
+| Cómo se usa cada cosa en el juego | `docs/FEATURES.md` | existe |
+| Diseño, glosario, pendientes P/A/V, decisiones abiertas D, decisiones sin preguntar | `docs/DESIGN.md` | existe |
+| Territorio, llamados, patrullas, raids, matriz de hostilidad, efectos | `docs/MECHANICS_SPECS.md` | existe |
+| NPC, stats, rasgos | `docs/NPC_SPECS.md` | existe |
+| Armas, pacificar/enojar, instrumentos, consumibles, legendarios, discos | `docs/ITEM_SPECS.md` | existe |
+| Armadura, prendas, inmunidades, Traje de Manuel Tirado | `docs/ARMOR_SPECS.md` | existe |
+| Bloques, casilleros y loot, tabla "existe hoy / falta" | `docs/BLOCK_SPECS.md` | existe |
+| Generación del colegio, zonas, aulas, mapa | `docs/WORLD_SPECS.md` | existe |
+| Cadena de eventos, Director, Hidalgo, Yahu, ritual, boss | `docs/BOSS_SPECS.md` | existe |
+| Cruce con el mod bunnidogs | `docs/INTEGRATION_BUNNIDOGS.md` | existe |
+| Patrullas y raids propias (plan, sin código) | `docs/RAID_PLAN.md` | existe |
+| Otro tema grande antes de codificarlo (p. ej. el plan de `N1`) | `docs/<TEMA>_PLAN.md` | `PLANNED` (se escribe cuando haga falta) |
+| El diseño original, literal | `docs/history/DESIGN_SOURCE_v1.md` | existe (literal; nunca se edita) |
+| El plan de documentación que se ejecutó | `docs/history/DOCS_PLAN.md` | existe (histórico) |
+| Registro de sesiones, filas completas de chunks | `docs/history/SESSION_LOG.md`, `docs/history/CHUNKS_FULL.md` | existen (no hacen falta para continuar) |
+| Historia de la API | `docs/history/API_HISTORY.md` | `PLANNED` (solo cuando `API_NOTES.md` tenga secciones viejas) |
+
+**El spec de un sistema gana sobre cualquier otro doc.** Los comentarios del código que citan "README section 9.1" o "Phase 3/4" vienen de un README anterior que no está en el zip: no te fíes de ellos.

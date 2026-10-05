@@ -44,11 +44,11 @@ public class SeatEntity extends Entity {
 
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
-        // Seat entities are never persisted (see noSave() in ModEntities)
+        // Nothing to persist: the seat discards itself in tick() once it has no passenger
     }
 
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
-        // Seat entities are never persisted (see noSave() in ModEntities)
+        // Nothing to persist: the seat discards itself in tick() once it has no passenger
     }
 }

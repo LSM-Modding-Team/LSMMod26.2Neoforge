@@ -13,7 +13,7 @@ public final class ModEntities {
     // Specialized register: it builds the EntityType with its resource key (required in 26.x)
     public static final DeferredRegister.Entities ENTITIES = DeferredRegister.createEntities(LSMMod.MOD_ID);
 
-    // Invisible seat entity: tiny hitbox, never saved, not summonable with /summon
+    // Invisible seat entity: tiny hitbox, not summonable with /summon (not marked noSave(); it discards itself when empty)
     public static final Supplier<EntityType<SeatEntity>> SEAT = ENTITIES.registerEntityType(
             "seat",
             SeatEntity::new,

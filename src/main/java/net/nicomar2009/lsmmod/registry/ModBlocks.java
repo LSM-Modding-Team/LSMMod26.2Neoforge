@@ -11,7 +11,7 @@ import net.nicomar2009.lsmmod.block.DeskBlock;
 import net.nicomar2009.lsmmod.block.LockerBlock;
 import net.nicomar2009.lsmmod.block.TeachersDeskBlock;
 
-/** Block registry. One entry per object in README section 9.1. */
+/** Block registry: 3 chairs, 2 two-half desks and 1 locker. */
 public final class ModBlocks {
     // Specialized register: it sets the block's resource key (required since 1.21.2) automatically
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(LSMMod.MOD_ID);

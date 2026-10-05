@@ -6,15 +6,15 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.nicomar2009.lsmmod.LSMMod;
 
-/** Item registry: block items (Phase 3) and standalone items (Phase 4). */
+/** Item registry. Today it only holds the block items of the 6 blocks; standalone items are planned. */
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
-    // Block item for the chair (the registry name is taken from the block: "lsmmod:chair")
+    // Block item for the elementary chair (registry name taken from the block: "lsmmod:elementary_chair")
     public static final DeferredItem<BlockItem> ELEMENTARY_CHAIR =
             ITEMS.registerSimpleBlockItem(ModBlocks.ELEMENTARY_CHAIR);
 
-    // Block item for the chair (the registry name is taken from the block: "lsmmod:chair")
+    // Block item for the high school chair (registry name taken from the block: "lsmmod:high_school_chair")
     public static final DeferredItem<BlockItem> HIGH_SCHOOL_CHAIR =
             ITEMS.registerSimpleBlockItem(ModBlocks.HIGH_SCHOOL_CHAIR);
 
@@ -26,7 +26,7 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> LOCKER =
             ITEMS.registerSimpleBlockItem(ModBlocks.LOCKER);
 
-    // Block item for the chair (the registry name is taken from the block: "lsmmod:chair")
+    // Block item for the teachers chair (registry name taken from the block: "lsmmod:teachers_chair")
     public static final DeferredItem<BlockItem> TEACHERS_CHAIR =
             ITEMS.registerSimpleBlockItem(ModBlocks.TEACHERS_CHAIR);
 
