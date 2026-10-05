@@ -42,6 +42,9 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> SAN_MARTIN_DE_PORRES =
             ITEMS.registerSimpleBlockItem(ModBlocks.SAN_MARTIN_DE_PORRES);
 
+    public static final DeferredItem<BlockItem> SCHOOL_SHIELD =
+            ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_SHIELD);
+
     private ModItems() {
     }
 

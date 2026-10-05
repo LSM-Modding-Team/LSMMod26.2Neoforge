@@ -6,6 +6,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.nicomar2009.lsmmod.LSMMod;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.PushReaction;
+import net.nicomar2009.lsmmod.block.SchoolShieldBlock;
 import net.nicomar2009.lsmmod.block.ChairBlock;
 import net.nicomar2009.lsmmod.block.DeskBlock;
 import net.nicomar2009.lsmmod.block.ElementaryDeskBlock;
@@ -96,6 +97,10 @@ public final class ModBlocks {
                     .sound(SoundType.AMETHYST)
                     .noOcclusion()
                     .pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<SchoolShieldBlock> SCHOOL_SHIELD = BLOCKS.registerBlock(
+            "school_shield", SchoolShieldBlock::new,
+            props -> props.strength(2.5F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
 
     public static void register(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);
