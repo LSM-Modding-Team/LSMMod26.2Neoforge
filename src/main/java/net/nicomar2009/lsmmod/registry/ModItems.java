@@ -63,6 +63,12 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> PLASTICCHAIR_RED_ARMS =
             ITEMS.registerSimpleBlockItem(ModBlocks.PLASTICCHAIR_RED_ARMS);
 
+    public static final DeferredItem<BlockItem> LAPTOP =
+            ITEMS.registerSimpleBlockItem(ModBlocks.LAPTOP);
+
+    public static final DeferredItem<BlockItem> MOISES_LAPTOP =
+            ITEMS.registerSimpleBlockItem(ModBlocks.MOISES_LAPTOP);
+
     private ModItems() {
     }
 

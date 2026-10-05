@@ -55,3 +55,7 @@ Se ajusta la composición completa (orden y UV superiores) para mostrar borde re
 ### 2026-10-05 — Registro de las seis sillas nuevas
 
 2026-10-05: se completan los registros de bloque e item de englishroomchair, hallchair y las cuatro plasticchair, utilizando NewChairShapes. La pestaña creativa las incluye automáticamente. Se conservan las tres sillas originales y school_shield. Compilación verificada en Windows con Java 25 y gradlew.bat build --offline: BUILD SUCCESSFUL. Prueba en Minecraft pendiente.
+
+2026-10-05: Se crean las dos laptops solicitadas, únicamente visuales y registradas, sin funciones.
+Modelos abiertos y texturas propias: gris/plateado para laptop; oro/diamante para moises_laptop.
+BUILD SUCCESSFUL con Java 25 y wrapper Windows offline; Bash encontró CRLF. Prueba en Minecraft pendiente.

@@ -5,5 +5,7 @@
   "block.lsmmod.plasticchair_red": "Silla de auditorio roja",
   "block.lsmmod.plasticchair_white_arms": "Silla de auditorio blanca con brazos",
   "block.lsmmod.plasticchair_red_arms": "Silla de auditorio roja con brazos",
-  "block.lsmmod.school_shield": "Escudo del colegio"
+  "block.lsmmod.school_shield": "Escudo del colegio",
+  "block.lsmmod.laptop": "Laptop",
+  "block.lsmmod.moises_laptop": "Laptop de Moisés"
 }

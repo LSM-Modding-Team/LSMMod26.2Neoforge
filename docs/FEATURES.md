@@ -61,3 +61,6 @@ Selecciona el Escudo del colegio en la pestaña LSM Mod y colócalo en el suelo.
 ## Sillas de aula interactiva, hall y auditorio
 
 Las seis sillas nuevas se incluyen en la pestaña LSM Mod como ítems independientes. Se colocan orientadas hacia el jugador y permiten sentarse con clic derecho sin objeto en la mano. Cada variante usa la colisión de su modelo. Sus recetas y drops existentes quedan conectados a los registros. Compilación verificada; prueba en Minecraft pendiente.
+
+### Laptops decorativas (2026-10-05)
+En la pestaña LSM Mod aparecen Laptop y Laptop de Moisés. Se colocan abiertas, orientadas hacia el jugador, y se recuperan al romperlas. La común es gris/plateada; la de Moisés es dorada con detalles celestes de diamante. Todavía no reproducen música ni abren una interfaz. Compilación verificada; prueba en Minecraft pendiente.
