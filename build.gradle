@@ -107,9 +107,11 @@ neoForge {
 // NOTE: the name 'prepareClientRun' is TAKEN by the NeoForge moddev plugin, so ours is 'applyClientOptions'.
 // To apply a changed tools/run-defaults/options.txt, delete run/options.txt once.
 tasks.register('applyClientOptions') {
+    // The configuration cache forbids calling project methods such as file() inside doLast,
+    // so the two File objects are resolved here (configuration time) and only captured below.
+    def source = file('tools/run-defaults/options.txt')
+    def target = file('run/options.txt')
     doLast {
-        def source = file('tools/run-defaults/options.txt')
-        def target = file('run/options.txt')
         if (source.exists() && !target.exists()) {
             target.parentFile.mkdirs()
             target.bytes = source.bytes
