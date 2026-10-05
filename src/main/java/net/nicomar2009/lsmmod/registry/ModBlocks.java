@@ -8,10 +8,11 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.PushReaction;
 import net.nicomar2009.lsmmod.block.ChairBlock;
 import net.nicomar2009.lsmmod.block.DeskBlock;
+import net.nicomar2009.lsmmod.block.ElementaryDeskBlock;
 import net.nicomar2009.lsmmod.block.LockerBlock;
 import net.nicomar2009.lsmmod.block.TeachersDeskBlock;
 
-/** Block registry: 3 chairs, 2 two-half desks and 1 locker. */
+/** Block registry: 3 chairs, 2 two-half desks, 1 single-block desk and 1 locker. */
 public final class ModBlocks {
     // Specialized register: it sets the block's resource key (required since 1.21.2) automatically
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(LSMMod.MOD_ID);
@@ -74,6 +75,16 @@ public final class ModBlocks {
                     .noOcclusion()
                     // The RIGHT half has no block entity, so pistons must never move just one half
                     .pushReaction(PushReaction.BLOCK));
+
+    /** Block 1.7 */
+    public static final DeferredBlock<ElementaryDeskBlock> ELEMENTARY_DESK = BLOCKS.registerBlock(
+            "elementary_desk",
+            ElementaryDeskBlock::new,
+            props -> props
+                    .strength(2.5F)
+                    .sound(SoundType.WOOD)
+                    // The model is not a full cube, so neighbouring faces must not be culled
+                    .noOcclusion());
 
     public static void register(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);

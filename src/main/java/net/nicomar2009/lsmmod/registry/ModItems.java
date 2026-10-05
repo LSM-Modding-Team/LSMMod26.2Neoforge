@@ -6,7 +6,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.nicomar2009.lsmmod.LSMMod;
 
-/** Item registry. Today it only holds the block items of the 6 blocks; standalone items are planned. */
+/** Item registry. Today it only holds the block items of the 7 blocks; standalone items are planned. */
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
@@ -33,6 +33,10 @@ public final class ModItems {
     // Block item for the desk (placing it creates both halves)
     public static final DeferredItem<BlockItem> TEACHERS_DESK =
             ITEMS.registerSimpleBlockItem(ModBlocks.TEACHERS_DESK);
+
+    // Block item for the elementary desk (a single block with 9 slots)
+    public static final DeferredItem<BlockItem> ELEMENTARY_DESK =
+            ITEMS.registerSimpleBlockItem(ModBlocks.ELEMENTARY_DESK);
 
     private ModItems() {
     }
