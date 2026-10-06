@@ -1,66 +1,4098 @@
 {
   "variants": {
-    "facing=south,column=0": {
-      "model": "lsmmod:block/awning_support_0",
-      "y": 0
-    },
-    "facing=west,column=0": {
-      "model": "lsmmod:block/awning_support_0",
-      "y": 90
-    },
-    "facing=north,column=0": {
-      "model": "lsmmod:block/awning_support_0",
-      "y": 180
-    },
-    "facing=east,column=0": {
-      "model": "lsmmod:block/awning_support_0",
-      "y": 270
-    },
-    "facing=south,column=1": {
-      "model": "lsmmod:block/awning_support_1",
-      "y": 0
-    },
-    "facing=west,column=1": {
-      "model": "lsmmod:block/awning_support_1",
-      "y": 90
-    },
-    "facing=north,column=1": {
-      "model": "lsmmod:block/awning_support_1",
-      "y": 180
-    },
-    "facing=east,column=1": {
-      "model": "lsmmod:block/awning_support_1",
-      "y": 270
-    },
-    "facing=south,column=2": {
+    "facing=south,column=0,width=1": {
       "model": "lsmmod:block/awning_support_2",
       "y": 0
     },
-    "facing=west,column=2": {
+    "facing=west,column=0,width=1": {
       "model": "lsmmod:block/awning_support_2",
       "y": 90
     },
-    "facing=north,column=2": {
+    "facing=north,column=0,width=1": {
       "model": "lsmmod:block/awning_support_2",
       "y": 180
     },
-    "facing=east,column=2": {
+    "facing=east,column=0,width=1": {
       "model": "lsmmod:block/awning_support_2",
       "y": 270
     },
-    "facing=south,column=3": {
+    "facing=south,column=1,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=1,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=1,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=1,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=2,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=2,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=2,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=2,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=3,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=3,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=3,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=3,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=4,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=4,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=4,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=4,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=5,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=5,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=5,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=5,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=6,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=6,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=6,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=6,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=7,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=7,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=7,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=7,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=8,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=8,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=8,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=8,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=9,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=9,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=9,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=9,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=10,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=10,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=10,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=10,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=11,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=11,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=11,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=11,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=12,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=12,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=12,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=12,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=13,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=13,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=13,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=13,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=14,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=14,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=14,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=14,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=15,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=15,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=15,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=15,width=1": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=0,width=2": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 0
+    },
+    "facing=west,column=0,width=2": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 90
+    },
+    "facing=north,column=0,width=2": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 180
+    },
+    "facing=east,column=0,width=2": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 270
+    },
+    "facing=south,column=1,width=2": {
       "model": "lsmmod:block/awning_support_3",
       "y": 0
     },
-    "facing=west,column=3": {
+    "facing=west,column=1,width=2": {
       "model": "lsmmod:block/awning_support_3",
       "y": 90
     },
-    "facing=north,column=3": {
+    "facing=north,column=1,width=2": {
       "model": "lsmmod:block/awning_support_3",
       "y": 180
     },
-    "facing=east,column=3": {
+    "facing=east,column=1,width=2": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 270
+    },
+    "facing=south,column=2,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=2,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=2,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=2,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=3,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=3,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=3,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=3,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=4,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=4,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=4,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=4,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=5,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=5,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=5,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=5,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=6,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=6,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=6,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=6,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=7,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=7,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=7,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=7,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=8,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=8,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=8,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=8,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=9,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=9,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=9,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=9,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=10,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=10,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=10,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=10,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=11,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=11,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=11,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=11,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=12,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=12,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=12,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=12,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=13,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=13,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=13,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=13,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=14,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=14,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=14,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=14,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=15,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=15,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=15,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=15,width=2": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=0,width=3": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 0
+    },
+    "facing=west,column=0,width=3": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 90
+    },
+    "facing=north,column=0,width=3": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 180
+    },
+    "facing=east,column=0,width=3": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 270
+    },
+    "facing=south,column=1,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=1,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=1,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=1,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=2,width=3": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 0
+    },
+    "facing=west,column=2,width=3": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 90
+    },
+    "facing=north,column=2,width=3": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 180
+    },
+    "facing=east,column=2,width=3": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 270
+    },
+    "facing=south,column=3,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=3,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=3,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=3,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=4,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=4,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=4,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=4,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=5,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=5,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=5,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=5,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=6,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=6,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=6,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=6,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=7,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=7,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=7,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=7,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=8,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=8,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=8,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=8,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=9,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=9,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=9,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=9,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=10,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=10,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=10,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=10,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=11,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=11,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=11,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=11,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=12,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=12,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=12,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=12,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=13,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=13,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=13,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=13,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=14,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=14,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=14,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=14,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=15,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=15,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=15,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=15,width=3": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=0,width=4": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 0
+    },
+    "facing=west,column=0,width=4": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 90
+    },
+    "facing=north,column=0,width=4": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 180
+    },
+    "facing=east,column=0,width=4": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 270
+    },
+    "facing=south,column=1,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=1,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=1,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=1,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=2,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=2,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=2,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=2,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=3,width=4": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 0
+    },
+    "facing=west,column=3,width=4": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 90
+    },
+    "facing=north,column=3,width=4": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 180
+    },
+    "facing=east,column=3,width=4": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 270
+    },
+    "facing=south,column=4,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=4,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=4,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=4,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=5,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=5,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=5,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=5,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=6,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=6,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=6,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=6,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=7,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=7,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=7,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=7,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=8,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=8,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=8,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=8,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=9,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=9,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=9,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=9,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=10,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=10,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=10,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=10,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=11,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=11,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=11,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=11,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=12,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=12,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=12,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=12,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=13,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=13,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=13,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=13,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=14,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=14,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=14,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=14,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=15,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=15,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=15,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=15,width=4": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=0,width=5": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 0
+    },
+    "facing=west,column=0,width=5": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 90
+    },
+    "facing=north,column=0,width=5": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 180
+    },
+    "facing=east,column=0,width=5": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 270
+    },
+    "facing=south,column=1,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=1,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=1,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=1,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=2,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=2,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=2,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=2,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=3,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=3,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=3,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=3,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=4,width=5": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 0
+    },
+    "facing=west,column=4,width=5": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 90
+    },
+    "facing=north,column=4,width=5": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 180
+    },
+    "facing=east,column=4,width=5": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 270
+    },
+    "facing=south,column=5,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=5,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=5,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=5,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=6,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=6,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=6,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=6,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=7,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=7,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=7,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=7,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=8,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=8,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=8,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=8,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=9,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=9,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=9,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=9,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=10,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=10,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=10,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=10,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=11,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=11,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=11,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=11,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=12,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=12,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=12,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=12,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=13,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=13,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=13,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=13,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=14,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=14,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=14,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=14,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=15,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=15,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=15,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=15,width=5": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=0,width=6": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 0
+    },
+    "facing=west,column=0,width=6": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 90
+    },
+    "facing=north,column=0,width=6": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 180
+    },
+    "facing=east,column=0,width=6": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 270
+    },
+    "facing=south,column=1,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=1,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=1,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=1,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=2,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=2,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=2,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=2,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=3,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=3,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=3,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=3,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=4,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=4,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=4,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=4,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=5,width=6": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 0
+    },
+    "facing=west,column=5,width=6": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 90
+    },
+    "facing=north,column=5,width=6": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 180
+    },
+    "facing=east,column=5,width=6": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 270
+    },
+    "facing=south,column=6,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=6,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=6,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=6,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=7,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=7,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=7,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=7,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=8,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=8,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=8,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=8,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=9,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=9,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=9,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=9,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=10,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=10,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=10,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=10,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=11,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=11,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=11,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=11,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=12,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=12,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=12,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=12,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=13,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=13,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=13,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=13,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=14,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=14,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=14,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=14,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=15,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=15,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=15,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=15,width=6": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=0,width=7": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 0
+    },
+    "facing=west,column=0,width=7": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 90
+    },
+    "facing=north,column=0,width=7": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 180
+    },
+    "facing=east,column=0,width=7": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 270
+    },
+    "facing=south,column=1,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=1,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=1,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=1,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=2,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=2,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=2,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=2,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=3,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=3,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=3,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=3,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=4,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=4,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=4,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=4,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=5,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=5,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=5,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=5,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=6,width=7": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 0
+    },
+    "facing=west,column=6,width=7": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 90
+    },
+    "facing=north,column=6,width=7": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 180
+    },
+    "facing=east,column=6,width=7": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 270
+    },
+    "facing=south,column=7,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=7,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=7,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=7,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=8,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=8,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=8,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=8,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=9,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=9,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=9,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=9,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=10,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=10,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=10,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=10,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=11,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=11,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=11,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=11,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=12,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=12,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=12,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=12,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=13,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=13,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=13,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=13,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=14,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=14,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=14,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=14,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=15,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=15,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=15,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=15,width=7": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=0,width=8": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 0
+    },
+    "facing=west,column=0,width=8": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 90
+    },
+    "facing=north,column=0,width=8": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 180
+    },
+    "facing=east,column=0,width=8": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 270
+    },
+    "facing=south,column=1,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=1,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=1,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=1,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=2,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=2,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=2,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=2,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=3,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=3,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=3,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=3,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=4,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=4,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=4,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=4,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=5,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=5,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=5,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=5,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=6,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=6,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=6,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=6,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=7,width=8": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 0
+    },
+    "facing=west,column=7,width=8": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 90
+    },
+    "facing=north,column=7,width=8": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 180
+    },
+    "facing=east,column=7,width=8": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 270
+    },
+    "facing=south,column=8,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=8,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=8,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=8,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=9,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=9,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=9,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=9,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=10,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=10,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=10,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=10,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=11,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=11,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=11,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=11,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=12,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=12,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=12,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=12,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=13,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=13,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=13,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=13,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=14,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=14,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=14,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=14,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=15,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=15,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=15,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=15,width=8": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=0,width=9": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 0
+    },
+    "facing=west,column=0,width=9": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 90
+    },
+    "facing=north,column=0,width=9": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 180
+    },
+    "facing=east,column=0,width=9": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 270
+    },
+    "facing=south,column=1,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=1,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=1,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=1,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=2,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=2,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=2,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=2,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=3,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=3,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=3,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=3,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=4,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=4,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=4,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=4,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=5,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=5,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=5,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=5,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=6,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=6,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=6,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=6,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=7,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=7,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=7,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=7,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=8,width=9": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 0
+    },
+    "facing=west,column=8,width=9": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 90
+    },
+    "facing=north,column=8,width=9": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 180
+    },
+    "facing=east,column=8,width=9": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 270
+    },
+    "facing=south,column=9,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=9,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=9,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=9,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=10,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=10,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=10,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=10,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=11,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=11,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=11,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=11,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=12,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=12,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=12,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=12,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=13,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=13,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=13,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=13,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=14,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=14,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=14,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=14,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=15,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=15,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=15,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=15,width=9": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=0,width=10": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 0
+    },
+    "facing=west,column=0,width=10": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 90
+    },
+    "facing=north,column=0,width=10": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 180
+    },
+    "facing=east,column=0,width=10": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 270
+    },
+    "facing=south,column=1,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=1,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=1,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=1,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=2,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=2,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=2,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=2,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=3,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=3,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=3,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=3,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=4,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=4,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=4,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=4,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=5,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=5,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=5,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=5,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=6,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=6,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=6,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=6,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=7,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=7,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=7,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=7,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=8,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=8,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=8,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=8,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=9,width=10": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 0
+    },
+    "facing=west,column=9,width=10": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 90
+    },
+    "facing=north,column=9,width=10": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 180
+    },
+    "facing=east,column=9,width=10": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 270
+    },
+    "facing=south,column=10,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=10,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=10,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=10,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=11,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=11,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=11,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=11,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=12,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=12,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=12,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=12,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=13,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=13,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=13,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=13,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=14,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=14,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=14,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=14,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=15,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=15,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=15,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=15,width=10": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=0,width=11": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 0
+    },
+    "facing=west,column=0,width=11": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 90
+    },
+    "facing=north,column=0,width=11": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 180
+    },
+    "facing=east,column=0,width=11": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 270
+    },
+    "facing=south,column=1,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=1,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=1,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=1,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=2,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=2,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=2,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=2,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=3,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=3,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=3,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=3,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=4,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=4,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=4,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=4,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=5,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=5,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=5,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=5,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=6,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=6,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=6,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=6,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=7,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=7,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=7,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=7,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=8,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=8,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=8,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=8,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=9,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=9,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=9,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=9,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=10,width=11": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 0
+    },
+    "facing=west,column=10,width=11": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 90
+    },
+    "facing=north,column=10,width=11": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 180
+    },
+    "facing=east,column=10,width=11": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 270
+    },
+    "facing=south,column=11,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=11,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=11,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=11,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=12,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=12,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=12,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=12,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=13,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=13,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=13,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=13,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=14,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=14,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=14,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=14,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=15,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=15,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=15,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=15,width=11": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=0,width=12": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 0
+    },
+    "facing=west,column=0,width=12": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 90
+    },
+    "facing=north,column=0,width=12": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 180
+    },
+    "facing=east,column=0,width=12": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 270
+    },
+    "facing=south,column=1,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=1,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=1,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=1,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=2,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=2,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=2,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=2,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=3,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=3,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=3,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=3,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=4,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=4,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=4,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=4,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=5,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=5,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=5,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=5,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=6,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=6,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=6,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=6,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=7,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=7,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=7,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=7,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=8,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=8,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=8,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=8,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=9,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=9,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=9,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=9,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=10,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=10,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=10,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=10,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=11,width=12": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 0
+    },
+    "facing=west,column=11,width=12": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 90
+    },
+    "facing=north,column=11,width=12": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 180
+    },
+    "facing=east,column=11,width=12": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 270
+    },
+    "facing=south,column=12,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=12,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=12,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=12,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=13,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=13,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=13,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=13,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=14,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=14,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=14,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=14,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=15,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=15,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=15,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=15,width=12": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=0,width=13": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 0
+    },
+    "facing=west,column=0,width=13": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 90
+    },
+    "facing=north,column=0,width=13": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 180
+    },
+    "facing=east,column=0,width=13": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 270
+    },
+    "facing=south,column=1,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=1,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=1,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=1,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=2,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=2,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=2,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=2,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=3,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=3,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=3,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=3,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=4,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=4,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=4,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=4,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=5,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=5,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=5,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=5,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=6,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=6,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=6,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=6,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=7,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=7,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=7,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=7,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=8,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=8,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=8,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=8,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=9,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=9,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=9,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=9,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=10,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=10,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=10,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=10,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=11,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=11,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=11,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=11,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=12,width=13": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 0
+    },
+    "facing=west,column=12,width=13": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 90
+    },
+    "facing=north,column=12,width=13": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 180
+    },
+    "facing=east,column=12,width=13": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 270
+    },
+    "facing=south,column=13,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=13,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=13,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=13,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=14,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=14,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=14,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=14,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=15,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=15,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=15,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=15,width=13": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=0,width=14": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 0
+    },
+    "facing=west,column=0,width=14": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 90
+    },
+    "facing=north,column=0,width=14": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 180
+    },
+    "facing=east,column=0,width=14": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 270
+    },
+    "facing=south,column=1,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=1,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=1,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=1,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=2,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=2,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=2,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=2,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=3,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=3,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=3,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=3,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=4,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=4,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=4,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=4,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=5,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=5,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=5,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=5,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=6,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=6,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=6,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=6,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=7,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=7,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=7,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=7,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=8,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=8,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=8,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=8,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=9,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=9,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=9,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=9,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=10,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=10,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=10,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=10,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=11,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=11,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=11,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=11,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=12,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=12,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=12,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=12,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=13,width=14": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 0
+    },
+    "facing=west,column=13,width=14": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 90
+    },
+    "facing=north,column=13,width=14": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 180
+    },
+    "facing=east,column=13,width=14": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 270
+    },
+    "facing=south,column=14,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=14,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=14,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=14,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=15,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=15,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=15,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=15,width=14": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=0,width=15": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 0
+    },
+    "facing=west,column=0,width=15": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 90
+    },
+    "facing=north,column=0,width=15": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 180
+    },
+    "facing=east,column=0,width=15": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 270
+    },
+    "facing=south,column=1,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=1,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=1,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=1,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=2,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=2,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=2,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=2,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=3,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=3,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=3,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=3,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=4,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=4,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=4,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=4,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=5,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=5,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=5,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=5,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=6,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=6,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=6,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=6,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=7,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=7,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=7,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=7,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=8,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=8,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=8,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=8,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=9,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=9,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=9,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=9,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=10,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=10,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=10,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=10,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=11,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=11,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=11,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=11,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=12,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=12,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=12,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=12,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=13,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=13,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=13,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=13,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=14,width=15": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 0
+    },
+    "facing=west,column=14,width=15": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 90
+    },
+    "facing=north,column=14,width=15": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 180
+    },
+    "facing=east,column=14,width=15": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 270
+    },
+    "facing=south,column=15,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=15,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=15,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=15,width=15": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=0,width=16": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 0
+    },
+    "facing=west,column=0,width=16": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 90
+    },
+    "facing=north,column=0,width=16": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 180
+    },
+    "facing=east,column=0,width=16": {
+      "model": "lsmmod:block/awning_support_0",
+      "y": 270
+    },
+    "facing=south,column=1,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=1,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=1,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=1,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=2,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=2,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=2,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=2,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=3,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=3,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=3,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=3,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=4,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=4,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=4,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=4,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=5,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=5,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=5,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=5,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=6,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=6,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=6,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=6,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=7,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=7,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=7,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=7,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=8,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=8,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=8,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=8,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=9,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=9,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=9,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=9,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=10,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=10,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=10,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=10,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=11,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=11,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=11,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=11,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=12,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=12,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=12,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=12,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=13,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=13,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=13,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=13,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=14,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 0
+    },
+    "facing=west,column=14,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 90
+    },
+    "facing=north,column=14,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 180
+    },
+    "facing=east,column=14,width=16": {
+      "model": "lsmmod:block/awning_support_1",
+      "y": 270
+    },
+    "facing=south,column=15,width=16": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 0
+    },
+    "facing=west,column=15,width=16": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 90
+    },
+    "facing=north,column=15,width=16": {
+      "model": "lsmmod:block/awning_support_3",
+      "y": 180
+    },
+    "facing=east,column=15,width=16": {
       "model": "lsmmod:block/awning_support_3",
       "y": 270
     }

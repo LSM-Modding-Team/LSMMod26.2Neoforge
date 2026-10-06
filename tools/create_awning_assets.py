@@ -50,13 +50,17 @@ for start in range(17):
 write(ASSETS/'blockstates/awning.json',{'variants':variants})
 
 support_variants={}
-for column in range(4):
+# Four reusable profiles: left end, middle, both ends (width one), right end.
+for profile in range(4):
     elements=[cube([0,10,6],[16,16,10],'#metal'),cube([6,13,0],[10,15,16],'#metal')]
-    # Visible end caps at the two outer edges of the four-block bar.
-    if column==0:elements.append(cube([0,9.5,5.5],[1,16,10.5],'#metal'))
-    if column==3:elements.append(cube([15,9.5,5.5],[16,16,10.5],'#metal'))
-    write(ASSETS/f'models/block/awning_support_{column}.json',{'textures':{'metal':'lsmmod:block/awning_support','particle':'lsmmod:block/awning_support'},'elements':elements})
-    for facing,rotation in rotations.items():support_variants[f'facing={facing},column={column}']={'model':f'lsmmod:block/awning_support_{column}','y':rotation}
+    if profile in (0,2):elements.append(cube([0,9.5,5.5],[1,16,10.5],'#metal'))
+    if profile in (2,3):elements.append(cube([15,9.5,5.5],[16,16,10.5],'#metal'))
+    write(ASSETS/f'models/block/awning_support_{profile}.json',{'textures':{'metal':'lsmmod:block/awning_support','particle':'lsmmod:block/awning_support'},'elements':elements})
+for width in range(1,17):
+    for column in range(16):
+        profile=2 if width==1 and column==0 else 0 if column==0 else 3 if column==width-1 else 1
+        for facing,rotation in rotations.items():
+            support_variants[f'facing={facing},column={column},width={width}']={'model':f'lsmmod:block/awning_support_{profile}','y':rotation}
 write(ASSETS/'blockstates/awning_support.json',{'variants':support_variants})
 
 DISPLAY={'gui':{'rotation':[25,35,0],'scale':[.8,.8,.8]},'ground':{'translation':[0,3,0],'scale':[.5,.5,.5]},'fixed':{'rotation':[0,0,0],'scale':[.7,.7,.7]},'thirdperson_righthand':{'rotation':[75,45,0],'translation':[0,2,0],'scale':[.5,.5,.5]},'thirdperson_lefthand':{'rotation':[75,-45,0],'translation':[0,2,0],'scale':[.5,.5,.5]},'firstperson_righthand':{'rotation':[0,30,0],'translation':[0,2,0],'scale':[.65,.65,.65]},'firstperson_lefthand':{'rotation':[0,-30,0],'translation':[0,2,0],'scale':[.65,.65,.65]}}

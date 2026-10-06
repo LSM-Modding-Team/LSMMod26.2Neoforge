@@ -169,7 +169,7 @@ public final class ModItems {
                     props -> new InstrumentItem(props.stacksTo(1), ModSounds.MELODICA));
 
     public static final DeferredItem<BlockItem> AWNING_SUPPORT =
-            ITEMS.registerSimpleBlockItem(ModBlocks.AWNING_SUPPORT);
+            ITEMS.registerItem("awning_support", props -> new net.nicomar2009.lsmmod.item.AwningSupportItem(ModBlocks.AWNING_SUPPORT.get(), props));
 
     public static final DeferredItem<Item> AWNING =
             ITEMS.registerItem("awning", AwningItem::new);

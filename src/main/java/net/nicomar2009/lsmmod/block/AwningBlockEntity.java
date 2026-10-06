@@ -12,6 +12,7 @@ public class AwningBlockEntity extends BlockEntity {
     private BlockPos supportRoot;
     private BlockPos first;
     private BlockPos second;
+    private int width = 4; // Old four-wide structures have no saved width.
     boolean removalHandled;
 
     public AwningBlockEntity(BlockPos pos, BlockState state) {
@@ -19,18 +20,20 @@ public class AwningBlockEntity extends BlockEntity {
         supportRoot = pos;
     }
 
+    public int width() { return width; }
     public BlockPos supportRoot() { return supportRoot; }
     public BlockPos first() { return first; }
     public BlockPos second() { return second; }
     public boolean linked() { return first != null && second != null; }
-    public void setSupportRoot(BlockPos root) { supportRoot = root.immutable(); setChanged(); }
-    public void link(BlockPos a, BlockPos b) { first = a.immutable(); second = b.immutable(); setChanged(); }
+    public void setSupportRoot(BlockPos root, int width) { this.width = Math.clamp(width, 1, 16); supportRoot = root.immutable(); setChanged(); }
+    public void link(BlockPos a, BlockPos b, int width) { this.width = Math.clamp(width, 1, 16); first = a.immutable(); second = b.immutable(); setChanged(); }
     public void unlink() { first = null; second = null; setChanged(); }
     public boolean belongsTo(BlockPos a, BlockPos b) { return linked() && first.equals(a) && second.equals(b); }
 
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
+        output.putInt("width", width);
         output.putLong("support_root", supportRoot.asLong());
         output.putBoolean("linked", linked());
         if (linked()) {
@@ -42,6 +45,7 @@ public class AwningBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
+        width = Math.clamp(input.getIntOr("width", 4), 1, 16);
         supportRoot = BlockPos.of(input.getLongOr("support_root", worldPosition.asLong()));
         if (input.getBooleanOr("linked", false)) {
             first = BlockPos.of(input.getLongOr("first", worldPosition.asLong()));
