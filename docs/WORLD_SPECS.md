@@ -1,6 +1,6 @@
 # WORLD_SPECS: generación del colegio, zonas, colocación de NPC y mapa
 
-**Estado: SPEC, sin implementar.** Hoy no existe estructura, worldgen ni mapa: `data/lsmmod/structure`, `worldgen` y `tags` solo tienen `.gitkeep`. Escrito en la sesión 3 (Tanda C) a partir de `docs/history/DESIGN_SOURCE_v1.md` §3.4 y de lo que el resto del diseño dice sobre dónde está cada cosa.
+**Estado: generación SPEC, catálogo del mundo suministrado implementado.** No existe todavía generación jigsaw ni mapa crafteable. `data/lsmmod/school_spaces.json` contiene las delimitaciones del colegio de `world (3).zip`; no constituye una estructura generable. Escrito en la sesión 3 (Tanda C) a partir de `docs/history/DESIGN_SOURCE_v1.md` §3.4 y de lo que el resto del diseño dice sobre dónde está cada cosa.
 
 **Implementan este spec (todos `PLANNED`, ver `docs/CHUNKS.md`):** `W1` (estructura por jigsaw, aulas, colocación de NPC), `W2` (uno garantizado cerca del spawn y mapa crafteable). Hito M5, **riesgo alto** (estructuras jigsaw, mapa de exploración).
 
@@ -83,3 +83,11 @@ El código debe poder preguntar "¿esta posición está dentro de un colegio?" y
 ## 7. Vacíos que tocan este doc
 
 V19 (tamaño, distribución, grados y cantidad de NPC), P1 (ingredientes del mapa), D4 (progreso por colegio), D6 (raids por nidos). Detalle en `docs/DESIGN.md` §5 y §6.
+
+## 8. Catálogo del mundo suministrado (2026-10-05)
+
+Se leen regiones Anvil del ZIP sin modificar el mundo. Se revisan pisos, paredes, puertas y mobiliario en cuatro niveles norte y tres sur. Se catalogan 93 espacios con cajas interiores, incluidas divisiones de una celda y espacios bajos. Los usos probables están marcados; no hay carteles que permitan asignar grados. Coordenadas y evidencia de cada espacio: `SCHOOL_SPACES.md`. Las superficies parciales de FramedBlocks se aproximan a celdas; varias cajas conservan recodos. Las zonas de circulación pueden superponerse y `where` devuelve todos los espacios coincidentes.
+
+Comandos `/lsmmod rooms [página]`, `/lsmmod tp <espacio>`, `/lsmmod boundingbox <espacio> [segundos]`, `/lsmmod boundingbox off`, `/lsmmod where`. Requieren permisos equivalentes a `/tp` vanilla. TP valida en el mundo activo apoyo, espacio de pie, colisiones, fluidos y peligros; no mueve al jugador si el recinto no cabe. Boundingbox usa aristas con partículas privadas durante 30 segundos (5–120 configurable), sin poner ni quitar bloques. Una delimitación activa por jugador; se limpia al salir o detener el servidor.
+
+El catálogo es fijo para el Overworld del mundo original. No detecta habitaciones nuevas automáticamente, no asigna NPC y no implementa W1/W2. BUILD SUCCESSFUL con Java 25 offline; pendiente de prueba en Minecraft con los mods usados por el mundo, incluido FramedBlocks.

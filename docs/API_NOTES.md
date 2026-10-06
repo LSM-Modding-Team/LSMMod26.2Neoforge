@@ -123,3 +123,5 @@ B-SHIELD.2 revertido: se restauran modelos cúbicos opacos y se elimina canSurvi
 2026-10-05: school_bell decorativo con modelo y textura originales de newresources. Solo caras laterales firmes (isFaceSturdy); caída con drop al perder soporte mediante updateShape/tick. Sin sonido ni redstone. BUILD SUCCESSFUL; prueba Minecraft pendiente.
 
 2026-10-05 | DoorBlock(BlockSetType, Properties), BlockSetType.OAK | Fuentes locales oficiales de Minecraft 26.2 y plantillas oak_door. Reutilizadas sin lógica nueva. BUILD SUCCESSFUL; prueba Minecraft pendiente.
+
+2026-10-05 | Commands.hasPermission(Commands.LEVEL_GAMEMASTERS), Entity.teleportTo(ServerLevel, double, double, double, Set<Relative>, float, float, boolean), ServerLevel.sendParticles(ServerPlayer, ParticleOptions, boolean, boolean, double, double, double, int, double, double, double, double), CollisionGetter.noCollision/getBlockCollisions | Fuentes locales de Minecraft 26.2, RegisterCommandsEvent y ServerTickEvent.Post de NeoForge 26.2.0.88; firmas verificadas por BUILD SUCCESSFUL. Sin consulta externa.
