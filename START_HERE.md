@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+2026-10-06: kiosk_table afina los brazos de sus soportes en X en 0.375 píxeles adicionales y reduce el grosor de 1.5 a 1 píxel. Patas y travesaños usan una textura propia de metal negro antracita (#25282e), inspirada en la foto. Conserva los límites exteriores remetidos x=3/13 y z=4/28; mitades, inventario y colisión sincronizados. BUILD SUCCESSFUL con Java 25; checkFurnitureOutlines verifica 188 formas/orientaciones. Prueba Minecraft pendiente.
+
 2026-10-06: kiosk_table sustituye las patas rectas por dos soportes en X de perfil curvo discretizado cada medio píxel, brazos de 1.25–1.5 píxeles y grosor de 1.5. Límites exteriores del ancho pasan de x=2/14 a x=3/13 y del largo de z=2/30 a z=4/28. Travesaños, ambas mitades, modelo del inventario y colisión sincronizados. BUILD SUCCESSFUL con Java 25; checkFurnitureOutlines verifica 188 formas/orientaciones. Prueba dentro de Minecraft pendiente.
 
 2026-10-06: ampliación del toldo a ancho elegible de 1 a 16 bloques. Shift + clic derecho con Extremo de toldo cambia la medida guardada en el item; clic normal coloca la barra completa. Ambas barras deben coincidir en ancho; la lona lo toma automáticamente y conserva longitud libre máxima 48 y desnivel ±1. Retirada y persistencia usan el ancho real; el extremo devuelto conserva su medida. Las estructuras antiguas sin ancho guardado se interpretan como ancho 4. Se reutilizan cuatro perfiles de barra. No compilado ni probado en Minecraft en esta actualización.
