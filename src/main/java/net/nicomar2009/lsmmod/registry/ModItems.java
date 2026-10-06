@@ -98,6 +98,17 @@ public final class ModItems {
                     .rarity(Rarity.RARE)
                     .jukeboxPlayable(LSM_ANTHEM_SONG));
 
+    public static final ResourceKey<JukeboxSong> LSM_MARCH_SONG = ResourceKey.create(
+            Registries.JUKEBOX_SONG,
+            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "lsm_march"));
+
+    public static final DeferredItem<Item> LSM_MARCH = ITEMS.registerItem(
+            "lsm_march",
+            Item::new, props -> props
+                    .stacksTo(1)
+                    .rarity(Rarity.RARE)
+                    .jukeboxPlayable(LSM_MARCH_SONG));
+
     public static final DeferredItem<BlockItem> DINING_TABLE =
             ITEMS.registerSimpleBlockItem(ModBlocks.DINING_TABLE);
 

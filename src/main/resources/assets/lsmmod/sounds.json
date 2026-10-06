@@ -3,5 +3,10 @@
     "sounds": [
       { "name": "lsmmod:records/lsm_anthem", "stream": true }
     ]
+  },
+  "music_disc.lsm_march": {
+    "sounds": [
+      { "name": "lsmmod:records/lsm_march", "stream": true }
+    ]
   }
 }

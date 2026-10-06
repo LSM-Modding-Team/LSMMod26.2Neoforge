@@ -15,4 +15,9 @@ public class ModSounds {
             SOUNDS.register("music_disc.lsm_anthem", () ->
                     SoundEvent.createVariableRangeEvent(
                             Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "music_disc.lsm_anthem")));
+
+    public static final DeferredHolder<SoundEvent, SoundEvent> MY_MARCH =
+            SOUNDS.register("music_disc.lsm_march", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "music_disc.lsm_march")));
 }
