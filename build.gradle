@@ -201,3 +201,20 @@ idea {
         downloadJavadoc = true
     }
 }
+
+// Run geometry checks with the same Minecraft dependencies as the mod.
+sourceSets {
+    outlineCheck {
+        java.srcDir 'tools/checks'
+        compileClasspath = sourceSets.main.compileClasspath + sourceSets.main.output
+        runtimeClasspath = compileClasspath + output
+    }
+}
+tasks.register('checkFurnitureOutlines', JavaExec) {
+    dependsOn tasks.named('outlineCheckClasses')
+    classpath = sourceSets.outlineCheck.runtimeClasspath
+    mainClass = 'net.nicomar2009.lsmmod.block.SimpleBlockOutlineCheck'
+    workingDir = layout.buildDirectory.get().asFile
+    args projectDir.absolutePath
+}
+tasks.named('check') { dependsOn tasks.named('checkFurnitureOutlines') }

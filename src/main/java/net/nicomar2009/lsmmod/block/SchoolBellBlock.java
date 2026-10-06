@@ -88,6 +88,11 @@ public class SchoolBellBlock extends Block {
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SimpleBlockOutline.forState(state, () -> getCollisionShape(state, level, pos, context));
+    }
+
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         int index = switch (state.getValue(FACING)) {
             case SOUTH -> 1;
             case WEST -> 2;

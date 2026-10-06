@@ -66,6 +66,11 @@ public class AwningSupportBlock extends Block implements EntityBlock {
     }
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SimpleBlockOutline.forState(state, () -> getCollisionShape(state, level, pos, context));
+    }
+
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         boolean alongZ = state.getValue(FACING).getAxis() == Direction.Axis.Z;
         VoxelShape shape = alongZ ? Shapes.or(Block.box(0,10,6,16,16,10),Block.box(6,13,0,10,15,16))
                 : Shapes.or(Block.box(6,10,0,10,16,16),Block.box(0,13,6,16,15,10));

@@ -34,6 +34,11 @@ public class AwningBlock extends Block implements EntityBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) { builder.add(FACING, START, END, UPPER); }
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SimpleBlockOutline.forState(state, () -> getCollisionShape(state, level, pos, context));
+    }
+
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         VoxelShape shape = Shapes.empty();
         double offset = state.getValue(UPPER) ? 16 : 0;
         Direction direction = state.getValue(FACING);

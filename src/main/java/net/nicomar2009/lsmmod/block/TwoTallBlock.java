@@ -47,6 +47,11 @@ public class TwoTallBlock extends Block {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SimpleBlockOutline.forState(state, () -> getCollisionShape(state, level, pos, context));
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         // Devuelve la forma correspondiente según hacia dónde apunta el bloque
         return switch (state.getValue(FACING)) {
             case SOUTH -> SHAPE_SOUTH;

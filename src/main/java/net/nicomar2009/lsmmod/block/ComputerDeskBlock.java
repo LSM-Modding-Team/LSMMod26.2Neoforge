@@ -42,6 +42,11 @@ public class ComputerDeskBlock extends TwoTallBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SimpleBlockOutline.forState(state, () -> getCollisionShape(state, level, pos, context));
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return ComputerDeskShapes.SHAPES[state.getValue(HALF) == DoubleBlockHalf.UPPER ? 1 : 0]
                 [state.getValue(HAS_PC) ? 1 : 0][state.getValue(FACING).get2DDataValue()];
     }

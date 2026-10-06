@@ -58,7 +58,7 @@ public class ChairBlock extends Block {
         this(properties, NATIVE_SHAPE);
     }
 
-    /** Allows new chair models to provide their own collision and selection geometry. */
+    /** Allows new chair models to provide their own physical geometry; selection uses its bounds. */
     public ChairBlock(Properties properties, VoxelShape nativeShape) {
         super(properties);
         this.shapes = buildRotatedShapes(nativeShape);
@@ -111,6 +111,11 @@ public class ChairBlock extends Block {
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SimpleBlockOutline.forState(state, () -> getCollisionShape(state, level, pos, context));
+    }
+
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return shapes[state.getValue(FACING).get2DDataValue()];
     }
 
