@@ -210,6 +210,124 @@ public final class ModBlocks {
             "awning", AwningBlock::new,
             props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
 
+    public static final DeferredBlock<AwningBlock> PLAYGROUND_AWNING = BLOCKS.registerBlock(
+            "playground_awning", props -> new AwningBlock(props, "playground_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> ELEMENTARY_PLAYGROUND_AWNING = BLOCKS.registerBlock(
+            "elementary_playground_awning", props -> new AwningBlock(props, "elementary_playground_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> WHITE_AWNING = BLOCKS.registerBlock(
+            "white_awning", props -> new AwningBlock(props, "white_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> ORANGE_AWNING = BLOCKS.registerBlock(
+            "orange_awning", props -> new AwningBlock(props, "orange_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> MAGENTA_AWNING = BLOCKS.registerBlock(
+            "magenta_awning", props -> new AwningBlock(props, "magenta_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> LIGHT_BLUE_AWNING = BLOCKS.registerBlock(
+            "light_blue_awning", props -> new AwningBlock(props, "light_blue_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> YELLOW_AWNING = BLOCKS.registerBlock(
+            "yellow_awning", props -> new AwningBlock(props, "yellow_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> LIME_AWNING = BLOCKS.registerBlock(
+            "lime_awning", props -> new AwningBlock(props, "lime_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> PINK_AWNING = BLOCKS.registerBlock(
+            "pink_awning", props -> new AwningBlock(props, "pink_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> GRAY_AWNING = BLOCKS.registerBlock(
+            "gray_awning", props -> new AwningBlock(props, "gray_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> LIGHT_GRAY_AWNING = BLOCKS.registerBlock(
+            "light_gray_awning", props -> new AwningBlock(props, "light_gray_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> CYAN_AWNING = BLOCKS.registerBlock(
+            "cyan_awning", props -> new AwningBlock(props, "cyan_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> PURPLE_AWNING = BLOCKS.registerBlock(
+            "purple_awning", props -> new AwningBlock(props, "purple_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> BLUE_AWNING = BLOCKS.registerBlock(
+            "blue_awning", props -> new AwningBlock(props, "blue_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> BROWN_AWNING = BLOCKS.registerBlock(
+            "brown_awning", props -> new AwningBlock(props, "brown_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> GREEN_AWNING = BLOCKS.registerBlock(
+            "green_awning", props -> new AwningBlock(props, "green_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> RED_AWNING = BLOCKS.registerBlock(
+            "red_awning", props -> new AwningBlock(props, "red_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<AwningBlock> BLACK_AWNING = BLOCKS.registerBlock(
+            "black_awning", props -> new AwningBlock(props, "black_awning"),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static AwningBlock awningVariant(String id) {
+        return switch (id) {
+            case "playground_awning" -> PLAYGROUND_AWNING.get();
+            case "elementary_playground_awning" -> ELEMENTARY_PLAYGROUND_AWNING.get();
+            case "white_awning" -> WHITE_AWNING.get();
+            case "orange_awning" -> ORANGE_AWNING.get();
+            case "magenta_awning" -> MAGENTA_AWNING.get();
+            case "light_blue_awning" -> LIGHT_BLUE_AWNING.get();
+            case "yellow_awning" -> YELLOW_AWNING.get();
+            case "lime_awning" -> LIME_AWNING.get();
+            case "pink_awning" -> PINK_AWNING.get();
+            case "gray_awning" -> GRAY_AWNING.get();
+            case "light_gray_awning" -> LIGHT_GRAY_AWNING.get();
+            case "cyan_awning" -> CYAN_AWNING.get();
+            case "purple_awning" -> PURPLE_AWNING.get();
+            case "blue_awning" -> BLUE_AWNING.get();
+            case "brown_awning" -> BROWN_AWNING.get();
+            case "green_awning" -> GREEN_AWNING.get();
+            case "red_awning" -> RED_AWNING.get();
+            case "black_awning" -> BLACK_AWNING.get();
+            default -> AWNING.get();
+        };
+    }
+
+    public static net.minecraft.world.level.block.Block[] awningEntityBlocks() {
+        return new net.minecraft.world.level.block.Block[]{AWNING_SUPPORT.get(), AWNING.get(),
+                PLAYGROUND_AWNING.get(),
+                ELEMENTARY_PLAYGROUND_AWNING.get(),
+                WHITE_AWNING.get(),
+                ORANGE_AWNING.get(),
+                MAGENTA_AWNING.get(),
+                LIGHT_BLUE_AWNING.get(),
+                YELLOW_AWNING.get(),
+                LIME_AWNING.get(),
+                PINK_AWNING.get(),
+                GRAY_AWNING.get(),
+                LIGHT_GRAY_AWNING.get(),
+                CYAN_AWNING.get(),
+                PURPLE_AWNING.get(),
+                BLUE_AWNING.get(),
+                BROWN_AWNING.get(),
+                GREEN_AWNING.get(),
+                RED_AWNING.get(),
+                BLACK_AWNING.get()};
+    }
+
     public static void register(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);
     }

@@ -72,3 +72,26 @@ for name in ('awning','awning_support'):
     # Exactly one item is returned by the structure manager; never one per constituent cell.
     write(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{name}.json',{'type':'minecraft:block','pools':[]})
 print('Generated awning resources: cloth profiles, support models, item definitions, textures and empty per-cell loot tables.')
+
+# Geometry is inherited from the original awning; only textures vary.
+for variant, hex_color, spanish_name, english_name in json.loads((ROOT/'tools/awning_variants.json').read_text()):
+    base=tuple(int(hex_color[i:i+2],16) for i in (0,2,4))
+    texture=Image.new('RGB',(16,16))
+    for y in range(16):
+        for x in range(16):
+            delta=0 if (x+y)%4 else 5
+            if x in (0,15):delta=-10
+            texture.putpixel((x,y),tuple(max(0,min(255,c+delta)) for c in base))
+    texture.save(ASSETS/f'textures/block/{variant}.png')
+    textures={'cloth':f'lsmmod:block/{variant}','particle':f'lsmmod:block/{variant}'}
+    colored_variants={}
+    for key,value in variants.items():
+        profile=value['model'].removeprefix('lsmmod:block/awning/')
+        model_name=f'{variant}/{profile}'
+        write(ASSETS/f'models/block/{model_name}.json',{'parent':value['model'],'textures':textures})
+        colored_variants[key]={**value,'model':f'lsmmod:block/{model_name}'}
+    write(ASSETS/f'blockstates/{variant}.json',{'variants':colored_variants})
+    write(ASSETS/f'models/item/{variant}.json',{'parent':'lsmmod:item/awning','textures':textures})
+    write(ASSETS/f'items/{variant}.json',{'model':{'type':'minecraft:model','model':f'lsmmod:item/{variant}'}})
+    write(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{variant}.json',{'type':'minecraft:block','pools':[]})
+print('Generated 18 additional awning variants with shared geometry and separate woven textures.')

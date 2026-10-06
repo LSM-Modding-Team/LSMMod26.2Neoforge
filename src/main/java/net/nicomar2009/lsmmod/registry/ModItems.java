@@ -172,7 +172,85 @@ public final class ModItems {
             ITEMS.registerItem("awning_support", props -> new net.nicomar2009.lsmmod.item.AwningSupportItem(ModBlocks.AWNING_SUPPORT.get(), props));
 
     public static final DeferredItem<Item> AWNING =
-            ITEMS.registerItem("awning", AwningItem::new);
+            ITEMS.registerItem("awning", props -> new AwningItem(props, ModBlocks.AWNING));
+
+    public static final DeferredItem<Item> PLAYGROUND_AWNING =
+            ITEMS.registerItem("playground_awning", props -> new AwningItem(props, ModBlocks.PLAYGROUND_AWNING));
+
+    public static final DeferredItem<Item> ELEMENTARY_PLAYGROUND_AWNING =
+            ITEMS.registerItem("elementary_playground_awning", props -> new AwningItem(props, ModBlocks.ELEMENTARY_PLAYGROUND_AWNING));
+
+    public static final DeferredItem<Item> WHITE_AWNING =
+            ITEMS.registerItem("white_awning", props -> new AwningItem(props, ModBlocks.WHITE_AWNING));
+
+    public static final DeferredItem<Item> ORANGE_AWNING =
+            ITEMS.registerItem("orange_awning", props -> new AwningItem(props, ModBlocks.ORANGE_AWNING));
+
+    public static final DeferredItem<Item> MAGENTA_AWNING =
+            ITEMS.registerItem("magenta_awning", props -> new AwningItem(props, ModBlocks.MAGENTA_AWNING));
+
+    public static final DeferredItem<Item> LIGHT_BLUE_AWNING =
+            ITEMS.registerItem("light_blue_awning", props -> new AwningItem(props, ModBlocks.LIGHT_BLUE_AWNING));
+
+    public static final DeferredItem<Item> YELLOW_AWNING =
+            ITEMS.registerItem("yellow_awning", props -> new AwningItem(props, ModBlocks.YELLOW_AWNING));
+
+    public static final DeferredItem<Item> LIME_AWNING =
+            ITEMS.registerItem("lime_awning", props -> new AwningItem(props, ModBlocks.LIME_AWNING));
+
+    public static final DeferredItem<Item> PINK_AWNING =
+            ITEMS.registerItem("pink_awning", props -> new AwningItem(props, ModBlocks.PINK_AWNING));
+
+    public static final DeferredItem<Item> GRAY_AWNING =
+            ITEMS.registerItem("gray_awning", props -> new AwningItem(props, ModBlocks.GRAY_AWNING));
+
+    public static final DeferredItem<Item> LIGHT_GRAY_AWNING =
+            ITEMS.registerItem("light_gray_awning", props -> new AwningItem(props, ModBlocks.LIGHT_GRAY_AWNING));
+
+    public static final DeferredItem<Item> CYAN_AWNING =
+            ITEMS.registerItem("cyan_awning", props -> new AwningItem(props, ModBlocks.CYAN_AWNING));
+
+    public static final DeferredItem<Item> PURPLE_AWNING =
+            ITEMS.registerItem("purple_awning", props -> new AwningItem(props, ModBlocks.PURPLE_AWNING));
+
+    public static final DeferredItem<Item> BLUE_AWNING =
+            ITEMS.registerItem("blue_awning", props -> new AwningItem(props, ModBlocks.BLUE_AWNING));
+
+    public static final DeferredItem<Item> BROWN_AWNING =
+            ITEMS.registerItem("brown_awning", props -> new AwningItem(props, ModBlocks.BROWN_AWNING));
+
+    public static final DeferredItem<Item> GREEN_AWNING =
+            ITEMS.registerItem("green_awning", props -> new AwningItem(props, ModBlocks.GREEN_AWNING));
+
+    public static final DeferredItem<Item> RED_AWNING =
+            ITEMS.registerItem("red_awning", props -> new AwningItem(props, ModBlocks.RED_AWNING));
+
+    public static final DeferredItem<Item> BLACK_AWNING =
+            ITEMS.registerItem("black_awning", props -> new AwningItem(props, ModBlocks.BLACK_AWNING));
+
+    public static Item awningVariant(String id) {
+        return switch (id) {
+            case "playground_awning" -> PLAYGROUND_AWNING.get();
+            case "elementary_playground_awning" -> ELEMENTARY_PLAYGROUND_AWNING.get();
+            case "white_awning" -> WHITE_AWNING.get();
+            case "orange_awning" -> ORANGE_AWNING.get();
+            case "magenta_awning" -> MAGENTA_AWNING.get();
+            case "light_blue_awning" -> LIGHT_BLUE_AWNING.get();
+            case "yellow_awning" -> YELLOW_AWNING.get();
+            case "lime_awning" -> LIME_AWNING.get();
+            case "pink_awning" -> PINK_AWNING.get();
+            case "gray_awning" -> GRAY_AWNING.get();
+            case "light_gray_awning" -> LIGHT_GRAY_AWNING.get();
+            case "cyan_awning" -> CYAN_AWNING.get();
+            case "purple_awning" -> PURPLE_AWNING.get();
+            case "blue_awning" -> BLUE_AWNING.get();
+            case "brown_awning" -> BROWN_AWNING.get();
+            case "green_awning" -> GREEN_AWNING.get();
+            case "red_awning" -> RED_AWNING.get();
+            case "black_awning" -> BLACK_AWNING.get();
+            default -> AWNING.get();
+        };
+    }
 
     private ModItems() {
     }

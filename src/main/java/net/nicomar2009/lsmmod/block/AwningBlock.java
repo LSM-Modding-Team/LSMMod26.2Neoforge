@@ -26,19 +26,18 @@ public class AwningBlock extends Block implements EntityBlock {
     public static final IntegerProperty START = IntegerProperty.create("start", 0, 16);
     public static final IntegerProperty END = IntegerProperty.create("end", 0, 16);
     public static final BooleanProperty UPPER = BooleanProperty.create("upper");
-    public AwningBlock(Properties properties) {
+    private final String variant;
+    public String variant() { return variant; }
+    public AwningBlock(Properties properties) { this(properties, "awning"); }
+    public AwningBlock(Properties properties, String variant) {
         super(properties);
+        this.variant = variant;
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.SOUTH).setValue(START, 7).setValue(END, 7).setValue(UPPER, false));
     }
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) { builder.add(FACING, START, END, UPPER); }
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SimpleBlockOutline.forState(state, () -> getCollisionShape(state, level, pos, context));
-    }
-
-    @Override
-    protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         VoxelShape shape = Shapes.empty();
         double offset = state.getValue(UPPER) ? 16 : 0;
         Direction direction = state.getValue(FACING);

@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+2026-10-06: 18 variantes adicionales de toldo: playground_awning (#00A2E8), elementary_playground_awning (#888886) y los 16 colores vanilla (<color>_awning). Comparten extremos, ancho 1–16, longitud libre máxima 48, desnivel ±1 y geometría curva. Items, bloques, texturas, modelos heredados, loot y traducciones incluidos. La variante persiste por estructura y se devuelve el item del mismo color al desmontar. No compilado ni probado en Minecraft. Paleta y detalles en docs/AWNING.md y tools/awning_variants.json.
+
 2026-10-06: kiosk_table afina los brazos de sus soportes en X en 0.375 píxeles adicionales y reduce el grosor de 1.5 a 1 píxel. Patas y travesaños usan una textura propia de metal negro antracita (#25282e), inspirada en la foto. Conserva los límites exteriores remetidos x=3/13 y z=4/28; mitades, inventario y colisión sincronizados. BUILD SUCCESSFUL con Java 25; checkFurnitureOutlines verifica 188 formas/orientaciones. Prueba Minecraft pendiente.
 
 2026-10-06: kiosk_table sustituye las patas rectas por dos soportes en X de perfil curvo discretizado cada medio píxel, brazos de 1.25–1.5 píxeles y grosor de 1.5. Límites exteriores del ancho pasan de x=2/14 a x=3/13 y del largo de z=2/30 a z=4/28. Travesaños, ambas mitades, modelo del inventario y colisión sincronizados. BUILD SUCCESSFUL con Java 25; checkFurnitureOutlines verifica 188 formas/orientaciones. Prueba dentro de Minecraft pendiente.

@@ -60,7 +60,7 @@ public final class AwningStructure {
         // Attachment at 14 pixels; only six pixels of sag at the midpoint.
         return a.getY() + 14.0/16 + (b.getY()-a.getY())*t - 4*t*(1-t)*(6.0/16);
     }
-    private static List<Cell> cloth(BlockPos a, BlockPos b, int width) {
+    private static List<Cell> cloth(BlockPos a, BlockPos b, int width, AwningBlock awning) {
         List<Cell> cells = new ArrayList<>();
         Direction facing = direction(a,b);
         int gap = Math.abs(a.getX()-b.getX()) + Math.abs(a.getZ()-b.getZ()) - 1;
@@ -70,7 +70,7 @@ public final class AwningStructure {
             double h2 = Math.round(height(a,b,row/(double)gap)*8)/8.0;
             int base = (int)Math.floor(Math.min(h1,h2)-1.0/16);
             int start = (int)Math.round((h1-base)*8), end = (int)Math.round((h2-base)*8);
-            BlockState state = ModBlocks.AWNING.get().defaultBlockState().setValue(AwningBlock.FACING,facing)
+            BlockState state = awning.defaultBlockState().setValue(AwningBlock.FACING,facing)
                     .setValue(AwningBlock.START,start).setValue(AwningBlock.END,end);
             for (int c=0;c<width;c++) {
                 BlockPos pos = AwningSupportBlock.cell(a.relative(facing,row),facing,c);
@@ -85,7 +85,7 @@ public final class AwningStructure {
         if (player != null) player.sendOverlayMessage(Component.translatable("message.lsmmod.awning."+key));
         return InteractionResult.FAIL;
     }
-    public static InteractionResult place(UseOnContext context) {
+    public static InteractionResult place(UseOnContext context, AwningBlock awning) {
         Level level = context.getLevel(); Player player = context.getPlayer();
         BlockPos clicked = context.getClickedPos(); BlockState clickedState = level.getBlockState(clicked);
         if (!clickedState.is(ModBlocks.AWNING_SUPPORT.get())) return fail(player,"support_only");
@@ -112,7 +112,7 @@ public final class AwningStructure {
             if (((AwningBlockEntity)level.getBlockEntity(pos)).linked()) return fail(player,"occupied");
         BlockPos a=root,b=partner;
         if (direction(a,b)!=axis) { a=partner; b=root; }
-        List<Cell> cells=cloth(a,b,width);
+        List<Cell> cells=cloth(a,b,width,awning);
         List<BlockPos> all=new ArrayList<>(bar(a,axis,width)); all.addAll(bar(b,axis,width));
         cells.forEach(cell->all.add(cell.pos));
         for (BlockPos pos:all) {
@@ -127,14 +127,14 @@ public final class AwningStructure {
             if (!level.setBlock(cell.pos,cell.state,Block.UPDATE_CLIENTS)
                     || !(level.getBlockEntity(cell.pos) instanceof AwningBlockEntity)) {
                 // Even the last write may have succeeded without its required entity.
-                if (level.getBlockState(cell.pos).is(ModBlocks.AWNING.get())) placed.add(cell.pos);
+                if (level.getBlockState(cell.pos).is(awning)) placed.add(cell.pos);
                 for (BlockPos pos:placed) level.setBlock(pos,Blocks.AIR.defaultBlockState(),Block.UPDATE_CLIENTS|Block.UPDATE_SUPPRESS_DROPS);
                 return fail(player,"blocked");
             }
             placed.add(cell.pos);
         }
-        for (BlockPos pos:all) ((AwningBlockEntity)level.getBlockEntity(pos)).link(a,b,width);
-        for (Cell cell:cells) level.updateNeighborsAt(cell.pos,ModBlocks.AWNING.get());
+        for (BlockPos pos:all) ((AwningBlockEntity)level.getBlockEntity(pos)).link(a,b,width,awning);
+        for (Cell cell:cells) level.updateNeighborsAt(cell.pos,awning);
         if (!player.isCreative()) context.getItemInHand().shrink(1);
         return InteractionResult.SUCCESS;
     }
@@ -142,6 +142,7 @@ public final class AwningStructure {
     private static void removeCloth(Level level, AwningBlockEntity part, boolean drop) {
         if (!part.linked()) return;
         int width=part.width();
+        AwningBlock awning=part.awning();
         BlockPos a=part.first(),b=part.second();
         if (!validPair(a,b)) { part.unlink(); return; }
         if (!REMOVING.add(a)) return;
@@ -152,15 +153,15 @@ public final class AwningStructure {
                     if (loaded(level,pos) && level.getBlockEntity(pos) instanceof AwningBlockEntity other && other.belongsTo(a,b)) other.unlink();
                 }
             }
-            for (Cell cell:cloth(a,b,width)) {
+            for (Cell cell:cloth(a,b,width,awning)) {
                 if (!loaded(level,cell.pos)) continue;
-                if (level.getBlockState(cell.pos).is(ModBlocks.AWNING.get())
+                if (level.getBlockState(cell.pos).is(awning)
                         && level.getBlockEntity(cell.pos) instanceof AwningBlockEntity other && other.belongsTo(a,b)) {
                     other.unlink();
                     level.setBlock(cell.pos,Blocks.AIR.defaultBlockState(),Block.UPDATE_ALL|Block.UPDATE_SUPPRESS_DROPS);
                 }
             }
-            if (drop) Block.popResource(level,part.getBlockPos(),new ItemStack(ModItems.AWNING.get()));
+            if (drop) Block.popResource(level,part.getBlockPos(),new ItemStack(ModItems.awningVariant(awning.variant())));
         } finally { REMOVING.remove(a); }
     }
     public static void removed(Level level, AwningBlockEntity part, boolean drop) {
@@ -189,6 +190,7 @@ public final class AwningStructure {
         if ((level.getGameTime()+part.getBlockPos().asLong())%20 != 0) return;
         BlockState state=part.getBlockState();
         int width=part.width();
+        AwningBlock awning=part.awning();
         if (state.is(ModBlocks.AWNING_SUPPORT.get())) {
             Direction axis=state.getValue(AwningSupportBlock.FACING);
             for (BlockPos pos:bar(part.supportRoot(),axis,width)) if (!loaded(level,pos)) return;
@@ -199,7 +201,7 @@ public final class AwningStructure {
             }
         }
         if (!part.linked()) {
-            if (state.is(ModBlocks.AWNING.get()))
+            if (state.is(awning))
                 level.setBlock(part.getBlockPos(),Blocks.AIR.defaultBlockState(),Block.UPDATE_ALL|Block.UPDATE_SUPPRESS_DROPS);
             return;
         }
@@ -215,7 +217,7 @@ public final class AwningStructure {
         }
         // One endpoint controller checks the fabric; all other cells only check endpoint ownership.
         if (!part.getBlockPos().equals(a)) return;
-        for (Cell cell:cloth(a,b,width)) {
+        for (Cell cell:cloth(a,b,width,awning)) {
             if (!loaded(level,cell.pos)) return;
             if (!level.getBlockState(cell.pos).equals(cell.state)
                     || !(level.getBlockEntity(cell.pos) instanceof AwningBlockEntity other) || other.width()!=width || !other.belongsTo(a,b)) {

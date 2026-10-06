@@ -34,8 +34,7 @@ public final class ModBlockEntities {
 
     public static final Supplier<BlockEntityType<AwningBlockEntity>> AWNING = BLOCK_ENTITIES.register(
             "awning", () -> new BlockEntityType<>(AwningBlockEntity::new,
-                    ModBlocks.AWNING.get(), ModBlocks.AWNING_SUPPORT.get()));
-
+                    ModBlocks.awningEntityBlocks()));
 
     private ModBlockEntities() {
     }

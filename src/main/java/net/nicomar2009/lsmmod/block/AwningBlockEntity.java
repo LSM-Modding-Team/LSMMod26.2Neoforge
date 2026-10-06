@@ -13,11 +13,14 @@ public class AwningBlockEntity extends BlockEntity {
     private BlockPos first;
     private BlockPos second;
     private int width = 4; // Old four-wide structures have no saved width.
+    private String variant = "awning";
+    public AwningBlock awning() { return net.nicomar2009.lsmmod.registry.ModBlocks.awningVariant(variant); }
     boolean removalHandled;
 
     public AwningBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.AWNING.get(), pos, state);
         supportRoot = pos;
+        if (state.getBlock() instanceof AwningBlock cloth) variant = cloth.variant();
     }
 
     public int width() { return width; }
@@ -26,13 +29,14 @@ public class AwningBlockEntity extends BlockEntity {
     public BlockPos second() { return second; }
     public boolean linked() { return first != null && second != null; }
     public void setSupportRoot(BlockPos root, int width) { this.width = Math.clamp(width, 1, 16); supportRoot = root.immutable(); setChanged(); }
-    public void link(BlockPos a, BlockPos b, int width) { this.width = Math.clamp(width, 1, 16); first = a.immutable(); second = b.immutable(); setChanged(); }
+    public void link(BlockPos a, BlockPos b, int width, AwningBlock awning) { this.variant = awning.variant(); this.width = Math.clamp(width, 1, 16); first = a.immutable(); second = b.immutable(); setChanged(); }
     public void unlink() { first = null; second = null; setChanged(); }
     public boolean belongsTo(BlockPos a, BlockPos b) { return linked() && first.equals(a) && second.equals(b); }
 
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
+        output.putString("awning_variant", variant);
         output.putInt("width", width);
         output.putLong("support_root", supportRoot.asLong());
         output.putBoolean("linked", linked());
@@ -45,6 +49,7 @@ public class AwningBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
+        variant = input.getStringOr("awning_variant", "awning");
         width = Math.clamp(input.getIntOr("width", 4), 1, 16);
         supportRoot = BlockPos.of(input.getLongOr("support_root", worldPosition.asLong()));
         if (input.getBooleanOr("linked", false)) {
