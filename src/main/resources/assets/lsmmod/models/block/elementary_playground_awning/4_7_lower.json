@@ -1,0 +1,7 @@
+{
+  "parent": "lsmmod:block/awning/4_7_lower",
+  "textures": {
+    "cloth": "lsmmod:block/elementary_playground_awning",
+    "particle": "lsmmod:block/elementary_playground_awning"
+  }
+}

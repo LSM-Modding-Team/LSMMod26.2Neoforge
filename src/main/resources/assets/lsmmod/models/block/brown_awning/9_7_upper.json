@@ -1,0 +1,7 @@
+{
+  "parent": "lsmmod:block/awning/9_7_upper",
+  "textures": {
+    "cloth": "lsmmod:block/brown_awning",
+    "particle": "lsmmod:block/brown_awning"
+  }
+}
