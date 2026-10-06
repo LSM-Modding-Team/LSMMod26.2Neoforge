@@ -5,6 +5,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.nicomar2009.lsmmod.LSMMod;
+import net.nicomar2009.lsmmod.block.AwningBlockEntity;
 import net.nicomar2009.lsmmod.block.DeskBlockEntity;
 import net.nicomar2009.lsmmod.block.ElementaryDeskBlockEntity;
 import net.nicomar2009.lsmmod.block.LockerBlockEntity;
@@ -30,6 +31,11 @@ public final class ModBlockEntities {
     public static final Supplier<BlockEntityType<ElementaryDeskBlockEntity>> ELEMENTARY_DESK = BLOCK_ENTITIES.register(
             "elementary_desk",
             () -> new BlockEntityType<>(ElementaryDeskBlockEntity::new, ModBlocks.ELEMENTARY_DESK.get()));
+
+    public static final Supplier<BlockEntityType<AwningBlockEntity>> AWNING = BLOCK_ENTITIES.register(
+            "awning", () -> new BlockEntityType<>(AwningBlockEntity::new,
+                    ModBlocks.AWNING.get(), ModBlocks.AWNING_SUPPORT.get()));
+
 
     private ModBlockEntities() {
     }

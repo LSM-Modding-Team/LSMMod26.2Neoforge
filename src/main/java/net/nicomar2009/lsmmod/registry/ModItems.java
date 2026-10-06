@@ -8,6 +8,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.nicomar2009.lsmmod.LSMMod;
+import net.nicomar2009.lsmmod.item.AwningItem;
 import net.nicomar2009.lsmmod.item.InstrumentItem;
 
 /** Item registry for the school blocks; standalone items are planned. */
@@ -166,6 +167,12 @@ public final class ModItems {
     public static final DeferredItem<Item> MELODICA =
             ITEMS.registerItem("melodica",
                     props -> new InstrumentItem(props.stacksTo(1), ModSounds.MELODICA));
+
+    public static final DeferredItem<BlockItem> AWNING_SUPPORT =
+            ITEMS.registerSimpleBlockItem(ModBlocks.AWNING_SUPPORT);
+
+    public static final DeferredItem<Item> AWNING =
+            ITEMS.registerItem("awning", AwningItem::new);
 
     private ModItems() {
     }
