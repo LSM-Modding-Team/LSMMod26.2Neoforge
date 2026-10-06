@@ -17,5 +17,14 @@
   },
   "flute": {
     "sounds": ["lsmmod:flute"]
+  },
+  "tambourine": {
+    "sounds": ["lsmmod:tambourine"]
+  },
+  "violin": {
+    "sounds": ["lsmmod:violin"]
+  },
+  "melodica": {
+    "sounds": ["lsmmod:melodica"]
   }
 }

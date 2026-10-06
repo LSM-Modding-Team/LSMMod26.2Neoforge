@@ -155,6 +155,18 @@ public final class ModItems {
             ITEMS.registerItem("flute",
                     props -> new InstrumentItem(props.stacksTo(1), ModSounds.FLUTE));
 
+    public static final DeferredItem<Item> TAMBOURINE =
+            ITEMS.registerItem("tambourine",
+                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.TAMBOURINE));
+
+    public static final DeferredItem<Item> VIOLIN =
+            ITEMS.registerItem("violin",
+                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.VIOLIN));
+
+    public static final DeferredItem<Item> MELODICA =
+            ITEMS.registerItem("melodica",
+                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.MELODICA));
+
     private ModItems() {
     }
 

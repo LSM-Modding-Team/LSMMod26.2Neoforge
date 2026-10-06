@@ -35,4 +35,19 @@ public class ModSounds {
             SOUNDS.register("flute", () ->
                     SoundEvent.createVariableRangeEvent(
                             Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "flute")));
+
+    public static final DeferredHolder<SoundEvent, SoundEvent> TAMBOURINE =
+            SOUNDS.register("tambourine", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "tambourine")));
+
+    public static final DeferredHolder<SoundEvent, SoundEvent> VIOLIN =
+            SOUNDS.register("violin", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "violin")));
+
+    public static final DeferredHolder<SoundEvent, SoundEvent> MELODICA =
+            SOUNDS.register("melodica", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "melodica")));
 }
