@@ -8,5 +8,14 @@
     "sounds": [
       { "name": "lsmmod:records/lsm_march", "stream": true }
     ]
+  },
+  "guitar": {
+    "sounds": ["lsmmod:guitar"]
+  },
+  "mandolin": {
+    "sounds": ["lsmmod:mandolin"]
+  },
+  "flute": {
+    "sounds": ["lsmmod:flute"]
   }
 }

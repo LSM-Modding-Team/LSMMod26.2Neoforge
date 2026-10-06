@@ -3,14 +3,12 @@ package net.nicomar2009.lsmmod.registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.JukeboxSong;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.nicomar2009.lsmmod.LSMMod;
+import net.nicomar2009.lsmmod.item.InstrumentItem;
 
 /** Item registry for the school blocks; standalone items are planned. */
 public final class ModItems {
@@ -144,6 +142,18 @@ public final class ModItems {
 
     public static final DeferredItem<BlockItem> INFIRMARY_COT =
             ITEMS.registerSimpleBlockItem(ModBlocks.INFIRMARY_COT);
+
+    public static final DeferredItem<Item> GUITAR =
+            ITEMS.registerItem("guitar",
+                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.GUITAR));
+
+    public static final DeferredItem<Item> MANDOLIN =
+            ITEMS.registerItem("mandolin",
+                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.MANDOLIN));
+
+    public static final DeferredItem<Item> FLUTE =
+            ITEMS.registerItem("flute",
+                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.FLUTE));
 
     private ModItems() {
     }

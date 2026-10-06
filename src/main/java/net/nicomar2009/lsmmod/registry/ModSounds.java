@@ -20,4 +20,19 @@ public class ModSounds {
             SOUNDS.register("music_disc.lsm_march", () ->
                     SoundEvent.createVariableRangeEvent(
                             Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "music_disc.lsm_march")));
+
+    public static final DeferredHolder<SoundEvent, SoundEvent> GUITAR =
+            SOUNDS.register("guitar", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "guitar")));
+
+    public static final DeferredHolder<SoundEvent, SoundEvent> MANDOLIN =
+            SOUNDS.register("mandolin", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "mandolin")));
+
+    public static final DeferredHolder<SoundEvent, SoundEvent> FLUTE =
+            SOUNDS.register("flute", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "flute")));
 }
