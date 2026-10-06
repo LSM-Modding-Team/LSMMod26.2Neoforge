@@ -91,3 +91,15 @@ Se leen regiones Anvil del ZIP sin modificar el mundo. Se revisan pisos, paredes
 Comandos `/lsmmod rooms [página]`, `/lsmmod tp <espacio>`, `/lsmmod boundingbox <espacio> [segundos]`, `/lsmmod boundingbox off`, `/lsmmod where`. Requieren permisos equivalentes a `/tp` vanilla. TP valida en el mundo activo apoyo, espacio de pie, colisiones, fluidos y peligros; no mueve al jugador si el recinto no cabe. Boundingbox usa aristas con partículas privadas durante 30 segundos (5–120 configurable), sin poner ni quitar bloques. Una delimitación activa por jugador; se limpia al salir o detener el servidor.
 
 El catálogo es fijo para el Overworld del mundo original. No detecta habitaciones nuevas automáticamente, no asigna NPC y no implementa W1/W2. BUILD SUCCESSFUL con Java 25 offline; pendiente de prueba en Minecraft con los mods usados por el mundo, incluido FramedBlocks.
+
+### Nombres propios y entrega de resultados
+
+`/lsmmod rename 5to secundaria` renombra el lugar actual y crea el alias `5to_secundaria`; `/lsmmod tp 5to_secundaria` y `/lsmmod boundingbox 5to_secundaria` lo aceptan, además del ID original. Los nombres admiten espacios y tildes, hasta 80 caracteres; los alias omiten tildes, usan minúsculas y sustituyen separadores por guiones bajos. Se rechazan nombres vacíos, caracteres de control, alias duplicados o que oculten el ID de otro espacio. `off` está reservado.
+
+En superposiciones se elige el espacio de menor volumen de cajas y se comunica la selección; si los dos menores empatan, no modifica ninguno. `/lsmmod renameid <espacio> <nombre>` permite seleccionar explícitamente uno de los espacios que contienen al jugador. Tras guardar se muestra su delimitación durante 30 segundos. `rooms`, `where`, Tab, TP y contornos muestran o aceptan los nombres nuevos. El catálogo original y sus cajas permanecen intactos.
+
+Los nombres se guardan inmediatamente en `<mundo>/lsmmod/school_space_names.json` usando archivo temporal y reemplazo atómico cuando el sistema lo admite. Cada comando lee los datos de su mundo; no hay una caché global de nombres. Errores de lectura/escritura se comunican sin sustituir los nombres por un catálogo vacío. Un mundo nuevo empieza con los nombres originales.
+
+`/lsmmod export` escribe `<mundo>/lsmmod/school_spaces_export.json` con los 93 espacios, ID estable, nombre original y actual, alias, estado de renombrado, cajas y evidencia original. Ofrece **[Copiar nombres para pegar en el chat]**, que copia un JSON reducido con los nombres reasignados y sus IDs; sirve para pegarlo directamente en Codex. También se puede adjuntar el archivo exportado. En servidor el archivo queda en el servidor, pero el botón copia en el equipo del jugador. Nueva exportación reemplaza el informe anterior; incluye los cambios más recientes.
+
+BUILD SUCCESSFUL y comprobación independiente de persistencia, conflictos de alias, separación entre mundos, geometría exportada y fallos de escritura. La interacción del botón y los comandos dentro de Minecraft siguen pendientes de prueba.
