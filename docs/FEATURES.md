@@ -139,3 +139,9 @@ El escritorio gris muestra también un mouse pequeño sobre la cubierta al insta
 ## Espacios del colegio suministrado
 
 En el Overworld de world (3).zip, con permisos de operador nivel 2: /lsmmod rooms [página] enumera 93 espacios y Tab completa sus IDs. /lsmmod tp salon_01 busca un lugar con apoyo y espacio para estar de pie dentro del recinto; rechaza espacios demasiado bajos u ocupados. /lsmmod boundingbox salon_01 muestra aristas blancas con partículas durante 30 segundos; se puede añadir una duración de 5 a 120. /lsmmod boundingbox off detiene la visualización y /lsmmod where identifica los espacios donde estás. No cambia bloques. Nombres, límites y evidencia: SCHOOL_SPACES.md. Las coordenadas son fijas al colegio original y las divisiones parciales de FramedBlocks se aproximan a la cuadrícula. No detecta ampliaciones automáticamente. Compilación verificada; prueba Minecraft pendiente.
+
+### Renombrar y compartir los espacios
+
+Ponte dentro de una habitación y escribe /lsmmod rename 5to secundaria. Su nuevo alias es 5to_secundaria: /lsmmod tp 5to_secundaria y /lsmmod boundingbox 5to_secundaria. El comando confirma el ID que cambió y muestra sus límites. Los nombres se conservan al salir del mundo. Si coinciden varias zonas se elige la más pequeña; usa /lsmmod where y /lsmmod renameid salon_01 5to secundaria para elegir otra zona donde estés. No puede haber alias repetidos y los IDs originales siguen funcionando.
+
+Para compartir: /lsmmod export, clic en [Copiar nombres para pegar en el chat] y pega el resultado en Codex. Alternativa: adjunta school_spaces_export.json, guardado en la carpeta lsmmod de tu mundo; el comando muestra la ruta completa. Exporta después de tus últimos cambios. El archivo incluye todas las delimitaciones y los nombres actuales, mientras el botón copia solo los nombres reasignados.

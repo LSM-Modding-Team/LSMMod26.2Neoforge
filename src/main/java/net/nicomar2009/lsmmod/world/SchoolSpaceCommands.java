@@ -10,15 +10,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import com.google.gson.JsonParser;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.LevelResource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -49,13 +56,21 @@ public final class SchoolSpaceCommands {
                         .then(Commands.argument("page", IntegerArgumentType.integer(1))
                                 .executes(c -> list(c.getSource(), IntegerArgumentType.getInteger(c, "page")))))
                 .then(Commands.literal("where").executes(c -> where(c.getSource())))
+                .then(Commands.literal("rename").then(Commands.argument("name", StringArgumentType.greedyString())
+                        .executes(c -> rename(c.getSource(), null, StringArgumentType.getString(c, "name")))))
+                .then(Commands.literal("renameid").then(Commands.argument("space", StringArgumentType.word())
+                        .suggests((c, b) -> SharedSuggestionProvider.suggest(suggestions(c.getSource()), b))
+                        .then(Commands.argument("name", StringArgumentType.greedyString())
+                                .executes(c -> rename(c.getSource(), StringArgumentType.getString(c, "space"),
+                                        StringArgumentType.getString(c, "name"))))))
+                .then(Commands.literal("export").executes(c -> export(c.getSource())))
                 .then(Commands.literal("tp").then(Commands.argument("space", StringArgumentType.word())
-                        .suggests((c, b) -> SharedSuggestionProvider.suggest(SchoolSpaces.ALL.keySet(), b))
+                        .suggests((c, b) -> SharedSuggestionProvider.suggest(suggestions(c.getSource()), b))
                         .executes(c -> teleport(c.getSource(), StringArgumentType.getString(c, "space")))))
                 .then(Commands.literal("boundingbox")
                         .then(Commands.literal("off").executes(c -> clear(c.getSource())))
                         .then(Commands.argument("space", StringArgumentType.word())
-                                .suggests((c, b) -> SharedSuggestionProvider.suggest(SchoolSpaces.ALL.keySet(), b))
+                                .suggests((c, b) -> SharedSuggestionProvider.suggest(suggestions(c.getSource()), b))
                                 .executes(c -> preview(c.getSource(), StringArgumentType.getString(c, "space"), 30))
                                 .then(Commands.argument("seconds", IntegerArgumentType.integer(5, 120))
                                         .executes(c -> preview(c.getSource(), StringArgumentType.getString(c, "space"),
@@ -65,33 +80,121 @@ public final class SchoolSpaceCommands {
     private static int help(CommandSourceStack source) {
         source.sendSuccess(() -> Component.literal("Colegio: /lsmmod rooms [página], /lsmmod tp <espacio>, "
                 + "/lsmmod boundingbox <espacio> [segundos], /lsmmod boundingbox off, /lsmmod where. "
+                + "/lsmmod rename <nombre>, /lsmmod renameid <espacio> <nombre>, /lsmmod export. "
                 + "Catálogo del mundo original, en el Overworld."), false);
         return 1;
     }
 
     private static int list(CommandSourceStack source, int page) {
+        SchoolSpaceLabels labels = labels(source);
+        if (labels == null) return 0;
         var spaces = new ArrayList<>(SchoolSpaces.ALL.values());
         int pages = (spaces.size() + PAGE_SIZE - 1) / PAGE_SIZE;
         if (page > pages) return fail(source, "La última página es " + pages + ".");
         source.sendSuccess(() -> Component.literal("Espacios del colegio: " + spaces.size() + " — página " + page + "/" + pages), false);
         for (int i = (page - 1) * PAGE_SIZE; i < Math.min(page * PAGE_SIZE, spaces.size()); i++) {
             Space space = spaces.get(i);
-            source.sendSuccess(() -> Component.literal(space.id() + " — " + space.label()), false);
+            source.sendSuccess(() -> Component.literal(labels.alias(space.id()) + " — " + labels.name(space.id(), space.label())
+                    + (labels.alias(space.id()).equals(space.id()) ? "" : " (ID: " + space.id() + ")")), false);
         }
         return 1;
     }
 
     private static Space lookup(CommandSourceStack source, String id) {
-        Space space = SchoolSpaces.ALL.get(id);
+        SchoolSpaceLabels labels = labels(source);
+        if (labels == null) return null;
+        String original = labels.resolve(id);
+        Space space = original == null ? null : SchoolSpaces.ALL.get(original);
         if (space == null) fail(source, "Espacio desconocido: " + id + ". Usa /lsmmod rooms o la tecla Tab.");
-        return space;
+        return space == null ? null : new Space(space.id(), labels.name(space.id(), space.label()), space.boxes());
+    }
+
+    private static SchoolSpaceLabels readLabels(CommandSourceStack source) throws IOException {
+        return new SchoolSpaceLabels(source.getServer().getWorldPath(LevelResource.ROOT).resolve("lsmmod"), SchoolSpaces.ALL.keySet());
+    }
+
+    private static SchoolSpaceLabels labels(CommandSourceStack source) {
+        try { return readLabels(source); }
+        catch (IOException e) {
+            LSMMod.LOGGER.error("Cannot read school space names", e);
+            fail(source, "No se pudieron leer los nombres guardados. " + e.getMessage());
+            return null;
+        }
+    }
+
+    private static Set<String> suggestions(CommandSourceStack source) {
+        try { return readLabels(source).suggestions(); }
+        catch (IOException e) { return SchoolSpaces.ALL.keySet(); }
+    }
+
+    private static double volume(Space space) {
+        return space.boxes().stream().mapToDouble(b -> (b.maxX-b.minX)*(b.maxY-b.minY)*(b.maxZ-b.minZ)).sum();
+    }
+
+    private static int rename(CommandSourceStack source, String token, String name) throws CommandSyntaxException {
+        ServerPlayer player = source.getPlayerOrException();
+        if (!player.level().dimension().equals(Level.OVERWORLD)) return fail(source, "El colegio catalogado está en el Overworld.");
+        SchoolSpaceLabels labels = labels(source);
+        if (labels == null) return 0;
+        var matches = SchoolSpaces.ALL.values().stream().filter(s -> s.contains(player.getX(), player.getY(), player.getZ()))
+                .sorted(Comparator.comparingDouble(SchoolSpaceCommands::volume).thenComparing(Space::id)).toList();
+        if (matches.isEmpty()) return fail(source, "Estás fuera de los espacios catalogados. Usa /lsmmod where.");
+        Space chosen;
+        if (token == null) {
+            chosen = matches.getFirst();
+            if (matches.size() > 1 && Double.compare(volume(chosen), volume(matches.get(1))) == 0) {
+                return fail(source, "Hay varios recintos del mismo tamaño: " + String.join(", ", matches.stream().map(Space::id).toList())
+                        + ". Elige con /lsmmod renameid <espacio> <nombre>.");
+            }
+        } else {
+            String id = labels.resolve(token);
+            chosen = matches.stream().filter(s -> s.id().equals(id)).findFirst().orElse(null);
+            if (chosen == null) return fail(source, "Ese espacio no está donde estás. Opciones: "
+                    + String.join(", ", matches.stream().map(Space::id).toList()));
+        }
+        try {
+            var renamed = labels.rename(chosen.id(), name);
+            Space selected = chosen;
+            source.sendSuccess(() -> Component.literal("Guardado: " + selected.id() + " → " + renamed.name()
+                    + ". Usa /lsmmod tp " + renamed.alias() + " o /lsmmod boundingbox " + renamed.alias() + "."), false);
+            if (token == null && matches.size() > 1) {
+                source.sendSuccess(() -> Component.literal("Se eligió el espacio más pequeño. Para otro: /lsmmod renameid <espacio> <nombre>. "
+                        + "Coinciden: " + String.join(", ", matches.stream().map(Space::id).toList())), false);
+            }
+            return preview(source, selected.id(), 30);
+        } catch (IllegalArgumentException e) {
+            return fail(source, e.getMessage());
+        } catch (IOException e) {
+            LSMMod.LOGGER.error("Cannot save school space name", e);
+            return fail(source, "No se pudo guardar el nombre; el anterior se conserva. " + e.getMessage());
+        }
+    }
+
+    private static int export(CommandSourceStack source) {
+        SchoolSpaceLabels labels = labels(source);
+        if (labels == null) return 0;
+        try (var stream = SchoolSpaces.class.getResourceAsStream("/data/lsmmod/school_spaces.json")) {
+            if (stream == null) throw new IOException("Falta el catálogo original");
+            var catalog = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
+            var path = labels.export(catalog).toAbsolutePath().normalize();
+            source.sendSuccess(() -> Component.literal("Exportado: " + path + ". Puedes adjuntar este archivo en el chat."), false);
+            source.sendSuccess(() -> Component.literal("[Copiar nombres para pegar en el chat]")
+                    .withStyle(style -> style.withColor(ChatFormatting.AQUA).withUnderlined(true)
+                            .withClickEvent(new ClickEvent.CopyToClipboard(labels.shareText()))), false);
+            return 1;
+        } catch (IOException e) {
+            LSMMod.LOGGER.error("Cannot export school spaces", e);
+            return fail(source, "No se pudo exportar el archivo. " + e.getMessage());
+        }
     }
 
     private static int where(CommandSourceStack source) throws CommandSyntaxException {
         ServerPlayer player = source.getPlayerOrException();
         if (!player.level().dimension().equals(Level.OVERWORLD)) return fail(source, "El colegio catalogado está en el Overworld.");
+        SchoolSpaceLabels labels = labels(source);
+        if (labels == null) return 0;
         var matches = SchoolSpaces.ALL.values().stream().filter(s -> s.contains(player.getX(), player.getY(), player.getZ()))
-                .map(Space::id).toList();
+                .map(s -> labels.alias(s.id()) + " — " + labels.name(s.id(), s.label()) + " (ID: " + s.id() + ")").toList();
         source.sendSuccess(() -> Component.literal(matches.isEmpty() ? "Fuera de los espacios catalogados."
                 : "Espacios aquí: " + String.join(", ", matches)), false);
         return matches.size();

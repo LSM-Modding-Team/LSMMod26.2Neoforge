@@ -143,3 +143,7 @@ Bandeja sale un píxel con PC; modelo y colisiones sincronizados. BUILD SUCCESSF
 2026-10-05 — Se analiza world (3).zip sin modificarlo; pisos norte/sur, puertas, paredes y mobiliario dentro de las esquinas indicadas. Se entregan 93 delimitaciones y nombres genéricos o usos probables; catálogo con evidencia y herramientas reproducibles.
 Se añaden /lsmmod rooms, tp, boundingbox, where: comprobación de apoyo/colisión/fluidos para TP y partículas privadas temporales. Catálogo fijo, sin worldgen ni NPC.
 BUILD SUCCESSFUL con Java 25 y harness offline; sintaxis Java verificada. Prueba dentro de Minecraft pendiente.
+
+2026-10-05 — Se añaden rename y renameid con nombres persistentes por mundo, alias para los comandos existentes y selección del recinto actual de menor volumen. Se conservan IDs y geometría originales.
+Exportación completa en JSON y botón de chat para copiar cambios y pegarlos en Codex. Escritura inmediata y control de conflictos/fallos de lectura o escritura.
+BUILD SUCCESSFUL Java 25 offline; comprobación única de persistencia, alias, aislamiento, exportación y fallo de escritura correcta. Prueba Minecraft pendiente.
