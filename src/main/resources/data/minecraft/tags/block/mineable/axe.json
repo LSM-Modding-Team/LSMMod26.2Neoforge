@@ -1,7 +1,8 @@
 {
-	"values": [
-		"lsmmod:students_desk",
-		"lsmmod:teachers_desk",
-		"lsmmod:elementary_desk"
-	]
+  "values": [
+    "lsmmod:students_desk",
+    "lsmmod:teachers_desk",
+    "lsmmod:elementary_desk",
+    "lsmmod:classroom_door"
+  ]
 }

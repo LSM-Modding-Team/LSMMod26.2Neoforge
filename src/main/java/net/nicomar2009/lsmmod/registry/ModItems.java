@@ -98,6 +98,39 @@ public final class ModItems {
                     .rarity(Rarity.RARE)
                     .jukeboxPlayable(LSM_ANTHEM_SONG));
 
+    public static final DeferredItem<BlockItem> DINING_TABLE =
+            ITEMS.registerSimpleBlockItem(ModBlocks.DINING_TABLE);
+
+    public static final DeferredItem<BlockItem> DINING_CHAIR =
+            ITEMS.registerSimpleBlockItem(ModBlocks.DINING_CHAIR);
+
+    public static final DeferredItem<BlockItem> SPEAKER =
+            ITEMS.registerSimpleBlockItem(ModBlocks.SPEAKER);
+
+    public static final DeferredItem<BlockItem> TALL_SPEAKER =
+            ITEMS.registerSimpleBlockItem(ModBlocks.TALL_SPEAKER);
+
+    public static final DeferredItem<BlockItem> DRINKING_FOUNTAIN =
+            ITEMS.registerSimpleBlockItem(ModBlocks.DRINKING_FOUNTAIN);
+
+    public static final DeferredItem<BlockItem> KIOSK_TABLE =
+            ITEMS.registerSimpleBlockItem(ModBlocks.KIOSK_TABLE);
+
+    public static final DeferredItem<BlockItem> ART_TABLE =
+            ITEMS.registerSimpleBlockItem(ModBlocks.ART_TABLE);
+
+    public static final DeferredItem<BlockItem> STOOL =
+            ITEMS.registerSimpleBlockItem(ModBlocks.STOOL);
+
+    public static final DeferredItem<BlockItem> VAULTING_BOX =
+            ITEMS.registerSimpleBlockItem(ModBlocks.VAULTING_BOX);
+
+    public static final DeferredItem<BlockItem> CLASSROOM_DOOR =
+            ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_DOOR);
+
+    public static final DeferredItem<BlockItem> MANUEL_TIRADO_BUST =
+            ITEMS.registerSimpleBlockItem(ModBlocks.MANUEL_TIRADO_BUST);
+
     private ModItems() {
     }
 

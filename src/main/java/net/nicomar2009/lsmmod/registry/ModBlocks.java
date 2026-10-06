@@ -6,12 +6,23 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.nicomar2009.lsmmod.LSMMod;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.PushReaction;
 import net.nicomar2009.lsmmod.block.SchoolShieldBlock;
 import net.nicomar2009.lsmmod.block.ChairBlock;
 import net.nicomar2009.lsmmod.block.LaptopBlock;
 import net.nicomar2009.lsmmod.block.MonitorBlock;
+import net.nicomar2009.lsmmod.block.DiningTableBlock;
+import net.nicomar2009.lsmmod.block.KioskTableBlock;
+import net.nicomar2009.lsmmod.block.ArtTableBlock;
+import net.nicomar2009.lsmmod.block.StoolBlock;
+import net.nicomar2009.lsmmod.block.VaultingBoxBlock;
+import net.nicomar2009.lsmmod.block.ManuelTiradoBustBlock;
+import net.nicomar2009.lsmmod.block.SpeakerBlock;
+import net.nicomar2009.lsmmod.block.TallSpeakerBlock;
 import net.nicomar2009.lsmmod.block.SchoolBellBlock;
+import net.nicomar2009.lsmmod.block.DrinkingFountainBlock;
 import net.nicomar2009.lsmmod.block.ComputerDeskBlock;
 import net.nicomar2009.lsmmod.block.GrayComputerDeskBlock;
 import net.nicomar2009.lsmmod.block.NewChairShapes;
@@ -124,6 +135,51 @@ public final class ModBlocks {
     public static final DeferredBlock<SchoolBellBlock> SCHOOL_BELL = BLOCKS.registerBlock(
             "school_bell", SchoolBellBlock::new,
             props -> props.strength(1.0F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.DESTROY));
+
+    public static final DeferredBlock<DiningTableBlock> DINING_TABLE = BLOCKS.registerBlock(
+            "dining_table", DiningTableBlock::new,
+            props -> props.strength(2.5F).sound(SoundType.METAL).noOcclusion());
+
+    public static final DeferredBlock<ChairBlock> DINING_CHAIR = BLOCKS.registerBlock(
+            "dining_chair",
+            props -> new ChairBlock(props, NewChairShapes.DINING_CHAIR),
+            props -> props.strength(2.0F).sound(SoundType.METAL).noOcclusion());
+
+    public static final DeferredBlock<SpeakerBlock> SPEAKER = BLOCKS.registerBlock(
+            "speaker", SpeakerBlock::new,
+            props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion());
+
+    public static final DeferredBlock<TallSpeakerBlock> TALL_SPEAKER = BLOCKS.registerBlock(
+            "tall_speaker", TallSpeakerBlock::new,
+            props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<DrinkingFountainBlock> DRINKING_FOUNTAIN = BLOCKS.registerBlock(
+            "drinking_fountain", DrinkingFountainBlock::new,
+            props -> props.strength(2.5F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.DESTROY));
+
+    public static final DeferredBlock<KioskTableBlock> KIOSK_TABLE = BLOCKS.registerBlock(
+            "kiosk_table", KioskTableBlock::new,
+            props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<ArtTableBlock> ART_TABLE = BLOCKS.registerBlock(
+            "art_table", ArtTableBlock::new,
+            props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<StoolBlock> STOOL = BLOCKS.registerBlock(
+            "stool", StoolBlock::new,
+            props -> props.strength(2.0F).sound(SoundType.WOOD).noOcclusion());
+
+    public static final DeferredBlock<VaultingBoxBlock> VAULTING_BOX = BLOCKS.registerBlock(
+            "vaulting_box", VaultingBoxBlock::new,
+            props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<DoorBlock> CLASSROOM_DOOR = BLOCKS.registerBlock(
+            "classroom_door", props -> new DoorBlock(BlockSetType.OAK, props),
+            props -> props.strength(3.0F).noOcclusion().pushReaction(PushReaction.DESTROY));
+
+    public static final DeferredBlock<ManuelTiradoBustBlock> MANUEL_TIRADO_BUST = BLOCKS.registerBlock(
+            "manuel_tirado_bust", ManuelTiradoBustBlock::new,
+            props -> props.strength(4.0F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));
 
     private ModBlocks() {
     }

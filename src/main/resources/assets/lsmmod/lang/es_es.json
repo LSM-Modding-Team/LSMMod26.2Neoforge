@@ -7,11 +7,23 @@
   "block.lsmmod.plasticchair_red_arms": "Silla de auditorio roja con brazos",
   "block.lsmmod.school_shield": "Escudo del colegio",
   "block.lsmmod.laptop": "Laptop",
-  "block.lsmmod.moises_laptop": "Laptop de Moisés",
+  "block.lsmmod.moises_laptop": "Laptop de MoisÃ©s",
   "block.lsmmod.pc": "PC escolar",
-  "block.lsmmod.computer_desk": "Mesa de computación",
-  "block.lsmmod.gray_computer_desk": "Escritorio gris de computación",
+  "block.lsmmod.computer_desk": "Mesa de computaciÃ³n",
+  "block.lsmmod.gray_computer_desk": "Escritorio gris de computaciÃ³n",
   "block.lsmmod.school_bell": "Timbre escolar",
-  "item.lsmmod.lsm_anthem": "Disco: Himno del Colegio Libertador San Martín",
-  "jukebox_song.lsmmod.lsm_anthem": "Tobías Vílchez Pinedo - Himno LSM"
+  "item.lsmmod.lsm_anthem": "Disco: Himno del Colegio Libertador San MartÃ­n",
+  "jukebox_song.lsmmod.lsm_anthem": "TobÃ­as VÃ­lchez Pinedo - Himno LSM"
+,
+  "block.lsmmod.dining_table": "Mesa del comedor",
+  "block.lsmmod.dining_chair": "Silla del comedor",
+  "block.lsmmod.speaker": "Parlante",
+  "block.lsmmod.tall_speaker": "Parlante alto",
+  "block.lsmmod.drinking_fountain": "Bebedero",
+  "block.lsmmod.kiosk_table": "Mesa del kiosko",
+  "block.lsmmod.art_table": "Mesa del salón de arte",
+  "block.lsmmod.stool": "Taburete",
+  "block.lsmmod.vaulting_box": "Plinto de gimnasia",
+  "block.lsmmod.classroom_door": "Puerta de salón",
+  "block.lsmmod.manuel_tirado_bust": "Busto de Manuel Tirado"
 }

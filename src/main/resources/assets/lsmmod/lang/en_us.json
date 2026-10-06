@@ -14,11 +14,23 @@
   "block.lsmmod.san_martin_de_porres": "San Martin de Porres",
   "block.lsmmod.school_shield": "School Shield",
   "block.lsmmod.laptop": "Laptop",
-  "block.lsmmod.moises_laptop": "Moisés’ Laptop",
+  "block.lsmmod.moises_laptop": "MoisÃ©sâ€™ Laptop",
   "block.lsmmod.pc": "School PC",
   "block.lsmmod.computer_desk": "Computer desk",
   "block.lsmmod.gray_computer_desk": "Gray computer desk",
   "block.lsmmod.school_bell": "School Bell",
   "item.lsmmod.lsm_anthem": "Music Disc: Anthem of School Libertador San Martin",
-  "jukebox_song.lsmmod.lsm_anthem": "Tobías Vílchez Pinedo - Himno LSM"
+  "jukebox_song.lsmmod.lsm_anthem": "TobÃ­as VÃ­lchez Pinedo - Himno LSM"
+,
+  "block.lsmmod.dining_table": "Dining Table",
+  "block.lsmmod.dining_chair": "Dining Chair",
+  "block.lsmmod.speaker": "Speaker",
+  "block.lsmmod.tall_speaker": "Tall Speaker",
+  "block.lsmmod.drinking_fountain": "Drinking Fountain",
+  "block.lsmmod.kiosk_table": "Kiosk Table",
+  "block.lsmmod.art_table": "Art Classroom Table",
+  "block.lsmmod.stool": "Wooden Stool",
+  "block.lsmmod.vaulting_box": "Gymnastics Vaulting Box",
+  "block.lsmmod.classroom_door": "Classroom Door",
+  "block.lsmmod.manuel_tirado_bust": "Manuel Tirado Bust"
 }

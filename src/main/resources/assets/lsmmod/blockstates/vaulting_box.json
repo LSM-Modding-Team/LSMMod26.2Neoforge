@@ -1,0 +1,68 @@
+{
+  "variants": {
+    "facing=south,segment=0,layer=0": {
+      "model": "lsmmod:block/vaulting_box_0_0",
+      "y": 0
+    },
+    "facing=west,segment=0,layer=0": {
+      "model": "lsmmod:block/vaulting_box_0_0",
+      "y": 90
+    },
+    "facing=north,segment=0,layer=0": {
+      "model": "lsmmod:block/vaulting_box_0_0",
+      "y": 180
+    },
+    "facing=east,segment=0,layer=0": {
+      "model": "lsmmod:block/vaulting_box_0_0",
+      "y": 270
+    },
+    "facing=south,segment=0,layer=1": {
+      "model": "lsmmod:block/vaulting_box_0_1",
+      "y": 0
+    },
+    "facing=west,segment=0,layer=1": {
+      "model": "lsmmod:block/vaulting_box_0_1",
+      "y": 90
+    },
+    "facing=north,segment=0,layer=1": {
+      "model": "lsmmod:block/vaulting_box_0_1",
+      "y": 180
+    },
+    "facing=east,segment=0,layer=1": {
+      "model": "lsmmod:block/vaulting_box_0_1",
+      "y": 270
+    },
+    "facing=south,segment=1,layer=0": {
+      "model": "lsmmod:block/vaulting_box_1_0",
+      "y": 0
+    },
+    "facing=west,segment=1,layer=0": {
+      "model": "lsmmod:block/vaulting_box_1_0",
+      "y": 90
+    },
+    "facing=north,segment=1,layer=0": {
+      "model": "lsmmod:block/vaulting_box_1_0",
+      "y": 180
+    },
+    "facing=east,segment=1,layer=0": {
+      "model": "lsmmod:block/vaulting_box_1_0",
+      "y": 270
+    },
+    "facing=south,segment=1,layer=1": {
+      "model": "lsmmod:block/vaulting_box_1_1",
+      "y": 0
+    },
+    "facing=west,segment=1,layer=1": {
+      "model": "lsmmod:block/vaulting_box_1_1",
+      "y": 90
+    },
+    "facing=north,segment=1,layer=1": {
+      "model": "lsmmod:block/vaulting_box_1_1",
+      "y": 180
+    },
+    "facing=east,segment=1,layer=1": {
+      "model": "lsmmod:block/vaulting_box_1_1",
+      "y": 270
+    }
+  }
+}

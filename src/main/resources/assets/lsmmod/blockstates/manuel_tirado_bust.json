@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "facing=south,layer=0": {
+      "model": "lsmmod:block/manuel_tirado_bust_0",
+      "y": 0
+    },
+    "facing=south,layer=1": {
+      "model": "lsmmod:block/manuel_tirado_bust_1",
+      "y": 0
+    },
+    "facing=south,layer=2": {
+      "model": "lsmmod:block/manuel_tirado_bust_2",
+      "y": 0
+    },
+    "facing=west,layer=0": {
+      "model": "lsmmod:block/manuel_tirado_bust_0",
+      "y": 90
+    },
+    "facing=west,layer=1": {
+      "model": "lsmmod:block/manuel_tirado_bust_1",
+      "y": 90
+    },
+    "facing=west,layer=2": {
+      "model": "lsmmod:block/manuel_tirado_bust_2",
+      "y": 90
+    },
+    "facing=north,layer=0": {
+      "model": "lsmmod:block/manuel_tirado_bust_0",
+      "y": 180
+    },
+    "facing=north,layer=1": {
+      "model": "lsmmod:block/manuel_tirado_bust_1",
+      "y": 180
+    },
+    "facing=north,layer=2": {
+      "model": "lsmmod:block/manuel_tirado_bust_2",
+      "y": 180
+    },
+    "facing=east,layer=0": {
+      "model": "lsmmod:block/manuel_tirado_bust_0",
+      "y": 270
+    },
+    "facing=east,layer=1": {
+      "model": "lsmmod:block/manuel_tirado_bust_1",
+      "y": 270
+    },
+    "facing=east,layer=2": {
+      "model": "lsmmod:block/manuel_tirado_bust_2",
+      "y": 270
+    }
+  }
+}

@@ -75,5 +75,24 @@ public final class NewChairShapes {
             Block.box(13.5, 7, 11, 14.5, 10, 12),
             Block.box(13.5, 9.5, 2.5, 14.5, 10.5, 12));
 
+    public static final VoxelShape DINING_CHAIR = Shapes.or(
+            Block.box(2.5, 0, 2, 3.5, 7, 3),
+            Block.box(2.5, 0, 12, 3.5, 6, 13),
+            Block.box(12.5, 0, 2, 13.5, 7, 3),
+            Block.box(12.5, 0, 12, 13.5, 6, 13),
+            Block.box(3, 6, 3, 13, 7, 13),
+            Block.box(2, 6, 4, 3, 7, 12),
+            Block.box(13, 6, 4, 14, 7, 12),
+            Block.box(4, 6, 13, 12, 7, 14),
+            Block.box(2.5, 7, 2, 3.5, 14, 3),
+            Block.box(12.5, 7, 2, 13.5, 14, 3),
+            Block.box(3.5, 14, 2, 12.5, 15, 3),
+            Block.box(4.5, 15, 2, 11.5, 15.5, 3),
+            Block.box(3.5, 7, 2, 12.5, 14, 3),
+            Block.box(2.5, 5, 2, 13.5, 6, 3),
+            Block.box(2.5, 5, 12, 13.5, 6, 13),
+            Block.box(2.5, 5, 3, 3.5, 6, 12),
+            Block.box(12.5, 5, 3, 13.5, 6, 12));
+
     private NewChairShapes() {}
 }

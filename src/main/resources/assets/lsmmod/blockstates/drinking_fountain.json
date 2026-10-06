@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=south": {
+      "model": "lsmmod:block/drinking_fountain",
+      "y": 0
+    },
+    "facing=west": {
+      "model": "lsmmod:block/drinking_fountain",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "lsmmod:block/drinking_fountain",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "lsmmod:block/drinking_fountain",
+      "y": 270
+    }
+  }
+}

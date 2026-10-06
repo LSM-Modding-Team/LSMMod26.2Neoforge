@@ -114,6 +114,11 @@ public class ChairBlock extends Block {
         return shapes[state.getValue(FACING).get2DDataValue()];
     }
 
+    /** Seat surface height; taller stools override it. */
+    protected double getSeatHeightPixels() {
+        return SEAT_HEIGHT_PIXELS;
+    }
+
     // ---- Sitting --------------------------------------------------------------------------
 
     @Override
@@ -130,7 +135,7 @@ public class ChairBlock extends Block {
             // The seat entity's PASSENGER attachment is at its feet (y = 0), and the player's
             // VEHICLE attachment (the hip/seat contact point) is aligned with it, so placing the
             // entity at 7/16 of the block puts the player's seat exactly at pixel 7.
-            double seatY = pos.getY() + SEAT_HEIGHT_PIXELS / 16.0D;
+            double seatY = pos.getY() + getSeatHeightPixels() / 16.0D;
 
             SeatEntity seat = new SeatEntity(ModEntities.SEAT.get(), level);
             seat.setPos(pos.getX() + 0.5D, seatY, pos.getZ() + 0.5D);
