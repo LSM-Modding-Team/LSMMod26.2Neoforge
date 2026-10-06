@@ -28,5 +28,15 @@
   "block.lsmmod.classroom_door": "Puerta de salón",
   "block.lsmmod.manuel_tirado_bust": "Busto de Manuel Tirado",
   "block.lsmmod.infirmary_cot": "Camilla de enfermería",
-  "item.lsmmod.guitar": "Guitarra"
+  "item.lsmmod.guitar": "Guitarra",
+  "block.lsmmod.awning": "Toldo",
+  "item.lsmmod.awning": "Toldo",
+  "block.lsmmod.awning_support": "Extremo de toldo",
+  "message.lsmmod.awning.support_only": "El toldo solo se coloca haciendo clic derecho en un extremo de toldo.",
+  "message.lsmmod.awning.incomplete": "El extremo debe tener sus cuatro bloques completos.",
+  "message.lsmmod.awning.occupied": "Uno de los extremos ya sostiene un toldo.",
+  "message.lsmmod.awning.no_partner": "Falta un extremo paralelo y alineado: máximo 48 bloques libres y desnivel de hasta 1 bloque.",
+  "message.lsmmod.awning.blocked": "No hay espacio libre para toda la lona del toldo.",
+  "message.lsmmod.awning.unloaded": "Toda la zona del toldo debe estar cargada y dentro del mundo.",
+  "message.lsmmod.awning.permission": "No tienes permiso para colocar el toldo aquí."
 }
