@@ -19,6 +19,7 @@ import net.nicomar2009.lsmmod.block.ArtTableBlock;
 import net.nicomar2009.lsmmod.block.StoolBlock;
 import net.nicomar2009.lsmmod.block.VaultingBoxBlock;
 import net.nicomar2009.lsmmod.block.ManuelTiradoBustBlock;
+import net.nicomar2009.lsmmod.block.InfirmaryCotBlock;
 import net.nicomar2009.lsmmod.block.SpeakerBlock;
 import net.nicomar2009.lsmmod.block.TallSpeakerBlock;
 import net.nicomar2009.lsmmod.block.SchoolBellBlock;
@@ -180,6 +181,10 @@ public final class ModBlocks {
     public static final DeferredBlock<ManuelTiradoBustBlock> MANUEL_TIRADO_BUST = BLOCKS.registerBlock(
             "manuel_tirado_bust", ManuelTiradoBustBlock::new,
             props -> props.strength(4.0F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<InfirmaryCotBlock> INFIRMARY_COT = BLOCKS.registerBlock(
+            "infirmary_cot", InfirmaryCotBlock::new,
+            props -> props.strength(2.5F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
 
     private ModBlocks() {
     }

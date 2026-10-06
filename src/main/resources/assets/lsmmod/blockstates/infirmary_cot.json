@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "facing=south,segment=0": {
+      "model": "lsmmod:block/infirmary_cot_0",
+      "y": 0
+    },
+    "facing=south,segment=1": {
+      "model": "lsmmod:block/infirmary_cot_1",
+      "y": 0
+    },
+    "facing=west,segment=0": {
+      "model": "lsmmod:block/infirmary_cot_0",
+      "y": 90
+    },
+    "facing=west,segment=1": {
+      "model": "lsmmod:block/infirmary_cot_1",
+      "y": 90
+    },
+    "facing=north,segment=0": {
+      "model": "lsmmod:block/infirmary_cot_0",
+      "y": 180
+    },
+    "facing=north,segment=1": {
+      "model": "lsmmod:block/infirmary_cot_1",
+      "y": 180
+    },
+    "facing=east,segment=0": {
+      "model": "lsmmod:block/infirmary_cot_0",
+      "y": 270
+    },
+    "facing=east,segment=1": {
+      "model": "lsmmod:block/infirmary_cot_1",
+      "y": 270
+    }
+  }
+}

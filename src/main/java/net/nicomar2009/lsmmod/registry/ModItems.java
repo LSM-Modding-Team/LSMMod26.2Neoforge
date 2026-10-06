@@ -131,6 +131,9 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> MANUEL_TIRADO_BUST =
             ITEMS.registerSimpleBlockItem(ModBlocks.MANUEL_TIRADO_BUST);
 
+    public static final DeferredItem<BlockItem> INFIRMARY_COT =
+            ITEMS.registerSimpleBlockItem(ModBlocks.INFIRMARY_COT);
+
     private ModItems() {
     }
 
