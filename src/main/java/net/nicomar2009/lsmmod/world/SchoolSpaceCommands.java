@@ -11,13 +11,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import com.google.gson.JsonParser;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -64,6 +63,11 @@ public final class SchoolSpaceCommands {
                                 .executes(c -> rename(c.getSource(), StringArgumentType.getString(c, "space"),
                                         StringArgumentType.getString(c, "name"))))))
                 .then(Commands.literal("export").executes(c -> export(c.getSource())))
+                .then(coordinateCommand("define", false))
+                .then(coordinateCommand("addbox", true))
+                .then(Commands.literal("delete").then(Commands.argument("space", StringArgumentType.word())
+                        .suggests((c, b) -> SharedSuggestionProvider.suggest(suggestions(c.getSource()), b))
+                        .executes(c -> delete(c.getSource(), StringArgumentType.getString(c, "space")))))
                 .then(Commands.literal("tp").then(Commands.argument("space", StringArgumentType.word())
                         .suggests((c, b) -> SharedSuggestionProvider.suggest(suggestions(c.getSource()), b))
                         .executes(c -> teleport(c.getSource(), StringArgumentType.getString(c, "space")))))
@@ -81,87 +85,82 @@ public final class SchoolSpaceCommands {
         source.sendSuccess(() -> Component.literal("Colegio: /lsmmod rooms [página], /lsmmod tp <espacio>, "
                 + "/lsmmod boundingbox <espacio> [segundos], /lsmmod boundingbox off, /lsmmod where. "
                 + "/lsmmod rename <nombre>, /lsmmod renameid <espacio> <nombre>, /lsmmod export. "
-                + "Catálogo del mundo original, en el Overworld."), false);
+                + "/lsmmod define <id> <x1 y1 z1> <x2 y2 z2>, /lsmmod addbox <id> <x1 y1 z1> <x2 y2 z2>, "
+                + "/lsmmod delete <id>. Esquinas inclusivas; cambios guardados en este mundo."), false);
         return 1;
     }
 
     private static int list(CommandSourceStack source, int page) {
-        SchoolSpaceLabels labels = labels(source);
-        if (labels == null) return 0;
-        var spaces = new ArrayList<>(SchoolSpaces.ALL.values());
-        int pages = (spaces.size() + PAGE_SIZE - 1) / PAGE_SIZE;
+        SchoolSpaceCatalog catalog = catalog(source);
+        if (catalog == null) return 0;
+        var spaces = new ArrayList<>(catalog.areas().values());
+        int pages = Math.max(1, (spaces.size() + PAGE_SIZE - 1) / PAGE_SIZE);
         if (page > pages) return fail(source, "La última página es " + pages + ".");
         source.sendSuccess(() -> Component.literal("Espacios del colegio: " + spaces.size() + " — página " + page + "/" + pages), false);
         for (int i = (page - 1) * PAGE_SIZE; i < Math.min(page * PAGE_SIZE, spaces.size()); i++) {
-            Space space = spaces.get(i);
-            source.sendSuccess(() -> Component.literal(labels.alias(space.id()) + " — " + labels.name(space.id(), space.label())
-                    + (labels.alias(space.id()).equals(space.id()) ? "" : " (ID: " + space.id() + ")")), false);
+            var space = spaces.get(i);
+            source.sendSuccess(() -> Component.literal(space.id() + " — " + space.label()), false);
         }
         return 1;
     }
 
     private static Space lookup(CommandSourceStack source, String id) {
-        SchoolSpaceLabels labels = labels(source);
-        if (labels == null) return null;
-        String original = labels.resolve(id);
-        Space space = original == null ? null : SchoolSpaces.ALL.get(original);
+        SchoolSpaceCatalog catalog = catalog(source);
+        if (catalog == null) return null;
+        var space = catalog.areas().get(id);
         if (space == null) fail(source, "Espacio desconocido: " + id + ". Usa /lsmmod rooms o la tecla Tab.");
-        return space == null ? null : new Space(space.id(), labels.name(space.id(), space.label()), space.boxes());
+        return space == null ? null : SchoolSpaces.space(space);
     }
 
-    private static SchoolSpaceLabels readLabels(CommandSourceStack source) throws IOException {
-        return new SchoolSpaceLabels(source.getServer().getWorldPath(LevelResource.ROOT).resolve("lsmmod"), SchoolSpaces.ALL.keySet());
+    private static SchoolSpaceCatalog readCatalog(CommandSourceStack source) throws IOException {
+        return new SchoolSpaceCatalog(source.getServer().getWorldPath(LevelResource.ROOT).resolve("lsmmod"), SchoolSpaces.BASE, SchoolSpaces.MIGRATION);
     }
 
-    private static SchoolSpaceLabels labels(CommandSourceStack source) {
-        try { return readLabels(source); }
+    private static SchoolSpaceCatalog catalog(CommandSourceStack source) {
+        try { return readCatalog(source); }
         catch (IOException e) {
-            LSMMod.LOGGER.error("Cannot read school space names", e);
-            fail(source, "No se pudieron leer los nombres guardados. " + e.getMessage());
+            LSMMod.LOGGER.error("Cannot read school space edits", e);
+            fail(source, "No se pudieron leer los espacios guardados. " + e.getMessage());
             return null;
         }
     }
 
     private static Set<String> suggestions(CommandSourceStack source) {
-        try { return readLabels(source).suggestions(); }
-        catch (IOException e) { return SchoolSpaces.ALL.keySet(); }
-    }
-
-    private static double volume(Space space) {
-        return space.boxes().stream().mapToDouble(b -> (b.maxX-b.minX)*(b.maxY-b.minY)*(b.maxZ-b.minZ)).sum();
+        try { return readCatalog(source).areas().keySet(); }
+        catch (IOException e) { return Set.of(); }
     }
 
     private static int rename(CommandSourceStack source, String token, String name) throws CommandSyntaxException {
         ServerPlayer player = source.getPlayerOrException();
         if (!player.level().dimension().equals(Level.OVERWORLD)) return fail(source, "El colegio catalogado está en el Overworld.");
-        SchoolSpaceLabels labels = labels(source);
-        if (labels == null) return 0;
-        var matches = SchoolSpaces.ALL.values().stream().filter(s -> s.contains(player.getX(), player.getY(), player.getZ()))
-                .sorted(Comparator.comparingDouble(SchoolSpaceCommands::volume).thenComparing(Space::id)).toList();
+        SchoolSpaceCatalog catalog = catalog(source);
+        if (catalog == null) return 0;
+        var matches = catalog.areas().values().stream().filter(s -> s.contains(player.getX(), player.getY(), player.getZ()))
+                .sorted(Comparator.comparingDouble(SchoolSpaceCatalog.Area::volume).thenComparing(SchoolSpaceCatalog.Area::id)).toList();
         if (matches.isEmpty()) return fail(source, "Estás fuera de los espacios catalogados. Usa /lsmmod where.");
-        Space chosen;
+        SchoolSpaceCatalog.Area chosen;
         if (token == null) {
             chosen = matches.getFirst();
-            if (matches.size() > 1 && Double.compare(volume(chosen), volume(matches.get(1))) == 0) {
-                return fail(source, "Hay varios recintos del mismo tamaño: " + String.join(", ", matches.stream().map(Space::id).toList())
+            if (matches.size() > 1 && Double.compare(chosen.volume(), matches.get(1).volume()) == 0) {
+                return fail(source, "Hay varios recintos del mismo tamaño: " + String.join(", ", matches.stream().map(SchoolSpaceCatalog.Area::id).toList())
                         + ". Elige con /lsmmod renameid <espacio> <nombre>.");
             }
         } else {
-            String id = labels.resolve(token);
-            chosen = matches.stream().filter(s -> s.id().equals(id)).findFirst().orElse(null);
+            chosen = matches.stream().filter(s -> s.id().equals(token)).findFirst().orElse(null);
             if (chosen == null) return fail(source, "Ese espacio no está donde estás. Opciones: "
-                    + String.join(", ", matches.stream().map(Space::id).toList()));
+                    + String.join(", ", matches.stream().map(SchoolSpaceCatalog.Area::id).toList()));
         }
         try {
-            var renamed = labels.rename(chosen.id(), name);
-            Space selected = chosen;
-            source.sendSuccess(() -> Component.literal("Guardado: " + selected.id() + " → " + renamed.name()
-                    + ". Usa /lsmmod tp " + renamed.alias() + " o /lsmmod boundingbox " + renamed.alias() + "."), false);
+            var renamed = catalog.rename(chosen.id(), name);
+            String oldId = chosen.id();
+            source.sendSuccess(() -> Component.literal("Guardado: " + oldId + " → " + renamed.id()
+                    + ". Usa /lsmmod tp " + renamed.id() + " o /lsmmod boundingbox " + renamed.id()
+                    + ". El ID anterior ya no funciona si cambió."), false);
             if (token == null && matches.size() > 1) {
                 source.sendSuccess(() -> Component.literal("Se eligió el espacio más pequeño. Para otro: /lsmmod renameid <espacio> <nombre>. "
-                        + "Coinciden: " + String.join(", ", matches.stream().map(Space::id).toList())), false);
+                        + "Coinciden antes del cambio: " + String.join(", ", matches.stream().map(SchoolSpaceCatalog.Area::id).toList())), false);
             }
-            return preview(source, selected.id(), 30);
+            return preview(source, renamed.id(), 30);
         } catch (IllegalArgumentException e) {
             return fail(source, e.getMessage());
         } catch (IOException e) {
@@ -171,16 +170,19 @@ public final class SchoolSpaceCommands {
     }
 
     private static int export(CommandSourceStack source) {
-        SchoolSpaceLabels labels = labels(source);
-        if (labels == null) return 0;
-        try (var stream = SchoolSpaces.class.getResourceAsStream("/data/lsmmod/school_spaces.json")) {
-            if (stream == null) throw new IOException("Falta el catálogo original");
-            var catalog = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
-            var path = labels.export(catalog).toAbsolutePath().normalize();
+        SchoolSpaceCatalog catalog = catalog(source);
+        if (catalog == null) return 0;
+        try {
+            var path = catalog.export().toAbsolutePath().normalize();
             source.sendSuccess(() -> Component.literal("Exportado: " + path + ". Puedes adjuntar este archivo en el chat."), false);
-            source.sendSuccess(() -> Component.literal("[Copiar nombres para pegar en el chat]")
-                    .withStyle(style -> style.withColor(ChatFormatting.AQUA).withUnderlined(true)
-                            .withClickEvent(new ClickEvent.CopyToClipboard(labels.shareText()))), false);
+            String text = catalog.shareText();
+            if (text.length() <= 60_000) {
+                source.sendSuccess(() -> Component.literal("[Copiar espacios y límites para pegar en el chat]")
+                        .withStyle(style -> style.withColor(ChatFormatting.AQUA).withUnderlined(true)
+                                .withClickEvent(new ClickEvent.CopyToClipboard(text))), false);
+            } else {
+                source.sendSuccess(() -> Component.literal("El catálogo es grande: adjunta el archivo exportado para compartirlo completo."),false);
+            }
             return 1;
         } catch (IOException e) {
             LSMMod.LOGGER.error("Cannot export school spaces", e);
@@ -191,13 +193,59 @@ public final class SchoolSpaceCommands {
     private static int where(CommandSourceStack source) throws CommandSyntaxException {
         ServerPlayer player = source.getPlayerOrException();
         if (!player.level().dimension().equals(Level.OVERWORLD)) return fail(source, "El colegio catalogado está en el Overworld.");
-        SchoolSpaceLabels labels = labels(source);
-        if (labels == null) return 0;
-        var matches = SchoolSpaces.ALL.values().stream().filter(s -> s.contains(player.getX(), player.getY(), player.getZ()))
-                .map(s -> labels.alias(s.id()) + " — " + labels.name(s.id(), s.label()) + " (ID: " + s.id() + ")").toList();
+        SchoolSpaceCatalog catalog = catalog(source);
+        if (catalog == null) return 0;
+        var matches = catalog.areas().values().stream().filter(s -> s.contains(player.getX(), player.getY(), player.getZ()))
+                .map(s -> s.id() + " — " + s.label()).toList();
         source.sendSuccess(() -> Component.literal(matches.isEmpty() ? "Fuera de los espacios catalogados."
                 : "Espacios aquí: " + String.join(", ", matches)), false);
         return matches.size();
+    }
+
+    private static LiteralArgumentBuilder<CommandSourceStack> coordinateCommand(String name, boolean append) {
+        return Commands.literal(name).then(Commands.argument("space", StringArgumentType.word())
+                .suggests((c,b) -> SharedSuggestionProvider.suggest(suggestions(c.getSource()),b))
+                .then(Commands.argument("from", BlockPosArgument.blockPos())
+                        .then(Commands.argument("to", BlockPosArgument.blockPos())
+                                .executes(c -> define(c.getSource(),StringArgumentType.getString(c,"space"),
+                                        BlockPosArgument.getBlockPos(c,"from"),BlockPosArgument.getBlockPos(c,"to"),append)))));
+    }
+
+    private static int define(CommandSourceStack source, String id, BlockPos from, BlockPos to, boolean append) throws CommandSyntaxException {
+        if (!source.getLevel().dimension().equals(Level.OVERWORLD)) return fail(source,"Las delimitaciones del colegio son del Overworld.");
+        if (!source.getLevel().isInsideBuildHeight(from) || !source.getLevel().isInsideBuildHeight(to)) {
+            return fail(source,"Las dos esquinas deben estar dentro de la altura construible del mundo.");
+        }
+        SchoolSpaceCatalog catalog=catalog(source);
+        if (catalog==null) return 0;
+        try {
+            var box=SchoolSpaceCatalog.Box.between(from.getX(),from.getY(),from.getZ(),to.getX(),to.getY(),to.getZ());
+            boolean existed=catalog.areas().containsKey(id);
+            var result=append?catalog.addBox(id,box):catalog.define(id,box);
+            PREVIEWS.clear();
+            source.sendSuccess(() -> Component.literal((append?"Caja añadida a ":existed?"Delimitación reemplazada: ":"Espacio creado: ")
+                    +result.id()+". Guardado en este mundo; "+result.boxes().size()+" caja(s)."),false);
+            return source.getPlayer()==null?1:preview(source,result.id(),30);
+        } catch (IllegalArgumentException e) { return fail(source,e.getMessage()); }
+        catch (IOException e) {
+            LSMMod.LOGGER.error("Cannot save school space geometry",e);
+            return fail(source,"No se pudo guardar la delimitación; se conserva la anterior. "+e.getMessage());
+        }
+    }
+
+    private static int delete(CommandSourceStack source, String id) {
+        SchoolSpaceCatalog catalog=catalog(source);
+        if (catalog==null) return 0;
+        try {
+            catalog.delete(id);
+            PREVIEWS.clear();
+            source.sendSuccess(() -> Component.literal("Espacio eliminado: "+id+". No reaparecerá al volver a abrir el mundo. No se cambiaron bloques."),false);
+            return 1;
+        } catch (IllegalArgumentException e) { return fail(source,e.getMessage()); }
+        catch (IOException e) {
+            LSMMod.LOGGER.error("Cannot delete school space",e);
+            return fail(source,"No se pudo guardar la eliminación; el espacio se conserva. "+e.getMessage());
+        }
     }
 
     private static int teleport(CommandSourceStack source, String id) throws CommandSyntaxException {
@@ -271,20 +319,22 @@ public final class SchoolSpaceCommands {
 
     private static List<Vec3> outline(Space space) {
         var points = new java.util.LinkedHashSet<Vec3>();
+        double length = space.boxes().stream().mapToDouble(b -> 4*((b.maxX-b.minX)+(b.maxY-b.minY)+(b.maxZ-b.minZ))).sum();
+        double spacing = Math.max(0.5, length/3000);
         for (AABB b : space.boxes()) {
             for (double y : new double[]{b.minY, b.maxY}) {
-                for (double z : new double[]{b.minZ, b.maxZ}) line(points, new Vec3(b.minX,y,z), new Vec3(b.maxX,y,z));
-                for (double x : new double[]{b.minX, b.maxX}) line(points, new Vec3(x,y,b.minZ), new Vec3(x,y,b.maxZ));
+                for (double z : new double[]{b.minZ, b.maxZ}) line(points, new Vec3(b.minX,y,z), new Vec3(b.maxX,y,z),spacing);
+                for (double x : new double[]{b.minX, b.maxX}) line(points, new Vec3(x,y,b.minZ), new Vec3(x,y,b.maxZ),spacing);
             }
             for (double x : new double[]{b.minX, b.maxX}) {
-                for (double z : new double[]{b.minZ, b.maxZ}) line(points, new Vec3(x,b.minY,z), new Vec3(x,b.maxY,z));
+                for (double z : new double[]{b.minZ, b.maxZ}) line(points, new Vec3(x,b.minY,z), new Vec3(x,b.maxY,z),spacing);
             }
         }
         return List.copyOf(points);
     }
 
-    private static void line(Set<Vec3> points, Vec3 a, Vec3 b) {
-        int steps = Math.max(1, (int) Math.ceil(a.distanceTo(b) * 2));
+    private static void line(Set<Vec3> points, Vec3 a, Vec3 b, double spacing) {
+        int steps = Math.max(1, (int) Math.ceil(a.distanceTo(b) / spacing));
         for (int i = 0; i <= steps; i++) points.add(a.lerp(b, (double) i / steps));
     }
 

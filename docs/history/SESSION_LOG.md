@@ -147,3 +147,7 @@ BUILD SUCCESSFUL con Java 25 y harness offline; sintaxis Java verificada. Prueba
 2026-10-05 — Se añaden rename y renameid con nombres persistentes por mundo, alias para los comandos existentes y selección del recinto actual de menor volumen. Se conservan IDs y geometría originales.
 Exportación completa en JSON y botón de chat para copiar cambios y pegarlos en Codex. Escritura inmediata y control de conflictos/fallos de lectura o escritura.
 BUILD SUCCESSFUL Java 25 offline; comprobación única de persistencia, alias, aislamiento, exportación y fallo de escritura correcta. Prueba Minecraft pendiente.
+
+2026-10-05 — Incorporados los 32 nombres confirmados; catálogo activo de 38 espacios. Retirados los IDs sustituidos y 55 regiones provisionales. Migración automática del archivo de nombres previo sin aceptarlos como alias.
+Añadidos define/addbox/delete y renombrado real del ID; cambios y bajas persistentes por mundo. Exportación completa de coordenadas, nombres y eliminaciones con copia en chat.
+BUILD SUCCESSFUL Java 25 offline; comprobación de migración, geometría, reinicio, bajas, exportación, aislamiento y errores correcta. Prueba Minecraft pendiente. Se integra origin/master para conservar la Marcha LSM de otra conversación.

@@ -3,10 +3,8 @@ package net.nicomar2009.lsmmod.world;
 import com.google.gson.JsonParser;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+import com.google.gson.JsonObject;
 import net.minecraft.world.phys.AABB;
 
 /** Interior regions surveyed in the supplied world, at their original coordinates. */
@@ -17,36 +15,22 @@ public final class SchoolSpaces {
         }
     }
 
-    public static final Map<String, Space> ALL = load();
+    public static final JsonObject BASE = read("school_spaces.json");
+    public static final JsonObject MIGRATION = read("school_spaces_migration.json");
 
     private SchoolSpaces() {}
 
-    private static Map<String, Space> load() {
-        var result = new LinkedHashMap<String, Space>();
-        try (var stream = SchoolSpaces.class.getResourceAsStream("/data/lsmmod/school_spaces.json")) {
-            if (stream == null) throw new IllegalStateException("Missing school space catalog");
-            var root = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
-            for (var entry : root.getAsJsonArray("spaces")) {
-                var object = entry.getAsJsonObject();
-                var boxes = new ArrayList<AABB>();
-                for (var box : object.getAsJsonArray("boxes")) {
-                    var b = box.getAsJsonArray();
-                    if (b.size() != 6) throw new IllegalStateException("Invalid school box");
-                    var bounds = new AABB(b.get(0).getAsDouble(), b.get(1).getAsDouble(), b.get(2).getAsDouble(),
-                            b.get(3).getAsDouble(), b.get(4).getAsDouble(), b.get(5).getAsDouble());
-                    if (bounds.minX >= bounds.maxX || bounds.minY >= bounds.maxY || bounds.minZ >= bounds.maxZ) {
-                        throw new IllegalStateException("Empty school box");
-                    }
-                    boxes.add(bounds);
-                }
-                String id = object.get("id").getAsString();
-                if (boxes.isEmpty() || result.put(id, new Space(id, object.get("label").getAsString(), List.copyOf(boxes))) != null) {
-                    throw new IllegalStateException("Invalid or duplicate school space: " + id);
-                }
-            }
+    private static JsonObject read(String name) {
+        try (var stream = SchoolSpaces.class.getResourceAsStream("/data/lsmmod/" + name)) {
+            if (stream == null) throw new IllegalStateException("Missing school catalog resource: " + name);
+            return JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
         } catch (java.io.IOException e) {
             throw new IllegalStateException("Cannot load school spaces", e);
         }
-        return java.util.Collections.unmodifiableMap(result);
+    }
+
+    public static Space space(SchoolSpaceCatalog.Area area) {
+        return new Space(area.id(), area.label(), area.boxes().stream().map(b ->
+                new AABB(b.minX(),b.minY(),b.minZ(),b.maxX(),b.maxY(),b.maxZ())).toList());
     }
 }

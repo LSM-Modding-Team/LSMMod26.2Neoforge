@@ -12,7 +12,7 @@
   "spaces": [
     {
       "id": "comedor",
-      "label": "Comedor",
+      "label": "comedor",
       "boxes": [
         [
           -86,
@@ -29,8 +29,8 @@
       }
     },
     {
-      "id": "salon_01",
-      "label": "Salón 01",
+      "id": "3roprim",
+      "label": "3roprim",
       "boxes": [
         [
           -80,
@@ -47,36 +47,6 @@
         "lsmmod:teachers_desk": 2,
         "lsmmod:teachers_chair": 1
       }
-    },
-    {
-      "id": "paso_salon_01",
-      "label": "Paso de entrada al salón 01",
-      "boxes": [
-        [
-          -80,
-          135.5,
-          0,
-          -78,
-          138,
-          3
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_01",
-      "label": "Recinto pequeño 01",
-      "boxes": [
-        [
-          -77,
-          135.5,
-          1,
-          -75,
-          139,
-          2
-        ]
-      ],
-      "evidence": {}
     },
     {
       "id": "hall",
@@ -97,8 +67,8 @@
       }
     },
     {
-      "id": "oficina_01",
-      "label": "Oficina 01 (uso probable)",
+      "id": "oficina_betsy",
+      "label": "oficina_betsy",
       "boxes": [
         [
           -68,
@@ -116,8 +86,8 @@
       }
     },
     {
-      "id": "recinto_27",
-      "label": "Recinto estrecho norte junto a oficina",
+      "id": "bano_direccion",
+      "label": "bano_direccion",
       "boxes": [
         [
           -63,
@@ -131,8 +101,8 @@
       "evidence": {}
     },
     {
-      "id": "oficina_02",
-      "label": "Oficina 02 (uso probable)",
+      "id": "direccion",
+      "label": "direccion",
       "boxes": [
         [
           -61,
@@ -148,55 +118,6 @@
         "lsmmod:teachers_desk": 4,
         "lsmmod:teachers_chair": 1,
         "lsmmod:laptop": 1
-      }
-    },
-    {
-      "id": "recinto_02",
-      "label": "Recinto pequeño 02",
-      "boxes": [
-        [
-          -61,
-          135.5,
-          -4,
-          -57,
-          139,
-          -2
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_26",
-      "label": "Recinto norte sin mobiliario",
-      "boxes": [
-        [
-          -68,
-          135.5,
-          -2,
-          -65,
-          139,
-          2
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "oficina_03",
-      "label": "Oficina 03 (uso probable)",
-      "boxes": [
-        [
-          -60,
-          135.5,
-          -1,
-          -57,
-          139,
-          2
-        ]
-      ],
-      "evidence": {
-        "lsmmod:teachers_desk": 2,
-        "lsmmod:laptop": 1,
-        "lsmmod:teachers_chair": 1
       }
     },
     {
@@ -217,47 +138,8 @@
       }
     },
     {
-      "id": "pasillo_norte_01",
-      "label": "Pasillo interior norte 01",
-      "boxes": [
-        [
-          -64,
-          135.5,
-          -6,
-          -62,
-          139,
-          -3
-        ],
-        [
-          -64,
-          135.5,
-          -3,
-          -63,
-          139,
-          -2
-        ],
-        [
-          -64,
-          135.5,
-          1,
-          -62,
-          139,
-          2
-        ],
-        [
-          -63,
-          135.5,
-          2,
-          -61,
-          139,
-          3
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_03",
-      "label": "Recinto bajo norte 01",
+      "id": "limpieza_vicky",
+      "label": "limpieza_vicky",
       "boxes": [
         [
           -86,
@@ -266,29 +148,6 @@
           -84,
           136,
           7
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_04",
-      "label": "Recinto bajo norte 02",
-      "boxes": [
-        [
-          -83,
-          134,
-          3,
-          -82,
-          136,
-          5
-        ],
-        [
-          -82,
-          134.5,
-          3,
-          -81,
-          136,
-          5
         ]
       ],
       "evidence": {}
@@ -312,72 +171,8 @@
       }
     },
     {
-      "id": "recinto_05",
-      "label": "Recinto bajo norte 03",
-      "boxes": [
-        [
-          -68,
-          134.5,
-          3,
-          -65,
-          138,
-          5
-        ]
-      ],
-      "evidence": {
-        "lsmmod:high_school_chair": 1,
-        "lsmmod:students_desk": 2,
-        "lsmmod:laptop": 1
-      }
-    },
-    {
-      "id": "recinto_06",
-      "label": "Recinto bajo norte 04",
-      "boxes": [
-        [
-          -59,
-          134.5,
-          3,
-          -58,
-          137,
-          5
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_07",
-      "label": "Recinto bajo sur 01",
-      "boxes": [
-        [
-          -86,
-          134.5,
-          33,
-          -84,
-          138,
-          38
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_08",
-      "label": "Recinto bajo sur 02",
-      "boxes": [
-        [
-          -83,
-          134.5,
-          33,
-          -81,
-          137,
-          35
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_09",
-      "label": "Recinto estrecho norte 01",
+      "id": "psicologia3",
+      "label": "psicologia3",
       "boxes": [
         [
           -86,
@@ -394,8 +189,8 @@
       }
     },
     {
-      "id": "salon_02",
-      "label": "Salón pequeño 02",
+      "id": "psicologia2",
+      "label": "psicologia2",
       "boxes": [
         [
           -84,
@@ -412,8 +207,8 @@
       }
     },
     {
-      "id": "salon_14",
-      "label": "Salón pequeño 14",
+      "id": "psicologia",
+      "label": "psicologia",
       "boxes": [
         [
           -86,
@@ -431,8 +226,8 @@
       }
     },
     {
-      "id": "computacion_01",
-      "label": "Computación 01",
+      "id": "computacion",
+      "label": "computacion",
       "boxes": [
         [
           -81,
@@ -449,8 +244,8 @@
       }
     },
     {
-      "id": "oficina_04",
-      "label": "Oficina 04 (uso probable)",
+      "id": "subdireccion2",
+      "label": "subdireccion2",
       "boxes": [
         [
           -74,
@@ -468,8 +263,8 @@
       }
     },
     {
-      "id": "oficina_05",
-      "label": "Oficina 05 (uso probable)",
+      "id": "subdireccion1",
+      "label": "subdireccion1",
       "boxes": [
         [
           -74,
@@ -487,38 +282,8 @@
       }
     },
     {
-      "id": "recinto_10",
-      "label": "Recinto pequeño norte 02",
-      "boxes": [
-        [
-          -72,
-          139.5,
-          -2,
-          -69,
-          143,
-          2
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_11",
-      "label": "Recinto estrecho norte 02",
-      "boxes": [
-        [
-          -74,
-          139.5,
-          0,
-          -73,
-          143,
-          2
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "salon_03",
-      "label": "Salón 03",
+      "id": "5toprim",
+      "label": "5toprim",
       "boxes": [
         [
           -68,
@@ -540,8 +305,8 @@
       }
     },
     {
-      "id": "salon_04",
-      "label": "Salón 04",
+      "id": "4toprim",
+      "label": "4toprim",
       "boxes": [
         [
           -61,
@@ -579,8 +344,8 @@
       }
     },
     {
-      "id": "recinto_12",
-      "label": "Recinto norte 03",
+      "id": "laboratorio",
+      "label": "laboratorio",
       "boxes": [
         [
           -81,
@@ -598,56 +363,8 @@
       }
     },
     {
-      "id": "recinto_13",
-      "label": "Recinto norte 04",
-      "boxes": [
-        [
-          -74,
-          143.5,
-          -10,
-          -69,
-          147,
-          -7
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_14",
-      "label": "Recinto norte 05",
-      "boxes": [
-        [
-          -74,
-          143.5,
-          -6,
-          -69,
-          147,
-          -3
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "oficina_06",
-      "label": "Oficina 06 (uso probable)",
-      "boxes": [
-        [
-          -74,
-          143.5,
-          -2,
-          -69,
-          147,
-          2
-        ]
-      ],
-      "evidence": {
-        "lsmmod:teachers_desk": 4,
-        "lsmmod:laptop": 2
-      }
-    },
-    {
-      "id": "computacion_02",
-      "label": "Computación 02",
+      "id": "aula_interactiva",
+      "label": "aula_interactiva",
       "boxes": [
         [
           -68,
@@ -664,8 +381,8 @@
       }
     },
     {
-      "id": "computacion_03",
-      "label": "Computación 03",
+      "id": "aula_ingles",
+      "label": "aula_ingles",
       "boxes": [
         [
           -61,
@@ -680,29 +397,6 @@
         "lsmmod:gray_computer_desk": 40,
         "lsmmod:englishroomchair": 9
       }
-    },
-    {
-      "id": "pasillo_norte_02",
-      "label": "Pasillo interior norte 02",
-      "boxes": [
-        [
-          -68,
-          143.5,
-          0,
-          -62,
-          147,
-          2
-        ],
-        [
-          -65,
-          143.5,
-          2,
-          -62,
-          147,
-          3
-        ]
-      ],
-      "evidence": {}
     },
     {
       "id": "auditorio",
@@ -736,8 +430,8 @@
       }
     },
     {
-      "id": "salon_05",
-      "label": "Salón 05",
+      "id": "auditorio_atras",
+      "label": "auditorio_atras",
       "boxes": [
         [
           -68,
@@ -754,91 +448,8 @@
       }
     },
     {
-      "id": "recinto_15",
-      "label": "Recinto norte 06",
-      "boxes": [
-        [
-          -68,
-          147.5,
-          -3,
-          -65,
-          152,
-          2
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_16",
-      "label": "Recinto norte 07",
-      "boxes": [
-        [
-          -64,
-          147.5,
-          -3,
-          -57,
-          152,
-          0
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_17",
-      "label": "Recinto pequeño norte 03",
-      "boxes": [
-        [
-          -64,
-          147.5,
-          1,
-          -61,
-          151,
-          3
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_18",
-      "label": "Recinto pequeño norte 04",
-      "boxes": [
-        [
-          -60,
-          147.5,
-          1,
-          -57,
-          150,
-          2
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "pasillo_norte_03",
-      "label": "Paso norte superior",
-      "boxes": [
-        [
-          -61,
-          147.5,
-          1,
-          -60,
-          150,
-          3
-        ],
-        [
-          -62,
-          147.5,
-          3,
-          -59,
-          152,
-          5
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "salon_06",
-      "label": "Salón 06",
+      "id": "2doprim",
+      "label": "2doprim",
       "boxes": [
         [
           -83,
@@ -882,53 +493,8 @@
       }
     },
     {
-      "id": "recinto_19",
-      "label": "Recinto pequeño sur 01",
-      "boxes": [
-        [
-          -86,
-          135.5,
-          39,
-          -84,
-          140,
-          41
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_20",
-      "label": "Recinto pequeño sur 02",
-      "boxes": [
-        [
-          -86,
-          135.5,
-          42,
-          -84,
-          138,
-          43
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_21",
-      "label": "Recinto pequeño sur 03",
-      "boxes": [
-        [
-          -86,
-          135.5,
-          44,
-          -84,
-          138,
-          45
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "salon_07",
-      "label": "Salón 07",
+      "id": "1roprim",
+      "label": "1roprim",
       "boxes": [
         [
           -68,
@@ -948,53 +514,8 @@
       }
     },
     {
-      "id": "recinto_22",
-      "label": "Recinto pequeño sur 04",
-      "boxes": [
-        [
-          -59,
-          135.5,
-          38,
-          -57,
-          140,
-          40
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_23",
-      "label": "Recinto pequeño sur 05",
-      "boxes": [
-        [
-          -59,
-          135.5,
-          41,
-          -57,
-          140,
-          43
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_24",
-      "label": "Recinto pequeño sur 06",
-      "boxes": [
-        [
-          -59,
-          135.5,
-          44,
-          -57,
-          140,
-          46
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_25",
-      "label": "Recinto junto a escalera sur",
+      "id": "bano_mujeres",
+      "label": "bano_mujeres",
       "boxes": [
         [
           -68,
@@ -1008,8 +529,8 @@
       "evidence": {}
     },
     {
-      "id": "oficina_07",
-      "label": "Oficina junto a escalera (uso probable)",
+      "id": "bano_hombres",
+      "label": "bano_hombres",
       "boxes": [
         [
           -65,
@@ -1031,23 +552,8 @@
       "evidence": {}
     },
     {
-      "id": "entrada",
-      "label": "Entrada y escudo",
-      "boxes": [
-        [
-          -74,
-          135.5,
-          38,
-          -69,
-          140,
-          53
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "salon_08",
-      "label": "Salón 08",
+      "id": "2dosec",
+      "label": "2dosec",
       "boxes": [
         [
           -86,
@@ -1069,8 +575,8 @@
       }
     },
     {
-      "id": "salon_09",
-      "label": "Salón 09",
+      "id": "1rosec",
+      "label": "1rosec",
       "boxes": [
         [
           -72,
@@ -1091,8 +597,8 @@
       }
     },
     {
-      "id": "salon_10",
-      "label": "Salón 10",
+      "id": "6toprim",
+      "label": "6toprim",
       "boxes": [
         [
           -65,
@@ -1112,80 +618,8 @@
       }
     },
     {
-      "id": "recinto_sur_2_01",
-      "label": "Recinto estrecho sur, nivel 2",
-      "boxes": [
-        [
-          -76,
-          140.5,
-          42,
-          -73,
-          145,
-          45
-        ],
-        [
-          -76,
-          140.5,
-          40,
-          -75,
-          145,
-          41
-        ]
-      ],
-      "evidence": {
-        "lsmmod:teachers_desk": 2,
-        "lsmmod:teachers_chair": 1,
-        "lsmmod:laptop": 1
-      }
-    },
-    {
-      "id": "recinto_sur_2_02",
-      "label": "Recinto mínimo sur, nivel 2",
-      "boxes": [
-        [
-          -75,
-          140.5,
-          40,
-          -73,
-          145,
-          41
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_sur_2_03",
-      "label": "Recinto mínimo sur posterior oeste, nivel 2",
-      "boxes": [
-        [
-          -76,
-          140.5,
-          45,
-          -75,
-          145,
-          46
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_sur_2_04",
-      "label": "Recinto mínimo sur posterior este, nivel 2",
-      "boxes": [
-        [
-          -74,
-          140.5,
-          45,
-          -73,
-          145,
-          46
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "salon_11",
-      "label": "Salón 11",
+      "id": "5tosec",
+      "label": "5tosec",
       "boxes": [
         [
           -86,
@@ -1207,8 +641,8 @@
       }
     },
     {
-      "id": "salon_12",
-      "label": "Salón 12",
+      "id": "4tosec",
+      "label": "4tosec",
       "boxes": [
         [
           -72,
@@ -1229,8 +663,8 @@
       }
     },
     {
-      "id": "salon_13",
-      "label": "Salón 13",
+      "id": "3rosec",
+      "label": "3rosec",
       "boxes": [
         [
           -65,
@@ -1251,8 +685,8 @@
       }
     },
     {
-      "id": "recinto_sur_3_01",
-      "label": "Recinto estrecho sur, nivel 3",
+      "id": "oficina_cynthia",
+      "label": "oficina_cynthia",
       "boxes": [
         [
           -76,
@@ -1278,51 +712,6 @@
       }
     },
     {
-      "id": "recinto_sur_3_02",
-      "label": "Recinto mínimo sur, nivel 3",
-      "boxes": [
-        [
-          -75,
-          145.5,
-          40,
-          -73,
-          150,
-          41
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_sur_3_03",
-      "label": "Recinto mínimo sur posterior oeste, nivel 3",
-      "boxes": [
-        [
-          -76,
-          145.5,
-          45,
-          -75,
-          150,
-          46
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "recinto_sur_3_04",
-      "label": "Recinto mínimo sur posterior este, nivel 3",
-      "boxes": [
-        [
-          -74,
-          145.5,
-          45,
-          -73,
-          150,
-          46
-        ]
-      ],
-      "evidence": {}
-    },
-    {
       "id": "patio",
       "label": "Patio central",
       "boxes": [
@@ -1338,338 +727,8 @@
       "evidence": {}
     },
     {
-      "id": "jardin_01",
-      "label": "Jardín norte oeste",
-      "boxes": [
-        [
-          -86,
-          135.5,
-          -17,
-          -73,
-          139,
-          -11
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "jardin_02",
-      "label": "Jardín norte este",
-      "boxes": [
-        [
-          -70,
-          135.5,
-          -17,
-          -57,
-          139,
-          -11
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "acceso_norte",
-      "label": "Acceso norte",
-      "boxes": [
-        [
-          -73,
-          135.5,
-          -17,
-          -70,
-          139,
-          -11
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "galeria_norte_1",
-      "label": "Galería norte, nivel 1",
-      "boxes": [
-        [
-          -81,
-          135.5,
-          3,
-          -62,
-          139,
-          5
-        ],
-        [
-          -81,
-          135.5,
-          5,
-          -75,
-          139,
-          7
-        ]
-      ],
-      "evidence": {
-        "lsmmod:drinking_fountain": 1,
-        "lsmmod:san_martin_de_porres": 2,
-        "lsmmod:laptop": 1
-      }
-    },
-    {
-      "id": "galeria_norte_2",
-      "label": "Galería norte, nivel 2",
-      "boxes": [
-        [
-          -81,
-          139.5,
-          3,
-          -62,
-          143,
-          5
-        ],
-        [
-          -81,
-          139.5,
-          1,
-          -75,
-          143,
-          3
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "galeria_norte_3",
-      "label": "Galería norte, nivel 3",
-      "boxes": [
-        [
-          -81,
-          143.5,
-          3,
-          -62,
-          147,
-          5
-        ],
-        [
-          -81,
-          143.5,
-          5,
-          -75,
-          147,
-          7
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "galeria_norte_4",
-      "label": "Galería norte, nivel 4",
-      "boxes": [
-        [
-          -81,
-          147.5,
-          3,
-          -62,
-          152,
-          5
-        ],
-        [
-          -81,
-          147.5,
-          5,
-          -75,
-          152,
-          7
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "galeria_sur_1",
-      "label": "Galería sur, nivel 1",
-      "boxes": [
-        [
-          -80,
-          135.5,
-          36,
-          -60,
-          140,
-          39
-        ]
-      ],
-      "evidence": {
-        "lsmmod:drinking_fountain": 1,
-        "lsmmod:classroom_door": 2,
-        "lsmmod:san_martin_de_porres": 2,
-        "lsmmod:teachers_desk": 1,
-        "lsmmod:teachers_chair": 1,
-        "lsmmod:pc": 1
-      }
-    },
-    {
-      "id": "galeria_oeste_1",
-      "label": "Galería oeste, nivel 1",
-      "boxes": [
-        [
-          -86,
-          135.5,
-          8,
-          -84,
-          140,
-          32
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "galeria_este_1",
-      "label": "Galería este, nivel 1",
-      "boxes": [
-        [
-          -59,
-          135.5,
-          8,
-          -57,
-          140,
-          32
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "galeria_sur_2",
-      "label": "Galería sur, nivel 2",
-      "boxes": [
-        [
-          -80,
-          140.5,
-          36,
-          -60,
-          145,
-          39
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "galeria_oeste_2",
-      "label": "Galería oeste, nivel 2",
-      "boxes": [
-        [
-          -86,
-          140.5,
-          8,
-          -84,
-          145,
-          32
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "galeria_este_2",
-      "label": "Galería este, nivel 2",
-      "boxes": [
-        [
-          -59,
-          140.5,
-          8,
-          -57,
-          145,
-          32
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "galeria_sur_3",
-      "label": "Galería sur, nivel 3",
-      "boxes": [
-        [
-          -80,
-          145.5,
-          36,
-          -60,
-          150,
-          39
-        ]
-      ],
-      "evidence": {
-        "lsmmod:locker": 4
-      }
-    },
-    {
-      "id": "galeria_oeste_3",
-      "label": "Galería oeste, nivel 3",
-      "boxes": [
-        [
-          -86,
-          145.5,
-          8,
-          -84,
-          150,
-          32
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "galeria_este_3",
-      "label": "Galería este, nivel 3",
-      "boxes": [
-        [
-          -59,
-          145.5,
-          8,
-          -57,
-          150,
-          32
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "escalera_noroeste",
-      "label": "Escalera noroeste",
-      "boxes": [
-        [
-          -86,
-          135.5,
-          3,
-          -82,
-          147,
-          8
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "escalera_noreste",
-      "label": "Escalera noreste",
-      "boxes": [
-        [
-          -61,
-          135.5,
-          3,
-          -57,
-          151,
-          8
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "escalera_suroeste",
-      "label": "Escalera suroeste",
-      "boxes": [
-        [
-          -86,
-          135.5,
-          32,
-          -80,
-          150,
-          38
-        ]
-      ],
-      "evidence": {}
-    },
-    {
-      "id": "escalera_sureste",
-      "label": "Escalera sureste",
+      "id": "escaleras_este_strauss",
+      "label": "escaleras_este_strauss",
       "boxes": [
         [
           -65,
@@ -1686,8 +745,8 @@
       }
     },
     {
-      "id": "vestibulo_oeste",
-      "label": "Vestíbulo de entrada oeste",
+      "id": "patio_2doprim",
+      "label": "patio_2doprim",
       "boxes": [
         [
           -86,
@@ -1701,8 +760,8 @@
       "evidence": {}
     },
     {
-      "id": "vestibulo_este",
-      "label": "Vestíbulo de entrada este",
+      "id": "patio_1roprim",
+      "label": "patio_1roprim",
       "boxes": [
         [
           -69,

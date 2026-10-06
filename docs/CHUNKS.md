@@ -138,3 +138,5 @@ Restauración verificada: BUILD SUCCESSFUL con el harness; modelos de cubo compl
 2026-10-05 — W-CATALOG: 93 espacios del colegio de world (3).zip, catálogo fijo, comandos rooms/tp/boundingbox/where; contornos privados temporales y TP con validación del mundo activo. BUILD SUCCESSFUL Java 25 offline; Minecraft pendiente. No implementa worldgen W1/W2.
 
 2026-10-05 — W-LABELS: rename/renameid del espacio actual, alias en tp/boundingbox/Tab, persistencia inmediata por mundo y exportación JSON con botón para copiar resultados. BUILD SUCCESSFUL Java 25 offline; comprobación de persistencia/exportación correcta; Minecraft pendiente.
+
+2026-10-05 — W-EDIT: 32 nombres confirmados como IDs definitivos, seis lugares conservados y 55 recintos provisionales retirados. define/addbox/delete con coordenadas, rename sin alias antiguos, ediciones y bajas persistentes por mundo, migración de esquema 1 y exportación completa. BUILD SUCCESSFUL Java 25 offline; comprobación de migración/geometría/bajas correcta; Minecraft pendiente.

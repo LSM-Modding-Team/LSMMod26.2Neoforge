@@ -107,6 +107,14 @@ add('vestibulo_oeste','Vestíbulo de entrada oeste',box(-86,-75,136,139,47,52))
 add('vestibulo_este','Vestíbulo de entrada este',box(-69,-58,136,139,47,52))
 
 out=ROOT/'src/main/resources/data/lsmmod/school_spaces.json'; out.parent.mkdir(parents=True,exist_ok=True)
+targets=json.loads((out.parent/'school_spaces_migration.json').read_text(encoding='utf-8'))['targets']
+confirmed=[]
+for room in rooms:
+    target=targets[room['id']]
+    if target is None: continue
+    if target != room['id'] or room['id']=='comedor': room={**room,'id':target,'label':target}
+    confirmed.append(room)
+rooms=confirmed
 assert len({r['id'] for r in rooms}) == len(rooms)
 assert all(-87<=a<d<=-56 and 134<=b<e<=154 and -23<=c<f<=57 for r in rooms for a,b,c,d,e,f in r['boxes'])
 assert next(r for r in rooms if r['id']=='enfermeria')['evidence']['lsmmod:infirmary_cot']==2
@@ -114,7 +122,8 @@ assert next(r for r in rooms if r['id']=='comedor')['evidence']['lsmmod:dining_t
 out.write_text(json.dumps({'source':'world (3).zip','dimension':'minecraft:overworld','bounds':[-87,134,-23,-56,154,57],'spaces':rooms},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 report=ROOT/'docs/SCHOOL_SPACES.md'
 lines=['# Espacios del colegio de world (3).zip','',f'{len(rooms)} espacios revisados por paredes, pisos, puertas y mobiliario. Coordenadas originales; no es generación de estructuras.','',
-'No hay carteles que confirmen grados. “Uso probable” es inferencia del mobiliario. Los recintos genéricos incluyen rincones, divisiones estrechas y espacios bajo escaleras; no se afirma que sean oficinas o baños. Las galerías y escaleras se superponen como zonas de circulación.','',
+'32 nombres confirmados por el usuario sustituyen los IDs provisionales; se conservan además arte, auditorio, enfermería, hall, kiosko y patio. Los otros 55 espacios provisionales están retirados. Los IDs anteriores sustituidos no son alias de comandos. La tabla interna school_spaces_migration.json solo permite migrar los nombres de mundos anteriores.','',
+'Para editar: /lsmmod define <id> <x1> <y1> <z1> <x2> <y2> <z2> crea o reemplaza la delimitación; ambas esquinas son bloques inclusivos y pueden darse en cualquier orden. /lsmmod addbox añade un sector y /lsmmod delete elimina el espacio. /lsmmod rename cambia también el ID. /lsmmod export copia o guarda el catálogo activo completo y sus eliminaciones. Los cambios son persistentes por mundo.','',
 'Los extremos máximos de las cajas del JSON son exclusivos. Cajas múltiples representan sectores del mismo espacio; la visualización muestra cada sector. El mínimo vertical admite la media celda inferior para pisos de losas, respetando Y=134. Las divisiones de FramedBlocks pueden ocupar solo parte de una celda: los límites son aproximaciones a la cuadrícula de bloques, no mediciones de sus superficies.','',
 '| ID para comandos | Descripción | Cajas interiores (mínimo → máximo exclusivo) | Evidencia del mobiliario |','|---|---|---|---|']
 for r in rooms:
