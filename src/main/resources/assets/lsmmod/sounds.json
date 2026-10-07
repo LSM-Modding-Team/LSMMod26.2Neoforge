@@ -1,30 +1,53 @@
 {
   "music_disc.lsm_anthem": {
     "sounds": [
-      { "name": "lsmmod:records/lsm_anthem", "stream": true }
+      {
+        "name": "lsmmod:records/lsm_anthem",
+        "stream": true
+      }
     ]
   },
   "music_disc.lsm_march": {
     "sounds": [
-      { "name": "lsmmod:records/lsm_march", "stream": true }
+      {
+        "name": "lsmmod:records/lsm_march",
+        "stream": true
+      }
     ]
   },
   "guitar": {
-    "sounds": ["lsmmod:guitar"]
+    "sounds": [
+      "lsmmod:guitar"
+    ]
   },
   "mandolin": {
-    "sounds": ["lsmmod:mandolin"]
+    "sounds": [
+      "lsmmod:mandolin"
+    ]
   },
   "flute": {
-    "sounds": ["lsmmod:flute"]
+    "sounds": [
+      "lsmmod:flute"
+    ]
   },
   "tambourine": {
-    "sounds": ["lsmmod:tambourine"]
+    "sounds": [
+      "lsmmod:tambourine"
+    ]
   },
   "violin": {
-    "sounds": ["lsmmod:violin"]
+    "sounds": [
+      "lsmmod:violin"
+    ]
   },
   "melodica": {
-    "sounds": ["lsmmod:melodica"]
+    "sounds": [
+      "lsmmod:melodica"
+    ]
+  },
+  "ruler_hit": {
+    "sounds": [
+      "lsmmod:ruler_hit"
+    ]
   }
 }

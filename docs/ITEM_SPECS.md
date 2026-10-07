@@ -1,6 +1,6 @@
 # ITEM_SPECS: armas, pacificar/enojar, instrumentos, consumibles, legendarios, pelotas y discos
 
-**Estado: SPEC, sin implementar.** Hoy el mod no tiene ningún item propio: solo los `BlockItem` de los 6 bloques (`ModItems`). Escrito en la sesión 3 (Tanda C) a partir de `docs/history/DESIGN_SOURCE_v1.md` §3.5, §5, §7.1.
+**Estado: implementación parcial.** Las seis reglas están implementadas sobre `c0fa4c3`, pendientes de compilación y prueba en Minecraft; detalles en `docs/RULERS.md`. Las demás secciones conservan su estado de diseño. Escrito en la sesión 3 (Tanda C) a partir de `docs/history/DESIGN_SOURCE_v1.md` §3.5, §5, §7.1.
 
 **Implementan este spec (todos `PLANNED`, ver `docs/CHUNKS.md`):** `I1` (items simples), `I2` (efectos, ver `docs/MECHANICS_SPECS.md` §5), `S1` (discos y música).
 
@@ -20,7 +20,18 @@ Marcas: sin marca = **decidido**; *(propuesta)*; *(a confirmar)*. `V#` / `P#` = 
 | **Silla arrojable** | Gran daño; **rompe el bloque donde cae**. Cómo se obtiene y su cooldown: sin definir (V17). |
 | **Pelotas** (plástica, fútbol, básquet, vóley) | Armas a distancia; como item se lanzan. Ver §2. |
 
-**Tiers de la regla** (escalera, una fila por tier): madera, piedra, oro, hierro, diamante, netherite. **Daño, durabilidad y rango de cada tier: sin definir (P4).**
+**Tiers de la regla** (implementados, pendientes de prueba). Daño total sin encantamientos, incluyendo el punto base del jugador:
+
+| Tier / ID | Material vanilla | Daño | Durabilidad | Encantabilidad |
+|---|---|---:|---:|---:|
+| Madera / `wooden_ruler` | WOOD | 3.5 | 59 | 15 |
+| Piedra / `stone_ruler` | STONE | 4.5 | 131 | 5 |
+| Oro / `golden_ruler` | GOLD | 3.5 | 32 | 22 |
+| Hierro / `iron_ruler` | IRON | 5.5 | 250 | 14 |
+| Diamante / `diamond_ruler` | DIAMOND | 6.5 | 1561 | 10 |
+| Netherite / `netherite_ruler` | NETHERITE | 7.5 | 2031 | 15 |
+
+Todas: daño 0.5 menor que la espada equivalente, velocidad 1.6 ataques/s, alcance de entidades +1.5 bloques en la mano principal y barrido vanilla. Reparación y comportamiento de herramienta se heredan de `ToolMaterial`; netherite resiste fuego. Fuente de tiers para recursos: `tools/ruler_tiers.json`.
 
 ---
 
@@ -56,6 +67,21 @@ El Estudioso del cuaderno **no** es un efecto distinto: es el mismo efecto con a
 ---
 
 ## 4. Instrumentos
+
+**Implementado: música y combate; pendiente de compilación y prueba.** Clic derecho conserva los sonidos existentes. Música y ataque comparten el cooldown vanilla del mismo instrumento, sincronizado al cliente y visible como la superposición gris del inventario. Tocar o acertar un golpe activa ese mismo temporizador y bloquea ambas acciones hasta que termine. La música no consume durabilidad. Clic izquierdo permite atacar con estos valores (daño total, contando el punto base del jugador):
+
+| Instrumento | Daño | Cooldown entre golpes | Durabilidad en golpes |
+|---|---:|---:|---:|
+| Guitarra | 10 | 16 s / 320 ticks | 8 |
+| Mandolina | 10 | 16 s / 320 ticks | 8 |
+| Violín | 10 | 16 s / 320 ticks | 8 |
+| Flauta | 2 | 8 s / 160 ticks | 16 |
+| Pandereta | 2 | 8 s / 160 ticks | 16 |
+| Melódica | 2 | 8 s / 160 ticks | 16 |
+
+El impacto reproduce `minecraft:item.mace.smash_ground`. Cada golpe aceptado sobre una entidad viva consume un punto de durabilidad e inicia el cooldown de combate. El cooldown pertenece al tipo de instrumento: copias del mismo item comparten el indicador y el bloqueo de ataque/música. No añade barrido. El daño indicado corresponde a un ataque normal cargado, antes de armadura, críticos u otros modificadores vanilla.
+
+**Diseño pendiente de efectos musicales:** los valores y buffs de la tabla siguiente siguen sin implementarse.
 
 | Instrumento | Duración al usarlo el jugador | Notas |
 |---|---|---|

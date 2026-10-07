@@ -1,6 +1,6 @@
 # ARMOR_SPECS: prendas, inmunidades, reglas de la armadura y Traje de Manuel Tirado
 
-**Estado: SPEC, sin implementar.** No existe ninguna prenda en el código. Escrito en la sesión 3 (Tanda C) a partir de `docs/history/DESIGN_SOURCE_v1.md` §6 y §8, con el grupo de cada NPC según `docs/NPC_SPECS.md` §2 (V5 resuelto por el usuario).
+**Estado: implementación parcial.** Existen las cuatro prendas de uniforme de jugador descritas abajo; protección como cuero, pendientes de compilación y prueba. Las inmunidades y demás prendas permanecen sin implementar. Escrito en la sesión 3 (Tanda C) a partir de `docs/history/DESIGN_SOURCE_v1.md` §6 y §8, con el grupo de cada NPC según `docs/NPC_SPECS.md` §2 (V5 resuelto por el usuario).
 
 **Implementan este spec (todos `PLANNED`, ver `docs/CHUNKS.md`):** `A1` (armadura; **riesgo alto**: la API de equipment de 26.x es una familia que ningún código compilado en 26.2 cubre todavía) y `N0` (la parte que se evalúa en `rules/`, ver `docs/MECHANICS_SPECS.md` §6).
 
@@ -26,6 +26,30 @@ Cualquier combinación de piezas de alumno cuenta para el set completo *(a confi
 ---
 
 ## 2. Tabla de prendas
+
+### Uniforme implementado para jugadores
+
+| ID | Nombre | Ranura | Protección | Durabilidad | Receta |
+|---|---|---|---:|---:|---|
+| `fake_school_haircut` | Corte escolar falso | Cabeza | 1 | 55 | 5 lanas negras en forma de casco |
+| `uniform_polo` | Polo de uniforme | Pecho | 3 | 80 | Ninguna |
+| `uniform_pants` | Pantalón de uniforme | Piernas | 2 | 75 | Ninguna |
+| `uniform_shoes` | Zapatos de uniforme | Pies | 1 | 65 | Ninguna |
+
+Protección total: 7 puntos; dureza y resistencia al empuje: 0. Durabilidad, encantabilidad y reparación de cuero, sin tinte. Uso exclusivo de jugadores mediante `allowed_entities`, comprobación `canEquip`, dispensado desactivado, evento que bloquea intercambios con entidades no jugador (incluidos soportes de armadura) y rechazo explícito en el intercambio del NPC de laboratorio. El resto de las prendas se obtiene por creativo o comandos mientras no se defina su loot; no hay recetas de fabricación ni conversión para ellas.
+
+Cabello negro con parte superior peinada y laterales cortos que dejan cara/orejas visibles; polo rojo oscuro de manga corta con cuello, botones y escudo claro estilizado; pantalón gris sin correa; zapatos negros bajos con cordones y suela oscura. Cuatro modelos 3D de item y cuatro definiciones de equipment que usan la geometría humanoide de armadura vanilla, animada con el jugador. Texturas de equipo RGBA 256×128 y copias independientes en `textures/item/` para el atlas de inventario, compatibles con brazos anchos y estrechos del render de armadura vanilla. El cabello es una capa sobre la skin, por lo que no elimina el cabello que ya tenga esa skin.
+
+Los modelos de item apuntan a `lsmmod:item/<prenda>`; las definiciones de equipment conservan sus texturas bajo `textures/entity/equipment/`. Minecraft 26.2 no incluye automáticamente texturas de entidad en el atlas de items. El modelo de inventario del peinado es un casquete corto, sin un cubo de cara ni una base que tape la cara.
+
+Corrección del pantalón equipado: cintura en las filas UV 30–32 del cuerpo (zona inferior del torso), piernas completas en 20–32; cuello y pecho transparentes. El recurso de piernas se carga desde `textures/entity/equipment/humanoid_leggings/uniform_pants.png` mediante `equipment/uniform_pants.json`. Verificación en Minecraft pendiente. La captura posterior mostró magenta (recurso faltante), por lo que corregir la cintura no resolvió la carga. `ClientSetup.registerItemExtensions` registra únicamente para `UNIFORM_PANTS` una ruta completa de textura equipada: `lsmmod:textures/item/uniform_pants.png`, reutilizando el PNG RGBA que ya carga el item. Evita la derivación de ruta de la capa de piernas; mantiene geometría, ranura y protección. Esta corrección requiere cargar de nuevo el mod, no basta recargar recursos.
+
+Recursos regenerables: `python tools/create_uniform_assets.py` (Pillow). No se implementan inmunidades, neutralidad ni estadísticas propias de NPC.
+
+Verificación manual pendiente: equipar cada pieza y comparar protección; comprobar cabello sin tapar la cara, mangas cortas y pantalón sin correa; rechazar colocación en NPC/mobs/soportes de armadura y dispensadores; confirmar que solo el corte tiene receta; verificar daño/desgaste, reparación y encantamientos.
+
+### Diseño de otras prendas
+
 
 La columna **Ranura** sigue las categorías que da el diseño (`§6`: peinado = casco, polo/casaca = pecho, pantalón/short/falda = piernas, calzado = botas). **Inmunidad** = los NPC de ese grupo **no te atacan**.
 
@@ -70,7 +94,7 @@ La columna **Ranura** sigue las categorías que da el diseño (`§6`: peinado = 
 
 ## 4. Estado de implementación y riesgos
 
-* **Existe hoy:** nada.
+* **Existe hoy:** las cuatro prendas de jugador de §2, pendientes de compilación/prueba.
 * **`A1`:** armadura con la API de equipment de 26.x. **Riesgo alto**: un nombre de vanilla sin código real compilado queda ASSUMED hasta que el usuario compile (`docs/REFERENCE.md` §8). Una API nueva por chunk (R6): el primer chunk de armadura debería ser **una sola prenda** para aislar el error.
 * **Arte (D3, abierta):** las texturas de armadura (capas de cuerpo) no están definidas; hoy no hay scripts de arte.
 * **Recetas:** el diseño no da recetas de ropa; se consigue como loot (§3). Sin definir si habrá alguna.

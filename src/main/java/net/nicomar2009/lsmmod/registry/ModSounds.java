@@ -21,6 +21,11 @@ public class ModSounds {
                     SoundEvent.createVariableRangeEvent(
                             Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "music_disc.lsm_march")));
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> RULER_HIT =
+            SOUNDS.register("ruler_hit", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "ruler_hit")));
+
     public static final DeferredHolder<SoundEvent, SoundEvent> GUITAR =
             SOUNDS.register("guitar", () ->
                     SoundEvent.createVariableRangeEvent(

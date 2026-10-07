@@ -54,6 +54,8 @@ public class TestNpcEntity extends PathfinderMob {
             return useHeldItem(hand) ? InteractionResult.SUCCESS : InteractionResult.PASS;
         }
         ItemStack held = player.getItemInHand(hand);
+        // This exchange bypasses normal vanilla equipping: enforce player-only clothing here.
+        if (held.getItem() instanceof net.nicomar2009.lsmmod.item.SchoolUniformItem) return InteractionResult.PASS;
         EquipmentSlot slot = held.isEmpty() ? (hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND)
                 : getEquipmentSlotForItem(held);
         if (slot == EquipmentSlot.MAINHAND && hand == InteractionHand.OFF_HAND) slot = EquipmentSlot.OFFHAND;

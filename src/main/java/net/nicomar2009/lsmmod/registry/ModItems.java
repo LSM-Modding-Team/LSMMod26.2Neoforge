@@ -9,6 +9,9 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.nicomar2009.lsmmod.LSMMod;
 import net.nicomar2009.lsmmod.item.AwningItem;
+import net.nicomar2009.lsmmod.item.RulerItem;
+import net.nicomar2009.lsmmod.item.SchoolUniformItem;
+import net.minecraft.world.item.equipment.ArmorType;
 import net.nicomar2009.lsmmod.item.InstrumentItem;
 
 /** Item registry for the school blocks; standalone items are planned. */
@@ -146,27 +149,27 @@ public final class ModItems {
 
     public static final DeferredItem<Item> GUITAR =
             ITEMS.registerItem("guitar",
-                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.GUITAR));
+                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.GUITAR, 10.0F, 8, 320));
 
     public static final DeferredItem<Item> MANDOLIN =
             ITEMS.registerItem("mandolin",
-                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.MANDOLIN));
+                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.MANDOLIN, 10.0F, 8, 320));
 
     public static final DeferredItem<Item> FLUTE =
             ITEMS.registerItem("flute",
-                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.FLUTE));
+                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.FLUTE, 2.0F, 16, 160));
 
     public static final DeferredItem<Item> TAMBOURINE =
             ITEMS.registerItem("tambourine",
-                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.TAMBOURINE));
+                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.TAMBOURINE, 2.0F, 16, 160));
 
     public static final DeferredItem<Item> VIOLIN =
             ITEMS.registerItem("violin",
-                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.VIOLIN));
+                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.VIOLIN, 10.0F, 8, 320));
 
     public static final DeferredItem<Item> MELODICA =
             ITEMS.registerItem("melodica",
-                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.MELODICA));
+                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.MELODICA, 2.0F, 16, 160));
 
     public static final DeferredItem<BlockItem> AWNING_SUPPORT =
             ITEMS.registerItem("awning_support", props -> new net.nicomar2009.lsmmod.item.AwningSupportItem(ModBlocks.AWNING_SUPPORT.get(), props));
@@ -254,6 +257,36 @@ public final class ModItems {
 
     public static final DeferredItem<SpawnEggItem> TEST_NPC_SPAWN_EGG =
             ITEMS.registerItem("test_npc_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(ModEntities.TEST_NPC.get())));
+
+    public static final DeferredItem<RulerItem> WOODEN_RULER =
+            ITEMS.registerItem("wooden_ruler", props -> new RulerItem(props, ToolMaterial.WOOD));
+
+    public static final DeferredItem<RulerItem> STONE_RULER =
+            ITEMS.registerItem("stone_ruler", props -> new RulerItem(props, ToolMaterial.STONE));
+
+    public static final DeferredItem<RulerItem> GOLDEN_RULER =
+            ITEMS.registerItem("golden_ruler", props -> new RulerItem(props, ToolMaterial.GOLD));
+
+    public static final DeferredItem<RulerItem> IRON_RULER =
+            ITEMS.registerItem("iron_ruler", props -> new RulerItem(props, ToolMaterial.IRON));
+
+    public static final DeferredItem<RulerItem> DIAMOND_RULER =
+            ITEMS.registerItem("diamond_ruler", props -> new RulerItem(props, ToolMaterial.DIAMOND));
+
+    public static final DeferredItem<RulerItem> NETHERITE_RULER =
+            ITEMS.registerItem("netherite_ruler", props -> new RulerItem(props.fireResistant(), ToolMaterial.NETHERITE));
+
+    public static final DeferredItem<SchoolUniformItem> FAKE_SCHOOL_HAIRCUT =
+            ITEMS.registerItem("fake_school_haircut", props -> new SchoolUniformItem(props, ArmorType.HELMET, "fake_school_haircut"));
+
+    public static final DeferredItem<SchoolUniformItem> UNIFORM_POLO =
+            ITEMS.registerItem("uniform_polo", props -> new SchoolUniformItem(props, ArmorType.CHESTPLATE, "uniform_polo"));
+
+    public static final DeferredItem<SchoolUniformItem> UNIFORM_PANTS =
+            ITEMS.registerItem("uniform_pants", props -> new SchoolUniformItem(props, ArmorType.LEGGINGS, "uniform_pants"));
+
+    public static final DeferredItem<SchoolUniformItem> UNIFORM_SHOES =
+            ITEMS.registerItem("uniform_shoes", props -> new SchoolUniformItem(props, ArmorType.BOOTS, "uniform_shoes"));
 
     private ModItems() {
     }

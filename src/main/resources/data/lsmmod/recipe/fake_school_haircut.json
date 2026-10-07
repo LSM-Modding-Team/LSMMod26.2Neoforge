@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "WWW",
+    "W W"
+  ],
+  "key": {
+    "W": "minecraft:black_wool"
+  },
+  "result": {
+    "id": "lsmmod:fake_school_haircut",
+    "count": 1
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lsmmod:wooden_ruler",
+    "lsmmod:stone_ruler",
+    "lsmmod:golden_ruler",
+    "lsmmod:iron_ruler",
+    "lsmmod:diamond_ruler",
+    "lsmmod:netherite_ruler"
+  ]
+}
