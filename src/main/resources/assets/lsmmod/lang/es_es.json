@@ -89,5 +89,16 @@
   "entity.lsmmod.student": "Student",
   "entity.lsmmod.teacher": "Teacher",
   "item.lsmmod.student_spawn_egg": "Huevo generador de Student",
-  "item.lsmmod.teacher_spawn_egg": "Huevo generador de Teacher"
+  "item.lsmmod.teacher_spawn_egg": "Huevo generador de Teacher",
+  "item.lsmmod.student_1p_spawn_egg": "Huevo generador de alumno de 1.º de primaria",
+  "item.lsmmod.student_2p_spawn_egg": "Huevo generador de alumno de 2.º de primaria",
+  "item.lsmmod.student_3p_spawn_egg": "Huevo generador de alumno de 3.º de primaria",
+  "item.lsmmod.student_4p_spawn_egg": "Huevo generador de alumno de 4.º de primaria",
+  "item.lsmmod.student_5p_spawn_egg": "Huevo generador de alumno de 5.º de primaria",
+  "item.lsmmod.student_6p_spawn_egg": "Huevo generador de alumno de 6.º de primaria",
+  "item.lsmmod.student_1s_spawn_egg": "Huevo generador de alumno de 1.º de secundaria",
+  "item.lsmmod.student_2s_spawn_egg": "Huevo generador de alumno de 2.º de secundaria",
+  "item.lsmmod.student_3s_spawn_egg": "Huevo generador de alumno de 3.º de secundaria",
+  "item.lsmmod.student_4s_spawn_egg": "Huevo generador de alumno de 4.º de secundaria",
+  "item.lsmmod.student_5s_spawn_egg": "Huevo generador de alumno de 5.º de secundaria"
 }

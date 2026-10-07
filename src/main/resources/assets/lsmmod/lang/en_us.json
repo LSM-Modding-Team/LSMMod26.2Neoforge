@@ -96,5 +96,16 @@
   "entity.lsmmod.student": "Student",
   "entity.lsmmod.teacher": "Teacher",
   "item.lsmmod.student_spawn_egg": "Student Spawn Egg",
-  "item.lsmmod.teacher_spawn_egg": "Teacher Spawn Egg"
+  "item.lsmmod.teacher_spawn_egg": "Teacher Spawn Egg",
+  "item.lsmmod.student_1p_spawn_egg": "Primary Grade 1 Student Spawn Egg",
+  "item.lsmmod.student_2p_spawn_egg": "Primary Grade 2 Student Spawn Egg",
+  "item.lsmmod.student_3p_spawn_egg": "Primary Grade 3 Student Spawn Egg",
+  "item.lsmmod.student_4p_spawn_egg": "Primary Grade 4 Student Spawn Egg",
+  "item.lsmmod.student_5p_spawn_egg": "Primary Grade 5 Student Spawn Egg",
+  "item.lsmmod.student_6p_spawn_egg": "Primary Grade 6 Student Spawn Egg",
+  "item.lsmmod.student_1s_spawn_egg": "Secondary Grade 1 Student Spawn Egg",
+  "item.lsmmod.student_2s_spawn_egg": "Secondary Grade 2 Student Spawn Egg",
+  "item.lsmmod.student_3s_spawn_egg": "Secondary Grade 3 Student Spawn Egg",
+  "item.lsmmod.student_4s_spawn_egg": "Secondary Grade 4 Student Spawn Egg",
+  "item.lsmmod.student_5s_spawn_egg": "Secondary Grade 5 Student Spawn Egg"
 }

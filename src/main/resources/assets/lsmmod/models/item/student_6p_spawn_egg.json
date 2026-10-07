@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "lsmmod:item/student_6p_spawn_egg"
+  }
+}

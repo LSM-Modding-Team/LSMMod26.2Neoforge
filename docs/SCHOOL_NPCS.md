@@ -65,3 +65,13 @@ Los `test_npc` ya guardados y sus huevos viejos no se convierten automáticament
 ## Verificación manual pendiente
 
 Comprobar ambos huevos y `/summon`, render sin excepción, StudentData al guardar/cargar y rechazo en Teacher; defensa entre alumnos solo del mismo nivel/grado; memoria individual del profesor, uniforme observado y equipo fijo; daños 4/8, intervalo seis ticks y velocidades; selector de skins y armor stands; ausencia de registro/huevo antiguo y funcionamiento de asientos.
+
+## Huevos por salón y casacas de promoción
+
+Se añaden once huevos `lsmmod:student_1p_spawn_egg` a `student_6p_spawn_egg` y `lsmmod:student_1s_spawn_egg` a `student_5s_spawn_egg`. Usan SpawnEggItem vanilla y el componente ENTITY_DATA con `StudentData:{Level:"primary"/"secondary",Grade:1..6/1..5}`: cada alumno nace con su salón y la skin correspondiente. Los huevos genéricos se conservan. Aparecen automáticamente en la pestaña del mod. No tienen receta. La interacción con un spawner conserva el comportamiento vanilla de elegir el tipo de entidad; no configura el salón de sus futuros alumnos.
+
+Iconos RGBA 64×64: primaria blanca con número #701524; secundaria #701524 con número blanco. Excepciones: 6p fondo #701524/número blanco; 5s fondo #436b3e/número dorado #c8a65b. Manifest de paletas: `tools/student_classroom_eggs.json`; generador: `python tools/create_student_classroom_eggs.py` (Pillow, fuente bold configurable con `--font`).
+
+Solo `placeholder_6p.png` y `placeholder_5s.png` cambian su uniforme por una casaca varsity de mangas crema, ribetes a rayas, botones claros, bolsillos y bordado Mc. 6p usa #701524 y espalda «Promo 2026» / «Stellaris». 5s usa #436b3e, bordados #c8a65b, «Vastos Indomitus» en dos líneas y emblema angular de Ender Dragon dorado. Se mantienen atlas 256×256, cabezas, pantalones, zapatos, geometría y animación. Los textos están rasterizados a la resolución del atlas. Se regenera con `tools/create_placeholder_student_skins.py`.
+
+Validación de recursos y lectura de la API de Minecraft 26.2; pendiente de compilación y prueba en juego.

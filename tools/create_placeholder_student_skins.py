@@ -18,6 +18,53 @@ def part(u,v,w,h,depth,color):
 def text(box,label,color,size):
  x,y,X,Y=[int(a*S) for a in box];font=ImageFont.truetype(FONT,size);bbox=font.getbbox(label);w=bbox[2]-bbox[0];h=bbox[3]-bbox[1]
  d.text((x+(X-x-w)//2-bbox[0],y+(Y-y-h)//2-bbox[1]),label,font=font,fill=color)
+def varsity(level,skin):
+ color=(112,21,36,255) if level=='primary' else (67,107,62,255)
+ cream=(235,229,213,255);gold=(200,166,91,255);shadow=tuple(int(c*.72) for c in color[:3])+(255,)
+ body=part(16,16,8,12,4,color)
+ # Ribbed waist and collar wrap around all four sides of the jacket.
+ for face in ['front','back','left','right']:
+  x,y,X,Y=body[face]
+  rect((x,Y-1.8,X,Y),shadow)
+  for off in [.45,1.15]:rect((x,Y-off-.22,X,Y-off),cream)
+  line([(x+.3,y+1),(x+.3,Y-1.8)],shadow)
+ # Varsity collar, contrasting piping, full snap-button opening and slanted pockets.
+ d.polygon([(80,80),(92,80),(96,87),(90,90)],fill=shadow)
+ d.polygon([(96,87),(100,80),(112,80),(102,90)],fill=shadow)
+ line([(20.5,20),(23,20),(24,22),(25,20),(27.5,20)],cream,2)
+ rect((23.7,22,24.3,30.2),shadow)
+ for y in [22.5,24,25.5,27,28.5,30]:
+  d.ellipse((95,round(y*S),97,round(y*S)+2),fill=cream)
+ line([(20.8,27),(21.7,29)],cream,2);line([(27.2,27),(26.3,29)],cream,2)
+ text((25,22,27.8,25),'Mc',cream if level=='primary' else gold,7)
+ for u,v in [(40,16),(32,48)]:
+  arm=part(u,v,4,12,4,cream)
+  for face in ['front','back','left','right']:
+   x,y,X,Y=arm[face]
+   line([(x+.35,y+.5),(x+.35,Y-2.4)],(210,205,192,255))
+   rect((x,Y-2.5,X,Y-1),color)
+   for off in [1.4,2.1]:rect((x,Y-off-.18,X,Y-off),cream)
+   rect((x,Y-1,X,Y),skin)
+  rect(arm['bottom'],skin)
+ if level=='primary':
+  text((32,20.5,40,23),'Promo 2026',cream,4)
+  text((32,27,40,29.6),'Stellaris',cream,6)
+ else:
+  text((32,20.2,40,21.8),'Vastos',gold,6)
+  text((32,21.8,40,23.5),'Indomitus',gold,5)
+  # Angular Ender Dragon emblem: spread wings, square head, horns and long tail.
+  def poly(points,c=gold):d.polygon([(round(x*S),round(y*S)) for x,y in points],fill=c)
+  poly([(35.7,25.4),(34.1,23.7),(32.3,24),(32.6,27.7),(33.3,26.5),(34.2,27.2),(34.7,25.9),(35.7,27.5)])
+  poly([(36.3,25.4),(37.9,23.7),(39.7,24),(39.4,27.7),(38.7,26.5),(37.8,27.2),(37.3,25.9),(36.3,27.5)])
+  rect((35.4,24.7,36.6,28),gold);rect((35.2,24,36.8,25.3),gold)
+  rect((35.2,23.6,35.6,24.3),gold);rect((36.4,23.6,36.8,24.3),gold)
+  rect((35.45,24.3,35.7,24.6),shadow);rect((36.3,24.3,36.55,24.6),shadow)
+  line([(36,27.5),(36.5,28.7),(35.5,29.5),(34.5,29.1)],gold,2)
+  for x in [35.1,36.6]:line([(x,27.1),(x-.25,28.3)],gold,2)
+  highlight=(231,204,138,255)
+  line([(32.7,24.3),(34.1,24.1),(35.5,25.6)],highlight)
+  line([(39.3,24.3),(37.9,24.1),(36.5,25.6)],highlight)
+
 def generate(level,grade):
  global im,d
  skin=(255,255,255,255) if level!='secondary' else (0,0,0,255)
@@ -56,6 +103,7 @@ def generate(level,grade):
   rect(leg['bottom'],SHOE)
   x,y,X,Y=leg['front']
   for off in [1.6,1.25,.9]:line([(x+.7,Y-off),(X-.7,Y-off)],(67,70,75,255))
+ if (level=='primary' and grade==6) or (level=='secondary' and grade==5):varsity(level,skin)
  name=f'placeholder_{grade}{"p" if level=="primary" else "s"}.png' if grade else 'placeholder_school_npc.png'
  path=ASSETS/('students' if grade else '')/name;path.parent.mkdir(parents=True,exist_ok=True);im.save(path)
 for level,count in [('primary',6),('secondary',5)]:

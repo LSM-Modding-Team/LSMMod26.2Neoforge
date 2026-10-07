@@ -1,0 +1,79 @@
+[
+  {
+    "id": "student_1p_spawn_egg",
+    "level": "primary",
+    "grade": 1,
+    "background": "#ffffff",
+    "numeral": "#701524"
+  },
+  {
+    "id": "student_2p_spawn_egg",
+    "level": "primary",
+    "grade": 2,
+    "background": "#ffffff",
+    "numeral": "#701524"
+  },
+  {
+    "id": "student_3p_spawn_egg",
+    "level": "primary",
+    "grade": 3,
+    "background": "#ffffff",
+    "numeral": "#701524"
+  },
+  {
+    "id": "student_4p_spawn_egg",
+    "level": "primary",
+    "grade": 4,
+    "background": "#ffffff",
+    "numeral": "#701524"
+  },
+  {
+    "id": "student_5p_spawn_egg",
+    "level": "primary",
+    "grade": 5,
+    "background": "#ffffff",
+    "numeral": "#701524"
+  },
+  {
+    "id": "student_6p_spawn_egg",
+    "level": "primary",
+    "grade": 6,
+    "background": "#701524",
+    "numeral": "#ffffff"
+  },
+  {
+    "id": "student_1s_spawn_egg",
+    "level": "secondary",
+    "grade": 1,
+    "background": "#701524",
+    "numeral": "#ffffff"
+  },
+  {
+    "id": "student_2s_spawn_egg",
+    "level": "secondary",
+    "grade": 2,
+    "background": "#701524",
+    "numeral": "#ffffff"
+  },
+  {
+    "id": "student_3s_spawn_egg",
+    "level": "secondary",
+    "grade": 3,
+    "background": "#701524",
+    "numeral": "#ffffff"
+  },
+  {
+    "id": "student_4s_spawn_egg",
+    "level": "secondary",
+    "grade": 4,
+    "background": "#701524",
+    "numeral": "#ffffff"
+  },
+  {
+    "id": "student_5s_spawn_egg",
+    "level": "secondary",
+    "grade": 5,
+    "background": "#436b3e",
+    "numeral": "#c8a65b"
+  }
+]

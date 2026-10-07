@@ -283,3 +283,5 @@ Todos los docs del plan existen desde la sesión 4. `PLANNED` = se escribe solo 
 2026-10-05: classroom_door amplía la ventana circular de 6 a 8 píxeles de diámetro y representa vidrio azul grisáceo suave con reflejos claros y borde sombreado, en vez del hueco transparente anterior. Texturas de ambas mitades e item sincronizadas, render actualizado. Solo recursos; sin nueva compilación ni prueba Minecraft.
 
 2026-10-05: classroom_door conserva ventanas de 8 píxeles y marco, pero hace transparente el centro mediante alfa 0 en render cutout, con solo unos píxeles de reflejo azul claro. Textura superior e item sincronizados. Render actualizado. Solo recursos; sin nueva compilación ni prueba Minecraft.
+
+- Huevos por salón: once `student_<grado>p/s_spawn_egg` con StudentData preconfigurado; casacas varsity placeholder de 6p y 5s. Detalles y generadores en docs/SCHOOL_NPCS.md.
