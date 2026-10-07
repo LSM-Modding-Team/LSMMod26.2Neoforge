@@ -83,8 +83,6 @@
   "item.lsmmod.red_awning": "Red Awning",
   "block.lsmmod.black_awning": "Black Awning",
   "item.lsmmod.black_awning": "Black Awning",
-  "entity.lsmmod.test_npc": "Test Entity",
-  "item.lsmmod.test_npc_spawn_egg": "Test Entity Spawn Egg",
   "item.lsmmod.wooden_ruler": "Wooden Ruler",
   "item.lsmmod.stone_ruler": "Stone Ruler",
   "item.lsmmod.golden_ruler": "Golden Ruler",
@@ -94,5 +92,9 @@
   "item.lsmmod.fake_school_haircut": "Fake School Haircut",
   "item.lsmmod.uniform_polo": "Uniform Polo",
   "item.lsmmod.uniform_pants": "Uniform Pants",
-  "item.lsmmod.uniform_shoes": "Uniform Shoes"
+  "item.lsmmod.uniform_shoes": "Uniform Shoes",
+  "entity.lsmmod.student": "Student",
+  "entity.lsmmod.teacher": "Teacher",
+  "item.lsmmod.student_spawn_egg": "Student Spawn Egg",
+  "item.lsmmod.teacher_spawn_egg": "Teacher Spawn Egg"
 }

@@ -6,8 +6,8 @@ import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.util.Mth;
 
 /** Baked vanilla player mesh, with a mob render state and only the walking cycle. */
-public class TestNpcModel extends HumanoidModel<HumanoidRenderState> {
-    public TestNpcModel(ModelPart root) { super(root); }
+public class SchoolNpcModel extends HumanoidModel<HumanoidRenderState> {
+    public SchoolNpcModel(ModelPart root) { super(root); }
     @Override
     public void setupAnim(HumanoidRenderState state) { animateWalking(this, state); }
 

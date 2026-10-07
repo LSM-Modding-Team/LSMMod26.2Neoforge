@@ -255,8 +255,11 @@ public final class ModItems {
         };
     }
 
-    public static final DeferredItem<SpawnEggItem> TEST_NPC_SPAWN_EGG =
-            ITEMS.registerItem("test_npc_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(ModEntities.TEST_NPC.get())));
+    public static final DeferredItem<SpawnEggItem> STUDENT_SPAWN_EGG =
+            ITEMS.registerItem("student_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(ModEntities.STUDENT.get())));
+
+    public static final DeferredItem<SpawnEggItem> TEACHER_SPAWN_EGG =
+            ITEMS.registerItem("teacher_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(ModEntities.TEACHER.get())));
 
     public static final DeferredItem<RulerItem> WOODEN_RULER =
             ITEMS.registerItem("wooden_ruler", props -> new RulerItem(props, ToolMaterial.WOOD));

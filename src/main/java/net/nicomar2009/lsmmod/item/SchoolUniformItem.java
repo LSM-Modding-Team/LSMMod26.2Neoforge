@@ -7,6 +7,7 @@ import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.ArmorMaterials;
@@ -14,7 +15,7 @@ import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.EquipmentAssets;
 import net.minecraft.world.item.equipment.Equippable;
 
-/** Leather-strength school clothing, equippable only by players. */
+/** Leather-strength school clothing, equippable by players and armor stands. */
 public class SchoolUniformItem extends Item {
     public SchoolUniformItem(Properties properties, ArmorType type, String asset) {
         super(properties.humanoidArmor(ArmorMaterials.LEATHER, type)
@@ -22,13 +23,13 @@ public class SchoolUniformItem extends Item {
                         .setEquipSound(ArmorMaterials.LEATHER.equipSound())
                         .setAsset(ResourceKey.create(EquipmentAssets.ROOT_ID,
                                 Identifier.fromNamespaceAndPath("lsmmod", asset)))
-                        .setAllowedEntities(EntityTypes.PLAYER)
+                        .setAllowedEntities(EntityTypes.PLAYER, EntityTypes.ARMOR_STAND)
                         .setDispensable(false)
                         .build()));
     }
 
     @Override
     public boolean canEquip(ItemStack stack, EquipmentSlot slot, LivingEntity entity) {
-        return entity instanceof Player && entity.isEquippableInSlot(stack, slot);
+        return (entity instanceof Player || entity instanceof ArmorStand) && entity.isEquippableInSlot(stack, slot);
     }
 }

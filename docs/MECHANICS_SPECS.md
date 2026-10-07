@@ -116,6 +116,9 @@ La matriz es **disparador × grupo × estado**, más los modificadores que la ca
 
 ### 6.2 Modificadores que cambian la hostilidad hacia ti
 
+**Excepción implementada para el laboratorio (2026-10-07):** el `teacher` se vuelve neutral frente a quien lleva las cuatro prendas concretas del uniforme. Ver un ataque del jugador a un profesor/alumno del laboratorio crea memoria individual persistente; ver que falta una pieza lo vuelve hostil hasta volver a ver el uniforme completo, salvo que recuerde una agresión. Cambios fuera de su visión no actualizan su observación. No modifica las reglas puras históricas de `N0` ni resuelve todas las celdas pendientes. Detalles en `docs/SCHOOL_NPCS.md`.
+
+
 | Modificador | Efecto |
 |---|---|
 | **Traje de Manuel Tirado** | **Todos** los NPC completamente pacíficos contigo, **sin importar lo que hagas o hayas hecho**. |

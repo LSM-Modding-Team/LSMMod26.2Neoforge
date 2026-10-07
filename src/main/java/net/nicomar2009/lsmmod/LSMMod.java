@@ -26,8 +26,10 @@ public class LSMMod {
         ModEntities.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
         ModSounds.SOUNDS.register(modEventBus);
-        modEventBus.addListener((net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent event) ->
-                event.put(ModEntities.TEST_NPC.get(), net.nicomar2009.lsmmod.entity.TestNpcEntity.createAttributes().build()));
+        modEventBus.addListener((net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent event) -> {
+            event.put(ModEntities.STUDENT.get(), net.nicomar2009.lsmmod.entity.StudentEntity.createAttributes().build());
+            event.put(ModEntities.TEACHER.get(), net.nicomar2009.lsmmod.entity.TeacherEntity.createAttributes().build());
+        });
         LOGGER.info("LSM Mod loaded");
     }
 }

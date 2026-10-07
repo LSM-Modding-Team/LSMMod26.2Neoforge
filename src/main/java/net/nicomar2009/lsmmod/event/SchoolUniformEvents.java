@@ -2,6 +2,7 @@ package net.nicomar2009.lsmmod.event;
 
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -16,7 +17,8 @@ public final class SchoolUniformEvents {
     @SubscribeEvent
     public static void interact(PlayerInteractEvent.EntityInteract event) {
         if (event.getItemStack().getItem() instanceof SchoolUniformItem
-                && !(event.getTarget() instanceof Player)) {
+                && !(event.getTarget() instanceof Player)
+                && !(event.getTarget() instanceof ArmorStand)) {
             event.setCancellationResult(InteractionResult.FAIL);
             event.setCanceled(true);
         }

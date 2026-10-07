@@ -1,6 +1,6 @@
 # NPC_SPECS: un NPC por fila, sistema de stats y rasgos
 
-**Estado: SPEC, sin implementar.** No existe ninguna entidad de NPC en el código (la única entidad es el asiento `SeatEntity`). Escrito en la sesión 3 (Tanda B); en la sesión 4 se actualizaron los grupos de inmunidad y la fila de 6to con lo que el usuario resolvió (V1, V5; ver `ARMOR_SPECS.md` §2 y `BOSS_SPECS.md` §3). Fuente: `docs/history/DESIGN_SOURCE_v1.md` §7.2, §7.3, §7.4, §7.5, §9.2.
+**Estado: implementación parcial de laboratorio.** `student` y `teacher` reemplazan el laboratorio y conservan su combate y datos de salón/observación (detalle en `docs/SCHOOL_NPCS.md`, pendiente de compilación/prueba). Los NPC concretos, sus stats 0–5, rasgos y efectos de este spec siguen sin implementar. Escrito en la sesión 3 (Tanda B); en la sesión 4 se actualizaron los grupos de inmunidad y la fila de 6to con lo que el usuario resolvió (V1, V5; ver `ARMOR_SPECS.md` §2 y `BOSS_SPECS.md` §3). Fuente: `docs/history/DESIGN_SOURCE_v1.md` §7.2, §7.3, §7.4, §7.5, §9.2.
 
 **Implementan este spec (todos `PLANNED`, ver `docs/CHUNKS.md`):** `N1` (NPC base: una entidad de alumno), luego los demás NPC de uno en uno; `K1` (minibosses y boss). La matriz de hostilidad que usan está en `docs/MECHANICS_SPECS.md` §6.
 

@@ -32,7 +32,8 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ModEntities.TEST_NPC.get(), net.nicomar2009.lsmmod.client.renderer.TestNpcRenderer::new);
+        event.registerEntityRenderer(ModEntities.STUDENT.get(), net.nicomar2009.lsmmod.client.renderer.SchoolNpcRenderer::new);
+        event.registerEntityRenderer(ModEntities.TEACHER.get(), net.nicomar2009.lsmmod.client.renderer.SchoolNpcRenderer::new);
         // Assign NoopRenderer to ensure the seat entity remains invisible
         event.registerEntityRenderer(ModEntities.SEAT.get(), NoopRenderer::new);
     }
