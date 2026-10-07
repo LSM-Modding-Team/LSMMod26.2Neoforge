@@ -7,4 +7,5 @@ public class SchoolNpcRenderState extends HumanoidRenderState {
     public boolean isTeacher;
     public boolean isStudent;
     public int classGrade;
+    public boolean isFemale;
 }

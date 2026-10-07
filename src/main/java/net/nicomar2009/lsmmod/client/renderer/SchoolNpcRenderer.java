@@ -23,7 +23,7 @@ public class SchoolNpcRenderer extends HumanoidMobRenderer<SchoolNpcEntity, Huma
     private static final Map<Identifier, Boolean> VALID_TEXTURES = new ConcurrentHashMap<>();
     private static final Identifier FALLBACK = Identifier.withDefaultNamespace("textures/entity/player/wide/steve.png");
     public SchoolNpcRenderer(EntityRendererProvider.Context context) {
-        super(context, new PlaceholderSchoolNpcModel(context.bakeLayer(ModelLayers.PLAYER)), 0.5F);
+        super(context, new PlaceholderSchoolNpcModel(context.bakeLayer(PlaceholderSchoolNpcModel.LAYER)), 0.5F);
         addLayer(new HumanoidArmorLayer<>(this,
                 ArmorModelSet.bake(ModelLayers.PLAYER_ARMOR, context.getModelSet(), PlaceholderSchoolNpcModel.Armor::new),
                 context.getEquipmentRenderer()));
@@ -60,12 +60,21 @@ public class SchoolNpcRenderer extends HumanoidMobRenderer<SchoolNpcEntity, Huma
             int grade = npcState.classGrade;
             if (grade >= 1 && grade <= 11) {
                 String file = grade <= 6 ? grade + "p" : (grade - 6) + "s";
+                if (npcState.isFemale) {
+                    Identifier femaleSkin = Identifier.fromNamespaceAndPath("lsmmod", "textures/entity/students/" + file + "_female.png");
+                    if (isUsableSkin(femaleSkin)) return femaleSkin;
+                }
                 Identifier skin = Identifier.fromNamespaceAndPath("lsmmod", "textures/entity/students/" + file + ".png");
                 if (isUsableSkin(skin)) return skin;
                 Identifier placeholder = Identifier.fromNamespaceAndPath("lsmmod",
-                        "textures/entity/students/placeholder_" + file + ".png");
+                        "textures/entity/students/placeholder_" + file + (npcState.isFemale ? "_female" : "") + ".png");
                 if (isUsableSkin(placeholder)) return placeholder;
             }
+        }
+        if (state instanceof SchoolNpcRenderState npcState && npcState.isStudent) {
+            Identifier generic = Identifier.fromNamespaceAndPath("lsmmod", "textures/entity/placeholder_student_"
+                    + (npcState.isFemale ? "female" : "male") + ".png");
+            if (isUsableSkin(generic)) return generic;
         }
         if (isUsableSkin(TEXTURE)) return TEXTURE;
         return isUsableSkin(PLACEHOLDER) ? PLACEHOLDER : FALLBACK;
@@ -77,6 +86,7 @@ public class SchoolNpcRenderer extends HumanoidMobRenderer<SchoolNpcEntity, Huma
             npcState.isTeacher = entity.isTeacher();
             npcState.isStudent = entity.isStudent();
             npcState.classGrade = entity.getClassGrade();
+            npcState.isFemale = entity instanceof net.nicomar2009.lsmmod.entity.StudentEntity student && student.isFemale();
         }
         // No consumption, attack, crouching, swimming, idle or independent head animation.
         state.attackTime = 0;

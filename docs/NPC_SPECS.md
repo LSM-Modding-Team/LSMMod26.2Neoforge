@@ -1,6 +1,6 @@
 # NPC_SPECS: un NPC por fila, sistema de stats y rasgos
 
-**Estado: implementación parcial de laboratorio.** `student` y `teacher` reemplazan el laboratorio y conservan su combate y datos de salón/observación (detalle en `docs/SCHOOL_NPCS.md`, pendiente de compilación/prueba). Los NPC concretos, sus stats 0–5, rasgos y efectos de este spec siguen sin implementar. Escrito en la sesión 3 (Tanda B); en la sesión 4 se actualizaron los grupos de inmunidad y la fila de 6to con lo que el usuario resolvió (V1, V5; ver `ARMOR_SPECS.md` §2 y `BOSS_SPECS.md` §3). Fuente: `docs/history/DESIGN_SOURCE_v1.md` §7.2, §7.3, §7.4, §7.5, §9.2.
+**Estado: implementación parcial de laboratorio.** `student` y `teacher` reemplazan el laboratorio y conservan su combate y datos de salón/observación (detalle en `docs/SCHOOL_NPCS.md`, pendiente de compilación/prueba). Student y Teacher ya tienen cinco estadísticas universales de nivel 1–5 (Vitalidad, Fuerza, Velocidad, Percepción y Velocidad de Ataque), multiplicadores 0.75/0.875/1/1.125/1.25, bases de combate por dificultad y compatibilidad opcional con Jade; detalle actual en `docs/SCHOOL_NPCS.md`. Los NPC concretos, rasgos y efectos de este spec siguen sin implementar. Escrito en la sesión 3 (Tanda B); en la sesión 4 se actualizaron los grupos de inmunidad y la fila de 6to con lo que el usuario resolvió (V1, V5; ver `ARMOR_SPECS.md` §2 y `BOSS_SPECS.md` §3). Fuente: `docs/history/DESIGN_SOURCE_v1.md` §7.2, §7.3, §7.4, §7.5, §9.2.
 
 **Implementan este spec (todos `PLANNED`, ver `docs/CHUNKS.md`):** `N1` (NPC base: una entidad de alumno), luego los demás NPC de uno en uno; `K1` (minibosses y boss). La matriz de hostilidad que usan está en `docs/MECHANICS_SPECS.md` §6.
 
@@ -14,11 +14,11 @@ Para dar variedad **sin crear mobs nuevos** (principio 3 de `DESIGN.md` §1). Pa
 
 | Elemento | Valores |
 |---|---|
-| **Stats** (0-5) *(propuesta)* | Vitalidad, Fuerza, Velocidad, Percepción (= rango de visión) |
+| **Stats universales actuales** (1–5) | Vitalidad, Fuerza, Velocidad, Percepción (= rango de visión), Velocidad de Ataque |
 | **Rasgos opcionales** *(propuesta)* | Vicioso (**fijo** en el Aula interactiva), Líder, Atlético |
-| **Cuándo se asignan** | Al aparecer. No cambian ni se heredan. |
+| **Cuándo se asignan** | Student/Teacher: nivel 3 por defecto en comandos; cinco niveles aleatorios independientes por huevo, editables mediante NBT ingleses y persistentes. No se implementa herencia ni asignación aleatoria. |
 
-**Sin definir:** qué número real de vida, daño y velocidad corresponde a cada punto de stat (P4); qué hace exactamente cada rasgo salvo Vicioso; los stats de secundaria, 4to y 5to (P6); cómo se combina la Percepción con la reducción de visión por prendas (V6). Cada NPC de abajo es "muy OP por defecto" (principio 1): los números no se eligen todavía.
+**Bases universales definidas para Student/Teacher:** ver `SCHOOL_NPCS.md`. Para los NPC concretos de la tabla siguen sin definir las bases específicas (P4); qué hace exactamente cada rasgo salvo Vicioso; los stats de secundaria, 4to y 5to (P6); cómo se combina la Percepción con la reducción de visión por prendas (V6). Cada NPC de abajo es "muy OP por defecto" (principio 1): los números no se eligen todavía.
 
 ---
 
@@ -63,7 +63,7 @@ Para dar variedad **sin crear mobs nuevos** (principio 3 de `DESIGN.md` §1). Pa
 
 ## 3. Lo que sí está en el mundo hoy
 
-Nada de esto existe aún: **ningún NPC está implementado.** Ningún huevo de aparición, ni modelo, ni renderer, ni estructura donde colocarlos (`WORLD_SPECS.md`).
+Existen las entidades genéricas **Student y Teacher**, sus huevos (incluidos once salones), modelo/renderer de jugador y cinco estadísticas universales 1–5. El sistema actual de estadísticas reemplaza la propuesta histórica 0–5 para estas dos entidades; consulta `SCHOOL_NPCS.md`. Las variantes concretas de la tabla y su colocación en estructuras siguen pendientes.
 
 ---
 

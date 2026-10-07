@@ -110,3 +110,7 @@ for level,count in [('primary',6),('secondary',5)]:
  for grade in range(1,count+1):generate(level,grade)
 generate('primary',0)
 print('Generated 11 classroom placeholders and NPC fallback, 256x256 RGBA; no geometry changes.')
+
+# Also recreate marked male/female variants after rebuilding the original uniforms.
+import subprocess, sys
+subprocess.run([sys.executable, str(ROOT / 'tools/create_student_gender_skins.py'), '--font', FONT], check=True)

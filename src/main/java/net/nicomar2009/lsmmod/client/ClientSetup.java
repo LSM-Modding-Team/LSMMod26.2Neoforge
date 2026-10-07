@@ -39,6 +39,12 @@ public class ClientSetup {
     }
 
     @SubscribeEvent
+    public static void registerNpcModelLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(net.nicomar2009.lsmmod.client.model.PlaceholderSchoolNpcModel.LAYER,
+                net.nicomar2009.lsmmod.client.model.PlaceholderSchoolNpcModel::createBodyLayer);
+    }
+
+    @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.STUDENT.get(), net.nicomar2009.lsmmod.client.renderer.SchoolNpcRenderer::new);
         event.registerEntityRenderer(ModEntities.TEACHER.get(), net.nicomar2009.lsmmod.client.renderer.SchoolNpcRenderer::new);

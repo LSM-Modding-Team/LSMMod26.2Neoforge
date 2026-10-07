@@ -13,6 +13,7 @@ public class TeacherEntity extends SchoolNpcEntity {
     public boolean isTeacher() { return true; }
 
     public static net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder createAttributes() {
-        return SchoolNpcEntity.createAttributes().add(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE, 8.0);
+        return SchoolNpcEntity.createAttributes().add(net.minecraft.world.entity.ai.attributes.Attributes.MAX_HEALTH, 50.0)
+                .add(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE, 7.0);
     }
 }

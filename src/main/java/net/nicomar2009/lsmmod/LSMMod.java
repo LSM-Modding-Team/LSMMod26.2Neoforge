@@ -3,6 +3,9 @@ package net.nicomar2009.lsmmod;
 import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.config.ModConfig;
+import net.nicomar2009.lsmmod.config.LSMClientConfig;
 import net.nicomar2009.lsmmod.registry.ModBlockEntities;
 import net.nicomar2009.lsmmod.registry.ModBlocks;
 import net.nicomar2009.lsmmod.registry.ModCreativeTabs;
@@ -18,7 +21,8 @@ public class LSMMod {
     public static final String MOD_ID = "lsmmod";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public LSMMod(IEventBus modEventBus) {
+    public LSMMod(IEventBus modEventBus, ModContainer modContainer) {
+        modContainer.registerConfig(ModConfig.Type.CLIENT, LSMClientConfig.SPEC, "lsmmod-client.toml");
         // Register every deferred register on the mod event bus
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);

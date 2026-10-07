@@ -32,6 +32,12 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+2026-10-07: Student añade gender string male/female persistente/sincronizado y sorteo 50/50 por huevo, sin cambiar salón ni stats. Modelo wide con dos piezas estáticas de busto cubiertas por el uniforme solo para female, inspirado en JAR de referencia (sin dependencia). Once skins female, M/F en parte superior de cabeza y dos respaldos genéricos Student; nombres de salón/género en Jade. Registro propio de capa. Entrega acumulada sobre 0074d9f; revisión estática, sin compilación ni prueba en juego.
+
+2026-10-07: configuración cliente Jade en lsmmod-client.toml, jade.npcDisplayMode = NAME_ONLY/LEVELS/FULL_STATS (inicial FULL_STATS). Nombres de Student por los once salones, traducidos a es_es/en_us y con CustomName prioritario. Entrega acumulada sobre 0074d9f; API/recursos revisados, sin compilación ni prueba en juego.
+
+2026-10-07: sobre 0074d9f, Student/Teacher: 30/50 HP, golpes base cada 1 s, daños explícitos por dificultad y exclusión de pacífico sin categoría Monster. Cinco NBT universales 1–5 con nivel 3 neutro; integración opcional Jade 26.2.10 para niveles y valores efectivos. Recursos/API revisados; pendiente compilación y juego. Ver docs/SCHOOL_NPCS.md.
+
 2026-10-07: sobre 56c00f9 se reemplazan skins planas por doce placeholders 256×256 (11 grados + NPC genérico), polo detallado de manga larga, números grandes y piel/número blanco-negro para primaria, negro-blanco para secundaria. Prefijo placeholder_ en PNG y clase PlaceholderSchoolNpcModel, conservando geometría. Selector prioriza futuras definitivas y valida lectura/dimensiones/alpha base; caché se limpia al recargar. Modelos/combate intactos. No compilado ni probado en Minecraft. docs/SCHOOL_NPCS.md y tools/create_placeholder_student_skins.py.
 
 2026-10-07: selector de skins de alumnos por nivel/grado: textures/entity/students/1p.png–6p.png y 1s.png–5s.png. Respeta roles y datos sincronizados; si falta un PNG conserva test_npc.png/Steve y permite recarga de recursos. Las imágenes del chat no tienen originales descargables en el entorno; falta incorporar los PNG suministrados, incluida la decisión para 6.º primaria. No compilado ni probado en Minecraft.
@@ -285,3 +291,5 @@ Todos los docs del plan existen desde la sesión 4. `PLANNED` = se escribe solo 
 2026-10-05: classroom_door conserva ventanas de 8 píxeles y marco, pero hace transparente el centro mediante alfa 0 en render cutout, con solo unos píxeles de reflejo azul claro. Textura superior e item sincronizados. Render actualizado. Solo recursos; sin nueva compilación ni prueba Minecraft.
 
 - Huevos por salón: once `student_<grado>p/s_spawn_egg` con StudentData preconfigurado; casacas varsity placeholder de 6p y 5s. Detalles y generadores en docs/SCHOOL_NPCS.md.
+
+2026-10-07: NBT universales renombrados a Vitality/Strength/Speed/Perception/AttackSpeed con lectura de aliases antiguos. Cada uso de huevo sortea cinco niveles independientes 1–5 conservando nivel escolar y grado; comandos sin stats conservan 3. Incluido en la entrega acumulada sobre 0074d9f; pendiente compilación y juego.

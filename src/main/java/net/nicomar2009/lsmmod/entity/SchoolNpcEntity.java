@@ -25,6 +25,12 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.sounds.SoundSource;
 import net.nicomar2009.lsmmod.registry.ModItems;
 import net.nicomar2009.lsmmod.registry.ModSounds;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.level.ServerLevelAccessor;
+import org.jspecify.annotations.Nullable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -46,7 +52,18 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
             SynchedEntityData.defineId(SchoolNpcEntity.class, EntityDataSerializers.INT);
     private static final ResourceKey<DamageType> MELEE_DAMAGE = ResourceKey.create(Registries.DAMAGE_TYPE,
             Identifier.fromNamespaceAndPath("lsmmod", "school_npc_melee"));
-    private static final int ATTACK_INTERVAL_TICKS = 6;
+    private static final int ATTACK_INTERVAL_TICKS = 20;
+    public static final double MAX_PERCEPTION_RANGE = 128.0 * SchoolNpcStat.multiplier(5);
+    private static final EntityDataAccessor<Integer> VITALITY =
+            SynchedEntityData.defineId(SchoolNpcEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> STRENGTH =
+            SynchedEntityData.defineId(SchoolNpcEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> SPEED =
+            SynchedEntityData.defineId(SchoolNpcEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> PERCEPTION =
+            SynchedEntityData.defineId(SchoolNpcEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ATTACK_SPEED =
+            SynchedEntityData.defineId(SchoolNpcEntity.class, EntityDataSerializers.INT);
 
     private static final double NORMAL_SPEED = 0.25;
     // Ground move control uses this value for both speed and forward input (Mob#setSpeed).
@@ -65,10 +82,10 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        // Shared defaults; the designed 0–5 school stat system is still separate.
-        return createMobAttributes().add(Attributes.MAX_HEALTH, 20.0).add(Attributes.MOVEMENT_SPEED, NORMAL_SPEED)
+        // Student defaults. Teachers override health and normal-difficulty damage.
+        return createMobAttributes().add(Attributes.MAX_HEALTH, 30.0).add(Attributes.MOVEMENT_SPEED, NORMAL_SPEED)
                 .add(Attributes.FOLLOW_RANGE, 128.0)
-                .add(Attributes.ATTACK_DAMAGE, 4.0)
+                .add(Attributes.ATTACK_DAMAGE, 2.0)
                 .add(Attributes.ATTACK_SPEED, 20.0 / ATTACK_INTERVAL_TICKS);
     }
 
@@ -76,6 +93,63 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
     protected void defineSynchedData(SynchedEntityData.Builder data) {
         super.defineSynchedData(data);
         data.define(CLASS_GRADE, 0);
+        for (SchoolNpcStat stat : SchoolNpcStat.values()) data.define(statAccessor(stat), 3);
+    }
+
+    private static EntityDataAccessor<Integer> statAccessor(SchoolNpcStat stat) {
+        return switch (stat) {
+            case VITALITY -> VITALITY;
+            case STRENGTH -> STRENGTH;
+            case SPEED -> SPEED;
+            case PERCEPTION -> PERCEPTION;
+            case ATTACK_SPEED -> ATTACK_SPEED;
+        };
+    }
+
+    public int getStatLevel(SchoolNpcStat stat) { return entityData.get(statAccessor(stat)); }
+    public double getStatMultiplier(SchoolNpcStat stat) { return SchoolNpcStat.multiplier(getStatLevel(stat)); }
+    public double getPerceptionRange() { return getAttributeValue(Attributes.FOLLOW_RANGE); }
+    public int getAttackIntervalTicks() {
+        return Math.max(1, (int)Math.round(ATTACK_INTERVAL_TICKS / getStatMultiplier(SchoolNpcStat.ATTACK_SPEED)));
+    }
+
+    /** Explicit difficulty values: the custom damage type must not apply vanilla scaling again. */
+    public double getMeleeDamage() {
+        double base = switch (level().getDifficulty()) {
+            case PEACEFUL -> 0.0;
+            case EASY -> isTeacher() ? 3.5 : 1.5;
+            case NORMAL -> isTeacher() ? 7.0 : 2.0;
+            case HARD -> isTeacher() ? 10.5 : 2.5;
+        };
+        return base * getStatMultiplier(SchoolNpcStat.STRENGTH);
+    }
+
+    private void refreshStats() {
+        getAttribute(Attributes.MAX_HEALTH).setBaseValue((isTeacher() ? 50.0 : 30.0)
+                * getStatMultiplier(SchoolNpcStat.VITALITY));
+        getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(getMeleeDamage());
+        // Keep both fresh and migrated NPC perception controlled solely by the configured level.
+        getAttribute(Attributes.FOLLOW_RANGE).removeModifier(RANDOM_SPAWN_BONUS_ID);
+        getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(128.0 * getStatMultiplier(SchoolNpcStat.PERCEPTION));
+        getAttribute(Attributes.ATTACK_SPEED).setBaseValue(getStatMultiplier(SchoolNpcStat.ATTACK_SPEED));
+        refreshMovementSpeed();
+        if (getHealth() > getMaxHealth()) setHealth(getMaxHealth());
+    }
+
+    /** Roll once per egg-created NPC, before vanilla applies its optional entity-data overrides. */
+    @Override
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty,
+            EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
+        SpawnGroupData result = super.finalizeSpawn(level, difficulty, spawnReason, groupData);
+        boolean fromEgg = spawnReason == EntitySpawnReason.SPAWN_ITEM_USE || spawnReason == EntitySpawnReason.DISPENSER;
+        if (fromEgg) {
+            for (SchoolNpcStat stat : SchoolNpcStat.values()) {
+                entityData.set(statAccessor(stat), level.getRandom().nextInt(5) + 1);
+            }
+        }
+        refreshStats();
+        if (fromEgg) setHealth(getMaxHealth());
+        return result;
     }
 
     public abstract boolean isTeacher();
@@ -85,7 +159,16 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
     public Component getName() {
         if (getCustomName() != null) return super.getName();
         if (isTeacher()) return Component.translatable("entity.lsmmod.teacher");
-        if (isStudent()) return Component.translatable("entity.lsmmod.student");
+        if (isStudent()) {
+            int classroom = getClassGrade();
+            if (classroom > 0) {
+                String suffix = classroom <= 6 ? classroom + "p" : (classroom - 6) + "s";
+                return Component.translatable("entity.lsmmod.student." + suffix
+                        + (this instanceof StudentEntity student && student.isFemale() ? ".female" : ""));
+            }
+            return Component.translatable(this instanceof StudentEntity student && student.isFemale()
+                    ? "entity.lsmmod.student.female" : "entity.lsmmod.student.male");
+        }
         return super.getName();
     }
 
@@ -117,6 +200,7 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
+        for (SchoolNpcStat stat : SchoolNpcStat.values()) output.putInt(stat.nbtKey(), getStatLevel(stat));
         if (isStudent()) {
             ValueOutput student = output.child("StudentData");
             int classroom = getClassGrade();
@@ -132,6 +216,12 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
+        for (SchoolNpcStat stat : SchoolNpcStat.values()) {
+            entityData.set(statAccessor(stat), SchoolNpcStat.clampLevel(input.getIntOr(stat.nbtKey(), input.getIntOr(stat.legacyNbtKey(), 3))));
+        }
+        refreshStats();
+        // Read again after setting the new capacity: super may have clamped against the old max health.
+        setHealth(input.getFloatOr("Health", getMaxHealth()));
         if (isStudent()) {
             ValueInput student = input.childOrEmpty("StudentData");
             setClassroom(student.getStringOr("Level", "unassigned"), student.getIntOr("Grade", 0));
@@ -156,7 +246,7 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
     }
 
     private boolean seesPlayer(Player player) {
-        return distanceToSqr(player) <= 128.0 * 128.0 && getSensing().hasLineOfSight(player);
+        return distanceToSqr(player) <= getPerceptionRange() * getPerceptionRange() && getSensing().hasLineOfSight(player);
     }
 
     /** Only visible equipment updates this teacher's knowledge about a specific player. */
@@ -171,7 +261,7 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
     public void witnessSchoolAttack(Player attacker, SchoolNpcEntity victim) {
         if (isStudent()) {
             if (victim != this && isSameClassroom(victim) && seesPlayer(attacker)
-                    && distanceToSqr(victim) <= 128.0 * 128.0 && getSensing().hasLineOfSight(victim)
+                    && distanceToSqr(victim) <= getPerceptionRange() * getPerceptionRange() && getSensing().hasLineOfSight(victim)
                     && !attacker.isCreative() && !attacker.isSpectator()) {
                 setLastHurtByMob(attacker);
                 setTarget(attacker);
@@ -179,7 +269,7 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
             return;
         }
         if (!isTeacher() || !seesPlayer(attacker)
-                || distanceToSqr(victim) > 128.0 * 128.0
+                || distanceToSqr(victim) > getPerceptionRange() * getPerceptionRange()
                 || (victim != this && !getSensing().hasLineOfSight(victim))) return;
         witnessedAttackers.add(attacker.getUUID().toString());
         if (shouldAttackPlayer(attacker)) setTarget(attacker);
@@ -188,7 +278,7 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
     private void refreshMovementSpeed() {
         double speed = getTarget() == null ? NORMAL_SPEED
                 : isTeacher() ? TEACHER_CHASE_SPEED : isStudent() ? STUDENT_CHASE_SPEED : NORMAL_SPEED;
-        getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(speed);
+        getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(speed * getStatMultiplier(SchoolNpcStat.SPEED));
     }
 
     protected final void enforceTeacherEquipment() {
@@ -216,17 +306,17 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
                 setAggressive(false);
             }
         }
-        refreshMovementSpeed();
+        refreshStats();
         if (!isTeacher() && !isStudent() && getTarget() != null) setTarget(null);
     }
 
-    /** Fixed role damage: held-item attributes, enchantments and item cooldowns do not participate. */
+    /** Role/difficulty damage with Strength; held-item modifiers and enchantments do not participate. */
     @Override
     public boolean doHurtTarget(ServerLevel level, Entity target) {
-        if (!isTeacher() && !isStudent()) return false;
+        if (level.getDifficulty() == Difficulty.PEACEFUL || (!isTeacher() && !isStudent())) return false;
         if (isTeacher() && target instanceof Player player && !shouldAttackPlayer(player)) return false;
         DamageSource source = new DamageSource(damageSources().damageTypes.getOrThrow(MELEE_DAMAGE), this);
-        boolean hurt = target.hurtServer(level, source, isTeacher() ? 8.0F : 4.0F);
+        boolean hurt = target.hurtServer(level, source, (float)getMeleeDamage());
         if (hurt) {
             setLastHurtMob(target);
             if (isTeacher()) level.playSound(null, target.getX(), target.getY(), target.getZ(),
@@ -274,11 +364,11 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
 
         @Override
         protected void checkAndPerformAttack(LivingEntity target) {
-            // MeleeAttackGoal's private timer is fixed at 20: use an absolute six-tick timer instead.
+            // Stat-scaled absolute timer, independent of the held item's attack speed.
             if (!(isTeacher() && target instanceof Player player && !shouldAttackPlayer(player))
                     && tickCount >= nextAttackTick && isWithinMeleeAttackRange(target)
                     && getSensing().hasLineOfSight(target)) {
-                nextAttackTick = tickCount + ATTACK_INTERVAL_TICKS;
+                nextAttackTick = tickCount + getAttackIntervalTicks();
                 swing(InteractionHand.MAIN_HAND);
                 doHurtTarget(getServerLevel(SchoolNpcEntity.this), target);
             }
