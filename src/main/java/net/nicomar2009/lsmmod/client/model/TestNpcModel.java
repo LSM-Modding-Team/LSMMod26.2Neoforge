@@ -2,17 +2,16 @@ package net.nicomar2009.lsmmod.client.model;
 
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.player.PlayerModel;
-import net.minecraft.client.renderer.entity.state.AvatarRenderState;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.util.Mth;
 
-/** Vanilla wide-arm player mesh; only the walking cycle is animated. */
-public class TestNpcModel extends PlayerModel {
-    public TestNpcModel(ModelPart root) { super(root, false); }
+/** Baked vanilla player mesh, with a mob render state and only the walking cycle. */
+public class TestNpcModel extends HumanoidModel<HumanoidRenderState> {
+    public TestNpcModel(ModelPart root) { super(root); }
     @Override
-    public void setupAnim(AvatarRenderState state) { animateWalking(this, state); }
+    public void setupAnim(HumanoidRenderState state) { animateWalking(this, state); }
 
-    public static void animateWalking(HumanoidModel<AvatarRenderState> model, AvatarRenderState state) {
+    public static void animateWalking(HumanoidModel<HumanoidRenderState> model, HumanoidRenderState state) {
         model.resetPose();
         float phase = state.walkAnimationPos * 0.6662F;
         float speed = state.walkAnimationSpeed;
@@ -22,9 +21,9 @@ public class TestNpcModel extends PlayerModel {
         model.leftLeg.xRot = Mth.cos(phase + (float)Math.PI) * 1.4F * speed;
     }
 
-    public static class Armor extends HumanoidModel<AvatarRenderState> {
+    public static class Armor extends HumanoidModel<HumanoidRenderState> {
         public Armor(ModelPart root) { super(root); }
         @Override
-        public void setupAnim(AvatarRenderState state) { animateWalking(this, state); }
+        public void setupAnim(HumanoidRenderState state) { animateWalking(this, state); }
     }
 }

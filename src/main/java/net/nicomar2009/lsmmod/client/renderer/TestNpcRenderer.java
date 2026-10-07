@@ -6,12 +6,12 @@ import net.minecraft.client.renderer.entity.ArmorModelSet;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
-import net.minecraft.client.renderer.entity.state.AvatarRenderState;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.resources.Identifier;
 import net.nicomar2009.lsmmod.client.model.TestNpcModel;
 import net.nicomar2009.lsmmod.entity.TestNpcEntity;
 
-public class TestNpcRenderer extends HumanoidMobRenderer<TestNpcEntity, AvatarRenderState, TestNpcModel> {
+public class TestNpcRenderer extends HumanoidMobRenderer<TestNpcEntity, HumanoidRenderState, TestNpcModel> {
     private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath("lsmmod", "textures/entity/test_npc.png");
     private static final Identifier FALLBACK = Identifier.withDefaultNamespace("textures/entity/player/wide/steve.png");
     private final Identifier texture;
@@ -23,11 +23,11 @@ public class TestNpcRenderer extends HumanoidMobRenderer<TestNpcEntity, AvatarRe
                 context.getEquipmentRenderer()));
     }
     @Override
-    public AvatarRenderState createRenderState() { return new AvatarRenderState(); }
+    public HumanoidRenderState createRenderState() { return new HumanoidRenderState(); }
     @Override
-    public Identifier getTextureLocation(AvatarRenderState state) { return texture; }
+    public Identifier getTextureLocation(HumanoidRenderState state) { return texture; }
     @Override
-    public void extractRenderState(TestNpcEntity entity, AvatarRenderState state, float partialTicks) {
+    public void extractRenderState(TestNpcEntity entity, HumanoidRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
         // No consumption, attack, crouching, swimming, idle or independent head animation.
         state.attackTime = 0;
