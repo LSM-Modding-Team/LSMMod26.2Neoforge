@@ -24,6 +24,10 @@ public final class ModEntities {
                     .passengerAttachments(0.0F)
                     .noSummon());
 
+    public static final Supplier<EntityType<net.nicomar2009.lsmmod.entity.TestNpcEntity>> TEST_NPC = ENTITIES.registerEntityType(
+            "test_npc", net.nicomar2009.lsmmod.entity.TestNpcEntity::new, MobCategory.CREATURE,
+            builder -> builder.sized(0.6F, 1.8F).clientTrackingRange(8));
+
     private ModEntities() {
     }
 

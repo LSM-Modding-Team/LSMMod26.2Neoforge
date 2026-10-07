@@ -252,6 +252,9 @@ public final class ModItems {
         };
     }
 
+    public static final DeferredItem<SpawnEggItem> TEST_NPC_SPAWN_EGG =
+            ITEMS.registerItem("test_npc_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(ModEntities.TEST_NPC.get())));
+
     private ModItems() {
     }
 

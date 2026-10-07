@@ -82,5 +82,7 @@
   "block.lsmmod.red_awning": "Red Awning",
   "item.lsmmod.red_awning": "Red Awning",
   "block.lsmmod.black_awning": "Black Awning",
-  "item.lsmmod.black_awning": "Black Awning"
+  "item.lsmmod.black_awning": "Black Awning",
+  "entity.lsmmod.test_npc": "Test Entity",
+  "item.lsmmod.test_npc_spawn_egg": "Test Entity Spawn Egg"
 }

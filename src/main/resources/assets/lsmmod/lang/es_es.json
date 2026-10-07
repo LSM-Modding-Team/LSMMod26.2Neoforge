@@ -75,5 +75,7 @@
   "block.lsmmod.red_awning": "Toldo rojo",
   "item.lsmmod.red_awning": "Toldo rojo",
   "block.lsmmod.black_awning": "Toldo negro",
-  "item.lsmmod.black_awning": "Toldo negro"
+  "item.lsmmod.black_awning": "Toldo negro",
+  "entity.lsmmod.test_npc": "Entidad de prueba",
+  "item.lsmmod.test_npc_spawn_egg": "Huevo de entidad de prueba"
 }

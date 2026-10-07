@@ -31,6 +31,12 @@ public class InstrumentItem extends Item {
         this(properties, sound, 1.0F, 1.0F, 10);
     }
 
+    /** Plays the same sound for a living test entity without pretending it is a Player. */
+    public void playFor(net.minecraft.world.entity.LivingEntity user) {
+        if (!user.level().isClientSide()) user.level().playSound(null, user.getX(), user.getY(), user.getZ(),
+                sound.get(), SoundSource.PLAYERS, volume, pitch);
+    }
+
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
