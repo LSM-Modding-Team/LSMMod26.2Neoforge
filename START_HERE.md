@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+2026-10-07: sobre 56c00f9 se reemplazan skins planas por doce placeholders 256×256 (11 grados + NPC genérico), polo detallado de manga larga, números grandes y piel/número blanco-negro para primaria, negro-blanco para secundaria. Prefijo placeholder_ en PNG y clase PlaceholderSchoolNpcModel, conservando geometría. Selector prioriza futuras definitivas y valida lectura/dimensiones/alpha base; caché se limpia al recargar. Modelos/combate intactos. No compilado ni probado en Minecraft. docs/SCHOOL_NPCS.md y tools/create_placeholder_student_skins.py.
+
 2026-10-07: selector de skins de alumnos por nivel/grado: textures/entity/students/1p.png–6p.png y 1s.png–5s.png. Respeta roles y datos sincronizados; si falta un PNG conserva test_npc.png/Steve y permite recarga de recursos. Las imágenes del chat no tienen originales descargables en el entorno; falta incorporar los PNG suministrados, incluida la decisión para 6.º primaria. No compilado ni probado en Minecraft.
 
 2026-10-07: StudentData se limita estrictamente a alumnos y contiene solo Level/Grade. Se elimina Section de código, sincronización y guardado; campos antiguos se ignoran. Dejar el rol de alumno limpia el grado; profesores/sujetos pasivos no leen ni guardan StudentData. Testigos comparan únicamente nivel y grado. No compilado ni probado en Minecraft.

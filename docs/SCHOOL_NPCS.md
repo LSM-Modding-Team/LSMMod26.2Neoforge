@@ -34,7 +34,25 @@ El daño y la cadencia son independientes del item, sus encantamientos, desgaste
 
 Huevos separados: `student_spawn_egg` y `teacher_spawn_egg`, en la pestaña creativa del mod. Se mantienen las restricciones de uniforme para jugadores y armor stands. Student conserva el intercambio de equipo y el hook musical anteriores; Teacher mantiene el equipo fijo.
 
-Modelo/render común en `SchoolNpcModel`, `SchoolNpcRenderer` y `SchoolNpcRenderState`; no es un tercer tipo de entidad. Student selecciona `textures/entity/students/1p.png`–`6p.png` y `1s.png`–`5s.png` según grado. Si falta la skin, usa `textures/entity/school_npc.png` (la imagen anterior renombrada sin cambiar píxeles), o Steve. Teacher usa el respaldo común. Los PNG por salón siguen pendientes de recepción de los originales; no se reconstruyeron las miniaturas del chat.
+Modelo/render común en `PlaceholderSchoolNpcModel`, `SchoolNpcRenderer` y `SchoolNpcRenderState`; no es un tercer tipo de entidad. Se conserva exactamente la geometría, UV normalizadas y ciclo de caminar del modelo de jugador anterior. Solo se cambia el nombre de su clase auxiliar y la resolución de las texturas.
+
+### Skins placeholder (256×256)
+
+Se retiran las skins planas de 64×64 del runtime y se generan atlas nuevos de 256×256 RGBA (cuatro texeles por unidad UV). Polo rojo oscuro con cuello, botones, escudo claro, costuras y mangas largas hasta las manos; pantalón gris y zapatos negros. Cabeza/piel de primaria #ffffff con número #000000; secundaria #000000 con número #ffffff. Numerales de fuente bold dibujados a alta resolución en las cuatro caras de la cabeza. El respaldo genérico muestra `NPC` en mayúsculas.
+
+| Tipo | Texturas de respaldo |
+|---|---|
+| Primaria 1–6 | `textures/entity/students/placeholder_1p.png`–`placeholder_6p.png` |
+| Secundaria 1–5 | `textures/entity/students/placeholder_1s.png`–`placeholder_5s.png` |
+| Genérico/Teacher | `textures/entity/placeholder_school_npc.png` |
+
+Las futuras skins definitivas conservarán los nombres **sin prefijo** (`1p.png`–`6p.png`, `1s.png`–`5s.png`, `school_npc.png`), actualmente ausentes. Selector: definitiva del grado → placeholder del grado → genérica definitiva → placeholder genérica NPC → Steve. Un PNG faltante, no decodificable, con dimensiones incompatibles o sin píxeles base en cabeza/cuerpo/extremidades se descarta. Se admiten skins cuadradas de 64–4096 píxeles, ancho múltiplo de 64. No detecta errores artísticos, numerales erróneos o UV pintadas en zonas equivocadas cuando el archivo cumple ese contrato.
+
+La validación se almacena en caché y se reinicia con la recarga de recursos (F3+T), evitando decodificar un PNG cada frame. Un PNG definitivo válido tiene prioridad sobre su placeholder. El modelo y sus referencias usan la clase `PlaceholderSchoolNpcModel` y el selector explícito; no se añaden modelos JSON de bloque para estas entidades.
+
+Generación: `python tools/create_placeholder_student_skins.py` (Pillow y fuente DejaVu Sans Bold); para otra ruta de fuente usar `--font ruta/al/archivo.ttf`. Los originales de `newresources/skin_grados` se conservan como referencia fuera de los assets del juego; los nombres antiguos de runtime deben eliminarse según el listado de la entrega.
+
+Comprobaciones en Minecraft pendientes: once grados y Teacher, mangas largas y numerales, definitiva ausente/corrupta/incompatible/transparente con fallback, añadir definitiva válida y recargar, y confirmar que modelo/combate no cambian.
 
 Loot separado y vacío en `loot_table/entities/student.json` y `teacher.json`. No se define loot nuevo ni drops de equipo.
 

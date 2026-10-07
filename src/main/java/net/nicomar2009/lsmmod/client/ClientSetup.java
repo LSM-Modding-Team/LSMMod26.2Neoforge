@@ -3,6 +3,8 @@ package net.nicomar2009.lsmmod.client;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
+import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
@@ -17,6 +19,12 @@ import net.nicomar2009.lsmmod.registry.ModEntities;
 // The bus parameter no longer exists: NeoForge detects the correct bus from the event type
 @EventBusSubscriber(modid = LSMMod.MOD_ID, value = Dist.CLIENT)
 public class ClientSetup {
+
+    @SubscribeEvent
+    public static void registerSkinReloadListener(AddClientReloadListenersEvent event) {
+        event.addListener(Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "school_npc_skin_validation"),
+                (ResourceManagerReloadListener) net.nicomar2009.lsmmod.client.renderer.SchoolNpcRenderer::reloadSkinValidation);
+    }
 
     @SubscribeEvent
     public static void registerItemExtensions(RegisterClientExtensionsEvent event) {
