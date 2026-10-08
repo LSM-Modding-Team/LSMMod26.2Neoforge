@@ -37,16 +37,18 @@ Todas: daño 0.5 menor que la espada equivalente, velocidad 1.6 ataques/s, alcan
 
 ## 2. Pelotas (item, juguete y proyectil)
 
-Implementación sobre `19f63d5`. Clic derecho sobre un bloque coloca el juguete; en el aire lanza el proyectil; sobre la entidad recoge el ítem si cabe en el inventario. Cada impacto convierte el proyectil en juguete sin duplicar la pelota. Una unidad por uso, excepto en creativo; apilado de 16.
+Actualización sobre `f4e711d`: velocidades y daño mayores, gravedad, resistencia del aire, rodadura, rebotes y giro visible propios de cada tipo. Clic derecho sobre un bloque coloca el juguete; en el aire lanza; sobre la entidad recoge una unidad si cabe en el inventario. Se mantiene el mismo ítem y entidad al impactar. Apilado de 16.
 
-| Pelota / ID | Daño fácil | Normal | Difícil | Velocidad proyectil (bloques/s) | Juguete al empujarlo |
-|---|---:|---:|---:|---:|---|
-| Plástico / `plastic_ball` | 5 | 7.5 | 10 | 1 | Rueda en la dirección del empuje; impulso de 1 bloque/s. |
-| Fútbol / `football_ball` | 10 | 15 | 20 | 2 | Rueda; impulso de 0.8 bloques/s (80 % del plástico). |
-| Básquet / `basketball_ball` | 14 | 21 | 28 | 0.8 | Rebota; impulso horizontal de 0.5 bloques/s. |
-| Vóley / `volleyball_ball` | 8 | 12 | 16 | 3 | Rebota varios bloques; impulso horizontal de 6 bloques/s y vertical de 0.28 bloques/tick. Choques en el aire: 2 de daño. Clic izquierdo en el aire redirige según la mirada. |
+| Pelota / ID | Daño cercano fácil / normal / difícil | Daño máximo fácil / normal / difícil | Velocidad inicial proyectil (bloques/s) | Impulso juguete (bloques/s) | Movimiento |
+|---|---|---|---:|---:|---|
+| Plástico / `plastic_ball` | 9 / 13.5 / 18 | 18 / 27 / 36 | 16 | 5 | Ligera; saltos pequeños, mayor frenado y rebotes cortos. |
+| Fútbol / `football_ball` | 15 / 22.5 / 30 | 30 / 45 / 60 | 24 | 8 | Rodadura larga, salto inicial bajo y rebotes intermedios. |
+| Básquet / `basketball_ball` | 20 / 30 / 40 | 40 / 60 / 80 | 14 | 4 | Mayor gravedad, saltos altos y rebotes que conservan el 88 % de la velocidad vertical. |
+| Vóley / `volleyball_ball` | 13 / 19.5 / 26 | 26 / 39 / 52 | 28 | 10 | Arcos altos y largos; golpe en el aire orientado por la mirada, incluso en vertical. |
 
-En pacífico los proyectiles hacen 0 de daño; los juguetes siguen disponibles. Los choques del juguete de vóley hacen 2 en cualquier dificultad. Los impulsos de juguete pierden velocidad por fricción y los rebotes pierden altura. Los proyectiles mantienen velocidad constante y trayectoria recta hasta el impacto, o pasan a juguete a los 20 segundos. Modelo esférico escalonado con cubos y texturas de 16×16. Detalles y comprobaciones pendientes: [BALLS.md](BALLS.md).
+Daño = daño cercano × (1 + min(distancia recorrida / 32, 1)). La distancia sigue la trayectoria real del proyectil antes del primer impacto, no la separación actual respecto al lanzador; se guarda al cerrar el mundo. El máximo se alcanza a los 32 bloques recorridos. Son valores de daño bruto antes de armadura y otras reducciones. Pacífico: proyectiles 0. Los juguetes de vóley mantienen 2 de daño por choque en el aire en todas las dificultades.
+
+Las velocidades de la tabla son iniciales: la gravedad curva la trayectoria y el aire y el suelo frenan la pelota. Los impactos transforman el proyectil en juguete conservando impulso y rebote; sin impacto, cambia a juguete tras 20 segundos. Física exagerada para que los tipos se distingan, basada en rodadura y rebotes con pérdida de energía. Modelos y texturas conservados. Detalles: [BALLS.md](BALLS.md).
 
 ---
 
