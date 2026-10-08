@@ -32,6 +32,10 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+2026-10-07: bathroom_door preparada en newresources: madera opaca sin ventana ni cartel, misma perilla y grosor que classroom_door. Modelos, 32 estados, texturas, item, render y ZIP; referencias/PNG/JSON comprobados. Original y variantes anteriores intactos; pendiente registro y prueba Minecraft.
+
+2026-10-07: modelos y texturas de dining_door y teachers_office_door preparados en newresources, con ventana rectangular transparente y cartel «SALA DE / PROFESORES», respectivamente. Ocho modelos y 32 estados por variante; original classroom_door intacto. Renders y ZIP de recursos incluidos; comprobados JSON/PNG/referencias. Pendiente registro de bloques/items; sin compilación ni prueba Minecraft.
+
 2026-10-07: sobre 0dcc785, Width/Height universales 1–16, tamaño jugador en 14/14 por defecto. Escala independiente del render, colisión/ojos sincronizados y sombra por ancho; se reutilizan modelos y placeholders existentes, sin nuevas variantes ni sorteo de tamaños. Tabla y comandos en docs/NPC_SIZES.md. API/recursos revisados; sin compilación ni prueba en Minecraft.
 
 2026-10-07: Student añade gender string male/female persistente/sincronizado y sorteo 50/50 por huevo, sin cambiar salón ni stats. Modelo wide con dos piezas estáticas de busto cubiertas por el uniforme solo para female, inspirado en JAR de referencia (sin dependencia). Once skins female, M/F en parte superior de cabeza y dos respaldos genéricos Student; nombres de salón/género en Jade. Registro propio de capa. Entrega acumulada sobre 0074d9f; revisión estática, sin compilación ni prueba en juego.
