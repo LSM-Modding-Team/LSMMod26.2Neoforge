@@ -152,6 +152,8 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
     compileOnly files('libs/Jade-mc26.2-NeoForge-26.2.10.jar')
+    compileOnly files('libs/FramedBlocks-11.4.0-26.2-unofficial.1.jar')
+    compileOnly files('bunnidogs-1.0.0')
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
