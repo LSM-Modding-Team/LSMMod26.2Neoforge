@@ -351,6 +351,9 @@ public final class ModItems {
         });
     }
 
+    public static final DeferredItem<Item> NPC_SUMMON_HELPER =
+            ITEMS.registerItem("npc_summon_helper", props -> new Item(props.stacksTo(1)));
+
     private ModItems() {
     }
 
