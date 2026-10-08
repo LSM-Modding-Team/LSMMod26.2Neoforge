@@ -156,6 +156,15 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> CLASSROOM_DOOR =
             ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_DOOR);
 
+    public static final DeferredItem<BlockItem> DINING_DOOR =
+            ITEMS.registerSimpleBlockItem(ModBlocks.DINING_DOOR);
+
+    public static final DeferredItem<BlockItem> TEACHERS_OFFICE_DOOR =
+            ITEMS.registerSimpleBlockItem(ModBlocks.TEACHERS_OFFICE_DOOR);
+
+    public static final DeferredItem<BlockItem> BATHROOM_DOOR =
+            ITEMS.registerSimpleBlockItem(ModBlocks.BATHROOM_DOOR);
+
     public static final DeferredItem<BlockItem> MANUEL_TIRADO_BUST =
             ITEMS.registerSimpleBlockItem(ModBlocks.MANUEL_TIRADO_BUST);
 

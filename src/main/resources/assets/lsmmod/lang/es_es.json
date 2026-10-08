@@ -215,5 +215,8 @@
   "item.lsmmod.basketball_ball": "Pelota de básquet",
   "entity.lsmmod.basketball_ball": "Pelota de básquet",
   "item.lsmmod.volleyball_ball": "Pelota de vóley",
-  "entity.lsmmod.volleyball_ball": "Pelota de vóley"
+  "entity.lsmmod.volleyball_ball": "Pelota de vóley",
+  "block.lsmmod.dining_door": "Puerta de comedor",
+  "block.lsmmod.teachers_office_door": "Puerta de sala de profesores",
+  "block.lsmmod.bathroom_door": "Puerta de baños"
 }

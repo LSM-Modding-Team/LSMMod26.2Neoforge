@@ -149,3 +149,5 @@ Para pasarme todo: `/lsmmod export`, clic en **[Copiar espacios y límites para 
 Al actualizar el mod se migra automáticamente el archivo de nombres anterior; no tienes que importar otra vez los nombres que ya confirmaste. Compilación y comprobación de persistencia correctas; prueba dentro de Minecraft pendiente.
 
 Folders y cuadernos (2026-10-07): 32 items decorativos en la pestaña LSM Mod, 16 colores por tipo. Folder oficio rígido sin liga y cuaderno college de tapas lisas, sin espiral. Ejemplos: `/give @s lsmmod:blue_folder` y `/give @s lsmmod:red_notebook`. Aún no aplican Estudioso ni se consumen al usarlos.
+
+2026-10-08: puertas de comedor, sala de profesores y baños disponibles en LSM Mod y mediante /give lsmmod:dining_door, lsmmod:teachers_office_door y lsmmod:bathroom_door; funcionamiento vanilla de puerta de madera.

@@ -1,4 +1,4 @@
-"""Create unregistered door assets and previews from the existing classroom door."""
+"""Regenerate registered door assets and previews from the existing classroom door."""
 import json
 from pathlib import Path
 import numpy as np
@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'src/main/resources/assets/lsmmod'
-DEST = ROOT / 'newresources/assets/lsmmod'
+DEST = SOURCE
 
 def save_json(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)

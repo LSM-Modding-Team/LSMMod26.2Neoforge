@@ -30,23 +30,13 @@ Arte generado con scripts (decisión D3, abierta): iría en `tools/art/`; lo que
 
 ## Recursos que hay ahora
 
-Puerta de baños: `assets/lsmmod/models/block/bathroom_door_*.json`, ocho
-modelos con sus 32 estados, texturas de ambas mitades e item. Madera opaca sin
-ventana ni cartel, conservando perilla, grosor y paleta de la puerta de salones.
-Vista: `bathroom_door_render.png`; paquete: `bathroom_door_assets.zip`.
-Recursos comprobados; pendiente registro de bloque/item y prueba en Minecraft.
+Las tres puertas (`dining_door`, `teachers_office_door`, `bathroom_door`) se
+promovieron a `src/main/resources` y están registradas como bloques e items.
+Los renders y ZIP aquí son vistas previas y entregas, no recursos pendientes.
 
-Puertas nuevas: `assets/lsmmod/models/block/dining_door_*.json` y
-`teachers_office_door_*.json`, con ocho modelos por puerta, estados, texturas de
-ambas mitades e items. Reutilizan los padres vanilla y la madera/perilla de
-`classroom_door`, sin modificar sus archivos. Comedor: ventana rectangular larga
-con centro transparente y reflejos cutout. Oficina: puerta opaca con papel de
-borde claro, fondo turquesa y texto «SALA DE / PROFESORES». La textura superior de
-oficina es 128×128 para conservar la legibilidad. Falta registrar los dos bloques
-e items y promover los recursos a `src/`; todavía no aparecen en Minecraft.
-Vista previa: `door_variants_render.png`. Paquete: `door_variants_assets.zip`.
-Generador: `tools/create_door_variants.py`. JSON, PNG y referencias comprobados;
-sin compilación ni prueba dentro del juego.
+Revisión actual de recursos y pendientes: [RESOURCE_INTEGRATION_AUDIT.md](../docs/RESOURCE_INTEGRATION_AUDIT.md).
+La tabla histórica de abajo está desactualizada: timbre, pupitre de primaria y
+estatua de San Martín de Porres ya están registrados y sus modelos incorporados.
 
 | Archivo | Para qué es | Qué falta para usarlo | Descripción del bloque |
 |---|---|---|---|

@@ -1,5 +1,8 @@
 {
   "values": [
-    "lsmmod:classroom_door"
+    "lsmmod:classroom_door",
+    "lsmmod:dining_door",
+    "lsmmod:teachers_office_door",
+    "lsmmod:bathroom_door"
   ]
 }

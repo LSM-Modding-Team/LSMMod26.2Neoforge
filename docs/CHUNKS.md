@@ -144,3 +144,7 @@ Restauración verificada: BUILD SUCCESSFUL con el harness; modelos de cubo compl
 2026-10-07: I1 arte parcial — folders oficio y cuadernos college, dos geometrías reutilizables y 16 colores por tipo; registro decorativo, sin efectos ni recetas.
 
 2026-10-07: I1 arte revisado localmente — etiqueta pequeña de folder, cuaderno de tapa flexible sin etiqueta. JAR compilado; no publicar antes de confirmación visual.
+
+2026-10-08: incorporación de las tres puertas y auditoría de recursos no utilizados; referencias activas revisadas.
+
+Validación de puertas 2026-10-08: BUILD SUCCESSFUL; 188 formas/orientaciones verificadas y recursos de las tres puertas presentes en el JAR. Sin prueba dentro de Minecraft.

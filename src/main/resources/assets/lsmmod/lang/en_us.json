@@ -222,5 +222,8 @@
   "item.lsmmod.basketball_ball": "Basketball",
   "entity.lsmmod.basketball_ball": "Basketball",
   "item.lsmmod.volleyball_ball": "Volleyball",
-  "entity.lsmmod.volleyball_ball": "Volleyball"
+  "entity.lsmmod.volleyball_ball": "Volleyball",
+  "block.lsmmod.dining_door": "Dining Door",
+  "block.lsmmod.teachers_office_door": "Teachers’ Office Door",
+  "block.lsmmod.bathroom_door": "Bathroom Door"
 }

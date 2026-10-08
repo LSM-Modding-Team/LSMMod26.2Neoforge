@@ -172,3 +172,8 @@ Vistas frontal/perspectiva para revisión; cambios locales sin push.
 
 2026-10-07 — Preparación del commit final de revisión visual de papelería; consolidada la documentación del resultado final.
 JAR local previamente compilado y previews revisadas; origin/master consultado. Push pendiente de autorización explícita, no ejecutado.
+
+2026-10-08: tres puertas promovidas desde newresources al mod con registros completos y referencias comprobadas.
+Auditoría: recursos antiguos de timbre/pupitre/estatua y discos ya incorporados; once skins de grados continúan pendientes. Prueba Minecraft pendiente.
+
+Validación de puertas 2026-10-08: BUILD SUCCESSFUL; 188 formas/orientaciones verificadas y recursos de las tres puertas presentes en el JAR. Sin prueba dentro de Minecraft.

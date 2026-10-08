@@ -182,3 +182,7 @@ Corrección del escritorio gris (2026-10-05): split recorta UV proporcionalmente
 2026-10-06: kiosk_table sustituye las patas rectas por dos soportes en X de perfil curvo discretizado cada medio píxel, brazos de 1.25–1.5 píxeles y grosor de 1.5. Límites exteriores del ancho pasan de x=2/14 a x=3/13 y del largo de z=2/30 a z=4/28. Travesaños, ambas mitades, modelo del inventario y colisión sincronizados. BUILD SUCCESSFUL con Java 25; checkFurnitureOutlines verifica 188 formas/orientaciones. Prueba dentro de Minecraft pendiente.
 
 2026-10-06: kiosk_table afina los brazos de sus soportes en X en 0.375 píxeles adicionales y reduce el grosor de 1.5 a 1 píxel. Patas y travesaños usan una textura propia de metal negro antracita (#25282e), inspirada en la foto. Conserva los límites exteriores remetidos x=3/13 y z=4/28; mitades, inventario y colisión sincronizados. BUILD SUCCESSFUL con Java 25; checkFurnitureOutlines verifica 188 formas/orientaciones. Prueba Minecraft pendiente.
+
+2026-10-08: dining_door, teachers_office_door y bathroom_door incorporadas. Mismo DoorBlock OAK, resistencia 3, apertura manual/redstone y geometría vanilla que classroom_door. Variantes propias de texturas, 32 estados por puerta, item/creativo automático, traducciones, tags y drop solo de mitad inferior. Modelos movidos desde newresources; original intacto.
+
+Validación de puertas 2026-10-08: BUILD SUCCESSFUL; 188 formas/orientaciones verificadas y recursos de las tres puertas presentes en el JAR. Sin prueba dentro de Minecraft.

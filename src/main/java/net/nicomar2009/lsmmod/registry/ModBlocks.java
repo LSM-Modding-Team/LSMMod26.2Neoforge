@@ -156,6 +156,18 @@ public final class ModBlocks {
             "classroom_door", props -> new DoorBlock(BlockSetType.OAK, props),
             props -> props.strength(3.0F).noOcclusion().pushReaction(PushReaction.DESTROY));
 
+    public static final DeferredBlock<DoorBlock> DINING_DOOR = BLOCKS.registerBlock(
+            "dining_door", props -> new DoorBlock(BlockSetType.OAK, props),
+            props -> props.strength(3.0F).noOcclusion().pushReaction(PushReaction.DESTROY));
+
+    public static final DeferredBlock<DoorBlock> TEACHERS_OFFICE_DOOR = BLOCKS.registerBlock(
+            "teachers_office_door", props -> new DoorBlock(BlockSetType.OAK, props),
+            props -> props.strength(3.0F).noOcclusion().pushReaction(PushReaction.DESTROY));
+
+    public static final DeferredBlock<DoorBlock> BATHROOM_DOOR = BLOCKS.registerBlock(
+            "bathroom_door", props -> new DoorBlock(BlockSetType.OAK, props),
+            props -> props.strength(3.0F).noOcclusion().pushReaction(PushReaction.DESTROY));
+
     public static final DeferredBlock<ManuelTiradoBustBlock> MANUEL_TIRADO_BUST = BLOCKS.registerBlock(
             "manuel_tirado_bust", ManuelTiradoBustBlock::new,
             props -> props.strength(4.0F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));

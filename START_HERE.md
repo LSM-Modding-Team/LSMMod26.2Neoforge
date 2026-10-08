@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+2026-10-08: comedor, sala de profesores y baños incorporados como DoorBlock/items, con recursos activos, traducciones, 32 estados por puerta, drops de mitad inferior y tags doors/wooden_doors/axe. Puerta de salones intacta. Auditoría de recursos en docs/RESOURCE_INTEGRATION_AUDIT.md; once skins originales de grados siguen fuera del mod. BUILD SUCCESSFUL con Java 25; JAR comprobado y 188 contornos verificados. Jade local recuperado del historial para compilar, sin publicarlo. Prueba Minecraft pendiente.
+
 2026-10-07: revisión final local de papelería. Folder oficio cerrado 10×14 con grano, borde prensado y ficha 3.6×1.8 abajo a la derecha, dentro del borde. Cuaderno de tapas finas satinadas al ras, gráficos sin palabras literales y lomo coloreado contiguo a las hojas, sin caras superpuestas. 16 colores por tipo, geometría y atlas compartidos. JAR local BUILD SUCCESSFUL; previews frontal/perspectiva revisadas, prueba Minecraft pendiente. Push autorizado por el usuario; integrado el cambio remoto de summon_helper conservando la papelería.
 
 2026-10-07: folders oficio rígidos sin liga (ARTESCO) y cuadernos college lisos sin espiral (Bakan/Stanford). Dos modelos padre, 16 atlas de tapas compartidos y un atlas neutro; 32 items decorativos registrados, traducciones y generadores reproducibles. Preview externa; BUILD SUCCESSFUL con Java 25; prueba en Minecraft pendiente. Sin recetas, consumo ni Estudioso.

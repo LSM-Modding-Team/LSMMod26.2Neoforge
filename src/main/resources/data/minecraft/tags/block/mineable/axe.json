@@ -3,6 +3,9 @@
     "lsmmod:students_desk",
     "lsmmod:teachers_desk",
     "lsmmod:elementary_desk",
-    "lsmmod:classroom_door"
+    "lsmmod:classroom_door",
+    "lsmmod:dining_door",
+    "lsmmod:teachers_office_door",
+    "lsmmod:bathroom_door"
   ]
 }
