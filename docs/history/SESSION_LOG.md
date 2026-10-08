@@ -155,3 +155,20 @@ BUILD SUCCESSFUL Java 25 offline; comprobación de migración, geometría, reini
 2026-10-07 — Arte de folders oficio y cuadernos college: dos geometrías compartidas, 16 colores por tipo, tapas/hojas/etiquetas separadas.
 Registro de 32 items decorativos y traducciones; generadores y preview incluidos. Sin efectos ni recetas.
 Integrado origin/master conservando las variantes de puertas de otras conversaciones. BUILD SUCCESSFUL con Java 25 y 188 contornos de mobiliario verificados; prueba Minecraft pendiente.
+
+2026-10-07 — Revisión visual local de papelería: folder con ficha escolar pequeña sin nombres escritos; cuaderno sin etiqueta, tapas flexibles y lomo fino.
+JAR local BUILD SUCCESSFUL; vista previa regenerada. Sin push: pendiente de confirmación visual del usuario.
+
+2026-10-07 — Segunda revisión de papelería basada en fotos: folder cerrado y etiqueta abajo a la derecha, grano y borde prensado; cuaderno con hojas más gruesas y tapas finas satinadas.
+Vistas frontal/perspectiva para revisión; cambios locales sin push.
+
+2026-10-07: revisión local de papelería: cuaderno con emblema gráfico superior izquierdo, insignia dorada superior derecha y ficha de líneas abajo a la derecha, sin palabras literales; folder con ficha 3.6×1.8 desplazada hacia dentro para respetar el borde. Sin push hasta confirmación visual.
+
+2026-10-07: cuaderno con tapas exactamente al ras de las hojas: X=3.18–12.82, Y=1.53–14.47. Lomo y gráficos reajustados al nuevo contorno. Sin push hasta confirmación visual.
+
+2026-10-07: corrección del artefacto negro del cuaderno: retirado cubo del lomo que solapaba el bloque de hojas; encuadernación aplicada a la cara oeste y banda frontal con una sola cara. Tapas y hojas mantienen dimensiones iguales. Sin push.
+
+2026-10-07: remate superior/inferior del lomo coloreado como la tapa. Encuadernación y hojas son volúmenes contiguos, sin solapamientos; franja del lomo X=3.18–3.5, hojas desde X=3.5. Se conserva el contorno exterior al ras. Cambios locales sin push.
+
+2026-10-07 — Preparación del commit final de revisión visual de papelería; consolidada la documentación del resultado final.
+JAR local previamente compilado y previews revisadas; origin/master consultado. Push pendiente de autorización explícita, no ejecutado.

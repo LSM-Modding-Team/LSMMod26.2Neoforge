@@ -50,7 +50,7 @@ Cada una es un item que se usa como arma a distancia y una **entidad proyectil**
 
 ## 3. Pacificar y enojar
 
-**Arte implementado (2026-10-07):** folder oficio de tapa dura sin liga, inspirado en ARTESCO; cuaderno college de color sólido, lomo encolado y sin espiral, inspirado en Bakan/Stanford. Dos modelos padre (`folder`, `notebook`), 16 variantes por tipo (`<color>_folder`, `<color>_notebook`) y atlas de tapas compartidos entre ambos. Hojas y etiquetas usan un atlas independiente para conservar su color. Items decorativos registrados en la pestaña LSM Mod; recetas, consumo y Estudioso siguen pendientes. Regenerar con `python tools/create_stationery_assets.py`; preview con `blender -b --python tools/render_stationery_assets.py`.
+**Arte implementado (2026-10-07):** folder oficio de tapa dura sin liga, inspirado en ARTESCO; cuaderno college de tapa flexible fina, color sólido, lomo encolado y sin espiral, inspirado en Bakan/Stanford. Dos modelos padre (`folder`, `notebook`), 16 variantes por tipo (`<color>_folder`, `<color>_notebook`) y atlas de tapas compartidos entre ambos. Hojas y etiquetas usan un atlas independiente para conservar su color. Items decorativos registrados en la pestaña LSM Mod; recetas, consumo y Estudioso siguen pendientes. Regenerar con `python tools/create_stationery_assets.py`; preview con `blender -b --python tools/render_stationery_assets.py`.
 
 Dirección de cada uno y quién queda afectado: `MECHANICS_SPECS.md` §6.1.1. Aquí los valores.
 
@@ -149,3 +149,11 @@ Los otros dos legendarios del diseño son **bloques**: el ataúd de Manuel Tirad
 ## 9. Vacíos que tocan este doc
 
 V11 (celular), V13 (qué es un profesor "de primaria"), V17 (datos de items sin definir), V18 (trueque en el kiosko), V22 (cuántas Ardillas), P3, P4, P5. Detalle en `docs/DESIGN.md` §5.
+
+## Revisión final del arte de papelería (2026-10-07)
+
+Folder oficio cerrado 10×14, grosor 0.64, textura con grano y borde prensado. Ficha escolar sin palabras literales de 3.6×1.8, situada abajo a la derecha con margen respecto al borde.
+
+Cuaderno de tapas flexibles satinadas de 0.09 unidades, contorno exterior X=3.18–12.82 e Y=1.53–14.47, al ras del conjunto hojas/lomo. Emblema gráfico superior izquierdo, insignia dorada superior derecha y ficha de líneas inferior derecha, sin palabras escritas. Lomo de color en X=3.18–3.5 y papel desde X=3.5: volúmenes contiguos que evitan el artefacto negro y el remate blanco junto a la encuadernación.
+
+Se conservan los 16 colores por tipo y las dos geometrías padre. JAR local compilado y previews frontal/perspectiva revisadas; prueba dentro de Minecraft pendiente. No publicar hasta autorización explícita del usuario.

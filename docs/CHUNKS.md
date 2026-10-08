@@ -142,3 +142,5 @@ Restauración verificada: BUILD SUCCESSFUL con el harness; modelos de cubo compl
 2026-10-05 — W-EDIT: 32 nombres confirmados como IDs definitivos, seis lugares conservados y 55 recintos provisionales retirados. define/addbox/delete con coordenadas, rename sin alias antiguos, ediciones y bajas persistentes por mundo, migración de esquema 1 y exportación completa. BUILD SUCCESSFUL Java 25 offline; comprobación de migración/geometría/bajas correcta; Minecraft pendiente.
 
 2026-10-07: I1 arte parcial — folders oficio y cuadernos college, dos geometrías reutilizables y 16 colores por tipo; registro decorativo, sin efectos ni recetas.
+
+2026-10-07: I1 arte revisado localmente — etiqueta pequeña de folder, cuaderno de tapa flexible sin etiqueta. JAR compilado; no publicar antes de confirmación visual.

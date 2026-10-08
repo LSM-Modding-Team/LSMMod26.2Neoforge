@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+2026-10-07: revisión final local de papelería. Folder oficio cerrado 10×14 con grano, borde prensado y ficha 3.6×1.8 abajo a la derecha, dentro del borde. Cuaderno de tapas finas satinadas al ras, gráficos sin palabras literales y lomo coloreado contiguo a las hojas, sin caras superpuestas. 16 colores por tipo, geometría y atlas compartidos. JAR local BUILD SUCCESSFUL; previews frontal/perspectiva revisadas, prueba Minecraft pendiente. Commit preparado; NO hacer push hasta autorización explícita del usuario.
+
 2026-10-07: folders oficio rígidos sin liga (ARTESCO) y cuadernos college lisos sin espiral (Bakan/Stanford). Dos modelos padre, 16 atlas de tapas compartidos y un atlas neutro; 32 items decorativos registrados, traducciones y generadores reproducibles. Preview externa; BUILD SUCCESSFUL con Java 25; prueba en Minecraft pendiente. Sin recetas, consumo ni Estudioso.
 
 2026-10-07: bathroom_door preparada en newresources: madera opaca sin ventana ni cartel, misma perilla y grosor que classroom_door. Modelos, 32 estados, texturas, item, render y ZIP; referencias/PNG/JSON comprobados. Original y variantes anteriores intactos; pendiente registro y prueba Minecraft.
