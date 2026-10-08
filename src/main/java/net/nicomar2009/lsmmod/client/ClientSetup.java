@@ -1,13 +1,17 @@
 package net.nicomar2009.lsmmod.client;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
+import net.minecraft.world.InteractionResult;
 import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.nicomar2009.lsmmod.client.screen.NpcSummonScreen;
 import net.nicomar2009.lsmmod.registry.ModItems;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -19,6 +23,30 @@ import net.nicomar2009.lsmmod.registry.ModEntities;
 // The bus parameter no longer exists: NeoForge detects the correct bus from the event type
 @EventBusSubscriber(modid = LSMMod.MOD_ID, value = Dist.CLIENT)
 public class ClientSetup {
+
+    @SubscribeEvent(receiveCanceled = true)
+    public static void openSummonHelper(PlayerInteractEvent.RightClickItem event) {
+        if (!event.getLevel().isClientSide() || !event.getItemStack().is(ModItems.NPC_SUMMON_HELPER.get())) return;
+        Minecraft.getInstance().setScreenAndShow(new NpcSummonScreen());
+        event.setCancellationResult(InteractionResult.SUCCESS);
+        event.setCanceled(true);
+    }
+
+    @SubscribeEvent(receiveCanceled = true)
+    public static void openHelperAtBlock(PlayerInteractEvent.RightClickBlock event) {
+        if (!event.getLevel().isClientSide() || !event.getItemStack().is(ModItems.NPC_SUMMON_HELPER.get())) return;
+        Minecraft.getInstance().setScreenAndShow(new NpcSummonScreen());
+        event.setCancellationResult(InteractionResult.SUCCESS);
+        event.setCanceled(true);
+    }
+
+    @SubscribeEvent(receiveCanceled = true)
+    public static void openHelperAtGeneralEntity(PlayerInteractEvent.EntityInteract event) {
+        if (!event.getLevel().isClientSide() || !event.getItemStack().is(ModItems.NPC_SUMMON_HELPER.get())) return;
+        Minecraft.getInstance().setScreenAndShow(new NpcSummonScreen());
+        event.setCancellationResult(InteractionResult.SUCCESS);
+        event.setCanceled(true);
+    }
 
     @SubscribeEvent
     public static void registerSkinReloadListener(AddClientReloadListenersEvent event) {
