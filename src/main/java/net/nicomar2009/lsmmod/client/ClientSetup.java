@@ -33,18 +33,18 @@ public class ClientSetup {
     }
 
     @SubscribeEvent(receiveCanceled = true)
-    public static void openHelperAtBlock(PlayerInteractEvent.RightClickBlock event) {
+    public static void openHelperAtBlock(net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickBlock event) {
         if (!event.getLevel().isClientSide() || !event.getItemStack().is(ModItems.NPC_SUMMON_HELPER.get())) return;
-        Minecraft.getInstance().setScreenAndShow(new NpcSummonScreen());
-        event.setCancellationResult(InteractionResult.SUCCESS);
+        net.minecraft.client.Minecraft.getInstance().setScreenAndShow(new net.nicomar2009.lsmmod.client.screen.NpcSummonScreen());
+        event.setCancellationResult(net.minecraft.world.InteractionResult.SUCCESS);
         event.setCanceled(true);
     }
 
     @SubscribeEvent(receiveCanceled = true)
-    public static void openHelperAtGeneralEntity(PlayerInteractEvent.EntityInteract event) {
+    public static void openHelperAtGeneralEntity(net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract event) {
         if (!event.getLevel().isClientSide() || !event.getItemStack().is(ModItems.NPC_SUMMON_HELPER.get())) return;
-        Minecraft.getInstance().setScreenAndShow(new NpcSummonScreen());
-        event.setCancellationResult(InteractionResult.SUCCESS);
+        net.minecraft.client.Minecraft.getInstance().setScreenAndShow(new net.nicomar2009.lsmmod.client.screen.NpcSummonScreen());
+        event.setCancellationResult(net.minecraft.world.InteractionResult.SUCCESS);
         event.setCanceled(true);
     }
 
