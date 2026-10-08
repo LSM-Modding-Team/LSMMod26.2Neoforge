@@ -21,6 +21,15 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
+    public static final DeferredItem<BlockItem> CLASSROOM_FLOOR =
+            ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_FLOOR);
+    public static final DeferredItem<BlockItem> LIGHT_SCHOOL_WALL =
+            ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_SCHOOL_WALL);
+    public static final DeferredItem<BlockItem> DARK_SCHOOL_WALL =
+            ITEMS.registerSimpleBlockItem(ModBlocks.DARK_SCHOOL_WALL);
+    public static final DeferredItem<BlockItem> SCHOOL_GATE =
+            ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_GATE);
+
     public static final java.util.List<DeferredItem<Item>> FOLDERS = registerStationery("folder");
     public static final java.util.List<DeferredItem<Item>> NOTEBOOKS = registerStationery("notebook");
 

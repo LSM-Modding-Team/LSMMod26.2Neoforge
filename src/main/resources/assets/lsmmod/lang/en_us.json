@@ -225,5 +225,9 @@
   "entity.lsmmod.volleyball_ball": "Volleyball",
   "block.lsmmod.dining_door": "Dining Door",
   "block.lsmmod.teachers_office_door": "Teachers’ Office Door",
-  "block.lsmmod.bathroom_door": "Bathroom Door"
+  "block.lsmmod.bathroom_door": "Bathroom Door",
+  "block.lsmmod.classroom_floor": "Classroom Tile Floor",
+  "block.lsmmod.light_school_wall": "Light School Wall",
+  "block.lsmmod.dark_school_wall": "Dark School Wall",
+  "block.lsmmod.school_gate": "School Double Gate"
 }

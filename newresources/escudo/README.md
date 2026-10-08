@@ -1,6 +1,6 @@
 # Escudo aportado por el usuario
 
-Origen: escudo.zip. Los nueve PNG de 16×16 se integran con las uniones del símbolo blanco y la franja dorada corregidas y el fondo de end_stone_bricks a assets/lsmmod/textures/block/lsm1.png … lsm9.png. Los modelos exportados se integran con sus geometrías y caras originales; se corrigen las referencias de textura y partículas al namespace lsmmod. Los bbmodels editables tienen sus texturas embebidas sincronizadas con los PNG del mod.
+Origen: escudo.zip. Los nueve PNG de 16×16 se integran con las uniones del símbolo blanco y la franja dorada corregidas y el fondo de classroom_floor (baldosas 2×2) a assets/lsmmod/textures/block/lsm1.png … lsm9.png. Los modelos exportados se integran con sus geometrías y caras originales; se corrigen las referencias de textura y partículas al namespace lsmmod. Los bbmodels editables tienen sus texturas embebidas sincronizadas con los PNG del mod. El generador tools/create_school_shield_floor_assets.py conserva todos los píxeles del emblema y pre-rota únicamente el fondo de baldosas 180° para compensar la rotación de las caras superiores y alinear las juntas con el piso.
 
 Distribución vista desde arriba, con la parte superior hacia donde mira el jugador:
 

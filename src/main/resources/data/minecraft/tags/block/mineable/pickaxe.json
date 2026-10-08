@@ -9,6 +9,10 @@
     "lsmmod:plasticchair_white",
     "lsmmod:plasticchair_red",
     "lsmmod:plasticchair_white_arms",
-    "lsmmod:plasticchair_red_arms"
+    "lsmmod:plasticchair_red_arms",
+    "lsmmod:classroom_floor",
+    "lsmmod:light_school_wall",
+    "lsmmod:dark_school_wall",
+    "lsmmod:school_gate"
   ]
 }

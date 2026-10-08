@@ -1,1 +1,185 @@
-{"meta":{"format_version":"5.0","model_format":"java_block","box_uv":false},"name":"lsm3","parent":"","java_block_version":"1.21.11","ambientocclusion":true,"front_gui_light":false,"visible_box":[1,1,0],"variable_placeholders":"","multi_file_ruleset":"","variable_placeholder_buttons":[],"unhandled_root_fields":{},"resolution":{"width":16,"height":16},"elements":[{"name":"cube","box_uv":false,"render_order":"default","rescale":false,"locked":false,"shade":true,"light_emission":0,"export":true,"scope":0,"allow_mirror_modeling":true,"from":[0,0,0],"to":[16,16,16],"autouv":0,"color":2,"origin":[0,0,0],"faces":{"north":{"uv":[0,0,16,16],"texture":1},"east":{"uv":[0,0,16,16],"texture":1},"south":{"uv":[0,0,16,16],"texture":1},"west":{"uv":[0,0,16,16],"texture":1},"up":{"uv":[0,0,16,16],"texture":1,"rotation":180},"down":{"uv":[0,0,16,16],"texture":1}},"type":"cube","uuid":"40e20402-578c-f5a0-13f7-e5f75b8a76da"}],"groups":[],"outliner":["40e20402-578c-f5a0-13f7-e5f75b8a76da"],"textures":[{"name":"end_stone_bricks.png","relative_path":"","folder":"","namespace":"","id":"0","group":"","scope":0,"width":16,"height":16,"uv_width":16,"uv_height":16,"particle":true,"use_as_default":false,"layers_enabled":false,"sync_to_project":"","file_format":"png","render_mode":"default","render_sides":"auto","wrap_mode":"limited","pbr_channel":"color","fps":7,"frame_time":1,"frame_order_type":"loop","frame_order":"","frame_interpolate":false,"visible":true,"internal":true,"saved":true,"uuid":"b18105d3-eef6-1b9e-8dd7-ff636d0fd098","source":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAGFBMVEXo9LLd5KXW1pXCu4iponTOzpbu9sns+68yyaYcAAAAaklEQVR42gXBgW3DQAwAMd47tvYfNwVilez6eSCr75UMZgLdRszAyJ1aNg++fZQZJaOualey4HQtsEJ9cl7COm96svxd7W8WMOgKAM24BjPIjLrVjDQ6p3OXozqrXadXKyWoXdBnHa+w4h/hGB4BJihlcgAAAABJRU5ErkJggg==","path":""},{"name":"lsm3.png","path":"","folder":"block","namespace":"","id":"1","group":"","scope":0,"width":16,"height":16,"uv_width":16,"uv_height":16,"particle":false,"use_as_default":false,"layers_enabled":false,"sync_to_project":"","file_format":"png","render_mode":"default","render_sides":"auto","wrap_mode":"limited","pbr_channel":"color","fps":7,"frame_time":1,"frame_order_type":"loop","frame_order":"","frame_interpolate":false,"visible":true,"internal":true,"saved":false,"uuid":"ea9a5c22-afb7-75b0-8aaa-e11c3b2a41eb","source":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADUSURBVDhPjZKxDcIwFES9BGIBBqRgCBaAAZAoqBC0dHQ0KdPRUaRAVIiGwuh+dNblx8SOdIrj/Hv+9jksZ4uYU3eamw67Vbxe1qam2Zr4jX/BGz0AhW27Gen+2JuKABR377MJBjVjHKJ7cgAWcwzY83vsOygBuBpNELvBewDIbUGNNKkM4PfvO1ADO0gAb/QApIDC1+eWxI4wLgKQtd4F3ofqe+DzVwFSBdAkmADnqw7xX4yDezAFUIOunmKcAviVCeO8nUEOQoA300hQEaD5UwQhhR89FNe+9pra/wAAAABJRU5ErkJggg==","relative_path":""}]}
+{
+  "meta": {
+    "format_version": "5.0",
+    "model_format": "java_block",
+    "box_uv": false
+  },
+  "name": "lsm3",
+  "parent": "",
+  "java_block_version": "1.21.11",
+  "ambientocclusion": true,
+  "front_gui_light": false,
+  "visible_box": [
+    1,
+    1,
+    0
+  ],
+  "variable_placeholders": "",
+  "multi_file_ruleset": "",
+  "variable_placeholder_buttons": [],
+  "unhandled_root_fields": {},
+  "resolution": {
+    "width": 16,
+    "height": 16
+  },
+  "elements": [
+    {
+      "name": "cube",
+      "box_uv": false,
+      "render_order": "default",
+      "rescale": false,
+      "locked": false,
+      "shade": true,
+      "light_emission": 0,
+      "export": true,
+      "scope": 0,
+      "allow_mirror_modeling": true,
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "autouv": 0,
+      "color": 2,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": 1
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": 1,
+          "rotation": 180
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": 1
+        }
+      },
+      "type": "cube",
+      "uuid": "40e20402-578c-f5a0-13f7-e5f75b8a76da"
+    }
+  ],
+  "groups": [],
+  "outliner": [
+    "40e20402-578c-f5a0-13f7-e5f75b8a76da"
+  ],
+  "textures": [
+    {
+      "name": "classroom_floor.png",
+      "folder": "block",
+      "namespace": "lsmmod",
+      "id": "0",
+      "group": "",
+      "scope": 0,
+      "width": 16,
+      "height": 16,
+      "uv_width": 16,
+      "uv_height": 16,
+      "particle": true,
+      "use_as_default": false,
+      "layers_enabled": false,
+      "sync_to_project": "",
+      "file_format": "png",
+      "render_mode": "default",
+      "render_sides": "auto",
+      "wrap_mode": "limited",
+      "pbr_channel": "color",
+      "fps": 7,
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "frame_interpolate": false,
+      "visible": true,
+      "internal": true,
+      "saved": false,
+      "uuid": "b18105d3-eef6-1b9e-8dd7-ff636d0fd098",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVR4nG2TwW7DMAxDn2Tdi/z/PmCHfVvQXlvH2iGloHQzEMiJZVKiGPv5/kp3JzMBMLM/+x7XWpgZWgFwu90AKsndWWsB8Hg82LatLujMzJR7ss85i2nOSWYWiJgBjuMA4PV6MefEO6sSBCoQtXQcRxFEBJmJqzQzOxHbZZWp0vt+rYW7nwA9UYxjjEvfypNWyo2uaGdSktroephZaeFCUu+dSYBqp7MLKDQqHfb+FO/3e5XcATPzBOhz/vTCvu/lk4ioCcgLod4U+yj7N4Dn84m7VywNuqpmRkTg7owxLh4ZY1xc+NbIy2n9n/hUXe/dDwCuEfWSFbviHbxX6+5ORFTp5bD3Ix/8V8Va6xRRPuhu1OoXIwKAOWdp8gvlgxDr2RFKqAAAAABJRU5ErkJggg=="
+    },
+    {
+      "name": "lsm3.png",
+      "path": "",
+      "folder": "block",
+      "namespace": "lsmmod",
+      "id": "1",
+      "group": "",
+      "scope": 0,
+      "width": 16,
+      "height": 16,
+      "uv_width": 16,
+      "uv_height": 16,
+      "particle": false,
+      "use_as_default": false,
+      "layers_enabled": false,
+      "sync_to_project": "",
+      "file_format": "png",
+      "render_mode": "default",
+      "render_sides": "auto",
+      "wrap_mode": "limited",
+      "pbr_channel": "color",
+      "fps": 7,
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "frame_interpolate": false,
+      "visible": true,
+      "internal": true,
+      "saved": false,
+      "uuid": "ea9a5c22-afb7-75b0-8aaa-e11c3b2a41eb",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA+ElEQVR4nI2TPVKAQAxGX0JmLKn0BHo/7byFlZ3HsvMGFsyALSQWTCKrCKTZhZnv5cvPyuPtfbATz29fALzfvNY/d0dEiAjMjGEYsD3xNlS1AXRdR0SgqqjqOcDdG9g8z3W6O/by+dEInu4emu+0rKq4e51mtro4c7AtQ0QKEhEr6Cg7wLIsTfYtDFgBe8KMtOruREQJ05kdiQGGYfhTf0JE5HwKfd8jIlU/UE2dpulaE1MEP7uQvbgEyFFud6Kc/N6DvViWBRGprBFRjhTgCJKdzx6YWYkvlbAVd10H0IxUc4z/uVDVdVxmzUssR2cOxnEsywnIO8A34gmVtv4mCLEAAAAASUVORK5CYII=",
+      "relative_path": ""
+    }
+  ]
+}

@@ -218,5 +218,9 @@
   "entity.lsmmod.volleyball_ball": "Pelota de vóley",
   "block.lsmmod.dining_door": "Puerta de comedor",
   "block.lsmmod.teachers_office_door": "Puerta de sala de profesores",
-  "block.lsmmod.bathroom_door": "Puerta de baños"
+  "block.lsmmod.bathroom_door": "Puerta de baños",
+  "block.lsmmod.classroom_floor": "Piso de baldosas del salón",
+  "block.lsmmod.light_school_wall": "Pared clara del colegio",
+  "block.lsmmod.dark_school_wall": "Pared oscura del colegio",
+  "block.lsmmod.school_gate": "Portón doble del colegio"
 }

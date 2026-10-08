@@ -187,3 +187,9 @@ Vienen de `docs/history/DOCS_PLAN.md` §5 (movido a `history/` al terminar la Ta
 Decisiones sin preguntar (2026-10-07, arte de papelería): paleta de 16 colores vanilla, una geometría padre por tipo y atlas de tapa compartido entre folder/cuaderno. Identificadores `<color>_folder` y `<color>_notebook`; registro decorativo para probar el arte. No se implementan efectos ni recetas en este cambio.
 
 2026-10-08: decisiones sin preguntar: las tres puertas nuevas comparten comportamiento y propiedades de classroom_door; no se añaden recetas ni se sustituyen puertas de estructuras existentes.
+
+2026-10-08 — Superficies escolares: se eligen cubos vanilla sin orientación, mismo material en las seis caras, dureza 1.8/resistencia 6 y pico requerido para drops. Paletas gris beige, gris crema y gris topo tomadas visualmente de las fotos; sin recetas añadidas.
+
+2026-10-08 — Portón 5×3: colocación centrada en la celda inferior, apertura manual simultánea de 90° hacia el lado opuesto al jugador al colocarlo. Malla transparente y chapa marrón oscura según las fotos; grosor 2/16, dureza 5 y resistencia 6. Se comprueba todo el espacio antes de mover las hojas; no se sustituyen líquidos/bloques en el área de apertura. El controlador central mantiene un único drop. Piso actualizado a cuatro baldosas por bloque.
+
+2026-10-08 — Portón: el usuario fija el inicio en el píxel 7 del bloque; grosor conservado de 2 px y bisagra central en 8 px. El escudo conserva geometría, UV, distribución y emblema: únicamente se cambia el material de fondo a las baldosas 2×2 nuevas. Se compensa la rotación superior del modelo en el fondo para alinear las juntas con el piso.

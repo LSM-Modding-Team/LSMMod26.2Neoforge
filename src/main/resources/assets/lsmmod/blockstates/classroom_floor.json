@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lsmmod:block/classroom_floor"
+    }
+  }
+}

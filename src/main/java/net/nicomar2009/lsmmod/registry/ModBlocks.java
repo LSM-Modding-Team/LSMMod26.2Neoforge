@@ -6,6 +6,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.nicomar2009.lsmmod.LSMMod;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.PushReaction;
@@ -15,6 +16,23 @@ import net.nicomar2009.lsmmod.block.*;
 public final class ModBlocks {
     // Specialized register: it sets the block's resource key (required since 1.21.2) automatically
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(LSMMod.MOD_ID);
+
+    public static final DeferredBlock<Block> CLASSROOM_FLOOR = BLOCKS.registerBlock(
+            "classroom_floor", Block::new,
+            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+
+    public static final DeferredBlock<Block> LIGHT_SCHOOL_WALL = BLOCKS.registerBlock(
+            "light_school_wall", Block::new,
+            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+
+    public static final DeferredBlock<Block> DARK_SCHOOL_WALL = BLOCKS.registerBlock(
+            "dark_school_wall", Block::new,
+            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+
+    public static final DeferredBlock<SchoolGateBlock> SCHOOL_GATE = BLOCKS.registerBlock(
+            "school_gate", SchoolGateBlock::new,
+            props -> props.strength(5.0F, 6.0F).sound(SoundType.METAL).noOcclusion()
+                    .pushReaction(PushReaction.BLOCK));
 
     /** Block 1.1 */
     public static final DeferredBlock<ChairBlock> HIGH_SCHOOL_CHAIR = BLOCKS.registerBlock(

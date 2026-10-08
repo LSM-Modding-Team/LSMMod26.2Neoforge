@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "lsmmod:blocks/dark_school_wall",
+  "pools": [
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lsmmod:dark_school_wall"
+        }
+      ]
+    }
+  ]
+}
