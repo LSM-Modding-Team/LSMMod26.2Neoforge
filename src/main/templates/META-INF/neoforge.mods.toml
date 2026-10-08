@@ -102,6 +102,6 @@ config="${mod_id}.mixins.json"
 [[dependencies.${mod_id}]]
     modId="bunnidogs"
     type="optional"
-    versionRange="[1.0.0,,)"
+    versionRange="[1.0.0,)"
     ordering="AFTER"
     side="BOTH"
