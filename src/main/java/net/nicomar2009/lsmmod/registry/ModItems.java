@@ -354,6 +354,14 @@ public final class ModItems {
     public static final DeferredItem<Item> NPC_SUMMON_HELPER =
             ITEMS.registerItem("npc_summon_helper", props -> new Item(props.stacksTo(1)));
 
+    public static final DeferredItem<Item> PLASTIC_BALL = ball("plastic_ball", net.nicomar2009.lsmmod.ball.BallKind.PLASTIC);
+    public static final DeferredItem<Item> FOOTBALL_BALL = ball("football_ball", net.nicomar2009.lsmmod.ball.BallKind.FOOTBALL);
+    public static final DeferredItem<Item> BASKETBALL_BALL = ball("basketball_ball", net.nicomar2009.lsmmod.ball.BallKind.BASKETBALL);
+    public static final DeferredItem<Item> VOLLEYBALL_BALL = ball("volleyball_ball", net.nicomar2009.lsmmod.ball.BallKind.VOLLEYBALL);
+    private static DeferredItem<Item> ball(String id, net.nicomar2009.lsmmod.ball.BallKind kind) {
+        return ITEMS.registerItem(id, props -> new net.nicomar2009.lsmmod.ball.BallItem(props.stacksTo(16), kind));
+    }
+
     private ModItems() {
     }
 

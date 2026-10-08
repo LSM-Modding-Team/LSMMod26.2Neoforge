@@ -214,5 +214,13 @@
   "item.lsmmod.red_folder": "Red Oficio Folder",
   "item.lsmmod.red_notebook": "Red College Notebook",
   "item.lsmmod.black_folder": "Black Oficio Folder",
-  "item.lsmmod.black_notebook": "Black College Notebook"
+  "item.lsmmod.black_notebook": "Black College Notebook",
+  "item.lsmmod.plastic_ball": "Plastic Ball",
+  "entity.lsmmod.plastic_ball": "Plastic Ball",
+  "item.lsmmod.football_ball": "Football",
+  "entity.lsmmod.football_ball": "Football",
+  "item.lsmmod.basketball_ball": "Basketball",
+  "entity.lsmmod.basketball_ball": "Basketball",
+  "item.lsmmod.volleyball_ball": "Volleyball",
+  "entity.lsmmod.volleyball_ball": "Volleyball"
 }

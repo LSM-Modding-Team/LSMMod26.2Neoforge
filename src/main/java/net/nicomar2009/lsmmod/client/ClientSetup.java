@@ -76,6 +76,10 @@ public class ClientSetup {
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.STUDENT.get(), net.nicomar2009.lsmmod.client.renderer.SchoolNpcRenderer::new);
         event.registerEntityRenderer(ModEntities.TEACHER.get(), net.nicomar2009.lsmmod.client.renderer.SchoolNpcRenderer::new);
+        event.registerEntityRenderer(ModEntities.PLASTIC_BALL.get(), net.nicomar2009.lsmmod.client.renderer.BallRenderer::new);
+        event.registerEntityRenderer(ModEntities.FOOTBALL_BALL.get(), net.nicomar2009.lsmmod.client.renderer.BallRenderer::new);
+        event.registerEntityRenderer(ModEntities.BASKETBALL_BALL.get(), net.nicomar2009.lsmmod.client.renderer.BallRenderer::new);
+        event.registerEntityRenderer(ModEntities.VOLLEYBALL_BALL.get(), net.nicomar2009.lsmmod.client.renderer.BallRenderer::new);
         // Assign NoopRenderer to ensure the seat entity remains invisible
         event.registerEntityRenderer(ModEntities.SEAT.get(), NoopRenderer::new);
     }

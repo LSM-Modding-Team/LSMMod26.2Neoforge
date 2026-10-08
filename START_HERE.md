@@ -321,3 +321,5 @@ Todos los docs del plan existen desde la sesión 4. `PLANNED` = se escribe solo 
 2026-10-07: Jade añade jade.appearance.displayMode independiente (NONE/TYPES/FULL, FULL por defecto), con NBT de apariencia, colores, cortes, género, freeHair y tamaños. Nuevo npc_summon_helper con formulario paginado para todos los NBT canónicos de Student/Teacher, copia de comando e invocación con permisos vanilla. Ver docs/NPC_JADE_AND_SUMMON_HELPER.md. Sin compilación ni prueba en juego.
 
 2026-10-07: npc_summon_helper sustituye inputs ordinarios por botones exclusivos para stats/género/nivel/grado/freeHair y barras discretas para apariencia/tamaños, con tooltip del valor bajo el cursor. Se desactivan opciones incompatibles; el grado sigue el nivel escolar. Solo coordenadas y memorias UUID conservan texto. Sin compilación; pendiente prueba en juego.
+
+- Pelotas (ítem, juguete y proyectil): [docs/BALLS.md](docs/BALLS.md); valores en `docs/ITEM_SPECS.md` §2.

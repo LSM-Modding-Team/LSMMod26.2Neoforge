@@ -207,5 +207,13 @@
   "item.lsmmod.red_folder": "Folder oficio rojo",
   "item.lsmmod.red_notebook": "Cuaderno college rojo",
   "item.lsmmod.black_folder": "Folder oficio negro",
-  "item.lsmmod.black_notebook": "Cuaderno college negro"
+  "item.lsmmod.black_notebook": "Cuaderno college negro",
+  "item.lsmmod.plastic_ball": "Pelota de plástico",
+  "entity.lsmmod.plastic_ball": "Pelota de plástico",
+  "item.lsmmod.football_ball": "Pelota de fútbol",
+  "entity.lsmmod.football_ball": "Pelota de fútbol",
+  "item.lsmmod.basketball_ball": "Pelota de básquet",
+  "entity.lsmmod.basketball_ball": "Pelota de básquet",
+  "item.lsmmod.volleyball_ball": "Pelota de vóley",
+  "entity.lsmmod.volleyball_ball": "Pelota de vóley"
 }

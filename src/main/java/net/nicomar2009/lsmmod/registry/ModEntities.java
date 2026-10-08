@@ -32,6 +32,15 @@ public final class ModEntities {
             "teacher", net.nicomar2009.lsmmod.entity.TeacherEntity::new, MobCategory.CREATURE,
             builder -> builder.notInPeaceful().sized(0.6F, 1.8F).clientTrackingRange(8));
 
+    public static final Supplier<EntityType<net.nicomar2009.lsmmod.ball.BallEntity>> PLASTIC_BALL = ball("plastic_ball");
+    public static final Supplier<EntityType<net.nicomar2009.lsmmod.ball.BallEntity>> FOOTBALL_BALL = ball("football_ball");
+    public static final Supplier<EntityType<net.nicomar2009.lsmmod.ball.BallEntity>> BASKETBALL_BALL = ball("basketball_ball");
+    public static final Supplier<EntityType<net.nicomar2009.lsmmod.ball.BallEntity>> VOLLEYBALL_BALL = ball("volleyball_ball");
+    private static Supplier<EntityType<net.nicomar2009.lsmmod.ball.BallEntity>> ball(String name) {
+        return ENTITIES.registerEntityType(name, net.nicomar2009.lsmmod.ball.BallEntity::new,
+                MobCategory.MISC, builder -> builder.sized(0.5F, 0.5F).clientTrackingRange(8).updateInterval(1));
+    }
+
     private ModEntities() {
     }
 

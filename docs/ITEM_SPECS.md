@@ -35,16 +35,18 @@ Todas: daño 0.5 menor que la espada equivalente, velocidad 1.6 ataques/s, alcan
 
 ---
 
-## 2. Pelotas (item y entidad proyectil)
+## 2. Pelotas (item, juguete y proyectil)
 
-| Pelota | Comportamiento |
-|---|---|
-| Pelota de plástico | Normal. |
-| Pelota de fútbol | Mayor velocidad y daño. |
-| Pelota de básquet | Mayor daño. |
-| Pelota de vóley | Mayor velocidad. |
+Implementación sobre `19f63d5`. Clic derecho sobre un bloque coloca el juguete; en el aire lanza el proyectil; sobre la entidad recoge el ítem si cabe en el inventario. Cada impacto convierte el proyectil en juguete sin duplicar la pelota. Una unidad por uso, excepto en creativo; apilado de 16.
 
-Cada una es un item que se usa como arma a distancia y una **entidad proyectil**. Números: sin definir (P4). Es la primera API de proyectil propio del mod: **una sola API nueva por chunk** (R6); el chunk que la use la señala como el error de compilación más probable.
+| Pelota / ID | Daño fácil | Normal | Difícil | Velocidad proyectil (bloques/s) | Juguete al empujarlo |
+|---|---:|---:|---:|---:|---|
+| Plástico / `plastic_ball` | 5 | 7.5 | 10 | 1 | Rueda en la dirección del empuje; impulso de 1 bloque/s. |
+| Fútbol / `football_ball` | 10 | 15 | 20 | 2 | Rueda; impulso de 0.8 bloques/s (80 % del plástico). |
+| Básquet / `basketball_ball` | 14 | 21 | 28 | 0.8 | Rebota; impulso horizontal de 0.5 bloques/s. |
+| Vóley / `volleyball_ball` | 8 | 12 | 16 | 3 | Rebota varios bloques; impulso horizontal de 6 bloques/s y vertical de 0.28 bloques/tick. Choques en el aire: 2 de daño. Clic izquierdo en el aire redirige según la mirada. |
+
+En pacífico los proyectiles hacen 0 de daño; los juguetes siguen disponibles. Los choques del juguete de vóley hacen 2 en cualquier dificultad. Los impulsos de juguete pierden velocidad por fricción y los rebotes pierden altura. Los proyectiles mantienen velocidad constante y trayectoria recta hasta el impacto, o pasan a juguete a los 20 segundos. Modelo esférico escalonado con cubos y texturas de 16×16. Detalles y comprobaciones pendientes: [BALLS.md](BALLS.md).
 
 ---
 
