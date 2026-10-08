@@ -166,3 +166,11 @@ Los once `placeholder_<grado>p/s.png` son la variante male, con **M** en la cara
 Selección para female asignada: definitiva `<grado>p/s_female.png` → definitiva compartida `<grado>p/s.png` → placeholder female → placeholder genérica del género → respaldo genérico/Steve. Male conserva definitiva compartida → placeholder del grado → genérica male → respaldo genérico/Steve. Las definitivas conservan el contrato vanilla cuadrado; las M/F se garantizan en los placeholders, no se alteran skins definitivas de packs externos. Cambiar gender actualiza nombre/skin/geometría desde los datos sincronizados; CustomName sigue prioritario. Nombres traducidos de Alumno/Alumna y Male/Female Student disponibles en los tres modos de Jade.
 
 Revisión estática: rutas y registro de capa, áreas UV, ambos géneros en los once grados, conservación de ropa y placeholder de Teacher, claves de nombre en es_es/en_us y sorteo solo al usar huevo. Pendiente compilar/probar en Minecraft: capa horneada, busto bajo uniforme en ambos ciclos de caminar, doce variantes por género (11 salones + sin asignar), M/F desde arriba, cambiar gender con /data, guardar/cargar, distribución de huevos en una muestra amplia, salón/estadísticas sin cambios, Jade en tres modos y equipos vanilla. Una muestra aleatoria pequeña no garantiza exactamente la mitad de cada género.
+
+## Tamaño por NBT
+
+Student y Teacher incorporan `Width` y `Height`, enteros independientes 1–16. Nivel normal de jugador: 14/14; no se sortean con huevos ni invocaciones normales. Render, colisión y ojos se ajustan; los modelos y placeholders existentes conservan UV/ropa. Tabla, límites y ejemplos en [NPC_SIZES.md](NPC_SIZES.md). Revisión estática; pendiente prueba en Minecraft.
+
+## Retratos de alumnos
+
+Las opciones `skinColor`, `eyeColor`, `haircutMale`, `haircutFemale` y `glassesType` se documentan en [STUDENT_APPEARANCE.md](STUDENT_APPEARANCE.md). Sin selección explícita se conservan los placeholders. Solo Student admite estos datos.

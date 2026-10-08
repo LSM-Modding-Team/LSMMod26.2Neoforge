@@ -19,6 +19,7 @@ public class PlaceholderSchoolNpcModel extends HumanoidModel<HumanoidRenderState
             Identifier.fromNamespaceAndPath("lsmmod", "placeholder_school_npc"), "main");
     private final ModelPart femaleHead, femaleBody, femaleRightArm, femaleLeftArm, femaleRightLeg, femaleLeftLeg;
     private final ModelPart femaleBust, femaleBustFallback;
+    private final ModelPart femaleTiedHair, femaleFreeHair;
 
     public PlaceholderSchoolNpcModel(ModelPart root) {
         super(root);
@@ -28,6 +29,8 @@ public class PlaceholderSchoolNpcModel extends HumanoidModel<HumanoidRenderState
         femaleLeftArm = root.getChild("female_left_arm");
         femaleRightLeg = root.getChild("female_right_leg");
         femaleLeftLeg = root.getChild("female_left_leg");
+        femaleTiedHair = femaleHead.getChild("tied_hair");
+        femaleFreeHair = femaleHead.getChild("free_hair");
         femaleBust = femaleBody.getChild("female_bust");
         femaleBustFallback = femaleBody.getChild("female_bust_fallback");
     }
@@ -38,6 +41,12 @@ public class PlaceholderSchoolNpcModel extends HumanoidModel<HumanoidRenderState
         // Rest-pose geometry from girl.java, split into limbs to keep the existing walking cycle.
         root.addOrReplaceChild("female_head", CubeListBuilder.create().texOffs(0, 0)
                 .addBox(-4, -8, -5, 8, 8, 8), PartPose.ZERO);
+        // Hair stays behind the head; free hair ends at body Y=6, at the bust's lower edge.
+        var girlHead = root.getChild("female_head");
+        girlHead.addOrReplaceChild("tied_hair", CubeListBuilder.create().texOffs(40, 32)
+                .addBox(-2, -5, 3, 4, 4, 3), PartPose.ZERO);
+        girlHead.addOrReplaceChild("free_hair", CubeListBuilder.create().texOffs(40, 32)
+                .addBox(-4, -3, 3, 8, 9, 1), PartPose.ZERO);
         var torso = root.addOrReplaceChild("female_body", CubeListBuilder.create().texOffs(16, 16)
                 .addBox(-4, 0, -3, 8, 12, 4), PartPose.ZERO);
         root.addOrReplaceChild("female_right_arm", CubeListBuilder.create().texOffs(40, 16)
@@ -66,6 +75,10 @@ public class PlaceholderSchoolNpcModel extends HumanoidModel<HumanoidRenderState
         head.visible = body.visible = rightArm.visible = leftArm.visible = rightLeg.visible = leftLeg.visible = !female;
         femaleHead.visible = femaleBody.visible = femaleRightArm.visible = femaleLeftArm.visible
                 = femaleRightLeg.visible = femaleLeftLeg.visible = female;
+        boolean portrait = state instanceof SchoolNpcRenderState npc && npc.hasPortrait();
+        boolean loose = state instanceof SchoolNpcRenderState npc && npc.freeHair;
+        femaleTiedHair.visible = female && portrait && !loose;
+        femaleFreeHair.visible = female && portrait && loose;
         boolean assigned = state instanceof SchoolNpcRenderState npc && npc.classGrade >= 1 && npc.classGrade <= 11;
         femaleBust.visible = female && assigned;
         femaleBustFallback.visible = female && !assigned;

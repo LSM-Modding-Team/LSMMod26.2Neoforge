@@ -1,0 +1,412 @@
+{
+  "skinColors": [
+    "#F3D8C5",
+    "#EFD1BC",
+    "#EBCAB3",
+    "#E8C8B9",
+    "#E7C5AF",
+    "#E4C0A8",
+    "#DFC0AC",
+    "#DEB99F",
+    "#D8AE8B",
+    "#D3A580",
+    "#CDA477",
+    "#D3A17C",
+    "#D1A184",
+    "#D0A07A",
+    "#CAA073",
+    "#CE9D80",
+    "#C99D83",
+    "#CE9B75",
+    "#C79C70",
+    "#CB997C",
+    "#CC9974",
+    "#C69A80",
+    "#CA9771",
+    "#C4986C",
+    "#C3977D",
+    "#C89578",
+    "#C89570",
+    "#C0947A",
+    "#C6926C",
+    "#C19469",
+    "#C59174",
+    "#C49069",
+    "#BD9177",
+    "#BE9065",
+    "#C28D70",
+    "#C28D67",
+    "#BA8E74",
+    "#C08B65",
+    "#BB8C62",
+    "#BF896C",
+    "#BE8963",
+    "#B78B71",
+    "#BC8761",
+    "#B8885E",
+    "#BC8568",
+    "#B4886E",
+    "#BA855F",
+    "#B8835D",
+    "#B1856B",
+    "#B5845B",
+    "#B98164",
+    "#B6815B",
+    "#AE8268",
+    "#B47F59",
+    "#B28057",
+    "#B67D60",
+    "#AB7F65",
+    "#AF7C54",
+    "#B3795C",
+    "#A87C62",
+    "#AC7850",
+    "#B07558",
+    "#754C36",
+    "#533526"
+  ],
+  "eyeColors": [
+    "#16100c",
+    "#2b1b12",
+    "#43291b",
+    "#60422c",
+    "#7b5a37",
+    "#8a7046",
+    "#647044",
+    "#3d703a"
+  ],
+  "glassesColors": [
+    "#ffffff",
+    "#dddddd",
+    "#bbbbbb",
+    "#999999",
+    "#777777",
+    "#555555",
+    "#333333",
+    "#000000"
+  ],
+  "haircutsMale": [
+    {
+      "id": 0,
+      "name": "school_side_part",
+      "type": "straight"
+    },
+    {
+      "id": 1,
+      "name": "school_left_part",
+      "type": "straight"
+    },
+    {
+      "id": 2,
+      "name": "short_crop",
+      "type": "straight"
+    },
+    {
+      "id": 3,
+      "name": "textured_crop",
+      "type": "straight"
+    },
+    {
+      "id": 4,
+      "name": "crew_cut",
+      "type": "straight"
+    },
+    {
+      "id": 5,
+      "name": "taper_crop",
+      "type": "straight"
+    },
+    {
+      "id": 6,
+      "name": "low_fade",
+      "type": "straight"
+    },
+    {
+      "id": 7,
+      "name": "mid_fade",
+      "type": "straight"
+    },
+    {
+      "id": 8,
+      "name": "high_fade",
+      "type": "straight"
+    },
+    {
+      "id": 9,
+      "name": "short_quiff",
+      "type": "straight"
+    },
+    {
+      "id": 10,
+      "name": "side_swept",
+      "type": "straight"
+    },
+    {
+      "id": 11,
+      "name": "short_fringe",
+      "type": "straight"
+    },
+    {
+      "id": 12,
+      "name": "rounded_fringe",
+      "type": "straight"
+    },
+    {
+      "id": 13,
+      "name": "spiky_crop",
+      "type": "straight"
+    },
+    {
+      "id": 14,
+      "name": "comb_over",
+      "type": "straight"
+    },
+    {
+      "id": 15,
+      "name": "short_buzz",
+      "type": "straight"
+    },
+    {
+      "id": 16,
+      "name": "wavy_side_part",
+      "type": "wavy"
+    },
+    {
+      "id": 17,
+      "name": "wavy_crop",
+      "type": "wavy"
+    },
+    {
+      "id": 18,
+      "name": "wavy_fringe",
+      "type": "wavy"
+    },
+    {
+      "id": 19,
+      "name": "wavy_layers",
+      "type": "wavy"
+    },
+    {
+      "id": 20,
+      "name": "wavy_center_part",
+      "type": "wavy"
+    },
+    {
+      "id": 21,
+      "name": "wavy_swept",
+      "type": "wavy"
+    },
+    {
+      "id": 22,
+      "name": "wavy_taper",
+      "type": "wavy"
+    },
+    {
+      "id": 23,
+      "name": "wavy_rounded",
+      "type": "wavy"
+    },
+    {
+      "id": 24,
+      "name": "curly_short",
+      "type": "curly"
+    },
+    {
+      "id": 25,
+      "name": "curly_crop",
+      "type": "curly"
+    },
+    {
+      "id": 26,
+      "name": "curly_fringe",
+      "type": "curly"
+    },
+    {
+      "id": 27,
+      "name": "curly_taper",
+      "type": "curly"
+    },
+    {
+      "id": 28,
+      "name": "curly_rounded",
+      "type": "curly"
+    },
+    {
+      "id": 29,
+      "name": "curly_side_part",
+      "type": "curly"
+    },
+    {
+      "id": 30,
+      "name": "curly_layers",
+      "type": "curly"
+    },
+    {
+      "id": 31,
+      "name": "curly_compact",
+      "type": "curly"
+    }
+  ],
+  "haircutsFemale": [
+    {
+      "id": 0,
+      "name": "short_straight",
+      "type": "straight"
+    },
+    {
+      "id": 1,
+      "name": "short_wavy",
+      "type": "wavy"
+    },
+    {
+      "id": 2,
+      "name": "short_curly",
+      "type": "curly"
+    },
+    {
+      "id": 3,
+      "name": "school_ponytail",
+      "type": "straight"
+    },
+    {
+      "id": 4,
+      "name": "long_straight",
+      "type": "straight"
+    },
+    {
+      "id": 5,
+      "name": "long_curly",
+      "type": "curly"
+    },
+    {
+      "id": 6,
+      "name": "high_ponytail",
+      "type": "straight"
+    },
+    {
+      "id": 7,
+      "name": "double_ponytail",
+      "type": "straight"
+    },
+    {
+      "id": 8,
+      "name": "straight_bob",
+      "type": "straight"
+    },
+    {
+      "id": 9,
+      "name": "long_side_part",
+      "type": "straight"
+    },
+    {
+      "id": 10,
+      "name": "single_braid",
+      "type": "straight"
+    },
+    {
+      "id": 11,
+      "name": "double_braid",
+      "type": "straight"
+    },
+    {
+      "id": 12,
+      "name": "long_fringe",
+      "type": "straight"
+    },
+    {
+      "id": 13,
+      "name": "long_center_part",
+      "type": "straight"
+    },
+    {
+      "id": 14,
+      "name": "school_pixie",
+      "type": "straight"
+    },
+    {
+      "id": 15,
+      "name": "rounded_bob",
+      "type": "straight"
+    },
+    {
+      "id": 16,
+      "name": "long_layers",
+      "type": "straight"
+    },
+    {
+      "id": 17,
+      "name": "school_side_part",
+      "type": "straight"
+    },
+    {
+      "id": 18,
+      "name": "long_tucked",
+      "type": "straight"
+    },
+    {
+      "id": 19,
+      "name": "wavy_ponytail",
+      "type": "wavy"
+    },
+    {
+      "id": 20,
+      "name": "wavy_bob",
+      "type": "wavy"
+    },
+    {
+      "id": 21,
+      "name": "wavy_fringe",
+      "type": "wavy"
+    },
+    {
+      "id": 22,
+      "name": "long_wavy",
+      "type": "wavy"
+    },
+    {
+      "id": 23,
+      "name": "wavy_double_ponytail",
+      "type": "wavy"
+    },
+    {
+      "id": 24,
+      "name": "wavy_layers",
+      "type": "wavy"
+    },
+    {
+      "id": 25,
+      "name": "wavy_side_part",
+      "type": "wavy"
+    },
+    {
+      "id": 26,
+      "name": "curly_crop",
+      "type": "curly"
+    },
+    {
+      "id": 27,
+      "name": "curly_bob",
+      "type": "curly"
+    },
+    {
+      "id": 28,
+      "name": "curly_ponytail",
+      "type": "curly"
+    },
+    {
+      "id": 29,
+      "name": "long_curly_side_part",
+      "type": "curly"
+    },
+    {
+      "id": 30,
+      "name": "curly_double_ponytail",
+      "type": "curly"
+    },
+    {
+      "id": 31,
+      "name": "curly_layers",
+      "type": "curly"
+    }
+  ]
+}

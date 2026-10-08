@@ -1,6 +1,8 @@
 package net.nicomar2009.lsmmod.client.renderer;
 
 import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.nicomar2009.lsmmod.entity.SchoolNpcSize;
 import com.mojang.blaze3d.platform.NativeImage;
 import java.io.IOException;
 import java.util.Map;
@@ -29,9 +31,25 @@ public class SchoolNpcRenderer extends HumanoidMobRenderer<SchoolNpcEntity, Huma
                 context.getEquipmentRenderer()));
     }
     @Override
+    protected float getShadowRadius(HumanoidRenderState state) {
+        return super.getShadowRadius(state) * (state instanceof SchoolNpcRenderState npcState
+                ? npcState.widthScale / 0.9375F : 1.0F);
+    }
+
+    @Override
+    protected void scale(HumanoidRenderState state, PoseStack poseStack) {
+        if (state instanceof SchoolNpcRenderState npcState) {
+            poseStack.scale(npcState.widthScale, npcState.heightScale, npcState.widthScale);
+            // Cancel the renderer's 0.001-unit floor padding, keeping the feet on the same plane.
+            poseStack.translate(0.0F, 0.001F, 0.0F);
+        }
+    }
+
+    @Override
     public HumanoidRenderState createRenderState() { return new SchoolNpcRenderState(); }
     public static void reloadSkinValidation(ResourceManager manager) {
         VALID_TEXTURES.clear();
+        Minecraft.getInstance().execute(StudentAppearanceTextures::clear);
     }
 
     private static boolean isUsableSkin(Identifier texture) {
@@ -56,6 +74,12 @@ public class SchoolNpcRenderer extends HumanoidMobRenderer<SchoolNpcEntity, Huma
 
     @Override
     public Identifier getTextureLocation(HumanoidRenderState state) {
+        Identifier base = getBaseTexture(state);
+        return state instanceof SchoolNpcRenderState npc && npc.isStudent
+                ? StudentAppearanceTextures.get(base, npc) : base;
+    }
+
+    private Identifier getBaseTexture(HumanoidRenderState state) {
         if (state instanceof SchoolNpcRenderState npcState && npcState.isStudent) {
             int grade = npcState.classGrade;
             if (grade >= 1 && grade <= 11) {
@@ -86,7 +110,19 @@ public class SchoolNpcRenderer extends HumanoidMobRenderer<SchoolNpcEntity, Huma
             npcState.isTeacher = entity.isTeacher();
             npcState.isStudent = entity.isStudent();
             npcState.classGrade = entity.getClassGrade();
+            npcState.widthScale = SchoolNpcSize.modelWidthScale(entity.getWidthLevel());
+            npcState.heightScale = SchoolNpcSize.modelHeightScale(entity.getHeightLevel());
             npcState.isFemale = entity instanceof net.nicomar2009.lsmmod.entity.StudentEntity student && student.isFemale();
+            if (entity instanceof net.nicomar2009.lsmmod.entity.StudentEntity student) {
+                npcState.freeHair = student.hasFreeHair();
+                npcState.skinColor = student.getSkinColor();
+                npcState.eyeColor = student.getEyeColor();
+                npcState.haircut = student.getHaircut();
+                npcState.glassesType = student.getGlassesType();
+            } else {
+                npcState.freeHair = false;
+                npcState.skinColor = npcState.eyeColor = npcState.haircut = npcState.glassesType = -1;
+            }
         }
         // No consumption, attack, crouching, swimming, idle or independent head animation.
         state.attackTime = 0;

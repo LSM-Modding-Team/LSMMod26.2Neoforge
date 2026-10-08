@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+2026-10-07: sobre 0dcc785, Width/Height universales 1–16, tamaño jugador en 14/14 por defecto. Escala independiente del render, colisión/ojos sincronizados y sombra por ancho; se reutilizan modelos y placeholders existentes, sin nuevas variantes ni sorteo de tamaños. Tabla y comandos en docs/NPC_SIZES.md. API/recursos revisados; sin compilación ni prueba en Minecraft.
+
 2026-10-07: Student añade gender string male/female persistente/sincronizado y sorteo 50/50 por huevo, sin cambiar salón ni stats. Modelo wide con dos piezas estáticas de busto cubiertas por el uniforme solo para female, inspirado en JAR de referencia (sin dependencia). Once skins female, M/F en parte superior de cabeza y dos respaldos genéricos Student; nombres de salón/género en Jade. Registro propio de capa. Entrega acumulada sobre 0074d9f; revisión estática, sin compilación ni prueba en juego.
 
 2026-10-07: configuración cliente Jade en lsmmod-client.toml, jade.npcDisplayMode = NAME_ONLY/LEVELS/FULL_STATS (inicial FULL_STATS). Nombres de Student por los once salones, traducidos a es_es/en_us y con CustomName prioritario. Entrega acumulada sobre 0074d9f; API/recursos revisados, sin compilación ni prueba en juego.
@@ -293,3 +295,17 @@ Todos los docs del plan existen desde la sesión 4. `PLANNED` = se escribe solo 
 - Huevos por salón: once `student_<grado>p/s_spawn_egg` con StudentData preconfigurado; casacas varsity placeholder de 6p y 5s. Detalles y generadores en docs/SCHOOL_NPCS.md.
 
 2026-10-07: NBT universales renombrados a Vitality/Strength/Speed/Perception/AttackSpeed con lectura de aliases antiguos. Cada uso de huevo sortea cinco niveles independientes 1–5 conservando nivel escolar y grado; comandos sin stats conservan 3. Incluido en la entrega acumulada sobre 0074d9f; pendiente compilación y juego.
+
+2026-10-07: Student añade retratos por NBT con 64 pieles, 8 ojos, 32 cortes por género y 8 lentes más opción sin lentes. Atlas 256×256 compatibles con Width/Height; huevos y summon sin apariencia conservan placeholders. Ver docs/STUDENT_APPEARANCE.md. Verificación estática; pendiente prueba en Minecraft.
+
+2026-10-07: Retratos Student simplificados al estilo vanilla; ondas y rulos pixelados más visibles. Alumnas con coleta por defecto y NBT exclusivo freeHair para pelo suelto hasta la base del busto. Atlas femeninos separados para ambas geometrías; cuerpo y busto conservados. Ver docs/STUDENT_APPEARANCE.md; pendiente prueba en juego.
+
+2026-10-07: Pelo femenino pasa a 64 modelos 3D (32 recogidos y 32 sueltos) seleccionados con haircutFemale/freeHair. Atlas dedicados y fuentes Blockbench con texturas incrustadas; variantes masculinas, busto y tamaños preservados. Ver docs/STUDENT_APPEARANCE.md. Verificación estática y render externo; pendiente prueba en juego.
+
+2026-10-07: Pelo femenino reducido a seis modelos exactos de selección haircutFemale 0–5, sin combinaciones extra. Retirados 192 archivos obsoletos de las entregas anteriores; seis atlas y seis proyectos Blockbench. freeHair solo elige por defecto si falta un corte explícito. Ver docs/STUDENT_APPEARANCE.md. Sin compilación; vista previa externa.
+
+2026-10-07: Apariencia Student vuelve a capas 2D estilo vanilla, referenciadas en Steve/Alex. Se mantienen seis cortes femeninos y 32 masculinos, ojos/piel/lentes y selección NBT; retirados modelos, atlas y herramientas 3D. Diseño en cuadrícula 64×64, exportado a 256×256 por vecino más cercano. Ver docs/STUDENT_APPEARANCE.md; sin compilación ni juego.
+
+2026-10-07: Student amplía el catálogo 2D vanilla a 32 cortes por género (16 lisos, 8 ondulados, 8 rulosos), conservando los primeros seis índices femeninos. Paleta exacta de 64 pieles, 8 ojos negro/marrón/verde y 8 lentes más opción sin lentes. Total 144 capas; sin sorteo de apariencia en huevos ni cambios de modelos. Ver docs/STUDENT_APPEARANCE.md. Sin compilación; prueba en juego pendiente.
+
+2026-10-07: freeHair se vuelve independiente de haircutFemale: false recogido / true suelto para cada uno de los 32 cortes femeninos. 32 atlas recogidos y 32 sueltos; total 176 capas. Persistencia/sincronización y caché de retratos usan el booleano real, sin inferirlo del corte. Placeholder por defecto conservado; sin compilación.

@@ -34,6 +34,8 @@ import org.jspecify.annotations.Nullable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -49,6 +51,10 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public abstract class SchoolNpcEntity extends PathfinderMob {
     // 0 = unassigned, 1..6 = primary, 7..11 = secondary.
     private static final EntityDataAccessor<Integer> CLASS_GRADE =
+            SynchedEntityData.defineId(SchoolNpcEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> WIDTH =
+            SynchedEntityData.defineId(SchoolNpcEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> HEIGHT =
             SynchedEntityData.defineId(SchoolNpcEntity.class, EntityDataSerializers.INT);
     private static final ResourceKey<DamageType> MELEE_DAMAGE = ResourceKey.create(Registries.DAMAGE_TYPE,
             Identifier.fromNamespaceAndPath("lsmmod", "school_npc_melee"));
@@ -93,7 +99,36 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
     protected void defineSynchedData(SynchedEntityData.Builder data) {
         super.defineSynchedData(data);
         data.define(CLASS_GRADE, 0);
+        data.define(WIDTH, SchoolNpcSize.PLAYER_LEVEL);
+        data.define(HEIGHT, SchoolNpcSize.PLAYER_LEVEL);
         for (SchoolNpcStat stat : SchoolNpcStat.values()) data.define(statAccessor(stat), 3);
+    }
+
+    private boolean loadingSize;
+
+    public int getWidthLevel() {
+        return entityData == null ? SchoolNpcSize.PLAYER_LEVEL : entityData.get(WIDTH);
+    }
+
+    public int getHeightLevel() {
+        return entityData == null ? SchoolNpcSize.PLAYER_LEVEL : entityData.get(HEIGHT);
+    }
+
+    @Override
+    protected EntityDimensions getDefaultDimensions(Pose pose) {
+        EntityDimensions base = super.getDefaultDimensions(pose);
+        return base.scale(SchoolNpcSize.collisionWidth(getWidthLevel()) / 0.6F,
+                SchoolNpcSize.collisionHeight(getHeightLevel()) / 1.8F)
+                .withEyeHeight(SchoolNpcSize.eyeHeight(getHeightLevel()) * getAgeScale());
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
+        super.onSyncedDataUpdated(accessor);
+        if (!loadingSize && (WIDTH.equals(accessor) || HEIGHT.equals(accessor))) {
+            refreshDimensions();
+            if (!level().isClientSide()) getNavigation().stop();
+        }
     }
 
     private static EntityDataAccessor<Integer> statAccessor(SchoolNpcStat stat) {
@@ -200,6 +235,8 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
+        output.putInt("Width", getWidthLevel());
+        output.putInt("Height", getHeightLevel());
         for (SchoolNpcStat stat : SchoolNpcStat.values()) output.putInt(stat.nbtKey(), getStatLevel(stat));
         if (isStudent()) {
             ValueOutput student = output.child("StudentData");
@@ -216,6 +253,15 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
+        loadingSize = true;
+        try {
+            entityData.set(WIDTH, SchoolNpcSize.clampLevel(input.getIntOr("Width", SchoolNpcSize.PLAYER_LEVEL)));
+            entityData.set(HEIGHT, SchoolNpcSize.clampLevel(input.getIntOr("Height", SchoolNpcSize.PLAYER_LEVEL)));
+        } finally {
+            loadingSize = false;
+        }
+        refreshDimensions();
+        getNavigation().stop();
         for (SchoolNpcStat stat : SchoolNpcStat.values()) {
             entityData.set(statAccessor(stat), SchoolNpcStat.clampLevel(input.getIntOr(stat.nbtKey(), input.getIntOr(stat.legacyNbtKey(), 3))));
         }
