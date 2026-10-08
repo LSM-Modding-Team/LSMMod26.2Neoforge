@@ -45,3 +45,6 @@ repo/
 # Version the reusable harness, despite the generic build/ ignore rule.
 !tools/build/
 !tools/build/**
+libs/bunnidogs-1.0.0.jar
+libs/FramedBlocks-11.4.0-26.2-unofficial.1.jar
+libs/Jade-mc26.2-NeoForge-26.2.10.jar
