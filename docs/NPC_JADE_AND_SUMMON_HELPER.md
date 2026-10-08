@@ -40,7 +40,7 @@ El servidor de Jade envía los datos; cuando no hay respuesta de Jade se usan lo
 
 Clic derecho abre la pantalla incluso apuntando a un bloque o entidad, consumiendo esa interacción para no activar también el objetivo. El cliente abre la interfaz; los eventos comunes consumen la interacción sin cargar clases de pantalla en servidores dedicados.
 
-Seleccionar Student o Teacher con el botón superior. La casilla de la derecha indica las coordenadas del comando; acepta coordenadas absolutas, relativas (`~`) o locales (`^`), sin mezclar locales con las otras. La pantalla muestra páginas de campos, mantiene los valores al cambiar de página/tipo y ofrece una vista previa del comando que se actualiza al editar. Un campo vacío se omite y usa el valor normal de la entidad.
+Seleccionar Student o Teacher con el botón superior. La casilla de la derecha indica las coordenadas del comando; acepta coordenadas absolutas, relativas (`~`) o locales (`^`), sin mezclar locales con las otras. La pantalla muestra páginas de campos, mantiene los valores al cambiar de página/tipo y ofrece una vista previa del comando que se actualiza al editar. Las estadísticas empiezan seleccionadas en 3, los tamaños en 14, el género en male y el salón sin asignar. Las barras de apariencia empiezan en -1 (sin seleccionar); no se activa una apariencia por abrir la herramienta. Las memorias avanzadas vacías se omiten.
 
 - Ambos: `Vitality`, `Strength`, `Speed`, `Perception`, `AttackSpeed` (1–5), `Width` y `Height` (1–16).
 - Student: `StudentData.Level` y `StudentData.Grade`, `gender`, `skinColor`, `eyeColor`, `haircutMale`, `haircutFemale`, `freeHair`, `glassesType`.
@@ -68,3 +68,17 @@ La pantalla funciona sin Jade. Traducciones en inglés y español; claves NBT en
 Comprobación estática de recursos JSON, referencias/traducciones, cobertura de todos los NBT canónicos del mod y APIs en las fuentes disponibles de Minecraft 26.2/NeoForge 26.2.0.88 (incluida la nueva interfaz GuiGraphicsExtractor). Registro del ítem con API comprobada. No se ejecutó compilación ni juego.
 
 Pendiente en Minecraft: nueve combinaciones de modos stats/apariencia, alumnos de ambos géneros y Teacher, Jade presente/ausente, cambio de páginas/tipo y tamaño de ventana, entradas inválidas, copiar/pegar, invocar con y sin permisos y abrir la pantalla mirando aire/bloque/entidad. La entrega no afirma validación dentro del juego.
+
+## Controles de selección
+
+- Vitality, Strength, Speed, Perception y AttackSpeed: cinco botones (1–5) por fila. La opción seleccionada aparece entre corchetes y no se puede volver a pulsar; seleccionar otra sustituye el valor de esa fila.
+- gender: dos botones, male/female. La forma del pelo y el corte del otro género se desactivan visualmente y no se emiten en el comando.
+- StudentData.Level: tres botones, sin salón, primaria y secundaria.
+- StudentData.Grade: botones 1–6 para primaria y 1–5 para secundaria. Sin salón, muestra 0 desactivado. Al cambiar el nivel, el grado se ajusta al rango válido; un grado vacío/0 pasa a 1 si se elige un nivel asignado.
+- skinColor, eyeColor, haircutMale, haircutFemale, glassesType: barras discretas con sus rangos NBT completos, incluido -1 para sin seleccionar. glassesType 0 indica sin lentes.
+- Width y Height: barras 1–16, por defecto 14.
+- freeHair: dos botones, recogido/false y suelto/true, disponibles solo para female.
+
+Al pasar el cursor sobre una barra, el tooltip indica el valor que se elegiría en esa posición, con hexadecimal o descripción del corte cuando corresponde. El número de la barra indica el valor actualmente seleccionado. Los cambios actualizan inmediatamente el comando. Se conservan los valores al navegar entre páginas y al cambiar tipo/género; los incompatibles quedan desactivados y el generador los omite, pudiendo recuperarse al volver a la configuración compatible.
+
+Solo coordenadas y las dos memorias UUID avanzadas de Teacher siguen siendo entradas de texto; la vista previa del comando continúa siendo de solo lectura. La pantalla no pausa el mundo. Sin compilación; pendiente probar botones, barras, hover, teclado, grado y cambios de género en Minecraft.

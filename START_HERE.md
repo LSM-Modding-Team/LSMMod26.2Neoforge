@@ -32,8 +32,6 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
-2026-10-07: folders oficio rígidos sin liga (ARTESCO) y cuadernos college lisos sin espiral (Bakan/Stanford). Dos modelos padre, 16 atlas de tapas compartidos y un atlas neutro; 32 items decorativos registrados, traducciones y generadores reproducibles. Preview externa; BUILD SUCCESSFUL con Java 25; prueba en Minecraft pendiente. Sin recetas, consumo ni Estudioso.
-
 2026-10-07: bathroom_door preparada en newresources: madera opaca sin ventana ni cartel, misma perilla y grosor que classroom_door. Modelos, 32 estados, texturas, item, render y ZIP; referencias/PNG/JSON comprobados. Original y variantes anteriores intactos; pendiente registro y prueba Minecraft.
 
 2026-10-07: modelos y texturas de dining_door y teachers_office_door preparados en newresources, con ventana rectangular transparente y cartel «SALA DE / PROFESORES», respectivamente. Ocho modelos y 32 estados por variante; original classroom_door intacto. Renders y ZIP de recursos incluidos; comprobados JSON/PNG/referencias. Pendiente registro de bloques/items; sin compilación ni prueba Minecraft.
@@ -317,3 +315,5 @@ Todos los docs del plan existen desde la sesión 4. `PLANNED` = se escribe solo 
 2026-10-07: freeHair se vuelve independiente de haircutFemale: false recogido / true suelto para cada uno de los 32 cortes femeninos. 32 atlas recogidos y 32 sueltos; total 176 capas. Persistencia/sincronización y caché de retratos usan el booleano real, sin inferirlo del corte. Placeholder por defecto conservado; sin compilación.
 
 2026-10-07: Jade añade jade.appearance.displayMode independiente (NONE/TYPES/FULL, FULL por defecto), con NBT de apariencia, colores, cortes, género, freeHair y tamaños. Nuevo npc_summon_helper con formulario paginado para todos los NBT canónicos de Student/Teacher, copia de comando e invocación con permisos vanilla. Ver docs/NPC_JADE_AND_SUMMON_HELPER.md. Sin compilación ni prueba en juego.
+
+2026-10-07: npc_summon_helper sustituye inputs ordinarios por botones exclusivos para stats/género/nivel/grado/freeHair y barras discretas para apariencia/tamaños, con tooltip del valor bajo el cursor. Se desactivan opciones incompatibles; el grado sigue el nivel escolar. Solo coordenadas y memorias UUID conservan texto. Sin compilación; pendiente prueba en juego.
