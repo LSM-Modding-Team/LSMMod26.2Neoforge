@@ -50,6 +50,8 @@ Cada una es un item que se usa como arma a distancia y una **entidad proyectil**
 
 ## 3. Pacificar y enojar
 
+**Arte implementado (2026-10-07):** folder oficio de tapa dura sin liga, inspirado en ARTESCO; cuaderno college de color sólido, lomo encolado y sin espiral, inspirado en Bakan/Stanford. Dos modelos padre (`folder`, `notebook`), 16 variantes por tipo (`<color>_folder`, `<color>_notebook`) y atlas de tapas compartidos entre ambos. Hojas y etiquetas usan un atlas independiente para conservar su color. Items decorativos registrados en la pestaña LSM Mod; recetas, consumo y Estudioso siguen pendientes. Regenerar con `python tools/create_stationery_assets.py`; preview con `blender -b --python tools/render_stationery_assets.py`.
+
 Dirección de cada uno y quién queda afectado: `MECHANICS_SPECS.md` §6.1.1. Aquí los valores.
 
 | Item | Efecto en profesores | Efecto en alumnos | Notas |

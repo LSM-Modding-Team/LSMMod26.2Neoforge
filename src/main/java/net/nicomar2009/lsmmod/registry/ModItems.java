@@ -21,6 +21,18 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
+    public static final java.util.List<DeferredItem<Item>> FOLDERS = registerStationery("folder");
+    public static final java.util.List<DeferredItem<Item>> NOTEBOOKS = registerStationery("notebook");
+
+    private static java.util.List<DeferredItem<Item>> registerStationery(String kind) {
+        var variants = new java.util.ArrayList<DeferredItem<Item>>();
+        for (String color : new String[]{"white", "orange", "magenta", "light_blue", "yellow", "lime",
+                "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"}) {
+            variants.add(ITEMS.registerItem(color + "_" + kind, Item::new));
+        }
+        return java.util.List.copyOf(variants);
+    }
+
     // Block item for the elementary chair (registry name taken from the block: "lsmmod:elementary_chair")
     public static final DeferredItem<BlockItem> ELEMENTARY_CHAIR =
             ITEMS.registerSimpleBlockItem(ModBlocks.ELEMENTARY_CHAIR);

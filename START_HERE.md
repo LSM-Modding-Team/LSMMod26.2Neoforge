@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+2026-10-07: folders oficio rígidos sin liga (ARTESCO) y cuadernos college lisos sin espiral (Bakan/Stanford). Dos modelos padre, 16 atlas de tapas compartidos y un atlas neutro; 32 items decorativos registrados, traducciones y generadores reproducibles. Preview externa; BUILD SUCCESSFUL con Java 25; prueba en Minecraft pendiente. Sin recetas, consumo ni Estudioso.
+
 2026-10-07: bathroom_door preparada en newresources: madera opaca sin ventana ni cartel, misma perilla y grosor que classroom_door. Modelos, 32 estados, texturas, item, render y ZIP; referencias/PNG/JSON comprobados. Original y variantes anteriores intactos; pendiente registro y prueba Minecraft.
 
 2026-10-07: modelos y texturas de dining_door y teachers_office_door preparados en newresources, con ventana rectangular transparente y cartel «SALA DE / PROFESORES», respectivamente. Ocho modelos y 32 estados por variante; original classroom_door intacto. Renders y ZIP de recursos incluidos; comprobados JSON/PNG/referencias. Pendiente registro de bloques/items; sin compilación ni prueba Minecraft.

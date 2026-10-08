@@ -1,0 +1,6 @@
+{
+  "parent": "lsmmod:item/notebook",
+  "textures": {
+    "cover": "lsmmod:item/stationery/cover_yellow"
+  }
+}

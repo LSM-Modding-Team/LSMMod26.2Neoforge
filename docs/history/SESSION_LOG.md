@@ -151,3 +151,7 @@ BUILD SUCCESSFUL Java 25 offline; comprobación única de persistencia, alias, a
 2026-10-05 — Incorporados los 32 nombres confirmados; catálogo activo de 38 espacios. Retirados los IDs sustituidos y 55 regiones provisionales. Migración automática del archivo de nombres previo sin aceptarlos como alias.
 Añadidos define/addbox/delete y renombrado real del ID; cambios y bajas persistentes por mundo. Exportación completa de coordenadas, nombres y eliminaciones con copia en chat.
 BUILD SUCCESSFUL Java 25 offline; comprobación de migración, geometría, reinicio, bajas, exportación, aislamiento y errores correcta. Prueba Minecraft pendiente. Se integra origin/master para conservar la Marcha LSM de otra conversación.
+
+2026-10-07 — Arte de folders oficio y cuadernos college: dos geometrías compartidas, 16 colores por tipo, tapas/hojas/etiquetas separadas.
+Registro de 32 items decorativos y traducciones; generadores y preview incluidos. Sin efectos ni recetas.
+Integrado origin/master conservando las variantes de puertas de otras conversaciones. BUILD SUCCESSFUL con Java 25 y 188 contornos de mobiliario verificados; prueba Minecraft pendiente.

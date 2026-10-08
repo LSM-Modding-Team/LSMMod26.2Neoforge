@@ -1,0 +1,6 @@
+{
+  "parent": "lsmmod:item/folder",
+  "textures": {
+    "cover": "lsmmod:item/stationery/cover_pink"
+  }
+}

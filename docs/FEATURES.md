@@ -147,3 +147,5 @@ Ponte dentro del lugar y usa `/lsmmod rename sala de música` para cambiar su ID
 Para pasarme todo: `/lsmmod export`, clic en **[Copiar espacios y límites para pegar en el chat]** y pega el texto en Codex. Alternativa: adjunta school_spaces_export.json de la carpeta lsmmod de tu mundo; el comando muestra la ruta completa. Ambos incluyen los IDs, nombres, coordenadas y eliminaciones actuales. Exporta después de los últimos cambios.
 
 Al actualizar el mod se migra automáticamente el archivo de nombres anterior; no tienes que importar otra vez los nombres que ya confirmaste. Compilación y comprobación de persistencia correctas; prueba dentro de Minecraft pendiente.
+
+Folders y cuadernos (2026-10-07): 32 items decorativos en la pestaña LSM Mod, 16 colores por tipo. Folder oficio rígido sin liga y cuaderno college de tapas lisas, sin espiral. Ejemplos: `/give @s lsmmod:blue_folder` y `/give @s lsmmod:red_notebook`. Aún no aplican Estudioso ni se consumen al usarlos.
