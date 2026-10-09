@@ -1,0 +1,106 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "frame": "lsmmod:block/sports_goal_frame",
+    "board": "lsmmod:block/sports_goal_board",
+    "board_front": "lsmmod:block/sports_goal_board_front",
+    "rim": "lsmmod:block/sports_goal_rim",
+    "net": "lsmmod:block/sports_goal_net",
+    "particle": "lsmmod:block/sports_goal_frame"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        12
+      ],
+      "to": [
+        16,
+        16,
+        14
+      ],
+      "faces": {
+        "east": {
+          "texture": "#board",
+          "uv": [
+            14,
+            0,
+            12,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        12
+      ],
+      "to": [
+        16,
+        16,
+        14
+      ],
+      "faces": {
+        "up": {
+          "texture": "#board",
+          "uv": [
+            0,
+            12,
+            16,
+            14
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        12
+      ],
+      "to": [
+        16,
+        16,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#board_front",
+          "uv": [
+            16.0,
+            0.0,
+            10.666666666666666,
+            10.666666666666666
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        12
+      ],
+      "to": [
+        16,
+        16,
+        14
+      ],
+      "faces": {
+        "south": {
+          "texture": "#board",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

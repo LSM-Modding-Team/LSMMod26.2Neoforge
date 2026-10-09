@@ -1,0 +1,198 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "frame": "lsmmod:block/sports_goal_frame",
+    "board": "lsmmod:block/sports_goal_board",
+    "board_front": "lsmmod:block/sports_goal_board_front",
+    "rim": "lsmmod:block/sports_goal_rim",
+    "net": "lsmmod:block/sports_goal_net",
+    "particle": "lsmmod:block/sports_goal_frame"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        14
+      ],
+      "to": [
+        2,
+        16,
+        16
+      ],
+      "faces": {
+        "west": {
+          "texture": "#frame",
+          "uv": [
+            14,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        14.125
+      ],
+      "to": [
+        2,
+        16,
+        16
+      ],
+      "faces": {
+        "east": {
+          "texture": "#frame",
+          "uv": [
+            16,
+            0,
+            14.125,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        14
+      ],
+      "to": [
+        1.875,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#frame",
+          "uv": [
+            1.875,
+            0,
+            0,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        14
+      ],
+      "to": [
+        2,
+        16,
+        16
+      ],
+      "faces": {
+        "south": {
+          "texture": "#frame",
+          "uv": [
+            0,
+            0,
+            2,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        0,
+        14
+      ],
+      "to": [
+        16,
+        16,
+        14.125
+      ],
+      "faces": {
+        "north": {
+          "texture": "#net",
+          "uv": [
+            16,
+            0,
+            2,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        0,
+        14
+      ],
+      "to": [
+        16,
+        16,
+        14.125
+      ],
+      "faces": {
+        "south": {
+          "texture": "#net",
+          "uv": [
+            2,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        1.875,
+        0,
+        0
+      ],
+      "to": [
+        2,
+        16,
+        14
+      ],
+      "faces": {
+        "west": {
+          "texture": "#net",
+          "uv": [
+            0,
+            0,
+            14,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        1.875,
+        0,
+        0
+      ],
+      "to": [
+        2,
+        16,
+        14
+      ],
+      "faces": {
+        "east": {
+          "texture": "#net",
+          "uv": [
+            14,
+            0,
+            0,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

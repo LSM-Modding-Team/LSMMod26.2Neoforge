@@ -1,0 +1,291 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "frame": "lsmmod:block/sports_goal_frame",
+    "board": "lsmmod:block/sports_goal_board",
+    "board_front": "lsmmod:block/sports_goal_board_front",
+    "rim": "lsmmod:block/sports_goal_rim",
+    "net": "lsmmod:block/sports_goal_net",
+    "basket_net": "lsmmod:block/sports_goal_basket_net",
+    "particle": "lsmmod:block/sports_goal_frame"
+  },
+  "elements": [
+    {
+      "from": [
+        14,
+        0,
+        14
+      ],
+      "to": [
+        16,
+        14,
+        16
+      ],
+      "faces": {
+        "west": {
+          "texture": "#frame",
+          "uv": [
+            14,
+            2,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        14,
+        8,
+        14
+      ],
+      "to": [
+        16,
+        12,
+        14.125
+      ],
+      "faces": {
+        "east": {
+          "texture": "#frame",
+          "uv": [
+            14.125,
+            4,
+            14,
+            8
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        14,
+        0,
+        14.125
+      ],
+      "to": [
+        16,
+        12,
+        16
+      ],
+      "faces": {
+        "east": {
+          "texture": "#frame",
+          "uv": [
+            16,
+            4,
+            14.125,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        14,
+        0,
+        14
+      ],
+      "to": [
+        16,
+        14,
+        16
+      ],
+      "faces": {
+        "up": {
+          "texture": "#frame",
+          "uv": [
+            14,
+            14,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        14,
+        0,
+        14
+      ],
+      "to": [
+        16,
+        8,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#frame",
+          "uv": [
+            16,
+            8,
+            14,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        14,
+        0,
+        14
+      ],
+      "to": [
+        16,
+        14,
+        16
+      ],
+      "faces": {
+        "south": {
+          "texture": "#frame",
+          "uv": [
+            14,
+            2,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        8,
+        8,
+        12
+      ],
+      "to": [
+        16,
+        16,
+        14
+      ],
+      "faces": {
+        "west": {
+          "texture": "#board",
+          "uv": [
+            12,
+            0,
+            14,
+            8
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        8,
+        8,
+        12
+      ],
+      "to": [
+        16,
+        16,
+        14
+      ],
+      "faces": {
+        "down": {
+          "texture": "#board",
+          "uv": [
+            8,
+            12,
+            16,
+            14
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        8,
+        8,
+        12
+      ],
+      "to": [
+        16,
+        9.5,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#board_front",
+          "uv": [
+            2.6666666666666665,
+            15.0,
+            0.0,
+            16.0
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        8,
+        9.5,
+        12
+      ],
+      "to": [
+        16,
+        16,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#board_front",
+          "uv": [
+            2.6666666666666665,
+            10.666666666666666,
+            0.0,
+            15.0
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        8,
+        8,
+        12
+      ],
+      "to": [
+        14,
+        14,
+        14
+      ],
+      "faces": {
+        "south": {
+          "texture": "#board",
+          "uv": [
+            8,
+            2,
+            14,
+            8
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        8,
+        14,
+        12
+      ],
+      "to": [
+        16,
+        16,
+        14
+      ],
+      "faces": {
+        "south": {
+          "texture": "#board",
+          "uv": [
+            8,
+            0,
+            16,
+            2
+          ]
+        }
+      }
+    }
+  ]
+}

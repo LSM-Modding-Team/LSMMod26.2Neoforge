@@ -1,0 +1,12 @@
+{
+  "textures": {
+    "frame": "lsmmod:block/sports_goal_frame",
+    "board": "lsmmod:block/sports_goal_board",
+    "board_front": "lsmmod:block/sports_goal_board_front",
+    "rim": "lsmmod:block/sports_goal_rim",
+    "net": "lsmmod:block/sports_goal_net",
+    "basket_net": "lsmmod:block/sports_goal_basket_net",
+    "particle": "lsmmod:block/sports_goal_frame"
+  },
+  "elements": []
+}

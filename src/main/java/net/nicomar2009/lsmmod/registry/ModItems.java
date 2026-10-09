@@ -21,6 +21,9 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
+    public static final DeferredItem<BlockItem> FOOTBALL_BASKETBALL_GOAL =
+            ITEMS.registerSimpleBlockItem(ModBlocks.FOOTBALL_BASKETBALL_GOAL);
+
     public static final DeferredItem<BlockItem> TOILET =
             ITEMS.registerSimpleBlockItem(ModBlocks.TOILET);
     public static final DeferredItem<BlockItem> ADULT_MEN_URINAL =

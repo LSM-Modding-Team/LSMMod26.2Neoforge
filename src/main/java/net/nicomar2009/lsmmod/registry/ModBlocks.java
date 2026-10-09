@@ -17,6 +17,10 @@ public final class ModBlocks {
     // Specialized register: it sets the block's resource key (required since 1.21.2) automatically
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(LSMMod.MOD_ID);
 
+    public static final DeferredBlock<SportsGoalBlock> FOOTBALL_BASKETBALL_GOAL = BLOCKS.registerBlock(
+            "football_basketball_goal", SportsGoalBlock::new,
+            props -> props.strength(3.0F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
     public static final DeferredBlock<ToiletBlock> TOILET = BLOCKS.registerBlock(
             "toilet", ToiletBlock::new,
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));

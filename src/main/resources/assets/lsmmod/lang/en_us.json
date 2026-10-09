@@ -238,5 +238,6 @@
   "block.lsmmod.black_trash_bin": "Black Trash Bin",
   "block.lsmmod.toilet": "Toilet Cubicle",
   "block.lsmmod.men_urinal": "Children's Urinal",
-  "block.lsmmod.adult_men_urinal": "Adult Men's Urinal"
+  "block.lsmmod.adult_men_urinal": "Adult Men's Urinal",
+  "block.lsmmod.football_basketball_goal": "Football Goal with Basketball Hoop"
 }
