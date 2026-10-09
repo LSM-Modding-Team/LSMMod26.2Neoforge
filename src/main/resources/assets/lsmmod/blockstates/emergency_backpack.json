@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "lsmmod:block/emergency_backpack",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "lsmmod:block/emergency_backpack",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "lsmmod:block/emergency_backpack",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "lsmmod:block/emergency_backpack",
+      "y": 270
+    }
+  }
+}

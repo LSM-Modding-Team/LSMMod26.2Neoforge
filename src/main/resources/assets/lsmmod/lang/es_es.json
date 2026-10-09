@@ -222,5 +222,14 @@
   "block.lsmmod.classroom_floor": "Piso de baldosas del salón",
   "block.lsmmod.light_school_wall": "Pared clara del colegio",
   "block.lsmmod.dark_school_wall": "Pared oscura del colegio",
-  "block.lsmmod.school_gate": "Portón doble del colegio"
+  "block.lsmmod.school_gate": "Portón doble del colegio",
+  "block.lsmmod.projector_screen": "Pantalla de proyector",
+  "block.lsmmod.wall_projector": "Proyector de pared",
+  "block.lsmmod.classroom_timetable": "Horario del salón",
+  "block.lsmmod.emergency_backpack": "Mochila de emergencia",
+  "block.lsmmod.green_trash_bin": "Tacho de basura verde",
+  "block.lsmmod.black_trash_bin": "Tacho de basura negro",
+  "block.lsmmod.toilet": "Inodoro con cubículo",
+  "block.lsmmod.men_urinal": "Urinario infantil",
+  "block.lsmmod.adult_men_urinal": "Urinario de varones para adultos"
 }

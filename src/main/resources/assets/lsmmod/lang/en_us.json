@@ -229,5 +229,14 @@
   "block.lsmmod.classroom_floor": "Classroom Tile Floor",
   "block.lsmmod.light_school_wall": "Light School Wall",
   "block.lsmmod.dark_school_wall": "Dark School Wall",
-  "block.lsmmod.school_gate": "School Double Gate"
+  "block.lsmmod.school_gate": "School Double Gate",
+  "block.lsmmod.projector_screen": "Projector Screen",
+  "block.lsmmod.wall_projector": "Wall Projector",
+  "block.lsmmod.classroom_timetable": "Classroom Timetable",
+  "block.lsmmod.emergency_backpack": "Emergency Backpack",
+  "block.lsmmod.green_trash_bin": "Green Trash Bin",
+  "block.lsmmod.black_trash_bin": "Black Trash Bin",
+  "block.lsmmod.toilet": "Toilet Cubicle",
+  "block.lsmmod.men_urinal": "Children's Urinal",
+  "block.lsmmod.adult_men_urinal": "Adult Men's Urinal"
 }

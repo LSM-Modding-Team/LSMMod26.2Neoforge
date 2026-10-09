@@ -1,6 +1,6 @@
 {
-	"model": {
-		"type": "minecraft:model",
-		"model": "lsmmod:block/san_martin_de_porres_down"
-	}
+  "model": {
+    "type": "minecraft:model",
+    "model": "lsmmod:item/san_martin_de_porres"
+  }
 }

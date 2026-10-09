@@ -6,6 +6,8 @@
     "lsmmod:classroom_door",
     "lsmmod:dining_door",
     "lsmmod:teachers_office_door",
-    "lsmmod:bathroom_door"
+    "lsmmod:bathroom_door",
+    "lsmmod:projector_screen",
+    "lsmmod:classroom_timetable"
   ]
 }

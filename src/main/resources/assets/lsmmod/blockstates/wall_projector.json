@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "lsmmod:block/wall_projector",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "lsmmod:block/wall_projector",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "lsmmod:block/wall_projector",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "lsmmod:block/wall_projector",
+      "y": 270
+    }
+  }
+}

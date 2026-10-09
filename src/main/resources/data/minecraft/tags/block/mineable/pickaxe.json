@@ -13,6 +13,10 @@
     "lsmmod:classroom_floor",
     "lsmmod:light_school_wall",
     "lsmmod:dark_school_wall",
-    "lsmmod:school_gate"
+    "lsmmod:school_gate",
+    "lsmmod:wall_projector",
+    "lsmmod:toilet",
+    "lsmmod:men_urinal",
+    "lsmmod:adult_men_urinal"
   ]
 }

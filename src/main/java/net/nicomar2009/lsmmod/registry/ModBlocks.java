@@ -17,6 +17,43 @@ public final class ModBlocks {
     // Specialized register: it sets the block's resource key (required since 1.21.2) automatically
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(LSMMod.MOD_ID);
 
+    public static final DeferredBlock<ToiletBlock> TOILET = BLOCKS.registerBlock(
+            "toilet", ToiletBlock::new,
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<TallBathroomBlock> ADULT_MEN_URINAL = BLOCKS.registerBlock(
+            "adult_men_urinal", props -> new TallBathroomBlock(props, TallBathroomShapes.ADULT_URINAL,
+                    TallBathroomShapes.ADULT_URINAL, true),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<WallDecorationBlock> MEN_URINAL = BLOCKS.registerBlock(
+            "men_urinal", props -> new WallDecorationBlock(props, BathroomShapes.URINAL),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<TrashBinBlock> GREEN_TRASH_BIN = BLOCKS.registerBlock(
+            "green_trash_bin", props -> new TrashBinBlock(props, TrashBinShapes.GREEN),
+            props -> props.strength(0.8F).sound(SoundType.WOOD).noOcclusion());
+
+    public static final DeferredBlock<TrashBinBlock> BLACK_TRASH_BIN = BLOCKS.registerBlock(
+            "black_trash_bin", props -> new TrashBinBlock(props, TrashBinShapes.BLACK),
+            props -> props.strength(0.8F).sound(SoundType.WOOD).noOcclusion());
+
+    public static final DeferredBlock<ProjectorScreenBlock> PROJECTOR_SCREEN = BLOCKS.registerBlock(
+            "projector_screen", ProjectorScreenBlock::new,
+            props -> props.strength(0.5F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<WallDecorationBlock> WALL_PROJECTOR = BLOCKS.registerBlock(
+            "wall_projector", props -> new WallDecorationBlock(props, SchoolDecorationShapes.PROJECTOR),
+            props -> props.strength(1.5F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<WallDecorationBlock> CLASSROOM_TIMETABLE = BLOCKS.registerBlock(
+            "classroom_timetable", props -> new WallDecorationBlock(props, SchoolDecorationShapes.TIMETABLE),
+            props -> props.strength(0.2F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<WallDecorationBlock> EMERGENCY_BACKPACK = BLOCKS.registerBlock(
+            "emergency_backpack", props -> new WallDecorationBlock(props, SchoolDecorationShapes.BACKPACK),
+            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
     public static final DeferredBlock<Block> CLASSROOM_FLOOR = BLOCKS.registerBlock(
             "classroom_floor", Block::new,
             props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());

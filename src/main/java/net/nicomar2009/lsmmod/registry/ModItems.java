@@ -21,6 +21,27 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
+    public static final DeferredItem<BlockItem> TOILET =
+            ITEMS.registerSimpleBlockItem(ModBlocks.TOILET);
+    public static final DeferredItem<BlockItem> ADULT_MEN_URINAL =
+            ITEMS.registerSimpleBlockItem(ModBlocks.ADULT_MEN_URINAL);
+    public static final DeferredItem<BlockItem> MEN_URINAL =
+            ITEMS.registerSimpleBlockItem(ModBlocks.MEN_URINAL);
+
+    public static final DeferredItem<BlockItem> GREEN_TRASH_BIN =
+            ITEMS.registerSimpleBlockItem(ModBlocks.GREEN_TRASH_BIN);
+    public static final DeferredItem<BlockItem> BLACK_TRASH_BIN =
+            ITEMS.registerSimpleBlockItem(ModBlocks.BLACK_TRASH_BIN);
+
+    public static final DeferredItem<BlockItem> PROJECTOR_SCREEN =
+            ITEMS.registerSimpleBlockItem(ModBlocks.PROJECTOR_SCREEN);
+    public static final DeferredItem<BlockItem> WALL_PROJECTOR =
+            ITEMS.registerSimpleBlockItem(ModBlocks.WALL_PROJECTOR);
+    public static final DeferredItem<BlockItem> CLASSROOM_TIMETABLE =
+            ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_TIMETABLE);
+    public static final DeferredItem<BlockItem> EMERGENCY_BACKPACK =
+            ITEMS.registerSimpleBlockItem(ModBlocks.EMERGENCY_BACKPACK);
+
     public static final DeferredItem<BlockItem> CLASSROOM_FLOOR =
             ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_FLOOR);
     public static final DeferredItem<BlockItem> LIGHT_SCHOOL_WALL =
