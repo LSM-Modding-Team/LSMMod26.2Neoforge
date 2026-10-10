@@ -257,3 +257,6 @@ double_school_entrance: nueva puerta doble independiente de 3×3 bloques (48×48
 
 
 2026-10-10 — Nuevo school_yellow_border_wall: bloque completo gris oscuro con borde amarillo intenso de 3 px, conexiones inmediatas en seis direcciones y perímetro compartido sin líneas interiores. Horizontal/vertical sin límite propio de tamaño, giro/espejo, ítem/drop/pico/traducciones. 64 estados y panel estático 5×1024 verificados, sin compilar ni probar Minecraft. Guía docs/SCHOOL_YELLOW_BORDER_WALL.md; publicación autorizada en master.
+
+
+2026-10-10 — supported_school_glass y mixed_school_glass_reversed sustituyen únicamente light_wall por street_school_wall en los 198 modelos de todas sus formas/conexiones; geometría, UV, cristal y demás materiales conservados. Generadores de cristal/escalera/conexión sincronizados. Nuevo school_parquet: bloque completo de madera tono miel, tablas/juntas escalonadas, textura vanilla 16×16, sonido de madera, pico no requerido, etiqueta de hacha e ítem/drop. Generador tools/create_school_parquet_assets.py, preview previews/school_parquet.png. Cambios de modelos comparados con originales y regresión de conexiones/culling comprobada estáticamente; sin compilar ni probar Minecraft. Publicación autorizada en master.

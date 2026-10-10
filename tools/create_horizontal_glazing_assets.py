@@ -65,7 +65,8 @@ def main():
                     elif state['half']=='bottom':low,high,occluders=8,16,[([0,0,0,16,8,16],'occluder')]
                     else:low,high,occluders=0,8,[([0,8,0,16,16,16],'occluder')]
                     result=model(preserved+glazing(layout,low,high,bottom,top,occluders))
-                    result['textures']=old['textures']
+                    result['textures']=dict(old['textures'])
+                    if name in ('supported_school_glass','mixed_school_glass_reversed'):result['textures']['light_wall']='lsmmod:block/street_school_wall'
                     write(A/f'models/block/{target}.json',result);generated.add(target)
                 states=dict(state,frame_layout=str(layout))
                 variants[','.join(f'{k}={v}' for k,v in sorted(states.items()))]=dict(value,model=f'lsmmod:block/{target}')

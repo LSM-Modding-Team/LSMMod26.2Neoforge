@@ -109,6 +109,8 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> EMERGENCY_BACKPACK =
             ITEMS.registerSimpleBlockItem(ModBlocks.EMERGENCY_BACKPACK);
 
+    public static final DeferredItem<BlockItem> SCHOOL_PARQUET = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PARQUET);
+
     public static final DeferredItem<BlockItem> CLASSROOM_FLOOR =
             ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_FLOOR);
     public static final DeferredItem<BlockItem> SCHOOL_YELLOW_BORDER_WALL = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_YELLOW_BORDER_WALL);

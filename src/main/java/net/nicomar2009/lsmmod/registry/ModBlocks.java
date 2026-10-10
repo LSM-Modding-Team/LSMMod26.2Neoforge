@@ -212,6 +212,10 @@ public final class ModBlocks {
             "emergency_backpack", props -> new WallDecorationBlock(props, SchoolDecorationShapes.BACKPACK),
             props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
 
+    public static final DeferredBlock<Block> SCHOOL_PARQUET = BLOCKS.registerBlock(
+            "school_parquet", Block::new,
+            props -> props.strength(2.0F,3.0F).sound(SoundType.WOOD));
+
     public static final DeferredBlock<Block> CLASSROOM_FLOOR = BLOCKS.registerBlock(
             "classroom_floor", Block::new,
             props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());

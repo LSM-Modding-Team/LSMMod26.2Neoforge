@@ -25,7 +25,10 @@ PART_IDS={(0,0):'tall_classroom_entrance',(1,0):'tall_classroom_entrance_right_b
           (0,1):'tall_classroom_entrance_left_middle',(1,1):'tall_classroom_entrance_right_middle',
           (0,2):'tall_classroom_entrance_left_top',(1,2):'tall_classroom_entrance_right_top'}
 
-def model(elements):return {'parent':'minecraft:block/block','render_type':'minecraft:translucent','textures':T,'elements':elements}
+def model(elements,block_name=None):
+    textures=dict(T)
+    if block_name in ('supported_school_glass','mixed_school_glass_reversed'):textures['light_wall']='lsmmod:block/street_school_wall'
+    return {'parent':'minecraft:block/block','render_type':'minecraft:translucent','textures':textures,'elements':elements}
 
 def textures():
     p=A/'textures/block';p.mkdir(parents=True,exist_ok=True)
@@ -80,11 +83,11 @@ def main():
                         if e['to' if positive else 'from'][axis]==(16 if positive else 0):
                             e['faces'][f]['cullface']=f
                 suffix=f'{name}_{int(top)}_{int(bottom)}'
-                write(A/f'models/block/{suffix}.json',model(parts))
+                write(A/f'models/block/{suffix}.json',model(parts,name))
                 for f,r in [('north',0),('east',90),('south',180),('west',270)]:
                     variants[f'bottom_connected={str(bottom).lower()},facing={f},top_connected={str(top).lower()}']={'model':f'lsmmod:block/{suffix}','y':r}
                 if not top and not bottom:
-                    write(A/f'models/block/{name}.json',model(parts))
+                    write(A/f'models/block/{name}.json',model(parts,name))
         write(A/f'blockstates/{name}.json',{'variants':variants})
         write(A/f'models/item/{name}.json',{'parent':f'lsmmod:block/{name}'})
         item_and_loot(name)
@@ -102,7 +105,7 @@ def main():
                 # Exactly the same framed glass as the standalone block, fixed above the moving leaf.
                 parts=[cube([0,0,0,16,8,4],'top',[0,12,16,16])] + transom_parts(False,False)
             name=f'tall_classroom_entrance_{column}_{row}'
-            write(A/f'models/block/{name}.json',model(parts))
+            write(A/f'models/block/{name}.json',model(parts,name))
             opened=[]
             remap={'north':'west','south':'east','east':'north','west':'south','up':'up','down':'down'} if column==0 else {'north':'east','south':'west','east':'south','west':'north','up':'up','down':'down'}
             for part in parts:
