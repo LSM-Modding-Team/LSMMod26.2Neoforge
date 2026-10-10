@@ -31,6 +31,7 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> SCHOOL_RAILING_SLOPE_FLIGHT_3 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_RAILING_SLOPE_FLIGHT_3);
     public static final DeferredItem<BlockItem> SCHOOL_RAILING_SLOPE_FLIGHT_4 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_RAILING_SLOPE_FLIGHT_4);
     public static final DeferredItem<BlockItem> SCHOOL_RAILING_SLOPE_FLIGHT_5 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_RAILING_SLOPE_FLIGHT_5);
+    public static final DeferredItem<BlockItem> SCHOOL_RAILING_SLOPE_FLIGHT_6 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_RAILING_SLOPE_FLIGHT_6);
     // END SCHOOL RAILING SLOPES
 
     public static final DeferredItem<BlockItem> LIGHT_SCHOOL_WALL_RAILING = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_SCHOOL_WALL_RAILING);

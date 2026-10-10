@@ -15,14 +15,14 @@ def mesh(path):
  return np.array(vertices),np.array(uvs),faces
 
 def main():
- plan=list(pieces());assert len(plan)==9
+ plan=list(pieces());assert len(plan)==10
  assert [p[1] for p in plan[:4]]==[0,1,5,6]
- assert [p[1] for p in plan[4:]]==list(range(5))
+ assert [p[1] for p in plan[4:]]==list(range(6))
  reg=(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java').read_text()
  for ident,col,row,low,rise,post in plan:
   assert 0<low and rise>0
   vertices,uv,faces=mesh(A/f'models/block/{ident}.obj')
-  assert uv.min()>=0 and uv.max()<=1
+  assert uv.min()>=-1e-10 and uv.max()<=1+1e-10
   assert np.min(vertices[:,0])==0 and np.max(vertices[:,0])==1
   assert np.min(vertices[:,2])==0 and np.max(vertices[:,2])==1
   assert np.isclose(np.max(vertices[:,1]),low+rise+.5)
@@ -35,6 +35,7 @@ def main():
     assert all(abs(normal@(v-p[0]))<1e-8 for v in p)
     for j in range(1,len(p)-1):volume+=p[0]@np.cross(p[j],p[j+1])/6
    assert volume>0
+   if i==0 and "_flight_" in ident:assert math.isclose(volume,.75,abs_tol=1e-9)
   states=json.loads((A/f'blockstates/{ident}.json').read_text())['variants'];assert len(states)==4
   assert all('half' not in key for key in states)
   assert ident in reg
@@ -45,6 +46,9 @@ def main():
  split=plan[:4];flight=plan[4:]
  assert math.isclose(height(split[-1],1)-height(split[0],0),5)
  assert math.isclose(height(flight[-1],1)-height(flight[0],0),5)
+ assert flight[-1][1]+1==6
+ assert [p[2] for p in flight]==[0,1,2,3,4,4]
+ assert all(math.isclose(p[4],5/6) for p in flight)
  for group in (split[:2],split[2:],flight):
   for first,second in zip(group,group[1:]):
    assert math.isclose(height(first,1),height(second,0),abs_tol=1e-10)
@@ -60,5 +64,5 @@ def main():
  assert 'super.getCollisionShape' not in source
  flat=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolWallRailingBlock.java').read_text()
  assert 'SchoolRailingSlopeBlock.connectsFlat' in flat
- print('OK: 9 pieces, 72 states, outward planar faces, atlas-safe UVs, continuous wall/rail endpoints, 7x5 split and 5x5 flight, no inversion.')
+ print('OK: 10 pieces, 80 states, outward planar faces, atlas-safe UVs, continuous wall/rail endpoints, 7x5 split and 6x5 flight, constant 12 px wall thickness, no inversion.')
 if __name__=='__main__':main()

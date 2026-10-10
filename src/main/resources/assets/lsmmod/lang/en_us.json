@@ -267,9 +267,10 @@
   "block.lsmmod.school_railing_slope_split_2": "Railing slope: split 2",
   "block.lsmmod.school_railing_slope_split_3": "Railing slope: split 3",
   "block.lsmmod.school_railing_slope_split_4": "Railing slope: split 4",
-  "block.lsmmod.school_railing_slope_flight_1": "Railing slope: 5x5 1",
-  "block.lsmmod.school_railing_slope_flight_2": "Railing slope: 5x5 2",
-  "block.lsmmod.school_railing_slope_flight_3": "Railing slope: 5x5 3",
-  "block.lsmmod.school_railing_slope_flight_4": "Railing slope: 5x5 4",
-  "block.lsmmod.school_railing_slope_flight_5": "Railing slope: 5x5 5"
+  "block.lsmmod.school_railing_slope_flight_1": "Railing slope: 6x5 1",
+  "block.lsmmod.school_railing_slope_flight_2": "Railing slope: 6x5 2",
+  "block.lsmmod.school_railing_slope_flight_3": "Railing slope: 6x5 3",
+  "block.lsmmod.school_railing_slope_flight_4": "Railing slope: 6x5 4",
+  "block.lsmmod.school_railing_slope_flight_5": "Railing slope: 6x5 5",
+  "block.lsmmod.school_railing_slope_flight_6": "Railing slope: 6x5 6"
 }

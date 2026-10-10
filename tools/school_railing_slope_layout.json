@@ -9,8 +9,9 @@
     ]
   },
   "flight": {
-    "length": 5,
-    "rise": 5
+    "length": 6,
+    "rise": 5,
+    "wall_thickness": 0.75
   },
   "pieces": [
     {
@@ -50,40 +51,48 @@
       "column": 0,
       "row": 0,
       "low": 0.75,
-      "rise": 1.0,
+      "rise": 0.8333333333333334,
       "post": true
     },
     {
       "id": "school_railing_slope_flight_2",
       "column": 1,
       "row": 1,
-      "low": 0.75,
-      "rise": 1.0,
+      "low": 0.5833333333333335,
+      "rise": 0.8333333333333334,
       "post": false
     },
     {
       "id": "school_railing_slope_flight_3",
       "column": 2,
       "row": 2,
-      "low": 0.75,
-      "rise": 1.0,
+      "low": 0.41666666666666696,
+      "rise": 0.8333333333333334,
       "post": true
     },
     {
       "id": "school_railing_slope_flight_4",
       "column": 3,
       "row": 3,
-      "low": 0.75,
-      "rise": 1.0,
+      "low": 0.25,
+      "rise": 0.8333333333333334,
       "post": false
     },
     {
       "id": "school_railing_slope_flight_5",
       "column": 4,
       "row": 4,
-      "low": 0.75,
-      "rise": 1.0,
+      "low": 0.08333333333333393,
+      "rise": 0.8333333333333334,
       "post": true
+    },
+    {
+      "id": "school_railing_slope_flight_6",
+      "column": 5,
+      "row": 4,
+      "low": 0.916666666666667,
+      "rise": 0.8333333333333334,
+      "post": false
     }
   ]
 }

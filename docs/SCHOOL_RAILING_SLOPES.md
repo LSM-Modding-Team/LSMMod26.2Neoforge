@@ -1,6 +1,6 @@
 # Pendientes individuales con baranda
 
-Nueve ítems independientes: cuatro para el tramo interrumpido y cinco para el tramo continuo. Todos llevan pasamanos inclinado. El muro usa `light_school_wall` y el metal `school_gate_edge`, exactamente las mismas texturas que el muro con baranda horizontal. Los modelos OBJ tienen superficies planas, sin escalones visuales. No existe estado HALF ni inversión: siempre suben hacia la dirección horizontal del jugador, incluso al hacer clic en una cara inferior.
+Diez ítems independientes: cuatro para el tramo interrumpido y seis para el tramo continuo. Todos llevan pasamanos inclinado. El muro usa `light_school_wall` y el metal `school_gate_edge`, exactamente las mismas texturas que el muro con baranda horizontal. Los modelos OBJ tienen superficies planas, sin escalones visuales. No existe estado HALF ni inversión: siempre suben hacia la dirección horizontal del jugador, incluso al hacer clic en una cara inferior.
 
 ## Tramo interrumpido
 
@@ -18,11 +18,26 @@ Coordenadas desde el extremo inferior, avanzando hacia la subida:
 
 La pendiente sube 5/7 de bloque por columna. Las cuatro piezas tienen perfiles propios para conservar esa misma línea, aunque cambie la altura de sus celdas. El soporte interrumpe el pasamanos; no hay geometría oculta que atraviese la columna. Los soportes metálicos conservan la alternancia de la línea teórica.
 
-## Tramo continuo de 5×5
+## Tramo continuo de 6×5
 
-Coloca `school_railing_slope_flight_1` a `school_railing_slope_flight_5` en las posiciones (avance, altura) (0,0), (1,1), (2,2), (3,3) y (4,4). La superficie sube exactamente cinco bloques en cinco de largo. Solo esas cinco piezas superiores son pendientes con baranda; utiliza bloques normales para el relleno inferior. No se coloca un conjunto automático de 25 bloques.
+Coloca `school_railing_slope_flight_1` a `school_railing_slope_flight_6` según esta tabla, avanzando hacia la subida:
 
-El pasamanos es continuo y lleva soporte en las piezas 1, 3 y 5. El muro mantiene el rebaje de cuatro píxeles respecto de una superficie completa y el tubo conserva la misma separación que en `light_school_wall_railing`.
+| Pieza | Avance | Altura de la celda |
+| --- | --- | --- |
+| 1 | 0 | 0 |
+| 2 | 1 | 1 |
+| 3 | 2 | 2 |
+| 4 | 3 | 3 |
+| 5 | 4 | 4 |
+| 6 | 5 | 4 |
+
+Las últimas dos piezas comparten la altura de su celda, pero sus perfiles son distintos: al colocarlas en orden, la superficie sube exactamente cinco bloques en seis de largo. Cada columna sube 5/6 de bloque. Solo las seis piezas superiores llevan baranda.
+
+El modelo sigue la imagen como una franja diagonal de muro de 12 píxeles de grosor vertical constante, con borde superior e inferior paralelos. El espacio debajo puede quedar libre como en la referencia, o rellenarse manualmente con bloques normales. Las piezas no colocan relleno ni un conjunto automático. Algunas partes de esta franja se extienden dentro de la celda inferior; modelo y colisión coinciden.
+
+El pasamanos es continuo, paralelo al muro y lleva soporte en las piezas 1, 3 y 5. Las UV del muro y el metal se calculan respecto del perfil inclinado, conservando la distribución entre piezas y evitando estirar verticalmente la textura. Se mantienen los materiales originales de pared clara y metal del portón.
+
+Retira y recoloca el tramo continuo de la versión 5×5: sus identificadores 1–5 se mantienen, pero cambian el perfil y las posiciones. El tramo interrumpido conserva sus cuatro posiciones.
 
 ## Descansos y comportamiento
 
@@ -32,4 +47,4 @@ Cada ítem coloca únicamente su pieza y entrega un solo drop. Cuatro orientacio
 
 Herramientas: `tools/create_school_railing_slopes.py`, `tools/check_school_railing_slopes.py` y `tools/render_school_railing_slopes.py`. Layout de montaje: `tools/school_railing_slope_layout.json`. Vista previa externa: `previews/school_railing_slopes.png`.
 
-Verificación estática de 72 estados, caras/UV OBJ, uniones, alturas y ausencia de inversión. Sin compilación ni ejecución de Minecraft; nueva prueba en juego pendiente.
+Verificación estática de 80 estados, caras/UV OBJ, uniones, alturas y ausencia de inversión. Sin compilación ni ejecución de Minecraft; nueva prueba en juego pendiente.

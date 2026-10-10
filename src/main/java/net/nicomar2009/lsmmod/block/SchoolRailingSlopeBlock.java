@@ -30,13 +30,13 @@ public class SchoolRailingSlopeBlock extends Block implements SimpleWaterloggedB
     public static final BooleanProperty WATERLOGGED=BlockStateProperties.WATERLOGGED;
     private final double low,rise;
     private final VoxelShape[] collisions=new VoxelShape[4];
-    public SchoolRailingSlopeBlock(double low,double rise,boolean post,Properties properties) {
+    public SchoolRailingSlopeBlock(double low,double rise,boolean post,boolean band,Properties properties) {
         super(properties);this.low=low;this.rise=rise;
         registerDefaultState(stateDefinition.any().setValue(FACING,Direction.NORTH).setValue(WATERLOGGED,false));
         VoxelShape shape=Shapes.empty();
         for(int i=0;i<32;i++) {
             double t0=i/32.0,t1=(i+1)/32.0;
-            shape=Shapes.or(shape,Shapes.box(0,0,1-t1,1,low+rise*t1,1-t0));
+            shape=Shapes.or(shape,Shapes.box(0,band?low+rise*t0-12/16.0:0,1-t1,1,low+rise*t1,1-t0));
             shape=Shapes.or(shape,Shapes.box(7/16.0,low+rise*t0+6/16.0,1-t1,9/16.0,low+rise*t1+8/16.0,1-t0));
         }
         if(post)shape=Shapes.or(shape,Shapes.box(7/16.0,low+rise*7/16.0,7/16.0,9/16.0,low+rise*9/16.0+6/16.0,9/16.0));
