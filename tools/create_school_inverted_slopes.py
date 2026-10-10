@@ -16,8 +16,8 @@ def inverted_obj(original_low,rise):
   elif f[0]=='usemtl':material=f[1]
   elif f[0]=='f' and material=='wall':faces.append(f[1:][::-1])
  # Only the wall's first 24 vertices/UVs are retained. Reflection reverses winding.
- out=['# Wall only: Ynew = 12/16 - Yoriginal.','mtllib school_inverted_slopes.mtl','usemtl wall']
- out+=['v '+' '.join(f'{v:.12g}' for v in (x,.75-y,z)) for x,y,z in vertices[:24]]
+ out=['# Wall only: inclined profile reflected; flat top extended from 12 px to 16 px.','mtllib school_inverted_slopes.mtl','usemtl wall']
+ out+=['v '+' '.join(f'{v:.12g}' for v in (x,1.0 if y==0 else .75-y,z)) for x,y,z in vertices[:24]]
  out+=['vt '+' '.join(f'{v:.12g}' for v in p) for p in uv[:24]]
  out+=['f '+' '.join(f) for f in faces]
  return '\n'.join(out)+'\n'
@@ -46,5 +46,5 @@ def main():
    v['block.lsmmod.'+ident]=f'Pendiente invertida sin baranda: {family} {number}' if locale=='es_es' else f'Inverted unrailed slope: {"split" if "_split_" in ident else "flight"} {number}'
   write(p,v)
  p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+x[0] for x in pieces()]));write(p,v)
- write(ROOT/'tools/school_inverted_slope_layout.json',{'start_y':0,'transform':'Ynew = 0.75 - Yoriginal','pieces':[{'id':ident,'column':col,'row':row,'lower_start':low,'rise':rise} for ident,col,row,low,rise in pieces()]})
+ write(ROOT/'tools/school_inverted_slope_layout.json',{'start_y':0,'transform':'inclined profile Ynew = 0.75 - Yoriginal; flat top Y=1','flat_top_y':1,'pieces':[{'id':ident,'column':col,'row':row,'lower_start':low,'rise':rise} for ident,col,row,low,rise in pieces()]})
 if __name__=='__main__':main()

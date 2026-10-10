@@ -1,6 +1,7 @@
 {
   "start_y": 0,
-  "transform": "Ynew = 0.75 - Yoriginal",
+  "transform": "inclined profile Ynew = 0.75 - Yoriginal; flat top Y=1",
+  "flat_top_y": 1,
   "pieces": [
     {
       "id": "school_inverted_slope_split_1",

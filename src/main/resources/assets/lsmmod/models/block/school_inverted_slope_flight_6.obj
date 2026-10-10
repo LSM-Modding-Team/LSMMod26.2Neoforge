@@ -1,28 +1,28 @@
-# Wall only: Ynew = 12/16 - Yoriginal.
+# Wall only: inclined profile reflected; flat top extended from 12 px to 16 px.
 mtllib school_inverted_slopes.mtl
 usemtl wall
 v 0 0.666666666667 1
 v 0 0 0
-v 0 0.75 0
-v 0 0.75 1
-v 1 0.75 1
-v 1 0.75 0
+v 0 1 0
+v 0 1 1
+v 1 1 1
+v 1 1 0
 v 1 0 0
 v 1 0.666666666667 1
-v 0 0.75 0
-v 1 0.75 0
-v 1 0.75 1
-v 0 0.75 1
+v 0 1 0
+v 1 1 0
+v 1 1 1
+v 0 1 1
 v 0 0 0
 v 1 0 0
-v 1 0.75 0
-v 0 0.75 0
+v 1 1 0
+v 0 1 0
 v 0 0.666666666667 1
 v 1 0.666666666667 1
 v 1 0 0
 v 0 0 0
-v 0 0.75 1
-v 1 0.75 1
+v 0 1 1
+v 1 1 1
 v 1 0.666666666667 1
 v 0 0.666666666667 1
 vt 0 1
