@@ -1,0 +1,12 @@
+{
+  "loader": "neoforge:obj",
+  "model": "lsmmod:models/block/school_railing_slope_flight_3.obj",
+  "automatic_culling": false,
+  "flip_v": true,
+  "shade_quads": true,
+  "textures": {
+    "wall": "lsmmod:block/light_school_wall",
+    "metal": "lsmmod:block/school_gate_edge",
+    "particle": "lsmmod:block/light_school_wall"
+  }
+}

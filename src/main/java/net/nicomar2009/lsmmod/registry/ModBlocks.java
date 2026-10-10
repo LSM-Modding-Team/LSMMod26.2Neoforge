@@ -16,6 +16,36 @@ public final class ModBlocks {
     // Specialized register: it sets the block's resource key (required since 1.21.2) automatically
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(LSMMod.MOD_ID);
 
+    // BEGIN SCHOOL RAILING SLOPES
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_SPLIT_1 = BLOCKS.registerBlock(
+            "school_railing_slope_split_1", props -> new SchoolRailingSlopeBlock(0.75,0.714285714285714,true,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_SPLIT_2 = BLOCKS.registerBlock(
+            "school_railing_slope_split_2", props -> new SchoolRailingSlopeBlock(0.464285714285714,0.714285714285714,false,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_SPLIT_3 = BLOCKS.registerBlock(
+            "school_railing_slope_split_3", props -> new SchoolRailingSlopeBlock(0.321428571428571,0.714285714285714,false,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_SPLIT_4 = BLOCKS.registerBlock(
+            "school_railing_slope_split_4", props -> new SchoolRailingSlopeBlock(0.0357142857142856,0.714285714285714,true,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_1 = BLOCKS.registerBlock(
+            "school_railing_slope_flight_1", props -> new SchoolRailingSlopeBlock(0.75,1,true,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_2 = BLOCKS.registerBlock(
+            "school_railing_slope_flight_2", props -> new SchoolRailingSlopeBlock(0.75,1,false,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_3 = BLOCKS.registerBlock(
+            "school_railing_slope_flight_3", props -> new SchoolRailingSlopeBlock(0.75,1,true,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_4 = BLOCKS.registerBlock(
+            "school_railing_slope_flight_4", props -> new SchoolRailingSlopeBlock(0.75,1,false,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_5 = BLOCKS.registerBlock(
+            "school_railing_slope_flight_5", props -> new SchoolRailingSlopeBlock(0.75,1,true,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    // END SCHOOL RAILING SLOPES
+
     public static final DeferredBlock<SchoolWallRailingBlock> LIGHT_SCHOOL_WALL_RAILING = BLOCKS.registerBlock(
             "light_school_wall_railing", SchoolWallRailingBlock::new,
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());

@@ -23,6 +23,15 @@
     "lsmmod:mixed_school_glass",
     "lsmmod:supported_school_glass_reversed",
     "lsmmod:mixed_school_glass_reversed",
-    "lsmmod:light_school_wall_railing"
+    "lsmmod:light_school_wall_railing",
+    "lsmmod:school_railing_slope_split_1",
+    "lsmmod:school_railing_slope_split_2",
+    "lsmmod:school_railing_slope_split_3",
+    "lsmmod:school_railing_slope_split_4",
+    "lsmmod:school_railing_slope_flight_1",
+    "lsmmod:school_railing_slope_flight_2",
+    "lsmmod:school_railing_slope_flight_3",
+    "lsmmod:school_railing_slope_flight_4",
+    "lsmmod:school_railing_slope_flight_5"
   ]
 }

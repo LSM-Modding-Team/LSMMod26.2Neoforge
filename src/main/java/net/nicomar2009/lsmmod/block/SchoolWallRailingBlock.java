@@ -43,18 +43,28 @@ public class SchoolWallRailingBlock extends FenceBlock {
     }
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return super.getStateForPlacement(context).setValue(FACING,context.getHorizontalDirection()).setValue(POST,true);
+        return slopeConnections(super.getStateForPlacement(context).setValue(FACING,context.getHorizontalDirection()).setValue(POST,true),context.getLevel(),context.getClickedPos());
     }
     @Override
     protected BlockState updateShape(BlockState state,LevelReader level,ScheduledTickAccess ticks,BlockPos pos,
             Direction side,BlockPos neighborPos,BlockState neighbor,RandomSource random) {
         ticks.scheduleTick(pos,this,1);
-        return super.updateShape(state,level,ticks,pos,side,neighborPos,neighbor,random);
+        return slopeConnections(super.updateShape(state,level,ticks,pos,side,neighborPos,neighbor,random),level,pos);
     }
     @Override
     protected void onPlace(BlockState state,Level level,BlockPos pos,BlockState oldState,boolean moved) {
         super.onPlace(state,level,pos,oldState,moved);
         if(!level.isClientSide())level.scheduleTick(pos,this,1);
+    }
+    private BlockState slopeConnections(BlockState state,LevelReader level,BlockPos pos) {
+        for(Direction side:Direction.Plane.HORIZONTAL) {
+            BlockPos adjacent=pos.relative(side);
+            if(!level.hasChunkAt(adjacent))continue;
+            BlockState neighbor=level.getBlockState(adjacent);
+            boolean normal=!(neighbor.getBlock() instanceof SchoolRailingSlopeBlock) && connectsTo(neighbor,neighbor.isFaceSturdy(level,adjacent,side.getOpposite()),side.getOpposite());
+            state=state.setValue(PROPERTY_BY_DIRECTION.get(side),normal||SchoolRailingSlopeBlock.connectsFlat(level,pos,side));
+        }
+        return state;
     }
     private static boolean linked(BlockState state,Direction direction) {
         return state.getValue(PROPERTY_BY_DIRECTION.get(direction));
@@ -89,8 +99,10 @@ public class SchoolWallRailingBlock extends FenceBlock {
             if(!visited.add(current)||!level.hasChunkAt(current))continue;
             BlockState member=level.getBlockState(current);
             if(member.getBlock()!=this)continue;
-            boolean support=post(member,level,current);
-            if(member.getValue(POST)!=support)level.setBlock(current,member.setValue(POST,support),Block.UPDATE_CLIENTS);
+            BlockState connected=slopeConnections(member,level,current);
+            boolean support=post(connected,level,current);
+            connected=connected.setValue(POST,support);
+            if(member!=connected)level.setBlock(current,connected,Block.UPDATE_CLIENTS);
             for(Direction side:Direction.Plane.HORIZONTAL)pending.add(current.relative(side));
         }
     }

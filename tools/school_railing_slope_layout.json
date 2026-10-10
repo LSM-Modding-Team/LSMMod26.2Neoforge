@@ -1,0 +1,89 @@
+{
+  "split": {
+    "length": 7,
+    "rise": 5,
+    "pillar_columns": [
+      2,
+      3,
+      4
+    ]
+  },
+  "flight": {
+    "length": 5,
+    "rise": 5
+  },
+  "pieces": [
+    {
+      "id": "school_railing_slope_split_1",
+      "column": 0,
+      "row": 0,
+      "low": 0.75,
+      "rise": 0.7142857142857143,
+      "post": true
+    },
+    {
+      "id": "school_railing_slope_split_2",
+      "column": 1,
+      "row": 1,
+      "low": 0.4642857142857144,
+      "rise": 0.7142857142857143,
+      "post": false
+    },
+    {
+      "id": "school_railing_slope_split_3",
+      "column": 5,
+      "row": 4,
+      "low": 0.3214285714285712,
+      "rise": 0.7142857142857143,
+      "post": false
+    },
+    {
+      "id": "school_railing_slope_split_4",
+      "column": 6,
+      "row": 5,
+      "low": 0.03571428571428559,
+      "rise": 0.7142857142857143,
+      "post": true
+    },
+    {
+      "id": "school_railing_slope_flight_1",
+      "column": 0,
+      "row": 0,
+      "low": 0.75,
+      "rise": 1.0,
+      "post": true
+    },
+    {
+      "id": "school_railing_slope_flight_2",
+      "column": 1,
+      "row": 1,
+      "low": 0.75,
+      "rise": 1.0,
+      "post": false
+    },
+    {
+      "id": "school_railing_slope_flight_3",
+      "column": 2,
+      "row": 2,
+      "low": 0.75,
+      "rise": 1.0,
+      "post": true
+    },
+    {
+      "id": "school_railing_slope_flight_4",
+      "column": 3,
+      "row": 3,
+      "low": 0.75,
+      "rise": 1.0,
+      "post": false
+    },
+    {
+      "id": "school_railing_slope_flight_5",
+      "column": 4,
+      "row": 4,
+      "low": 0.75,
+      "rise": 1.0,
+      "post": true
+    }
+  ]
+}

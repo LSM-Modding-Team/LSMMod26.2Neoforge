@@ -21,6 +21,18 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
+    // BEGIN SCHOOL RAILING SLOPES
+    public static final DeferredItem<BlockItem> SCHOOL_RAILING_SLOPE_SPLIT_1 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_RAILING_SLOPE_SPLIT_1);
+    public static final DeferredItem<BlockItem> SCHOOL_RAILING_SLOPE_SPLIT_2 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_RAILING_SLOPE_SPLIT_2);
+    public static final DeferredItem<BlockItem> SCHOOL_RAILING_SLOPE_SPLIT_3 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_RAILING_SLOPE_SPLIT_3);
+    public static final DeferredItem<BlockItem> SCHOOL_RAILING_SLOPE_SPLIT_4 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_RAILING_SLOPE_SPLIT_4);
+    public static final DeferredItem<BlockItem> SCHOOL_RAILING_SLOPE_FLIGHT_1 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_RAILING_SLOPE_FLIGHT_1);
+    public static final DeferredItem<BlockItem> SCHOOL_RAILING_SLOPE_FLIGHT_2 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_RAILING_SLOPE_FLIGHT_2);
+    public static final DeferredItem<BlockItem> SCHOOL_RAILING_SLOPE_FLIGHT_3 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_RAILING_SLOPE_FLIGHT_3);
+    public static final DeferredItem<BlockItem> SCHOOL_RAILING_SLOPE_FLIGHT_4 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_RAILING_SLOPE_FLIGHT_4);
+    public static final DeferredItem<BlockItem> SCHOOL_RAILING_SLOPE_FLIGHT_5 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_RAILING_SLOPE_FLIGHT_5);
+    // END SCHOOL RAILING SLOPES
+
     public static final DeferredItem<BlockItem> LIGHT_SCHOOL_WALL_RAILING = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_SCHOOL_WALL_RAILING);
 
     public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolCurtainItem> SCHOOL_CURTAIN =
