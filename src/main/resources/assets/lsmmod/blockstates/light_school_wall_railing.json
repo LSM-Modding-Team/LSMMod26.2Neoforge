@@ -1,0 +1,134 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "lsmmod:block/light_school_wall_railing"
+      }
+    },
+    {
+      "when": {
+        "post": "true"
+      },
+      "apply": {
+        "model": "lsmmod:block/light_school_wall_railing_post"
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          {
+            "north": "true"
+          },
+          {
+            "east": "true"
+          },
+          {
+            "south": "true"
+          },
+          {
+            "west": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "lsmmod:block/light_school_wall_railing_center"
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "lsmmod:block/light_school_wall_railing_arm",
+        "y": 0,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "lsmmod:block/light_school_wall_railing_arm",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "lsmmod:block/light_school_wall_railing_arm",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "lsmmod:block/light_school_wall_railing_arm",
+        "y": 270,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "north": "false",
+        "east": "false",
+        "south": "false",
+        "west": "false",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "lsmmod:block/light_school_wall_railing_isolated",
+        "y": 0,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "north": "false",
+        "east": "false",
+        "south": "false",
+        "west": "false",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "lsmmod:block/light_school_wall_railing_isolated",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "north": "false",
+        "east": "false",
+        "south": "false",
+        "west": "false",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "lsmmod:block/light_school_wall_railing_isolated",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "north": "false",
+        "east": "false",
+        "south": "false",
+        "west": "false",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "lsmmod:block/light_school_wall_railing_isolated",
+        "y": 270,
+        "uvlock": true
+      }
+    }
+  ]
+}

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "lsmmod:block/classroom_floor",
-    "top": "lsmmod:block/classroom_floor",
-    "side": "lsmmod:block/classroom_floor"
-  }
-}
