@@ -1,0 +1,76 @@
+{
+  "start_y": 0,
+  "transform": "Ynew = 0.75 - Yoriginal",
+  "pieces": [
+    {
+      "id": "school_inverted_slope_split_1",
+      "column": 0,
+      "row": 0,
+      "lower_start": 0.0,
+      "rise": 0.7142857142857143
+    },
+    {
+      "id": "school_inverted_slope_split_2",
+      "column": 1,
+      "row": -1,
+      "lower_start": 0.2857142857142856,
+      "rise": 0.7142857142857143
+    },
+    {
+      "id": "school_inverted_slope_split_3",
+      "column": 5,
+      "row": -4,
+      "lower_start": 0.4285714285714288,
+      "rise": 0.7142857142857143
+    },
+    {
+      "id": "school_inverted_slope_split_4",
+      "column": 6,
+      "row": -5,
+      "lower_start": 0.7142857142857144,
+      "rise": 0.7142857142857143
+    },
+    {
+      "id": "school_inverted_slope_flight_1",
+      "column": 0,
+      "row": 0,
+      "lower_start": 0.0,
+      "rise": 0.6666666666666666
+    },
+    {
+      "id": "school_inverted_slope_flight_2",
+      "column": 1,
+      "row": -1,
+      "lower_start": 0.3333333333333335,
+      "rise": 0.6666666666666666
+    },
+    {
+      "id": "school_inverted_slope_flight_3",
+      "column": 2,
+      "row": -2,
+      "lower_start": 0.666666666666667,
+      "rise": 0.6666666666666667
+    },
+    {
+      "id": "school_inverted_slope_flight_4",
+      "column": 3,
+      "row": -2,
+      "lower_start": 0.0,
+      "rise": 0.6666666666666665
+    },
+    {
+      "id": "school_inverted_slope_flight_5",
+      "column": 4,
+      "row": -3,
+      "lower_start": 0.3333333333333335,
+      "rise": 0.666666666666667
+    },
+    {
+      "id": "school_inverted_slope_flight_6",
+      "column": 5,
+      "row": -4,
+      "lower_start": 0.6666666666666661,
+      "rise": 0.6666666666666665
+    }
+  ]
+}

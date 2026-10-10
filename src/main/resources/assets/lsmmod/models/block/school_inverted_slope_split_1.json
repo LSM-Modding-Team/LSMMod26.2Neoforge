@@ -1,0 +1,11 @@
+{
+  "loader": "neoforge:obj",
+  "model": "lsmmod:models/block/school_inverted_slope_split_1.obj",
+  "automatic_culling": false,
+  "flip_v": true,
+  "shade_quads": true,
+  "textures": {
+    "wall": "lsmmod:block/light_school_wall",
+    "particle": "lsmmod:block/light_school_wall"
+  }
+}

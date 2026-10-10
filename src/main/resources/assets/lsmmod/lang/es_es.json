@@ -265,5 +265,15 @@
   "block.lsmmod.school_railing_slope_flight_3": "Pendiente con baranda: tramo de 6 bloques y 5 niveles 3",
   "block.lsmmod.school_railing_slope_flight_4": "Pendiente con baranda: tramo de 6 bloques y 5 niveles 4",
   "block.lsmmod.school_railing_slope_flight_5": "Pendiente con baranda: tramo de 6 bloques y 5 niveles 5",
-  "block.lsmmod.school_railing_slope_flight_6": "Pendiente con baranda: tramo de 6 bloques y 5 niveles 6"
+  "block.lsmmod.school_railing_slope_flight_6": "Pendiente con baranda: tramo de 6 bloques y 5 niveles 6",
+  "block.lsmmod.school_inverted_slope_split_1": "Pendiente invertida sin baranda: interrumpida 1",
+  "block.lsmmod.school_inverted_slope_split_2": "Pendiente invertida sin baranda: interrumpida 2",
+  "block.lsmmod.school_inverted_slope_split_3": "Pendiente invertida sin baranda: interrumpida 3",
+  "block.lsmmod.school_inverted_slope_split_4": "Pendiente invertida sin baranda: interrumpida 4",
+  "block.lsmmod.school_inverted_slope_flight_1": "Pendiente invertida sin baranda: continua 1",
+  "block.lsmmod.school_inverted_slope_flight_2": "Pendiente invertida sin baranda: continua 2",
+  "block.lsmmod.school_inverted_slope_flight_3": "Pendiente invertida sin baranda: continua 3",
+  "block.lsmmod.school_inverted_slope_flight_4": "Pendiente invertida sin baranda: continua 4",
+  "block.lsmmod.school_inverted_slope_flight_5": "Pendiente invertida sin baranda: continua 5",
+  "block.lsmmod.school_inverted_slope_flight_6": "Pendiente invertida sin baranda: continua 6"
 }

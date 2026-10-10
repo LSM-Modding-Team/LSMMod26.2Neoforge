@@ -22,6 +22,19 @@ public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
     // BEGIN SCHOOL RAILING SLOPES
+    // BEGIN SCHOOL INVERTED SLOPES
+    public static final DeferredItem<BlockItem> SCHOOL_INVERTED_SLOPE_SPLIT_1 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_1);
+    public static final DeferredItem<BlockItem> SCHOOL_INVERTED_SLOPE_SPLIT_2 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_2);
+    public static final DeferredItem<BlockItem> SCHOOL_INVERTED_SLOPE_SPLIT_3 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_3);
+    public static final DeferredItem<BlockItem> SCHOOL_INVERTED_SLOPE_SPLIT_4 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_4);
+    public static final DeferredItem<BlockItem> SCHOOL_INVERTED_SLOPE_FLIGHT_1 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_1);
+    public static final DeferredItem<BlockItem> SCHOOL_INVERTED_SLOPE_FLIGHT_2 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_2);
+    public static final DeferredItem<BlockItem> SCHOOL_INVERTED_SLOPE_FLIGHT_3 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_3);
+    public static final DeferredItem<BlockItem> SCHOOL_INVERTED_SLOPE_FLIGHT_4 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_4);
+    public static final DeferredItem<BlockItem> SCHOOL_INVERTED_SLOPE_FLIGHT_5 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_5);
+    public static final DeferredItem<BlockItem> SCHOOL_INVERTED_SLOPE_FLIGHT_6 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_6);
+    // END SCHOOL INVERTED SLOPES
+
     public static final DeferredItem<BlockItem> SCHOOL_RAILING_SLOPE_SPLIT_1 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_RAILING_SLOPE_SPLIT_1);
     public static final DeferredItem<BlockItem> SCHOOL_RAILING_SLOPE_SPLIT_2 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_RAILING_SLOPE_SPLIT_2);
     public static final DeferredItem<BlockItem> SCHOOL_RAILING_SLOPE_SPLIT_3 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_RAILING_SLOPE_SPLIT_3);

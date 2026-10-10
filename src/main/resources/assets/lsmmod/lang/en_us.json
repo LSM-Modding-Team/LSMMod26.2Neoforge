@@ -272,5 +272,15 @@
   "block.lsmmod.school_railing_slope_flight_3": "Railing slope: 6 blocks / 5 levels 3",
   "block.lsmmod.school_railing_slope_flight_4": "Railing slope: 6 blocks / 5 levels 4",
   "block.lsmmod.school_railing_slope_flight_5": "Railing slope: 6 blocks / 5 levels 5",
-  "block.lsmmod.school_railing_slope_flight_6": "Railing slope: 6 blocks / 5 levels 6"
+  "block.lsmmod.school_railing_slope_flight_6": "Railing slope: 6 blocks / 5 levels 6",
+  "block.lsmmod.school_inverted_slope_split_1": "Inverted unrailed slope: split 1",
+  "block.lsmmod.school_inverted_slope_split_2": "Inverted unrailed slope: split 2",
+  "block.lsmmod.school_inverted_slope_split_3": "Inverted unrailed slope: split 3",
+  "block.lsmmod.school_inverted_slope_split_4": "Inverted unrailed slope: split 4",
+  "block.lsmmod.school_inverted_slope_flight_1": "Inverted unrailed slope: flight 1",
+  "block.lsmmod.school_inverted_slope_flight_2": "Inverted unrailed slope: flight 2",
+  "block.lsmmod.school_inverted_slope_flight_3": "Inverted unrailed slope: flight 3",
+  "block.lsmmod.school_inverted_slope_flight_4": "Inverted unrailed slope: flight 4",
+  "block.lsmmod.school_inverted_slope_flight_5": "Inverted unrailed slope: flight 5",
+  "block.lsmmod.school_inverted_slope_flight_6": "Inverted unrailed slope: flight 6"
 }
