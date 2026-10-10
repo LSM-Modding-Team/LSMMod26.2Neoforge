@@ -18,26 +18,26 @@ Coordenadas desde el extremo inferior, avanzando hacia la subida:
 
 La pendiente sube 5/7 de bloque por columna. Las cuatro piezas tienen perfiles propios para conservar esa misma línea, aunque cambie la altura de sus celdas. El soporte interrumpe el pasamanos; no hay geometría oculta que atraviese la columna. Los soportes metálicos conservan la alternancia de la línea teórica.
 
-## Seis piezas entre los extremos de la captura
+## Seis piezas entre las barandas horizontales
 
-La captura se interpreta como cinco niveles contando los dos extremos: baranda inferior a altura 0 y superior a altura 4, es decir, cuatro bloques de desnivel. El diseño previo tomaba cinco de desnivel y por eso producía una línea más profunda. Se mantienen seis bloques de longitud total.
+La pendiente ocupa los seis bloques completos entre los dos bloques de `light_school_wall_railing`: comienza justo donde termina el bloque inferior y termina justo donde empieza el superior. No hay medios bloques horizontales dentro de las pendientes. Cada pieza sube 2/3 de bloque, con una línea superior continua de cuatro bloques de desnivel.
 
-Las seis piezas se reconstruyen con dos segmentos de perfil cada una. La primera tiene medio bloque horizontal antes de comenzar la diagonal; la última tiene medio bloque horizontal después de terminarla. Los cinco bloques centrales de recorrido diagonal suben cuatro de altura (pendiente 4/5). Tanto el muro como el pasamanos siguen el perfil horizontal–diagonal–horizontal de la referencia.
+Desde la base del montaje, el borde del muro termina exactamente a **4 bloques y 12 píxeles (76 px)**; la parte más alta del pasamanos termina a **5 bloques y 4 píxeles (84 px)**. El extremo inicial del muro es de 12 px y el del pasamanos de 20 px, idénticos al bloque horizontal. El descenso se consigue orientando las piezas desde el extremo inferior hacia el superior.
 
 | Pieza | Avance desde abajo | Altura de la celda |
 | --- | --- | --- |
 | `school_railing_slope_flight_1` | 0 | 0 |
 | `school_railing_slope_flight_2` | 1 | 1 |
-| `school_railing_slope_flight_3` | 2 | 1 |
+| `school_railing_slope_flight_3` | 2 | 2 |
 | `school_railing_slope_flight_4` | 3 | 2 |
 | `school_railing_slope_flight_5` | 4 | 3 |
 | `school_railing_slope_flight_6` | 5 | 4 |
 
-La altura de la celda no indica la altura del borde: cada pieza tiene un perfil propio que compensa esa diferencia. Retira las seis piezas antiguas y recolócalas según esta tabla, orientadas hacia la subida. Una colocación en seis alturas sucesivas no corresponde a este montaje.
+La altura de la celda no indica la altura del borde: cada pieza tiene un perfil propio. Retira las seis piezas anteriores y recolócalas según esta tabla, orientadas hacia la subida.
 
-El muro es una franja de 12 píxeles constantes con borde inferior paralelo y espacio libre debajo. El pasamanos conserva las dimensiones del bloque horizontal y tiene soporte en las piezas 1, 3 y 5. Se reconstruyen las UV sobre el perfil de cada cara usando los materiales de pared clara y portón, sin estirar cada mitad sobre toda la textura ni invadir otras texturas del atlas. Las caras internas entre los medios perfiles se omiten para evitar superficies duplicadas.
+La base de cada pieza es un plano horizontal en el suelo de su celda, como en las pendientes del tramo interrumpido. Solo la cara superior del muro y el pasamanos se inclinan. No hay una franja inferior diagonal suspendida. Cada pieza contiene su muro hasta esa base plana, con soportes metálicos en las piezas 1, 3 y 5. Las UV se reparten sobre las caras correspondientes usando pared clara y metal del portón.
 
-Coloca `light_school_wall_railing` en avance -1, altura 0 y avance 6, altura 4. Los bordes del muro y del tubo coinciden exactamente con ambos descansos. Las piezas detectan esos extremos por su altura real y actualizan la conexión al colocar o retirar los bloques.
+Coloca `light_school_wall_railing` en avance -1, altura 0 y avance 6, altura 4. Los bordes del muro y del tubo coinciden exactamente en ambos límites. Colocación y retirada actualizan la conexión por la altura real del extremo.
 
 ## Descansos y comportamiento
 
