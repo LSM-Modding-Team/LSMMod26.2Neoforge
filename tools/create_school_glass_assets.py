@@ -180,3 +180,11 @@ if __name__=='__main__':
     main()
     from create_school_glass_stair_assets import main as stair_main
     stair_main()
+    from create_horizontal_glazing_assets import main as horizontal_main
+    horizontal_main()
+    from create_school_curtain_assets import main as curtain_main
+    curtain_main()
+    from create_tall_door_variants import main as tall_variants_main
+    tall_variants_main()
+    from create_double_school_entrance import main as double_entrance_main
+    double_entrance_main()

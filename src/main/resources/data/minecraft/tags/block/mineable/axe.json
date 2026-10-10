@@ -9,6 +9,10 @@
     "lsmmod:bathroom_door",
     "lsmmod:projector_screen",
     "lsmmod:classroom_timetable",
-    "lsmmod:tall_classroom_entrance"
+    "lsmmod:tall_classroom_entrance",
+    "lsmmod:tall_bathroom_door",
+    "lsmmod:tall_teachers_office_door",
+    "lsmmod:tall_dining_door",
+    "lsmmod:double_school_entrance"
   ]
 }

@@ -24,11 +24,11 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-/** A single wall-only placement creates a plain white 4x2 screen, one pixel thick. */
+/** A single wall-only placement creates a plain white 4x3 screen, one pixel thick. */
 public class ProjectorScreenBlock extends Block {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final IntegerProperty COLUMN = IntegerProperty.create("column", 0, 3);
-    public static final IntegerProperty ROW = IntegerProperty.create("row", 0, 1);
+    public static final IntegerProperty ROW = IntegerProperty.create("row", 0, 2);
 
     public ProjectorScreenBlock(Properties properties) {
         super(properties);
@@ -72,7 +72,7 @@ public class ProjectorScreenBlock extends Block {
         Player player = context.getPlayer();
         BlockPos origin = context.getClickedPos();
         BlockState base = defaultBlockState().setValue(FACING, facing);
-        for (int row = 0; row < 2; row++) {
+        for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 4; column++) {
                 BlockPos target = cell(origin, facing, column, row);
                 if (!level.hasChunkAt(target) || level.isOutsideBuildHeight(target)
@@ -90,14 +90,14 @@ public class ProjectorScreenBlock extends Block {
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
         if (level.isClientSide()) return;
-        for (int row = 0; row < 2; row++) {
+        for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 4; column++) {
                 if (column == 0 && row == 0) continue;
                 level.setBlock(cell(pos, state.getValue(FACING), column, row),
                         state.setValue(COLUMN, column).setValue(ROW, row), Block.UPDATE_CLIENTS);
             }
         }
-        for (int row = 0; row < 2; row++) {
+        for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 4; column++) {
                 level.updateNeighborsAt(cell(pos, state.getValue(FACING), column, row), this);
             }
@@ -117,7 +117,7 @@ public class ProjectorScreenBlock extends Block {
         BlockPos origin = origin(pos, state);
         Direction facing = state.getValue(FACING);
         boolean complete = true;
-        for (int row = 0; row < 2; row++) {
+        for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 4; column++) {
                 BlockPos target = cell(origin, facing, column, row);
                 if (!level.hasChunkAt(target)) {
@@ -132,7 +132,7 @@ public class ProjectorScreenBlock extends Block {
 
     private void dismantle(Level level, BlockPos origin, Direction facing, boolean drop, BlockPos mined) {
         if (!origin.equals(mined) && matches(level.getBlockState(origin), facing, 0, 0)) level.destroyBlock(origin, drop);
-        for (int row = 0; row < 2; row++) {
+        for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 4; column++) {
                 BlockPos target = cell(origin, facing, column, row);
                 if (!target.equals(mined) && level.hasChunkAt(target)

@@ -1,0 +1,425 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "projector_case": "lsmmod:block/projector_case",
+    "projector_gray": "lsmmod:block/projector_gray",
+    "projector_optics": "lsmmod:block/projector_optics",
+    "projector_vent": "lsmmod:block/projector_vent",
+    "particle": "lsmmod:block/projector_case"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        2,
+        15
+      ],
+      "to": [
+        6,
+        14,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#projector_case",
+          "uv": [
+            16.0,
+            0,
+            8.0,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#projector_case",
+          "uv": [
+            8.0,
+            0,
+            16.0,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#projector_case",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#projector_case",
+          "uv": [
+            8.0,
+            0,
+            16.0,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#projector_case",
+          "uv": [
+            0.0,
+            0,
+            8.0,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        8,
+        7
+      ],
+      "to": [
+        2,
+        10,
+        15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#projector_case",
+          "uv": [
+            16.0,
+            0,
+            8.0,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#projector_case",
+          "uv": [
+            8.0,
+            0,
+            16.0,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#projector_case",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#projector_case",
+          "uv": [
+            8.0,
+            0,
+            16.0,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#projector_case",
+          "uv": [
+            0.0,
+            0,
+            8.0,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        7,
+        9
+      ],
+      "to": [
+        3,
+        8,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#projector_gray",
+          "uv": [
+            16.0,
+            0,
+            8.0,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#projector_gray",
+          "uv": [
+            8.0,
+            0,
+            16.0,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#projector_gray",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#projector_gray",
+          "uv": [
+            8.0,
+            0,
+            16.0,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#projector_gray",
+          "uv": [
+            0.0,
+            0,
+            8.0,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        4,
+        2
+      ],
+      "to": [
+        6,
+        5,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#projector_case",
+          "uv": [
+            16.0,
+            0,
+            8.0,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#projector_case",
+          "uv": [
+            8.0,
+            0,
+            16.0,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#projector_case",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#projector_case",
+          "uv": [
+            8.0,
+            0,
+            16.0,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#projector_case",
+          "uv": [
+            0.0,
+            0,
+            8.0,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        5,
+        1
+      ],
+      "to": [
+        7,
+        9,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#projector_case",
+          "uv": [
+            16.0,
+            0,
+            8.0,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#projector_case",
+          "uv": [
+            8.0,
+            0,
+            16.0,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#projector_vent",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#projector_case",
+          "uv": [
+            8.0,
+            0,
+            16.0,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#projector_case",
+          "uv": [
+            0.0,
+            0,
+            8.0,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        9,
+        2
+      ],
+      "to": [
+        5,
+        10,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#projector_case",
+          "uv": [
+            16.0,
+            0,
+            8.0,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#projector_case",
+          "uv": [
+            8.0,
+            0,
+            16.0,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#projector_case",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#projector_case",
+          "uv": [
+            8.0,
+            0,
+            16.0,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#projector_case",
+          "uv": [
+            0.0,
+            0,
+            8.0,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        6,
+        0.5
+      ],
+      "to": [
+        5,
+        7.25,
+        1
+      ],
+      "faces": {
+        "north": {
+          "texture": "#projector_optics",
+          "uv": [
+            16.0,
+            0,
+            8.0,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#projector_optics",
+          "uv": [
+            8.0,
+            0,
+            16.0,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#projector_optics",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#projector_optics",
+          "uv": [
+            8.0,
+            0,
+            16.0,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#projector_optics",
+          "uv": [
+            0.0,
+            0,
+            8.0,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

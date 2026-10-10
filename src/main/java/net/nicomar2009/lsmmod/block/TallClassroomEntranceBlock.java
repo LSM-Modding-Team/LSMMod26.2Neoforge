@@ -41,12 +41,12 @@ public class TallClassroomEntranceBlock extends Block {
     public TallClassroomEntranceBlock(Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any().setValue(FACING,Direction.NORTH).setValue(HINGE,DoorHingeSide.LEFT)
-                .setValue(OPEN,false).setValue(POWERED,false).setValue(ROW,0).setValue(TOP_CONNECTED,false).setValue(BOTTOM_CONNECTED,false));
+                .setValue(OPEN,false).setValue(POWERED,false).setValue(ROW,0).setValue(TOP_CONNECTED,false).setValue(BOTTOM_CONNECTED,false).setValue(SchoolGlazing.FRAME_LAYOUT,3));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {
-        builder.add(FACING,HINGE,OPEN,POWERED,ROW,TOP_CONNECTED,BOTTOM_CONNECTED);
+        builder.add(FACING,HINGE,OPEN,POWERED,ROW,TOP_CONNECTED,BOTTOM_CONNECTED,SchoolGlazing.FRAME_LAYOUT);
     }
 
     private static VoxelShape[][][][] buildShapes() {
@@ -134,13 +134,17 @@ public class TallClassroomEntranceBlock extends Block {
     }
     private BlockState connections(BlockState state, LevelReader level, BlockPos pos) {
         boolean glass = state.getValue(ROW) == 2;
+        BlockState current=level.getBlockState(pos);
+        if(glass && current.is(this) && current.getValue(ROW)==2
+                && current.getValue(FACING)==state.getValue(FACING))
+            state=state.setValue(SchoolGlazing.FRAME_LAYOUT,current.getValue(SchoolGlazing.FRAME_LAYOUT));
         return state.setValue(TOP_CONNECTED, glass && SchoolGlazing.connects(state, level.getBlockState(pos.above()), Direction.UP))
                 .setValue(BOTTOM_CONNECTED, glass && SchoolGlazing.connects(state, level.getBlockState(pos.below()), Direction.DOWN));
     }
 
     @Override
     protected boolean skipRendering(BlockState state, BlockState neighbor, Direction side) {
-        return SchoolGlazing.connects(state, neighbor, side) || super.skipRendering(state, neighbor, side);
+        return SchoolGlazing.canCullHorizontalFace(state,neighbor,side) || SchoolGlazing.connects(state, neighbor, side) || super.skipRendering(state, neighbor, side);
     }
 
     @Override
@@ -154,6 +158,7 @@ public class TallClassroomEntranceBlock extends Block {
         for(int row=0;row<3;row++)level.setBlock(bottom.above(row),connections(base.setValue(ROW,row).setValue(OPEN,open)
                 .setValue(POWERED,power),level,bottom.above(row)),Block.UPDATE_CLIENTS);
         for(int row=0;row<3;row++)level.updateNeighborsAt(bottom.above(row),this);
+        level.scheduleTick(bottom.above(2),this,1);
         if(base.getValue(OPEN)!=open) {
             level.playSound(null,bottom,open?SoundEvents.WOODEN_DOOR_OPEN:SoundEvents.WOODEN_DOOR_CLOSE,SoundSource.BLOCKS,1F,1F);
             level.gameEvent(null,open?GameEvent.BLOCK_OPEN:GameEvent.BLOCK_CLOSE,bottom);
@@ -175,6 +180,7 @@ public class TallClassroomEntranceBlock extends Block {
         BlockPos bottom=origin(pos,state);boolean complete=true;
         for(int row=0;row<3;row++)complete&=matches(level.getBlockState(bottom.above(row)),state,row);
         if(!complete||!supported(level,bottom)){dismantle(level,bottom,state,true,null);return;}
+        SchoolGlazing.refreshHorizontal(level,bottom.above(2));
         BlockState base=level.getBlockState(bottom);boolean power=powered(level,bottom);
         if(power!=base.getValue(POWERED))change(level,bottom,base,power,power);
     }
@@ -204,7 +210,7 @@ public class TallClassroomEntranceBlock extends Block {
     protected BlockState rotate(BlockState state,Rotation rotation){return state.setValue(FACING,rotation.rotate(state.getValue(FACING)));}
     @Override
     protected BlockState mirror(BlockState state,Mirror mirror){
-        return mirror==Mirror.NONE?state:state.setValue(FACING,mirror.mirror(state.getValue(FACING)))
-                .setValue(HINGE,state.getValue(HINGE)==DoorHingeSide.LEFT?DoorHingeSide.RIGHT:DoorHingeSide.LEFT);
+        return mirror==Mirror.NONE?state:SchoolGlazing.mirrorLayout(state,state.setValue(FACING,mirror.mirror(state.getValue(FACING)))
+                .setValue(HINGE,state.getValue(HINGE)==DoorHingeSide.LEFT?DoorHingeSide.RIGHT:DoorHingeSide.LEFT),mirror);
     }
 }

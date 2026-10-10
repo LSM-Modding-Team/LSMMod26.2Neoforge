@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "lsmmod:tall_teachers_office_door",
+          "properties": {
+            "row": "0"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lsmmod:tall_teachers_office_door"
+        }
+      ]
+    }
+  ]
+}

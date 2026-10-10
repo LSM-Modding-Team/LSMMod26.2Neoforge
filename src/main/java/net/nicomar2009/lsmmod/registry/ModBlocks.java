@@ -1,6 +1,5 @@
 package net.nicomar2009.lsmmod.registry;
 
-import net.minecraft.world.item.Rarity;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -37,8 +36,24 @@ public final class ModBlocks {
             "mixed_school_glass_reversed", SchoolGlassStairBlock::new,
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
 
+    public static final DeferredBlock<DoubleSchoolEntranceBlock> DOUBLE_SCHOOL_ENTRANCE = BLOCKS.registerBlock(
+            "double_school_entrance", DoubleSchoolEntranceBlock::new,
+            props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+
     public static final DeferredBlock<TallClassroomEntranceBlock> TALL_CLASSROOM_ENTRANCE = BLOCKS.registerBlock(
             "tall_classroom_entrance", TallClassroomEntranceBlock::new,
+            props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<TallClassroomEntranceBlock> TALL_BATHROOM_DOOR = BLOCKS.registerBlock(
+            "tall_bathroom_door", TallClassroomEntranceBlock::new,
+            props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<TallClassroomEntranceBlock> TALL_TEACHERS_OFFICE_DOOR = BLOCKS.registerBlock(
+            "tall_teachers_office_door", TallClassroomEntranceBlock::new,
+            props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<TallClassroomEntranceBlock> TALL_DINING_DOOR = BLOCKS.registerBlock(
+            "tall_dining_door", TallClassroomEntranceBlock::new,
             props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
 
     public static final DeferredBlock<SportsGoalBlock> FOOTBALL_BASKETBALL_GOAL = BLOCKS.registerBlock(
@@ -70,8 +85,8 @@ public final class ModBlocks {
             "projector_screen", ProjectorScreenBlock::new,
             props -> props.strength(0.5F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
 
-    public static final DeferredBlock<WallDecorationBlock> WALL_PROJECTOR = BLOCKS.registerBlock(
-            "wall_projector", props -> new WallDecorationBlock(props, SchoolDecorationShapes.PROJECTOR),
+    public static final DeferredBlock<WallProjectorBlock> WALL_PROJECTOR = BLOCKS.registerBlock(
+            "wall_projector", WallProjectorBlock::new,
             props -> props.strength(1.5F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
 
     public static final DeferredBlock<WallDecorationBlock> CLASSROOM_TIMETABLE = BLOCKS.registerBlock(

@@ -1,6 +1,9 @@
 package net.nicomar2009.lsmmod.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -40,12 +43,12 @@ public class SchoolGlassBlock extends Block {
             collisions[i] = next[0];
         }
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH)
-                .setValue(TOP_CONNECTED, false).setValue(BOTTOM_CONNECTED, false));
+                .setValue(TOP_CONNECTED, false).setValue(BOTTOM_CONNECTED, false).setValue(SchoolGlazing.FRAME_LAYOUT, 3).setValue(SchoolCurtains.CURTAIN,CurtainPart.NONE).setValue(SchoolCurtains.VERTICAL,CurtainPart.SINGLE));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, TOP_CONNECTED, BOTTOM_CONNECTED);
+        builder.add(FACING, TOP_CONNECTED, BOTTOM_CONNECTED, SchoolGlazing.FRAME_LAYOUT, SchoolCurtains.CURTAIN,SchoolCurtains.VERTICAL);
     }
 
     @Override
@@ -76,7 +79,34 @@ public class SchoolGlassBlock extends Block {
     @Override
     protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos,
                                      Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
+        ticks.scheduleTick(pos,this,1);
         return direction.getAxis().isVertical() ? connections(state, level, pos) : state;
+    }
+
+    @Override
+    protected void onPlace(BlockState state,Level level,BlockPos pos,BlockState oldState,boolean moved) {
+        super.onPlace(state,level,pos,oldState,moved);
+        if(!level.isClientSide() && moved && SchoolCurtains.part(state)!=CurtainPart.NONE)
+            level.setBlock(pos,state.setValue(SchoolCurtains.CURTAIN,CurtainPart.NONE).setValue(SchoolCurtains.VERTICAL,CurtainPart.SINGLE),Block.UPDATE_CLIENTS);
+        if(!level.isClientSide() && !oldState.is(this))level.scheduleTick(pos,this,1);
+    }
+
+    @Override
+    protected void tick(BlockState state,ServerLevel level,BlockPos pos,RandomSource random) {
+        SchoolGlazing.refreshHorizontal(level,pos);
+        SchoolCurtains.tick(level,pos);
+    }
+
+    @Override
+    public BlockState playerWillDestroy(Level level,BlockPos pos,BlockState state,Player player) {
+        if(!level.isClientSide())SchoolCurtains.remove((ServerLevel)level,pos,state,!player.isCreative());
+        return super.playerWillDestroy(level,pos,state.setValue(SchoolCurtains.CURTAIN,CurtainPart.NONE).setValue(SchoolCurtains.VERTICAL,CurtainPart.SINGLE),player);
+    }
+
+    @Override
+    protected void affectNeighborsAfterRemoval(BlockState state,ServerLevel level,BlockPos pos,boolean moved) {
+        SchoolCurtains.remove(level,pos,state,true);
+        super.affectNeighborsAfterRemoval(state,level,pos,moved);
     }
 
     @Override
@@ -98,7 +128,7 @@ public class SchoolGlassBlock extends Block {
     @Override
     protected boolean skipRendering(BlockState state, BlockState adjacent, Direction side) {
         Direction facing = state.getValue(FACING);
-        return (side.getAxis().isVertical() && connects(state, adjacent, side))
+        return SchoolGlazing.canCullHorizontalFace(state,adjacent,side) || (side.getAxis().isVertical() && connects(state, adjacent, side))
                 || (side.getAxis().isHorizontal() && adjacent.is(this) && adjacent.getValue(FACING) == facing
                 && side.getAxis() != facing.getAxis()) || super.skipRendering(state, adjacent, side);
     }
@@ -110,6 +140,6 @@ public class SchoolGlassBlock extends Block {
 
     @Override
     protected BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation(state.getValue(FACING)));
+        return SchoolGlazing.mirrorLayout(state,state.rotate(mirror.getRotation(state.getValue(FACING))),mirror);
     }
 }

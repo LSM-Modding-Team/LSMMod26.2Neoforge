@@ -1,19 +1,35 @@
 {
   "variants": {
-    "facing=north": {
-      "model": "lsmmod:block/wall_projector",
+    "column=0,facing=north": {
+      "model": "lsmmod:block/wall_projector_0",
       "y": 0
     },
-    "facing=east": {
-      "model": "lsmmod:block/wall_projector",
+    "column=1,facing=north": {
+      "model": "lsmmod:block/wall_projector_1",
+      "y": 0
+    },
+    "column=0,facing=east": {
+      "model": "lsmmod:block/wall_projector_0",
       "y": 90
     },
-    "facing=south": {
-      "model": "lsmmod:block/wall_projector",
+    "column=1,facing=east": {
+      "model": "lsmmod:block/wall_projector_1",
+      "y": 90
+    },
+    "column=0,facing=south": {
+      "model": "lsmmod:block/wall_projector_0",
       "y": 180
     },
-    "facing=west": {
-      "model": "lsmmod:block/wall_projector",
+    "column=1,facing=south": {
+      "model": "lsmmod:block/wall_projector_1",
+      "y": 180
+    },
+    "column=0,facing=west": {
+      "model": "lsmmod:block/wall_projector_0",
+      "y": 270
+    },
+    "column=1,facing=west": {
+      "model": "lsmmod:block/wall_projector_1",
       "y": 270
     }
   }

@@ -1,6 +1,9 @@
 package net.nicomar2009.lsmmod.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -12,6 +15,7 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -23,11 +27,11 @@ public class SchoolGlassStairBlock extends StairBlock {
 
     public SchoolGlassStairBlock(Properties properties) {
         super(Blocks.STONE.defaultBlockState(), properties);
-        registerDefaultState(defaultBlockState().setValue(TOP_CONNECTED,false).setValue(BOTTOM_CONNECTED,false));
+        registerDefaultState(defaultBlockState().setValue(TOP_CONNECTED,false).setValue(BOTTOM_CONNECTED,false).setValue(SchoolGlazing.FRAME_LAYOUT,3).setValue(SchoolCurtains.CURTAIN,CurtainPart.NONE).setValue(SchoolCurtains.VERTICAL,CurtainPart.SINGLE));
     }
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {
-        super.createBlockStateDefinition(builder);builder.add(TOP_CONNECTED,BOTTOM_CONNECTED);
+        super.createBlockStateDefinition(builder);builder.add(TOP_CONNECTED,BOTTOM_CONNECTED,SchoolGlazing.FRAME_LAYOUT,SchoolCurtains.CURTAIN,SchoolCurtains.VERTICAL);
     }
     private BlockState connections(BlockState state,LevelReader level,BlockPos pos) {
         return state.setValue(TOP_CONNECTED,SchoolGlazing.connects(state,level.getBlockState(pos.above()),Direction.UP))
@@ -41,8 +45,34 @@ public class SchoolGlassStairBlock extends StairBlock {
     @Override
     protected BlockState updateShape(BlockState state,LevelReader level,ScheduledTickAccess ticks,BlockPos pos,
                                      Direction side,BlockPos neighborPos,BlockState neighbor,RandomSource random) {
+        ticks.scheduleTick(pos,this,1);
         return connections(super.updateShape(state,level,ticks,pos,side,neighborPos,neighbor,random),level,pos);
     }
+    @Override
+    protected void onPlace(BlockState state,Level level,BlockPos pos,BlockState oldState,boolean moved) {
+        super.onPlace(state,level,pos,oldState,moved);
+        if(!level.isClientSide() && moved && SchoolCurtains.part(state)!=CurtainPart.NONE)
+            level.setBlock(pos,state.setValue(SchoolCurtains.CURTAIN,CurtainPart.NONE).setValue(SchoolCurtains.VERTICAL,CurtainPart.SINGLE),Block.UPDATE_CLIENTS);
+        if(!level.isClientSide() && !oldState.is(this))level.scheduleTick(pos,this,1);
+    }
+    @Override
+    protected void tick(BlockState state,ServerLevel level,BlockPos pos,RandomSource random) {
+        super.tick(state,level,pos,random);
+        SchoolGlazing.refreshHorizontal(level,pos);
+        SchoolCurtains.tick(level,pos);
+    }
+    @Override
+    public BlockState playerWillDestroy(Level level,BlockPos pos,BlockState state,Player player) {
+        if(!level.isClientSide())SchoolCurtains.remove((ServerLevel)level,pos,state,!player.isCreative());
+        return super.playerWillDestroy(level,pos,state.setValue(SchoolCurtains.CURTAIN,CurtainPart.NONE).setValue(SchoolCurtains.VERTICAL,CurtainPart.SINGLE),player);
+    }
+
+    @Override
+    protected void affectNeighborsAfterRemoval(BlockState state,ServerLevel level,BlockPos pos,boolean moved) {
+        SchoolCurtains.remove(level,pos,state,true);
+        super.affectNeighborsAfterRemoval(state,level,pos,moved);
+    }
+
     @Override
     protected VoxelShape getShape(BlockState state,BlockGetter level,BlockPos pos,CollisionContext context) {
         return SimpleBlockOutline.forState(state,()->getCollisionShape(state,level,pos,context));
@@ -53,6 +83,10 @@ public class SchoolGlassStairBlock extends StairBlock {
     }
     @Override
     protected boolean skipRendering(BlockState state,BlockState neighbor,Direction side) {
-        return SchoolGlazing.connects(state,neighbor,side)||super.skipRendering(state,neighbor,side);
+        return SchoolGlazing.canCullHorizontalFace(state,neighbor,side)||SchoolGlazing.connects(state,neighbor,side)||super.skipRendering(state,neighbor,side);
+    }    @Override
+    protected BlockState mirror(BlockState state,Mirror mirror) {
+        return SchoolGlazing.mirrorLayout(state,super.mirror(state,mirror),mirror);
     }
+
 }

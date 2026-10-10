@@ -1,0 +1,7 @@
+{
+  "parent": "lsmmod:item/tall_classroom_entrance",
+  "textures": {
+    "bottom": "lsmmod:block/dining_door_bottom",
+    "top": "lsmmod:block/dining_door_top"
+  }
+}

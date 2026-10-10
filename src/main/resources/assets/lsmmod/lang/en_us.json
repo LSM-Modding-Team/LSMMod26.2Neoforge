@@ -245,5 +245,21 @@
   "block.lsmmod.tall_classroom_entrance": "Tall Classroom Door",
   "block.lsmmod.mixed_school_glass": "School Glass with Light Wall and White Concrete",
   "block.lsmmod.supported_school_glass_reversed": "School Glass Stairs with Swapped Lower Materials: Walls",
-  "block.lsmmod.mixed_school_glass_reversed": "School Glass Stairs with Swapped Lower Materials: Wall and Concrete"
+  "block.lsmmod.mixed_school_glass_reversed": "School Glass Stairs with Swapped Lower Materials: Wall and Concrete",
+  "item.lsmmod.school_curtain": "School Curtain",
+  "tooltip.lsmmod.school_curtain.select": "On school glass: click opposite corners (max. 4 wide × 8 high).",
+  "tooltip.lsmmod.school_curtain.remove": "Shift-click: remove; shift-click in air: cancel.",
+  "message.lsmmod.curtain.start": "Start marked (%s, %s, %s). Choose the other end.",
+  "message.lsmmod.curtain.placed": "Curtain placed: %s × %s blocks.",
+  "message.lsmmod.curtain.cancelled": "Curtain selection cancelled.",
+  "message.lsmmod.curtain.denied": "You cannot modify this whole span.",
+  "message.lsmmod.curtain.unloaded": "Move closer to the whole span before continuing.",
+  "message.lsmmod.curtain.occupied": "That glass already has a curtain.",
+  "message.lsmmod.curtain.line": "Select a complete glass rectangle with matching orientation.",
+  "message.lsmmod.curtain.length": "One curtain can cover at most 4 blocks wide and 8 high.",
+  "message.lsmmod.curtain.target": "Curtains only attach to school glass and its stairs.",
+  "block.lsmmod.tall_bathroom_door": "Tall Bathroom Door",
+  "block.lsmmod.tall_teachers_office_door": "Tall Teachers Office Door",
+  "block.lsmmod.tall_dining_door": "Tall Dining Door",
+  "block.lsmmod.double_school_entrance": "Large Double School Door"
 }

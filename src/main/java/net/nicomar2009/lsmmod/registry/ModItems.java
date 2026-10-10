@@ -21,13 +21,22 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
+    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolCurtainItem> SCHOOL_CURTAIN =
+            ITEMS.registerItem("school_curtain",net.nicomar2009.lsmmod.item.SchoolCurtainItem::new);
+
     public static final DeferredItem<BlockItem> SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_GLASS);
     public static final DeferredItem<BlockItem> SUPPORTED_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.SUPPORTED_SCHOOL_GLASS);
     public static final DeferredItem<BlockItem> MIXED_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.MIXED_SCHOOL_GLASS);
     public static final DeferredItem<BlockItem> SUPPORTED_SCHOOL_GLASS_REVERSED = ITEMS.registerSimpleBlockItem(ModBlocks.SUPPORTED_SCHOOL_GLASS_REVERSED);
     public static final DeferredItem<BlockItem> MIXED_SCHOOL_GLASS_REVERSED = ITEMS.registerSimpleBlockItem(ModBlocks.MIXED_SCHOOL_GLASS_REVERSED);
+    public static final DeferredItem<BlockItem> DOUBLE_SCHOOL_ENTRANCE = ITEMS.registerSimpleBlockItem(ModBlocks.DOUBLE_SCHOOL_ENTRANCE);
     public static final DeferredItem<BlockItem> TALL_CLASSROOM_ENTRANCE = ITEMS.registerSimpleBlockItem(ModBlocks.TALL_CLASSROOM_ENTRANCE);
 
+    public static final DeferredItem<BlockItem> TALL_BATHROOM_DOOR = ITEMS.registerSimpleBlockItem(ModBlocks.TALL_BATHROOM_DOOR);
+
+    public static final DeferredItem<BlockItem> TALL_TEACHERS_OFFICE_DOOR = ITEMS.registerSimpleBlockItem(ModBlocks.TALL_TEACHERS_OFFICE_DOOR);
+
+    public static final DeferredItem<BlockItem> TALL_DINING_DOOR = ITEMS.registerSimpleBlockItem(ModBlocks.TALL_DINING_DOOR);
 
     public static final DeferredItem<BlockItem> FOOTBALL_BASKETBALL_GOAL =
             ITEMS.registerSimpleBlockItem(ModBlocks.FOOTBALL_BASKETBALL_GOAL);

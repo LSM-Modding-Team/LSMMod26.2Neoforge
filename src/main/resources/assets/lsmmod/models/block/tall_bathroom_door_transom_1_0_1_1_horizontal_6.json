@@ -1,0 +1,8 @@
+{
+  "parent": "lsmmod:block/tall_classroom_transom_1_0_1_1_horizontal_6",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "bottom": "lsmmod:block/bathroom_door_bottom",
+    "top": "lsmmod:block/bathroom_door_top"
+  }
+}

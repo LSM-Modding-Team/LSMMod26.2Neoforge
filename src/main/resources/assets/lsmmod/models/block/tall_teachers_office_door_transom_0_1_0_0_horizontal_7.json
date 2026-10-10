@@ -1,0 +1,8 @@
+{
+  "parent": "lsmmod:block/tall_classroom_transom_0_1_0_0_horizontal_7",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "bottom": "lsmmod:block/teachers_office_door_bottom",
+    "top": "lsmmod:block/teachers_office_door_top"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "lsmmod:double_school_entrance",
+          "properties": {
+            "row": "0",
+            "column": "1",
+            "depth": "0"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lsmmod:double_school_entrance"
+        }
+      ]
+    }
+  ]
+}

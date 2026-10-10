@@ -1,0 +1,7 @@
+{
+  "parent": "lsmmod:item/tall_classroom_entrance",
+  "textures": {
+    "bottom": "lsmmod:block/bathroom_door_bottom",
+    "top": "lsmmod:block/bathroom_door_top"
+  }
+}

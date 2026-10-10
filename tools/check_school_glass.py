@@ -9,7 +9,11 @@ def read(p):return json.loads(p.read_text())
 def main():
     names={'school_glass':16,'supported_school_glass':320,'mixed_school_glass':320,'supported_school_glass_reversed':320,'mixed_school_glass_reversed':320,'tall_classroom_entrance':384}
     for name,count in names.items():
-        variants=read(A/f'blockstates/{name}.json')['variants'];assert len(variants)==count
+        definition=read(A/f'blockstates/{name}.json')
+        variants=definition.get('variants')
+        if variants is None:
+            variants={','.join(f'{k}={v}' for k,v in p['when'].items()):p['apply'] for p in definition['multipart'] if 'curtain' not in p['when']}
+        assert len(variants)==count*8
         for key,value in variants.items():
             state=dict(x.split('=') for x in key.split(','))
             model=read(A/('models/'+value['model'].split(':')[1]+'.json'))
@@ -79,7 +83,7 @@ def main():
     assert 'footprint(state)!=footprint(neighbor)' in joins and 'reachesTop(state)&&reachesBottom(neighbor)' in joins
     loot=read(D/'lsmmod/loot_table/blocks/tall_classroom_entrance.json')
     assert loot['pools'][0]['conditions'][1]['properties']=={'row':'0'}
-    print('OK: edge-aligned 2-row door + moving third-row apron; centered handles; 1680 states; four vanilla stairs (corners/top/waterlogging), material layout, shared glazing and single door drop.')
+    print('OK: edge-aligned 2-row door + moving third-row apron; centered handles; 13440 base states plus curtain overlays; four vanilla stairs (corners/top/waterlogging), material layout, shared glazing and single door drop.')
 
 if __name__=='__main__':main()
 
