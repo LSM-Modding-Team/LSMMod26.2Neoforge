@@ -216,6 +216,13 @@ public final class ModBlocks {
             "classroom_floor", Block::new,
             props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
 
+    public static final DeferredBlock<Block> STREET_SCHOOL_WALL = BLOCKS.registerBlock(
+            "street_school_wall", Block::new,
+            props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<StreetSchoolBarsBlock> STREET_SCHOOL_BARS = BLOCKS.registerBlock(
+            "street_school_bars", StreetSchoolBarsBlock::new,
+            props -> props.strength(5.0F,6.0F).sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops());
+
     public static final DeferredBlock<Block> LIGHT_SCHOOL_WALL = BLOCKS.registerBlock(
             "light_school_wall", Block::new,
             props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());

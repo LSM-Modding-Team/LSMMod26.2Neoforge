@@ -251,3 +251,6 @@ double_school_entrance: nueva puerta doble independiente de 3×3 bloques (48×48
 
 
 2026-10-10 — Se eliminan awning base y sus 16 variantes de color, conservando playground_awning, elementary_playground_awning y awning_support. Ambos toldos resuelven geometría compartida sin depender del base eliminado. Soporte rediseñado con cinco varillas 1×1 px a y13..14 (tres longitudinales y dos líneas de anclaje), colisión precalculada y contorno simple; ancho y lógica de instalación conservados. 4624 estados de tela y 1024 de soporte comprobados estáticamente. Guía docs/AWNINGS.md; publicación en master autorizada, sin compilar ni probar Minecraft.
+
+
+2026-10-10 — Nuevos street_school_wall (estuco beige 16×16) y street_school_bars (IronBarsBlock con malla diagonal oscura y marco agrupado 4×3). Colocación individual, conexión/agua/colisión vanilla, perfiles desde bordes del tramo, contorno simple. Recursos/ítems/drops/traducciones/pico y generador/check propios. 384 estados comprobados estáticamente; guía docs/STREET_SCHOOL_BLOCKS.md. Publicación autorizada en master; sin compilar ni probar Minecraft.

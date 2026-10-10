@@ -261,5 +261,7 @@
   "block.lsmmod.school_inverted_slope_split_raised_4": "Raised Inverted Split Slope (+8 px): 4",
   "block.lsmmod.school_inverted_slope_split_raised_extra_1": "Raised Inverted Split Slope: Extra 1",
   "block.lsmmod.school_inverted_slope_split_raised_extra_2": "Raised Inverted Split Slope: Extra 2",
-  "block.lsmmod.school_inverted_slope_split_raised_extra_3": "Raised Inverted Split Slope: Extra 3"
+  "block.lsmmod.school_inverted_slope_split_raised_extra_3": "Raised Inverted Split Slope: Extra 3",
+  "block.lsmmod.street_school_wall": "Street School Wall",
+  "block.lsmmod.street_school_bars": "School Chain-Link Bars"
 }

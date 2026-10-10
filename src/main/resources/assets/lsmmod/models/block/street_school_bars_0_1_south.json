@@ -1,0 +1,78 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "mesh": "lsmmod:block/street_school_bars_0_1",
+    "particle": "lsmmod:block/street_school_bars_0_1"
+  },
+  "elements": [
+    {
+      "from": [
+        7,
+        0,
+        8
+      ],
+      "to": [
+        9,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mesh",
+          "uv": [
+            16,
+            0,
+            8,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#mesh",
+          "uv": [
+            8,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#mesh",
+          "uv": [
+            16,
+            0,
+            8,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#mesh",
+          "uv": [
+            8,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#mesh",
+          "uv": [
+            8,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#mesh",
+          "uv": [
+            8,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

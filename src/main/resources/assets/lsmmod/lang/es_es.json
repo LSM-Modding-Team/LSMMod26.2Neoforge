@@ -254,5 +254,7 @@
   "block.lsmmod.school_inverted_slope_split_raised_4": "Pendiente invertida elevada 8 px: split 4",
   "block.lsmmod.school_inverted_slope_split_raised_extra_1": "Pendiente invertida elevada: split extra 1",
   "block.lsmmod.school_inverted_slope_split_raised_extra_2": "Pendiente invertida elevada: split extra 2",
-  "block.lsmmod.school_inverted_slope_split_raised_extra_3": "Pendiente invertida elevada: split extra 3"
+  "block.lsmmod.school_inverted_slope_split_raised_extra_3": "Pendiente invertida elevada: split extra 3",
+  "block.lsmmod.street_school_wall": "Pared exterior del colegio",
+  "block.lsmmod.street_school_bars": "Reja de malla del colegio"
 }
