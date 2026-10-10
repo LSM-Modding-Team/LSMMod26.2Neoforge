@@ -216,12 +216,16 @@ public final class ModBlocks {
             "school_parquet", Block::new,
             props -> props.strength(2.0F,3.0F).sound(SoundType.WOOD));
 
+    public static final DeferredBlock<BathroomFloorBlock> BATHROOM_FLOOR = BLOCKS.registerBlock(
+            "bathroom_floor", BathroomFloorBlock::new,
+            props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+
     public static final DeferredBlock<Block> CLASSROOM_FLOOR = BLOCKS.registerBlock(
             "classroom_floor", Block::new,
             props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
 
-    public static final DeferredBlock<SchoolYellowBorderWallBlock> SCHOOL_YELLOW_BORDER_WALL = BLOCKS.registerBlock(
-            "school_yellow_border_wall", SchoolYellowBorderWallBlock::new,
+    public static final DeferredBlock<SchoolYellowBorderWallBlock> SCHOOL_ENTRANCE_PAVEMENT = BLOCKS.registerBlock(
+            "school_entrance_pavement", SchoolYellowBorderWallBlock::new,
             props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
 
     public static final DeferredBlock<Block> STREET_SCHOOL_WALL = BLOCKS.registerBlock(

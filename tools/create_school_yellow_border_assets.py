@@ -3,14 +3,14 @@ import itertools,json,random
 from pathlib import Path
 from PIL import Image
 ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmod';D=ROOT/'src/main/resources/data'
-ID='school_yellow_border_wall';SIDES=('north','east','south','west','up','down')
+ID='school_entrance_pavement';SIDES=('north','east','south','west','up','down')
 # Face-local top/right/bottom/left following vanilla cube UV conventions.
 EDGES={'north':('up','west','down','east'),'south':('up','east','down','west'),'east':('up','north','down','south'),'west':('up','south','down','north'),'up':('north','east','south','west'),'down':('south','east','north','west')}
 def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
 def main():
  rng=random.Random(3106);base=Image.new('RGB',(16,16))
  for y,x in itertools.product(range(16),repeat=2):
-  delta=rng.choice((-3,-2,-1,0,0,1,2,3));base.putpixel((x,y),tuple(c+delta for c in (73,74,72)))
+  delta=rng.choice((-3,-2,-1,0,0,1,2,3));base.putpixel((x,y),tuple(c+delta for c in (135,141,150)))
  for mask in range(16):
   tile=base.copy()
   for y,x in itertools.product(range(16),repeat=2):
@@ -30,7 +30,7 @@ def main():
  write(A/f'models/item/{ID}.json',{'parent':f'lsmmod:block/{ID}_0'})
  write(A/f'items/{ID}.json',{'model':{'type':'minecraft:model','model':'lsmmod:item/'+ID}})
  write(D/f'lsmmod/loot_table/blocks/{ID}.json',{'type':'minecraft:block','pools':[{'rolls':1,'conditions':[{'condition':'minecraft:survives_explosion'}],'entries':[{'type':'minecraft:item','name':'lsmmod:'+ID}]}]})
- for locale,name in [('es_es','Pared de vereda con borde amarillo'),('en_us','Yellow-Bordered Pavement Wall')]:
+ for locale,name in [('es_es','Pavimento de la entrada del colegio'),('en_us','School Entrance Pavement')]:
   p=A/f'lang/{locale}.json';v=json.loads(p.read_text());v['block.lsmmod.'+ID]=name;write(p,v)
  p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+ID]));write(p,v)
 if __name__=='__main__':main()

@@ -257,6 +257,7 @@
   "block.lsmmod.school_inverted_slope_split_raised_extra_3": "Pendiente invertida elevada: split extra 3",
   "block.lsmmod.street_school_wall": "Pared exterior del colegio",
   "block.lsmmod.street_school_bars": "Reja de malla del colegio",
-  "block.lsmmod.school_yellow_border_wall": "Pared de vereda con borde amarillo",
-  "block.lsmmod.school_parquet": "Parquet del colegio"
+  "block.lsmmod.school_parquet": "Parquet del colegio",
+  "block.lsmmod.school_entrance_pavement": "Pavimento de la entrada del colegio",
+  "block.lsmmod.bathroom_floor": "Suelo del baño"
 }

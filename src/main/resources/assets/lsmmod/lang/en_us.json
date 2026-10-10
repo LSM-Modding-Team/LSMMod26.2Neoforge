@@ -264,6 +264,7 @@
   "block.lsmmod.school_inverted_slope_split_raised_extra_3": "Raised Inverted Split Slope: Extra 3",
   "block.lsmmod.street_school_wall": "Street School Wall",
   "block.lsmmod.street_school_bars": "School Chain-Link Bars",
-  "block.lsmmod.school_yellow_border_wall": "Yellow-Bordered Pavement Wall",
-  "block.lsmmod.school_parquet": "School Parquet"
+  "block.lsmmod.school_parquet": "School Parquet",
+  "block.lsmmod.school_entrance_pavement": "School Entrance Pavement",
+  "block.lsmmod.bathroom_floor": "Bathroom Floor"
 }
