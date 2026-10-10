@@ -261,5 +261,9 @@
   "block.lsmmod.tall_bathroom_door": "Tall Bathroom Door",
   "block.lsmmod.tall_teachers_office_door": "Tall Teachers Office Door",
   "block.lsmmod.tall_dining_door": "Tall Dining Door",
-  "block.lsmmod.double_school_entrance": "Large Double School Door"
+  "block.lsmmod.double_school_entrance": "Large Double School Door",
+  "block.lsmmod.classroom_floor_stairs": "School Tiled Stairs",
+  "block.lsmmod.school_slope": "School Slope",
+  "block.lsmmod.school_slope_raised_base": "Raised School Slope: Base",
+  "block.lsmmod.school_slope_raised_tip": "Raised School Slope: Tip"
 }

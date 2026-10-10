@@ -16,6 +16,24 @@ public final class ModBlocks {
     // Specialized register: it sets the block's resource key (required since 1.21.2) automatically
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(LSMMod.MOD_ID);
 
+    // BEGIN SCHOOL RISE PIECES
+    public static final DeferredBlock<SchoolTiledStairBlock> CLASSROOM_FLOOR_STAIRS = BLOCKS.registerBlock(
+            "classroom_floor_stairs", SchoolTiledStairBlock::new,
+            props -> props.strength(1.5F).sound(SoundType.STONE));
+
+    public static final DeferredBlock<SchoolSlopeBlock> SCHOOL_SLOPE = BLOCKS.registerBlock(
+            "school_slope", props -> new SchoolSlopeBlock(0.0,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+
+    public static final DeferredBlock<SchoolSlopeBlock> SCHOOL_SLOPE_RAISED_BASE = BLOCKS.registerBlock(
+            "school_slope_raised_base", props -> new SchoolSlopeBlock(0.625,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+
+    public static final DeferredBlock<SchoolSlopeBlock> SCHOOL_SLOPE_RAISED_TIP = BLOCKS.registerBlock(
+            "school_slope_raised_tip", props -> new SchoolSlopeBlock(-0.375,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    // END SCHOOL RISE PIECES
+
     public static final DeferredBlock<SchoolGlassBlock> SCHOOL_GLASS = BLOCKS.registerBlock(
             "school_glass", props -> new SchoolGlassBlock(props, new double[][]{{0, 0, 0, 16, 16, 8}}),
             props -> props.strength(0.3F).sound(SoundType.GLASS).noOcclusion());
@@ -442,3 +460,4 @@ public final class ModBlocks {
         BLOCKS.register(modEventBus);
     }
 }
+

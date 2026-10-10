@@ -254,5 +254,9 @@
   "block.lsmmod.tall_bathroom_door": "Puerta alta de baño",
   "block.lsmmod.tall_teachers_office_door": "Puerta alta de sala de profesores",
   "block.lsmmod.tall_dining_door": "Puerta alta de comedor",
-  "block.lsmmod.double_school_entrance": "Puerta doble grande del colegio"
+  "block.lsmmod.double_school_entrance": "Puerta doble grande del colegio",
+  "block.lsmmod.classroom_floor_stairs": "Escalera de baldosa del colegio",
+  "block.lsmmod.school_slope": "Pendiente del colegio",
+  "block.lsmmod.school_slope_raised_base": "Pendiente elevada: base",
+  "block.lsmmod.school_slope_raised_tip": "Pendiente elevada: remate"
 }

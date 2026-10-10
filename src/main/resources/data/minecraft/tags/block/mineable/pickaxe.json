@@ -22,6 +22,10 @@
     "lsmmod:supported_school_glass",
     "lsmmod:mixed_school_glass",
     "lsmmod:supported_school_glass_reversed",
-    "lsmmod:mixed_school_glass_reversed"
+    "lsmmod:mixed_school_glass_reversed",
+    "lsmmod:classroom_floor_stairs",
+    "lsmmod:school_slope",
+    "lsmmod:school_slope_raised_base",
+    "lsmmod:school_slope_raised_tip"
   ]
 }

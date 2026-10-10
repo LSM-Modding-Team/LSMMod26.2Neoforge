@@ -15,7 +15,16 @@ public final class SimpleBlockOutline {
     private SimpleBlockOutline() {}
 
     public static VoxelShape forState(BlockState state, Supplier<VoxelShape> collision) {
-        return OUTLINES.computeIfAbsent(state, key -> boundingBox(collision.get()));
+        VoxelShape cached = OUTLINES.get(state);
+        if (cached != null) {
+            return cached;
+        }
+        // Collision queries may request another outline during state initialization.
+        // Compute outside the map update: nested computeIfAbsent calls can throw
+        // IllegalStateException("Recursive update"), even for different keys.
+        VoxelShape calculated = boundingBox(collision.get());
+        VoxelShape existing = OUTLINES.putIfAbsent(state, calculated);
+        return existing != null ? existing : calculated;
     }
 
     public static VoxelShape boundingBox(VoxelShape shape) {

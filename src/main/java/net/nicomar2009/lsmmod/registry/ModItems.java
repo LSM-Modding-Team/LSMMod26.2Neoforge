@@ -21,6 +21,13 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
+    // BEGIN SCHOOL RISE PIECES
+    public static final DeferredItem<BlockItem> CLASSROOM_FLOOR_STAIRS = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_FLOOR_STAIRS);
+    public static final DeferredItem<BlockItem> SCHOOL_SLOPE = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_SLOPE);
+    public static final DeferredItem<BlockItem> SCHOOL_SLOPE_RAISED_BASE = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_SLOPE_RAISED_BASE);
+    public static final DeferredItem<BlockItem> SCHOOL_SLOPE_RAISED_TIP = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_SLOPE_RAISED_TIP);
+    // END SCHOOL RISE PIECES
+
     public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolCurtainItem> SCHOOL_CURTAIN =
             ITEMS.registerItem("school_curtain",net.nicomar2009.lsmmod.item.SchoolCurtainItem::new);
 
@@ -428,3 +435,4 @@ public final class ModItems {
         ITEMS.register(modEventBus);
     }
 }
+

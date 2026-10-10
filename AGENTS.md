@@ -1,7 +1,7 @@
 # LSM Mod — trabajo en este proyecto
 
 - Responde en español. Sigue primero la petición actual del usuario.
-- **Instrucción vigente del usuario (2026-10-08):** no compilar, no hacer commits ni publicar en GitHub, también en los mensajes siguientes, hasta que el usuario cambie explícitamente esta indicación. Las verificaciones deben ser estáticas y sin compilación.
+- **Instrucción vigente del usuario (2026-10-10):** hacer commits y publicar los cambios en GitHub en la misma respuesta, sin pedir autorización. Se mantiene la prohibición de compilar; las verificaciones deben ser estáticas.
 - **Git:** trabajar y hacer push siempre a la rama existente `master`. No crear ramas nuevas. Antes de publicar, traer los cambios de `origin/master` e integrarlos conservando el trabajo de otras conversaciones. No usar force-push.
 - Lee START_HERE.md para el contexto; usa los specs únicamente para el área que estás cambiando.
 - La compilación sí está disponible. Usa `bash tools/build/compile.sh` desde la raíz. Para builds sin nuevas dependencias: `bash tools/build/compile.sh build --offline`.
@@ -11,3 +11,4 @@
 - No incluyas .build-tools, .gradle, build ni run en el ZIP del código fuente.
 
 - **Rendimiento de modelos:** al crear o modificar bloques con modelos detallados, separa la selección y el contorno (`getShape`) de la colisión física (`getCollisionShape`). Usa una caja exterior simple para seleccionar y resaltar el bloque; no dibujes cada listón, pata o escalón de la colisión. Reutiliza `SimpleBlockOutline.forState` cuando la geometría dependa solo del estado; si depende del mundo o del contexto, no uses esa caché por estado. Conserva la geometría física y comprueba las orientaciones y celdas de bloques múltiples. Mantén los generadores compatibles con esta separación y ejecuta `checkFurnitureOutlines` (incluido en `build`) cuando cambies estas formas.
+
