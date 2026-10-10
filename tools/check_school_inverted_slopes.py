@@ -34,7 +34,8 @@ def main():
  assert math.isclose(plan[-1][2]+plan[-1][3]-plan[-1][4],-4)
  s=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolInvertedSlopeBlock.java').read_text()
  assert 'SimpleBlockOutline.forState' in s and 'protected VoxelShape getCollisionShape' in s
- assert '1,1,1-t0' in s
+ assert '1,1+verticalOffset,1-t0' in s
+ assert 'this(lowerStart,rise,0,properties)' in s
  assert 'HALF' not in s and 'SchoolWallRailingBlock' not in s
  print('OK: 10 new wall-only inverted pieces, 80 states, inclined profile unchanged, flat top Y=16px, Y=0 start, winding/UV/volumes and continuous endpoints.')
 if __name__=='__main__':main()

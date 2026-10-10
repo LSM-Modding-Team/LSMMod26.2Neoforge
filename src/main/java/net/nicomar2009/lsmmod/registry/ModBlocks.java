@@ -18,6 +18,27 @@ public final class ModBlocks {
 
     // BEGIN SCHOOL RAILING SLOPES
     // BEGIN SCHOOL INVERTED SLOPES
+    // BEGIN SCHOOL RAISED INVERTED SLOPES
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_1 = BLOCKS.registerBlock(
+            "school_inverted_slope_flight_raised_1", props -> new SchoolInvertedSlopeBlock(0,0.666666666666667,0.5,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_2 = BLOCKS.registerBlock(
+            "school_inverted_slope_flight_raised_2", props -> new SchoolInvertedSlopeBlock(0.333333333333333,0.666666666666667,0.5,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_3 = BLOCKS.registerBlock(
+            "school_inverted_slope_flight_raised_3", props -> new SchoolInvertedSlopeBlock(0.666666666666667,0.666666666666667,0.5,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_4 = BLOCKS.registerBlock(
+            "school_inverted_slope_flight_raised_4", props -> new SchoolInvertedSlopeBlock(0,0.666666666666667,0.5,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_5 = BLOCKS.registerBlock(
+            "school_inverted_slope_flight_raised_5", props -> new SchoolInvertedSlopeBlock(0.333333333333333,0.666666666666667,0.5,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_6 = BLOCKS.registerBlock(
+            "school_inverted_slope_flight_raised_6", props -> new SchoolInvertedSlopeBlock(0.666666666666666,0.666666666666667,0.5,props),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    // END SCHOOL RAISED INVERTED SLOPES
+
     public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_1 = BLOCKS.registerBlock(
             "school_inverted_slope_split_1", props -> new SchoolInvertedSlopeBlock(0,0.714285714285714,props),
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());

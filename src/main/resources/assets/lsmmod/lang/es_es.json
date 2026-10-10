@@ -275,5 +275,11 @@
   "block.lsmmod.school_inverted_slope_flight_3": "Pendiente invertida sin baranda: continua 3",
   "block.lsmmod.school_inverted_slope_flight_4": "Pendiente invertida sin baranda: continua 4",
   "block.lsmmod.school_inverted_slope_flight_5": "Pendiente invertida sin baranda: continua 5",
-  "block.lsmmod.school_inverted_slope_flight_6": "Pendiente invertida sin baranda: continua 6"
+  "block.lsmmod.school_inverted_slope_flight_6": "Pendiente invertida sin baranda: continua 6",
+  "block.lsmmod.school_inverted_slope_flight_raised_1": "Pendiente invertida elevada 8 px: 1",
+  "block.lsmmod.school_inverted_slope_flight_raised_2": "Pendiente invertida elevada 8 px: 2",
+  "block.lsmmod.school_inverted_slope_flight_raised_3": "Pendiente invertida elevada 8 px: 3",
+  "block.lsmmod.school_inverted_slope_flight_raised_4": "Pendiente invertida elevada 8 px: 4",
+  "block.lsmmod.school_inverted_slope_flight_raised_5": "Pendiente invertida elevada 8 px: 5",
+  "block.lsmmod.school_inverted_slope_flight_raised_6": "Pendiente invertida elevada 8 px: 6"
 }

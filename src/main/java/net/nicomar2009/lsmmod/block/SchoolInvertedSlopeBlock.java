@@ -28,12 +28,15 @@ public class SchoolInvertedSlopeBlock extends Block implements SimpleWaterlogged
     public static final BooleanProperty WATERLOGGED=BlockStateProperties.WATERLOGGED;
     private final VoxelShape[] collisions=new VoxelShape[4];
     public SchoolInvertedSlopeBlock(double lowerStart,double rise,Properties properties) {
+        this(lowerStart,rise,0,properties);
+    }
+    public SchoolInvertedSlopeBlock(double lowerStart,double rise,double verticalOffset,Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any().setValue(FACING,Direction.NORTH).setValue(WATERLOGGED,false));
         VoxelShape shape=Shapes.empty();
         for(int i=0;i<32;i++) {
             double t0=i/32.0,t1=(i+1)/32.0;
-            shape=Shapes.or(shape,Shapes.box(0,lowerStart-rise*t1,1-t1,1,1,1-t0));
+            shape=Shapes.or(shape,Shapes.box(0,lowerStart-rise*t1+verticalOffset,1-t1,1,1+verticalOffset,1-t0));
         }
         collisions[0]=shape.optimize();
         for(int i=1;i<4;i++) {

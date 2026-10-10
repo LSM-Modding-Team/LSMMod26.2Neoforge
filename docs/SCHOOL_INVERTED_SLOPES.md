@@ -31,3 +31,11 @@ Los modelos OBJ tienen caras planas y normales corregidas tras la reflexión. UV
 Generador: `tools/create_school_inverted_slopes.py`; comprobación estática: `tools/check_school_inverted_slopes.py`; montaje: `tools/school_inverted_slope_layout.json`; vista previa externa: `previews/school_inverted_slopes.png`.
 
 80 estados nuevos verificados mediante análisis estático: reflexión exacta del muro original, inicio Y=0, ausencia de baranda, continuidad, UV, volúmenes y caras exteriores. Sin compilación ni ejecución de Minecraft.
+
+## Copias elevadas ocho píxeles
+
+`school_inverted_slope_flight_raised_1..6` son seis bloques nuevos, cada uno duplicado exactamente de la pieza `school_inverted_slope_flight_1..6` del mismo número. Todos los vértices del modelo y la colisión se trasladan +8 píxeles en Y; no cambia la pendiente, forma, ancho, profundidad, UV ni textura. No tienen baranda. La tapa plana de las copias está en Y=24 px (16+8), y su primer borde inclinado en Y=8 px.
+
+Usa la misma tabla de alturas de celda y orientación que las seis piezas originales: 0, -1, -2, -2, -3, -4 desde el extremo superior. El desplazamiento de medio bloque ya está incluido en el modelo; no cambies la altura de colocación para conseguir esos ocho píxeles. Colocadas en una fila vecina al grupo original, sus caras inclinadas quedan exactamente ocho píxeles por encima, como en la referencia. Los dos grupos tienen ítems, registros y drops independientes.
+
+Generador: `tools/create_school_raised_inverted_slopes.py`; verificación: `tools/check_school_raised_inverted_slopes.py`; layout: `tools/school_raised_inverted_slope_layout.json`. Se comprueba la traslación exacta en cuatro orientaciones y la igualdad de caras, UV y materiales (48 estados nuevos), además de la regresión de las diez piezas originales. Sin compilación ni prueba Minecraft.

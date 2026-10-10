@@ -1,0 +1,42 @@
+{
+  "vertical_offset": 0.5,
+  "pixels": 8,
+  "pieces": [
+    {
+      "id": "school_inverted_slope_flight_raised_1",
+      "source": "school_inverted_slope_flight_1",
+      "column": 0,
+      "row": 0
+    },
+    {
+      "id": "school_inverted_slope_flight_raised_2",
+      "source": "school_inverted_slope_flight_2",
+      "column": 1,
+      "row": -1
+    },
+    {
+      "id": "school_inverted_slope_flight_raised_3",
+      "source": "school_inverted_slope_flight_3",
+      "column": 2,
+      "row": -2
+    },
+    {
+      "id": "school_inverted_slope_flight_raised_4",
+      "source": "school_inverted_slope_flight_4",
+      "column": 3,
+      "row": -2
+    },
+    {
+      "id": "school_inverted_slope_flight_raised_5",
+      "source": "school_inverted_slope_flight_5",
+      "column": 4,
+      "row": -3
+    },
+    {
+      "id": "school_inverted_slope_flight_raised_6",
+      "source": "school_inverted_slope_flight_6",
+      "column": 5,
+      "row": -4
+    }
+  ]
+}

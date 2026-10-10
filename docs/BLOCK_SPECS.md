@@ -268,3 +268,6 @@ double_school_entrance: nueva puerta doble independiente de 3×3 bloques (48×48
 
 
 2026-10-10 — Corrección de huecos superiores en las diez school_inverted_slope: se extiende únicamente la cara plana de Y=12 a Y=16 px (+4 px). Borde inclinado, pendientes, inicio Y=0, posiciones, UV y ausencia de baranda conservados. Generador actualiza solo los vértices superiores; colisión coincide con la tapa completa. Regresión de los 80 estados exige comparación exacta contra el perfil original y volumen adicional de 1/4 por pieza. Sin compilación ni prueba Minecraft; publicación autorizada en master.
+
+
+2026-10-10 — Seis duplicados elevados: school_inverted_slope_flight_raised_1..6, traducción exacta de los seis school_inverted_slope_flight_1..6 con todos los vértices y la colisión +8 px en Y. Forma, inclinación, UV, materiales y recursos originales conservados; nuevos ítems/drops/registros independientes. SchoolInvertedSlopeBlock añade offset vertical opcional, constructor original delega a cero; copia usa 0.5. Mismas posiciones de celda y orientación, tapa local Y=24 px. Generador/check/layout propios; 48 estados nuevos comparados por traslación exacta y regresión de los 80 originales. Guía docs/SCHOOL_INVERTED_SLOPES.md ampliada. Publicación autorizada en master, sin compilar ni probar en Minecraft.
