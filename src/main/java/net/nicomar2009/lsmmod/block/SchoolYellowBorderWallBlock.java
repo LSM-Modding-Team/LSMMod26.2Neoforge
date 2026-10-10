@@ -1,0 +1,59 @@
+package net.nicomar2009.lsmmod.block;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+
+/** Full pavement cube; yellow borders disappear along joins on each face. */
+public class SchoolYellowBorderWallBlock extends Block {
+    public static final BooleanProperty NORTH=BooleanProperty.create("north");
+    public static final BooleanProperty EAST=BooleanProperty.create("east");
+    public static final BooleanProperty SOUTH=BooleanProperty.create("south");
+    public static final BooleanProperty WEST=BooleanProperty.create("west");
+    public static final BooleanProperty UP=BooleanProperty.create("up");
+    public static final BooleanProperty DOWN=BooleanProperty.create("down");
+    public SchoolYellowBorderWallBlock(Properties properties) {
+        super(properties);
+        registerDefaultState(stateDefinition.any().setValue(NORTH,false).setValue(EAST,false)
+                .setValue(SOUTH,false).setValue(WEST,false).setValue(UP,false).setValue(DOWN,false));
+    }
+    private static BooleanProperty property(Direction side) {
+        return switch(side) {case NORTH->NORTH;case EAST->EAST;case SOUTH->SOUTH;case WEST->WEST;case UP->UP;case DOWN->DOWN;};
+    }
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {
+        builder.add(NORTH,EAST,SOUTH,WEST,UP,DOWN);
+    }
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState state=defaultBlockState();
+        for(Direction side:Direction.values())state=state.setValue(property(side),context.getLevel().getBlockState(context.getClickedPos().relative(side)).is(this));
+        return state;
+    }
+    @Override
+    protected BlockState updateShape(BlockState state,LevelReader level,ScheduledTickAccess ticks,BlockPos pos,
+            Direction side,BlockPos neighborPos,BlockState neighbor,RandomSource random) {
+        return state.setValue(property(side),neighbor.is(this));
+    }
+    @Override
+    protected BlockState rotate(BlockState state,Rotation rotation) {
+        BlockState result=state;
+        for(Direction side:Direction.values())result=result.setValue(property(rotation.rotate(side)),state.getValue(property(side)));
+        return result;
+    }
+    @Override
+    protected BlockState mirror(BlockState state,Mirror mirror) {
+        BlockState result=state;
+        for(Direction side:Direction.values())result=result.setValue(property(mirror.mirror(side)),state.getValue(property(side)));
+        return result;
+    }
+}

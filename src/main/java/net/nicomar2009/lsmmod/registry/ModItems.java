@@ -111,6 +111,8 @@ public final class ModItems {
 
     public static final DeferredItem<BlockItem> CLASSROOM_FLOOR =
             ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_FLOOR);
+    public static final DeferredItem<BlockItem> SCHOOL_YELLOW_BORDER_WALL = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_YELLOW_BORDER_WALL);
+
     public static final DeferredItem<BlockItem> STREET_SCHOOL_WALL = ITEMS.registerSimpleBlockItem(ModBlocks.STREET_SCHOOL_WALL);
     public static final DeferredItem<BlockItem> STREET_SCHOOL_BARS = ITEMS.registerSimpleBlockItem(ModBlocks.STREET_SCHOOL_BARS);
 

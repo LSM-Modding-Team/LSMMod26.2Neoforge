@@ -1,0 +1,196 @@
+{
+  "variants": {
+    "north=false,east=false,south=false,west=false,up=false,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_0"
+    },
+    "north=false,east=false,south=false,west=false,up=false,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_32"
+    },
+    "north=false,east=false,south=false,west=false,up=true,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_16"
+    },
+    "north=false,east=false,south=false,west=false,up=true,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_48"
+    },
+    "north=false,east=false,south=false,west=true,up=false,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_8"
+    },
+    "north=false,east=false,south=false,west=true,up=false,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_40"
+    },
+    "north=false,east=false,south=false,west=true,up=true,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_24"
+    },
+    "north=false,east=false,south=false,west=true,up=true,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_56"
+    },
+    "north=false,east=false,south=true,west=false,up=false,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_4"
+    },
+    "north=false,east=false,south=true,west=false,up=false,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_36"
+    },
+    "north=false,east=false,south=true,west=false,up=true,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_20"
+    },
+    "north=false,east=false,south=true,west=false,up=true,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_52"
+    },
+    "north=false,east=false,south=true,west=true,up=false,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_12"
+    },
+    "north=false,east=false,south=true,west=true,up=false,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_44"
+    },
+    "north=false,east=false,south=true,west=true,up=true,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_28"
+    },
+    "north=false,east=false,south=true,west=true,up=true,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_60"
+    },
+    "north=false,east=true,south=false,west=false,up=false,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_2"
+    },
+    "north=false,east=true,south=false,west=false,up=false,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_34"
+    },
+    "north=false,east=true,south=false,west=false,up=true,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_18"
+    },
+    "north=false,east=true,south=false,west=false,up=true,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_50"
+    },
+    "north=false,east=true,south=false,west=true,up=false,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_10"
+    },
+    "north=false,east=true,south=false,west=true,up=false,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_42"
+    },
+    "north=false,east=true,south=false,west=true,up=true,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_26"
+    },
+    "north=false,east=true,south=false,west=true,up=true,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_58"
+    },
+    "north=false,east=true,south=true,west=false,up=false,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_6"
+    },
+    "north=false,east=true,south=true,west=false,up=false,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_38"
+    },
+    "north=false,east=true,south=true,west=false,up=true,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_22"
+    },
+    "north=false,east=true,south=true,west=false,up=true,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_54"
+    },
+    "north=false,east=true,south=true,west=true,up=false,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_14"
+    },
+    "north=false,east=true,south=true,west=true,up=false,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_46"
+    },
+    "north=false,east=true,south=true,west=true,up=true,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_30"
+    },
+    "north=false,east=true,south=true,west=true,up=true,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_62"
+    },
+    "north=true,east=false,south=false,west=false,up=false,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_1"
+    },
+    "north=true,east=false,south=false,west=false,up=false,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_33"
+    },
+    "north=true,east=false,south=false,west=false,up=true,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_17"
+    },
+    "north=true,east=false,south=false,west=false,up=true,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_49"
+    },
+    "north=true,east=false,south=false,west=true,up=false,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_9"
+    },
+    "north=true,east=false,south=false,west=true,up=false,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_41"
+    },
+    "north=true,east=false,south=false,west=true,up=true,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_25"
+    },
+    "north=true,east=false,south=false,west=true,up=true,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_57"
+    },
+    "north=true,east=false,south=true,west=false,up=false,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_5"
+    },
+    "north=true,east=false,south=true,west=false,up=false,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_37"
+    },
+    "north=true,east=false,south=true,west=false,up=true,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_21"
+    },
+    "north=true,east=false,south=true,west=false,up=true,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_53"
+    },
+    "north=true,east=false,south=true,west=true,up=false,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_13"
+    },
+    "north=true,east=false,south=true,west=true,up=false,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_45"
+    },
+    "north=true,east=false,south=true,west=true,up=true,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_29"
+    },
+    "north=true,east=false,south=true,west=true,up=true,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_61"
+    },
+    "north=true,east=true,south=false,west=false,up=false,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_3"
+    },
+    "north=true,east=true,south=false,west=false,up=false,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_35"
+    },
+    "north=true,east=true,south=false,west=false,up=true,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_19"
+    },
+    "north=true,east=true,south=false,west=false,up=true,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_51"
+    },
+    "north=true,east=true,south=false,west=true,up=false,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_11"
+    },
+    "north=true,east=true,south=false,west=true,up=false,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_43"
+    },
+    "north=true,east=true,south=false,west=true,up=true,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_27"
+    },
+    "north=true,east=true,south=false,west=true,up=true,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_59"
+    },
+    "north=true,east=true,south=true,west=false,up=false,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_7"
+    },
+    "north=true,east=true,south=true,west=false,up=false,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_39"
+    },
+    "north=true,east=true,south=true,west=false,up=true,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_23"
+    },
+    "north=true,east=true,south=true,west=false,up=true,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_55"
+    },
+    "north=true,east=true,south=true,west=true,up=false,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_15"
+    },
+    "north=true,east=true,south=true,west=true,up=false,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_47"
+    },
+    "north=true,east=true,south=true,west=true,up=true,down=false": {
+      "model": "lsmmod:block/school_yellow_border_wall_31"
+    },
+    "north=true,east=true,south=true,west=true,up=true,down=true": {
+      "model": "lsmmod:block/school_yellow_border_wall_63"
+    }
+  }
+}

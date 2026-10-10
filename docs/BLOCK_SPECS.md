@@ -289,3 +289,6 @@ double_school_entrance: nueva puerta doble independiente de 3×3 bloques (48×48
 
 
 2026-10-10 — Nuevos street_school_wall (estuco beige 16×16) y street_school_bars (IronBarsBlock con malla diagonal oscura y marco agrupado 4×3). Colocación individual, conexión/agua/colisión vanilla, perfiles desde bordes del tramo, contorno simple. Recursos/ítems/drops/traducciones/pico y generador/check propios. 384 estados comprobados estáticamente; guía docs/STREET_SCHOOL_BLOCKS.md. Publicación autorizada en master; sin compilar ni probar Minecraft.
+
+
+2026-10-10 — Nuevo school_yellow_border_wall: bloque completo gris oscuro con borde amarillo intenso de 3 px, conexiones inmediatas en seis direcciones y perímetro compartido sin líneas interiores. Horizontal/vertical sin límite propio de tamaño, giro/espejo, ítem/drop/pico/traducciones. 64 estados y panel estático 5×1024 verificados, sin compilar ni probar Minecraft. Guía docs/SCHOOL_YELLOW_BORDER_WALL.md; publicación autorizada en master.
