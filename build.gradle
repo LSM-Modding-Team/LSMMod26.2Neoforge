@@ -154,6 +154,9 @@ dependencies {
     compileOnly files('libs/Jade-mc26.2-NeoForge-26.2.10.jar')
     compileOnly files('libs/FramedBlocks-11.4.0-26.2-unofficial.1.jar')
     compileOnly files('libs/bunnidogs-1.0.0.jar')
+    compileOnly files('libs/worldedit-mod-7.4.5.jar')
+    compileOnly files('libs/xaerominimap-neoforge-26.2-26.5.1.jar')
+    compileOnly files('libs/xaeroworldmap-neoforge-26.2-1.46.1.jar')
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

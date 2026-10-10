@@ -18,6 +18,10 @@
     "lsmmod:toilet",
     "lsmmod:men_urinal",
     "lsmmod:adult_men_urinal",
-    "lsmmod:football_basketball_goal"
+    "lsmmod:football_basketball_goal",
+    "lsmmod:supported_school_glass",
+    "lsmmod:mixed_school_glass",
+    "lsmmod:supported_school_glass_reversed",
+    "lsmmod:mixed_school_glass_reversed"
   ]
 }

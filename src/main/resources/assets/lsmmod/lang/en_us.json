@@ -239,5 +239,11 @@
   "block.lsmmod.toilet": "Toilet Cubicle",
   "block.lsmmod.men_urinal": "Children's Urinal",
   "block.lsmmod.adult_men_urinal": "Adult Men's Urinal",
-  "block.lsmmod.football_basketball_goal": "Football Goal with Basketball Hoop"
+  "block.lsmmod.football_basketball_goal": "Football Goal with Basketball Hoop",
+  "block.lsmmod.school_glass": "School Glass",
+  "block.lsmmod.supported_school_glass": "School Glass with Dark Wall Sill",
+  "block.lsmmod.tall_classroom_entrance": "Tall Classroom Door",
+  "block.lsmmod.mixed_school_glass": "School Glass with Light Wall and White Concrete",
+  "block.lsmmod.supported_school_glass_reversed": "School Glass Stairs with Swapped Lower Materials: Walls",
+  "block.lsmmod.mixed_school_glass_reversed": "School Glass Stairs with Swapped Lower Materials: Wall and Concrete"
 }

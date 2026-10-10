@@ -129,3 +129,7 @@ B-SHIELD.2 revertido: se restauran modelos cúbicos opacos y se elimina canSurvi
 2026-10-05 | MinecraftServer.getWorldPath(LevelResource.ROOT), ClickEvent.CopyToClipboard(String), Style.withClickEvent | Fuentes locales de Minecraft 26.2; rutas del mundo y copia del informe mediante el chat. Firmas verificadas por BUILD SUCCESSFUL; botón pendiente de prueba dentro de Minecraft.
 
 2026-10-05 | BlockPosArgument.blockPos/getBlockPos y LevelHeightAccessor.isInsideBuildHeight | Fuentes locales Minecraft 26.2 y compilación Java 25: dos coordenadas vanilla por comando, incluyendo relativas, sin exigir chunks cargados para definir. getMaxY es inclusivo en esta versión.
+
+2026-10-09: DoorBlock.java de Minecraft 26.2 leído desde decompile_3ebc3698ef74b18772738a695151a6db2c4eb7d2_output.jar ya existente: neighborChanged(BlockState, Level, BlockPos, Block, Orientation, boolean), level.gameEvent(entity, GameEvent, pos). Consulta de fuentes solamente; sin compilación. Puerta de tres alturas adapta la colocación, integridad y drop a ROW=0..2.
+
+2026-10-09: lectura local de StairBlock.java y Shapes.java de Minecraft 26.2: constructor protegido StairBlock(BlockState, Properties), getStateForPlacement con FACING/HALF/WATERLOGGED, updateShape calcula cinco STAIRS_SHAPE y programa agua; getShape suministra la colisión vanilla. SchoolGlassStairBlock delega estas operaciones y usa esa forma para colisión, con contorno simple separado. Fuente consultada únicamente, no ejecutada ni compilada.

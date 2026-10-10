@@ -232,5 +232,11 @@
   "block.lsmmod.toilet": "Inodoro con cubículo",
   "block.lsmmod.men_urinal": "Urinario infantil",
   "block.lsmmod.adult_men_urinal": "Urinario de varones para adultos",
-  "block.lsmmod.football_basketball_goal": "Arco de fútbol con canasta de básquet"
+  "block.lsmmod.football_basketball_goal": "Arco de fútbol con canasta de básquet",
+  "block.lsmmod.school_glass": "Cristal del colegio",
+  "block.lsmmod.supported_school_glass": "Cristal con alféizar de pared oscura",
+  "block.lsmmod.tall_classroom_entrance": "Puerta alta de aula",
+  "block.lsmmod.mixed_school_glass": "Cristal con muro claro y concreto blanco",
+  "block.lsmmod.supported_school_glass_reversed": "Cristal con materiales inferiores invertidos: paredes",
+  "block.lsmmod.mixed_school_glass_reversed": "Cristal con materiales inferiores invertidos: muro y concreto"
 }

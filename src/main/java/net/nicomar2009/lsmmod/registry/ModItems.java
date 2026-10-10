@@ -21,6 +21,14 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
+    public static final DeferredItem<BlockItem> SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_GLASS);
+    public static final DeferredItem<BlockItem> SUPPORTED_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.SUPPORTED_SCHOOL_GLASS);
+    public static final DeferredItem<BlockItem> MIXED_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.MIXED_SCHOOL_GLASS);
+    public static final DeferredItem<BlockItem> SUPPORTED_SCHOOL_GLASS_REVERSED = ITEMS.registerSimpleBlockItem(ModBlocks.SUPPORTED_SCHOOL_GLASS_REVERSED);
+    public static final DeferredItem<BlockItem> MIXED_SCHOOL_GLASS_REVERSED = ITEMS.registerSimpleBlockItem(ModBlocks.MIXED_SCHOOL_GLASS_REVERSED);
+    public static final DeferredItem<BlockItem> TALL_CLASSROOM_ENTRANCE = ITEMS.registerSimpleBlockItem(ModBlocks.TALL_CLASSROOM_ENTRANCE);
+
+
     public static final DeferredItem<BlockItem> FOOTBALL_BASKETBALL_GOAL =
             ITEMS.registerSimpleBlockItem(ModBlocks.FOOTBALL_BASKETBALL_GOAL);
 

@@ -1,0 +1,88 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "glass": "lsmmod:block/school_glass",
+    "support": "lsmmod:block/dark_school_wall",
+    "light_wall": "lsmmod:block/light_school_wall",
+    "concrete": "minecraft:block/white_concrete",
+    "transom": "lsmmod:block/school_transom_glass",
+    "glass_edge": "lsmmod:block/school_glass_edge",
+    "frame": "lsmmod:block/school_glass_frame",
+    "bottom": "lsmmod:block/classroom_door_bottom",
+    "top": "lsmmod:block/classroom_door_top",
+    "particle": "lsmmod:block/school_glass_frame"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        4,
+        16,
+        16
+      ],
+      "faces": {
+        "west": {
+          "texture": "#bottom",
+          "uv": [
+            16,
+            0,
+            0,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#bottom",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#bottom",
+          "uv": [
+            1,
+            1,
+            2,
+            2
+          ]
+        },
+        "south": {
+          "texture": "#bottom",
+          "uv": [
+            1,
+            1,
+            2,
+            2
+          ]
+        },
+        "up": {
+          "texture": "#bottom",
+          "uv": [
+            1,
+            1,
+            2,
+            2
+          ],
+          "rotation": 90
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            1,
+            1,
+            2,
+            2
+          ],
+          "rotation": 90
+        }
+      }
+    }
+  ]
+}

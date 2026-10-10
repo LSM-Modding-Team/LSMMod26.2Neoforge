@@ -1,0 +1,68 @@
+{
+  "variants": {
+    "bottom_connected=false,facing=north,top_connected=false": {
+      "model": "lsmmod:block/school_glass_0_0",
+      "y": 0
+    },
+    "bottom_connected=false,facing=east,top_connected=false": {
+      "model": "lsmmod:block/school_glass_0_0",
+      "y": 90
+    },
+    "bottom_connected=false,facing=south,top_connected=false": {
+      "model": "lsmmod:block/school_glass_0_0",
+      "y": 180
+    },
+    "bottom_connected=false,facing=west,top_connected=false": {
+      "model": "lsmmod:block/school_glass_0_0",
+      "y": 270
+    },
+    "bottom_connected=true,facing=north,top_connected=false": {
+      "model": "lsmmod:block/school_glass_0_1",
+      "y": 0
+    },
+    "bottom_connected=true,facing=east,top_connected=false": {
+      "model": "lsmmod:block/school_glass_0_1",
+      "y": 90
+    },
+    "bottom_connected=true,facing=south,top_connected=false": {
+      "model": "lsmmod:block/school_glass_0_1",
+      "y": 180
+    },
+    "bottom_connected=true,facing=west,top_connected=false": {
+      "model": "lsmmod:block/school_glass_0_1",
+      "y": 270
+    },
+    "bottom_connected=false,facing=north,top_connected=true": {
+      "model": "lsmmod:block/school_glass_1_0",
+      "y": 0
+    },
+    "bottom_connected=false,facing=east,top_connected=true": {
+      "model": "lsmmod:block/school_glass_1_0",
+      "y": 90
+    },
+    "bottom_connected=false,facing=south,top_connected=true": {
+      "model": "lsmmod:block/school_glass_1_0",
+      "y": 180
+    },
+    "bottom_connected=false,facing=west,top_connected=true": {
+      "model": "lsmmod:block/school_glass_1_0",
+      "y": 270
+    },
+    "bottom_connected=true,facing=north,top_connected=true": {
+      "model": "lsmmod:block/school_glass_1_1",
+      "y": 0
+    },
+    "bottom_connected=true,facing=east,top_connected=true": {
+      "model": "lsmmod:block/school_glass_1_1",
+      "y": 90
+    },
+    "bottom_connected=true,facing=south,top_connected=true": {
+      "model": "lsmmod:block/school_glass_1_1",
+      "y": 180
+    },
+    "bottom_connected=true,facing=west,top_connected=true": {
+      "model": "lsmmod:block/school_glass_1_1",
+      "y": 270
+    }
+  }
+}

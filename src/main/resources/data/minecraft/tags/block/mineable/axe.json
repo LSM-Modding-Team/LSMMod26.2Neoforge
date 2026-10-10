@@ -8,6 +8,7 @@
     "lsmmod:teachers_office_door",
     "lsmmod:bathroom_door",
     "lsmmod:projector_screen",
-    "lsmmod:classroom_timetable"
+    "lsmmod:classroom_timetable",
+    "lsmmod:tall_classroom_entrance"
   ]
 }

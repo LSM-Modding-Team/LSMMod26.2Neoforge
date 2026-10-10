@@ -17,6 +17,30 @@ public final class ModBlocks {
     // Specialized register: it sets the block's resource key (required since 1.21.2) automatically
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(LSMMod.MOD_ID);
 
+    public static final DeferredBlock<SchoolGlassBlock> SCHOOL_GLASS = BLOCKS.registerBlock(
+            "school_glass", props -> new SchoolGlassBlock(props, new double[][]{{0, 0, 0, 16, 16, 8}}),
+            props -> props.strength(0.3F).sound(SoundType.GLASS).noOcclusion());
+
+    public static final DeferredBlock<SchoolGlassStairBlock> SUPPORTED_SCHOOL_GLASS = BLOCKS.registerBlock(
+            "supported_school_glass", SchoolGlassStairBlock::new,
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+
+    public static final DeferredBlock<SchoolGlassStairBlock> MIXED_SCHOOL_GLASS = BLOCKS.registerBlock(
+            "mixed_school_glass", SchoolGlassStairBlock::new,
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+
+    public static final DeferredBlock<SchoolGlassStairBlock> SUPPORTED_SCHOOL_GLASS_REVERSED = BLOCKS.registerBlock(
+            "supported_school_glass_reversed", SchoolGlassStairBlock::new,
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+
+    public static final DeferredBlock<SchoolGlassStairBlock> MIXED_SCHOOL_GLASS_REVERSED = BLOCKS.registerBlock(
+            "mixed_school_glass_reversed", SchoolGlassStairBlock::new,
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+
+    public static final DeferredBlock<TallClassroomEntranceBlock> TALL_CLASSROOM_ENTRANCE = BLOCKS.registerBlock(
+            "tall_classroom_entrance", TallClassroomEntranceBlock::new,
+            props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+
     public static final DeferredBlock<SportsGoalBlock> FOOTBALL_BASKETBALL_GOAL = BLOCKS.registerBlock(
             "football_basketball_goal", SportsGoalBlock::new,
             props -> props.strength(3.0F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
