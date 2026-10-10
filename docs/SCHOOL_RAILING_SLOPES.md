@@ -18,30 +18,30 @@ Coordenadas desde el extremo inferior, avanzando hacia la subida:
 
 La pendiente sube 5/7 de bloque por columna. Las cuatro piezas tienen perfiles propios para conservar esa misma línea, aunque cambie la altura de sus celdas. El soporte interrumpe el pasamanos; no hay geometría oculta que atraviese la columna. Los soportes metálicos conservan la alternancia de la línea teórica.
 
-## Tramo continuo de 6×5
+## Seis piezas entre los extremos de la captura
 
-Coloca `school_railing_slope_flight_1` a `school_railing_slope_flight_6` según esta tabla, avanzando hacia la subida:
+La captura se interpreta como cinco niveles contando los dos extremos: baranda inferior a altura 0 y superior a altura 4, es decir, cuatro bloques de desnivel. El diseño previo tomaba cinco de desnivel y por eso producía una línea más profunda. Se mantienen seis bloques de longitud total.
 
-| Pieza | Avance | Altura de la celda |
+Las seis piezas se reconstruyen con dos segmentos de perfil cada una. La primera tiene medio bloque horizontal antes de comenzar la diagonal; la última tiene medio bloque horizontal después de terminarla. Los cinco bloques centrales de recorrido diagonal suben cuatro de altura (pendiente 4/5). Tanto el muro como el pasamanos siguen el perfil horizontal–diagonal–horizontal de la referencia.
+
+| Pieza | Avance desde abajo | Altura de la celda |
 | --- | --- | --- |
-| 1 | 0 | 0 |
-| 2 | 1 | 1 |
-| 3 | 2 | 2 |
-| 4 | 3 | 3 |
-| 5 | 4 | 4 |
-| 6 | 5 | 4 |
+| `school_railing_slope_flight_1` | 0 | 0 |
+| `school_railing_slope_flight_2` | 1 | 1 |
+| `school_railing_slope_flight_3` | 2 | 1 |
+| `school_railing_slope_flight_4` | 3 | 2 |
+| `school_railing_slope_flight_5` | 4 | 3 |
+| `school_railing_slope_flight_6` | 5 | 4 |
 
-Las últimas dos piezas comparten la altura de su celda, pero sus perfiles son distintos: al colocarlas en orden, la superficie sube exactamente cinco bloques en seis de largo. Cada columna sube 5/6 de bloque. Solo las seis piezas superiores llevan baranda.
+La altura de la celda no indica la altura del borde: cada pieza tiene un perfil propio que compensa esa diferencia. Retira las seis piezas antiguas y recolócalas según esta tabla, orientadas hacia la subida. Una colocación en seis alturas sucesivas no corresponde a este montaje.
 
-El modelo sigue la imagen como una franja diagonal de muro de 12 píxeles de grosor vertical constante, con borde superior e inferior paralelos. El espacio debajo puede quedar libre como en la referencia, o rellenarse manualmente con bloques normales. Las piezas no colocan relleno ni un conjunto automático. Algunas partes de esta franja se extienden dentro de la celda inferior; modelo y colisión coinciden.
+El muro es una franja de 12 píxeles constantes con borde inferior paralelo y espacio libre debajo. El pasamanos conserva las dimensiones del bloque horizontal y tiene soporte en las piezas 1, 3 y 5. Se reconstruyen las UV sobre el perfil de cada cara usando los materiales de pared clara y portón, sin estirar cada mitad sobre toda la textura ni invadir otras texturas del atlas. Las caras internas entre los medios perfiles se omiten para evitar superficies duplicadas.
 
-El pasamanos es continuo, paralelo al muro y lleva soporte en las piezas 1, 3 y 5. Las UV del muro y el metal se calculan respecto del perfil inclinado, conservando la distribución entre piezas y evitando estirar verticalmente la textura. Se mantienen los materiales originales de pared clara y metal del portón.
-
-Retira y recoloca el tramo continuo de la versión 5×5: sus identificadores 1–5 se mantienen, pero cambian el perfil y las posiciones. El tramo interrumpido conserva sus cuatro posiciones.
+Coloca `light_school_wall_railing` en avance -1, altura 0 y avance 6, altura 4. Los bordes del muro y del tubo coinciden exactamente con ambos descansos. Las piezas detectan esos extremos por su altura real y actualizan la conexión al colocar o retirar los bloques.
 
 ## Descansos y comportamiento
 
-En ambos tramos, coloca `light_school_wall_railing` antes del avance 0 a altura 0 y después del último avance a altura 5. El bloque horizontal detecta la altura real de los extremos inclinados, incluso si la pendiente ocupa una celda vecina inferior, y añade su brazo en la dirección correcta. Colocación y retirada actualizan también los descansos diagonales. Las piezas del tramo interrumpido se numeran desde abajo; para reproducir una bajada, gira el conjunto y conserva el orden desde su extremo inferior.
+En el tramo interrumpido, coloca `light_school_wall_railing` antes del avance 0 a altura 0 y después del último avance a altura 5; en el continuo, usa las alturas 0 y 4 de la tabla anterior. El bloque horizontal detecta la altura real de los extremos inclinados, incluso si la pendiente ocupa una celda vecina inferior, y añade su brazo en la dirección correcta. Colocación y retirada actualizan también los descansos diagonales. Las piezas del tramo interrumpido se numeran desde abajo; para reproducir una bajada, gira el conjunto y conserva el orden desde su extremo inferior.
 
 Cada ítem coloca únicamente su pieza y entrega un solo drop. Cuatro orientaciones, giro, espejo y agua. El modelo y la colisión incluyen el tubo por encima de la celda: deja libre ese espacio, igual que con la baranda horizontal. La colisión aproxima la superficie en bandas de medio píxel como máximo, y el contorno es una caja simple separada de esa colisión.
 

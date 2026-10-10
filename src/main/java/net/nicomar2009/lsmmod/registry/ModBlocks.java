@@ -18,34 +18,34 @@ public final class ModBlocks {
 
     // BEGIN SCHOOL RAILING SLOPES
     public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_SPLIT_1 = BLOCKS.registerBlock(
-            "school_railing_slope_split_1", props -> new SchoolRailingSlopeBlock(0.75,0.714285714285714,true,false,props),
+            "school_railing_slope_split_1", props -> new SchoolRailingSlopeBlock(0.75,0.357142857142857,0.357142857142857,true,false,props),
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
     public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_SPLIT_2 = BLOCKS.registerBlock(
-            "school_railing_slope_split_2", props -> new SchoolRailingSlopeBlock(0.464285714285714,0.714285714285714,false,false,props),
+            "school_railing_slope_split_2", props -> new SchoolRailingSlopeBlock(0.464285714285714,0.357142857142857,0.357142857142857,false,false,props),
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
     public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_SPLIT_3 = BLOCKS.registerBlock(
-            "school_railing_slope_split_3", props -> new SchoolRailingSlopeBlock(0.321428571428571,0.714285714285714,false,false,props),
+            "school_railing_slope_split_3", props -> new SchoolRailingSlopeBlock(0.321428571428571,0.357142857142857,0.357142857142857,false,false,props),
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
     public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_SPLIT_4 = BLOCKS.registerBlock(
-            "school_railing_slope_split_4", props -> new SchoolRailingSlopeBlock(0.0357142857142856,0.714285714285714,true,false,props),
+            "school_railing_slope_split_4", props -> new SchoolRailingSlopeBlock(0.0357142857142856,0.357142857142857,0.357142857142857,true,false,props),
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
     public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_1 = BLOCKS.registerBlock(
-            "school_railing_slope_flight_1", props -> new SchoolRailingSlopeBlock(0.75,0.833333333333333,true,true,props),
+            "school_railing_slope_flight_1", props -> new SchoolRailingSlopeBlock(0.75,0,0.4,true,true,props),
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
     public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_2 = BLOCKS.registerBlock(
-            "school_railing_slope_flight_2", props -> new SchoolRailingSlopeBlock(0.583333333333333,0.833333333333333,false,true,props),
+            "school_railing_slope_flight_2", props -> new SchoolRailingSlopeBlock(0.15,0.4,0.4,false,true,props),
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
     public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_3 = BLOCKS.registerBlock(
-            "school_railing_slope_flight_3", props -> new SchoolRailingSlopeBlock(0.416666666666667,0.833333333333333,true,true,props),
+            "school_railing_slope_flight_3", props -> new SchoolRailingSlopeBlock(0.95,0.4,0.4,true,true,props),
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
     public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_4 = BLOCKS.registerBlock(
-            "school_railing_slope_flight_4", props -> new SchoolRailingSlopeBlock(0.25,0.833333333333333,false,true,props),
+            "school_railing_slope_flight_4", props -> new SchoolRailingSlopeBlock(0.75,0.4,0.4,false,true,props),
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
     public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_5 = BLOCKS.registerBlock(
-            "school_railing_slope_flight_5", props -> new SchoolRailingSlopeBlock(0.0833333333333339,0.833333333333333,true,true,props),
+            "school_railing_slope_flight_5", props -> new SchoolRailingSlopeBlock(0.55,0.4,0.4,true,true,props),
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
     public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_6 = BLOCKS.registerBlock(
-            "school_railing_slope_flight_6", props -> new SchoolRailingSlopeBlock(0.916666666666667,0.833333333333333,false,true,props),
+            "school_railing_slope_flight_6", props -> new SchoolRailingSlopeBlock(0.35,0.4,0,false,true,props),
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
     // END SCHOOL RAILING SLOPES
 

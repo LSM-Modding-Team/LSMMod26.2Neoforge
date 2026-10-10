@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from PIL import Image
 import numpy as np
-from create_school_railing_slopes import A,ROOT,pieces
+from create_school_railing_slopes import A,ROOT,pieces,FLIGHT_RISE
 from check_school_railing_slopes import mesh
 
 def color(name):return np.array(Image.open(A/f'textures/block/{name}.png').convert('RGB')).mean(axis=(0,1))/255
@@ -27,14 +27,14 @@ def main():
     ax.add_collection3d(Poly3DCollection([poly],facecolors=[(wall if material=='wall' else metal)*shade],edgecolors='none'))
    for below in (range(row) if idx==1 else ()):ax.add_collection3d(Poly3DCollection(cube(col,0,below),facecolors=wall*.85,edgecolors='none'))
   end=7 if idx==1 else 6
-  for landing,height in ((-1,0),(end,5)):
+  for landing,height in ((-1,0),(end,5 if idx==1 else FLIGHT_RISE)):
    ax.add_collection3d(Poly3DCollection(cube(landing,0,height,.75),facecolors=wall,edgecolors='none'))
    ax.add_collection3d(Poly3DCollection(cube(landing,.4375,height+1.125,.125,1,.125),facecolors=metal,edgecolors='none'))
    ax.add_collection3d(Poly3DCollection(cube(landing+.4375,.4375,height+.75,.375,.125,.125),facecolors=metal,edgecolors='none'))
   if idx==1:
    for col in (2,3,4):ax.add_collection3d(Poly3DCollection(cube(col,0,0,6.5),facecolors=dark,edgecolors='none'))
   ax.set_xlim(-1,end+1);ax.set_ylim(0,1.2);ax.set_zlim(0,7);ax.set_box_aspect((end+2,2,7));ax.view_init(elev=12,azim=-74);ax.set_axis_off()
-  ax.set_title('4 piezas: tramo 7x5 interrumpido por soporte de 3' if idx==1 else '6 piezas superiores: tramo 6x5',fontsize=13)
+  ax.set_title('4 piezas: tramo 7x5 interrumpido por soporte de 3' if idx==1 else '6 piezas: extremos a 4 bloques de desnivel',fontsize=13)
  fig.text(.5,.03,'Vista previa externa: muro claro, metal del portón y borde inferior inclinado continuo.',ha='center')
  (ROOT/'previews').mkdir(exist_ok=True);fig.savefig(ROOT/'previews/school_railing_slopes.png',dpi=140,bbox_inches='tight');plt.close(fig)
 if __name__=='__main__':main()

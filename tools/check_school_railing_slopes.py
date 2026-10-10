@@ -1,7 +1,7 @@
 """Static checks of nine individual sloped walls, rail junctions and placements."""
 import json,math
 import numpy as np
-from create_school_railing_slopes import A,ROOT,pieces
+from create_school_railing_slopes import A,ROOT,pieces,FLIGHT_RISE,flight_halves,flight_height
 
 def mesh(path):
  vertices=[];uvs=[];faces=[];material=None
@@ -26,16 +26,24 @@ def main():
   assert np.min(vertices[:,0])==0 and np.max(vertices[:,0])==1
   assert np.min(vertices[:,2])==0 and np.max(vertices[:,2])==1
   assert np.isclose(np.max(vertices[:,1]),low+rise+.5)
-  assert len(faces)==(18 if post else 12)
-  for i in range(0,len(faces),6):
-   group=faces[i:i+6];center=np.mean(vertices[[j for _,f in group for j in f]],axis=0);volume=0
-   for _,indices in group:
+  flight='_flight_' in ident
+  assert len(faces)==((30 if post else 20) if flight else (18 if post else 12))
+  stride=5 if flight else 6
+  total_volume=0;wall_volume=0
+  for i in range(0,len(faces),stride):
+   group=faces[i:i+stride];unique=sorted({j for _,f in group for j in f});center=vertices[unique].mean(axis=0)
+   for material,indices in group:
     p=vertices[indices];normal=np.cross(p[1]-p[0],p[2]-p[0])
     assert np.linalg.norm(normal)>1e-9 and normal@(p.mean(axis=0)-center)>0
     assert all(abs(normal@(v-p[0]))<1e-8 for v in p)
-    for j in range(1,len(p)-1):volume+=p[0]@np.cross(p[j],p[j+1])/6
-   assert volume>0
-   if i==0 and "_flight_" in ident:assert math.isclose(volume,.75,abs_tol=1e-9)
+    for j in range(1,len(p)-1):
+     volume=p[0]@np.cross(p[j],p[j+1])/6;total_volume+=volume
+     if material=='wall':wall_volume+=volume
+  assert total_volume>0
+  if flight:
+   assert math.isclose(wall_volume,.75,abs_tol=1e-9)
+   assert math.isclose(total_volume,.75+1/64+(3/512 if post else 0),abs_tol=1e-9)
+   a,b=flight_halves(col);assert max(a,b)*2/32<=1/32
   states=json.loads((A/f'blockstates/{ident}.json').read_text())['variants'];assert len(states)==4
   assert all('half' not in key for key in states)
   assert ident in reg
@@ -45,10 +53,11 @@ def main():
  def height(piece,end):return piece[2]+piece[3]+piece[4]*end
  split=plan[:4];flight=plan[4:]
  assert math.isclose(height(split[-1],1)-height(split[0],0),5)
- assert math.isclose(height(flight[-1],1)-height(flight[0],0),5)
+ assert math.isclose(height(flight[-1],1)-height(flight[0],0),FLIGHT_RISE)
  assert flight[-1][1]+1==6
- assert [p[2] for p in flight]==[0,1,2,3,4,4]
- assert all(math.isclose(p[4],5/6) for p in flight)
+ assert [p[2] for p in flight]==[0,1,1,2,3,4]
+ assert flight_halves(0)[0]==0 and flight_halves(5)[1]==0
+ assert all(math.isclose(sum(flight_halves(i)),flight[i][4]) for i in range(6))
  for group in (split[:2],split[2:],flight):
   for first,second in zip(group,group[1:]):
    assert math.isclose(height(first,1),height(second,0),abs_tol=1e-10)
@@ -56,7 +65,7 @@ def main():
  # Four landings join the existing flat wall at exactly the same wall/rail height.
  for group in (split,flight):
   assert math.isclose(height(group[0],0),.75)
-  assert math.isclose(height(group[-1],1),5.75)
+  assert math.isclose(height(group[-1],1),(.75+FLIGHT_RISE) if group is flight else 5.75)
  source=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolRailingSlopeBlock.java').read_text()
  assert 'HALF' not in source and 'SimpleBlockOutline.forState' in source
  assert 'protected VoxelShape getCollisionShape' in source
@@ -64,5 +73,5 @@ def main():
  assert 'super.getCollisionShape' not in source
  flat=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolWallRailingBlock.java').read_text()
  assert 'SchoolRailingSlopeBlock.connectsFlat' in flat
- print('OK: 10 pieces, 80 states, outward planar faces, atlas-safe UVs, continuous wall/rail endpoints, 7x5 split and 6x5 flight, constant 12 px wall thickness, no inversion.')
+ print('OK: 10 pieces, 80 states, outward planar faces, atlas-safe UVs, continuous wall/rail endpoints, 7x5 split and 6 blocks / 5 levels, horizontal end transitions, constant 12 px wall thickness, no inversion.')
 if __name__=='__main__':main()
