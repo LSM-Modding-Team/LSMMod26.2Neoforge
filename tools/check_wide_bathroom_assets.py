@@ -14,7 +14,7 @@ def main():
     for block_id, (closed, opened, height) in FIXTURES.items():
         variants = read(ASSETS / f'blockstates/{block_id}.json')['variants']
         assert len(variants) == (32 if height == 2 else 8)
-        assert max(b[0][3] for b in closed)-min(b[0][0] for b in closed) > 16
+        assert all(0<=b[0][0]<b[0][3]<=32 for b in closed)
         for is_open, parts in ((False, closed), (True, opened)) if height == 2 else ((False, closed),):
             full = solid_model(parts)
             cells = {}

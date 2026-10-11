@@ -99,6 +99,12 @@ public final class ModBlocks {
             props -> props.strength(0.5F).sound(SoundType.METAL).noOcclusion());
     // END SCHOOL CABINET AND ROUTER
 
+    // BEGIN SCHOOL SINK
+    public static final DeferredBlock<SchoolSinkBlock> SCHOOL_SINK = BLOCKS.registerBlock(
+            "school_sink", SchoolSinkBlock::new,
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));
+    // END SCHOOL SINK
+
     // BEGIN CLASSROOM SURFACES
     public static final DeferredBlock<Block> CLASSROOM_WHITE_WALL = BLOCKS.registerBlock(
             "classroom_white_wall", Block::new,

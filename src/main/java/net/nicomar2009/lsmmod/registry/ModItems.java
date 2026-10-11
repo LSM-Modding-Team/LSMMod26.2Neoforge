@@ -68,6 +68,10 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> SCHOOL_ROUTER = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ROUTER);
     // END SCHOOL CABINET AND ROUTER
 
+    // BEGIN SCHOOL SINK
+    public static final DeferredItem<BlockItem> SCHOOL_SINK = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_SINK);
+    // END SCHOOL SINK
+
     // BEGIN CLASSROOM SURFACES
     public static final DeferredItem<BlockItem> CLASSROOM_WHITE_WALL = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_WHITE_WALL);
     public static final DeferredItem<BlockItem> CLASSROOM_PAINTED_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_PAINTED_BLOCK);

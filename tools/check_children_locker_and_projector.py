@@ -9,7 +9,7 @@ def main():
         model=read(A/f'models/block/children_locker_{half}.json')
         assert len(model['elements'])==5
         assert not solid(model,(8,8,8)), 'The cubby must be open inside'
-        assert solid(model,(8,8,14.5)) and solid(model,(1.5,8,8)) and solid(model,(8,.5,8))
+        assert solid(model,(8,8,14.5)) and solid(model,(.25,8,8)) and solid(model,(8,.5,8))
         for e in model['elements']:assert all(0<=a<b<=16 for a,b in zip(e['from'],e['to']))
     states=read(A/'blockstates/children_locker.json')['variants'];assert len(states)==8
     assert {s['y'] for s in states.values()}=={0,90,180,270}

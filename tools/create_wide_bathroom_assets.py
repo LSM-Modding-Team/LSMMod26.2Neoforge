@@ -10,6 +10,10 @@ def widened(parts):
     for part in value:
         part[0][0] *= 2
         part[0][3] *= 2
+        # Narrow the sanitary body by 12.5%, keeping cubicle walls and doors intact.
+        if part[1] in ('porcelain', 'seat', 'drain'):
+            part[0][0] = 16 + (part[0][0]-16)*0.875
+            part[0][3] = 16 + (part[0][3]-16)*0.875
     return value
 
 

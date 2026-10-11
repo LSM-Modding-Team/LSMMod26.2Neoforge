@@ -105,6 +105,7 @@
     "lsmmod:light_street_school_glass",
     "lsmmod:street_light_school_glass",
     "lsmmod:school_cabinet",
-    "lsmmod:school_router"
+    "lsmmod:school_router",
+    "lsmmod:school_sink"
   ]
 }

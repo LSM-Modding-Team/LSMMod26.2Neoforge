@@ -1,0 +1,311 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "chrome": "lsmmod:block/school_chrome",
+    "drain": "lsmmod:block/school_drain",
+    "porcelain": "lsmmod:block/school_porcelain",
+    "particle": "lsmmod:block/school_porcelain"
+  },
+  "elements": [
+    {
+      "from": [
+        5,
+        0,
+        5
+      ],
+      "to": [
+        11,
+        2,
+        12
+      ],
+      "faces": {
+        "west": {
+          "texture": "#porcelain",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        0,
+        5
+      ],
+      "to": [
+        11,
+        2,
+        12
+      ],
+      "faces": {
+        "east": {
+          "texture": "#porcelain",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        0,
+        5
+      ],
+      "to": [
+        11,
+        2,
+        12
+      ],
+      "faces": {
+        "down": {
+          "texture": "#porcelain",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        0,
+        5
+      ],
+      "to": [
+        11,
+        2,
+        7
+      ],
+      "faces": {
+        "up": {
+          "texture": "#porcelain",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        0,
+        7
+      ],
+      "to": [
+        6,
+        2,
+        11
+      ],
+      "faces": {
+        "up": {
+          "texture": "#porcelain",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        10,
+        0,
+        7
+      ],
+      "to": [
+        11,
+        2,
+        11
+      ],
+      "faces": {
+        "up": {
+          "texture": "#porcelain",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        0,
+        11
+      ],
+      "to": [
+        11,
+        2,
+        12
+      ],
+      "faces": {
+        "up": {
+          "texture": "#porcelain",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        0,
+        5
+      ],
+      "to": [
+        11,
+        2,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#porcelain",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        0,
+        5
+      ],
+      "to": [
+        11,
+        2,
+        12
+      ],
+      "faces": {
+        "south": {
+          "texture": "#porcelain",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        2,
+        7
+      ],
+      "to": [
+        10,
+        16,
+        11
+      ],
+      "faces": {
+        "west": {
+          "texture": "#porcelain",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        2,
+        7
+      ],
+      "to": [
+        10,
+        16,
+        11
+      ],
+      "faces": {
+        "east": {
+          "texture": "#porcelain",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        2,
+        7
+      ],
+      "to": [
+        10,
+        16,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#porcelain",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        2,
+        7
+      ],
+      "to": [
+        10,
+        16,
+        11
+      ],
+      "faces": {
+        "south": {
+          "texture": "#porcelain",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ],
+  "render_type": "minecraft:solid"
+}

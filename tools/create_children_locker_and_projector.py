@@ -22,9 +22,12 @@ def main():
             for x in range(32):
                 delta=columns[x]+rng.choice((-2,0,0,0,2));image.putpixel((x,y),tuple(c+delta for c in base))
         save(image,name)
-    cubby=[box([1,0,2,15,1,15],'end'),box([1,15,2,15,16,15],'end'),
-           box([1,1,2,2,15,15],'wood'),box([14,1,2,15,15,15],'wood'),box([2,1,14,14,15,15],'back')]
-    textures={k:'lsmmod:block/children_locker_'+k for k in ('wood','end','back')};textures['particle']=textures['wood']
+    cubby=[box([0,0,2,16,1,15],'end'),box([0,15,2,16,16,15],'end'),
+           box([0,1,2,.5,15,15],'wood'),box([15.5,1,2,16,15,15],'wood'),box([.5,1,14,15.5,15,15],'back')]
+    for e in cubby:
+        if e['from'][0]==0:e['faces']['west']['cullface']='west'
+        if e['to'][0]==16:e['faces']['east']['cullface']='east'
+    textures={k:'lsmmod:block/children_locker_' +k for k in ('wood','end','back')};textures['particle']=textures['wood']
     for half in ('lower','upper'):write(A/f'models/block/children_locker_{half}.json',{'parent':'minecraft:block/block','textures':textures,'elements':cubby})
     combined=cubby+[{'from':[e['from'][0],e['from'][1]+16,e['from'][2]],'to':[e['to'][0],e['to'][1]+16,e['to'][2]],'faces':e['faces']} for e in cubby]
     write(A/'models/item/children_locker.json',{'parent':'minecraft:block/block','textures':textures,'elements':combined,

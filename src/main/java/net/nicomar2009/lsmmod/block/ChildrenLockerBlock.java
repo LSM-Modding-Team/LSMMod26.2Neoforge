@@ -29,7 +29,7 @@ public class ChildrenLockerBlock extends Block {
     public static final EnumProperty<Direction> FACING=BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<DoubleBlockHalf> HALF=BlockStateProperties.DOUBLE_BLOCK_HALF;
     private static final VoxelShape[] COLLISION = {
-        ExactVoxelShapes.pixels(new double[][]{{1,0,2,15,1,15},{1,15,2,15,16,15},{1,1,2,2,15,15},{14,1,2,15,15,15},{2,1,14,14,15,15}}),
+        ExactVoxelShapes.pixels(new double[][]{{0,0,2,16,1,15},{0,15,2,16,16,15},{0,1,2,.5,15,15},{15.5,1,2,16,15,15},{.5,1,14,15.5,15,15}}),
         null,null,null
     };
     static { var rotations=Shapes.rotateHorizontal(COLLISION[0]); for(int i=1;i<4;i++) COLLISION[i]=rotations.get(Direction.from2DDataValue((i+2)%4)); }
@@ -73,6 +73,11 @@ public class ChildrenLockerBlock extends Block {
     }
     @Override protected VoxelShape getShape(BlockState state,BlockGetter level,BlockPos pos,CollisionContext context) {
         return SimpleBlockOutline.forState(state,()->getCollisionShape(state,level,pos,context));
+    }
+    @Override protected boolean skipRendering(BlockState state,BlockState neighbor,Direction side) {
+        return (side.getAxis().isHorizontal() && side.getAxis()!=state.getValue(FACING).getAxis()
+                && neighbor.is(this) && neighbor.getValue(FACING)==state.getValue(FACING)
+                && neighbor.getValue(HALF)==state.getValue(HALF)) || super.skipRendering(state,neighbor,side);
     }
     @Override protected BlockState rotate(BlockState state,Rotation rotation) {return state.setValue(FACING,rotation.rotate(state.getValue(FACING)));}
     @Override protected BlockState mirror(BlockState state,Mirror mirror) {return state.rotate(mirror.getRotation(state.getValue(FACING)));}
