@@ -67,6 +67,9 @@
     "lsmmod:school_entrance_pavement_slope_4",
     "lsmmod:school_entrance_pavement_slab",
     "lsmmod:school_entrance_pavement_slope_5",
-    "lsmmod:school_entrance_pavement_slope_6"
+    "lsmmod:school_entrance_pavement_slope_6",
+    "lsmmod:school_clock",
+    "lsmmod:school_fan",
+    "lsmmod:ceiling_light"
   ]
 }

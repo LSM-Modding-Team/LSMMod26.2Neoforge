@@ -1,0 +1,32 @@
+newmtl metal
+Kd 1 1 1
+d 1
+map_Kd #surface
+newmtl blade
+Kd 1 1 1
+d 1
+map_Kd #surface
+newmtl rim
+Kd 1 1 1
+d 1
+map_Kd #surface
+newmtl body
+Kd 1 1 1
+d 1
+map_Kd #surface
+newmtl hub
+Kd 1 1 1
+d 1
+map_Kd #surface
+newmtl on
+Kd 1 1 1
+d 1
+map_Kd #surface
+newmtl off
+Kd 1 1 1
+d 1
+map_Kd #surface
+newmtl clock
+Kd 1 1 1
+d 1
+map_Kd #clock_face

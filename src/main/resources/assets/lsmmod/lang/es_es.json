@@ -266,5 +266,8 @@
   "block.lsmmod.school_entrance_pavement_slope_4": "Pendiente del pavimento de entrada 4",
   "block.lsmmod.school_entrance_pavement_slab": "Losa del pavimento de entrada",
   "block.lsmmod.school_entrance_pavement_slope_5": "Pendiente del pavimento de entrada 5",
-  "block.lsmmod.school_entrance_pavement_slope_6": "Pendiente del pavimento de entrada 6"
+  "block.lsmmod.school_entrance_pavement_slope_6": "Pendiente del pavimento de entrada 6",
+  "block.lsmmod.school_clock": "Reloj del colegio",
+  "block.lsmmod.school_fan": "Ventilador del colegio",
+  "block.lsmmod.ceiling_light": "Lámpara de techo"
 }

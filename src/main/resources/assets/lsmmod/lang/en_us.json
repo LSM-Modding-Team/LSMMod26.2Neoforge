@@ -273,5 +273,8 @@
   "block.lsmmod.school_entrance_pavement_slope_4": "Entrance Pavement Slope 4",
   "block.lsmmod.school_entrance_pavement_slab": "Entrance Pavement Slab",
   "block.lsmmod.school_entrance_pavement_slope_5": "Entrance Pavement Slope 5",
-  "block.lsmmod.school_entrance_pavement_slope_6": "Entrance Pavement Slope 6"
+  "block.lsmmod.school_entrance_pavement_slope_6": "Entrance Pavement Slope 6",
+  "block.lsmmod.school_clock": "School Clock",
+  "block.lsmmod.school_fan": "School Fan",
+  "block.lsmmod.ceiling_light": "Ceiling Light"
 }

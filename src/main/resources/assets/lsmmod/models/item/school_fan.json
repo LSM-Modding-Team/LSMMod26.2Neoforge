@@ -1,0 +1,17 @@
+{
+  "parent": "lsmmod:block/school_fan",
+  "display": {
+    "gui": {
+      "rotation": [
+        20,
+        160,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ]
+    }
+  }
+}

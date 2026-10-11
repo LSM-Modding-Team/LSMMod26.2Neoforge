@@ -448,3 +448,6 @@ Todos los docs del plan existen desde la sesión 4. `PLANNED` = se escribe solo 
 
 
 2026-10-10 — Corrección de dimensiones del acceso a 6×6×2: seis school_entrance_pavement_slope_1..6, subida uniforme de 4 px por pieza, extremos Y8→32 px y filas 0/0/1/1/1/1. Piezas 1..4 rediseñadas y nuevas 5/6; perfiles/colisiones/conexiones/borde geométrico/generador/layout sincronizados. Slab conservado. 1536 estados de slope y 384 de slab, volúmenes y perímetro verificados estáticamente. Recolocar el montaje anterior con la tabla nueva. Publicación autorizada en master, sin compilar ni probar Minecraft.
+
+
+2026-10-10 — Nuevos school_clock (pared, circular, grosor exacto 2 px), school_fan (pared, turbina/3 aspas centradas, rejilla real, decorativo estático) y ceiling_light (techo, blanco circular, encendido por defecto, clic derecho alterna luz 15/0). Apoyo/orientación, contorno/collisión simples, ítems/drops/traducciones/pico. Generador y comprobación estática de mallas/paleta/centrado/profundidad/estado; guía docs/SCHOOL_DECORATIONS.md. Publicación autorizada en master, sin compilar ni probar Minecraft.

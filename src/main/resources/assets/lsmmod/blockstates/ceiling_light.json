@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=true": {
+      "model": "lsmmod:block/ceiling_light_on"
+    },
+    "lit=false": {
+      "model": "lsmmod:block/ceiling_light_off"
+    }
+  }
+}

@@ -20,6 +20,16 @@ public final class ModBlocks {
     // BEGIN SCHOOL INVERTED SLOPES
     // BEGIN SCHOOL SPLIT RAISED EXTRAS
     // BEGIN ENTRANCE PAVEMENT SHAPES
+    public static final DeferredBlock<SchoolWallDecorationBlock> SCHOOL_CLOCK = BLOCKS.registerBlock(
+            "school_clock", props -> new SchoolWallDecorationBlock(2,props),
+            props -> props.strength(.5F).sound(SoundType.METAL).noOcclusion());
+    public static final DeferredBlock<SchoolWallDecorationBlock> SCHOOL_FAN = BLOCKS.registerBlock(
+            "school_fan", props -> new SchoolWallDecorationBlock(6,props),
+            props -> props.strength(.8F).sound(SoundType.METAL).noOcclusion());
+    public static final DeferredBlock<CeilingLightBlock> CEILING_LIGHT = BLOCKS.registerBlock(
+            "ceiling_light", CeilingLightBlock::new,
+            props -> props.strength(.5F).sound(SoundType.GLASS).noOcclusion().lightLevel(state -> state.getValue(CeilingLightBlock.LIT) ? 15 : 0));
+
     public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_1 = BLOCKS.registerBlock("school_entrance_pavement_slope_1", props -> new EntrancePavementSlopeBlock(0.5,props), props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
     public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_2 = BLOCKS.registerBlock("school_entrance_pavement_slope_2", props -> new EntrancePavementSlopeBlock(0.75,props), props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
     public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_3 = BLOCKS.registerBlock("school_entrance_pavement_slope_3", props -> new EntrancePavementSlopeBlock(0,props), props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());

@@ -1,0 +1,12 @@
+{
+  "loader": "neoforge:obj",
+  "model": "lsmmod:models/block/ceiling_light_on.obj",
+  "automatic_culling": false,
+  "flip_v": true,
+  "shade_quads": false,
+  "textures": {
+    "surface": "lsmmod:block/school_decoration_surface",
+    "clock_face": "lsmmod:block/school_clock_face",
+    "particle": "lsmmod:block/school_decoration_surface"
+  }
+}
