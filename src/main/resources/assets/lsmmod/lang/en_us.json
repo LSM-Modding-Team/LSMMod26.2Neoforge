@@ -341,5 +341,13 @@
   "block.lsmmod.gray_playground_floor": "Gray Playground Floor",
   "item.lsmmod.white_playground_floor_paint": "White Playground Floor Paint",
   "item.lsmmod.gray_playground_floor_paint": "Gray Playground Floor Paint",
-  "block.lsmmod.school_connected_sink": "School Connected Trough Sink"
+  "block.lsmmod.school_connected_sink": "School Connected Trough Sink",
+  "message.lsmmod.rectangle.start": "Start selected. Right-click the other corner on the same face; Shift + air click cancels.",
+  "message.lsmmod.rectangle.cancelled": "Rectangle selection cancelled.",
+  "message.lsmmod.rectangle.done": "Modified %s faces or squares.",
+  "message.lsmmod.rectangle.plane": "Choose the same face and plane as the start, or cancel with Shift + air click.",
+  "message.lsmmod.rectangle.large": "The rectangle supports at most 256 blocks.",
+  "message.lsmmod.rectangle.unloaded": "The whole selection must be in loaded chunks.",
+  "message.lsmmod.rectangle.denied": "You cannot modify the entire selection.",
+  "message.lsmmod.rectangle.target": "Invalid selected face or hit point."
 }

@@ -10,26 +10,33 @@ import net.nicomar2009.lsmmod.registry.ModItems;
 
 public class SchoolSandpaperItem extends Item {
     public SchoolSandpaperItem(Properties properties) { super(properties.stacksTo(1)); }
+    @Override public InteractionResult use(net.minecraft.world.level.Level level,net.minecraft.world.entity.player.Player player,net.minecraft.world.InteractionHand hand) {
+        return RectanglePaintTool.cancel(level,player,player.getItemInHand(hand));
+    }
+    public static void refund(net.minecraft.world.entity.player.Player player,SchoolPaint color) {
+        Item item=switch(color) {
+            case LIGHT -> ModItems.LIGHT_SCHOOL.get(); case DARK -> ModItems.DARK_SCHOOL.get();
+            case STREET -> ModItems.STREET_SCHOOL.get(); case WHITE -> ModItems.CLASSROOM_WHITE.get();
+            case FLOOR -> ModItems.CLASSROOM_FLOOR_PAINT.get(); case YELLOW -> ModItems.YELLOW_SCHOOL_PAINT.get();
+            case PLAYGROUND_WHITE -> ModItems.WHITE_PLAYGROUND_FLOOR_PAINT.get();
+            case PLAYGROUND_GRAY -> ModItems.GRAY_PLAYGROUND_FLOOR_PAINT.get();
+            default -> throw new IllegalArgumentException("Unpainted faces cannot yield paint");
+        };
+        ItemStack recovered=new ItemStack(item);
+        if(!player.getInventory().add(recovered))player.drop(recovered,false);
+    }
     @Override public InteractionResult useOn(UseOnContext context) {
         var level=context.getLevel();var pos=context.getClickedPos();var player=context.getPlayer();
         if(!(level.getBlockEntity(pos) instanceof SchoolPaintableBlockEntity block)) return InteractionResult.PASS;
         if(player==null||player.isSpectator()||!level.mayInteract(player,pos)
                 ||!player.mayUseItemAt(pos,context.getClickedFace(),context.getItemInHand())) return InteractionResult.FAIL;
+        InteractionResult rectangle=RectanglePaintTool.use(context,null);
+        if(rectangle!=null)return rectangle;
         SchoolPaint color=block.paintAt(context.getClickedFace(),context.getClickLocation());
         if(color==SchoolPaint.UNPAINTED) return InteractionResult.FAIL;
         if(!level.isClientSide()) {
-            Item item=switch(color) {
-                case LIGHT -> ModItems.LIGHT_SCHOOL.get(); case DARK -> ModItems.DARK_SCHOOL.get();
-                case STREET -> ModItems.STREET_SCHOOL.get(); case WHITE -> ModItems.CLASSROOM_WHITE.get();
-                case FLOOR -> ModItems.CLASSROOM_FLOOR_PAINT.get();
-                case YELLOW -> ModItems.YELLOW_SCHOOL_PAINT.get();
-                case PLAYGROUND_WHITE -> ModItems.WHITE_PLAYGROUND_FLOOR_PAINT.get();
-                case PLAYGROUND_GRAY -> ModItems.GRAY_PLAYGROUND_FLOOR_PAINT.get();
-                default -> throw new IllegalStateException("Unpainted square cannot yield paint");
-            };
             block.paintAt(context.getClickedFace(),context.getClickLocation(),SchoolPaint.UNPAINTED);
-            ItemStack recovered=new ItemStack(item);
-            if(!player.getInventory().add(recovered)) player.drop(recovered,false);
+            refund(player,color);
         }
         return InteractionResult.SUCCESS;
     }

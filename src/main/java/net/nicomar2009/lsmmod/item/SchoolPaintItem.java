@@ -17,6 +17,7 @@ public class SchoolPaintItem extends Item {
     private final SchoolPaint paint;
     public SchoolPaintItem(SchoolPaint paint, Properties properties) { super(properties.stacksTo(1)); this.paint = paint; }
     public static void copyTo(ItemStack stack, SchoolPaintableBlockEntity source) {
+        RectanglePaintTool.clear(stack);
         CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         CompoundTag copy = new CompoundTag(); int[] colors = source.snapshot();
         copy.putBoolean("quadrants", colors.length == 24);
@@ -40,11 +41,16 @@ public class SchoolPaintItem extends Item {
         }
         return colors;
     }
+    @Override public InteractionResult use(net.minecraft.world.level.Level level,net.minecraft.world.entity.player.Player player,net.minecraft.world.InteractionHand hand) {
+        return RectanglePaintTool.cancel(level,player,player.getItemInHand(hand));
+    }
     @Override public InteractionResult useOn(UseOnContext context) {
         var level = context.getLevel(); var pos = context.getClickedPos(); var player = context.getPlayer();
         if (!(level.getBlockEntity(pos) instanceof SchoolPaintableBlockEntity block)) return InteractionResult.PASS;
         if (player == null || player.isSpectator() || !level.mayInteract(player, pos)
                 || !player.mayUseItemAt(pos, context.getClickedFace(), context.getItemInHand())) return InteractionResult.FAIL;
+        InteractionResult rectangle=RectanglePaintTool.use(context,paint);
+        if(rectangle!=null)return rectangle;
         if (!level.isClientSide()) {
             ItemStack stack = context.getItemInHand();
             CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();

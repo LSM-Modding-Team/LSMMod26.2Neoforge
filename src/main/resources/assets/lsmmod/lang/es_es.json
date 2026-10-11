@@ -335,5 +335,13 @@
   "block.lsmmod.gray_playground_floor": "Suelo gris del patio",
   "item.lsmmod.white_playground_floor_paint": "Pintura de suelo claro del patio",
   "item.lsmmod.gray_playground_floor_paint": "Pintura de suelo gris del patio",
-  "block.lsmmod.school_connected_sink": "Lavadero continuo del colegio"
+  "block.lsmmod.school_connected_sink": "Lavadero continuo del colegio",
+  "message.lsmmod.rectangle.start": "Inicio marcado. Clic derecho en otra esquina de la misma cara; Shift + clic al aire cancela.",
+  "message.lsmmod.rectangle.cancelled": "Selección rectangular cancelada.",
+  "message.lsmmod.rectangle.done": "Se modificaron %s caras o cuadrados.",
+  "message.lsmmod.rectangle.plane": "Selecciona la misma cara y plano del inicio, o cancela con Shift + clic al aire.",
+  "message.lsmmod.rectangle.large": "El rectángulo admite como máximo 256 bloques.",
+  "message.lsmmod.rectangle.unloaded": "Toda la selección debe estar en una zona cargada.",
+  "message.lsmmod.rectangle.denied": "No tienes permiso para modificar toda la selección.",
+  "message.lsmmod.rectangle.target": "La cara o el punto seleccionado no es válido."
 }
