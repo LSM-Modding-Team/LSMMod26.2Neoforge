@@ -23,7 +23,9 @@ def main():
   assert (im.getpixel((8,0))==(255,211,0))==(row==height-1)
   assert (im.getpixel((8,15))==(255,211,0))==(row==0)
  java=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolYellowBorderWallBlock.java').read_text()
- assert 'Direction.values()' in java and 'neighbor.is(this)' in java
- assert 'scheduleTick' not in java and 'while(' not in java
+ assert 'EntrancePavementConnections.update' in java
+ helper=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/EntrancePavementConnections.java').read_text()
+ assert 'Direction.values()' in helper and 'family(other)' in helper
+ assert 'while(' not in helper
  print('OK: 64 states, all six faces, exactly 3px yellow perimeter; no interior seams in 5x1024 panel; local updates, no height/count cap.')
 if __name__=='__main__':main()

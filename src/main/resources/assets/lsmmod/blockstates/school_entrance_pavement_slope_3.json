@@ -1,0 +1,1028 @@
+{
+  "variants": {
+    "north=false,east=false,south=false,west=false,up=false,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_0",
+      "y": 0
+    },
+    "north=false,east=false,south=false,west=false,up=false,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_0",
+      "y": 90
+    },
+    "north=false,east=false,south=false,west=false,up=false,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_0",
+      "y": 180
+    },
+    "north=false,east=false,south=false,west=false,up=false,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_0",
+      "y": 270
+    },
+    "north=false,east=false,south=false,west=false,up=false,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_32",
+      "y": 0
+    },
+    "north=false,east=false,south=false,west=false,up=false,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_32",
+      "y": 90
+    },
+    "north=false,east=false,south=false,west=false,up=false,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_32",
+      "y": 180
+    },
+    "north=false,east=false,south=false,west=false,up=false,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_32",
+      "y": 270
+    },
+    "north=false,east=false,south=false,west=false,up=true,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_16",
+      "y": 0
+    },
+    "north=false,east=false,south=false,west=false,up=true,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_16",
+      "y": 90
+    },
+    "north=false,east=false,south=false,west=false,up=true,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_16",
+      "y": 180
+    },
+    "north=false,east=false,south=false,west=false,up=true,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_16",
+      "y": 270
+    },
+    "north=false,east=false,south=false,west=false,up=true,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_48",
+      "y": 0
+    },
+    "north=false,east=false,south=false,west=false,up=true,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_48",
+      "y": 90
+    },
+    "north=false,east=false,south=false,west=false,up=true,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_48",
+      "y": 180
+    },
+    "north=false,east=false,south=false,west=false,up=true,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_48",
+      "y": 270
+    },
+    "north=false,east=false,south=false,west=true,up=false,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_8",
+      "y": 0
+    },
+    "north=true,east=false,south=false,west=false,up=false,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_8",
+      "y": 90
+    },
+    "north=false,east=true,south=false,west=false,up=false,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_8",
+      "y": 180
+    },
+    "north=false,east=false,south=true,west=false,up=false,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_8",
+      "y": 270
+    },
+    "north=false,east=false,south=false,west=true,up=false,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_40",
+      "y": 0
+    },
+    "north=true,east=false,south=false,west=false,up=false,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_40",
+      "y": 90
+    },
+    "north=false,east=true,south=false,west=false,up=false,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_40",
+      "y": 180
+    },
+    "north=false,east=false,south=true,west=false,up=false,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_40",
+      "y": 270
+    },
+    "north=false,east=false,south=false,west=true,up=true,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_24",
+      "y": 0
+    },
+    "north=true,east=false,south=false,west=false,up=true,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_24",
+      "y": 90
+    },
+    "north=false,east=true,south=false,west=false,up=true,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_24",
+      "y": 180
+    },
+    "north=false,east=false,south=true,west=false,up=true,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_24",
+      "y": 270
+    },
+    "north=false,east=false,south=false,west=true,up=true,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_56",
+      "y": 0
+    },
+    "north=true,east=false,south=false,west=false,up=true,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_56",
+      "y": 90
+    },
+    "north=false,east=true,south=false,west=false,up=true,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_56",
+      "y": 180
+    },
+    "north=false,east=false,south=true,west=false,up=true,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_56",
+      "y": 270
+    },
+    "north=false,east=false,south=true,west=false,up=false,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_4",
+      "y": 0
+    },
+    "north=false,east=false,south=false,west=true,up=false,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_4",
+      "y": 90
+    },
+    "north=true,east=false,south=false,west=false,up=false,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_4",
+      "y": 180
+    },
+    "north=false,east=true,south=false,west=false,up=false,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_4",
+      "y": 270
+    },
+    "north=false,east=false,south=true,west=false,up=false,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_36",
+      "y": 0
+    },
+    "north=false,east=false,south=false,west=true,up=false,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_36",
+      "y": 90
+    },
+    "north=true,east=false,south=false,west=false,up=false,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_36",
+      "y": 180
+    },
+    "north=false,east=true,south=false,west=false,up=false,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_36",
+      "y": 270
+    },
+    "north=false,east=false,south=true,west=false,up=true,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_20",
+      "y": 0
+    },
+    "north=false,east=false,south=false,west=true,up=true,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_20",
+      "y": 90
+    },
+    "north=true,east=false,south=false,west=false,up=true,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_20",
+      "y": 180
+    },
+    "north=false,east=true,south=false,west=false,up=true,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_20",
+      "y": 270
+    },
+    "north=false,east=false,south=true,west=false,up=true,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_52",
+      "y": 0
+    },
+    "north=false,east=false,south=false,west=true,up=true,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_52",
+      "y": 90
+    },
+    "north=true,east=false,south=false,west=false,up=true,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_52",
+      "y": 180
+    },
+    "north=false,east=true,south=false,west=false,up=true,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_52",
+      "y": 270
+    },
+    "north=false,east=false,south=true,west=true,up=false,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_12",
+      "y": 0
+    },
+    "north=true,east=false,south=false,west=true,up=false,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_12",
+      "y": 90
+    },
+    "north=true,east=true,south=false,west=false,up=false,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_12",
+      "y": 180
+    },
+    "north=false,east=true,south=true,west=false,up=false,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_12",
+      "y": 270
+    },
+    "north=false,east=false,south=true,west=true,up=false,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_44",
+      "y": 0
+    },
+    "north=true,east=false,south=false,west=true,up=false,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_44",
+      "y": 90
+    },
+    "north=true,east=true,south=false,west=false,up=false,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_44",
+      "y": 180
+    },
+    "north=false,east=true,south=true,west=false,up=false,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_44",
+      "y": 270
+    },
+    "north=false,east=false,south=true,west=true,up=true,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_28",
+      "y": 0
+    },
+    "north=true,east=false,south=false,west=true,up=true,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_28",
+      "y": 90
+    },
+    "north=true,east=true,south=false,west=false,up=true,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_28",
+      "y": 180
+    },
+    "north=false,east=true,south=true,west=false,up=true,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_28",
+      "y": 270
+    },
+    "north=false,east=false,south=true,west=true,up=true,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_60",
+      "y": 0
+    },
+    "north=true,east=false,south=false,west=true,up=true,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_60",
+      "y": 90
+    },
+    "north=true,east=true,south=false,west=false,up=true,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_60",
+      "y": 180
+    },
+    "north=false,east=true,south=true,west=false,up=true,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_60",
+      "y": 270
+    },
+    "north=false,east=true,south=false,west=false,up=false,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_2",
+      "y": 0
+    },
+    "north=false,east=false,south=true,west=false,up=false,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_2",
+      "y": 90
+    },
+    "north=false,east=false,south=false,west=true,up=false,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_2",
+      "y": 180
+    },
+    "north=true,east=false,south=false,west=false,up=false,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_2",
+      "y": 270
+    },
+    "north=false,east=true,south=false,west=false,up=false,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_34",
+      "y": 0
+    },
+    "north=false,east=false,south=true,west=false,up=false,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_34",
+      "y": 90
+    },
+    "north=false,east=false,south=false,west=true,up=false,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_34",
+      "y": 180
+    },
+    "north=true,east=false,south=false,west=false,up=false,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_34",
+      "y": 270
+    },
+    "north=false,east=true,south=false,west=false,up=true,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_18",
+      "y": 0
+    },
+    "north=false,east=false,south=true,west=false,up=true,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_18",
+      "y": 90
+    },
+    "north=false,east=false,south=false,west=true,up=true,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_18",
+      "y": 180
+    },
+    "north=true,east=false,south=false,west=false,up=true,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_18",
+      "y": 270
+    },
+    "north=false,east=true,south=false,west=false,up=true,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_50",
+      "y": 0
+    },
+    "north=false,east=false,south=true,west=false,up=true,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_50",
+      "y": 90
+    },
+    "north=false,east=false,south=false,west=true,up=true,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_50",
+      "y": 180
+    },
+    "north=true,east=false,south=false,west=false,up=true,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_50",
+      "y": 270
+    },
+    "north=false,east=true,south=false,west=true,up=false,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_10",
+      "y": 0
+    },
+    "north=true,east=false,south=true,west=false,up=false,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_10",
+      "y": 90
+    },
+    "north=false,east=true,south=false,west=true,up=false,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_10",
+      "y": 180
+    },
+    "north=true,east=false,south=true,west=false,up=false,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_10",
+      "y": 270
+    },
+    "north=false,east=true,south=false,west=true,up=false,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_42",
+      "y": 0
+    },
+    "north=true,east=false,south=true,west=false,up=false,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_42",
+      "y": 90
+    },
+    "north=false,east=true,south=false,west=true,up=false,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_42",
+      "y": 180
+    },
+    "north=true,east=false,south=true,west=false,up=false,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_42",
+      "y": 270
+    },
+    "north=false,east=true,south=false,west=true,up=true,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_26",
+      "y": 0
+    },
+    "north=true,east=false,south=true,west=false,up=true,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_26",
+      "y": 90
+    },
+    "north=false,east=true,south=false,west=true,up=true,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_26",
+      "y": 180
+    },
+    "north=true,east=false,south=true,west=false,up=true,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_26",
+      "y": 270
+    },
+    "north=false,east=true,south=false,west=true,up=true,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_58",
+      "y": 0
+    },
+    "north=true,east=false,south=true,west=false,up=true,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_58",
+      "y": 90
+    },
+    "north=false,east=true,south=false,west=true,up=true,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_58",
+      "y": 180
+    },
+    "north=true,east=false,south=true,west=false,up=true,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_58",
+      "y": 270
+    },
+    "north=false,east=true,south=true,west=false,up=false,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_6",
+      "y": 0
+    },
+    "north=false,east=false,south=true,west=true,up=false,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_6",
+      "y": 90
+    },
+    "north=true,east=false,south=false,west=true,up=false,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_6",
+      "y": 180
+    },
+    "north=true,east=true,south=false,west=false,up=false,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_6",
+      "y": 270
+    },
+    "north=false,east=true,south=true,west=false,up=false,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_38",
+      "y": 0
+    },
+    "north=false,east=false,south=true,west=true,up=false,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_38",
+      "y": 90
+    },
+    "north=true,east=false,south=false,west=true,up=false,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_38",
+      "y": 180
+    },
+    "north=true,east=true,south=false,west=false,up=false,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_38",
+      "y": 270
+    },
+    "north=false,east=true,south=true,west=false,up=true,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_22",
+      "y": 0
+    },
+    "north=false,east=false,south=true,west=true,up=true,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_22",
+      "y": 90
+    },
+    "north=true,east=false,south=false,west=true,up=true,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_22",
+      "y": 180
+    },
+    "north=true,east=true,south=false,west=false,up=true,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_22",
+      "y": 270
+    },
+    "north=false,east=true,south=true,west=false,up=true,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_54",
+      "y": 0
+    },
+    "north=false,east=false,south=true,west=true,up=true,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_54",
+      "y": 90
+    },
+    "north=true,east=false,south=false,west=true,up=true,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_54",
+      "y": 180
+    },
+    "north=true,east=true,south=false,west=false,up=true,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_54",
+      "y": 270
+    },
+    "north=false,east=true,south=true,west=true,up=false,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_14",
+      "y": 0
+    },
+    "north=true,east=false,south=true,west=true,up=false,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_14",
+      "y": 90
+    },
+    "north=true,east=true,south=false,west=true,up=false,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_14",
+      "y": 180
+    },
+    "north=true,east=true,south=true,west=false,up=false,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_14",
+      "y": 270
+    },
+    "north=false,east=true,south=true,west=true,up=false,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_46",
+      "y": 0
+    },
+    "north=true,east=false,south=true,west=true,up=false,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_46",
+      "y": 90
+    },
+    "north=true,east=true,south=false,west=true,up=false,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_46",
+      "y": 180
+    },
+    "north=true,east=true,south=true,west=false,up=false,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_46",
+      "y": 270
+    },
+    "north=false,east=true,south=true,west=true,up=true,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_30",
+      "y": 0
+    },
+    "north=true,east=false,south=true,west=true,up=true,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_30",
+      "y": 90
+    },
+    "north=true,east=true,south=false,west=true,up=true,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_30",
+      "y": 180
+    },
+    "north=true,east=true,south=true,west=false,up=true,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_30",
+      "y": 270
+    },
+    "north=false,east=true,south=true,west=true,up=true,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_62",
+      "y": 0
+    },
+    "north=true,east=false,south=true,west=true,up=true,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_62",
+      "y": 90
+    },
+    "north=true,east=true,south=false,west=true,up=true,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_62",
+      "y": 180
+    },
+    "north=true,east=true,south=true,west=false,up=true,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_62",
+      "y": 270
+    },
+    "north=true,east=false,south=false,west=false,up=false,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_1",
+      "y": 0
+    },
+    "north=false,east=true,south=false,west=false,up=false,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_1",
+      "y": 90
+    },
+    "north=false,east=false,south=true,west=false,up=false,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_1",
+      "y": 180
+    },
+    "north=false,east=false,south=false,west=true,up=false,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_1",
+      "y": 270
+    },
+    "north=true,east=false,south=false,west=false,up=false,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_33",
+      "y": 0
+    },
+    "north=false,east=true,south=false,west=false,up=false,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_33",
+      "y": 90
+    },
+    "north=false,east=false,south=true,west=false,up=false,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_33",
+      "y": 180
+    },
+    "north=false,east=false,south=false,west=true,up=false,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_33",
+      "y": 270
+    },
+    "north=true,east=false,south=false,west=false,up=true,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_17",
+      "y": 0
+    },
+    "north=false,east=true,south=false,west=false,up=true,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_17",
+      "y": 90
+    },
+    "north=false,east=false,south=true,west=false,up=true,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_17",
+      "y": 180
+    },
+    "north=false,east=false,south=false,west=true,up=true,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_17",
+      "y": 270
+    },
+    "north=true,east=false,south=false,west=false,up=true,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_49",
+      "y": 0
+    },
+    "north=false,east=true,south=false,west=false,up=true,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_49",
+      "y": 90
+    },
+    "north=false,east=false,south=true,west=false,up=true,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_49",
+      "y": 180
+    },
+    "north=false,east=false,south=false,west=true,up=true,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_49",
+      "y": 270
+    },
+    "north=true,east=false,south=false,west=true,up=false,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_9",
+      "y": 0
+    },
+    "north=true,east=true,south=false,west=false,up=false,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_9",
+      "y": 90
+    },
+    "north=false,east=true,south=true,west=false,up=false,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_9",
+      "y": 180
+    },
+    "north=false,east=false,south=true,west=true,up=false,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_9",
+      "y": 270
+    },
+    "north=true,east=false,south=false,west=true,up=false,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_41",
+      "y": 0
+    },
+    "north=true,east=true,south=false,west=false,up=false,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_41",
+      "y": 90
+    },
+    "north=false,east=true,south=true,west=false,up=false,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_41",
+      "y": 180
+    },
+    "north=false,east=false,south=true,west=true,up=false,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_41",
+      "y": 270
+    },
+    "north=true,east=false,south=false,west=true,up=true,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_25",
+      "y": 0
+    },
+    "north=true,east=true,south=false,west=false,up=true,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_25",
+      "y": 90
+    },
+    "north=false,east=true,south=true,west=false,up=true,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_25",
+      "y": 180
+    },
+    "north=false,east=false,south=true,west=true,up=true,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_25",
+      "y": 270
+    },
+    "north=true,east=false,south=false,west=true,up=true,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_57",
+      "y": 0
+    },
+    "north=true,east=true,south=false,west=false,up=true,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_57",
+      "y": 90
+    },
+    "north=false,east=true,south=true,west=false,up=true,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_57",
+      "y": 180
+    },
+    "north=false,east=false,south=true,west=true,up=true,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_57",
+      "y": 270
+    },
+    "north=true,east=false,south=true,west=false,up=false,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_5",
+      "y": 0
+    },
+    "north=false,east=true,south=false,west=true,up=false,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_5",
+      "y": 90
+    },
+    "north=true,east=false,south=true,west=false,up=false,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_5",
+      "y": 180
+    },
+    "north=false,east=true,south=false,west=true,up=false,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_5",
+      "y": 270
+    },
+    "north=true,east=false,south=true,west=false,up=false,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_37",
+      "y": 0
+    },
+    "north=false,east=true,south=false,west=true,up=false,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_37",
+      "y": 90
+    },
+    "north=true,east=false,south=true,west=false,up=false,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_37",
+      "y": 180
+    },
+    "north=false,east=true,south=false,west=true,up=false,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_37",
+      "y": 270
+    },
+    "north=true,east=false,south=true,west=false,up=true,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_21",
+      "y": 0
+    },
+    "north=false,east=true,south=false,west=true,up=true,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_21",
+      "y": 90
+    },
+    "north=true,east=false,south=true,west=false,up=true,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_21",
+      "y": 180
+    },
+    "north=false,east=true,south=false,west=true,up=true,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_21",
+      "y": 270
+    },
+    "north=true,east=false,south=true,west=false,up=true,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_53",
+      "y": 0
+    },
+    "north=false,east=true,south=false,west=true,up=true,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_53",
+      "y": 90
+    },
+    "north=true,east=false,south=true,west=false,up=true,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_53",
+      "y": 180
+    },
+    "north=false,east=true,south=false,west=true,up=true,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_53",
+      "y": 270
+    },
+    "north=true,east=false,south=true,west=true,up=false,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_13",
+      "y": 0
+    },
+    "north=true,east=true,south=false,west=true,up=false,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_13",
+      "y": 90
+    },
+    "north=true,east=true,south=true,west=false,up=false,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_13",
+      "y": 180
+    },
+    "north=false,east=true,south=true,west=true,up=false,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_13",
+      "y": 270
+    },
+    "north=true,east=false,south=true,west=true,up=false,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_45",
+      "y": 0
+    },
+    "north=true,east=true,south=false,west=true,up=false,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_45",
+      "y": 90
+    },
+    "north=true,east=true,south=true,west=false,up=false,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_45",
+      "y": 180
+    },
+    "north=false,east=true,south=true,west=true,up=false,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_45",
+      "y": 270
+    },
+    "north=true,east=false,south=true,west=true,up=true,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_29",
+      "y": 0
+    },
+    "north=true,east=true,south=false,west=true,up=true,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_29",
+      "y": 90
+    },
+    "north=true,east=true,south=true,west=false,up=true,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_29",
+      "y": 180
+    },
+    "north=false,east=true,south=true,west=true,up=true,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_29",
+      "y": 270
+    },
+    "north=true,east=false,south=true,west=true,up=true,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_61",
+      "y": 0
+    },
+    "north=true,east=true,south=false,west=true,up=true,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_61",
+      "y": 90
+    },
+    "north=true,east=true,south=true,west=false,up=true,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_61",
+      "y": 180
+    },
+    "north=false,east=true,south=true,west=true,up=true,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_61",
+      "y": 270
+    },
+    "north=true,east=true,south=false,west=false,up=false,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_3",
+      "y": 0
+    },
+    "north=false,east=true,south=true,west=false,up=false,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_3",
+      "y": 90
+    },
+    "north=false,east=false,south=true,west=true,up=false,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_3",
+      "y": 180
+    },
+    "north=true,east=false,south=false,west=true,up=false,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_3",
+      "y": 270
+    },
+    "north=true,east=true,south=false,west=false,up=false,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_35",
+      "y": 0
+    },
+    "north=false,east=true,south=true,west=false,up=false,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_35",
+      "y": 90
+    },
+    "north=false,east=false,south=true,west=true,up=false,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_35",
+      "y": 180
+    },
+    "north=true,east=false,south=false,west=true,up=false,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_35",
+      "y": 270
+    },
+    "north=true,east=true,south=false,west=false,up=true,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_19",
+      "y": 0
+    },
+    "north=false,east=true,south=true,west=false,up=true,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_19",
+      "y": 90
+    },
+    "north=false,east=false,south=true,west=true,up=true,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_19",
+      "y": 180
+    },
+    "north=true,east=false,south=false,west=true,up=true,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_19",
+      "y": 270
+    },
+    "north=true,east=true,south=false,west=false,up=true,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_51",
+      "y": 0
+    },
+    "north=false,east=true,south=true,west=false,up=true,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_51",
+      "y": 90
+    },
+    "north=false,east=false,south=true,west=true,up=true,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_51",
+      "y": 180
+    },
+    "north=true,east=false,south=false,west=true,up=true,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_51",
+      "y": 270
+    },
+    "north=true,east=true,south=false,west=true,up=false,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_11",
+      "y": 0
+    },
+    "north=true,east=true,south=true,west=false,up=false,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_11",
+      "y": 90
+    },
+    "north=false,east=true,south=true,west=true,up=false,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_11",
+      "y": 180
+    },
+    "north=true,east=false,south=true,west=true,up=false,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_11",
+      "y": 270
+    },
+    "north=true,east=true,south=false,west=true,up=false,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_43",
+      "y": 0
+    },
+    "north=true,east=true,south=true,west=false,up=false,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_43",
+      "y": 90
+    },
+    "north=false,east=true,south=true,west=true,up=false,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_43",
+      "y": 180
+    },
+    "north=true,east=false,south=true,west=true,up=false,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_43",
+      "y": 270
+    },
+    "north=true,east=true,south=false,west=true,up=true,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_27",
+      "y": 0
+    },
+    "north=true,east=true,south=true,west=false,up=true,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_27",
+      "y": 90
+    },
+    "north=false,east=true,south=true,west=true,up=true,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_27",
+      "y": 180
+    },
+    "north=true,east=false,south=true,west=true,up=true,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_27",
+      "y": 270
+    },
+    "north=true,east=true,south=false,west=true,up=true,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_59",
+      "y": 0
+    },
+    "north=true,east=true,south=true,west=false,up=true,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_59",
+      "y": 90
+    },
+    "north=false,east=true,south=true,west=true,up=true,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_59",
+      "y": 180
+    },
+    "north=true,east=false,south=true,west=true,up=true,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_59",
+      "y": 270
+    },
+    "north=true,east=true,south=true,west=false,up=false,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_7",
+      "y": 0
+    },
+    "north=false,east=true,south=true,west=true,up=false,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_7",
+      "y": 90
+    },
+    "north=true,east=false,south=true,west=true,up=false,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_7",
+      "y": 180
+    },
+    "north=true,east=true,south=false,west=true,up=false,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_7",
+      "y": 270
+    },
+    "north=true,east=true,south=true,west=false,up=false,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_39",
+      "y": 0
+    },
+    "north=false,east=true,south=true,west=true,up=false,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_39",
+      "y": 90
+    },
+    "north=true,east=false,south=true,west=true,up=false,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_39",
+      "y": 180
+    },
+    "north=true,east=true,south=false,west=true,up=false,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_39",
+      "y": 270
+    },
+    "north=true,east=true,south=true,west=false,up=true,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_23",
+      "y": 0
+    },
+    "north=false,east=true,south=true,west=true,up=true,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_23",
+      "y": 90
+    },
+    "north=true,east=false,south=true,west=true,up=true,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_23",
+      "y": 180
+    },
+    "north=true,east=true,south=false,west=true,up=true,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_23",
+      "y": 270
+    },
+    "north=true,east=true,south=true,west=false,up=true,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_55",
+      "y": 0
+    },
+    "north=false,east=true,south=true,west=true,up=true,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_55",
+      "y": 90
+    },
+    "north=true,east=false,south=true,west=true,up=true,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_55",
+      "y": 180
+    },
+    "north=true,east=true,south=false,west=true,up=true,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_55",
+      "y": 270
+    },
+    "north=true,east=true,south=true,west=true,up=false,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_15",
+      "y": 0
+    },
+    "north=true,east=true,south=true,west=true,up=false,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_15",
+      "y": 90
+    },
+    "north=true,east=true,south=true,west=true,up=false,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_15",
+      "y": 180
+    },
+    "north=true,east=true,south=true,west=true,up=false,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_15",
+      "y": 270
+    },
+    "north=true,east=true,south=true,west=true,up=false,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_47",
+      "y": 0
+    },
+    "north=true,east=true,south=true,west=true,up=false,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_47",
+      "y": 90
+    },
+    "north=true,east=true,south=true,west=true,up=false,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_47",
+      "y": 180
+    },
+    "north=true,east=true,south=true,west=true,up=false,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_47",
+      "y": 270
+    },
+    "north=true,east=true,south=true,west=true,up=true,down=false,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_31",
+      "y": 0
+    },
+    "north=true,east=true,south=true,west=true,up=true,down=false,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_31",
+      "y": 90
+    },
+    "north=true,east=true,south=true,west=true,up=true,down=false,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_31",
+      "y": 180
+    },
+    "north=true,east=true,south=true,west=true,up=true,down=false,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_31",
+      "y": 270
+    },
+    "north=true,east=true,south=true,west=true,up=true,down=true,facing=north": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_63",
+      "y": 0
+    },
+    "north=true,east=true,south=true,west=true,up=true,down=true,facing=east": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_63",
+      "y": 90
+    },
+    "north=true,east=true,south=true,west=true,up=true,down=true,facing=south": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_63",
+      "y": 180
+    },
+    "north=true,east=true,south=true,west=true,up=true,down=true,facing=west": {
+      "model": "lsmmod:block/school_entrance_pavement_slope_3_slope_63",
+      "y": 270
+    }
+  }
+}

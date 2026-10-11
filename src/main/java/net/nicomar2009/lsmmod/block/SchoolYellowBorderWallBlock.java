@@ -26,7 +26,7 @@ public class SchoolYellowBorderWallBlock extends Block {
         registerDefaultState(stateDefinition.any().setValue(NORTH,false).setValue(EAST,false)
                 .setValue(SOUTH,false).setValue(WEST,false).setValue(UP,false).setValue(DOWN,false));
     }
-    private static BooleanProperty property(Direction side) {
+    public static BooleanProperty property(Direction side) {
         return switch(side) {case NORTH->NORTH;case EAST->EAST;case SOUTH->SOUTH;case WEST->WEST;case UP->UP;case DOWN->DOWN;};
     }
     @Override
@@ -35,14 +35,26 @@ public class SchoolYellowBorderWallBlock extends Block {
     }
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockState state=defaultBlockState();
-        for(Direction side:Direction.values())state=state.setValue(property(side),context.getLevel().getBlockState(context.getClickedPos().relative(side)).is(this));
-        return state;
+        return EntrancePavementConnections.update(defaultBlockState(),context.getLevel(),context.getClickedPos());
     }
     @Override
     protected BlockState updateShape(BlockState state,LevelReader level,ScheduledTickAccess ticks,BlockPos pos,
             Direction side,BlockPos neighborPos,BlockState neighbor,RandomSource random) {
-        return state.setValue(property(side),neighbor.is(this));
+        ticks.scheduleTick(pos,this,1);
+        return EntrancePavementConnections.update(state,level,pos);
+    }
+    @Override
+    protected void onPlace(BlockState state,net.minecraft.world.level.Level level,BlockPos pos,BlockState oldState,boolean moved) {
+        super.onPlace(state,level,pos,oldState,moved);EntrancePavementConnections.refresh(level,pos);
+    }
+    @Override
+    protected void affectNeighborsAfterRemoval(BlockState state,net.minecraft.server.level.ServerLevel level,BlockPos pos,boolean moved) {
+        super.affectNeighborsAfterRemoval(state,level,pos,moved);EntrancePavementConnections.refresh(level,pos);
+    }
+    @Override
+    protected void tick(BlockState state,net.minecraft.server.level.ServerLevel level,BlockPos pos,RandomSource random) {
+        BlockState next=EntrancePavementConnections.update(state,level,pos);
+        if(next!=state)level.setBlock(pos,next,Block.UPDATE_ALL);
     }
     @Override
     protected BlockState rotate(BlockState state,Rotation rotation) {

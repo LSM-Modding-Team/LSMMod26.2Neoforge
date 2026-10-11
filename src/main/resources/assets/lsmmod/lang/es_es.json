@@ -259,5 +259,10 @@
   "block.lsmmod.street_school_bars": "Reja de malla del colegio",
   "block.lsmmod.school_parquet": "Parquet del colegio",
   "block.lsmmod.school_entrance_pavement": "Pavimento de la entrada del colegio",
-  "block.lsmmod.bathroom_floor": "Suelo del baño"
+  "block.lsmmod.bathroom_floor": "Suelo del baño",
+  "block.lsmmod.school_entrance_pavement_slope_1": "Pendiente del pavimento de entrada 1",
+  "block.lsmmod.school_entrance_pavement_slope_2": "Pendiente del pavimento de entrada 2",
+  "block.lsmmod.school_entrance_pavement_slope_3": "Pendiente del pavimento de entrada 3",
+  "block.lsmmod.school_entrance_pavement_slope_4": "Pendiente del pavimento de entrada 4",
+  "block.lsmmod.school_entrance_pavement_slab": "Losa del pavimento de entrada"
 }

@@ -19,6 +19,14 @@ public final class ModBlocks {
     // BEGIN SCHOOL RAILING SLOPES
     // BEGIN SCHOOL INVERTED SLOPES
     // BEGIN SCHOOL SPLIT RAISED EXTRAS
+    // BEGIN ENTRANCE PAVEMENT SHAPES
+    public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_1 = BLOCKS.registerBlock("school_entrance_pavement_slope_1", props -> new EntrancePavementSlopeBlock(0.5,props), props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
+    public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_2 = BLOCKS.registerBlock("school_entrance_pavement_slope_2", props -> new EntrancePavementSlopeBlock(0.875,props), props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
+    public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_3 = BLOCKS.registerBlock("school_entrance_pavement_slope_3", props -> new EntrancePavementSlopeBlock(0.25,props), props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
+    public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_4 = BLOCKS.registerBlock("school_entrance_pavement_slope_4", props -> new EntrancePavementSlopeBlock(0.625,props), props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
+    public static final DeferredBlock<EntrancePavementSlabBlock> SCHOOL_ENTRANCE_PAVEMENT_SLAB = BLOCKS.registerBlock("school_entrance_pavement_slab", EntrancePavementSlabBlock::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
+    // END ENTRANCE PAVEMENT SHAPES
+
     public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_EXTRA_1 = BLOCKS.registerBlock(
             "school_inverted_slope_split_raised_extra_1", props -> new SchoolInvertedSlopeBlock(0.571428571428571,0.714285714285714,0.5,2.0,props),
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());

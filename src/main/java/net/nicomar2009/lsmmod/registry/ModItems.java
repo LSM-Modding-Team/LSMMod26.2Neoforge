@@ -24,6 +24,14 @@ public final class ModItems {
     // BEGIN SCHOOL RAILING SLOPES
     // BEGIN SCHOOL INVERTED SLOPES
     // BEGIN SCHOOL SPLIT RAISED EXTRAS
+    // BEGIN ENTRANCE PAVEMENT SHAPES
+    public static final DeferredItem<BlockItem> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_1 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLOPE_1);
+    public static final DeferredItem<BlockItem> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_2 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLOPE_2);
+    public static final DeferredItem<BlockItem> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_3 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLOPE_3);
+    public static final DeferredItem<BlockItem> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_4 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLOPE_4);
+    public static final DeferredItem<BlockItem> SCHOOL_ENTRANCE_PAVEMENT_SLAB = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLAB);
+    // END ENTRANCE PAVEMENT SHAPES
+
     public static final DeferredItem<BlockItem> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_EXTRA_1 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_EXTRA_1);
     public static final DeferredItem<BlockItem> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_EXTRA_2 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_EXTRA_2);
     public static final DeferredItem<BlockItem> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_EXTRA_3 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_EXTRA_3);

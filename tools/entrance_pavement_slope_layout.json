@@ -1,0 +1,37 @@
+{
+  "length": 4,
+  "width": 6,
+  "start_y_pixels": 8,
+  "end_y_pixels": 32,
+  "rise_pixels": 24,
+  "pieces": [
+    {
+      "id": "school_entrance_pavement_slope_1",
+      "column": 0,
+      "row": 0,
+      "lower_y": 0.5,
+      "rise": 0.375
+    },
+    {
+      "id": "school_entrance_pavement_slope_2",
+      "column": 1,
+      "row": 0,
+      "lower_y": 0.875,
+      "rise": 0.375
+    },
+    {
+      "id": "school_entrance_pavement_slope_3",
+      "column": 2,
+      "row": 1,
+      "lower_y": 0.25,
+      "rise": 0.375
+    },
+    {
+      "id": "school_entrance_pavement_slope_4",
+      "column": 3,
+      "row": 1,
+      "lower_y": 0.625,
+      "rise": 0.375
+    }
+  ]
+}
