@@ -1,5 +1,5 @@
 {
-  "total_states": 17149,
+  "total_states": 14844,
   "blocks": [
     {
       "id": "elementary_playground_awning",
@@ -103,35 +103,6 @@
       }
     },
     {
-      "id": "school_entrance_pavement_slab",
-      "class": "EntrancePavementSlabBlock",
-      "states": 384,
-      "domains": {
-        "type": 3,
-        "waterlogged": 2,
-        "north": 2,
-        "east": 2,
-        "south": 2,
-        "west": 2,
-        "up": 2,
-        "down": 2
-      }
-    },
-    {
-      "id": "street_school_bars",
-      "class": "StreetSchoolBarsBlock",
-      "states": 384,
-      "domains": {
-        "north": 2,
-        "east": 2,
-        "south": 2,
-        "west": 2,
-        "waterlogged": 2,
-        "column": 4,
-        "row": 3
-      }
-    },
-    {
       "id": "double_school_entrance",
       "class": "DoubleSchoolEntranceBlock",
       "states": 288,
@@ -155,90 +126,6 @@
         "west": 2,
         "waterlogged": 2,
         "post": 2,
-        "facing": 4
-      }
-    },
-    {
-      "id": "school_entrance_pavement_slope_1",
-      "class": "EntrancePavementSlopeBlock",
-      "states": 256,
-      "domains": {
-        "north": 2,
-        "east": 2,
-        "south": 2,
-        "west": 2,
-        "up": 2,
-        "down": 2,
-        "facing": 4
-      }
-    },
-    {
-      "id": "school_entrance_pavement_slope_2",
-      "class": "EntrancePavementSlopeBlock",
-      "states": 256,
-      "domains": {
-        "north": 2,
-        "east": 2,
-        "south": 2,
-        "west": 2,
-        "up": 2,
-        "down": 2,
-        "facing": 4
-      }
-    },
-    {
-      "id": "school_entrance_pavement_slope_3",
-      "class": "EntrancePavementSlopeBlock",
-      "states": 256,
-      "domains": {
-        "north": 2,
-        "east": 2,
-        "south": 2,
-        "west": 2,
-        "up": 2,
-        "down": 2,
-        "facing": 4
-      }
-    },
-    {
-      "id": "school_entrance_pavement_slope_4",
-      "class": "EntrancePavementSlopeBlock",
-      "states": 256,
-      "domains": {
-        "north": 2,
-        "east": 2,
-        "south": 2,
-        "west": 2,
-        "up": 2,
-        "down": 2,
-        "facing": 4
-      }
-    },
-    {
-      "id": "school_entrance_pavement_slope_5",
-      "class": "EntrancePavementSlopeBlock",
-      "states": 256,
-      "domains": {
-        "north": 2,
-        "east": 2,
-        "south": 2,
-        "west": 2,
-        "up": 2,
-        "down": 2,
-        "facing": 4
-      }
-    },
-    {
-      "id": "school_entrance_pavement_slope_6",
-      "class": "EntrancePavementSlopeBlock",
-      "states": 256,
-      "domains": {
-        "north": 2,
-        "east": 2,
-        "south": 2,
-        "west": 2,
-        "up": 2,
-        "down": 2,
         "facing": 4
       }
     },
@@ -371,19 +258,6 @@
       }
     },
     {
-      "id": "school_entrance_pavement",
-      "class": "SchoolYellowBorderWallBlock",
-      "states": 64,
-      "domains": {
-        "north": 2,
-        "east": 2,
-        "south": 2,
-        "west": 2,
-        "up": 2,
-        "down": 2
-      }
-    },
-    {
       "id": "school_shield",
       "class": "SchoolShieldBlock",
       "states": 64,
@@ -434,6 +308,18 @@
         "facing": 4,
         "has_pc": 2,
         "column": 2
+      }
+    },
+    {
+      "id": "street_school_bars",
+      "class": "StreetSchoolBarsBlock",
+      "states": 32,
+      "domains": {
+        "north": 2,
+        "east": 2,
+        "south": 2,
+        "west": 2,
+        "waterlogged": 2
       }
     },
     {
@@ -855,6 +741,15 @@
       }
     },
     {
+      "id": "school_entrance_pavement_slab",
+      "class": "EntrancePavementSlabBlock",
+      "states": 6,
+      "domains": {
+        "type": 3,
+        "waterlogged": 2
+      }
+    },
+    {
       "id": "black_trash_bin",
       "class": "TrashBinBlock",
       "states": 4,
@@ -1031,6 +926,54 @@
       }
     },
     {
+      "id": "school_entrance_pavement_slope_1",
+      "class": "EntrancePavementSlopeBlock",
+      "states": 4,
+      "domains": {
+        "facing": 4
+      }
+    },
+    {
+      "id": "school_entrance_pavement_slope_2",
+      "class": "EntrancePavementSlopeBlock",
+      "states": 4,
+      "domains": {
+        "facing": 4
+      }
+    },
+    {
+      "id": "school_entrance_pavement_slope_3",
+      "class": "EntrancePavementSlopeBlock",
+      "states": 4,
+      "domains": {
+        "facing": 4
+      }
+    },
+    {
+      "id": "school_entrance_pavement_slope_4",
+      "class": "EntrancePavementSlopeBlock",
+      "states": 4,
+      "domains": {
+        "facing": 4
+      }
+    },
+    {
+      "id": "school_entrance_pavement_slope_5",
+      "class": "EntrancePavementSlopeBlock",
+      "states": 4,
+      "domains": {
+        "facing": 4
+      }
+    },
+    {
+      "id": "school_entrance_pavement_slope_6",
+      "class": "EntrancePavementSlopeBlock",
+      "states": 4,
+      "domains": {
+        "facing": 4
+      }
+    },
+    {
       "id": "school_fan",
       "class": "SchoolWallDecorationBlock",
       "states": 4,
@@ -1099,6 +1042,12 @@
     {
       "id": "light_school_wall",
       "class": "Block",
+      "states": 1,
+      "domains": {}
+    },
+    {
+      "id": "school_entrance_pavement",
+      "class": "SchoolYellowBorderWallBlock",
       "states": 1,
       "domains": {}
     },

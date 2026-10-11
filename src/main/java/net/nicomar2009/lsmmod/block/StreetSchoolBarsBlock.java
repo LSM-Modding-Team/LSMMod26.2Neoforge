@@ -19,21 +19,25 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 /** Vanilla bars connections and collision, with a repeating four-by-three mesh frame. */
 public class StreetSchoolBarsBlock extends IronBarsBlock {
-    public static final IntegerProperty COLUMN=IntegerProperty.create("column",0,3);
-    public static final IntegerProperty ROW=IntegerProperty.create("row",0,2);
+    // Weak ownership: disconnected worlds are never retained by the refresh batch.
+    private static final java.util.Map<ServerLevel,RefreshBatch> REFRESHES=new java.util.WeakHashMap<>();
+    private static final class RefreshBatch {
+        long time=Long.MIN_VALUE;
+        final java.util.HashSet<BlockPos> visited=new java.util.HashSet<>();
+    }
     public StreetSchoolBarsBlock(Properties properties) {
         super(properties);
-        registerDefaultState(defaultBlockState().setValue(COLUMN,0).setValue(ROW,0));
+
     }
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {
-        super.createBlockStateDefinition(builder);builder.add(COLUMN,ROW);
+        super.createBlockStateDefinition(builder);
     }
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return profile(super.getStateForPlacement(context),context.getLevel(),context.getClickedPos());
+        return super.getStateForPlacement(context);
     }
-    private BlockState profile(BlockState state,LevelReader level,BlockPos pos) {
+    public static int visualProfile(BlockState state,LevelReader level,BlockPos pos) {
         // Straight runs start at their western/northern edge, and panels start at the bottom.
         boolean alongX=state.getValue(EAST)||state.getValue(WEST);
         Direction back=alongX?Direction.WEST:Direction.NORTH;
@@ -41,16 +45,16 @@ public class StreetSchoolBarsBlock extends IronBarsBlock {
         BlockPos cursor=pos;
         while(column<256) {
             cursor=cursor.relative(back);
-            if(!level.hasChunkAt(cursor)||!level.getBlockState(cursor).is(this))break;
+            if(!level.hasChunkAt(cursor)||!level.getBlockState(cursor).is(state.getBlock()))break;
             column++;
         }
         cursor=pos;
         while(row<256) {
             cursor=cursor.below();
-            if(!level.hasChunkAt(cursor)||!level.getBlockState(cursor).is(this))break;
+            if(!level.hasChunkAt(cursor)||!level.getBlockState(cursor).is(state.getBlock()))break;
             row++;
         }
-        return state.setValue(COLUMN,column%4).setValue(ROW,row%3);
+        return (column%4)*3+row%3;
     }
     @Override
     protected BlockState updateShape(BlockState state,LevelReader level,ScheduledTickAccess ticks,BlockPos pos,
@@ -65,8 +69,19 @@ public class StreetSchoolBarsBlock extends IronBarsBlock {
     }
     @Override
     protected void tick(BlockState state,ServerLevel level,BlockPos pos,RandomSource random) {
-        BlockState next=profile(state,level,pos);
-        if(next!=state)level.setBlock(pos,next,Block.UPDATE_ALL);
+        // Inserting or removing a member can shift the panel phase far along the row.
+        java.util.ArrayDeque<BlockPos> pending=new java.util.ArrayDeque<>();
+        RefreshBatch batch=REFRESHES.computeIfAbsent(level,key->new RefreshBatch());
+        if(batch.time!=level.getGameTime()) {batch.time=level.getGameTime();batch.visited.clear();}
+        java.util.HashSet<BlockPos> visited=batch.visited;pending.add(pos);
+        while(!pending.isEmpty()) {
+            BlockPos target=pending.removeFirst();
+            if(!visited.add(target)||!level.hasChunkAt(target))continue;
+            BlockState member=level.getBlockState(target);
+            if(!member.is(this))continue;
+            level.sendBlockUpdated(target,member,member,Block.UPDATE_CLIENTS);
+            for(Direction side:Direction.values())pending.add(target.relative(side));
+        }
     }
     @Override
     protected VoxelShape getShape(BlockState state,BlockGetter level,BlockPos pos,CollisionContext context) {

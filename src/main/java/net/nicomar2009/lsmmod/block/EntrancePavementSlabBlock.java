@@ -17,14 +17,11 @@ import net.minecraft.world.level.block.state.StateDefinition;
 public class EntrancePavementSlabBlock extends SlabBlock {
     public EntrancePavementSlabBlock(Properties properties) {
         super(properties);
-        BlockState state=defaultBlockState();
-        for(Direction side:Direction.values())state=state.setValue(SchoolYellowBorderWallBlock.property(side),false);
-        registerDefaultState(state);
     }
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        for(Direction side:Direction.values())builder.add(SchoolYellowBorderWallBlock.property(side));
+
     }
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -46,19 +43,14 @@ public class EntrancePavementSlabBlock extends SlabBlock {
     }
     @Override
     protected void tick(BlockState state,ServerLevel level,BlockPos pos,RandomSource random) {
-        BlockState next=EntrancePavementConnections.update(state,level,pos);
-        if(next!=state)level.setBlock(pos,next,Block.UPDATE_ALL);
+        level.sendBlockUpdated(pos,state,state,Block.UPDATE_CLIENTS);
     }
     @Override
     protected BlockState rotate(BlockState state,Rotation rotation) {
-        BlockState next=state;
-        for(Direction side:Direction.values())next=next.setValue(SchoolYellowBorderWallBlock.property(rotation.rotate(side)),state.getValue(SchoolYellowBorderWallBlock.property(side)));
-        return next;
+        return state;
     }
     @Override
     protected BlockState mirror(BlockState state,Mirror mirror) {
-        BlockState next=state;
-        for(Direction side:Direction.values())next=next.setValue(SchoolYellowBorderWallBlock.property(mirror.mirror(side)),state.getValue(SchoolYellowBorderWallBlock.property(side)));
-        return next;
+        return state;
     }
 }

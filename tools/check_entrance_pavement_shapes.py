@@ -36,5 +36,5 @@ def main():
  assert 'low+.25*(i+1)/32.0' in java and 'SimpleBlockOutline.forState' in java
  helper=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/EntrancePavementConnections.java').read_text();assert 'dy=-2;dy<=2' in helper and 'hasChunkAt' in helper
  assert '3/16' in (ROOT/'tools/create_entrance_pavement_shapes.py').read_text()
- print('OK: 6-piece 6x6 ramp, 8→32px (+24px), four-pixel rise/piece; 1536 slope and 384 slab states, bottom/top/double/water, nondegenerate meshes and 3px geometric perimeter; height-aware joins / collision / double drop.')
+ print('OK: 6-piece 6x6 ramp, 8→32px (+24px), four-pixel rise/piece; 24 slope and 6 slab physical states (1920 original visual profiles), bottom/top/double/water, nondegenerate meshes and 3px geometric perimeter; height-aware joins / collision / double drop.')
 if __name__=='__main__':main()

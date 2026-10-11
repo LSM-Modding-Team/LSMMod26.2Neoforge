@@ -24,9 +24,13 @@ def main():
   for p in (A/'models').rglob('*.json'):
    ident=model_identifier(p,A/'models')
    assert replace(resolve(A,ident,{}),aliases)==resolve(B,ident,aliases),ident
+  from prepare_high_state_models import TARGETS,PAVEMENT
+  from check_high_state_models import verify
+  high_count=verify(output,aliases)
   count=0
   for p in (A/'blockstates').glob('*.json'):
    old=replace(read(p),aliases);new=read(B/'blockstates'/p.name)
+   if p.stem in set(TARGETS)|set(PAVEMENT):continue
    if 'variants' in old:
     selectors=[(dict(x.split('=',1) for x in k.split(',') if x),v) for k,v in new['variants'].items()]
     for key,value in old['variants'].items():
@@ -38,10 +42,10 @@ def main():
   for folder in ('items',):
    for p in (A/folder).rglob('*.json'):assert replace(read(p),aliases)==read(B/folder/p.relative_to(A/folder)),p
   assert report['identical_models_shared']>0 and report['fusion_models']>0 and report['neoforge_obj_models']>0
-  assert report['variants_after']<report['variants_before'] and not report['state_properties_changed']
+  assert report['variants_after']<report['variants_before'] and report['state_properties_changed'] and len(report['high_state_models']['blocks'])==20
   # Dedicated-server metadata never requires the client model library.
   metadata=(ROOT/'src/main/templates/META-INF/neoforge.mods.toml').read_text(encoding='utf-8').split('modId="fusion"')[1]
   assert 'type="required"' in metadata and 'side="CLIENT"' in metadata and 'versionRange="[1.3.16]"' in metadata
-  print('OK: every original model resolves to identical geometry, UV, textures and transforms; all',count,'variant selectors and item references preserved.')
+  print('OK: every original model resolves to identical geometry, UV, textures and transforms;',high_count,'high-state selections,',count,'other variant selectors and all item references preserved.')
   print(json.dumps(report))
 if __name__=='__main__':main()

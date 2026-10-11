@@ -34,5 +34,5 @@ def main():
  for origin in (-23,0,37):
   for x,y in itertools.product(range(8),range(6)):
    assert ((origin+x)-origin)%4==x%4 and ((origin+y)-origin)%3==y%3
- print('OK: beige 16x16 wall; 384 bars states including water, multipart 4x3 frame, alpha mesh, bounded models; vanilla connections and collision, simple outline.')
+ print('OK: beige 16x16 wall; 32 bars states including water / 12 visual phases, multipart 4x3 frame, alpha mesh, bounded models; vanilla connections and collision, simple outline.')
 if __name__=='__main__':main()

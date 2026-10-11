@@ -23,8 +23,11 @@ public final class EntrancePavementConnections {
     private static double edge(BlockState state,Direction side,double t) {
         return switch(side) {case NORTH->height(state,t,0);case SOUTH->height(state,t,1);case EAST->height(state,1,t);case WEST->height(state,0,t);default->height(state,.5,.5);};
     }
-    public static BlockState update(BlockState state,LevelReader level,BlockPos pos) {
-        for(Direction side:Direction.values()) {
+    public static int visualMask(BlockState state,LevelReader level,BlockPos pos) {
+        int mask=0;
+        Direction[] sides={Direction.NORTH,Direction.EAST,Direction.SOUTH,Direction.WEST,Direction.UP,Direction.DOWN};
+        for(int i=0;i<sides.length;i++) {
+            Direction side=sides[i];
             boolean join=false;
             if(side.getAxis().isHorizontal()) {
                 for(int dy=-2;dy<=2;dy++) {
@@ -47,10 +50,11 @@ public final class EntrancePavementConnections {
                     }
                 }
             }
-            state=state.setValue(SchoolYellowBorderWallBlock.property(side),join);
+            if(join)mask|=1<<i;
         }
-        return state;
+        return mask;
     }
+    public static BlockState update(BlockState state,LevelReader level,BlockPos pos) {return state;}
     public static void refresh(Level level,BlockPos pos) {
         if(level.isClientSide())return;
         for(Direction side:Direction.values())for(int dy=-2;dy<=2;dy++) {

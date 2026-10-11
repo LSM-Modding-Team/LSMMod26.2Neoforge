@@ -23,15 +23,13 @@ public class SchoolYellowBorderWallBlock extends Block {
     public static final BooleanProperty DOWN=BooleanProperty.create("down");
     public SchoolYellowBorderWallBlock(Properties properties) {
         super(properties);
-        registerDefaultState(stateDefinition.any().setValue(NORTH,false).setValue(EAST,false)
-                .setValue(SOUTH,false).setValue(WEST,false).setValue(UP,false).setValue(DOWN,false));
     }
     public static BooleanProperty property(Direction side) {
         return switch(side) {case NORTH->NORTH;case EAST->EAST;case SOUTH->SOUTH;case WEST->WEST;case UP->UP;case DOWN->DOWN;};
     }
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {
-        builder.add(NORTH,EAST,SOUTH,WEST,UP,DOWN);
+        // Border connections are selected from the world by Fusion.
     }
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -53,19 +51,14 @@ public class SchoolYellowBorderWallBlock extends Block {
     }
     @Override
     protected void tick(BlockState state,net.minecraft.server.level.ServerLevel level,BlockPos pos,RandomSource random) {
-        BlockState next=EntrancePavementConnections.update(state,level,pos);
-        if(next!=state)level.setBlock(pos,next,Block.UPDATE_ALL);
+        level.sendBlockUpdated(pos,state,state,Block.UPDATE_CLIENTS);
     }
     @Override
     protected BlockState rotate(BlockState state,Rotation rotation) {
-        BlockState result=state;
-        for(Direction side:Direction.values())result=result.setValue(property(rotation.rotate(side)),state.getValue(property(side)));
-        return result;
+        return state;
     }
     @Override
     protected BlockState mirror(BlockState state,Mirror mirror) {
-        BlockState result=state;
-        for(Direction side:Direction.values())result=result.setValue(property(mirror.mirror(side)),state.getValue(property(side)));
-        return result;
+        return state;
     }
 }

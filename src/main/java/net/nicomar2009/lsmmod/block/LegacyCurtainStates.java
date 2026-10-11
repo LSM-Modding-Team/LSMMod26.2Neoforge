@@ -10,9 +10,24 @@ public final class LegacyCurtainStates {
             "lsmmod:mixed_school_glass","lsmmod:supported_school_glass_reversed","lsmmod:mixed_school_glass_reversed",
             "lsmmod:tall_classroom_entrance","lsmmod:tall_bathroom_door","lsmmod:tall_teachers_office_door",
             "lsmmod:tall_dining_door","lsmmod:double_school_entrance");
+    private static final Set<String> PAVEMENT=Set.of("lsmmod:school_entrance_pavement","lsmmod:school_entrance_pavement_slab",
+            "lsmmod:school_entrance_pavement_slope_1","lsmmod:school_entrance_pavement_slope_2",
+            "lsmmod:school_entrance_pavement_slope_3","lsmmod:school_entrance_pavement_slope_4",
+            "lsmmod:school_entrance_pavement_slope_5","lsmmod:school_entrance_pavement_slope_6");
+    private static final String[] BORDER_PROPERTIES={"north","east","south","west","up","down"};
     private LegacyCurtainStates() {}
     public static CompoundTag migrateState(CompoundTag tag) {
-        if(!HOSTS.contains(tag.getStringOr("Name","")))return tag;
+        String name=tag.getStringOr("Name","");
+        if(PAVEMENT.contains(name)||name.equals("lsmmod:street_school_bars")) {
+            CompoundTag properties=tag.getCompoundOrEmpty("Properties");
+            String[] retired=PAVEMENT.contains(name)?BORDER_PROPERTIES:new String[]{"column","row"};
+            boolean legacy=false;for(String property:retired)legacy|=properties.contains(property);
+            if(!legacy)return tag;
+            CompoundTag converted=properties.copy(),copy=tag.copy();
+            for(String property:retired)converted.remove(property);
+            copy.put("Properties",converted);return copy;
+        }
+        if(!HOSTS.contains(name))return tag;
         CompoundTag properties=tag.getCompoundOrEmpty("Properties");
         if(!properties.contains("curtain_vertical")&&!properties.contains("frame_layout")
                 &&!properties.contains("top_connected")&&!properties.contains("bottom_connected"))return tag;

@@ -12,5 +12,7 @@ public final class GlazingFusionRegistration {
     public GlazingFusionRegistration() {
         FusionModelPredicateRegistry.registerModelPredicate(
                 Identifier.fromNamespaceAndPath(LSMMod.MOD_ID,"glazing_mask"),SchoolGlazingPredicate.SERIALIZER);
+        FusionModelPredicateRegistry.registerModelPredicate(Identifier.fromNamespaceAndPath(LSMMod.MOD_ID,"model_selection"),ModelSelectionPredicate.SERIALIZER);
+        FusionModelPredicateRegistry.registerModelPredicate(Identifier.fromNamespaceAndPath(LSMMod.MOD_ID,"model_properties"),ModelPropertiesPredicate.SERIALIZER);
     }
 }
