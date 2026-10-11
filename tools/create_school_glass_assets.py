@@ -27,6 +27,8 @@ PART_IDS={(0,0):'tall_classroom_entrance',(1,0):'tall_classroom_entrance_right_b
 
 def model(elements,block_name=None):
     textures=dict(T)
+    if block_name in ('mixed_school_glass','mixed_school_glass_reversed','supported_school_glass','supported_school_glass_reversed'):
+        textures['concrete']='lsmmod:block/classroom_white_wall'
     if block_name in ('supported_school_glass','mixed_school_glass_reversed'):textures['light_wall']='lsmmod:block/street_school_wall'
     return {'parent':'minecraft:block/block','render_type':'minecraft:translucent','textures':textures,'elements':elements}
 

@@ -64,7 +64,7 @@ def main():
         model=read(A/f'models/block/{name}.json')
         assert model['textures']['light_wall']=='lsmmod:block/'+('street_school_wall' if name in ('supported_school_glass','mixed_school_glass_reversed') else 'light_school_wall')
         assert model['textures']['support']=='lsmmod:block/dark_school_wall'
-        assert model['textures']['concrete']=='minecraft:block/white_concrete'
+        assert model['textures']['concrete']=='lsmmod:block/classroom_white_wall'
         assert any(f['texture']=='#'+under for e in model['elements'] for f in e['faces'].values())
         assert any(f['texture']=='#'+side for e in model['elements'] for f in e['faces'].values())
         for shape,quarters in QUARTERS.items():

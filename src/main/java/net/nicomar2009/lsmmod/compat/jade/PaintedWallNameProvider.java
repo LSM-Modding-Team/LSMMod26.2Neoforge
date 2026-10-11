@@ -2,6 +2,10 @@ package net.nicomar2009.lsmmod.compat.jade;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.nicomar2009.lsmmod.registry.ModBlocks;
+import snownee.jade.api.ui.Element;
+import snownee.jade.api.ui.JadeUI;
 import net.nicomar2009.lsmmod.LSMMod;
 import net.nicomar2009.lsmmod.block.SchoolPaintableBlockEntity;
 import snownee.jade.api.BlockAccessor;
@@ -15,6 +19,19 @@ public enum PaintedWallNameProvider implements IBlockComponentProvider {
     INSTANCE;
     @Override public Identifier getUid() { return Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "painted_wall_name"); }
     @Override public int getDefaultPriority() { return TooltipPosition.HEAD; }
+    @Override public Element getIcon(BlockAccessor accessor, IPluginConfig config, Element currentIcon) {
+        if (!(accessor.getBlockEntity() instanceof SchoolPaintableBlockEntity block)) return currentIcon;
+        var color = block.paintAt(accessor.getSide(), accessor.getHitResult().getLocation());
+        var paintedBlock = switch (color) {
+            case LIGHT -> ModBlocks.LIGHT_SCHOOL_WALL.get();
+            case DARK -> ModBlocks.DARK_SCHOOL_WALL.get();
+            case STREET -> ModBlocks.STREET_SCHOOL_WALL.get();
+            case WHITE -> ModBlocks.CLASSROOM_WHITE_WALL.get();
+            case FLOOR -> ModBlocks.CLASSROOM_FLOOR.get();
+            case UNPAINTED -> ModBlocks.SCHOOL_PAINTABLE_BLOCK.get();
+        };
+        return JadeUI.item(new ItemStack(paintedBlock));
+    }
     @Override public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
         if (!(accessor.getBlockEntity() instanceof SchoolPaintableBlockEntity block)) return;
         Component name = Component.translatable("block.lsmmod." + block.paintAt(accessor.getSide(), accessor.getHitResult().getLocation()).blockName);

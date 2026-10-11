@@ -74,6 +74,7 @@ def main():
                                 positive=face in ('east','up','south')
                                 if (hi if positive else lo)[axis]==(16 if positive else 0):f['cullface']=face
                         textures=dict(T)
+                        textures['concrete']='lsmmod:block/classroom_white_wall'
                         if name in ('supported_school_glass','mixed_school_glass_reversed'):textures['light_wall']='lsmmod:block/street_school_wall'
                         suffix=f'{name}_{half}_{shape}_{int(connected_top)}_{int(connected_bottom)}'
                         result=model(elements);result['textures']=textures
