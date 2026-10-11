@@ -33,7 +33,16 @@ class Builder:
  def __init__(self,assets):self.assets=assets;self.written=set()
  def model(self,ident,body):
   data=body if isinstance(body,dict) else {'type':'composite','models':[body]}
-  data=dict(data,loader='fusion:model');name=f'block/fusion_high_states/{ident}_{hashlib.sha256(canonical(data).encode()).hexdigest()[:20]}'
+  data=dict(data,loader='fusion:model')
+  if ident in PAVEMENT:
+   # Composite roots must declare the OBJ material slots explicitly. Their
+   # native leaves use #gray/#yellow in the MTL, not cuboid face materials.
+   # Keep the declarations on the owning model so atlas discovery and particle
+   # selection do not depend on traversing conditional native OBJ leaves.
+   data['textures']={'gray':'lsmmod:block/school_entrance_pavement_15',
+                     'yellow':'lsmmod:block/school_entrance_pavement_0',
+                     'particle':'lsmmod:block/school_entrance_pavement_15'}
+  name=f'block/fusion_high_states/{ident}_{hashlib.sha256(canonical(data).encode()).hexdigest()[:20]}'
   path=self.assets/f'models/{name}.json';write(path,data);self.written.add(path)
   return 'lsmmod:'+name
  def selection(self,ident,entries,kind='state'):

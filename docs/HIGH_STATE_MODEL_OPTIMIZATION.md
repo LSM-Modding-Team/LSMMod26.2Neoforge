@@ -39,3 +39,7 @@ Comprobaciones estáticas realizadas:
 - Regresiones de puertas, cortinas, cristales, toldos, soporte, portón, arco deportivo, barandas, pavimento y rejas.
 
 No se compiló ni ejecutó Minecraft, conforme a la instrucción vigente. El arranque de 130 segundos corresponde a una fase anterior. Es necesario medir este cambio con la misma configuración; reducir selectores o estados no garantiza una reducción proporcional de segundos.
+
+## Corrección de las texturas del pavimento
+
+El usuario informó texturas ausentes en el slab y las pendientes después de esta conversión. Los modelos compuestos de pavimento ahora declaran explícitamente `gray`, `yellow` y `particle`, usados por las referencias MTL de los OBJ nativos. Esto hace explícita la disponibilidad de sus materiales en la raíz Fusion. La regresión comprueba las declaraciones y la existencia de los PNG, además de conservar la equivalencia de selección de geometría. No se ejecutó el juego: la resolución del fallo necesita confirmación dentro de Minecraft; el log solicitado puede revelar otra causa.

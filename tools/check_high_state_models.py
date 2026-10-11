@@ -69,6 +69,16 @@ def verify(output,aliases):
  B=output/'assets/lsmmod';rows={r['id']:r for r in audit()};checked=0
  for ident in (*TARGETS,'school_entrance_pavement'):
   source=Selector(replace(read(A/f'blockstates/{ident}.json'),aliases));prepared=Selector(read(B/f'blockstates/{ident}.json'),B)
+  if ident in PAVEMENT:
+   # These roots own the atlas materials used by native OBJ MTL references.
+   for application in prepared.definition['variants'].values():
+    wrapper=read(B/f'models/{application["model"].split(":")[1]}.json')
+    textures=wrapper['textures']
+    assert textures=={'gray':'lsmmod:block/school_entrance_pavement_15',
+                      'yellow':'lsmmod:block/school_entrance_pavement_0',
+                      'particle':'lsmmod:block/school_entrance_pavement_15'}
+    for texture in textures.values():
+     assert (B/f'textures/{texture.split(":")[1]}.png').is_file(),texture
   domains=state_domains(rows[ident]);keys=list(domains)
   for values in itertools.product(*(domains[k] for k in keys)):
    state=dict(zip(keys,values));expected=source.select(state);actual=prepared.select(state)
