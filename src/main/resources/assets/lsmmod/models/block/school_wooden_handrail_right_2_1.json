@@ -1,0 +1,11 @@
+{
+  "loader": "neoforge:obj",
+  "model": "lsmmod:models/block/school_wooden_handrail_right_2_1.obj",
+  "automatic_culling": false,
+  "flip_v": true,
+  "shade_quads": true,
+  "textures": {
+    "wood": "lsmmod:block/school_wooden_handrail",
+    "particle": "lsmmod:block/school_wooden_handrail"
+  }
+}

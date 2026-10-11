@@ -19,24 +19,26 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /** A single placement creates the complete six-block inclined wooden handrail. */
 public class SchoolWoodenHandrailBlock extends Block {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final BooleanProperty RIGHT = BooleanProperty.create("right");
     public static final IntegerProperty COLUMN = IntegerProperty.create("column", 0, 5);
     public static final IntegerProperty ROW = IntegerProperty.create("row", 0, 2);
 
     public SchoolWoodenHandrailBlock(Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH)
-                .setValue(COLUMN, 0).setValue(ROW, 0));
+                .setValue(COLUMN, 0).setValue(ROW, 0).setValue(RIGHT, true));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, COLUMN, ROW);
+        builder.add(FACING, COLUMN, ROW, RIGHT);
     }
 
     @Override
@@ -56,7 +58,25 @@ public class SchoolWoodenHandrailBlock extends Block {
                 }
             }
         }
-        return defaultBlockState().setValue(FACING, facing);
+        Direction right = facing.getClockWise();
+        BlockPos rightPos = origin.relative(right), leftPos = origin.relative(right.getOpposite());
+        boolean onRight;
+        if (hasRamp(level, rightPos)) onRight = true;
+        else if (hasRamp(level, leftPos)) onRight = false;
+        else {
+            double x = context.getClickLocation().x - origin.getX() - 0.5;
+            double z = context.getClickLocation().z - origin.getZ() - 0.5;
+            onRight = x * right.getStepX() + z * right.getStepZ() >= 0;
+        }
+        return defaultBlockState().setValue(FACING, facing).setValue(RIGHT, onRight);
+    }
+
+    private static boolean hasRamp(Level level, BlockPos pos) {
+        for (int dy = -2; dy <= 1; dy++) {
+            BlockPos candidate = pos.above(dy);
+            if (level.hasChunkAt(candidate) && level.getBlockState(candidate).getBlock() instanceof EntrancePavementSlopeBlock) return true;
+        }
+        return false;
     }
 
     @Override
@@ -88,16 +108,17 @@ public class SchoolWoodenHandrailBlock extends Block {
     protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         int column = state.getValue(COLUMN), row = state.getValue(ROW);
         Direction facing = state.getValue(FACING);
+        double edge = state.getValue(RIGHT) ? 14 : 0;
         VoxelShape shape = net.minecraft.world.phys.shapes.Shapes.empty();
         for (int i = 0; i < 16; i++) {
-            double low = Math.max(0, column * 4 + i / 4.0 - row * 16);
+            double low = 0;
             double high = Math.min(16, column * 4 + (i + 1) / 4.0 + 16 - row * 16);
             if (high <= low) continue;
             VoxelShape slice = switch (facing) {
-                case NORTH -> Block.box(7, low, 15-i, 9, high, 16-i);
-                case SOUTH -> Block.box(7, low, i, 9, high, i+1);
-                case EAST -> Block.box(i, low, 7, i+1, high, 9);
-                default -> Block.box(15-i, low, 7, 16-i, high, 9);
+                case NORTH -> Block.box(edge, low, 15-i, edge+2, high, 16-i);
+                case SOUTH -> Block.box(14-edge, low, i, 16-edge, high, i+1);
+                case EAST -> Block.box(i, low, edge, i+1, high, edge+2);
+                default -> Block.box(15-i, low, 14-edge, 16-i, high, 16-edge);
             };
             shape = net.minecraft.world.phys.shapes.Shapes.or(shape, slice);
         }
@@ -105,7 +126,7 @@ public class SchoolWoodenHandrailBlock extends Block {
     }
 
     private static boolean occupied(int column, int row) {
-        return row * 16 < column * 4 + 20 && (row + 1) * 16 > column * 4;
+        return row * 16 < column * 4 + 20;
     }
 
     private static BlockPos tile(BlockPos center, Direction facing, int column, int row) {

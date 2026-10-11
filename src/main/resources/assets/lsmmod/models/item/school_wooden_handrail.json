@@ -1,5 +1,5 @@
 {
-  "parent": "lsmmod:block/school_wooden_handrail_0_0",
+  "parent": "lsmmod:block/school_wooden_handrail_right_0_0",
   "display": {
     "gui": {
       "rotation": [
