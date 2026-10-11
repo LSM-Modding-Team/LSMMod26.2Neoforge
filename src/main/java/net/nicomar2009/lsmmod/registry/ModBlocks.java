@@ -123,6 +123,11 @@ public final class ModBlocks {
             props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
     // END YELLOW SCHOOL SLOPES
 
+    // BEGIN PLAYGROUND FLOORS
+    public static final DeferredBlock<Block> WHITE_PLAYGROUND_FLOOR = BLOCKS.registerBlock("white_playground_floor", Block::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<Block> GRAY_PLAYGROUND_FLOOR = BLOCKS.registerBlock("gray_playground_floor", Block::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    // END PLAYGROUND FLOORS
+
     // BEGIN CLASSROOM SURFACES
     public static final DeferredBlock<Block> CLASSROOM_WHITE_WALL = BLOCKS.registerBlock(
             "classroom_white_wall", Block::new,

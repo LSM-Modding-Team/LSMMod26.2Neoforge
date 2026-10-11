@@ -29,6 +29,8 @@ public enum PaintedWallNameProvider implements IBlockComponentProvider {
             case WHITE -> ModBlocks.CLASSROOM_WHITE_WALL.get();
             case FLOOR -> ModBlocks.CLASSROOM_FLOOR.get();
             case YELLOW -> ModBlocks.YELLOW_SCHOOL_BLOCK.get();
+            case PLAYGROUND_WHITE -> ModBlocks.WHITE_PLAYGROUND_FLOOR.get();
+            case PLAYGROUND_GRAY -> ModBlocks.GRAY_PLAYGROUND_FLOOR.get();
             case UNPAINTED -> ModBlocks.SCHOOL_PAINTABLE_BLOCK.get();
         };
         return JadeUI.item(new ItemStack(paintedBlock));

@@ -64,10 +64,18 @@ def main():
     rng=random.Random(261011)
     palettes=[tuple([c]*24) for c in range(len(PAINTS))]+[tuple(rng.randrange(len(PAINTS)) for _ in range(24)) for _ in range(10000)]
     for colors in palettes:
-        low=sum(c<<(i*3) for i,c in enumerate(colors[:16]))
-        high=sum(c<<(i*3) for i,c in enumerate(colors[16:]))
-        restored=tuple(((low if i<16 else high)>>((i if i<16 else i-16)*3))&7 for i in range(24))
+        low=sum(c<<(i*4) for i,c in enumerate(colors[:16]))
+        high=sum(c<<(i*4) for i,c in enumerate(colors[16:]))
+        restored=tuple(((low if i<16 else high)>>((i if i<16 else i-16)*4))&15 for i in range(24))
         assert restored==colors
+    # Existing saves omit paint_bits and retain their three-bit IDs unchanged.
+    for _ in range(1000):
+        old=[rng.randrange(7) for _ in range(24)]
+        low=sum(c<<(i*3) for i,c in enumerate(old[:16]))
+        high=sum(c<<(i*3) for i,c in enumerate(old[16:]))
+        assert [((low if i<16 else high)>>((i if i<16 else i-16)*3))&7 for i in range(24)]==old
+    entity=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolPaintableCustomBlockEntity.java').read_text()
+    assert 'output.putInt("paint_bits",4)' in entity and 'getIntOr("paint_bits",3)==4 ? 4 : 3' in entity
     assert list(read(A/'blockstates/school_paintable_custom_block.json')['variants'])==['']
     assert list(read(A/'blockstates/school_foundation.json')['variants'])==['']
     print(f'OK: 256 occupancy masks, {len(entries)} face/color models, all exposed hit planes, 24 independent squares and {len(palettes)} packed palettes; two blocks with one state each.')

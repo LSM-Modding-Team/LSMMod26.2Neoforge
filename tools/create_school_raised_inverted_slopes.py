@@ -27,7 +27,7 @@ def main():
  blocks='    // BEGIN SCHOOL RAISED INVERTED SLOPES\n';items=blocks
  for ident,source,col,row,low,rise in pieces():
   (A/f'models/block/{ident}.obj').write_text(shift_obj((A/f'models/block/{source}.obj').read_text(),top_height(ident)))
-  model=json.loads((A/f'models/block/{source}.json').read_text());model['model']=f'lsmmod:models/block/{ident}.obj';write(A/f'models/block/{ident}.json',model)
+  model=json.loads((A/f'models/block/{source}.json').read_text());model['model']=f'lsmmod:models/block/{ident}.obj';model['textures'].update(wall='lsmmod:block/classroom_white_wall',particle='lsmmod:block/classroom_white_wall');write(A/f'models/block/{ident}.json',model)
   states=json.loads((A/f'blockstates/{source}.json').read_text())
   for value in states['variants'].values():value['model']='lsmmod:block/'+ident
   write(A/f'blockstates/{ident}.json',states)

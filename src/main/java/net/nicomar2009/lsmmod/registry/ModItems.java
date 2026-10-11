@@ -41,6 +41,8 @@ public final class ModItems {
     public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> CLASSROOM_WHITE = ITEMS.registerItem("classroom_white", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.WHITE, props));
     public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> CLASSROOM_FLOOR_PAINT = ITEMS.registerItem("classroom_floor_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.FLOOR, props));
     public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> YELLOW_SCHOOL_PAINT = ITEMS.registerItem("yellow_school_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.YELLOW, props));
+    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> WHITE_PLAYGROUND_FLOOR_PAINT = ITEMS.registerItem("white_playground_floor_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.PLAYGROUND_WHITE, props));
+    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> GRAY_PLAYGROUND_FLOOR_PAINT = ITEMS.registerItem("gray_playground_floor_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.PLAYGROUND_GRAY, props));
     public static final DeferredItem<net.nicomar2009.lsmmod.item.PaintCleanerItem> PAINT_CLEANER = ITEMS.registerItem("paint_cleaner", net.nicomar2009.lsmmod.item.PaintCleanerItem::new);
     // END PAINTABLE SCHOOL BLOCK
 
@@ -78,6 +80,11 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> YELLOW_SCHOOL_SLOPE_3 = ITEMS.registerSimpleBlockItem(ModBlocks.YELLOW_SCHOOL_SLOPE_3);
     public static final DeferredItem<BlockItem> YELLOW_SCHOOL_SLOPE_4 = ITEMS.registerSimpleBlockItem(ModBlocks.YELLOW_SCHOOL_SLOPE_4);
     // END YELLOW SCHOOL SLOPES
+
+    // BEGIN PLAYGROUND FLOORS
+    public static final DeferredItem<BlockItem> WHITE_PLAYGROUND_FLOOR = ITEMS.registerSimpleBlockItem(ModBlocks.WHITE_PLAYGROUND_FLOOR);
+    public static final DeferredItem<BlockItem> GRAY_PLAYGROUND_FLOOR = ITEMS.registerSimpleBlockItem(ModBlocks.GRAY_PLAYGROUND_FLOOR);
+    // END PLAYGROUND FLOORS
 
     // BEGIN CLASSROOM SURFACES
     public static final DeferredItem<BlockItem> CLASSROOM_WHITE_WALL = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_WHITE_WALL);

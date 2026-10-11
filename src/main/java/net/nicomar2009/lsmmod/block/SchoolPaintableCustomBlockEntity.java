@@ -67,15 +67,18 @@ public class SchoolPaintableCustomBlockEntity extends SchoolPaintableBlockEntity
         // The inherited six-color storage is unused: encode only this block's 24 colors.
         output.putInt("occupied",occupied);
         long low=0,high=0;
-        for(int i=0;i<16;i++) low |= (long)squares[i] << (i*3);
-        for(int i=16;i<24;i++) high |= (long)squares[i] << ((i-16)*3);
+        for(int i=0;i<16;i++) low |= (long)squares[i] << (i*4);
+        for(int i=16;i<24;i++) high |= (long)squares[i] << ((i-16)*4);
+        output.putInt("paint_bits",4);
         output.putLong("paints_low",low); output.putLong("paints_high",high);
     }
     @Override protected void loadAdditional(ValueInput input) {
         occupied=input.getIntOr("occupied",255)&255;
         if(occupied==0) occupied=255; // Empty blocks are removed rather than persisted.
         long low=input.getLongOr("paints_low",0),high=input.getLongOr("paints_high",0);
-        for(int i=0;i<24;i++) squares[i]=SchoolPaint.fromId((int)(((i<16 ? low : high) >>> ((i<16 ? i : i-16)*3))&7)).ordinal();
+        int bits=input.getIntOr("paint_bits",3)==4 ? 4 : 3; // Legacy palettes used three bits.
+        int mask=(1<<bits)-1;
+        for(int i=0;i<24;i++) squares[i]=SchoolPaint.fromId((int)(((i<16 ? low : high) >>> ((i<16 ? i : i-16)*bits))&mask)).ordinal();
         invalidateClientGeometry();
     }
 }

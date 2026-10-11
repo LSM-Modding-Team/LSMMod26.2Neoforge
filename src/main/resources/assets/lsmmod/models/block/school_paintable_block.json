@@ -55,6 +55,22 @@
         }
       },
       {
+        "model": "lsmmod:block/paintable_faces/down_7",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "down",
+          "paint": 7
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/down_8",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "down",
+          "paint": 8
+        }
+      },
+      {
         "model": "lsmmod:block/paintable_faces/down_0"
       }
     ],
@@ -105,6 +121,22 @@
           "type": "lsmmod:painted_face",
           "face": "up",
           "paint": 6
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/up_7",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "up",
+          "paint": 7
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/up_8",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "up",
+          "paint": 8
         }
       },
       {
@@ -161,6 +193,22 @@
         }
       },
       {
+        "model": "lsmmod:block/paintable_faces/north_7",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "north",
+          "paint": 7
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/north_8",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "north",
+          "paint": 8
+        }
+      },
+      {
         "model": "lsmmod:block/paintable_faces/north_0"
       }
     ],
@@ -211,6 +259,22 @@
           "type": "lsmmod:painted_face",
           "face": "south",
           "paint": 6
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/south_7",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "south",
+          "paint": 7
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/south_8",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "south",
+          "paint": 8
         }
       },
       {
@@ -267,6 +331,22 @@
         }
       },
       {
+        "model": "lsmmod:block/paintable_faces/west_7",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "west",
+          "paint": 7
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/west_8",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "west",
+          "paint": 8
+        }
+      },
+      {
         "model": "lsmmod:block/paintable_faces/west_0"
       }
     ],
@@ -317,6 +397,22 @@
           "type": "lsmmod:painted_face",
           "face": "east",
           "paint": 6
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/east_7",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "east",
+          "paint": 7
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/east_8",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "east",
+          "paint": 8
         }
       },
       {

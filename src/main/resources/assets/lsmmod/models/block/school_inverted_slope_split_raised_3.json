@@ -5,7 +5,7 @@
   "flip_v": true,
   "shade_quads": true,
   "textures": {
-    "wall": "lsmmod:block/light_school_wall",
-    "particle": "lsmmod:block/light_school_wall"
+    "wall": "lsmmod:block/classroom_white_wall",
+    "particle": "lsmmod:block/classroom_white_wall"
   }
 }
