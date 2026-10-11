@@ -301,5 +301,13 @@
   "block.lsmmod.dark_street_school_wall_4": "Dark/Street School Wall (4/2 faces)",
   "block.lsmmod.dark_street_school_wall_5": "Dark/Street School Wall (5/1 faces)",
   "block.lsmmod.classroom_painted_block": "Classroom Painted Block",
-  "block.lsmmod.school_synthetic_grass": "School Synthetic Grass"
+  "block.lsmmod.school_synthetic_grass": "School Synthetic Grass",
+  "block.lsmmod.classroom_white_wall": "Classroom White Wall",
+  "block.lsmmod.school_paintable_block": "School Paintable Block",
+  "item.lsmmod.light_school": "Light School Paint",
+  "item.lsmmod.dark_school": "Dark School Paint",
+  "item.lsmmod.street_school": "Street School Paint",
+  "item.lsmmod.classroom_white": "Classroom White Paint",
+  "item.lsmmod.paint_cleaner": "Paint Cleaner",
+  "message.lsmmod.paint_copied": "Six faces copied. Click another paintable block to apply once."
 }

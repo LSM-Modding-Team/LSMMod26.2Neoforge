@@ -17,6 +17,10 @@ public final class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, LSMMod.MOD_ID);
 
+    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolPaintableBlockEntity>> SCHOOL_PAINTABLE = BLOCK_ENTITIES.register(
+            "school_paintable_block", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolPaintableBlockEntity::new,
+                    ModBlocks.SCHOOL_PAINTABLE_BLOCK.get()));
+
     // Only the LEFT half creates a DeskBlockEntity, but the type is valid for the whole block.
     // Only the student's desk has storage; the teacher's desk is decorative and has no block entity.
     public static final Supplier<BlockEntityType<DeskBlockEntity>> STUDENTS_DESK = BLOCK_ENTITIES.register(

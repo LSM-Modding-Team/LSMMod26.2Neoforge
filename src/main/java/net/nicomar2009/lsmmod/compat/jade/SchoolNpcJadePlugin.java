@@ -17,6 +17,7 @@ public final class SchoolNpcJadePlugin implements IWailaPlugin {
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
+        registration.registerBlockComponent(PaintedWallNameProvider.INSTANCE, net.nicomar2009.lsmmod.block.SchoolPaintableBlock.class);
         registration.registerEntityComponent(SchoolNpcStatsProvider.Client.INSTANCE, SchoolNpcEntity.class);
     }
 }

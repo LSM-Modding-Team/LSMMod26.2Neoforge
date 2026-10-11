@@ -1,0 +1,37 @@
+package net.nicomar2009.lsmmod.client;
+
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import net.neoforged.neoforge.client.event.InputEvent;
+import net.nicomar2009.lsmmod.LSMMod;
+import net.nicomar2009.lsmmod.block.SchoolPaintableBlock;
+import net.nicomar2009.lsmmod.item.SchoolPaintItem;
+import net.nicomar2009.lsmmod.network.PaintCopyPayload;
+import org.lwjgl.glfw.GLFW;
+
+@EventBusSubscriber(modid = LSMMod.MOD_ID, value = Dist.CLIENT)
+public final class PaintCopyInput {
+    @SubscribeEvent public static void copy(InputEvent.InteractionKeyMappingTriggered event) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (!event.isUseItem() || minecraft.player == null || minecraft.level == null
+                || !(minecraft.hitResult instanceof BlockHitResult hit)
+                || !(minecraft.level.getBlockState(hit.getBlockPos()).getBlock() instanceof SchoolPaintableBlock)) return;
+        var window = minecraft.getWindow();
+        if (!InputConstants.isKeyDown(window, GLFW.GLFW_KEY_LEFT_CONTROL)
+                && !InputConstants.isKeyDown(window, GLFW.GLFW_KEY_RIGHT_CONTROL)) return;
+        InteractionHand hand;
+        if (minecraft.player.getMainHandItem().getItem() instanceof SchoolPaintItem) hand = InteractionHand.MAIN_HAND;
+        else if (minecraft.player.getOffhandItem().getItem() instanceof SchoolPaintItem) hand = InteractionHand.OFF_HAND;
+        else return;
+        // Intercept before useItemOn sends its normal server packet; cancel both hands.
+        event.setCanceled(true); event.setSwingHand(false);
+        if (event.getHand() == hand)
+            ClientPacketDistributor.sendToServer(new PaintCopyPayload(hit.getBlockPos(), hand == InteractionHand.OFF_HAND));
+    }
+}

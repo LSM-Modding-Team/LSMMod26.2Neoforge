@@ -295,5 +295,13 @@
   "block.lsmmod.dark_street_school_wall_4": "Pared Oscura/Calle (4/2 caras)",
   "block.lsmmod.dark_street_school_wall_5": "Pared Oscura/Calle (5/1 caras)",
   "block.lsmmod.classroom_painted_block": "Bloque pintado de aula",
-  "block.lsmmod.school_synthetic_grass": "Césped sintético del colegio"
+  "block.lsmmod.school_synthetic_grass": "Césped sintético del colegio",
+  "block.lsmmod.classroom_white_wall": "Pared blanca de aula",
+  "block.lsmmod.school_paintable_block": "Bloque pintable del colegio",
+  "item.lsmmod.light_school": "Pintura clara del colegio",
+  "item.lsmmod.dark_school": "Pintura oscura del colegio",
+  "item.lsmmod.street_school": "Pintura de pared de calle",
+  "item.lsmmod.classroom_white": "Pintura blanca de aula",
+  "item.lsmmod.paint_cleaner": "Limpiador de pintura",
+  "message.lsmmod.paint_copied": "Se copiaron las seis caras. Haz clic en otro bloque pintable para aplicarlas una vez."
 }

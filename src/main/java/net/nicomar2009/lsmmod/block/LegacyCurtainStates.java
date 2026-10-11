@@ -18,6 +18,9 @@ public final class LegacyCurtainStates {
     private LegacyCurtainStates() {}
     public static CompoundTag migrateState(CompoundTag tag) {
         String name=tag.getStringOr("Name","");
+        if(name.equals("lsmmod:classroom_painted_block")) {
+            CompoundTag copy=tag.copy();copy.putString("Name","lsmmod:classroom_white_wall");return copy;
+        }
         if(PAVEMENT.contains(name)||name.equals("lsmmod:street_school_bars")) {
             CompoundTag properties=tag.getCompoundOrEmpty("Properties");
             String[] retired=PAVEMENT.contains(name)?BORDER_PROPERTIES:new String[]{"column","row"};

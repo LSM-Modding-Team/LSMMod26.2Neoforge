@@ -42,6 +42,7 @@ public final class ModCreativeTabs {
                 .title(Component.translatable(title))
                 .icon(icon)
                 .displayItems((parameters, output) -> ModItems.ITEMS.getEntries().forEach(entry -> {
+                    if (entry.getId().getPath().equals("classroom_painted_block")) return; // Legacy registry alias.
                     Item item = entry.get();
                     if (category(item, entry.getId().getPath()) == group) output.accept(item);
                 }))
@@ -58,7 +59,8 @@ public final class ModCreativeTabs {
                 return Group.FUNCTIONAL_BLOCKS;
             if (id.contains("_slope_") || id.startsWith("school_entrance_pavement")
                     || id.contains("_wall") || id.endsWith("_floor") || id.equals("school_parquet")
-                    || id.contains("_glass") || id.equals("classroom_painted_block")
+                    || id.contains("_glass") || id.equals("classroom_white_wall")
+                    || id.equals("school_paintable_block")
                     || id.equals("school_synthetic_grass")) return Group.BLOCKS;
             return Group.FUNCTIONAL_BLOCKS;
         }

@@ -1,0 +1,18 @@
+package net.nicomar2009.lsmmod.item;
+
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
+import net.nicomar2009.lsmmod.block.SchoolPaintableBlockEntity;
+
+public class PaintCleanerItem extends Item {
+    public PaintCleanerItem(Properties properties) { super(properties.stacksTo(1)); }
+    @Override public InteractionResult useOn(UseOnContext context) {
+        var level = context.getLevel(); var pos = context.getClickedPos(); var player = context.getPlayer();
+        if (!(level.getBlockEntity(pos) instanceof SchoolPaintableBlockEntity block)) return InteractionResult.PASS;
+        if (player == null || player.isSpectator() || !level.mayInteract(player, pos)
+                || !player.mayUseItemAt(pos, context.getClickedFace(), context.getItemInHand())) return InteractionResult.FAIL;
+        if (!level.isClientSide()) block.clean();
+        return InteractionResult.SUCCESS;
+    }
+}

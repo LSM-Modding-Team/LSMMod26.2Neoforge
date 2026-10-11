@@ -21,7 +21,17 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
+    // BEGIN PAINTABLE SCHOOL BLOCK
+    public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_BLOCK);
+    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> LIGHT_SCHOOL = ITEMS.registerItem("light_school", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.LIGHT, props));
+    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> DARK_SCHOOL = ITEMS.registerItem("dark_school", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.DARK, props));
+    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> STREET_SCHOOL = ITEMS.registerItem("street_school", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.STREET, props));
+    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> CLASSROOM_WHITE = ITEMS.registerItem("classroom_white", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.WHITE, props));
+    public static final DeferredItem<net.nicomar2009.lsmmod.item.PaintCleanerItem> PAINT_CLEANER = ITEMS.registerItem("paint_cleaner", net.nicomar2009.lsmmod.item.PaintCleanerItem::new);
+    // END PAINTABLE SCHOOL BLOCK
+
     // BEGIN CLASSROOM SURFACES
+    public static final DeferredItem<BlockItem> CLASSROOM_WHITE_WALL = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_WHITE_WALL);
     public static final DeferredItem<BlockItem> CLASSROOM_PAINTED_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_PAINTED_BLOCK);
     public static final DeferredItem<BlockItem> SCHOOL_SYNTHETIC_GRASS = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_SYNTHETIC_GRASS);
     // END CLASSROOM SURFACES

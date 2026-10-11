@@ -1,0 +1,231 @@
+{
+  "loader": "fusion:model",
+  "type": "composite",
+  "textures": {
+    "particle": "minecraft:block/light_gray_concrete"
+  },
+  "models": [
+    [
+      {
+        "model": "lsmmod:block/paintable_faces/down_1",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "down",
+          "paint": 1
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/down_2",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "down",
+          "paint": 2
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/down_3",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "down",
+          "paint": 3
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/down_4",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "down",
+          "paint": 4
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/down_0"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/paintable_faces/up_1",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "up",
+          "paint": 1
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/up_2",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "up",
+          "paint": 2
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/up_3",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "up",
+          "paint": 3
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/up_4",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "up",
+          "paint": 4
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/up_0"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/paintable_faces/north_1",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "north",
+          "paint": 1
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/north_2",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "north",
+          "paint": 2
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/north_3",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "north",
+          "paint": 3
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/north_4",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "north",
+          "paint": 4
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/north_0"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/paintable_faces/south_1",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "south",
+          "paint": 1
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/south_2",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "south",
+          "paint": 2
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/south_3",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "south",
+          "paint": 3
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/south_4",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "south",
+          "paint": 4
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/south_0"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/paintable_faces/west_1",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "west",
+          "paint": 1
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/west_2",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "west",
+          "paint": 2
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/west_3",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "west",
+          "paint": 3
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/west_4",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "west",
+          "paint": 4
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/west_0"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/paintable_faces/east_1",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "east",
+          "paint": 1
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/east_2",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "east",
+          "paint": 2
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/east_3",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "east",
+          "paint": 3
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/east_4",
+        "condition": {
+          "type": "lsmmod:painted_face",
+          "face": "east",
+          "paint": 4
+        }
+      },
+      {
+        "model": "lsmmod:block/paintable_faces/east_0"
+      }
+    ]
+  ]
+}
