@@ -19,17 +19,24 @@ public class SchoolPaintItem extends Item {
     public static void copyTo(ItemStack stack, SchoolPaintableBlockEntity source) {
         CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         CompoundTag copy = new CompoundTag(); int[] colors = source.snapshot();
-        for (Direction face : Direction.values()) copy.putInt(face.getSerializedName(), colors[face.ordinal()]);
+        copy.putBoolean("quadrants", colors.length == 24);
+        for (Direction face : Direction.values()) {
+            if (colors.length == 6) copy.putInt(face.getSerializedName(), colors[face.ordinal()]);
+            else for (int q = 0; q < 4; q++) copy.putInt(face.getSerializedName()+"_"+q, colors[face.ordinal()*4+q]);
+        }
         tag.put(COPY, copy); stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
     }
     private static int[] copied(CompoundTag tag) {
         if (!tag.contains(COPY)) return null;
-        CompoundTag copy = tag.getCompoundOrEmpty(COPY); int[] colors = new int[6];
-        for (Direction face : Direction.values()) {
-            if (!copy.contains(face.getSerializedName())) return null;
-            int color = copy.getIntOr(face.getSerializedName(), -1);
-            if (color < 0 || color >= SchoolPaint.values().length) return null;
-            colors[face.ordinal()] = color;
+        CompoundTag copy = tag.getCompoundOrEmpty(COPY);
+        int count = copy.getBooleanOr("quadrants", false) ? 4 : 1;
+        int[] colors = new int[6*count];
+        for (Direction face : Direction.values()) for (int q = 0; q < count; q++) {
+            String key = face.getSerializedName() + (count == 4 ? "_"+q : "");
+            if (!copy.contains(key)) return null;
+            int color = copy.getIntOr(key, -1);
+            if (!SchoolPaint.validId(color)) return null;
+            colors[face.ordinal()*count+q] = color;
         }
         return colors;
     }
@@ -42,7 +49,7 @@ public class SchoolPaintItem extends Item {
             ItemStack stack = context.getItemInHand();
             CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
             int[] colors = copied(tag);
-            if (colors == null) block.paintFace(context.getClickedFace(), paint);
+            if (colors == null) block.paintAt(context.getClickedFace(), context.getClickLocation(), paint);
             else {
                 block.apply(colors); tag.remove(COPY);
                 if (tag.isEmpty()) stack.remove(DataComponents.CUSTOM_DATA);

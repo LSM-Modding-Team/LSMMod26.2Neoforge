@@ -17,7 +17,7 @@ public enum PaintedWallNameProvider implements IBlockComponentProvider {
     @Override public int getDefaultPriority() { return TooltipPosition.HEAD; }
     @Override public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
         if (!(accessor.getBlockEntity() instanceof SchoolPaintableBlockEntity block)) return;
-        Component name = Component.translatable("block.lsmmod." + block.paint(accessor.getSide()).blockName);
+        Component name = Component.translatable("block.lsmmod." + block.paintAt(accessor.getSide(), accessor.getHitResult().getLocation()).blockName);
         if (!tooltip.replace(JadeIds.CORE_OBJECT_NAME, name)) tooltip.add(0, name, JadeIds.CORE_OBJECT_NAME);
     }
 }

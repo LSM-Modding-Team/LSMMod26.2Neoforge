@@ -21,6 +21,10 @@ public final class ModBlockEntities {
             "school_paintable_block", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolPaintableBlockEntity::new,
                     ModBlocks.SCHOOL_PAINTABLE_BLOCK.get()));
 
+    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolPaintableCustomBlockEntity>> SCHOOL_PAINTABLE_CUSTOM = BLOCK_ENTITIES.register(
+            "school_paintable_custom_block", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolPaintableCustomBlockEntity::new,
+                    ModBlocks.SCHOOL_PAINTABLE_CUSTOM_BLOCK.get()));
+
     // Only the LEFT half creates a DeskBlockEntity, but the type is valid for the whole block.
     // Only the student's desk has storage; the teacher's desk is decorative and has no block entity.
     public static final Supplier<BlockEntityType<DeskBlockEntity>> STUDENTS_DESK = BLOCK_ENTITIES.register(

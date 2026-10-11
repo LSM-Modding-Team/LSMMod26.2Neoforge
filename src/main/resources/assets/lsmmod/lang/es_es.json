@@ -303,5 +303,9 @@
   "item.lsmmod.street_school": "Pintura de pared de calle",
   "item.lsmmod.classroom_white": "Pintura blanca de aula",
   "item.lsmmod.paint_cleaner": "Limpiador de pintura",
-  "message.lsmmod.paint_copied": "Se copiaron las seis caras. Haz clic en otro bloque pintable para aplicarlas una vez."
+  "message.lsmmod.paint_copied": "Se copiaron las seis caras. Haz clic en otro bloque pintable para aplicarlas una vez.",
+  "block.lsmmod.school_foundation": "Cimientos del colegio",
+  "block.lsmmod.school_paintable_custom_block": "Bloque pintable personalizado del colegio",
+  "item.lsmmod.school_sandpaper": "Lija del colegio",
+  "item.lsmmod.school_hammer": "Martillo del colegio"
 }

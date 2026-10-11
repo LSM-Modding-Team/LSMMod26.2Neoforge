@@ -309,5 +309,9 @@
   "item.lsmmod.street_school": "Street School Paint",
   "item.lsmmod.classroom_white": "Classroom White Paint",
   "item.lsmmod.paint_cleaner": "Paint Cleaner",
-  "message.lsmmod.paint_copied": "Six faces copied. Click another paintable block to apply once."
+  "message.lsmmod.paint_copied": "Six faces copied. Click another paintable block to apply once.",
+  "block.lsmmod.school_foundation": "School Foundation",
+  "block.lsmmod.school_paintable_custom_block": "Custom Paintable School Block",
+  "item.lsmmod.school_sandpaper": "School Sandpaper",
+  "item.lsmmod.school_hammer": "School Hammer"
 }

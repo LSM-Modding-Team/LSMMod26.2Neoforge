@@ -8,8 +8,10 @@ public enum SchoolPaint {
     STREET("street_school_wall", "lsmmod:block/street_school_wall"),
     WHITE("classroom_white_wall", "lsmmod:block/classroom_painted_block");
 
+    private static final SchoolPaint[] COLORS = values();
+    public static boolean validId(int id) { return id >= 0 && id < COLORS.length; }
     public final String blockName;
     public final String texture;
     SchoolPaint(String blockName, String texture) { this.blockName = blockName; this.texture = texture; }
-    public static SchoolPaint fromId(int id) { return id >= 0 && id < values().length ? values()[id] : UNPAINTED; }
+    public static SchoolPaint fromId(int id) { return validId(id) ? COLORS[id] : UNPAINTED; }
 }

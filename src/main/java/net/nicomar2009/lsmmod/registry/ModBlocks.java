@@ -20,6 +20,15 @@ public final class ModBlocks {
     // BEGIN SCHOOL INVERTED SLOPES
     // BEGIN SCHOOL SPLIT RAISED EXTRAS
     // BEGIN ENTRANCE PAVEMENT SHAPES
+    // BEGIN CUSTOM PAINTABLE BLOCKS
+    public static final DeferredBlock<Block> SCHOOL_FOUNDATION = BLOCKS.registerBlock(
+            "school_foundation", Block::new,
+            props -> props.strength(3.0F, 8.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<SchoolPaintableCustomBlock> SCHOOL_PAINTABLE_CUSTOM_BLOCK = BLOCKS.registerBlock(
+            "school_paintable_custom_block", SchoolPaintableCustomBlock::new,
+            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().dynamicShape().noOcclusion());
+    // END CUSTOM PAINTABLE BLOCKS
+
     // BEGIN PAINTABLE SCHOOL BLOCK
     public static final DeferredBlock<SchoolPaintableBlock> SCHOOL_PAINTABLE_BLOCK = BLOCKS.registerBlock(
             "school_paintable_block", SchoolPaintableBlock::new,

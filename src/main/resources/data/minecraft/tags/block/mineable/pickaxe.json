@@ -88,6 +88,8 @@
     "lsmmod:dark_street_school_wall_5",
     "lsmmod:classroom_painted_block",
     "lsmmod:classroom_white_wall",
-    "lsmmod:school_paintable_block"
+    "lsmmod:school_paintable_block",
+    "lsmmod:school_foundation",
+    "lsmmod:school_paintable_custom_block"
   ]
 }

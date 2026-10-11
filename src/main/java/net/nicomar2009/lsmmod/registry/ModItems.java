@@ -21,6 +21,13 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
+    // BEGIN CUSTOM PAINTABLE BLOCKS
+    public static final DeferredItem<BlockItem> SCHOOL_FOUNDATION = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_FOUNDATION);
+    public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_CUSTOM_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_CUSTOM_BLOCK);
+    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolSandpaperItem> SCHOOL_SANDPAPER = ITEMS.registerItem("school_sandpaper", net.nicomar2009.lsmmod.item.SchoolSandpaperItem::new);
+    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolHammerItem> SCHOOL_HAMMER = ITEMS.registerItem("school_hammer", net.nicomar2009.lsmmod.item.SchoolHammerItem::new);
+    // END CUSTOM PAINTABLE BLOCKS
+
     // BEGIN PAINTABLE SCHOOL BLOCK
     public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_BLOCK);
     public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> LIGHT_SCHOOL = ITEMS.registerItem("light_school", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.LIGHT, props));

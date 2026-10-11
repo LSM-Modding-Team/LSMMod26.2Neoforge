@@ -10,6 +10,7 @@ import net.nicomar2009.lsmmod.LSMMod;
 @Mod(value=LSMMod.MOD_ID,dist=Dist.CLIENT)
 public final class GlazingFusionRegistration {
     public GlazingFusionRegistration() {
+        FusionModelPredicateRegistry.registerModelPredicate(Identifier.fromNamespaceAndPath(LSMMod.MOD_ID,"painted_cube_face"),PaintedCubeFacePredicate.SERIALIZER);
         FusionModelPredicateRegistry.registerModelPredicate(Identifier.fromNamespaceAndPath(LSMMod.MOD_ID,"painted_face"),PaintedFacePredicate.SERIALIZER);
         FusionModelPredicateRegistry.registerModelPredicate(
                 Identifier.fromNamespaceAndPath(LSMMod.MOD_ID,"glazing_mask"),SchoolGlazingPredicate.SERIALIZER);
