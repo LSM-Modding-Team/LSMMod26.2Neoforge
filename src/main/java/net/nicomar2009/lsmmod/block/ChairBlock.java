@@ -61,29 +61,9 @@ public class ChairBlock extends Block {
     /** Allows new chair models to provide their own physical geometry; selection uses its bounds. */
     public ChairBlock(Properties properties, VoxelShape nativeShape) {
         super(properties);
-        this.shapes = buildRotatedShapes(nativeShape);
+        this.shapes = SharedChairRotations.horizontal(nativeShape);
         // Default orientation matches the model's native orientation
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.SOUTH));
-    }
-
-    // ---- Shape helpers --------------------------------------------------------------------
-
-    private static VoxelShape[] buildRotatedShapes(VoxelShape native0) {
-        VoxelShape[] shapes = new VoxelShape[4];
-        shapes[0] = native0;
-        for (int i = 1; i < 4; i++) {
-            shapes[i] = rotateClockwise(shapes[i - 1]);
-        }
-        return shapes;
-    }
-
-    /** Rotates a shape 90 degrees clockwise (seen from above) around the block's vertical axis. */
-    private static VoxelShape rotateClockwise(VoxelShape shape) {
-        VoxelShape[] result = {Shapes.empty()};
-        // (x, z) -> (1 - z, x)
-        shape.forAllBoxes((x1, y1, z1, x2, y2, z2) ->
-                result[0] = Shapes.or(result[0], Shapes.box(1.0D - z2, y1, x1, 1.0D - z1, y2, x2)));
-        return result[0];
     }
 
     // ---- Block state ----------------------------------------------------------------------

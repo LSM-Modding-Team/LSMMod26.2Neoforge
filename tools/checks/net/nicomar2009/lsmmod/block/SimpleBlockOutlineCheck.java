@@ -15,6 +15,7 @@ public final class SimpleBlockOutlineCheck {
     private static int checks;
 
     public static void main(String[] args) throws Exception {
+        checkChairGridRotations();
         if (!SimpleBlockOutline.boundingBox(Shapes.empty()).isEmpty()) {
             throw new AssertionError("An empty cell must not acquire an outline");
         }
@@ -47,6 +48,39 @@ public final class SimpleBlockOutlineCheck {
         }
         if (checks < 40) throw new AssertionError("Insufficient furniture shape coverage: " + checks);
         System.out.println("Verified " + checks + " furniture shapes/orientations; each nonempty outline has 12 edges.");
+    }
+
+    private static void checkChairGridRotations() {
+        if (com.mojang.math.OctahedralGroup.BLOCK_ROT_Y_90.rotate(net.minecraft.core.Direction.SOUTH)
+                != net.minecraft.core.Direction.WEST) throw new AssertionError("Chair rotation direction changed");
+        VoxelShape[] natives = {Shapes.empty(), Shapes.block(),
+                Shapes.box(-.25, 0, .125, .375, 1.5, .625),
+                Shapes.or(Shapes.box(.125,0,.125,.25,.75,.875),
+                        Shapes.box(.75,0,.125,.875,.75,.875),
+                        Shapes.box(.125,.75,.125,.875,.875,.875))};
+        for (VoxelShape nativeShape : natives) {
+            VoxelShape[] rotations = SharedChairRotations.horizontal(nativeShape);
+            VoxelShape previous = nativeShape;
+            for (int turn = 0; turn < 4; turn++) {
+                if (Shapes.joinIsNotEmpty(previous, rotations[turn], net.minecraft.world.phys.shapes.BooleanOp.NOT_SAME))
+                    throw new AssertionError("Chair collision changed at turn " + turn);
+                VoxelShape[] next = {Shapes.empty()};
+                previous.forAllBoxes((x1,y1,z1,x2,y2,z2) -> next[0] = Shapes.or(next[0],
+                        Shapes.box(1-z2,y1,x1,1-z1,y2,x2)));
+                previous = next[0];
+            }
+            if (Shapes.joinIsNotEmpty(previous,nativeShape,net.minecraft.world.phys.shapes.BooleanOp.NOT_SAME))
+                throw new AssertionError("Four chair rotations must restore the original volume");
+            VoxelShape[] again = SharedChairRotations.horizontal(nativeShape);
+            if (again == rotations) throw new AssertionError("Array ownership must be independent");
+            for (int turn=0; turn<4; turn++)
+                if (again[turn] != rotations[turn]) throw new AssertionError("Physical rotations must be shared");
+        }
+        VoxelShape a=Shapes.box(.125,.25,.375,.75,.875,1.125);
+        VoxelShape b=Shapes.box(.125,.25,.375,.75,.875,1.125);
+        VoxelShape[] first=SharedChairRotations.horizontal(a),second=SharedChairRotations.horizontal(b);
+        for(int turn=0;turn<4;turn++)
+            if(first[turn]!=second[turn])throw new AssertionError("Equal native volumes must share rotations");
     }
 
     private static void checkRotations(String name, VoxelShape source) {

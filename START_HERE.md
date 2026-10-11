@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+Colisiones de sillas: ChairBlock usa Shapes.rotate de Minecraft 26.2 para rotar directamente cuadrícula/coordenadas, con caché por identidad y descomposición exacta compartida entre sillas y taburetes. Se conservan cajas originales, huecos, orientaciones y sentarse. JFR anterior: 4225/5621 muestras en la rotación de sillas; verificación estática de siete perfiles / 28 giros correcta. Se ampliaron checks Java, sin ejecutarlos ni compilar por instrucción vigente. Falta nueva JFR. Detalles: docs/CHAIR_GRID_ROTATIONS.md.
+
 Formas físicas de toldos optimizadas: cuadrícula exacta de hasta 120 celdas sustituye hasta ocho uniones por consulta; caché compartido por perfil físico entre ambos toldos, colisión/oclusión conservadas y selección con caja envolvente. Verificación estática de 2312 perfiles y recursos correcta; sin compilar ni ejecutar Minecraft/checkFurnitureOutlines. JFR del usuario: 76 % de muestras en formas físicas, no atribuibles íntegramente a toldos por profundidad limitada. Falta nueva JFR. Detalles: docs/AWNING_PHYSICS_OPTIMIZATION.md.
 
 Corrección de recursos del pavimento: los modelos compuestos Fusion declaran explícitamente gray/yellow/particle para las referencias MTL de los OBJ del slab y las seis pendientes. Geometría y estados conservados. Regresión estática comprueba declaraciones y archivos de textura; falta confirmar en Minecraft y con latest.log el fallo reportado por el usuario. Siguiente paso de rendimiento: perfilar registro/horneado restante antes de mover propiedades físicas.
