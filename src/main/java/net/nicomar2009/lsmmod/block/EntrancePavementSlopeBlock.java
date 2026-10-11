@@ -13,7 +13,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-/** One of four fixed upright pieces, rising six pixels along the facing direction. */
+/** One of six fixed upright pieces, rising four pixels along the facing direction. */
 public class EntrancePavementSlopeBlock extends SchoolYellowBorderWallBlock {
     public static final EnumProperty<Direction> FACING=BlockStateProperties.HORIZONTAL_FACING;
     private final double low;
@@ -23,7 +23,7 @@ public class EntrancePavementSlopeBlock extends SchoolYellowBorderWallBlock {
         super(properties);this.low=low;
         registerDefaultState(defaultBlockState().setValue(FACING,Direction.NORTH));
         VoxelShape shape=Shapes.empty();
-        for(int i=0;i<32;i++)shape=Shapes.or(shape,Shapes.box(0,0,1-(i+1)/32.0,1,low+.375*(i+1)/32.0,1-i/32.0));
+        for(int i=0;i<32;i++)shape=Shapes.or(shape,Shapes.box(0,0,1-(i+1)/32.0,1,low+.25*(i+1)/32.0,1-i/32.0));
         collisions[0]=shape.optimize();
         for(int i=1;i<4;i++) {
             VoxelShape[] next={Shapes.empty()};

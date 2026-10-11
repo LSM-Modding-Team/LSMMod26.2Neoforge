@@ -301,3 +301,6 @@ double_school_entrance: nueva puerta doble independiente de 3×3 bloques (48×48
 
 
 2026-10-10 — Cuatro school_entrance_pavement_slope_1..4: pendiente suave 4 de largo ×6 de ancho, Y8→32 px, subida 6 px/pieza, filas 0/0/1/1; colocación individual, cuatro orientaciones. Nuevo school_entrance_pavement_slab vanilla inferior/superior/doble/agua/drop doble. Conexiones compartidas con pavimento completo por aristas y alturas reales, incluidas filas vecinas; borde geométrico amarillo 3 px, gris existente. Contorno simple y colisión precalculada independiente. 1024 estados de slope y 384 de slab, volúmenes/perfiles/uniones/mallas y regresión de pavimento/baño comprobados estáticamente. Guía docs/ENTRANCE_PAVEMENT_SHAPES.md. Publicación autorizada en master; sin compilar ni probar Minecraft.
+
+
+2026-10-10 — Corrección de dimensiones del acceso a 6×6×2: seis school_entrance_pavement_slope_1..6, subida uniforme de 4 px por pieza, extremos Y8→32 px y filas 0/0/1/1/1/1. Piezas 1..4 rediseñadas y nuevas 5/6; perfiles/colisiones/conexiones/borde geométrico/generador/layout sincronizados. Slab conservado. 1536 estados de slope y 384 de slab, volúmenes y perímetro verificados estáticamente. Recolocar el montaje anterior con la tabla nueva. Publicación autorizada en master, sin compilar ni probar Minecraft.

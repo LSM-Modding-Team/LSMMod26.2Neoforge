@@ -1,4 +1,4 @@
-"""Smooth 4-piece entrance ramp and vanilla slabs with geometric 3px perimeter."""
+"""Smooth 6-piece entrance ramp and vanilla slabs with geometric 3px perimeter."""
 import itertools,json,math
 from create_school_yellow_border_assets import ROOT,A,D,SIDES,write
 
@@ -51,7 +51,7 @@ def model(name):return {'loader':'neoforge:obj','model':f'lsmmod:models/block/{n
 def main():
  (A/'models/block/school_entrance_pavement_shapes.mtl').write_text('newmtl gray\nKd 1 1 1\nd 1\nmap_Kd #gray\nnewmtl yellow\nKd 1 1 1\nd 1\nmap_Kd #yellow\n')
  blocks='    // BEGIN ENTRANCE PAVEMENT SHAPES\n';items=blocks
- families=[(f'school_entrance_pavement_slope_{i+1}',low,.375,0) for i,low in enumerate((.5,.875,.25,.625))]+[('school_entrance_pavement_slab',.5,0,0)]
+ families=[(f'school_entrance_pavement_slope_{i+1}',low,.25,0) for i,low in enumerate((.5,.75,0,.25,.5,.75))]+[('school_entrance_pavement_slab',.5,0,0)]
  for ident,low,rise,base in families:
   slope='_slope_' in ident;states={}
   for flags in itertools.product((False,True),repeat=6):
@@ -89,5 +89,5 @@ def main():
   for ident,*_ in families:v['block.lsmmod.'+ident]=('Losa del pavimento de entrada' if '_slab' in ident else 'Pendiente del pavimento de entrada '+ident[-1]) if locale=='es_es' else ('Entrance Pavement Slab' if '_slab' in ident else 'Entrance Pavement Slope '+ident[-1])
   write(p,v)
  p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+x[0] for x in families]));write(p,v)
- write(ROOT/'tools/entrance_pavement_slope_layout.json',{'length':4,'width':6,'start_y_pixels':8,'end_y_pixels':32,'rise_pixels':24,'pieces':[{'id':ident,'column':i,'row':row,'lower_y':low,'rise':.375} for i,(ident,low,row) in enumerate([(f'school_entrance_pavement_slope_{i+1}',lo,row) for i,(lo,row) in enumerate(zip((.5,.875,.25,.625),(0,0,1,1)))])]})
+ write(ROOT/'tools/entrance_pavement_slope_layout.json',{'length':6,'width':6,'start_y_pixels':8,'end_y_pixels':32,'rise_pixels':24,'pieces':[{'id':ident,'column':i,'row':row,'lower_y':low,'rise':.25} for i,(ident,low,row) in enumerate([(f'school_entrance_pavement_slope_{i+1}',lo,row) for i,(lo,row) in enumerate(zip((.5,.75,0,.25,.5,.75),(0,0,1,1,1,1)))])]})
 if __name__=='__main__':main()

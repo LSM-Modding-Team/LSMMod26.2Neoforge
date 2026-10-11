@@ -271,5 +271,7 @@
   "block.lsmmod.school_entrance_pavement_slope_2": "Entrance Pavement Slope 2",
   "block.lsmmod.school_entrance_pavement_slope_3": "Entrance Pavement Slope 3",
   "block.lsmmod.school_entrance_pavement_slope_4": "Entrance Pavement Slope 4",
-  "block.lsmmod.school_entrance_pavement_slab": "Entrance Pavement Slab"
+  "block.lsmmod.school_entrance_pavement_slab": "Entrance Pavement Slab",
+  "block.lsmmod.school_entrance_pavement_slope_5": "Entrance Pavement Slope 5",
+  "block.lsmmod.school_entrance_pavement_slope_6": "Entrance Pavement Slope 6"
 }

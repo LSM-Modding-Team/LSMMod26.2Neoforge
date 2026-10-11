@@ -15,7 +15,7 @@ public final class EntrancePavementConnections {
     public static double height(BlockState state,double x,double z) {
         if(state.getBlock() instanceof EntrancePavementSlopeBlock slope) {
             double t=switch(state.getValue(EntrancePavementSlopeBlock.FACING)) {case EAST->x;case SOUTH->z;case WEST->1-x;default->1-z;};
-            return slope.low()+.375*t;
+            return slope.low()+.25*t;
         }
         if(state.getBlock() instanceof EntrancePavementSlabBlock)return state.getValue(EntrancePavementSlabBlock.TYPE)==SlabType.BOTTOM?.5:1;
         return 1;

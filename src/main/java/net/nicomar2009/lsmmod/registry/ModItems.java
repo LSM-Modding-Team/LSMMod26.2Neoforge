@@ -29,6 +29,8 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_2 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLOPE_2);
     public static final DeferredItem<BlockItem> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_3 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLOPE_3);
     public static final DeferredItem<BlockItem> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_4 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLOPE_4);
+    public static final DeferredItem<BlockItem> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_5 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLOPE_5);
+    public static final DeferredItem<BlockItem> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_6 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLOPE_6);
     public static final DeferredItem<BlockItem> SCHOOL_ENTRANCE_PAVEMENT_SLAB = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLAB);
     // END ENTRANCE PAVEMENT SHAPES
 
