@@ -73,5 +73,9 @@ def main():
     if "lsmmod:adult_men_urinal" not in value["values"]: value["values"].append("lsmmod:adult_men_urinal")
     write_json(p, value)
 
+    # Final geometry is now two blocks wide; retain this legacy generator entry point.
+    from create_wide_bathroom_assets import main as rebuild_wide
+    rebuild_wide()
+
 
 if __name__ == "__main__": main()

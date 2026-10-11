@@ -157,6 +157,7 @@ public final class ModItems {
             ITEMS.registerSimpleBlockItem(ModBlocks.TOILET);
     public static final DeferredItem<BlockItem> ADULT_MEN_URINAL =
             ITEMS.registerSimpleBlockItem(ModBlocks.ADULT_MEN_URINAL);
+    public static final DeferredItem<BlockItem> STANDALONE_TOILET = ITEMS.registerSimpleBlockItem(ModBlocks.STANDALONE_TOILET);
     public static final DeferredItem<BlockItem> MEN_URINAL =
             ITEMS.registerSimpleBlockItem(ModBlocks.MEN_URINAL);
 
@@ -176,6 +177,7 @@ public final class ModItems {
 
     public static final DeferredItem<BlockItem> SCHOOL_PARQUET = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PARQUET);
 
+    public static final DeferredItem<BlockItem> LIGHT_BATHROOM_FLOOR = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_BATHROOM_FLOOR);
     public static final DeferredItem<BlockItem> BATHROOM_FLOOR = ITEMS.registerSimpleBlockItem(ModBlocks.BATHROOM_FLOOR);
 
     public static final DeferredItem<BlockItem> CLASSROOM_FLOOR =

@@ -310,5 +310,7 @@
   "item.lsmmod.school_hammer": "Martillo del colegio",
   "item.lsmmod.classroom_floor_paint": "Pintura de suelo de aula",
   "block.lsmmod.children_locker": "Casillero infantil",
-  "block.lsmmod.ceiling_projector": "Proyector de techo"
+  "block.lsmmod.ceiling_projector": "Proyector de techo",
+  "block.lsmmod.standalone_toilet": "Inodoro sin cubículo",
+  "block.lsmmod.light_bathroom_floor": "Suelo claro del baño"
 }

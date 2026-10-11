@@ -49,58 +49,10 @@ def main():
         for b in upper_caps:
             assert min(a[2], b[2])-max(a[0], b[0]) <= 0 or min(a[3], b[3])-max(a[1], b[1]) <= 0
     mesh(read(ASSETS / "models/item/san_martin_de_porres.json"), "statue item")
-    source = (ROOT / "src/main/java/net/nicomar2009/lsmmod/block/BathroomShapes.java").read_text()
-    fixture_boxes = {}
-    tall_source = (ROOT / "src/main/java/net/nicomar2009/lsmmod/block/TallBathroomShapes.java").read_text()
-    for block_id, constant in (("toilet", "TOILET_CLOSED"), ("men_urinal", "URINAL"), ("adult_men_urinal", "ADULT_URINAL")):
-        tall = block_id != "men_urinal"
-        models = [(read(ASSETS / f"models/block/{block_id}_{half}_closed.json"), offset)
-                  for half, offset in (("lower", 0), ("upper", 16))] if tall else [(read(ASSETS / f"models/block/{block_id}.json"), 0)]
-        for model, _ in models: mesh(model, block_id)
-        if tall:
-            for half in ("lower", "upper"):
-                mesh(read(ASSETS / f"models/block/{block_id}_{half}_open.json"), block_id+" open")
-        section = re.search(constant+r" = \{(.*?)\n    \};", tall_source if tall else source, re.S).group(1)
-        boxes = [[float(v) for v in values.split(",")] for values in re.findall(r"\{([^{}]+)\}", section)]
-        fixture_boxes[block_id] = boxes
-        assert min(b[1] for b in boxes) == 0
-        for model, offset in models:
-            for element in model["elements"]:
-                low, high = list(element["from"]), list(element["to"])
-                low[1] += offset; high[1] += offset
-                assert any(all(b[i] <= low[i] and high[i] <= b[i+3]+1e-9 for i in range(3)) for b in boxes)
-        variants = read(ASSETS / f"blockstates/{block_id}.json")["variants"]
-        assert len(variants) == (16 if tall else 4)
-        for facing, rotation in (("north", 0), ("east", 90), ("south", 180), ("west", 270)):
-            if tall:
-                for half in ("lower", "upper"):
-                    for opened in ("false", "true"):
-                        assert variants[f"facing={facing},half={half},open={opened}"]["y"] == rotation
-            else:
-                assert variants[f"facing={facing}"]["y"] == rotation
-        for locale in ("en_us", "es_es"):
-            assert f"block.lsmmod.{block_id}" in read(ASSETS / f"lang/{locale}.json")
-        assert read(ASSETS / f"items/{block_id}.json")["model"]["model"] == f"lsmmod:item/{block_id}"
-        loot = read(ROOT / f"src/main/resources/data/lsmmod/loot_table/blocks/{block_id}.json")
-        assert loot["pools"][0]["entries"][0]["name"] == f"lsmmod:{block_id}"
-    toilet_panels = fixture_boxes["toilet"][:2]
-    urinal_panels = fixture_boxes["men_urinal"][:2]
-    assert all(b[3]-b[0] == 1 for b in toilet_panels+urinal_panels)
-    assert all(u[4]-u[1] < t[4]-t[1] and u[5]-u[2] < t[5]-t[2] for t, u in zip(toilet_panels, urinal_panels))
-    assert all(b[4]-b[1] == 32 for b in toilet_panels)
-    assert max(b[4] for b in fixture_boxes["adult_men_urinal"]) == 32
-    open_section = re.search(r"TOILET_OPEN = \{(.*?)\n    \};", tall_source, re.S).group(1)
-    opened = [[float(v) for v in values.split(",")] for values in re.findall(r"\{([^{}]+)\}", open_section)]
-    for y in (8, 24):
-        point = (8, y, .5)
-        inside = lambda b: all(b[i] < point[i] < b[i+3] for i in range(3))
-        assert any(inside(b) for b in fixture_boxes["toilet"])
-        assert not any(inside(b) for b in opened)
-    for block_id in ("toilet", "adult_men_urinal"):
-        loot = read(ROOT / f"src/main/resources/data/lsmmod/loot_table/blocks/{block_id}.json")
-        assert next(c for c in loot["pools"][0]["conditions"] if c["condition"] == "minecraft:block_state_property")["properties"] == {"half": "lower"}
+    from check_wide_bathroom_assets import main as check_wide
+    check_wide()
     print("OK: solid statue meshes/item without coplanar overlaps, clean two-half seam,")
-    print("complete fixture resources, floor-contact geometry and 1px partitions (smaller on urinal).")
+    print("complete two-wide fixture resources, floor-contact geometry and passive standalone toilet.")
     print("Static checks only: no Java compilation or Minecraft rendering.")
 
 

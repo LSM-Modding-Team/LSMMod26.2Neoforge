@@ -27,4 +27,6 @@ def main():
  for locale,name in [('es_es','Suelo del baño'),('en_us','Bathroom Floor')]:
   p=A/f'lang/{locale}.json';v=json.loads(p.read_text());v['block.lsmmod.bathroom_floor']=name;write(p,v)
  p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:bathroom_floor']));write(p,v)
+ from create_light_bathroom_floor_assets import main as rebuild_light
+ rebuild_light()
 if __name__=='__main__':main()

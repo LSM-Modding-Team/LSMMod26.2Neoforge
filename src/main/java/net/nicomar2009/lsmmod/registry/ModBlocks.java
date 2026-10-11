@@ -295,8 +295,12 @@ public final class ModBlocks {
                     TallBathroomShapes.ADULT_URINAL, true),
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));
 
-    public static final DeferredBlock<WallDecorationBlock> MEN_URINAL = BLOCKS.registerBlock(
-            "men_urinal", props -> new WallDecorationBlock(props, BathroomShapes.URINAL),
+    public static final DeferredBlock<WideBathroomBlock> MEN_URINAL = BLOCKS.registerBlock(
+            "men_urinal", props -> new WideBathroomBlock(props, WideBathroomShapes.CHILD_URINAL, true),
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<WideBathroomBlock> STANDALONE_TOILET = BLOCKS.registerBlock(
+            "standalone_toilet", props -> new WideBathroomBlock(props, WideBathroomShapes.STANDALONE_TOILET, false),
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));
 
     public static final DeferredBlock<TrashBinBlock> GREEN_TRASH_BIN = BLOCKS.registerBlock(
@@ -329,6 +333,10 @@ public final class ModBlocks {
 
     public static final DeferredBlock<BathroomFloorBlock> BATHROOM_FLOOR = BLOCKS.registerBlock(
             "bathroom_floor", BathroomFloorBlock::new,
+            props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+
+    public static final DeferredBlock<BathroomFloorBlock> LIGHT_BATHROOM_FLOOR = BLOCKS.registerBlock(
+            "light_bathroom_floor", BathroomFloorBlock::new,
             props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
 
     public static final DeferredBlock<Block> CLASSROOM_FLOOR = BLOCKS.registerBlock(

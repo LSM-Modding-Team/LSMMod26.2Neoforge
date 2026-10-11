@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "column=0,facing=north": {
+      "model": "lsmmod:block/standalone_toilet_lower_closed_column_0",
+      "y": 0
+    },
+    "column=0,facing=east": {
+      "model": "lsmmod:block/standalone_toilet_lower_closed_column_0",
+      "y": 90
+    },
+    "column=0,facing=south": {
+      "model": "lsmmod:block/standalone_toilet_lower_closed_column_0",
+      "y": 180
+    },
+    "column=0,facing=west": {
+      "model": "lsmmod:block/standalone_toilet_lower_closed_column_0",
+      "y": 270
+    },
+    "column=1,facing=north": {
+      "model": "lsmmod:block/standalone_toilet_lower_closed_column_1",
+      "y": 0
+    },
+    "column=1,facing=east": {
+      "model": "lsmmod:block/standalone_toilet_lower_closed_column_1",
+      "y": 90
+    },
+    "column=1,facing=south": {
+      "model": "lsmmod:block/standalone_toilet_lower_closed_column_1",
+      "y": 180
+    },
+    "column=1,facing=west": {
+      "model": "lsmmod:block/standalone_toilet_lower_closed_column_1",
+      "y": 270
+    }
+  }
+}

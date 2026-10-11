@@ -316,5 +316,7 @@
   "item.lsmmod.school_hammer": "School Hammer",
   "item.lsmmod.classroom_floor_paint": "Classroom Floor Paint",
   "block.lsmmod.children_locker": "Children Locker",
-  "block.lsmmod.ceiling_projector": "Ceiling Projector"
+  "block.lsmmod.ceiling_projector": "Ceiling Projector",
+  "block.lsmmod.standalone_toilet": "Standalone Toilet",
+  "block.lsmmod.light_bathroom_floor": "Light Bathroom Floor"
 }

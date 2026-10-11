@@ -16,5 +16,7 @@ def main():
    assert (tile.getpixel((x,y))==(113,114,110))==joint
  java=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/BathroomFloorBlock.java').read_text();assert 'Math.floorMod' in java
  assert not (A/'blockstates/school_yellow_border_wall.json').exists()
+ from check_wide_bathroom_assets import main as check_wide
+ check_wide()
  print('OK: pavement base #878d96, 9 floor phases, exactly 24px joints across positive/negative coordinates; old grey reused, old resource ID removed.')
 if __name__=='__main__':main()
