@@ -63,6 +63,11 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> STREET_LIGHT_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.STREET_LIGHT_SCHOOL_GLASS);
     // END REMAINING GLASS MATERIAL FAMILIES
 
+    // BEGIN SCHOOL CABINET AND ROUTER
+    public static final DeferredItem<BlockItem> SCHOOL_CABINET = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_CABINET);
+    public static final DeferredItem<BlockItem> SCHOOL_ROUTER = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ROUTER);
+    // END SCHOOL CABINET AND ROUTER
+
     // BEGIN CLASSROOM SURFACES
     public static final DeferredItem<BlockItem> CLASSROOM_WHITE_WALL = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_WHITE_WALL);
     public static final DeferredItem<BlockItem> CLASSROOM_PAINTED_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_PAINTED_BLOCK);

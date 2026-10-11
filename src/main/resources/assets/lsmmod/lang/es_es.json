@@ -323,5 +323,7 @@
   "block.lsmmod.light_white_school_glass": "Escalera de cristal: frente claro / cuerpo blanco de aula",
   "block.lsmmod.light_dark_school_glass": "Escalera de cristal: frente claro / cuerpo oscuro",
   "block.lsmmod.light_street_school_glass": "Escalera de cristal: frente claro / cuerpo calle",
-  "block.lsmmod.street_light_school_glass": "Escalera de cristal: frente calle / cuerpo claro"
+  "block.lsmmod.street_light_school_glass": "Escalera de cristal: frente calle / cuerpo claro",
+  "block.lsmmod.school_cabinet": "Armario del colegio",
+  "block.lsmmod.school_router": "Router del colegio"
 }

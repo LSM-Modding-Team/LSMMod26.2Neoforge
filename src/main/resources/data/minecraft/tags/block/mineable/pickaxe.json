@@ -103,6 +103,8 @@
     "lsmmod:light_white_school_glass",
     "lsmmod:light_dark_school_glass",
     "lsmmod:light_street_school_glass",
-    "lsmmod:street_light_school_glass"
+    "lsmmod:street_light_school_glass",
+    "lsmmod:school_cabinet",
+    "lsmmod:school_router"
   ]
 }

@@ -329,5 +329,7 @@
   "block.lsmmod.light_white_school_glass": "Glass Stairs: Light Front / Classroom White Body",
   "block.lsmmod.light_dark_school_glass": "Glass Stairs: Light Front / Dark Body",
   "block.lsmmod.light_street_school_glass": "Glass Stairs: Light Front / Street Body",
-  "block.lsmmod.street_light_school_glass": "Glass Stairs: Street Front / Light Body"
+  "block.lsmmod.street_light_school_glass": "Glass Stairs: Street Front / Light Body",
+  "block.lsmmod.school_cabinet": "School Cabinet",
+  "block.lsmmod.school_router": "School Router"
 }

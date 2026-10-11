@@ -90,6 +90,15 @@ public final class ModBlocks {
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
     // END REMAINING GLASS MATERIAL FAMILIES
 
+    // BEGIN SCHOOL CABINET AND ROUTER
+    public static final DeferredBlock<SchoolCabinetBlock> SCHOOL_CABINET = BLOCKS.registerBlock(
+            "school_cabinet", SchoolCabinetBlock::new,
+            props -> props.strength(2.0F).sound(SoundType.WOOD).pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolRouterBlock> SCHOOL_ROUTER = BLOCKS.registerBlock(
+            "school_router", SchoolRouterBlock::new,
+            props -> props.strength(0.5F).sound(SoundType.METAL).noOcclusion());
+    // END SCHOOL CABINET AND ROUTER
+
     // BEGIN CLASSROOM SURFACES
     public static final DeferredBlock<Block> CLASSROOM_WHITE_WALL = BLOCKS.registerBlock(
             "classroom_white_wall", Block::new,

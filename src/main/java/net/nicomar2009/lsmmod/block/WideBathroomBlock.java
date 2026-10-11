@@ -53,6 +53,7 @@ public class WideBathroomBlock extends Block {
         this.height = height;
         this.operable = operable;
         collisions = new VoxelShape[2][height][2][4];
+        var sharedRotations = new java.util.HashMap<java.util.List<net.minecraft.world.phys.AABB>, java.util.Map<Direction,VoxelShape>>();
         for (int open = 0; open < 2; open++) {
             if (open == 1 && closed == opened) { collisions[open] = collisions[0]; continue; }
             for (int half = 0; half < height; half++) for (int column = 0; column < 2; column++) {
@@ -63,13 +64,15 @@ public class WideBathroomBlock extends Block {
                     if (x0 < x1 && y0 < y1) volumes.add(ExactVoxelShapes.box(
                             x0-column*16, y0-half*16, b[2], x1-column*16, y1-half*16, b[5]));
                 }
-                var rotations = Shapes.rotateHorizontal(ExactVoxelShapes.union(volumes));
+                var rotations = sharedRotations.computeIfAbsent(java.util.List.copyOf(volumes),
+                        boxes -> Shapes.rotateHorizontal(ExactVoxelShapes.union(boxes)));
                 for (Direction facing : Direction.Plane.HORIZONTAL)
                     collisions[open][half][column][(facing.get2DDataValue()+2)%4] = rotations.get(facing);
             }
         }
         BlockState initial = stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(COLUMN, 0);
-        if (initial.hasProperty(HALF)) initial = initial.setValue(HALF, DoubleBlockHalf.LOWER).setValue(OPEN, false);
+        if (initial.hasProperty(HALF)) initial = initial.setValue(HALF, DoubleBlockHalf.LOWER);
+        if (initial.hasProperty(OPEN)) initial = initial.setValue(OPEN, false);
         registerDefaultState(initial);
     }
 
