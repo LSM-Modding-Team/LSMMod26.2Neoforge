@@ -1,0 +1,15 @@
+{
+  "parent": "minecraft:block/cube",
+  "render_type": "minecraft:solid",
+  "textures": {
+    "first": "lsmmod:block/dark_school_wall",
+    "second": "lsmmod:block/street_school_wall",
+    "particle": "#first",
+    "north": "#second",
+    "east": "#second",
+    "south": "#first",
+    "west": "#first",
+    "up": "#first",
+    "down": "#first"
+  }
+}

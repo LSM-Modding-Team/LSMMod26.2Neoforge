@@ -1,0 +1,84 @@
+{
+  "variants": {
+    "orientation=0": {
+      "model": "lsmmod:block/light_street_school_wall_5",
+      "x": 0,
+      "y": 0
+    },
+    "orientation=1": {
+      "model": "lsmmod:block/light_street_school_wall_5",
+      "x": 0,
+      "y": 90
+    },
+    "orientation=2": {
+      "model": "lsmmod:block/light_street_school_wall_5",
+      "x": 0,
+      "y": 180
+    },
+    "orientation=3": {
+      "model": "lsmmod:block/light_street_school_wall_5",
+      "x": 0,
+      "y": 270
+    },
+    "orientation=4": {
+      "model": "lsmmod:block/light_street_school_wall_5",
+      "x": 90,
+      "y": 0
+    },
+    "orientation=5": {
+      "model": "lsmmod:block/light_street_school_wall_5",
+      "x": 90,
+      "y": 90
+    },
+    "orientation=6": {
+      "model": "lsmmod:block/light_street_school_wall_5",
+      "x": 90,
+      "y": 180
+    },
+    "orientation=7": {
+      "model": "lsmmod:block/light_street_school_wall_5",
+      "x": 90,
+      "y": 270
+    },
+    "orientation=8": {
+      "model": "lsmmod:block/light_street_school_wall_5",
+      "x": 180,
+      "y": 0
+    },
+    "orientation=9": {
+      "model": "lsmmod:block/light_street_school_wall_5",
+      "x": 180,
+      "y": 90
+    },
+    "orientation=10": {
+      "model": "lsmmod:block/light_street_school_wall_5",
+      "x": 180,
+      "y": 180
+    },
+    "orientation=11": {
+      "model": "lsmmod:block/light_street_school_wall_5",
+      "x": 180,
+      "y": 270
+    },
+    "orientation=12": {
+      "model": "lsmmod:block/light_street_school_wall_5",
+      "x": 270,
+      "y": 0
+    },
+    "orientation=13": {
+      "model": "lsmmod:block/light_street_school_wall_5",
+      "x": 270,
+      "y": 90
+    },
+    "orientation=14": {
+      "model": "lsmmod:block/light_street_school_wall_5",
+      "x": 270,
+      "y": 180
+    },
+    "orientation=15": {
+      "model": "lsmmod:block/light_street_school_wall_5",
+      "x": 270,
+      "y": 270
+    }
+  }
+}

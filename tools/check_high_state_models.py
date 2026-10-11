@@ -109,7 +109,7 @@ def verify(output,aliases):
  assert 'COLUMN' not in bars and 'ROW' not in bars
  migration=(J/'block/LegacyCurtainStates.java').read_text()
  assert all('lsmmod:'+ident in migration for ident in PAVEMENT) and 'lsmmod:street_school_bars' in migration
- assert sum(r['states'] for r in rows.values())==14844
+ assert sum(r['states'] for r in rows.values() if r['class']!='MixedSchoolWallBlock')==14844
  return checked
 if __name__=='__main__':
  import argparse,tempfile
@@ -121,5 +121,5 @@ if __name__=='__main__':
  else:
   with tempfile.TemporaryDirectory() as t:
    output=Path(t)/'resources';report,aliases=prepare(output);count=verify(output,aliases)
- print(f'OK: {count} state/visual-profile combinations select exactly the same native geometry and transforms; 19 target blocks covered, physical ownership preserved; total 14844 states.')
+ print(f'OK: {count} state/visual-profile combinations select exactly the same native geometry and transforms; 19 target blocks covered, physical ownership preserved; original families retain 14844 states.')
  print(json.dumps(report))

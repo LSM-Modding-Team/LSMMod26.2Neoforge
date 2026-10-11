@@ -284,5 +284,20 @@
   "itemGroup.lsmmod.school_blocks": "LSM Mod: School Blocks",
   "itemGroup.lsmmod.school_functional_blocks": "LSM Mod: School Functional Blocks",
   "itemGroup.lsmmod.school_items": "LSM Mod: School Items",
-  "itemGroup.lsmmod.school_entities": "LSM Mod: School Entities"
+  "itemGroup.lsmmod.school_entities": "LSM Mod: School Entities",
+  "block.lsmmod.light_dark_school_wall_1": "Light/Dark School Wall (1/5 faces)",
+  "block.lsmmod.light_dark_school_wall_2": "Light/Dark School Wall (2/4 faces)",
+  "block.lsmmod.light_dark_school_wall_3": "Light/Dark School Wall (3/3 faces)",
+  "block.lsmmod.light_dark_school_wall_4": "Light/Dark School Wall (4/2 faces)",
+  "block.lsmmod.light_dark_school_wall_5": "Light/Dark School Wall (5/1 faces)",
+  "block.lsmmod.light_street_school_wall_1": "Light/Street School Wall (1/5 faces)",
+  "block.lsmmod.light_street_school_wall_2": "Light/Street School Wall (2/4 faces)",
+  "block.lsmmod.light_street_school_wall_3": "Light/Street School Wall (3/3 faces)",
+  "block.lsmmod.light_street_school_wall_4": "Light/Street School Wall (4/2 faces)",
+  "block.lsmmod.light_street_school_wall_5": "Light/Street School Wall (5/1 faces)",
+  "block.lsmmod.dark_street_school_wall_1": "Dark/Street School Wall (1/5 faces)",
+  "block.lsmmod.dark_street_school_wall_2": "Dark/Street School Wall (2/4 faces)",
+  "block.lsmmod.dark_street_school_wall_3": "Dark/Street School Wall (3/3 faces)",
+  "block.lsmmod.dark_street_school_wall_4": "Dark/Street School Wall (4/2 faces)",
+  "block.lsmmod.dark_street_school_wall_5": "Dark/Street School Wall (5/1 faces)"
 }

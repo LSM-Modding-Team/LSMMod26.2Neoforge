@@ -70,6 +70,21 @@
     "lsmmod:school_entrance_pavement_slope_6",
     "lsmmod:school_clock",
     "lsmmod:school_fan",
-    "lsmmod:ceiling_light"
+    "lsmmod:ceiling_light",
+    "lsmmod:light_dark_school_wall_1",
+    "lsmmod:light_dark_school_wall_2",
+    "lsmmod:light_dark_school_wall_3",
+    "lsmmod:light_dark_school_wall_4",
+    "lsmmod:light_dark_school_wall_5",
+    "lsmmod:light_street_school_wall_1",
+    "lsmmod:light_street_school_wall_2",
+    "lsmmod:light_street_school_wall_3",
+    "lsmmod:light_street_school_wall_4",
+    "lsmmod:light_street_school_wall_5",
+    "lsmmod:dark_street_school_wall_1",
+    "lsmmod:dark_street_school_wall_2",
+    "lsmmod:dark_street_school_wall_3",
+    "lsmmod:dark_street_school_wall_4",
+    "lsmmod:dark_street_school_wall_5"
   ]
 }
