@@ -17,9 +17,11 @@ import net.nicomar2009.lsmmod.registry.ModItems;
 public final class SchoolCurtains {
     private SchoolCurtains() { }
     public static final int MAX_LENGTH=4, MAX_HEIGHT=8;
-    // LEFT/MIDDLE/RIGHT denote bottom/interior/top along the vertical axis.
-    public static final EnumProperty<CurtainPart> VERTICAL=EnumProperty.create("curtain_vertical",CurtainPart.class);
-    public static final EnumProperty<CurtainPart> CURTAIN=EnumProperty.create("curtain",CurtainPart.class);
+    public static final EnumProperty<CurtainLayout> CURTAIN=EnumProperty.create("curtain",CurtainLayout.class);
+    public static BlockState withParts(BlockState state,CurtainPart horizontal,CurtainPart vertical) {
+        return state.setValue(CURTAIN,CurtainLayout.of(horizontal,vertical));
+    }
+    public static BlockState clearState(BlockState state) {return state.setValue(CURTAIN,CurtainLayout.NONE);}
 
     public static boolean canAttach(BlockState state) {
         return state.getBlock() instanceof SchoolGlassBlock || state.getBlock() instanceof SchoolGlassStairBlock;
@@ -32,13 +34,13 @@ public final class SchoolCurtains {
         return size==1?CurtainPart.SINGLE:index==0?CurtainPart.LEFT:index==size-1?CurtainPart.RIGHT:CurtainPart.MIDDLE;
     }
     public static CurtainPart part(BlockState state) {
-        return state.hasProperty(CURTAIN)?state.getValue(CURTAIN):CurtainPart.NONE;
+        return state.hasProperty(CURTAIN)?state.getValue(CURTAIN).horizontal():CurtainPart.NONE;
     }
     private static BlockState originalAt(LevelReader level,BlockPos target,BlockPos oldPos,BlockState old) {
         return target.equals(oldPos)?old:level.getBlockState(target);
     }
     private static CurtainPart vertical(BlockState state) {
-        return state.hasProperty(VERTICAL)?state.getValue(VERTICAL):CurtainPart.SINGLE;
+        return state.hasProperty(CURTAIN)?state.getValue(CURTAIN).vertical():CurtainPart.SINGLE;
     }
     private static BlockPos start(LevelReader level,BlockPos pos,BlockState old) {
         BlockPos cursor=pos;
@@ -69,7 +71,7 @@ public final class SchoolCurtains {
     private static void clear(ServerLevel level,BlockPos pos) {
         BlockState current=level.getBlockState(pos);
         if(part(current)!=CurtainPart.NONE)
-            level.setBlock(pos,current.setValue(CURTAIN,CurtainPart.NONE).setValue(VERTICAL,CurtainPart.SINGLE),Block.UPDATE_CLIENTS);
+            level.setBlock(pos,clearState(current),Block.UPDATE_CLIENTS);
     }
     private static int extent(LevelReader level,BlockPos origin,BlockPos oldPos,BlockState old,Direction direction,boolean up,int limit) {
         for(int i=0;i<limit;i++) {
@@ -130,6 +132,6 @@ public final class SchoolCurtains {
             if(!compatible(state,next)||part(next)!=axisPart(x,width)||vertical(next)!=axisPart(y,height))valid=false;
         }
         if(!valid)remove(level,pos,state,true);
-        else level.scheduleTick(pos,state.getBlock(),20);
+        // Valid curtains are checked again only when a host changes, not every second.
     }
 }

@@ -27,16 +27,14 @@ public class SchoolGlassStairBlock extends StairBlock {
 
     public SchoolGlassStairBlock(Properties properties) {
         super(Blocks.STONE.defaultBlockState(), properties);
-        registerDefaultState(defaultBlockState().setValue(TOP_CONNECTED,false).setValue(BOTTOM_CONNECTED,false).setValue(SchoolGlazing.FRAME_LAYOUT,3).setValue(SchoolCurtains.CURTAIN,CurtainPart.NONE).setValue(SchoolCurtains.VERTICAL,CurtainPart.SINGLE));
+        registerDefaultState(defaultBlockState().setValue(SchoolCurtains.CURTAIN,CurtainLayout.NONE));
     }
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {
-        super.createBlockStateDefinition(builder);builder.add(TOP_CONNECTED,BOTTOM_CONNECTED,SchoolGlazing.FRAME_LAYOUT,SchoolCurtains.CURTAIN,SchoolCurtains.VERTICAL);
+        super.createBlockStateDefinition(builder);builder.add(SchoolCurtains.CURTAIN);
     }
-    private BlockState connections(BlockState state,LevelReader level,BlockPos pos) {
-        return state.setValue(TOP_CONNECTED,SchoolGlazing.connects(state,level.getBlockState(pos.above()),Direction.UP))
-                .setValue(BOTTOM_CONNECTED,SchoolGlazing.connects(state,level.getBlockState(pos.below()),Direction.DOWN));
-    }
+    private BlockState connections(BlockState state, LevelReader level, BlockPos pos) {return state;}
+
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState state=super.getStateForPlacement(context);
@@ -52,7 +50,7 @@ public class SchoolGlassStairBlock extends StairBlock {
     protected void onPlace(BlockState state,Level level,BlockPos pos,BlockState oldState,boolean moved) {
         super.onPlace(state,level,pos,oldState,moved);
         if(!level.isClientSide() && moved && SchoolCurtains.part(state)!=CurtainPart.NONE)
-            level.setBlock(pos,state.setValue(SchoolCurtains.CURTAIN,CurtainPart.NONE).setValue(SchoolCurtains.VERTICAL,CurtainPart.SINGLE),Block.UPDATE_CLIENTS);
+            level.setBlock(pos,SchoolCurtains.clearState(state),Block.UPDATE_CLIENTS);
         if(!level.isClientSide() && !oldState.is(this))level.scheduleTick(pos,this,1);
     }
     @Override
@@ -64,7 +62,7 @@ public class SchoolGlassStairBlock extends StairBlock {
     @Override
     public BlockState playerWillDestroy(Level level,BlockPos pos,BlockState state,Player player) {
         if(!level.isClientSide())SchoolCurtains.remove((ServerLevel)level,pos,state,!player.isCreative());
-        return super.playerWillDestroy(level,pos,state.setValue(SchoolCurtains.CURTAIN,CurtainPart.NONE).setValue(SchoolCurtains.VERTICAL,CurtainPart.SINGLE),player);
+        return super.playerWillDestroy(level,pos,SchoolCurtains.clearState(state),player);
     }
 
     @Override

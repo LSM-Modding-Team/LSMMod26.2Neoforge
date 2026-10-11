@@ -113,8 +113,8 @@ public final class SchoolCurtainItem extends Item {
         for(int y=0;y<height;y++)for(int i=0;i<length;i++) {
             BlockPos target=origin.relative(right,i).above(y);BlockState current=level.getBlockState(target);
             CurtainPart part=length==1?CurtainPart.SINGLE:i==0?CurtainPart.LEFT:i==length-1?CurtainPart.RIGHT:CurtainPart.MIDDLE;
-            level.setBlock(target,current.setValue(SchoolCurtains.CURTAIN,part).setValue(SchoolCurtains.VERTICAL,SchoolCurtains.axisPart(y,height)),Block.UPDATE_CLIENTS);
-            level.scheduleTick(target,current.getBlock(),20);
+            level.setBlock(target,SchoolCurtains.withParts(current,part,SchoolCurtains.axisPart(y,height)),Block.UPDATE_CLIENTS);
+            level.scheduleTick(target,current.getBlock(),1);
         }
         cancel(stack);if(!player.isCreative())stack.shrink(1);
         level.playSound(null,origin,SoundEvents.WOOL_PLACE,SoundSource.BLOCKS,1F,1F);

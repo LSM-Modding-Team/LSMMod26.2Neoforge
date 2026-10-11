@@ -109,5 +109,7 @@ def main():
                                               'apply':{'model':f'lsmmod:block/school_curtain_{band}{corner}_{part}{suffix}','y':angle}})
         write(path,{'multipart':parts})
     translations()
+    from compact_school_glazing_assets import main as compact_glazing
+    compact_glazing()
 
 if __name__=='__main__':main()

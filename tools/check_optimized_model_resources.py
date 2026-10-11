@@ -11,7 +11,7 @@ def resolve(base,ident,aliases,trail=()):
  p=base/'models'/f'{ident.split(":",1)[1]}.json';assert p.exists(),p
  d=read(p);parent=d.pop('parent',None)
  out=resolve(base,parent,aliases,trail+(ident,)) if parent else {}
- if d.get('loader')=='fusion:model':assert d.pop('type')=='base';d.pop('loader')
+ if d.get('loader')=='fusion:model' and d.get('type')=='base':d.pop('type');d.pop('loader')
  for k,v in d.items():
   if k in ('textures','display'):out[k]={**out.get(k,{}),**v}
   else:out[k]=v
@@ -23,7 +23,7 @@ def main():
   output=Path(t)/'resources';output.mkdir();report,aliases=prepare(output);B=output/'assets/lsmmod'
   for p in (A/'models').rglob('*.json'):
    ident=model_identifier(p,A/'models')
-   assert resolve(A,ident,{})==resolve(B,ident,aliases),ident
+   assert replace(resolve(A,ident,{}),aliases)==resolve(B,ident,aliases),ident
   count=0
   for p in (A/'blockstates').glob('*.json'):
    old=replace(read(p),aliases);new=read(B/'blockstates'/p.name)

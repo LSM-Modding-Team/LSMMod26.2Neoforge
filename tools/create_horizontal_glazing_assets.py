@@ -43,8 +43,18 @@ def main():
         definition=json.loads(path.read_text())
         if 'variants' in definition:original=definition['variants']
         else:
-            original={','.join(f'{k}={v}' for k,v in sorted(p['when'].items())):p['apply']
-                      for p in definition['multipart'] if 'curtain' not in p.get('when',{})}
+            original={}
+            for part in definition['multipart']:
+                if 'curtain' in part.get('when',{}):continue
+                state=part['when'];value=part['apply']
+                data=json.loads((A/f"models/{value['model'].split(':')[1]}.json").read_text())
+                if data.get('loader')=='fusion:model' and data.get('type')=='composite':
+                    for entry in data['models'][0]:
+                        mask=entry['condition']['mask']
+                        if mask&7!=3:continue
+                        restored=dict(state,top_connected=str(bool(mask&8)).lower(),bottom_connected=str(bool(mask&16)).lower())
+                        original[','.join(f'{k}={v}' for k,v in sorted(restored.items()))]=dict(value,model=entry['model'])
+                else:original[','.join(f'{k}={v}' for k,v in sorted(state.items()))]=value
         variants={}
         for key,value in original.items():
             state=dict(p.split('=') for p in key.split(','))

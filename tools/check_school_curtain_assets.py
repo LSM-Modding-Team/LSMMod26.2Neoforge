@@ -25,7 +25,7 @@ def main():
         definition=read(A/f'blockstates/{block}.json')
         assert 'variants' not in definition and 'multipart' in definition
         base=base_parts(definition)
-        assert len(base)==(128 if block=='school_glass' else 2560)
+        assert len(base)==(4 if block=='school_glass' else 80)
         overlay=[p for p in definition['multipart'] if 'curtain' in p['when']]
         cases=[(None,None)] if block=='school_glass' else list(itertools.product(('bottom','top'),QUARTERS))
         for facing,angle in (('north',0),('east',90),('south',180),('west',270)):
@@ -33,8 +33,7 @@ def main():
                 state={'facing':facing,'half':half,'shape':shape,'curtain':'none'}
                 assert not any(matches(p['when'],state) for p in overlay)
                 for part,vertical in itertools.product(PARTS,PARTS):
-                    state["curtain_vertical"]=vertical
-                    state['curtain']=part;selected=[p for p in overlay if matches(p['when'],state)]
+                    state['curtain']=part+'_'+vertical;selected=[p for p in overlay if matches(p['when'],state)]
                     assert len(selected)==1,(block,state)
                     apply=selected[0]['apply'];assert apply['y']==angle
                     model_id=apply['model'].split(':')[1]
@@ -95,12 +94,12 @@ def main():
     assert 'Math.abs(distance)+1' in item and 'SchoolCurtains.compatible(base,state)' in item
     assert 'SchoolCurtains.part(state)!=CurtainPart.NONE' in item and 'level.mayInteract(player,target)' in item
     assert manager.index('clear(level,target);')<manager.index('if(drop)Block.popResource')
-    assert 'SchoolCurtains.VERTICAL,SchoolCurtains.axisPart(y,height)' in item
+    assert 'SchoolCurtains.withParts(current,part,SchoolCurtains.axisPart(y,height))' in item
     assert 'for(int y=0;y<height;y++)for(int i=0;i<length;i++)' in item
     assert 'level.hasChunkAt' in manager and 'level.scheduleTick' in manager
     for name in ('SchoolGlassBlock.java','SchoolGlassStairBlock.java'):
         s=(root/'block'/name).read_text()
-        assert 'SchoolCurtains.CURTAIN,CurtainPart.NONE' in s
+        assert 'SchoolCurtains.CURTAIN,CurtainLayout.NONE' in s
         assert 'SchoolCurtains.tick(level,pos)' in s and 'SchoolCurtains.remove' in s
         assert 'affectNeighborsAfterRemoval' in s and 'SimpleBlockOutline.forState' in s
     door=(root/'block/TallClassroomEntranceBlock.java').read_text();assert 'SchoolCurtains.CURTAIN' not in door

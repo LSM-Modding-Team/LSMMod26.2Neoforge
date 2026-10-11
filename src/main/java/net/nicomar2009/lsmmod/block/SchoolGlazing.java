@@ -74,14 +74,38 @@ public final class SchoolGlazing {
     public static BlockState mirrorLayout(BlockState original,BlockState reflected,Mirror mirror) {
         Direction right=original.getValue(SchoolGlassBlock.FACING).getClockWise();
         if(mirror.mirror(right)==reflected.getValue(SchoolGlassBlock.FACING).getClockWise())return reflected;
-        int layout=original.getValue(FRAME_LAYOUT);
-        BlockState result=reflected.setValue(FRAME_LAYOUT,((layout & 1)<<1)|((layout & 2)>>1)|(layout & 4));
+        BlockState result=reflected;
+        if(original.hasProperty(FRAME_LAYOUT)) {
+            int layout=original.getValue(FRAME_LAYOUT);
+            result=result.setValue(FRAME_LAYOUT,((layout & 1)<<1)|((layout & 2)>>1)|(layout & 4));
+        }
         if(result.hasProperty(SchoolCurtains.CURTAIN)) {
-            CurtainPart part=result.getValue(SchoolCurtains.CURTAIN);
-            if(part==CurtainPart.LEFT)result=result.setValue(SchoolCurtains.CURTAIN,CurtainPart.RIGHT);
-            else if(part==CurtainPart.RIGHT)result=result.setValue(SchoolCurtains.CURTAIN,CurtainPart.LEFT);
+            CurtainPart part=SchoolCurtains.part(result);
+            if(part==CurtainPart.LEFT)result=SchoolCurtains.withParts(result,CurtainPart.RIGHT,result.getValue(SchoolCurtains.CURTAIN).vertical());
+            else if(part==CurtainPart.RIGHT)result=SchoolCurtains.withParts(result,CurtainPart.LEFT,result.getValue(SchoolCurtains.CURTAIN).vertical());
         }
         return result;
+    }
+
+    /** Pure visual mask: horizontal frame bits plus vertical joins; no saved properties. */
+    public static int visualMask(net.minecraft.world.level.LevelReader level,BlockPos pos,BlockState state) {
+        int mask=3;
+        if(band(state)>=0) {
+            Direction right=state.getValue(SchoolGlassBlock.FACING).getClockWise();
+            BlockPos start=pos;
+            int index=0;
+            while(level.hasChunkAt(start.relative(right.getOpposite()))
+                    &&sameRow(state,level.getBlockState(start.relative(right.getOpposite())))) {start=start.relative(right.getOpposite());index++;}
+            int length=0;
+            while(level.hasChunkAt(start.relative(right,length))&&sameRow(state,level.getBlockState(start.relative(right,length))))length++;
+            if(level.hasChunkAt(start.relative(right.getOpposite()))&&level.hasChunkAt(start.relative(right,length))) {
+                int x=16*index,spacing=length%2==0?32:24;
+                mask=(index==0||x%spacing==0?1:0)|(index==length-1||(x+16)%spacing==0?2:0)|((x+8)%spacing==0?4:0);
+            }
+        }
+        if(level.hasChunkAt(pos.above())&&connects(state,level.getBlockState(pos.above()),Direction.UP))mask|=8;
+        if(level.hasChunkAt(pos.below())&&connects(state,level.getBlockState(pos.below()),Direction.DOWN))mask|=16;
+        return mask;
     }
 
     /** Recompute the entire loaded row, so changing its parity refreshes distant separators too. */
@@ -112,8 +136,9 @@ public final class SchoolGlazing {
                     | ((x + 8) % spacing == 0 ? 4 : 0);
             BlockPos target = start.relative(right, index);
             BlockState current = level.getBlockState(target);
-            if (current.getValue(FRAME_LAYOUT) != layout)
-                level.setBlock(target, current.setValue(FRAME_LAYOUT, layout), Block.UPDATE_CLIENTS);
+            if(current.hasProperty(FRAME_LAYOUT)) {
+                if(current.getValue(FRAME_LAYOUT)!=layout)level.setBlock(target,current.setValue(FRAME_LAYOUT,layout),Block.UPDATE_CLIENTS);
+            } else level.sendBlockUpdated(target,current,current,Block.UPDATE_CLIENTS);
         }
     }
 }

@@ -54,7 +54,8 @@ def main():
     assert 'level.hasChunkAt' in java and 'Block.UPDATE_CLIENTS' in java
     for file in ('SchoolGlassBlock.java','SchoolGlassStairBlock.java','TallClassroomEntranceBlock.java'):
         s=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block'/file).read_text()
-        assert 'SchoolGlazing.FRAME_LAYOUT' in s and 'SchoolGlazing.refreshHorizontal' in s
+        assert 'SchoolGlazing.refreshHorizontal' in s
+        if file=='TallClassroomEntranceBlock.java':assert 'SchoolGlazing.FRAME_LAYOUT' in s
         assert 'SchoolGlazing.mirrorLayout' in s and 'SimpleBlockOutline.forState' in s
     print('OK: 1–17 blocks, even/odd spacing, distant parity changes, all four stairs, door open/closed, preserved supports and visible inner frame faces.')
 

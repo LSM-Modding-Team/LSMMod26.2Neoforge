@@ -1,0 +1,16 @@
+package net.nicomar2009.lsmmod.client;
+
+import com.supermartijn642.fusion.api.model.predicates.FusionModelPredicateRegistry;
+import net.minecraft.resources.Identifier;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.common.Mod;
+import net.nicomar2009.lsmmod.LSMMod;
+
+/** Client-only constructor registers the predicate before Fusion freezes model registries. */
+@Mod(value=LSMMod.MOD_ID,dist=Dist.CLIENT)
+public final class GlazingFusionRegistration {
+    public GlazingFusionRegistration() {
+        FusionModelPredicateRegistry.registerModelPredicate(
+                Identifier.fromNamespaceAndPath(LSMMod.MOD_ID,"glazing_mask"),SchoolGlazingPredicate.SERIALIZER);
+    }
+}

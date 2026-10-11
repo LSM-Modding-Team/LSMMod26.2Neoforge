@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+Cristales/cortinas: los cinco bloques pasan de 259200 a 5508 estados Java (97,875 % menos). curtain compacta diecisiete combinaciones; conexiones visuales retiradas del estado y calculadas por Fusion con geometría previa. Cortinas 4×8 conservadas, sin revisión constante cuando están completas. Migración NBT de paletas de chunks y estructuras antiguas antes de lectura, y actualización cliente de filas mediante paquetes individuales/agrupados. Verificación estática de selecciones, modelos, cortinas y recursos correcta; sin compilar ni probar Minecraft, mejora temporal no medida. Detalles: docs/COMPACT_GLASS_CURTAINS.md.
+
 Fusion 1.3.16-neoforge-mc26.2 integrado como dependencia cliente exacta. Preparación de recursos anterior a processResources: comparte modelos idénticos, compacta selectores visuales y usa Fusion para cuboides sólidos; OBJ conserva NeoForge. Fuentes/estados/IDs y mundos se conservan. 3660→3286 modelos, 31381→20501 selectores; comprobación exhaustiva estática de equivalencia. Sin compilar, resolución Gradle ni prueba Minecraft; tiempos y cierre no verificados. Detalles: docs/FUSION_MODEL_OPTIMIZATION.md.
 
 tall_bathroom_door_full_3 y tall_bathroom_door_full_4: puertas completas de madera de tres/cuatro filas, todas móviles, sin claraboya; textura de baño, bisagras, redstone y un solo drop. school_tinted_glass: modelo independiente de school_glass con vidrio gris oscuro completamente opaco y sin conexiones. Comprobaciones estáticas correctas; sin compilar ni prueba Minecraft.

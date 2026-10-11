@@ -13,6 +13,16 @@ def main():
         variants=definition.get('variants')
         if variants is None:
             variants={','.join(f'{k}={v}' for k,v in p['when'].items()):p['apply'] for p in definition['multipart'] if 'curtain' not in p['when']}
+        expanded={}
+        for key,value in variants.items():
+            data=read(A/('models/'+value['model'].split(':')[1]+'.json'))
+            if data.get('type')=='composite':
+                for entry in data['models'][0]:
+                    mask=entry['condition']['mask']
+                    suffix=f',frame_layout={mask&7},top_connected={str(bool(mask&8)).lower()},bottom_connected={str(bool(mask&16)).lower()}'
+                    expanded[key+suffix]=dict(value,model=entry['model'])
+            else:expanded[key]=value
+        variants=expanded
         assert len(variants)==count*8
         for key,value in variants.items():
             state=dict(x.split('=') for x in key.split(','))
@@ -49,7 +59,7 @@ def main():
                 assert glass['to'][2]-glass['from'][2]==8
     for name,under,side in [('supported_school_glass','light_wall','support'),('mixed_school_glass','concrete','light_wall'),('supported_school_glass_reversed','support','light_wall'),('mixed_school_glass_reversed','light_wall','concrete')]:
         model=read(A/f'models/block/{name}.json')
-        assert model['textures']['light_wall']=='lsmmod:block/light_school_wall'
+        assert model['textures']['light_wall']=='lsmmod:block/'+('street_school_wall' if name in ('supported_school_glass','mixed_school_glass_reversed') else 'light_school_wall')
         assert model['textures']['support']=='lsmmod:block/dark_school_wall'
         assert model['textures']['concrete']=='minecraft:block/white_concrete'
         assert any(f['texture']=='#'+under for e in model['elements'] for f in e['faces'].values())
@@ -83,7 +93,7 @@ def main():
     assert 'footprint(state)!=footprint(neighbor)' in joins and 'reachesTop(state)&&reachesBottom(neighbor)' in joins
     loot=read(D/'lsmmod/loot_table/blocks/tall_classroom_entrance.json')
     assert loot['pools'][0]['conditions'][1]['properties']=={'row':'0'}
-    print('OK: edge-aligned 2-row door + moving third-row apron; centered handles; 13440 base states plus curtain overlays; four vanilla stairs (corners/top/waterlogging), material layout, shared glazing and single door drop.')
+    print('OK: edge-aligned 2-row door + moving third-row apron; centered handles; 13440 geometry selections plus curtain overlays; four vanilla stairs (corners/top/waterlogging), material layout, shared glazing and single door drop.')
 
 if __name__=='__main__':main()
 
