@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+tall_bathroom_door_full_3 y tall_bathroom_door_full_4: puertas completas de madera de tres/cuatro filas, todas móviles, sin claraboya; textura de baño, bisagras, redstone y un solo drop. school_tinted_glass: modelo independiente de school_glass con vidrio gris oscuro completamente opaco y sin conexiones. Comprobaciones estáticas correctas; sin compilar ni prueba Minecraft.
+
 school_wooden_handrail: soportes extendidos al Y=0 común del primer bloque y dos posiciones laterales del mismo bloque, seleccionadas por pendiente contigua o punto de clic, al ras del límite. Una sola pieza coloca seis bloques de pasamanos inclinado, con subida de 24 píxeles, dos barras marrones y montantes finos; sin poste largo. Controlador único, desmontaje completo y un solo drop; recursos y continuidad comprobados estáticamente. Sin compilar ni prueba en Minecraft.
 
 double_school_entrance: ambas ventanas circulares movidas cuatro píxeles hacia el centro y dos hacia arriba, conservando exactamente sus píxeles de vidrio y marco. UV norte/sur del faldón superior alineadas con las filas inferiores para continuidad de la unión central; caras finas usan madera sin estirar la línea. Modelos, ítem heredado y preview regenerados; regresión verifica el desplazamiento exacto y orientación de la unión. ZIP incluye únicamente esta corrección y las correcciones del turno anterior de cortinas/caras junto a puerta. Sin compilar, commits ni publicación; prueba Minecraft pendiente.

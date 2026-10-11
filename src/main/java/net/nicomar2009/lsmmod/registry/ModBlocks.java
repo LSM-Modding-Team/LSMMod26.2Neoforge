@@ -181,6 +181,10 @@ public final class ModBlocks {
             "tall_classroom_entrance", TallClassroomEntranceBlock::new,
             props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
 
+    public static final DeferredBlock<FullBathroomDoorBlock> TALL_BATHROOM_DOOR_FULL_3 = BLOCKS.registerBlock("tall_bathroom_door_full_3", props -> new FullBathroomDoorBlock(3,props), props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<FullBathroomDoorBlock> TALL_BATHROOM_DOOR_FULL_4 = BLOCKS.registerBlock("tall_bathroom_door_full_4", props -> new FullBathroomDoorBlock(4,props), props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolTintedGlassBlock> SCHOOL_TINTED_GLASS = BLOCKS.registerBlock("school_tinted_glass", SchoolTintedGlassBlock::new, props -> props.strength(0.3F).sound(SoundType.GLASS).noOcclusion());
+
     public static final DeferredBlock<TallClassroomEntranceBlock> TALL_BATHROOM_DOOR = BLOCKS.registerBlock(
             "tall_bathroom_door", TallClassroomEntranceBlock::new,
             props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));

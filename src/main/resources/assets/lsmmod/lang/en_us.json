@@ -277,5 +277,8 @@
   "block.lsmmod.school_clock": "School Clock",
   "block.lsmmod.school_fan": "School Fan",
   "block.lsmmod.ceiling_light": "Ceiling Light",
-  "block.lsmmod.school_wooden_handrail": "Entrance Wooden Handrail"
+  "block.lsmmod.school_wooden_handrail": "Entrance Wooden Handrail",
+  "block.lsmmod.tall_bathroom_door_full_3": "Full Bathroom Door (3 Blocks)",
+  "block.lsmmod.tall_bathroom_door_full_4": "Full Bathroom Door (4 Blocks)",
+  "block.lsmmod.school_tinted_glass": "School Tinted Glass"
 }

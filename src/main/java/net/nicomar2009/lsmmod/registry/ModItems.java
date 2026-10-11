@@ -95,6 +95,9 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> DOUBLE_SCHOOL_ENTRANCE = ITEMS.registerSimpleBlockItem(ModBlocks.DOUBLE_SCHOOL_ENTRANCE);
     public static final DeferredItem<BlockItem> TALL_CLASSROOM_ENTRANCE = ITEMS.registerSimpleBlockItem(ModBlocks.TALL_CLASSROOM_ENTRANCE);
 
+    public static final DeferredItem<BlockItem> TALL_BATHROOM_DOOR_FULL_3 = ITEMS.registerSimpleBlockItem(ModBlocks.TALL_BATHROOM_DOOR_FULL_3);
+    public static final DeferredItem<BlockItem> TALL_BATHROOM_DOOR_FULL_4 = ITEMS.registerSimpleBlockItem(ModBlocks.TALL_BATHROOM_DOOR_FULL_4);
+    public static final DeferredItem<BlockItem> SCHOOL_TINTED_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_TINTED_GLASS);
     public static final DeferredItem<BlockItem> TALL_BATHROOM_DOOR = ITEMS.registerSimpleBlockItem(ModBlocks.TALL_BATHROOM_DOOR);
 
     public static final DeferredItem<BlockItem> TALL_TEACHERS_OFFICE_DOOR = ITEMS.registerSimpleBlockItem(ModBlocks.TALL_TEACHERS_OFFICE_DOOR);
