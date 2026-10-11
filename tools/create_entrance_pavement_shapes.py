@@ -49,7 +49,9 @@ def obj(low,rise,base,linked):
 def model(name):return {'loader':'neoforge:obj','model':f'lsmmod:models/block/{name}.obj','automatic_culling':False,'flip_v':True,'shade_quads':True,'textures':{'gray':'lsmmod:block/school_entrance_pavement_15','yellow':'lsmmod:block/school_entrance_pavement_0','particle':'lsmmod:block/school_entrance_pavement_15'}}
 
 def main():
- (A/'models/block/school_entrance_pavement_shapes.mtl').write_text('newmtl gray\nKd 1 1 1\nd 1\nmap_Kd #gray\nnewmtl yellow\nKd 1 1 1\nd 1\nmap_Kd #yellow\n')
+ # Plain slot names work in vanilla TextureSlots and Fusion 1.3.16's adapter.
+ # Its getMaterial override does not strip the optional leading #.
+ (A/'models/block/school_entrance_pavement_shapes.mtl').write_text('newmtl gray\nKd 1 1 1\nd 1\nmap_Kd gray\nnewmtl yellow\nKd 1 1 1\nd 1\nmap_Kd yellow\n')
  blocks='    // BEGIN ENTRANCE PAVEMENT SHAPES\n';items=blocks
  families=[(f'school_entrance_pavement_slope_{i+1}',low,.25,0) for i,low in enumerate((.5,.75,0,.25,.5,.75))]+[('school_entrance_pavement_slab',.5,0,0)]
  for ident,low,rise,base in families:

@@ -39,6 +39,8 @@ def prepare(output):
    if p.is_file() and p.suffix!='.bbmodel' and '.cache' not in p.parts:
     dest=output/p.relative_to(base);dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dest)
  assets=output/'assets/lsmmod';models=assets/'models';before=list(models.rglob('*.json'));raw_bytes=sum(p.stat().st_size for p in before)
+ from repair_door_glazing_faces import prepare as repair_door_faces
+ door_faces=repair_door_faces(assets)
  groups=defaultdict(list)
  for p in sorted(models.rglob('*.json')):groups[canonical(json.loads(p.read_text(encoding='utf-8-sig')))].append(p)
  aliases={}
@@ -76,6 +78,7 @@ def prepare(output):
  after=list(models.rglob('*.json'));report={'models_before':len(before),'models_after':len(after),'identical_models_shared':len(aliases),'fusion_models':fusion_count,'variants_before':variants_before,'variants_after':variants_after,'model_bytes_before':raw_bytes,'model_bytes_after':sum(p.stat().st_size for p in after),'state_properties_changed':False,'neoforge_obj_models':sum(json.loads(p.read_text(encoding='utf-8-sig')).get('loader')=='neoforge:obj' for p in after)}
  report['variants_after']=sum(len(json.loads(p.read_text(encoding='utf-8-sig')).get('variants',{})) for p in (assets/'blockstates').glob('*.json'))
  report['high_state_models']=high_states
+ report['door_glazing_faces']=door_faces
  report['state_properties_changed']=True
  write(output/'lsmmod_model_optimization.json',report)
  return report,aliases

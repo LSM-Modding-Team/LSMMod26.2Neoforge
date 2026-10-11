@@ -4,6 +4,14 @@ import numpy as np
 from create_school_yellow_border_assets import ROOT,A
 
 def main():
+ # Verify the actual MTL references consumed by NeoForge's MaterialBaker.
+ # Fusion forwards slot names verbatim, while vanilla additionally strips #.
+ mtl=(A/'models/block/school_entrance_pavement_shapes.mtl').read_text()
+ slots=[line.split()[1] for line in mtl.splitlines() if line.startswith('map_Kd ')]
+ assert slots==['gray','yellow'],('Fusion-compatible OBJ slots',slots)
+ for slot in slots:
+  texture='school_entrance_pavement_'+('15' if slot=='gray' else '0')
+  assert (A/f'textures/block/{texture}.png').is_file()
  layout=json.loads((ROOT/'tools/entrance_pavement_slope_layout.json').read_text());assert layout['width']==6 and layout['length']==6
  pieces=layout['pieces'];end=.5
  for piece in pieces:

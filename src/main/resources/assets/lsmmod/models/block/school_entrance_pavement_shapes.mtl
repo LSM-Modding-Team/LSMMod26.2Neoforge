@@ -1,8 +1,8 @@
 newmtl gray
 Kd 1 1 1
 d 1
-map_Kd #gray
+map_Kd gray
 newmtl yellow
 Kd 1 1 1
 d 1
-map_Kd #yellow
+map_Kd yellow
