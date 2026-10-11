@@ -332,5 +332,9 @@
   "block.lsmmod.street_light_school_glass": "Glass Stairs: Street Front / Light Body",
   "block.lsmmod.school_cabinet": "School Cabinet",
   "block.lsmmod.school_router": "School Router",
-  "block.lsmmod.school_sink": "School Pedestal Sink"
+  "block.lsmmod.school_sink": "School Pedestal Sink",
+  "block.lsmmod.yellow_school_slope_1": "Yellow School Slope 1",
+  "block.lsmmod.yellow_school_slope_2": "Yellow School Slope 2",
+  "block.lsmmod.yellow_school_slope_3": "Yellow School Slope 3",
+  "block.lsmmod.yellow_school_slope_4": "Yellow School Slope 4"
 }

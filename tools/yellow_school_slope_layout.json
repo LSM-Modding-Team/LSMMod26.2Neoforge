@@ -1,0 +1,27 @@
+{
+  "length": 4,
+  "drop_pixels": 8,
+  "descending_toward": "facing",
+  "pieces": [
+    {
+      "id": "yellow_school_slope_1",
+      "high_pixels": 8.0,
+      "low_pixels": 6.0
+    },
+    {
+      "id": "yellow_school_slope_2",
+      "high_pixels": 6.0,
+      "low_pixels": 4.0
+    },
+    {
+      "id": "yellow_school_slope_3",
+      "high_pixels": 4.0,
+      "low_pixels": 2.0
+    },
+    {
+      "id": "yellow_school_slope_4",
+      "high_pixels": 2.0,
+      "low_pixels": 0.0
+    }
+  ]
+}

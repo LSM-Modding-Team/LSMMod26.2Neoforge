@@ -1,0 +1,65 @@
+mtllib school_yellow_slopes.mtl
+v 0 0 1
+vt 0 1
+v 1 0 1
+vt 1 1
+v 1 0.125 1
+vt 1 1
+usemtl yellow
+f 1/1 2/2 3/3
+v 0 0 1
+vt 0 1
+v 1 0.125 1
+vt 1 1
+v 0 0.125 1
+vt 0 1
+usemtl yellow
+f 4/4 5/5 6/6
+v 0 0 0
+vt 0 0
+v 0 0 1
+vt 0 1
+v 0 0.125 1
+vt 0 1
+usemtl yellow
+f 7/7 8/8 9/9
+v 1 0 1
+vt 1 1
+v 1 0 0
+vt 1 0
+v 1 0.125 1
+vt 1 1
+usemtl yellow
+f 10/10 11/11 12/12
+v 0 0.125 1
+vt 0 1
+v 1 0.125 1
+vt 1 1
+v 1 0 0
+vt 1 0
+usemtl yellow
+f 13/13 14/14 15/15
+v 0 0.125 1
+vt 0 1
+v 1 0 0
+vt 1 0
+v 0 0 0
+vt 0 0
+usemtl yellow
+f 16/16 17/17 18/18
+v 0 0 0
+vt 0 0
+v 1 0 0
+vt 1 0
+v 1 0 1
+vt 1 1
+usemtl yellow
+f 19/19 20/20 21/21
+v 0 0 0
+vt 0 0
+v 1 0 1
+vt 1 1
+v 0 0 1
+vt 0 1
+usemtl yellow
+f 22/22 23/23 24/24

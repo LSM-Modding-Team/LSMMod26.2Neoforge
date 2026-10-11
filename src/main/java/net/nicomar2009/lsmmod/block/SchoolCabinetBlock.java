@@ -9,7 +9,7 @@ public class SchoolCabinetBlock extends WideBathroomBlock {
     private static final double[][] BOXES = {{0, 0, 0, 32, 32, 16}};
 
     public SchoolCabinetBlock(Properties properties) {
-        super(properties, BOXES, BOXES, false, 2, false);
+        super(properties, BOXES, BOXES, true, 2, false);
     }
 
     @Override

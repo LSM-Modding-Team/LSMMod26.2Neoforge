@@ -326,5 +326,9 @@
   "block.lsmmod.street_light_school_glass": "Escalera de cristal: frente calle / cuerpo claro",
   "block.lsmmod.school_cabinet": "Armario del colegio",
   "block.lsmmod.school_router": "Router del colegio",
-  "block.lsmmod.school_sink": "Lavadero del colegio"
+  "block.lsmmod.school_sink": "Lavadero del colegio",
+  "block.lsmmod.yellow_school_slope_1": "Pendiente amarilla del colegio 1",
+  "block.lsmmod.yellow_school_slope_2": "Pendiente amarilla del colegio 2",
+  "block.lsmmod.yellow_school_slope_3": "Pendiente amarilla del colegio 3",
+  "block.lsmmod.yellow_school_slope_4": "Pendiente amarilla del colegio 4"
 }

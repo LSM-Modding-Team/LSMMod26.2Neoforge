@@ -106,6 +106,10 @@
     "lsmmod:street_light_school_glass",
     "lsmmod:school_cabinet",
     "lsmmod:school_router",
-    "lsmmod:school_sink"
+    "lsmmod:school_sink",
+    "lsmmod:yellow_school_slope_1",
+    "lsmmod:yellow_school_slope_2",
+    "lsmmod:yellow_school_slope_3",
+    "lsmmod:yellow_school_slope_4"
   ]
 }

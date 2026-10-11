@@ -1,0 +1,11 @@
+{
+  "loader": "neoforge:obj",
+  "model": "lsmmod:models/block/yellow_school_slope_4.obj",
+  "automatic_culling": false,
+  "flip_v": true,
+  "shade_quads": true,
+  "textures": {
+    "yellow": "lsmmod:block/yellow_school_block",
+    "particle": "lsmmod:block/yellow_school_block"
+  }
+}

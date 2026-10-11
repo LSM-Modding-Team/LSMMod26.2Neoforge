@@ -72,6 +72,13 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> SCHOOL_SINK = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_SINK);
     // END SCHOOL SINK
 
+    // BEGIN YELLOW SCHOOL SLOPES
+    public static final DeferredItem<BlockItem> YELLOW_SCHOOL_SLOPE_1 = ITEMS.registerSimpleBlockItem(ModBlocks.YELLOW_SCHOOL_SLOPE_1);
+    public static final DeferredItem<BlockItem> YELLOW_SCHOOL_SLOPE_2 = ITEMS.registerSimpleBlockItem(ModBlocks.YELLOW_SCHOOL_SLOPE_2);
+    public static final DeferredItem<BlockItem> YELLOW_SCHOOL_SLOPE_3 = ITEMS.registerSimpleBlockItem(ModBlocks.YELLOW_SCHOOL_SLOPE_3);
+    public static final DeferredItem<BlockItem> YELLOW_SCHOOL_SLOPE_4 = ITEMS.registerSimpleBlockItem(ModBlocks.YELLOW_SCHOOL_SLOPE_4);
+    // END YELLOW SCHOOL SLOPES
+
     // BEGIN CLASSROOM SURFACES
     public static final DeferredItem<BlockItem> CLASSROOM_WHITE_WALL = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_WHITE_WALL);
     public static final DeferredItem<BlockItem> CLASSROOM_PAINTED_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_PAINTED_BLOCK);

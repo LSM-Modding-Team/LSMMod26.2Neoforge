@@ -31,7 +31,7 @@ def main():
     assert pixels=={(x,y) for x in range(32) for y in range(32)}
     assert Image.open(A/'textures/block/school_cabinet_front.png').size==(32,32)
     cabinet=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolCabinetBlock.java').read_text()
-    assert '{{0, 0, 0, 32, 32, 16}}' in cabinet and 'false, 2, false' in cabinet and 'builder.add(HALF)' in cabinet
+    assert '{{0, 0, 0, 32, 32, 16}}' in cabinet and 'true, 2, false' in cabinet and 'builder.add(HALF)' in cabinet
     wide=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/WideBathroomBlock.java').read_text()
     assert 'initial.hasProperty(OPEN)' in wide and 'initial.hasProperty(HALF)' in wide
     assert 'sharedRotations.computeIfAbsent' in wide and 'SimpleBlockOutline.forState' in wide

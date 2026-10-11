@@ -105,6 +105,24 @@ public final class ModBlocks {
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));
     // END SCHOOL SINK
 
+    // BEGIN YELLOW SCHOOL SLOPES
+    public static final DeferredBlock<YellowSchoolSlopeBlock> YELLOW_SCHOOL_SLOPE_1 = BLOCKS.registerBlock(
+            "yellow_school_slope_1", props -> new YellowSchoolSlopeBlock(0.5,props),
+            props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
+
+    public static final DeferredBlock<YellowSchoolSlopeBlock> YELLOW_SCHOOL_SLOPE_2 = BLOCKS.registerBlock(
+            "yellow_school_slope_2", props -> new YellowSchoolSlopeBlock(0.375,props),
+            props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
+
+    public static final DeferredBlock<YellowSchoolSlopeBlock> YELLOW_SCHOOL_SLOPE_3 = BLOCKS.registerBlock(
+            "yellow_school_slope_3", props -> new YellowSchoolSlopeBlock(0.25,props),
+            props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
+
+    public static final DeferredBlock<YellowSchoolSlopeBlock> YELLOW_SCHOOL_SLOPE_4 = BLOCKS.registerBlock(
+            "yellow_school_slope_4", props -> new YellowSchoolSlopeBlock(0.125,props),
+            props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
+    // END YELLOW SCHOOL SLOPES
+
     // BEGIN CLASSROOM SURFACES
     public static final DeferredBlock<Block> CLASSROOM_WHITE_WALL = BLOCKS.registerBlock(
             "classroom_white_wall", Block::new,
