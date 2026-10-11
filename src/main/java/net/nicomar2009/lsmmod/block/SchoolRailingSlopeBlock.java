@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /** One independently placed inclined school wall and metal rail. Never inverted. */
@@ -29,26 +28,21 @@ public class SchoolRailingSlopeBlock extends Block implements SimpleWaterloggedB
     public static final EnumProperty<Direction> FACING=BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED=BlockStateProperties.WATERLOGGED;
     private final double low,rise,firstRise,secondRise;
-    private final VoxelShape[] collisions=new VoxelShape[4];
+    private final VoxelShape[] collisions;
     public SchoolRailingSlopeBlock(double low,double rise,boolean post,boolean band,Properties properties) {
         this(low,rise/2,rise/2,post,band,properties);
     }
     public SchoolRailingSlopeBlock(double low,double firstRise,double secondRise,boolean post,boolean band,Properties properties) {
         super(properties);this.low=low;this.firstRise=firstRise;this.secondRise=secondRise;this.rise=firstRise+secondRise;
         registerDefaultState(stateDefinition.any().setValue(FACING,Direction.NORTH).setValue(WATERLOGGED,false));
-        VoxelShape shape=Shapes.empty();
+        java.util.List<net.minecraft.world.phys.AABB> boxes=new java.util.ArrayList<>(65);
         for(int i=0;i<32;i++) {
             double t0=i/32.0,t1=(i+1)/32.0;
-            shape=Shapes.or(shape,Shapes.box(0,band?height(t0)-12/16.0:0,1-t1,1,height(t1),1-t0));
-            shape=Shapes.or(shape,Shapes.box(7/16.0,height(t0)+6/16.0,1-t1,9/16.0,height(t1)+8/16.0,1-t0));
+            boxes.add(new net.minecraft.world.phys.AABB(0,band?height(t0)-12/16.0:0,1-t1,1,height(t1),1-t0));
+            boxes.add(new net.minecraft.world.phys.AABB(7/16.0,height(t0)+6/16.0,1-t1,9/16.0,height(t1)+8/16.0,1-t0));
         }
-        if(post)shape=Shapes.or(shape,Shapes.box(7/16.0,height(7/16.0),7/16.0,9/16.0,height(9/16.0)+6/16.0,9/16.0));
-        collisions[0]=shape.optimize();
-        for(int i=1;i<4;i++) {
-            VoxelShape[] next={Shapes.empty()};
-            collisions[i-1].forAllBoxes((x1,y1,z1,x2,y2,z2)->next[0]=Shapes.or(next[0],Shapes.box(1-z2,y1,x1,1-z1,y2,x2)));
-            collisions[i]=next[0].optimize();
-        }
+        if(post)boxes.add(new net.minecraft.world.phys.AABB(7/16.0,height(7/16.0),7/16.0,9/16.0,height(9/16.0)+6/16.0,9/16.0));
+        collisions=SharedChairRotations.horizontal(ExactVoxelShapes.union(boxes));
     }
     private double height(double travel) {
         return low+(travel<=.5?2*travel*firstRise:firstRise+2*(travel-.5)*secondRise);

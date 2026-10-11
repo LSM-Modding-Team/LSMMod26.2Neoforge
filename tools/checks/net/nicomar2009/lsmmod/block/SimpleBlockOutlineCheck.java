@@ -10,12 +10,23 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 /** Runs against the actual model-derived collision boxes without booting a client. */
 public final class SimpleBlockOutlineCheck {
-    private static final Pattern UNION = Pattern.compile("Shapes\\.or\\((.*?)\\);", Pattern.DOTALL);
-    private static final Pattern BOX = Pattern.compile("Block\\.box\\(([\\d., \\-]+)\\)");
+    private static final Pattern UNION = Pattern.compile("(?:Shapes\\.or|ExactVoxelShapes\\.union)\\((.*?)\\);", Pattern.DOTALL);
+    private static final Pattern BOX = Pattern.compile("(?:Block|ExactVoxelShapes)\\.box\\(([\\d., \\-]+)\\)");
     private static int checks;
 
     public static void main(String[] args) throws Exception {
         checkChairGridRotations();
+        net.minecraft.world.phys.AABB[] volumes = {
+            new net.minecraft.world.phys.AABB(.125,0,.25,.25,.875,.75),
+            new net.minecraft.world.phys.AABB(.75,0,.25,.875,.875,.75),
+            new net.minecraft.world.phys.AABB(.125,.5,.25,.875,.625,.75),
+            new net.minecraft.world.phys.AABB(-.125,.8,.35,.625,1.3,.65)};
+        VoxelShape original = Shapes.empty();
+        for(var b:volumes) original=Shapes.or(original,Shapes.create(b));
+        VoxelShape direct=ExactVoxelShapes.union(volumes);
+        if(Shapes.joinIsNotEmpty(original,direct,net.minecraft.world.phys.shapes.BooleanOp.NOT_SAME))
+            throw new AssertionError("Direct union must preserve physical gaps and overlaps");
+        if(!ExactVoxelShapes.union().isEmpty()) throw new AssertionError("Empty input must remain empty");
         if (!SimpleBlockOutline.boundingBox(Shapes.empty()).isEmpty()) {
             throw new AssertionError("An empty cell must not acquire an outline");
         }

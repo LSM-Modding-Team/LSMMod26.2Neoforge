@@ -14,8 +14,8 @@ def main():
  for file in ('ChairBlock.java','NewChairShapes.java','StoolBlock.java'):
   p=B/file
   if not p.exists():continue
-  for name,body in re.findall(r'(?:public|private) static final VoxelShape (\w+) = Shapes.or\((.*?)\);',p.read_text(),re.S):
-   boxes=[tuple(float(x.strip())/16 for x in values.split(',')) for values in re.findall(r'Block.box\(([\d., \-]+)\)',body)]
+  for name,body in re.findall(r'(?:public|private) static final VoxelShape (\w+) = (?:Shapes.or|ExactVoxelShapes.union)\((.*?)\);',p.read_text(),re.S):
+   boxes=[tuple(float(x.strip())/16 for x in values.split(',')) for values in re.findall(r'(?:Block.box|ExactVoxelShapes.box)\(([\d., \-]+)\)',body)]
    assert boxes,(file,name);profiles.append((file,name,boxes))
  count=0
  for file,name,boxes in profiles:

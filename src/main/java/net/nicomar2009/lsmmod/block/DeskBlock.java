@@ -42,20 +42,20 @@ public class DeskBlock extends Block implements EntityBlock {
     // Boxes are in pixels (0-16) for the model's native orientation (FACING = SOUTH, y rotation 0),
     // derived from studentsdeskleft.json after applying each element's 180-degree rotation.
     // The 1 px gap between the grille slats (y 12-13) is filled so the selection outline stays clean.
-    private static final VoxelShape STUDENTS_LEFT_NATIVE = Shapes.or(
-            Block.box(0, 15, 0, 16, 16, 16),     // tabletop
-            Block.box(2, 0, 12, 4, 8, 14),       // leg
-            Block.box(12, 0, 12, 14, 8, 14),     // leg
-            Block.box(2, 3, 0, 4, 5, 12),        // low side rail
-            Block.box(4, 3, 12, 12, 5, 14),      // low back rail
-            Block.box(2, 8, 0, 4, 10, 14),       // frame (left side)
-            Block.box(12, 8, 0, 14, 10, 14),     // frame (right side)
-            Block.box(4, 8, 12, 12, 10, 14),     // frame (back)
-            Block.box(4, 9, 0, 12, 10, 12),      // shelf
-            Block.box(2, 10, 0, 4, 15, 14),      // left wall + post
-            Block.box(4, 10, 11, 14, 15, 13),    // back wall
-            Block.box(12, 10, 12, 14, 15, 14),   // back-right post
-            Block.box(4, 10, 0, 13, 15, 0.5));   // end panel
+    private static final VoxelShape STUDENTS_LEFT_NATIVE = ExactVoxelShapes.union(
+            ExactVoxelShapes.box(0, 15, 0, 16, 16, 16),     // tabletop
+            ExactVoxelShapes.box(2, 0, 12, 4, 8, 14),       // leg
+            ExactVoxelShapes.box(12, 0, 12, 14, 8, 14),     // leg
+            ExactVoxelShapes.box(2, 3, 0, 4, 5, 12),        // low side rail
+            ExactVoxelShapes.box(4, 3, 12, 12, 5, 14),      // low back rail
+            ExactVoxelShapes.box(2, 8, 0, 4, 10, 14),       // frame (left side)
+            ExactVoxelShapes.box(12, 8, 0, 14, 10, 14),     // frame (right side)
+            ExactVoxelShapes.box(4, 8, 12, 12, 10, 14),     // frame (back)
+            ExactVoxelShapes.box(4, 9, 0, 12, 10, 12),      // shelf
+            ExactVoxelShapes.box(2, 10, 0, 4, 15, 14),      // left wall + post
+            ExactVoxelShapes.box(4, 10, 11, 14, 15, 13),    // back wall
+            ExactVoxelShapes.box(12, 10, 12, 14, 15, 14),   // back-right post
+            ExactVoxelShapes.box(4, 10, 0, 13, 15, 0.5));   // end panel
 
     // Per-instance shapes: each desk type (student's / teacher's) passes its own native LEFT shape.
     // The RIGHT shape is always the LEFT one mirrored on the Z axis.
@@ -70,8 +70,8 @@ public class DeskBlock extends Block implements EntityBlock {
 
     protected DeskBlock(Properties properties, VoxelShape leftNative) {
         super(properties);
-        this.leftShapes = buildRotatedShapes(leftNative);
-        this.rightShapes = buildRotatedShapes(mirrorZ(leftNative));
+        this.leftShapes = SharedChairRotations.horizontal(leftNative);
+        this.rightShapes = SharedChairRotations.horizontal(mirrorZ(leftNative));
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.SOUTH)
                 .setValue(PART, DeskPart.LEFT));
@@ -80,28 +80,7 @@ public class DeskBlock extends Block implements EntityBlock {
     // ---- Shape helpers --------------------------------------------------------------------
 
     private static VoxelShape mirrorZ(VoxelShape shape) {
-        VoxelShape[] result = {Shapes.empty()};
-        shape.forAllBoxes((x1, y1, z1, x2, y2, z2) ->
-                result[0] = Shapes.or(result[0], Shapes.box(x1, y1, 1.0D - z2, x2, y2, 1.0D - z1)));
-        return result[0];
-    }
-
-    private static VoxelShape[] buildRotatedShapes(VoxelShape native0) {
-        VoxelShape[] shapes = new VoxelShape[4];
-        shapes[0] = native0;
-        for (int i = 1; i < 4; i++) {
-            shapes[i] = rotateClockwise(shapes[i - 1]);
-        }
-        return shapes;
-    }
-
-    /** Rotates a shape 90 degrees clockwise (seen from above) around the block's vertical axis. */
-    private static VoxelShape rotateClockwise(VoxelShape shape) {
-        VoxelShape[] result = {Shapes.empty()};
-        // (x, z) -> (1 - z, x)
-        shape.forAllBoxes((x1, y1, z1, x2, y2, z2) ->
-                result[0] = Shapes.or(result[0], Shapes.box(1.0D - z2, y1, x1, 1.0D - z1, y2, x2)));
-        return result[0];
+        return Shapes.rotate(shape, com.mojang.math.OctahedralGroup.INVERT_Z);
     }
 
     /** Direction from the given half towards its other half. */

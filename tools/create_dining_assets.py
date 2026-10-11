@@ -100,5 +100,5 @@ def bounds(e):
 def shape(es):
  return ',\n'.join('            Block.box('+', '.join(f'{v:.4f}'.rstrip('0').rstrip('.') if v else '0' for v in lo+hi)+')' for e in es for lo,hi in bounds(e))
 p=root/'src/main/java/net/nicomar2009/lsmmod/block/DiningTableBlock.java';s=p.read_text();s=re.sub(r'private static final VoxelShape SHAPE = Shapes.or\(.*?\);','private static final VoxelShape SHAPE = Shapes.or(\n'+shape(t['elements'])+');',s,flags=re.S);p.write_text(s)
-p=root/'src/main/java/net/nicomar2009/lsmmod/block/NewChairShapes.java';s=p.read_text();s=re.sub(r'public static final VoxelShape DINING_CHAIR = Shapes.or\(.*?\);','public static final VoxelShape DINING_CHAIR = Shapes.or(\n'+shape(es)+');',s,flags=re.S);p.write_text(s)
+p=root/'src/main/java/net/nicomar2009/lsmmod/block/NewChairShapes.java';s=p.read_text();s=re.sub(r'public static final VoxelShape DINING_CHAIR = (?:Shapes.or|ExactVoxelShapes.union)\(.*?\);','public static final VoxelShape DINING_CHAIR = ExactVoxelShapes.union(\n'+shape(es).replace('Block.box(', 'ExactVoxelShapes.box(')+');',s,flags=re.S);p.write_text(s)
 print('Updated table and chair geometry and collision shapes')

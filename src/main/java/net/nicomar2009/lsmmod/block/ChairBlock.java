@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.nicomar2009.lsmmod.entity.SeatEntity;
 import net.nicomar2009.lsmmod.registry.ModEntities;
@@ -42,13 +41,13 @@ public class ChairBlock extends Block {
 
     // Hitbox in pixels (0-16) for the model's native orientation (FACING = SOUTH, blockstate y rotation 0),
     // derived from classroom_chair_base.json: the backrest is on the north side, the sitter looks south.
-    private static final VoxelShape NATIVE_SHAPE = Shapes.or(
-            Block.box(2, 0, 4, 4, 5, 6),        // front-left leg
-            Block.box(11, 0, 4, 13, 5, 6),      // front-right leg
-            Block.box(2, 0, 12, 4, 5, 14),      // back-left leg
-            Block.box(11, 0, 12, 13, 5, 14),    // back-right leg
-            Block.box(2, 5, 3, 13, 7, 14),      // seat
-            Block.box(2, 6, 1, 13, 16, 3));     // backrest
+    private static final VoxelShape NATIVE_SHAPE = ExactVoxelShapes.union(
+            ExactVoxelShapes.box(2, 0, 4, 4, 5, 6),        // front-left leg
+            ExactVoxelShapes.box(11, 0, 4, 13, 5, 6),      // front-right leg
+            ExactVoxelShapes.box(2, 0, 12, 4, 5, 14),      // back-left leg
+            ExactVoxelShapes.box(11, 0, 12, 13, 5, 14),    // back-right leg
+            ExactVoxelShapes.box(2, 5, 3, 13, 7, 14),      // seat
+            ExactVoxelShapes.box(2, 6, 1, 13, 16, 3));     // backrest
 
     // Indexed by Direction.get2DDataValue(): SOUTH=0, WEST=1, NORTH=2, EAST=3.
     // This is also the number of clockwise 90-degree turns, matching the blockstate "y" rotations.
