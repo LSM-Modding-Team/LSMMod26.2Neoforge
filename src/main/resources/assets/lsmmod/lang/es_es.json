@@ -273,5 +273,10 @@
   "block.lsmmod.school_wooden_handrail": "Pasamanos de madera de entrada",
   "block.lsmmod.tall_bathroom_door_full_3": "Puerta completa de baño (3 bloques)",
   "block.lsmmod.tall_bathroom_door_full_4": "Puerta completa de baño (4 bloques)",
-  "block.lsmmod.school_tinted_glass": "Cristal opaco del colegio"
+  "block.lsmmod.school_tinted_glass": "Cristal opaco del colegio",
+  "itemGroup.lsm_mod": "LSM Mod",
+  "itemGroup.lsmmod.school_blocks": "LSM Mod: School Blocks",
+  "itemGroup.lsmmod.school_functional_blocks": "LSM Mod: School Functional Blocks",
+  "itemGroup.lsmmod.school_items": "LSM Mod: School Items",
+  "itemGroup.lsmmod.school_entities": "LSM Mod: School Entities"
 }
