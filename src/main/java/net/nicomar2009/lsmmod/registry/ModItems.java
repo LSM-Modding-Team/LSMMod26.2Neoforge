@@ -27,6 +27,8 @@ public final class ModItems {
     // BEGIN ENTRANCE PAVEMENT SHAPES
     public static final DeferredItem<BlockItem> SCHOOL_CLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_CLOCK);
     public static final DeferredItem<BlockItem> SCHOOL_FAN = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_FAN);
+    public static final DeferredItem<BlockItem> SCHOOL_WOODEN_HANDRAIL = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_WOODEN_HANDRAIL);
+
     public static final DeferredItem<BlockItem> CEILING_LIGHT = ITEMS.registerSimpleBlockItem(ModBlocks.CEILING_LIGHT);
 
     public static final DeferredItem<BlockItem> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_1 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLOPE_1);

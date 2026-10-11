@@ -26,6 +26,8 @@ public final class ModBlocks {
     public static final DeferredBlock<SchoolWallDecorationBlock> SCHOOL_FAN = BLOCKS.registerBlock(
             "school_fan", props -> new SchoolWallDecorationBlock(6,props),
             props -> props.strength(.8F).sound(SoundType.METAL).noOcclusion());
+    public static final DeferredBlock<SchoolWoodenHandrailBlock> SCHOOL_WOODEN_HANDRAIL = BLOCKS.registerBlock("school_wooden_handrail", SchoolWoodenHandrailBlock::new, props -> props.strength(2.0F).sound(SoundType.WOOD).noOcclusion());
+
     public static final DeferredBlock<CeilingLightBlock> CEILING_LIGHT = BLOCKS.registerBlock(
             "ceiling_light", CeilingLightBlock::new,
             props -> props.strength(.5F).sound(SoundType.GLASS).noOcclusion().lightLevel(state -> state.getValue(CeilingLightBlock.LIT) ? 15 : 0));

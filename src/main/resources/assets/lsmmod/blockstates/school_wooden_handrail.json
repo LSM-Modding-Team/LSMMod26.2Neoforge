@@ -1,0 +1,268 @@
+{
+  "variants": {
+    "facing=north,column=0,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_0_0",
+      "y": 0
+    },
+    "facing=east,column=0,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_0_0",
+      "y": 90
+    },
+    "facing=south,column=0,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_0_0",
+      "y": 180
+    },
+    "facing=west,column=0,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_0_0",
+      "y": 270
+    },
+    "facing=north,column=0,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_0_1",
+      "y": 0
+    },
+    "facing=east,column=0,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_0_1",
+      "y": 90
+    },
+    "facing=south,column=0,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_0_1",
+      "y": 180
+    },
+    "facing=west,column=0,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_0_1",
+      "y": 270
+    },
+    "facing=north,column=1,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_1_0",
+      "y": 0
+    },
+    "facing=east,column=1,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_1_0",
+      "y": 90
+    },
+    "facing=south,column=1,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_1_0",
+      "y": 180
+    },
+    "facing=west,column=1,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_1_0",
+      "y": 270
+    },
+    "facing=north,column=1,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_1_1",
+      "y": 0
+    },
+    "facing=east,column=1,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_1_1",
+      "y": 90
+    },
+    "facing=south,column=1,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_1_1",
+      "y": 180
+    },
+    "facing=west,column=1,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_1_1",
+      "y": 270
+    },
+    "facing=north,column=2,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_2_0",
+      "y": 0
+    },
+    "facing=east,column=2,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_2_0",
+      "y": 90
+    },
+    "facing=south,column=2,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_2_0",
+      "y": 180
+    },
+    "facing=west,column=2,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_2_0",
+      "y": 270
+    },
+    "facing=north,column=2,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_2_1",
+      "y": 0
+    },
+    "facing=east,column=2,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_2_1",
+      "y": 90
+    },
+    "facing=south,column=2,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_2_1",
+      "y": 180
+    },
+    "facing=west,column=2,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_2_1",
+      "y": 270
+    },
+    "facing=north,column=3,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_3_0",
+      "y": 0
+    },
+    "facing=east,column=3,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_3_0",
+      "y": 90
+    },
+    "facing=south,column=3,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_3_0",
+      "y": 180
+    },
+    "facing=west,column=3,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_3_0",
+      "y": 270
+    },
+    "facing=north,column=3,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_3_1",
+      "y": 0
+    },
+    "facing=east,column=3,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_3_1",
+      "y": 90
+    },
+    "facing=south,column=3,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_3_1",
+      "y": 180
+    },
+    "facing=west,column=3,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_3_1",
+      "y": 270
+    },
+    "facing=north,column=4,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_4_1",
+      "y": 0
+    },
+    "facing=east,column=4,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_4_1",
+      "y": 90
+    },
+    "facing=south,column=4,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_4_1",
+      "y": 180
+    },
+    "facing=west,column=4,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_4_1",
+      "y": 270
+    },
+    "facing=north,column=4,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_4_2",
+      "y": 0
+    },
+    "facing=east,column=4,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_4_2",
+      "y": 90
+    },
+    "facing=south,column=4,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_4_2",
+      "y": 180
+    },
+    "facing=west,column=4,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_4_2",
+      "y": 270
+    },
+    "facing=north,column=5,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_5_1",
+      "y": 0
+    },
+    "facing=east,column=5,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_5_1",
+      "y": 90
+    },
+    "facing=south,column=5,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_5_1",
+      "y": 180
+    },
+    "facing=west,column=5,row=1": {
+      "model": "lsmmod:block/school_wooden_handrail_5_1",
+      "y": 270
+    },
+    "facing=north,column=5,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_5_2",
+      "y": 0
+    },
+    "facing=east,column=5,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_5_2",
+      "y": 90
+    },
+    "facing=south,column=5,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_5_2",
+      "y": 180
+    },
+    "facing=west,column=5,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_5_2",
+      "y": 270
+    },
+    "facing=north,column=0,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=east,column=0,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=south,column=0,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=west,column=0,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=north,column=1,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=east,column=1,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=south,column=1,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=west,column=1,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=north,column=2,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=east,column=2,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=south,column=2,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=west,column=2,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=north,column=3,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=east,column=3,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=south,column=3,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=west,column=3,row=2": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=north,column=4,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=east,column=4,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=south,column=4,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=west,column=4,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=north,column=5,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=east,column=5,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=south,column=5,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    },
+    "facing=west,column=5,row=0": {
+      "model": "lsmmod:block/school_wooden_handrail_empty"
+    }
+  }
+}
