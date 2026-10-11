@@ -44,6 +44,12 @@ public final class ModBlocks {
             props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
     // END PAINTABLE SCHOOL BLOCK
 
+    // BEGIN YELLOW SCHOOL BLOCK
+    public static final DeferredBlock<Block> YELLOW_SCHOOL_BLOCK = BLOCKS.registerBlock(
+            "yellow_school_block", Block::new,
+            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    // END YELLOW SCHOOL BLOCK
+
     // BEGIN CLASSROOM SURFACES
     public static final DeferredBlock<Block> CLASSROOM_WHITE_WALL = BLOCKS.registerBlock(
             "classroom_white_wall", Block::new,

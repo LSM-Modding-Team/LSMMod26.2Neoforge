@@ -61,7 +61,7 @@ public final class ModCreativeTabs {
                     || id.contains("_wall") || id.endsWith("_floor") || id.equals("school_parquet")
                     || id.contains("_glass") || id.equals("classroom_white_wall")
                     || id.startsWith("school_paintable_") || id.equals("school_foundation")
-                    || id.equals("school_synthetic_grass")) return Group.BLOCKS;
+                    || id.equals("school_synthetic_grass") || id.equals("yellow_school_block")) return Group.BLOCKS;
             return Group.FUNCTIONAL_BLOCKS;
         }
         return Group.ITEMS;

@@ -17,8 +17,21 @@ def main():
             assert (A/f'textures/{path}.png').is_file(), f'Missing paint texture: {texture}'
     assert PAINTS[4] == 'lsmmod:block/classroom_white_wall'
     assert PAINTS[5] == 'lsmmod:block/classroom_floor'
+    assert PAINTS[6] == 'lsmmod:block/yellow_school_block'
     from PIL import Image
     assert Image.open(A/'textures/block/classroom_white_wall.png').tobytes() == Image.open(A/'textures/block/classroom_painted_block.png').tobytes()
+    yellow=Image.open(A/'textures/block/yellow_school_block.png')
+    border=Image.open(A/'textures/block/school_entrance_pavement_0.png').getpixel((0,0))
+    assert yellow.mode=='RGB' and yellow.size==(16,16)
+    assert border==(255,211,0) and {yellow.getpixel((x,y)) for x in range(16) for y in range(16)}=={border}
+    enum=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolPaint.java').read_text()
+    import re
+    assert re.findall(r'^    ([A-Z]+)\(',enum,re.M)==['UNPAINTED','LIGHT','DARK','STREET','WHITE','FLOOR','YELLOW']
+    assert read(A/'blockstates/yellow_school_block.json')['variants']=={'':{'model':'lsmmod:block/yellow_school_block'}}
+    assert read(A/'models/block/yellow_school_block.json')['parent']=='minecraft:block/cube_all'
+    assert 'case YELLOW -> ModItems.YELLOW_SCHOOL_PAINT.get();' in (ROOT/'src/main/java/net/nicomar2009/lsmmod/item/SchoolSandpaperItem.java').read_text()
+    assert 'case YELLOW -> ModBlocks.YELLOW_SCHOOL_BLOCK.get();' in (ROOT/'src/main/java/net/nicomar2009/lsmmod/compat/jade/PaintedWallNameProvider.java').read_text()
+    assert 'id.equals("yellow_school_block")' in (ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModCreativeTabs.java').read_text()
     grass=Image.open(A/'textures/block/school_synthetic_grass.png')
     assert grass.mode == 'RGB' and grass.size == (16,16)
     averages=tuple(sum(pixel[c] for pixel in (grass.getpixel((x,y)) for y in range(16) for x in range(16)))/256 for c in range(3))

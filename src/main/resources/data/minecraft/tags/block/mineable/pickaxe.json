@@ -93,6 +93,7 @@
     "lsmmod:school_paintable_custom_block",
     "lsmmod:ceiling_projector",
     "lsmmod:standalone_toilet",
-    "lsmmod:light_bathroom_floor"
+    "lsmmod:light_bathroom_floor",
+    "lsmmod:yellow_school_block"
   ]
 }

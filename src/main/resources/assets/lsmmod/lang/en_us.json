@@ -318,5 +318,7 @@
   "block.lsmmod.children_locker": "Children Locker",
   "block.lsmmod.ceiling_projector": "Ceiling Projector",
   "block.lsmmod.standalone_toilet": "Standalone Toilet",
-  "block.lsmmod.light_bathroom_floor": "Light Bathroom Floor"
+  "block.lsmmod.light_bathroom_floor": "Light Bathroom Floor",
+  "block.lsmmod.yellow_school_block": "Yellow School Block",
+  "item.lsmmod.yellow_school_paint": "Yellow School Paint"
 }
