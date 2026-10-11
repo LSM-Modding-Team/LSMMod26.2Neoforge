@@ -23,7 +23,7 @@ def predicate(condition,state):
  value=0
  for field in condition['keys']:
   value=value*len(field['values'])+field['values'].index(state[field['name']])
- return condition['min']<=value<=condition['max']
+ return any(first<=value<=last for first,last in condition.get('ranges',[[condition['min'],condition['max']]]))
 def normalized(apply):return (apply['model'],apply.get('x',0),apply.get('y',0),apply.get('uvlock',False))
 class Selector:
  def __init__(self,definition,assets=None):
@@ -67,6 +67,18 @@ def state_domains(row):
 def verify(output,aliases):
  from optimize_model_resources import replace
  B=output/'assets/lsmmod';rows={r['id']:r for r in audit()};checked=0
+ # Fusion eagerly bakes all conditional leaves: identical native IDs must not
+ # occur twice in one prepared root, even when runtime conditions differ.
+ def leaves(model):
+  if isinstance(model,str):return [model]
+  return [leaf for series in model['models']
+          for entry in (series if isinstance(series,list) else [series])
+          for leaf in leaves(entry if isinstance(entry,str) else entry['model'])]
+ for path in (B/'models/block/fusion_high_states').glob('*.json'):
+  model=read(path)
+  if model.get('type')=='composite':
+   native=leaves(model);assert len(native)==len(set(native)),(path,'repeated baked geometry')
+
  for ident in (*TARGETS,'school_entrance_pavement'):
   source=Selector(replace(read(A/f'blockstates/{ident}.json'),aliases));prepared=Selector(read(B/f'blockstates/{ident}.json'),B)
   if ident in PAVEMENT:

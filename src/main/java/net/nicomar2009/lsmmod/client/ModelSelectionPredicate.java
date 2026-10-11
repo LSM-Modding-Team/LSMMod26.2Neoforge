@@ -19,8 +19,9 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.nicomar2009.lsmmod.block.EntrancePavementConnections;
 import net.nicomar2009.lsmmod.block.StreetSchoolBarsBlock;
 
-/** Balanced model decisions: saved physical properties or unsaved visual surface profiles. */
-public record ModelSelectionPredicate(Layout layout,int min,int max,boolean refresh) implements ModelPredicate {
+/** Balanced decisions with one baked leaf per distinct native model. */
+public record ModelSelectionPredicate(Layout layout,int min,int max,boolean refresh,List<Range> ranges) implements ModelPredicate {
+    public record Range(int min,int max) {}
     public record Field(String name,List<String> values) {}
     public record Layout(String kind,List<Field> fields) {}
     private static final ConcurrentHashMap<Layout,Layout> LAYOUTS=new ConcurrentHashMap<>();
@@ -38,7 +39,19 @@ public record ModelSelectionPredicate(Layout layout,int min,int max,boolean refr
             Layout candidate=new Layout(kind,List.copyOf(fields));Layout layout=LAYOUTS.computeIfAbsent(candidate,key->key);
             int min=json.get("min").getAsInt(),max=json.get("max").getAsInt();
             if(min<0||max<min||max>=size)throw new JsonParseException("Selector range outside domain");
-            return new ModelSelectionPredicate(layout,min,max,json.has("refresh")&&json.get("refresh").getAsBoolean());
+            List<Range> ranges=new ArrayList<>();
+            if(json.has("ranges")) {
+                int previous=-1;
+                for(var entry:json.getAsJsonArray("ranges")) {
+                    JsonArray pair=entry.getAsJsonArray();
+                    if(pair.size()!=2)throw new JsonParseException("Selector range requires two bounds");
+                    int first=pair.get(0).getAsInt(),last=pair.get(1).getAsInt();
+                    if(first<min||last>max||last<first||first<=previous)throw new JsonParseException("Selector ranges must be ordered, disjoint and inside bounds");
+                    ranges.add(new Range(first,last));previous=last;
+                }
+                if(ranges.isEmpty())throw new JsonParseException("Selector ranges must be nonempty");
+            } else ranges.add(new Range(min,max));
+            return new ModelSelectionPredicate(layout,min,max,json.has("refresh")&&json.get("refresh").getAsBoolean(),List.copyOf(ranges));
         }
         @Override public JsonObject serialize(ModelSelectionPredicate predicate) {
             JsonObject json=new JsonObject();json.addProperty("kind",predicate.layout.kind());JsonArray fields=new JsonArray();
@@ -47,6 +60,13 @@ public record ModelSelectionPredicate(Layout layout,int min,int max,boolean refr
                 field.values().forEach(values::add);value.add("values",values);fields.add(value);
             }
             json.add("keys",fields);json.addProperty("min",predicate.min);json.addProperty("max",predicate.max);
+            if(predicate.ranges.size()>1||predicate.ranges.getFirst().min()!=predicate.min||predicate.ranges.getFirst().max()!=predicate.max) {
+                JsonArray ranges=new JsonArray();
+                for(Range range:predicate.ranges) {
+                    JsonArray pair=new JsonArray();pair.add(range.min());pair.add(range.max());ranges.add(pair);
+                }
+                json.add("ranges",ranges);
+            }
             if(predicate.refresh)json.addProperty("refresh",true);return json;
         }
     };
@@ -84,8 +104,19 @@ public record ModelSelectionPredicate(Layout layout,int min,int max,boolean refr
             selected.layout=layout;selected.state=state;selected.world=new WeakReference<>(world);selected.pos=packed;
             selected.index=index(layout,world,pos,state);
         }
-        return selected.index>=min&&selected.index<=max;
+        return contains(selected.index);
     }
-    @Override public boolean testForItem(ItemStack stack) {return min==0;}
+    private boolean contains(int value) {
+        if(value<min||value>max)return false;
+        int low=0,high=ranges.size()-1;
+        while(low<=high) {
+            int middle=(low+high)>>>1;Range range=ranges.get(middle);
+            if(value<range.min())high=middle-1;
+            else if(value>range.max())low=middle+1;
+            else return true;
+        }
+        return false;
+    }
+    @Override public boolean testForItem(ItemStack stack) {return contains(0);}
     @Override public Serializer<? extends ModelPredicate> getSerializer() {return SERIALIZER;}
 }

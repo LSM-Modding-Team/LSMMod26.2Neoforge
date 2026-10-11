@@ -22,13 +22,30 @@ def index(state,fields):
  result=0
  for field in fields:result=result*len(field['values'])+field['values'].index(state[field['name']])
  return result
+def intervals(indices):
+ result=[]
+ for value in sorted(indices):
+  if result and value==result[-1][1]+1:result[-1][1]=value
+  else:result.append([value,value])
+ return result
 def decision(models,fields,kind='state',start=0,root=True):
- if len(set(models))==1:return models[0]
- middle=len(models)//2
- left=decision(models[:middle],fields,kind,start,False);right=decision(models[middle:],fields,kind,start+middle,False)
- condition={'type':'lsmmod:model_selection','kind':kind,'keys':fields,'min':start,'max':start+middle-1}
- if root and kind!='state':condition['refresh']=True
- return {'type':'composite','models':[[{'model':left,'condition':condition},{'model':right}]]}
+ # Partition distinct native models, not contiguous state-table slices. Fusion
+ # bakes every leaf even when its condition is mutually exclusive at runtime.
+ # A repeated model must therefore occur only once in each decision root.
+ groups=defaultdict(list)
+ for offset,model in enumerate(models,start):groups[model].append(offset)
+ def branch(items,is_root):
+  if len(items)==1:return items[0][0]
+  middle=len(items)//2;left=items[:middle];right=items[middle:]
+  ranges=intervals(offset for model,offsets in left for offset in offsets)
+  condition={'type':'lsmmod:model_selection','kind':kind,'keys':fields,
+             'min':ranges[0][0],'max':ranges[-1][1]}
+  if len(ranges)>1:condition['ranges']=ranges
+  if is_root and kind!='state':condition['refresh']=True
+  return {'type':'composite','models':[[
+   {'model':branch(left,False),'condition':condition},
+   {'model':branch(right,False)}]]}
+ return branch(list(groups.items()),root)
 class Builder:
  def __init__(self,assets):self.assets=assets;self.written=set()
  def model(self,ident,body):
