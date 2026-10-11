@@ -1,0 +1,7 @@
+{
+  "parent": "lsmmod:block/mixed_school_glass",
+  "textures": {
+    "concrete": "lsmmod:block/light_school_wall",
+    "light_wall": "lsmmod:block/dark_school_wall"
+  }
+}

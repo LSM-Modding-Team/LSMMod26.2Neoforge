@@ -315,5 +315,13 @@
   "block.lsmmod.light_bathroom_floor": "Suelo claro del baño",
   "block.lsmmod.yellow_school_block": "Bloque amarillo del colegio",
   "item.lsmmod.yellow_school_paint": "Pintura amarilla del colegio",
-  "block.lsmmod.tiled_parquet_floor": "Suelo de baldosas con borde de parquet"
+  "block.lsmmod.tiled_parquet_floor": "Suelo de baldosas con borde de parquet",
+  "block.lsmmod.white_dark_school_glass": "Escalera de cristal: frente blanco de aula / cuerpo oscuro",
+  "block.lsmmod.white_street_school_glass": "Escalera de cristal: frente blanco de aula / cuerpo calle",
+  "block.lsmmod.dark_white_school_glass": "Escalera de cristal: frente oscuro / cuerpo blanco de aula",
+  "block.lsmmod.dark_street_school_glass": "Escalera de cristal: frente oscuro / cuerpo calle",
+  "block.lsmmod.light_white_school_glass": "Escalera de cristal: frente claro / cuerpo blanco de aula",
+  "block.lsmmod.light_dark_school_glass": "Escalera de cristal: frente claro / cuerpo oscuro",
+  "block.lsmmod.light_street_school_glass": "Escalera de cristal: frente claro / cuerpo calle",
+  "block.lsmmod.street_light_school_glass": "Escalera de cristal: frente calle / cuerpo claro"
 }

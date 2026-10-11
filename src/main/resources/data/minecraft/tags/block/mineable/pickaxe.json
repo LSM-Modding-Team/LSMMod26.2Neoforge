@@ -95,6 +95,14 @@
     "lsmmod:standalone_toilet",
     "lsmmod:light_bathroom_floor",
     "lsmmod:yellow_school_block",
-    "lsmmod:tiled_parquet_floor"
+    "lsmmod:tiled_parquet_floor",
+    "lsmmod:white_dark_school_glass",
+    "lsmmod:white_street_school_glass",
+    "lsmmod:dark_white_school_glass",
+    "lsmmod:dark_street_school_glass",
+    "lsmmod:light_white_school_glass",
+    "lsmmod:light_dark_school_glass",
+    "lsmmod:light_street_school_glass",
+    "lsmmod:street_light_school_glass"
   ]
 }

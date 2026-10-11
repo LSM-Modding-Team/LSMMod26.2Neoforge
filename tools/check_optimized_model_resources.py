@@ -46,7 +46,7 @@ def main():
   for folder in ('items',):
    for p in (A/folder).rglob('*.json'):assert replace(read(p),aliases)==read(B/folder/p.relative_to(A/folder)),p
   assert report['identical_models_shared']>0 and report['fusion_models']>0 and report['neoforge_obj_models']>0
-  assert report['variants_after']<report['variants_before'] and report['state_properties_changed'] and len(report['high_state_models']['blocks'])==20
+  assert report['variants_after']<report['variants_before'] and report['state_properties_changed'] and len(report['high_state_models']['blocks'])==len(TARGETS)+1
   # Dedicated-server metadata never requires the client model library.
   metadata=(ROOT/'src/main/templates/META-INF/neoforge.mods.toml').read_text(encoding='utf-8').split('modId="fusion"')[1]
   assert 'type="required"' in metadata and 'side="CLIENT"' in metadata and 'versionRange="[1.3.16]"' in metadata

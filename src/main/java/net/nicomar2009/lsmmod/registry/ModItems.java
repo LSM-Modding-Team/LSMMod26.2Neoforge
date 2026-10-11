@@ -52,6 +52,17 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> TILED_PARQUET_FLOOR = ITEMS.registerSimpleBlockItem(ModBlocks.TILED_PARQUET_FLOOR);
     // END TILED PARQUET FLOOR
 
+    // BEGIN REMAINING GLASS MATERIAL FAMILIES
+    public static final DeferredItem<BlockItem> WHITE_DARK_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.WHITE_DARK_SCHOOL_GLASS);
+    public static final DeferredItem<BlockItem> WHITE_STREET_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.WHITE_STREET_SCHOOL_GLASS);
+    public static final DeferredItem<BlockItem> DARK_WHITE_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.DARK_WHITE_SCHOOL_GLASS);
+    public static final DeferredItem<BlockItem> DARK_STREET_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.DARK_STREET_SCHOOL_GLASS);
+    public static final DeferredItem<BlockItem> LIGHT_WHITE_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_WHITE_SCHOOL_GLASS);
+    public static final DeferredItem<BlockItem> LIGHT_DARK_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_DARK_SCHOOL_GLASS);
+    public static final DeferredItem<BlockItem> LIGHT_STREET_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_STREET_SCHOOL_GLASS);
+    public static final DeferredItem<BlockItem> STREET_LIGHT_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.STREET_LIGHT_SCHOOL_GLASS);
+    // END REMAINING GLASS MATERIAL FAMILIES
+
     // BEGIN CLASSROOM SURFACES
     public static final DeferredItem<BlockItem> CLASSROOM_WHITE_WALL = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_WHITE_WALL);
     public static final DeferredItem<BlockItem> CLASSROOM_PAINTED_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_PAINTED_BLOCK);

@@ -321,5 +321,13 @@
   "block.lsmmod.light_bathroom_floor": "Light Bathroom Floor",
   "block.lsmmod.yellow_school_block": "Yellow School Block",
   "item.lsmmod.yellow_school_paint": "Yellow School Paint",
-  "block.lsmmod.tiled_parquet_floor": "Tiled Floor with Parquet Border"
+  "block.lsmmod.tiled_parquet_floor": "Tiled Floor with Parquet Border",
+  "block.lsmmod.white_dark_school_glass": "Glass Stairs: Classroom White Front / Dark Body",
+  "block.lsmmod.white_street_school_glass": "Glass Stairs: Classroom White Front / Street Body",
+  "block.lsmmod.dark_white_school_glass": "Glass Stairs: Dark Front / Classroom White Body",
+  "block.lsmmod.dark_street_school_glass": "Glass Stairs: Dark Front / Street Body",
+  "block.lsmmod.light_white_school_glass": "Glass Stairs: Light Front / Classroom White Body",
+  "block.lsmmod.light_dark_school_glass": "Glass Stairs: Light Front / Dark Body",
+  "block.lsmmod.light_street_school_glass": "Glass Stairs: Light Front / Street Body",
+  "block.lsmmod.street_light_school_glass": "Glass Stairs: Street Front / Light Body"
 }
