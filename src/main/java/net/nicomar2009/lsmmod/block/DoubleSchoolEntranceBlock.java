@@ -35,8 +35,6 @@ public class DoubleSchoolEntranceBlock extends Block {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-    public static final BooleanProperty TOP_CONNECTED = SchoolGlassBlock.TOP_CONNECTED;
-    public static final BooleanProperty BOTTOM_CONNECTED = SchoolGlassBlock.BOTTOM_CONNECTED;
     public static final IntegerProperty COLUMN = IntegerProperty.create("column", 0, 2);
     public static final IntegerProperty ROW = IntegerProperty.create("row", 0, 2);
     public static final IntegerProperty DEPTH = IntegerProperty.create("depth", 0, 1);
@@ -46,12 +44,12 @@ public class DoubleSchoolEntranceBlock extends Block {
     public DoubleSchoolEntranceBlock(Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH)
-                .setValue(OPEN, false).setValue(POWERED,false).setValue(TOP_CONNECTED,false).setValue(BOTTOM_CONNECTED,false).setValue(SchoolGlazing.FRAME_LAYOUT,3).setValue(COLUMN, 1).setValue(ROW, 0).setValue(DEPTH, 0));
+                .setValue(OPEN, false).setValue(POWERED,false).setValue(COLUMN, 1).setValue(ROW, 0).setValue(DEPTH, 0));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, OPEN, POWERED, COLUMN, ROW, DEPTH,TOP_CONNECTED,BOTTOM_CONNECTED,SchoolGlazing.FRAME_LAYOUT);
+        builder.add(FACING, OPEN, POWERED, COLUMN, ROW, DEPTH);
     }
 
     private static BlockPos cell(BlockPos origin, Direction facing, int column, int row, int depth) {
@@ -180,13 +178,7 @@ public class DoubleSchoolEntranceBlock extends Block {
         return true;
     }
 
-    private BlockState connections(BlockState state,LevelReader level,BlockPos pos) {
-        boolean glass=state.getValue(ROW)==2 && state.getValue(DEPTH)==0;
-        BlockState current=level.getBlockState(pos);
-        if(glass && current.is(this))state=state.setValue(SchoolGlazing.FRAME_LAYOUT,current.getValue(SchoolGlazing.FRAME_LAYOUT));
-        return state.setValue(TOP_CONNECTED,glass&&SchoolGlazing.connects(state,level.getBlockState(pos.above()),Direction.UP))
-                .setValue(BOTTOM_CONNECTED,glass&&SchoolGlazing.connects(state,level.getBlockState(pos.below()),Direction.DOWN));
-    }
+    private BlockState connections(BlockState state,LevelReader level,BlockPos pos) {return state;}
     @Override
     protected boolean skipRendering(BlockState state,BlockState neighbor,Direction side) {
         return SchoolGlazing.canCullHorizontalFace(state,neighbor,side)||SchoolGlazing.connects(state,neighbor,side)||super.skipRendering(state,neighbor,side);

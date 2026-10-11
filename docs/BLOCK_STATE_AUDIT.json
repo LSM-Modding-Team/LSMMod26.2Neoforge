@@ -1,82 +1,6 @@
 {
-  "total_states": 37981,
+  "total_states": 17149,
   "blocks": [
-    {
-      "id": "double_school_entrance",
-      "class": "DoubleSchoolEntranceBlock",
-      "states": 9216,
-      "domains": {
-        "facing": 4,
-        "open": 2,
-        "powered": 2,
-        "column": 3,
-        "row": 3,
-        "depth": 2,
-        "top_connected": 2,
-        "bottom_connected": 2,
-        "frame_layout": 8
-      }
-    },
-    {
-      "id": "tall_bathroom_door",
-      "class": "TallClassroomEntranceBlock",
-      "states": 3072,
-      "domains": {
-        "facing": 4,
-        "hinge": 2,
-        "open": 2,
-        "powered": 2,
-        "row": 3,
-        "top_connected": 2,
-        "bottom_connected": 2,
-        "frame_layout": 8
-      }
-    },
-    {
-      "id": "tall_classroom_entrance",
-      "class": "TallClassroomEntranceBlock",
-      "states": 3072,
-      "domains": {
-        "facing": 4,
-        "hinge": 2,
-        "open": 2,
-        "powered": 2,
-        "row": 3,
-        "top_connected": 2,
-        "bottom_connected": 2,
-        "frame_layout": 8
-      }
-    },
-    {
-      "id": "tall_dining_door",
-      "class": "TallClassroomEntranceBlock",
-      "states": 3072,
-      "domains": {
-        "facing": 4,
-        "hinge": 2,
-        "open": 2,
-        "powered": 2,
-        "row": 3,
-        "top_connected": 2,
-        "bottom_connected": 2,
-        "frame_layout": 8
-      }
-    },
-    {
-      "id": "tall_teachers_office_door",
-      "class": "TallClassroomEntranceBlock",
-      "states": 3072,
-      "domains": {
-        "facing": 4,
-        "hinge": 2,
-        "open": 2,
-        "powered": 2,
-        "row": 3,
-        "top_connected": 2,
-        "bottom_connected": 2,
-        "frame_layout": 8
-      }
-    },
     {
       "id": "elementary_playground_awning",
       "class": "AwningBlock",
@@ -205,6 +129,19 @@
         "waterlogged": 2,
         "column": 4,
         "row": 3
+      }
+    },
+    {
+      "id": "double_school_entrance",
+      "class": "DoubleSchoolEntranceBlock",
+      "states": 288,
+      "domains": {
+        "facing": 4,
+        "open": 2,
+        "powered": 2,
+        "column": 3,
+        "row": 3,
+        "depth": 2
       }
     },
     {
@@ -338,6 +275,54 @@
         "open": 2,
         "powered": 2,
         "row": 4
+      }
+    },
+    {
+      "id": "tall_bathroom_door",
+      "class": "TallClassroomEntranceBlock",
+      "states": 96,
+      "domains": {
+        "facing": 4,
+        "hinge": 2,
+        "open": 2,
+        "powered": 2,
+        "row": 3
+      }
+    },
+    {
+      "id": "tall_classroom_entrance",
+      "class": "TallClassroomEntranceBlock",
+      "states": 96,
+      "domains": {
+        "facing": 4,
+        "hinge": 2,
+        "open": 2,
+        "powered": 2,
+        "row": 3
+      }
+    },
+    {
+      "id": "tall_dining_door",
+      "class": "TallClassroomEntranceBlock",
+      "states": 96,
+      "domains": {
+        "facing": 4,
+        "hinge": 2,
+        "open": 2,
+        "powered": 2,
+        "row": 3
+      }
+    },
+    {
+      "id": "tall_teachers_office_door",
+      "class": "TallClassroomEntranceBlock",
+      "states": 96,
+      "domains": {
+        "facing": 4,
+        "hinge": 2,
+        "open": 2,
+        "powered": 2,
+        "row": 3
       }
     },
     {

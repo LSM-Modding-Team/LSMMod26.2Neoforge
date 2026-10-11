@@ -41,7 +41,11 @@ def main():
     for name in IDS:
         path=A/f'blockstates/{name}.json'
         definition=json.loads(path.read_text())
-        if 'variants' in definition:original=definition['variants']
+        if 'variants' in definition:
+            if name=='tall_classroom_entrance':
+                from compact_school_door_assets import expand_variants
+                original=expand_variants(definition)
+            else:original=definition['variants']
         else:
             original={}
             for part in definition['multipart']:

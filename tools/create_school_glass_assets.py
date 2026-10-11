@@ -191,3 +191,6 @@ if __name__=='__main__':
     tall_variants_main()
     from create_double_school_entrance import main as double_entrance_main
     double_entrance_main()
+
+    from compact_school_door_assets import main as compact_doors
+    compact_doors()

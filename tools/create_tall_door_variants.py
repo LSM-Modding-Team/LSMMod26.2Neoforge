@@ -8,7 +8,8 @@ def write(path,value):
     path.parent.mkdir(parents=True,exist_ok=True)
     path.write_text(json.dumps(value,indent=2,ensure_ascii=False)+'\n')
 def main():
-    source=json.loads((A/'blockstates/tall_classroom_entrance.json').read_text())
+    from compact_school_door_assets import expand_variants,main as compact_doors
+    source={'variants':expand_variants(json.loads((A/'blockstates/tall_classroom_entrance.json').read_text()))}
     for base in VARIANTS:
         name='tall_'+base
         textures={part:f'lsmmod:block/{base}_{part}' for part in ('bottom','top')}
@@ -30,4 +31,5 @@ def main():
         data.update({'block.lsmmod.tall_'+base:label for base,label in zip(VARIANTS,labels)});write(path,data)
     path=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/axe.json';data=json.loads(path.read_text())
     data['values']=list(dict.fromkeys(data['values']+['lsmmod:tall_'+base for base in VARIANTS]));write(path,data)
+    compact_doors(tuple('tall_'+base for base in VARIANTS))
 if __name__=='__main__':main()

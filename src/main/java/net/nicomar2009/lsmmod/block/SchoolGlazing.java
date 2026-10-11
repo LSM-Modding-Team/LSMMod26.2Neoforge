@@ -15,7 +15,7 @@ public final class SchoolGlazing {
     /** Bits: left edge, right edge, middle post. Collision stays unchanged. */
     public static final IntegerProperty FRAME_LAYOUT = IntegerProperty.create("frame_layout", 0, 7);
     private SchoolGlazing() {}
-    private static boolean isGlass(BlockState state) {
+    public static boolean isGlass(BlockState state) {
         return state.getBlock() instanceof SchoolGlassBlock || state.getBlock() instanceof SchoolGlassStairBlock
                 || (state.getBlock() instanceof TallClassroomEntranceBlock && state.getValue(TallClassroomEntranceBlock.ROW)==2)
                 || (state.getBlock() instanceof DoubleSchoolEntranceBlock && state.getValue(DoubleSchoolEntranceBlock.ROW)==2 && state.getValue(DoubleSchoolEntranceBlock.DEPTH)==0);

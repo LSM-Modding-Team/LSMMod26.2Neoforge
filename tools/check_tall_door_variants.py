@@ -4,12 +4,13 @@ from create_tall_door_variants import A,ROOT,VARIANTS
 
 def read(p):return json.loads(p.read_text())
 def main():
-    source=read(A/'blockstates/tall_classroom_entrance.json')['variants']
+    from compact_school_door_assets import expand_variants
+    source=expand_variants(read(A/'blockstates/tall_classroom_entrance.json'))
     registrations=(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java').read_text()
     items=(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModItems.java').read_text()
     checked=0
     for base in VARIANTS:
-        name='tall_'+base;states=read(A/f'blockstates/{name}.json')['variants']
+        name='tall_'+base;states=expand_variants(read(A/f'blockstates/{name}.json'))
         assert states.keys()==source.keys()
         assert f'"{name}", TallClassroomEntranceBlock::new' in registrations
         assert f'ITEMS.registerSimpleBlockItem(ModBlocks.{name.upper()})' in items

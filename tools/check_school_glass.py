@@ -11,6 +11,9 @@ def main():
     for name,count in names.items():
         definition=read(A/f'blockstates/{name}.json')
         variants=definition.get('variants')
+        if name=='tall_classroom_entrance':
+            from compact_school_door_assets import expand_variants
+            variants=expand_variants(definition)
         if variants is None:
             variants={','.join(f'{k}={v}' for k,v in p['when'].items()):p['apply'] for p in definition['multipart'] if 'curtain' not in p['when']}
         expanded={}

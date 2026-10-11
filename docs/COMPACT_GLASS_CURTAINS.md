@@ -1,6 +1,6 @@
 # Reducción de estados de cristales y cortinas
 
-Se mantienen los cinco IDs, sus ítems, texturas, geometría, colisiones y las cortinas rectangulares de hasta 4×8. Ninguna puerta pierde sus propiedades actuales.
+Se mantienen los cinco IDs, sus ítems, texturas, geometría, colisiones y las cortinas rectangulares de hasta 4×8. Esta primera fase conservaba las propiedades de las puertas. La fase posterior también compacta sus conexiones visuales: [COMPACT_GLASS_DOORS.md](COMPACT_GLASS_DOORS.md).
 
 | Bloque | Estados anteriores | Estados actuales |
 |---|---:|---:|

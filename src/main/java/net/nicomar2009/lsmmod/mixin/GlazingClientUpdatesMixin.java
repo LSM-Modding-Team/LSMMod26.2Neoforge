@@ -7,7 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
 import net.minecraft.network.protocol.game.ClientboundSectionBlocksUpdatePacket;
 import net.minecraft.world.level.block.state.BlockState;
-import net.nicomar2009.lsmmod.block.SchoolCurtains;
+import net.nicomar2009.lsmmod.block.SchoolGlazing;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class GlazingClientUpdatesMixin {
     @Unique private static void lsmmod$refresh(BlockPos pos,BlockState state) {
         ClientLevel level=Minecraft.getInstance().level;
-        if(level!=null&&SchoolCurtains.canAttach(state))
+        if(level!=null&&SchoolGlazing.isGlass(state))
             level.setSectionDirtyWithNeighbors(pos.getX()>>4,pos.getY()>>4,pos.getZ()>>4);
     }
     @Inject(method="handleBlockUpdate",at=@At("TAIL"))

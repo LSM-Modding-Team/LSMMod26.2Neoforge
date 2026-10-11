@@ -150,4 +150,6 @@ def main():
     for locale,label in (('es_es','Puerta doble grande del colegio'),('en_us','Large Double School Door')):
         p=A/f'lang/{locale}.json';data=json.loads(p.read_text());data['block.lsmmod.'+NAME]=label;write(p,data)
     p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/axe.json';data=json.loads(p.read_text());data['values']=list(dict.fromkeys(data['values']+['lsmmod:'+NAME]));write(p,data)
+    from compact_school_door_assets import main as compact_doors
+    compact_doors((NAME,))
 if __name__=='__main__':main()

@@ -33,20 +33,18 @@ public class TallClassroomEntranceBlock extends Block {
     public static final EnumProperty<DoorHingeSide> HINGE = BlockStateProperties.DOOR_HINGE;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-    public static final BooleanProperty TOP_CONNECTED = SchoolGlassBlock.TOP_CONNECTED;
-    public static final BooleanProperty BOTTOM_CONNECTED = SchoolGlassBlock.BOTTOM_CONNECTED;
     public static final IntegerProperty ROW = IntegerProperty.create("row",0,2);
     private static final VoxelShape[][][][] SHAPES = buildShapes();
 
     public TallClassroomEntranceBlock(Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any().setValue(FACING,Direction.NORTH).setValue(HINGE,DoorHingeSide.LEFT)
-                .setValue(OPEN,false).setValue(POWERED,false).setValue(ROW,0).setValue(TOP_CONNECTED,false).setValue(BOTTOM_CONNECTED,false).setValue(SchoolGlazing.FRAME_LAYOUT,3));
+                .setValue(OPEN,false).setValue(POWERED,false).setValue(ROW,0));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {
-        builder.add(FACING,HINGE,OPEN,POWERED,ROW,TOP_CONNECTED,BOTTOM_CONNECTED,SchoolGlazing.FRAME_LAYOUT);
+        builder.add(FACING,HINGE,OPEN,POWERED,ROW);
     }
 
     private static VoxelShape[][][][] buildShapes() {
@@ -132,15 +130,7 @@ public class TallClassroomEntranceBlock extends Block {
                                     Direction side,BlockPos neighborPos,BlockState neighbor,RandomSource random) {
         ticks.scheduleTick(pos,this,1);return connections(state,level,pos);
     }
-    private BlockState connections(BlockState state, LevelReader level, BlockPos pos) {
-        boolean glass = state.getValue(ROW) == 2;
-        BlockState current=level.getBlockState(pos);
-        if(glass && current.is(this) && current.getValue(ROW)==2
-                && current.getValue(FACING)==state.getValue(FACING))
-            state=state.setValue(SchoolGlazing.FRAME_LAYOUT,current.getValue(SchoolGlazing.FRAME_LAYOUT));
-        return state.setValue(TOP_CONNECTED, glass && SchoolGlazing.connects(state, level.getBlockState(pos.above()), Direction.UP))
-                .setValue(BOTTOM_CONNECTED, glass && SchoolGlazing.connects(state, level.getBlockState(pos.below()), Direction.DOWN));
-    }
+    private BlockState connections(BlockState state,LevelReader level,BlockPos pos) {return state;}
 
     @Override
     protected boolean skipRendering(BlockState state, BlockState neighbor, Direction side) {
