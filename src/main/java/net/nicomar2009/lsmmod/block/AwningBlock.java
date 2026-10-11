@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /** Thin, gently curved cloth; a second cell reserves any portion above a block boundary. */
@@ -38,24 +37,15 @@ public class AwningBlock extends Block implements EntityBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) { builder.add(FACING, START, END, UPPER); }
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        VoxelShape shape = Shapes.empty();
-        double offset = state.getValue(UPPER) ? 16 : 0;
-        Direction direction = state.getValue(FACING);
-        for (int i = 0; i < 8; i++) {
-            double top = 2 * (state.getValue(START) + (state.getValue(END) - state.getValue(START)) * (i + 0.5) / 8.0) - offset;
-            double low = Math.max(0, top - 0.75), high = Math.min(16, top);
-            if (low >= high) continue;
-            double z1 = i * 2, z2 = z1 + 2;
-            VoxelShape piece = switch (direction) {
-                case SOUTH -> Block.box(0, low, z1, 16, high, z2);
-                case NORTH -> Block.box(0, low, 16-z2, 16, high, 16-z1);
-                case EAST -> Block.box(z1, low, 0, z2, high, 16);
-                case WEST -> Block.box(16-z2, low, 0, 16-z1, high, 16);
-                default -> Shapes.empty();
-            };
-            shape = Shapes.or(shape, piece);
-        }
-        return shape;
+        return AwningShapes.outline(state.getValue(START), state.getValue(END), state.getValue(UPPER), state.getValue(FACING));
+    }
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return AwningShapes.collision(state.getValue(START), state.getValue(END), state.getValue(UPPER), state.getValue(FACING));
+    }
+    @Override
+    protected VoxelShape getOcclusionShape(BlockState state) {
+        return AwningShapes.collision(state.getValue(START), state.getValue(END), state.getValue(UPPER), state.getValue(FACING));
     }
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
