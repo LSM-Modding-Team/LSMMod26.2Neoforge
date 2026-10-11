@@ -172,7 +172,8 @@ var optimizeModelResources = tasks.register('optimizeModelResources', Exec) {
     outputs.dir(layout.buildDirectory.dir('generated/optimizedResources'))
     def pythonExecutable = providers.gradleProperty('pythonExecutable').getOrElse(
             System.getProperty('os.name').toLowerCase().contains('win') ? 'python' : 'python3')
-    commandLine pythonExecutable, 'tools/optimize_model_resources.py', '--output',
+    workingDir layout.projectDirectory.asFile
+    commandLine pythonExecutable, '-X', 'utf8', 'tools/optimize_model_resources.py', '--output',
             layout.buildDirectory.dir('generated/optimizedResources').get().asFile.absolutePath
 }
 tasks.named('processResources') { dependsOn optimizeModelResources }

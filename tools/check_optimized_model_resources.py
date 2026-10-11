@@ -1,9 +1,9 @@
 """Validate every migrated model and blockstate against original resources, without Java."""
 import json,tempfile
 from pathlib import Path
-from optimize_model_resources import ROOT,prepare,replace
+from optimize_model_resources import ROOT,prepare,replace,model_identifier
 A=ROOT/'src/main/resources/assets/lsmmod'
-def read(p):return json.loads(p.read_text())
+def read(p):return json.loads(p.read_text(encoding='utf-8-sig'))
 def resolve(base,ident,aliases,trail=()):
  ident=aliases.get(ident,ident)
  if not ident.startswith('lsmmod:'):return {'external_parent':ident}
@@ -17,10 +17,12 @@ def resolve(base,ident,aliases,trail=()):
   else:out[k]=v
  return out
 def main():
+ from pathlib import PureWindowsPath
+ assert model_identifier(PureWindowsPath('C:/assets/models/block/nested/panel.json'),PureWindowsPath('C:/assets/models'))=='lsmmod:block/nested/panel'
  with tempfile.TemporaryDirectory() as t:
-  output=Path(t)/'resources';report,aliases=prepare(output);B=output/'assets/lsmmod'
+  output=Path(t)/'resources';output.mkdir();report,aliases=prepare(output);B=output/'assets/lsmmod'
   for p in (A/'models').rglob('*.json'):
-   ident='lsmmod:'+str(p.relative_to(A/'models').with_suffix(''))
+   ident=model_identifier(p,A/'models')
    assert resolve(A,ident,{})==resolve(B,ident,aliases),ident
   count=0
   for p in (A/'blockstates').glob('*.json'):
@@ -38,7 +40,7 @@ def main():
   assert report['identical_models_shared']>0 and report['fusion_models']>0 and report['neoforge_obj_models']>0
   assert report['variants_after']<report['variants_before'] and not report['state_properties_changed']
   # Dedicated-server metadata never requires the client model library.
-  metadata=(ROOT/'src/main/templates/META-INF/neoforge.mods.toml').read_text().split('modId="fusion"')[1]
+  metadata=(ROOT/'src/main/templates/META-INF/neoforge.mods.toml').read_text(encoding='utf-8').split('modId="fusion"')[1]
   assert 'type="required"' in metadata and 'side="CLIENT"' in metadata and 'versionRange="[1.3.16]"' in metadata
   print('OK: every original model resolves to identical geometry, UV, textures and transforms; all',count,'variant selectors and item references preserved.')
   print(json.dumps(report))

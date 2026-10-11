@@ -28,7 +28,7 @@ python tools/optimize_model_resources.py --output /tmp/lsmmod-model-preview
 
 La prueba compara todos los modelos originales con sus referencias optimizadas: geometría, UV, texturas, transformaciones y padres externos. Evalúa cada selector original y exige que exista exactamente un resultado equivalente en el conjunto compacto. También comprueba los ítems, dependencia exclusiva del cliente y que ambos cargadores se usen. El directorio de salida debe ser distinto de los fuentes; el optimizador solo limpia directorios que él mismo marcó.
 
-Gradle usa `python` en Windows y `python3` en otros sistemas. Puede cambiarse con `-PpythonExecutable=/ruta/al/python`. Solo se usa la biblioteca estándar de Python para optimizar y comprobar; no requiere Pillow.
+Gradle usa `python` en Windows y `python3` en otros sistemas. Puede cambiarse con `-PpythonExecutable=/ruta/al/python`. Solo se usa la biblioteca estándar de Python para optimizar y comprobar; no requiere Pillow. La tarea activa UTF-8 y el script lee/escribe JSON con codificación explícita. Los identificadores usan `/` incluso en Windows. Acepta una carpeta de salida vacía creada previamente por Gradle; solo limpia salidas marcadas o la ruta generada conocida del proyecto.
 
 No se ha compilado, resuelto la dependencia mediante Gradle ni iniciado Minecraft por instrucción del usuario. La comprobación Java `checkFurnitureOutlines` queda pendiente. Se debe medir el arranque y capturar los hilos durante el bloqueo de cierre para comprobar su causa; esta integración no demuestra que el cierre esté arreglado.
 
