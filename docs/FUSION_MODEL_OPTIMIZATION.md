@@ -10,7 +10,7 @@ Fuentes verificadas:
 
 ## Qué se prepara
 
-`optimizeModelResources` se ejecuta antes de `processResources`; combina `src/main/resources` y `src/generated/resources` en `build/generated/optimizedResources`. Los metadatos generados por NeoForge se añaden por su tarea habitual. Los originales no se borran ni se modifican: todos los generadores existentes continúan escribiendo sus recursos normales y el optimizador procesa su resultado.
+`optimizeModelResources` se ejecuta antes de `processResources`; combina `src/main/resources` y `src/generated/resources` en `build/generated/optimizedResources`. Los metadatos generados por NeoForge se añaden por su tarea habitual. La entrada de `src/generated/resources` se declara como un árbol de archivos: puede estar vacío o no existir antes de ejecutar datagen, sin fallar la validación de Gradle. Los originales no se borran ni se modifican: todos los generadores existentes continúan escribiendo sus recursos normales y el optimizador procesa su resultado.
 
 1. Comparte modelos JSON exactamente idénticos y redirige referencias en estados, padres e ítems. No se elimina ningún bloque, ítem, textura ni OBJ.
 2. Compacta las propiedades `powered` y `waterlogged` de los selectores visuales solo cuando todas sus combinaciones producen exactamente el mismo modelo. Estas propiedades siguen existiendo en Java, en el mundo y en la lógica. Las conexiones y los demás campos visuales se conservan.

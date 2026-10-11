@@ -165,7 +165,9 @@ dependencies {
 // Optimize the resource graph before packaging or development runs. Source assets stay editable.
 var optimizeModelResources = tasks.register('optimizeModelResources', Exec) {
     inputs.dir('src/main/resources')
-    inputs.dir('src/generated/resources').optional()
+    // An optional directory still fails validation when its configured path is missing.
+    // A file tree is empty before datagen and tracks generated files when they exist.
+    inputs.files(fileTree('src/generated/resources')).withPropertyName('generatedModelResources')
     inputs.file('tools/optimize_model_resources.py')
     outputs.dir(layout.buildDirectory.dir('generated/optimizedResources'))
     def pythonExecutable = providers.gradleProperty('pythonExecutable').getOrElse(
