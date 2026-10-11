@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+Fusion 1.3.16-neoforge-mc26.2 integrado como dependencia cliente exacta. Preparación de recursos anterior a processResources: comparte modelos idénticos, compacta selectores visuales y usa Fusion para cuboides sólidos; OBJ conserva NeoForge. Fuentes/estados/IDs y mundos se conservan. 3660→3286 modelos, 31381→20501 selectores; comprobación exhaustiva estática de equivalencia. Sin compilar, resolución Gradle ni prueba Minecraft; tiempos y cierre no verificados. Detalles: docs/FUSION_MODEL_OPTIMIZATION.md.
+
 tall_bathroom_door_full_3 y tall_bathroom_door_full_4: puertas completas de madera de tres/cuatro filas, todas móviles, sin claraboya; textura de baño, bisagras, redstone y un solo drop. school_tinted_glass: modelo independiente de school_glass con vidrio gris oscuro completamente opaco y sin conexiones. Comprobaciones estáticas correctas; sin compilar ni prueba Minecraft.
 
 school_wooden_handrail: soportes extendidos al Y=0 común del primer bloque y dos posiciones laterales del mismo bloque, seleccionadas por pendiente contigua o punto de clic, al ras del límite. Una sola pieza coloca seis bloques de pasamanos inclinado, con subida de 24 píxeles, dos barras marrones y montantes finos; sin poste largo. Controlador único, desmontaje completo y un solo drop; recursos y continuidad comprobados estáticamente. Sin compilar ni prueba en Minecraft.
