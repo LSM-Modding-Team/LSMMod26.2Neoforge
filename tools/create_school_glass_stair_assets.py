@@ -7,6 +7,21 @@ from create_bathroom_statue_assets import solid_model
 QUARTERS={'straight':[(0,0),(1,0)],'outer_left':[(0,0)],'outer_right':[(1,0)],
           'inner_left':[(0,0),(1,0),(0,1)],'inner_right':[(0,0),(1,0),(1,1)]}
 
+def restrict_lower_material(elements, under, side):
+    """The contrasting lower material is only the front apron beneath the glass.
+
+    Preserve all boxes, UVs and cullfaces; only assign the remaining slab surfaces
+    to the secondary material. The model's front is local north before rotation.
+    """
+    changed = 0
+    for element in elements:
+        for face, surface in element['faces'].items():
+            if surface['texture'] == '#'+under and not (face == 'north' and element['from'][2] == 0):
+                surface['texture'] = '#'+side
+                changed += 1
+    return changed
+
+
 def main():
     for top in (False,True):
         for bottom in (False,True):
@@ -73,6 +88,7 @@ def main():
                                 axis={'west':0,'east':0,'down':1,'up':1,'north':2,'south':2}[face]
                                 positive=face in ('east','up','south')
                                 if (hi if positive else lo)[axis]==(16 if positive else 0):f['cullface']=face
+                        restrict_lower_material(elements, under, side)
                         textures=dict(T)
                         textures['concrete']='lsmmod:block/classroom_white_wall'
                         if name in ('supported_school_glass','mixed_school_glass_reversed'):textures['light_wall']='lsmmod:block/street_school_wall'

@@ -27,7 +27,7 @@
       ],
       "faces": {
         "west": {
-          "texture": "#support",
+          "texture": "#light_wall",
           "uv": [
             0,
             0,
@@ -51,7 +51,7 @@
       ],
       "faces": {
         "up": {
-          "texture": "#support",
+          "texture": "#light_wall",
           "uv": [
             0,
             0,

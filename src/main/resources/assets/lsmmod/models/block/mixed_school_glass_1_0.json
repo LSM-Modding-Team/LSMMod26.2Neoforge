@@ -313,7 +313,7 @@
           ]
         },
         "east": {
-          "texture": "#concrete",
+          "texture": "#light_wall",
           "uv": [
             0,
             0,
@@ -323,7 +323,7 @@
           "cullface": "east"
         },
         "west": {
-          "texture": "#concrete",
+          "texture": "#light_wall",
           "uv": [
             0,
             0,
@@ -333,7 +333,7 @@
           "cullface": "west"
         },
         "up": {
-          "texture": "#concrete",
+          "texture": "#light_wall",
           "uv": [
             0,
             0,
@@ -342,7 +342,7 @@
           ]
         },
         "down": {
-          "texture": "#concrete",
+          "texture": "#light_wall",
           "uv": [
             0,
             0,
