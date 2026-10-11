@@ -22,14 +22,10 @@ public class TrashBinBlock extends Block {
 
     public TrashBinBlock(Properties properties, double[][] boxes) {
         super(properties);
-        VoxelShape shape = Shapes.empty();
-        for (double[] b : boxes) shape = Shapes.or(shape, Block.box(b[0], b[1], b[2], b[3], b[4], b[5]));
+        VoxelShape shape = ExactVoxelShapes.pixels(boxes);
         collisions[0] = shape;
         for (int i = 1; i < 4; i++) {
-            VoxelShape[] next = {Shapes.empty()};
-            collisions[i-1].forAllBoxes((x1, y1, z1, x2, y2, z2) ->
-                    next[0] = Shapes.or(next[0], Shapes.box(1-z2, y1, x1, 1-z1, y2, x2)));
-            collisions[i] = next[0];
+            collisions[i] = Shapes.rotate(collisions[i-1], com.mojang.math.OctahedralGroup.BLOCK_ROT_Y_90);
         }
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
     }

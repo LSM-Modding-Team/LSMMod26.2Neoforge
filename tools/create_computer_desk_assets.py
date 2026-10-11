@@ -160,14 +160,13 @@ final class ComputerDeskShapes {
 '''
 for half in range(2):
     for occupied in range(2):
-        boxes = ['Block.box(' + ', '.join(str(v) for v in e['from'] + e['to']) + ')' for e in shapes[half][occupied]]
-        java += f'        SHAPES[{half}][{occupied}][0] = Shapes.or(\n                ' + ',\n                '.join(boxes) + ');\n'
+        boxes = ['ExactVoxelShapes.box(' + ', '.join(str(v) for v in e['from'] + e['to']) + ')' for e in shapes[half][occupied]]
+        java += f'        SHAPES[{half}][{occupied}][0] = ExactVoxelShapes.union(\n                ' + ',\n                '.join(boxes) + ');\n'
 java += '''        for (int half = 0; half < 2; half++) {
             for (int occupied = 0; occupied < 2; occupied++) {
                 for (int rotation = 1; rotation < 4; rotation++) {
                     VoxelShape[] result = {Shapes.empty()};
-                    SHAPES[half][occupied][rotation - 1].forAllBoxes((x1, y1, z1, x2, y2, z2) ->
-                            result[0] = Shapes.or(result[0], Shapes.box(1-z2, y1, x1, 1-z1, y2, x2)));
+                    result[0] = Shapes.rotate(SHAPES[half][occupied][rotation - 1], com.mojang.math.OctahedralGroup.BLOCK_ROT_Y_90);
                     SHAPES[half][occupied][rotation] = result[0];
                 }
             }

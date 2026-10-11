@@ -43,17 +43,14 @@ public class TallBathroomBlock extends Block {
         this.wallMounted = wallMounted;
         for (int open = 0; open < 2; open++) {
             for (int half = 0; half < 2; half++) {
-                VoxelShape shape = Shapes.empty();
+                java.util.List<net.minecraft.world.phys.AABB> volumes = new java.util.ArrayList<>();
                 for (double[] b : open == 0 ? closed : opened) {
                     double low = Math.max(b[1], half*16), high = Math.min(b[4], half*16+16);
-                    if (low < high) shape = Shapes.or(shape, Block.box(b[0], low-half*16, b[2], b[3], high-half*16, b[5]));
+                    if (low < high) volumes.add(ExactVoxelShapes.box(b[0], low-half*16, b[2], b[3], high-half*16, b[5]));
                 }
-                collisions[open][half][0] = shape;
+                collisions[open][half][0] = ExactVoxelShapes.union(volumes);
                 for (int facing = 1; facing < 4; facing++) {
-                    VoxelShape[] next = {Shapes.empty()};
-                    collisions[open][half][facing-1].forAllBoxes((x1,y1,z1,x2,y2,z2) ->
-                            next[0] = Shapes.or(next[0], Shapes.box(1-z2,y1,x1,1-z1,y2,x2)));
-                    collisions[open][half][facing] = next[0];
+                    collisions[open][half][facing] = Shapes.rotate(collisions[open][half][facing-1], com.mojang.math.OctahedralGroup.BLOCK_ROT_Y_90);
                 }
             }
         }

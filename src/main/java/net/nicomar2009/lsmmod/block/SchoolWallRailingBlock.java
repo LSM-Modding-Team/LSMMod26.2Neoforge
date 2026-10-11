@@ -106,23 +106,25 @@ public class SchoolWallRailingBlock extends FenceBlock {
             for(Direction side:Direction.Plane.HORIZONTAL)pending.add(current.relative(side));
         }
     }
+    private static final java.util.Map<Integer,VoxelShape> PHYSICAL=new java.util.concurrent.ConcurrentHashMap<>();
     @Override
     protected VoxelShape getCollisionShape(BlockState state,BlockGetter level,BlockPos pos,CollisionContext context) {
-        VoxelShape shape=BASE;
-        if(state.getValue(POST))shape=Shapes.or(shape,Block.box(7,12,7,9,18,9));
-        boolean any=false;
-        for(Direction side:Direction.Plane.HORIZONTAL) {
-            if(!linked(state,side))continue;any=true;
-            shape=Shapes.or(shape,switch(side) {
-                case NORTH->Block.box(7,18,0,9,20,9);
-                case SOUTH->Block.box(7,18,7,9,20,16);
-                case WEST->Block.box(0,18,7,9,20,9);
-                default->Block.box(7,18,7,16,20,9);
-            });
-        }
-        if(!any)shape=Shapes.or(shape,state.getValue(FACING).getAxis()==Direction.Axis.X?
-                Block.box(0,18,7,16,20,9):Block.box(7,18,0,9,20,16));
-        return shape;
+        int mask=0;
+        Direction[] sides={Direction.NORTH,Direction.SOUTH,Direction.WEST,Direction.EAST};
+        for(int i=0;i<4;i++)if(linked(state,sides[i]))mask|=1<<i;
+        int key=mask|(state.getValue(POST)?16:0)|(mask==0&&state.getValue(FACING).getAxis()==Direction.Axis.X?32:0);
+        return PHYSICAL.computeIfAbsent(key,SchoolWallRailingBlock::physical);
+    }
+    private static VoxelShape physical(int key) {
+        java.util.List<net.minecraft.world.phys.AABB> boxes=new java.util.ArrayList<>(6);
+        boxes.add(ExactVoxelShapes.box(0,0,0,16,12,16));
+        if((key&16)!=0)boxes.add(ExactVoxelShapes.box(7,12,7,9,18,9));
+        if((key&1)!=0)boxes.add(ExactVoxelShapes.box(7,18,0,9,20,9));
+        if((key&2)!=0)boxes.add(ExactVoxelShapes.box(7,18,7,9,20,16));
+        if((key&4)!=0)boxes.add(ExactVoxelShapes.box(0,18,7,9,20,9));
+        if((key&8)!=0)boxes.add(ExactVoxelShapes.box(7,18,7,16,20,9));
+        if((key&15)==0)boxes.add((key&32)!=0?ExactVoxelShapes.box(0,18,7,16,20,9):ExactVoxelShapes.box(7,18,0,9,20,16));
+        return ExactVoxelShapes.union(boxes);
     }
     @Override
     protected VoxelShape getShape(BlockState state,BlockGetter level,BlockPos pos,CollisionContext context) {

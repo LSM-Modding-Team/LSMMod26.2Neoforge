@@ -104,25 +104,30 @@ public class SchoolWoodenHandrailBlock extends Block {
         return SimpleBlockOutline.forState(state, () -> getCollisionShape(state, level, pos, context));
     }
 
+    private record Physical(int column,int row,Direction facing,boolean right) {}
+    private static final java.util.Map<Physical,VoxelShape> PHYSICAL=new java.util.concurrent.ConcurrentHashMap<>();
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        int column = state.getValue(COLUMN), row = state.getValue(ROW);
-        Direction facing = state.getValue(FACING);
-        double edge = state.getValue(RIGHT) ? 14 : 0;
-        VoxelShape shape = net.minecraft.world.phys.shapes.Shapes.empty();
-        for (int i = 0; i < 16; i++) {
+        Physical key=new Physical(state.getValue(COLUMN),state.getValue(ROW),state.getValue(FACING),state.getValue(RIGHT));
+        return PHYSICAL.computeIfAbsent(key,SchoolWoodenHandrailBlock::physical);
+    }
+    private static VoxelShape physical(Physical key) {
+        int column=key.column,row=key.row;
+        Direction facing=key.facing;
+        double edge=key.right?14:0;
+        java.util.List<net.minecraft.world.phys.AABB> boxes=new java.util.ArrayList<>(16);
+        for(int i=0;i<16;i++) {
             double low = 0;
-            double high = Math.min(16, column * 4 + (i + 1) / 4.0 + 16 - row * 16);
-            if (high <= low) continue;
-            VoxelShape slice = switch (facing) {
-                case NORTH -> Block.box(edge, low, 15-i, edge+2, high, 16-i);
-                case SOUTH -> Block.box(14-edge, low, i, 16-edge, high, i+1);
-                case EAST -> Block.box(i, low, edge, i+1, high, edge+2);
-                default -> Block.box(15-i, low, 14-edge, 16-i, high, 16-edge);
-            };
-            shape = net.minecraft.world.phys.shapes.Shapes.or(shape, slice);
+            double high=Math.min(16,column*4+(i+1)/4.0+16-row*16);
+            if(high<=low)continue;
+            boxes.add(switch(facing) {
+                case NORTH -> ExactVoxelShapes.box(edge,low,15-i,edge+2,high,16-i);
+                case SOUTH -> ExactVoxelShapes.box(14-edge,low,i,16-edge,high,i+1);
+                case EAST -> ExactVoxelShapes.box(i,low,edge,i+1,high,edge+2);
+                default -> ExactVoxelShapes.box(15-i,low,14-edge,16-i,high,16-edge);
+            });
         }
-        return shape;
+        return ExactVoxelShapes.union(boxes);
     }
 
     private static boolean occupied(int column, int row) {

@@ -25,27 +25,24 @@ public class DrinkingFountainBlock extends Block {
     private static final VoxelShape[] SHAPES = new VoxelShape[4];
 
     static {
-        SHAPES[0] = Shapes.or(
-                Block.box(3, 0, 0, 13, 8, 7),
-                Block.box(2, 8, 0, 14, 10, 8),
-                Block.box(2.5, 10, 1.5, 13.5, 10.5, 8.5),
-                Block.box(1, 10, 0, 2.5, 12, 8.5),
-                Block.box(13.5, 10, 0, 15, 12, 8.5),
-                Block.box(2.5, 10, 0, 13.5, 12, 1.5),
-                Block.box(2.5, 10, 8.5, 13.5, 12, 10),
-                Block.box(2.5, 10.5, 1.5, 3.25, 11, 8.5),
-                Block.box(12.75, 10.5, 1.5, 13.5, 11, 8.5),
-                Block.box(3.25, 10.5, 7.75, 12.75, 11, 8.5),
-                Block.box(3.25, 10.5, 1.5, 12.75, 11, 2.25),
-                Block.box(11, 10.5, 6.5, 12.5, 13.5, 8),
-                Block.box(10.5, 13, 6.5, 12, 14, 7.5),
-                Block.box(12.5, 10.5, 7.5, 13, 14.5, 8.5),
-                Block.box(11.5, 14, 7.5, 13, 14.5, 8.5));
+        SHAPES[0] = ExactVoxelShapes.union(
+                ExactVoxelShapes.box(3, 0, 0, 13, 8, 7),
+                ExactVoxelShapes.box(2, 8, 0, 14, 10, 8),
+                ExactVoxelShapes.box(2.5, 10, 1.5, 13.5, 10.5, 8.5),
+                ExactVoxelShapes.box(1, 10, 0, 2.5, 12, 8.5),
+                ExactVoxelShapes.box(13.5, 10, 0, 15, 12, 8.5),
+                ExactVoxelShapes.box(2.5, 10, 0, 13.5, 12, 1.5),
+                ExactVoxelShapes.box(2.5, 10, 8.5, 13.5, 12, 10),
+                ExactVoxelShapes.box(2.5, 10.5, 1.5, 3.25, 11, 8.5),
+                ExactVoxelShapes.box(12.75, 10.5, 1.5, 13.5, 11, 8.5),
+                ExactVoxelShapes.box(3.25, 10.5, 7.75, 12.75, 11, 8.5),
+                ExactVoxelShapes.box(3.25, 10.5, 1.5, 12.75, 11, 2.25),
+                ExactVoxelShapes.box(11, 10.5, 6.5, 12.5, 13.5, 8),
+                ExactVoxelShapes.box(10.5, 13, 6.5, 12, 14, 7.5),
+                ExactVoxelShapes.box(12.5, 10.5, 7.5, 13, 14.5, 8.5),
+                ExactVoxelShapes.box(11.5, 14, 7.5, 13, 14.5, 8.5));
         for (int i = 1; i < 4; i++) {
-            VoxelShape[] rotated = {Shapes.empty()};
-            SHAPES[i - 1].forAllBoxes((x1, y1, z1, x2, y2, z2) ->
-                    rotated[0] = Shapes.or(rotated[0], Shapes.box(1 - z2, y1, x1, 1 - z1, y2, x2)));
-            SHAPES[i] = rotated[0];
+            SHAPES[i] = Shapes.rotate(SHAPES[i - 1], com.mojang.math.OctahedralGroup.BLOCK_ROT_Y_90);
         }
     }
 

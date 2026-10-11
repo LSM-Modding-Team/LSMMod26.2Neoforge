@@ -36,16 +36,14 @@ public class SchoolInvertedSlopeBlock extends Block implements SimpleWaterlogged
     public SchoolInvertedSlopeBlock(double lowerStart,double rise,double verticalOffset,double topHeight,Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any().setValue(FACING,Direction.NORTH).setValue(WATERLOGGED,false));
-        VoxelShape shape=Shapes.empty();
+        java.util.List<net.minecraft.world.phys.AABB> boxes=new java.util.ArrayList<>(32);
         for(int i=0;i<32;i++) {
             double t0=i/32.0,t1=(i+1)/32.0;
-            shape=Shapes.or(shape,Shapes.box(0,lowerStart-rise*t1+verticalOffset,1-t1,1,topHeight,1-t0));
+            boxes.add(new net.minecraft.world.phys.AABB(0,lowerStart-rise*t1+verticalOffset,1-t1,1,topHeight,1-t0));
         }
-        collisions[0]=shape.optimize();
+        collisions[0]=ExactVoxelShapes.union(boxes);
         for(int i=1;i<4;i++) {
-            VoxelShape[] next={Shapes.empty()};
-            collisions[i-1].forAllBoxes((x1,y1,z1,x2,y2,z2)->next[0]=Shapes.or(next[0],Shapes.box(1-z2,y1,x1,1-z1,y2,x2)));
-            collisions[i]=next[0].optimize();
+            collisions[i] = Shapes.rotate(collisions[i-1], com.mojang.math.OctahedralGroup.BLOCK_ROT_Y_90);
         }
     }
     @Override

@@ -90,13 +90,12 @@ for column in range(2):
             write(A / f'models/block/{name}.json', {'parent':'minecraft:block/block', 'textures':textures,'elements':elements})
             for facing, angle in [('south',0),('west',90),('north',180),('east',270)]:
                 variants[f'column={column},facing={facing},half={label},has_pc={str(occupied).lower()}'] = {'model':f'lsmmod:block/{name}', 'y':angle}
-            boxes = ['Block.box('+', '.join(str(v) for v in element['from']+element['to'])+')' for element in elements]
-            java += f'        SHAPES[{column}][{half}][{int(occupied)}][0] = Shapes.or(\n                '+',\n                '.join(boxes)+');\n'
+            boxes = ['ExactVoxelShapes.box('+', '.join(str(v) for v in element['from']+element['to'])+')' for element in elements]
+            java += f'        SHAPES[{column}][{half}][{int(occupied)}][0] = ExactVoxelShapes.union(\n                '+',\n                '.join(boxes)+');\n'
 java += '''        for (int c=0; c<2; c++) for (int h=0; h<2; h++) for (int p=0; p<2; p++) {
             for (int r=1; r<4; r++) {
                 VoxelShape[] result = {Shapes.empty()};
-                SHAPES[c][h][p][r-1].forAllBoxes((x1,y1,z1,x2,y2,z2) ->
-                        result[0] = Shapes.or(result[0], Shapes.box(1-z2,y1,x1,1-z1,y2,x2)));
+                    result[0] = Shapes.rotate(SHAPES[c][h][p][r-1], com.mojang.math.OctahedralGroup.BLOCK_ROT_Y_90);
                 SHAPES[c][h][p][r] = result[0];
             }
         }

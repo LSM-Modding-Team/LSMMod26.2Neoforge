@@ -20,6 +20,10 @@ final class ExactVoxelShapes {
         return new AABB(x0/16,y0/16,z0/16,x1/16,y1/16,z1/16);
     }
 
+    static VoxelShape pixels(double[][] input) {
+        return union(Arrays.stream(input).map(b -> box(b[0],b[1],b[2],b[3],b[4],b[5])).toList());
+    }
+
     static VoxelShape union(AABB... boxes) {return union(Arrays.asList(boxes));}
 
     static VoxelShape union(List<AABB> input) {

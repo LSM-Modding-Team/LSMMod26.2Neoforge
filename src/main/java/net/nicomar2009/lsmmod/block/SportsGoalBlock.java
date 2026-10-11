@@ -39,15 +39,7 @@ public class SportsGoalBlock extends Block {
     private static VoxelShape[][] buildShapes() {
         VoxelShape[][] result = new VoxelShape[144][4];
         for (int i = 0; i < 144; i++) {
-            for (int turn = 0; turn < 4; turn++) {
-                VoxelShape shape = Shapes.empty();
-                for (double[] source : SportsGoalShapes.CELLS[i]) {
-                    double[] b = source.clone();
-                    for (int t = 0; t < turn; t++) b = new double[]{16-b[5], b[1], b[0], 16-b[2], b[4], b[3]};
-                    shape = Shapes.or(shape, Block.box(b[0], b[1], b[2], b[3], b[4], b[5]));
-                }
-                result[i][turn] = shape.optimize();
-            }
+            result[i] = SharedChairRotations.horizontal(ExactVoxelShapes.pixels(SportsGoalShapes.CELLS[i]));
         }
         return result;
     }

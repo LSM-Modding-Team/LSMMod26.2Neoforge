@@ -23,13 +23,11 @@ public class EntrancePavementSlopeBlock extends SchoolYellowBorderWallBlock {
     public EntrancePavementSlopeBlock(double low,Properties properties) {
         super(properties);this.low=low;
         registerDefaultState(defaultBlockState().setValue(FACING,Direction.NORTH));
-        VoxelShape shape=Shapes.empty();
-        for(int i=0;i<32;i++)shape=Shapes.or(shape,Shapes.box(0,0,1-(i+1)/32.0,1,low+.25*(i+1)/32.0,1-i/32.0));
-        collisions[0]=shape.optimize();
+        java.util.List<net.minecraft.world.phys.AABB> boxes=new java.util.ArrayList<>(32);
+        for(int i=0;i<32;i++)boxes.add(new net.minecraft.world.phys.AABB(0,0,1-(i+1)/32.0,1,low+.25*(i+1)/32.0,1-i/32.0));
+        collisions[0]=ExactVoxelShapes.union(boxes);
         for(int i=1;i<4;i++) {
-            VoxelShape[] next={Shapes.empty()};
-            collisions[i-1].forAllBoxes((x1,y1,z1,x2,y2,z2)->next[0]=Shapes.or(next[0],Shapes.box(1-z2,y1,x1,1-z1,y2,x2)));
-            collisions[i]=next[0].optimize();
+            collisions[i] = Shapes.rotate(collisions[i-1], com.mojang.math.OctahedralGroup.BLOCK_ROT_Y_90);
         }
     }
     @Override

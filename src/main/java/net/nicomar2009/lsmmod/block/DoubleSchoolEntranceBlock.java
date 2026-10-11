@@ -215,20 +215,19 @@ public class DoubleSchoolEntranceBlock extends Block {
     private static VoxelShape[][][][][] buildCollisions() {
         VoxelShape[][][][][] all=new VoxelShape[3][3][2][2][4];
         for(int column=0;column<3;column++)for(int row=0;row<3;row++)for(int depth=0;depth<2;depth++)for(int open=0;open<2;open++) {
-            VoxelShape shape=Shapes.empty();
-            if(depth==0 && row==2)shape=Block.box(0,8,0,16,16,8);
+            java.util.List<net.minecraft.world.phys.AABB> boxes=new java.util.ArrayList<>(2);
+            if(depth==0 && row==2)boxes.add(ExactVoxelShapes.box(0,8,0,16,16,8));
             double height=row==2?8:16;
             if(open==0) {
-                if(depth==0)shape=Shapes.or(shape,Block.box(0,0,0,16,height,4));
+                if(depth==0)boxes.add(ExactVoxelShapes.box(0,0,0,16,height,4));
             } else if(column==0 || column==2) {
                 double x=column==0?0:12;
-                shape=Shapes.or(shape,Block.box(x,0,0,x+4,height,depth==0?16:8));
+                boxes.add(ExactVoxelShapes.box(x,0,0,x+4,height,depth==0?16:8));
             }
-            all[column][row][depth][open][0]=shape.optimize();
+            VoxelShape shape=ExactVoxelShapes.union(boxes);
+            all[column][row][depth][open][0]=shape;
             for(int turn=1;turn<4;turn++) {
-                VoxelShape[] next={Shapes.empty()};
-                shape.forAllBoxes((x1,y1,z1,x2,y2,z2)->next[0]=Shapes.or(next[0],Shapes.box(1-z2,y1,x1,1-z1,y2,x2)));
-                shape=next[0].optimize();all[column][row][depth][open][turn]=shape;
+                shape = Shapes.rotate(shape, com.mojang.math.OctahedralGroup.BLOCK_ROT_Y_90);all[column][row][depth][open][turn]=shape;
             }
         }
         return all;
