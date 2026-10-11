@@ -128,6 +128,12 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> GRAY_PLAYGROUND_FLOOR = BLOCKS.registerBlock("gray_playground_floor", Block::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
     // END PLAYGROUND FLOORS
 
+    // BEGIN CONNECTED SCHOOL SINK
+    public static final DeferredBlock<SchoolConnectedSinkBlock> SCHOOL_CONNECTED_SINK = BLOCKS.registerBlock(
+            "school_connected_sink", SchoolConnectedSinkBlock::new,
+            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));
+    // END CONNECTED SCHOOL SINK
+
     // BEGIN CLASSROOM SURFACES
     public static final DeferredBlock<Block> CLASSROOM_WHITE_WALL = BLOCKS.registerBlock(
             "classroom_white_wall", Block::new,

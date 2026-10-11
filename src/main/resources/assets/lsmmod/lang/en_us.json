@@ -340,5 +340,6 @@
   "block.lsmmod.white_playground_floor": "White Playground Floor",
   "block.lsmmod.gray_playground_floor": "Gray Playground Floor",
   "item.lsmmod.white_playground_floor_paint": "White Playground Floor Paint",
-  "item.lsmmod.gray_playground_floor_paint": "Gray Playground Floor Paint"
+  "item.lsmmod.gray_playground_floor_paint": "Gray Playground Floor Paint",
+  "block.lsmmod.school_connected_sink": "School Connected Trough Sink"
 }

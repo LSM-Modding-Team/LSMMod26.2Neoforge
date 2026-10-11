@@ -1,0 +1,35 @@
+{
+  "loader": "fusion:model",
+  "type": "composite",
+  "textures": {
+    "particle": "lsmmod:block/bathroom_floor_side"
+  },
+  "models": [
+    [
+      {
+        "model": "lsmmod:block/school_connected_sink_upper_1",
+        "condition": {
+          "type": "lsmmod:sink_connections",
+          "mask": 1
+        }
+      },
+      {
+        "model": "lsmmod:block/school_connected_sink_upper_2",
+        "condition": {
+          "type": "lsmmod:sink_connections",
+          "mask": 2
+        }
+      },
+      {
+        "model": "lsmmod:block/school_connected_sink_upper_3",
+        "condition": {
+          "type": "lsmmod:sink_connections",
+          "mask": 3
+        }
+      },
+      {
+        "model": "lsmmod:block/school_connected_sink_upper_0"
+      }
+    ]
+  ]
+}

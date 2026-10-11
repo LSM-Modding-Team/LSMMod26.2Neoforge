@@ -86,6 +86,10 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> GRAY_PLAYGROUND_FLOOR = ITEMS.registerSimpleBlockItem(ModBlocks.GRAY_PLAYGROUND_FLOOR);
     // END PLAYGROUND FLOORS
 
+    // BEGIN CONNECTED SCHOOL SINK
+    public static final DeferredItem<BlockItem> SCHOOL_CONNECTED_SINK = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_CONNECTED_SINK);
+    // END CONNECTED SCHOOL SINK
+
     // BEGIN CLASSROOM SURFACES
     public static final DeferredItem<BlockItem> CLASSROOM_WHITE_WALL = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_WHITE_WALL);
     public static final DeferredItem<BlockItem> CLASSROOM_PAINTED_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_PAINTED_BLOCK);
