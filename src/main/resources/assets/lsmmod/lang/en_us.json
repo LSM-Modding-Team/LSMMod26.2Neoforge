@@ -313,5 +313,6 @@
   "block.lsmmod.school_foundation": "School Foundation",
   "block.lsmmod.school_paintable_custom_block": "Custom Paintable School Block",
   "item.lsmmod.school_sandpaper": "School Sandpaper",
-  "item.lsmmod.school_hammer": "School Hammer"
+  "item.lsmmod.school_hammer": "School Hammer",
+  "item.lsmmod.classroom_floor_paint": "Classroom Floor Paint"
 }

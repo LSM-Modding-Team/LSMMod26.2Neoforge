@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "lsmmod:block/classroom_painted_block"
+    "all": "lsmmod:block/classroom_white_wall"
   }
 }

@@ -34,6 +34,7 @@ public final class ModItems {
     public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> DARK_SCHOOL = ITEMS.registerItem("dark_school", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.DARK, props));
     public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> STREET_SCHOOL = ITEMS.registerItem("street_school", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.STREET, props));
     public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> CLASSROOM_WHITE = ITEMS.registerItem("classroom_white", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.WHITE, props));
+    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> CLASSROOM_FLOOR_PAINT = ITEMS.registerItem("classroom_floor_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.FLOOR, props));
     public static final DeferredItem<net.nicomar2009.lsmmod.item.PaintCleanerItem> PAINT_CLEANER = ITEMS.registerItem("paint_cleaner", net.nicomar2009.lsmmod.item.PaintCleanerItem::new);
     // END PAINTABLE SCHOOL BLOCK
 

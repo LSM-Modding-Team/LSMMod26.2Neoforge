@@ -21,6 +21,7 @@ public class SchoolSandpaperItem extends Item {
             Item item=switch(color) {
                 case LIGHT -> ModItems.LIGHT_SCHOOL.get(); case DARK -> ModItems.DARK_SCHOOL.get();
                 case STREET -> ModItems.STREET_SCHOOL.get(); case WHITE -> ModItems.CLASSROOM_WHITE.get();
+                case FLOOR -> ModItems.CLASSROOM_FLOOR_PAINT.get();
                 default -> throw new IllegalStateException("Unpainted square cannot yield paint");
             };
             block.paintAt(context.getClickedFace(),context.getClickLocation(),SchoolPaint.UNPAINTED);

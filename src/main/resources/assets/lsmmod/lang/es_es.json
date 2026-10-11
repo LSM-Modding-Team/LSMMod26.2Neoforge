@@ -307,5 +307,6 @@
   "block.lsmmod.school_foundation": "Cimientos del colegio",
   "block.lsmmod.school_paintable_custom_block": "Bloque pintable personalizado del colegio",
   "item.lsmmod.school_sandpaper": "Lija del colegio",
-  "item.lsmmod.school_hammer": "Martillo del colegio"
+  "item.lsmmod.school_hammer": "Martillo del colegio",
+  "item.lsmmod.classroom_floor_paint": "Pintura de suelo de aula"
 }

@@ -6,7 +6,8 @@ public enum SchoolPaint {
     LIGHT("light_school_wall", "lsmmod:block/light_school_wall"),
     DARK("dark_school_wall", "lsmmod:block/dark_school_wall"),
     STREET("street_school_wall", "lsmmod:block/street_school_wall"),
-    WHITE("classroom_white_wall", "lsmmod:block/classroom_painted_block");
+    WHITE("classroom_white_wall", "lsmmod:block/classroom_white_wall"),
+    FLOOR("classroom_floor", "lsmmod:block/classroom_floor");
 
     private static final SchoolPaint[] COLORS = values();
     public static boolean validId(int id) { return id >= 0 && id < COLORS.length; }

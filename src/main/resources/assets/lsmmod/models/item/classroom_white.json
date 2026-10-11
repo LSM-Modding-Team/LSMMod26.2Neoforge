@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "lsmmod:block/classroom_painted_block"
+    "layer0": "lsmmod:block/classroom_white_wall"
   }
 }

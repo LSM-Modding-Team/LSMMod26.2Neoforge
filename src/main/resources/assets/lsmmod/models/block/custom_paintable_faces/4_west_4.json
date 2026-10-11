@@ -2,7 +2,7 @@
   "parent": "minecraft:block/block",
   "render_type": "minecraft:solid",
   "textures": {
-    "surface": "lsmmod:block/classroom_painted_block",
+    "surface": "lsmmod:block/classroom_white_wall",
     "particle": "#surface"
   },
   "elements": [

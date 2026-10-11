@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:solid",
+  "textures": {
+    "surface": "lsmmod:block/classroom_floor",
+    "particle": "#surface"
+  },
+  "elements": [
+    {
+      "from": [
+        8,
+        0,
+        8
+      ],
+      "to": [
+        16,
+        8,
+        16
+      ],
+      "faces": {
+        "up": {
+          "texture": "#surface",
+          "uv": [
+            8,
+            8,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.nicomar2009.lsmmod.block.SchoolPaint;
 import net.nicomar2009.lsmmod.block.SchoolPaintableCustomBlockEntity;
 
 /** Hide removed cubes and internal faces before selecting the appropriate shared paint. */
@@ -17,7 +18,7 @@ public record PaintedCubeFacePredicate(int cube,Direction face,int paint) implem
     public static final Serializer<PaintedCubeFacePredicate> SERIALIZER=new Serializer<>() {
         @Override public PaintedCubeFacePredicate deserialize(JsonObject json) {
             int cube=json.get("cube").getAsInt(),paint=json.get("paint").getAsInt();
-            if(cube<0||cube>7||paint<0||paint>4) throw new JsonParseException("Invalid painted cube face");
+            if(cube<0||cube>7||!SchoolPaint.validId(paint)) throw new JsonParseException("Invalid painted cube face");
             return new PaintedCubeFacePredicate(cube,Direction.valueOf(json.get("face").getAsString().toUpperCase(Locale.ROOT)),paint);
         }
         @Override public JsonObject serialize(PaintedCubeFacePredicate predicate) {

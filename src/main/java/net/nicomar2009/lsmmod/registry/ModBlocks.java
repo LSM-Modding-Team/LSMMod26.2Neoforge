@@ -45,7 +45,7 @@ public final class ModBlocks {
             props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
     public static final DeferredBlock<Block> SCHOOL_SYNTHETIC_GRASS = BLOCKS.registerBlock(
             "school_synthetic_grass", Block::new,
-            props -> props.strength(.8F).sound(SoundType.WOOL));
+            props -> props.strength(.8F).sound(SoundType.MOSS));
     // END CLASSROOM SURFACES
 
     // BEGIN MIXED SCHOOL WALLS

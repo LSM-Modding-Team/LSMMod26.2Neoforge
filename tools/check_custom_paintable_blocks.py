@@ -26,7 +26,7 @@ def main():
     assert empty['elements']==[] and empty['textures']['particle']==PAINTS[0]
     entries={}
     for series in model['models'][:-1]:
-        assert len(series)==5 and all('condition' in e for e in series), 'Missing guard would render ghost faces'
+        assert len(series)==len(PAINTS) and all('condition' in e for e in series), 'Missing guard would render ghost faces'
         for entry in series:
             predicate=entry['condition'];assert predicate['type']=='lsmmod:painted_cube_face'
             key=(predicate['cube'],predicate['face'],predicate['paint']);assert key not in entries
@@ -50,7 +50,7 @@ def main():
             x,y,z=coords(cube);q=quadrant(face,x,y,z)
             assert 0<=q<4
             # Every color has exactly one matching face model; removed/covered cells select none.
-            for color in range(5):
+            for color in range(len(PAINTS)):
                 assert (cube,face,color) in entries
             # The hit coordinate lies on the face plane; inward epsilon must select its own cell.
             hit=[a*.5+.25 for a in (x,y,z)]
@@ -62,7 +62,7 @@ def main():
         keys=[(face,quadrant(face,*coords(cube))) for cube,face in rendered]
         assert len(keys)==len(set(keys))
     rng=random.Random(261011)
-    palettes=[tuple([c]*24) for c in range(5)]+[tuple(rng.randrange(5) for _ in range(24)) for _ in range(10000)]
+    palettes=[tuple([c]*24) for c in range(len(PAINTS))]+[tuple(rng.randrange(len(PAINTS)) for _ in range(24)) for _ in range(10000)]
     for colors in palettes:
         low=sum(c<<(i*3) for i,c in enumerate(colors[:16]))
         high=sum(c<<(i*3) for i,c in enumerate(colors[16:]))
@@ -70,6 +70,6 @@ def main():
         assert restored==colors
     assert list(read(A/'blockstates/school_paintable_custom_block.json')['variants'])==['']
     assert list(read(A/'blockstates/school_foundation.json')['variants'])==['']
-    print('OK: 256 occupancy masks, 240 face/color models, all exposed hit planes, 24 independent squares and 10005 packed palettes; two blocks with one state each.')
+    print(f'OK: 256 occupancy masks, {len(entries)} face/color models, all exposed hit planes, 24 independent squares and {len(palettes)} packed palettes; two blocks with one state each.')
 
 if __name__=='__main__': main()
