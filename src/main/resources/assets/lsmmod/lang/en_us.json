@@ -314,5 +314,7 @@
   "block.lsmmod.school_paintable_custom_block": "Custom Paintable School Block",
   "item.lsmmod.school_sandpaper": "School Sandpaper",
   "item.lsmmod.school_hammer": "School Hammer",
-  "item.lsmmod.classroom_floor_paint": "Classroom Floor Paint"
+  "item.lsmmod.classroom_floor_paint": "Classroom Floor Paint",
+  "block.lsmmod.children_locker": "Children Locker",
+  "block.lsmmod.ceiling_projector": "Ceiling Projector"
 }

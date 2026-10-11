@@ -90,6 +90,7 @@
     "lsmmod:classroom_white_wall",
     "lsmmod:school_paintable_block",
     "lsmmod:school_foundation",
-    "lsmmod:school_paintable_custom_block"
+    "lsmmod:school_paintable_custom_block",
+    "lsmmod:ceiling_projector"
   ]
 }

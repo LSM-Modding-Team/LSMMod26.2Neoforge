@@ -20,6 +20,15 @@ public final class ModBlocks {
     // BEGIN SCHOOL INVERTED SLOPES
     // BEGIN SCHOOL SPLIT RAISED EXTRAS
     // BEGIN ENTRANCE PAVEMENT SHAPES
+    // BEGIN CHILDREN LOCKER AND CEILING PROJECTOR
+    public static final DeferredBlock<ChildrenLockerBlock> CHILDREN_LOCKER = BLOCKS.registerBlock(
+            "children_locker", ChildrenLockerBlock::new,
+            props -> props.strength(1.5F).sound(SoundType.WOOD).noOcclusion());
+    public static final DeferredBlock<CeilingProjectorBlock> CEILING_PROJECTOR = BLOCKS.registerBlock(
+            "ceiling_projector", CeilingProjectorBlock::new,
+            props -> props.strength(1.0F).sound(SoundType.METAL).noOcclusion());
+    // END CHILDREN LOCKER AND CEILING PROJECTOR
+
     // BEGIN CUSTOM PAINTABLE BLOCKS
     public static final DeferredBlock<Block> SCHOOL_FOUNDATION = BLOCKS.registerBlock(
             "school_foundation", Block::new,

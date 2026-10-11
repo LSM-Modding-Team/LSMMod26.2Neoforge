@@ -37,17 +37,8 @@ def main():
  atlas=Image.new('RGB',(16,16));draw=ImageDraw.Draw(atlas)
  for (x,y),color in { (0,0):(95,98,94),(4,0):(144,147,143),(8,0):(168,168,157),(12,0):(219,221,215),(0,8):(67,71,69),(4,8):(240,242,237),(8,8):(155,160,155)}.items():draw.rectangle((x,y,x+3,y+7),fill=color)
  atlas.save(A/'textures/block/school_decoration_surface.png')
- clock=Image.new('RGB',(16,16),(200,201,187));draw=ImageDraw.Draw(clock)
- for i in range(12):
-  a=math.tau*i/12;draw.point((round(8+6*math.sin(a)),round(8-6*math.cos(a))),fill=(66,68,61))
- digits={'1':['01','01','01'],'2':['11','01','10'],'3':['11','01','11'],'6':['10','11','11'],'9':['11','11','01']}
- for text,x,y in [('12',6,2),('3',12,7),('6',7,12),('9',2,7)]:
-  for k,ch in enumerate(text):
-   for yy,row in enumerate(digits[ch]):
-    for xx,pixel in enumerate(row):
-     if pixel=='1':draw.point((x+k*2+xx,y+yy),fill=(63,65,58))
- draw.line((8,8,11,5),fill=(32,34,29));draw.line((8,8,6,6),fill=(32,34,29));draw.point((8,8),fill=(21,23,20))
- clock.save(A/'textures/block/school_clock_face.png')
+ from improve_school_clock import create_clock_face
+ create_clock_face(A/'textures/block/school_clock_face.png')
  (A/'models/block/school_decorations.mtl').write_text(''.join(f'newmtl {mat}\nKd 1 1 1\nd 1\nmap_Kd #surface\n' for mat in UV)+'newmtl clock\nKd 1 1 1\nd 1\nmap_Kd #clock_face\n')
  m=Mesh();m.disk(8,8,7,0,1.75,'rim');m.ring(8,8,7,.65,1.75,'rim');m.disk(8,8,6.35,1.75,2,'rim',front='clock');m.save('school_clock')
  m=Mesh();m.box(6,1,0,10,5,1,'metal');m.box(7,3,1,9,8,3,'metal');m.disk(8,8,2,1,4,'hub')
