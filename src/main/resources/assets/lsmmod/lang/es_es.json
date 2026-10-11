@@ -314,5 +314,6 @@
   "block.lsmmod.standalone_toilet": "Inodoro sin cubículo",
   "block.lsmmod.light_bathroom_floor": "Suelo claro del baño",
   "block.lsmmod.yellow_school_block": "Bloque amarillo del colegio",
-  "item.lsmmod.yellow_school_paint": "Pintura amarilla del colegio"
+  "item.lsmmod.yellow_school_paint": "Pintura amarilla del colegio",
+  "block.lsmmod.tiled_parquet_floor": "Suelo de baldosas con borde de parquet"
 }

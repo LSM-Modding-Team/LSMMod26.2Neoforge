@@ -320,5 +320,6 @@
   "block.lsmmod.standalone_toilet": "Standalone Toilet",
   "block.lsmmod.light_bathroom_floor": "Light Bathroom Floor",
   "block.lsmmod.yellow_school_block": "Yellow School Block",
-  "item.lsmmod.yellow_school_paint": "Yellow School Paint"
+  "item.lsmmod.yellow_school_paint": "Yellow School Paint",
+  "block.lsmmod.tiled_parquet_floor": "Tiled Floor with Parquet Border"
 }

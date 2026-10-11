@@ -94,6 +94,7 @@
     "lsmmod:ceiling_projector",
     "lsmmod:standalone_toilet",
     "lsmmod:light_bathroom_floor",
-    "lsmmod:yellow_school_block"
+    "lsmmod:yellow_school_block",
+    "lsmmod:tiled_parquet_floor"
   ]
 }

@@ -50,6 +50,12 @@ public final class ModBlocks {
             props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
     // END YELLOW SCHOOL BLOCK
 
+    // BEGIN TILED PARQUET FLOOR
+    public static final DeferredBlock<FloorTransitionBlock> TILED_PARQUET_FLOOR = BLOCKS.registerBlock(
+            "tiled_parquet_floor", FloorTransitionBlock::new,
+            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    // END TILED PARQUET FLOOR
+
     // BEGIN CLASSROOM SURFACES
     public static final DeferredBlock<Block> CLASSROOM_WHITE_WALL = BLOCKS.registerBlock(
             "classroom_white_wall", Block::new,
