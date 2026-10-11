@@ -299,5 +299,7 @@
   "block.lsmmod.dark_street_school_wall_2": "Dark/Street School Wall (2/4 faces)",
   "block.lsmmod.dark_street_school_wall_3": "Dark/Street School Wall (3/3 faces)",
   "block.lsmmod.dark_street_school_wall_4": "Dark/Street School Wall (4/2 faces)",
-  "block.lsmmod.dark_street_school_wall_5": "Dark/Street School Wall (5/1 faces)"
+  "block.lsmmod.dark_street_school_wall_5": "Dark/Street School Wall (5/1 faces)",
+  "block.lsmmod.classroom_painted_block": "Classroom Painted Block",
+  "block.lsmmod.school_synthetic_grass": "School Synthetic Grass"
 }

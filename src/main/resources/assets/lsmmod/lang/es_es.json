@@ -293,5 +293,7 @@
   "block.lsmmod.dark_street_school_wall_2": "Pared Oscura/Calle (2/4 caras)",
   "block.lsmmod.dark_street_school_wall_3": "Pared Oscura/Calle (3/3 caras)",
   "block.lsmmod.dark_street_school_wall_4": "Pared Oscura/Calle (4/2 caras)",
-  "block.lsmmod.dark_street_school_wall_5": "Pared Oscura/Calle (5/1 caras)"
+  "block.lsmmod.dark_street_school_wall_5": "Pared Oscura/Calle (5/1 caras)",
+  "block.lsmmod.classroom_painted_block": "Bloque pintado de aula",
+  "block.lsmmod.school_synthetic_grass": "Césped sintético del colegio"
 }

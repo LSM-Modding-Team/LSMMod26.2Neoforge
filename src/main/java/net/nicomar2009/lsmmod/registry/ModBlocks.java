@@ -20,6 +20,15 @@ public final class ModBlocks {
     // BEGIN SCHOOL INVERTED SLOPES
     // BEGIN SCHOOL SPLIT RAISED EXTRAS
     // BEGIN ENTRANCE PAVEMENT SHAPES
+    // BEGIN CLASSROOM SURFACES
+    public static final DeferredBlock<Block> CLASSROOM_PAINTED_BLOCK = BLOCKS.registerBlock(
+            "classroom_painted_block", Block::new,
+            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<Block> SCHOOL_SYNTHETIC_GRASS = BLOCKS.registerBlock(
+            "school_synthetic_grass", Block::new,
+            props -> props.strength(.8F).sound(SoundType.WOOL));
+    // END CLASSROOM SURFACES
+
     // BEGIN MIXED SCHOOL WALLS
     public static final DeferredBlock<MixedSchoolWallBlock> LIGHT_DARK_SCHOOL_WALL_1 = BLOCKS.registerBlock(
             "light_dark_school_wall_1", props -> new MixedSchoolWallBlock(1, props),

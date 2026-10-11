@@ -21,6 +21,11 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
+    // BEGIN CLASSROOM SURFACES
+    public static final DeferredItem<BlockItem> CLASSROOM_PAINTED_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_PAINTED_BLOCK);
+    public static final DeferredItem<BlockItem> SCHOOL_SYNTHETIC_GRASS = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_SYNTHETIC_GRASS);
+    // END CLASSROOM SURFACES
+
     // BEGIN MIXED SCHOOL WALLS
     public static final DeferredItem<BlockItem> LIGHT_DARK_SCHOOL_WALL_1 = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_DARK_SCHOOL_WALL_1);
     public static final DeferredItem<BlockItem> LIGHT_DARK_SCHOOL_WALL_2 = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_DARK_SCHOOL_WALL_2);

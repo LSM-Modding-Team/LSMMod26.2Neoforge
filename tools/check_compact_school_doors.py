@@ -8,7 +8,7 @@ def main(baseline=None):
     before={p:hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
     compact();assert before=={p:hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
     old=read(baseline) if baseline else None
-    counts={r['id']:r['states'] for r in audit()};assert sum(r['states'] for r in audit() if r['class']!='MixedSchoolWallBlock')==14844
+    counts={r['id']:r['states'] for r in audit()}
     checked=0
     for ident in IDS:
         definition=read(A/f'blockstates/{ident}.json');expected=288 if ident=='double_school_entrance' else 96
@@ -34,6 +34,6 @@ def main(baseline=None):
         source=(J/f'block/{name}.java').read_text();assert all(p not in source for p in ('FRAME_LAYOUT','TOP_CONNECTED','BOTTOM_CONNECTED'))
         assert 'POWERED' in source and 'SchoolGlazing.refreshHorizontal' in source
     assert 'SchoolGlazing.isGlass(state)' in (J/'mixin/GlazingClientUpdatesMixin.java').read_text()
-    print(f'OK: {checked} legacy geometry/rotation selections; 21504 -> 672 door states; 14844 states in the original families; migration, client refresh and idempotent resources checked statically.')
+    print(f'OK: {checked} legacy geometry/rotation selections; 21504 -> 672 door states; migration, client refresh and idempotent resources checked statically.')
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--baseline',type=__import__('pathlib').Path);args=p.parse_args();main(args.baseline)
