@@ -49,6 +49,9 @@ def main():
  cot=(J/'block/InfirmaryCotBlock.java').read_text();helper=(J/'block/InfirmaryCotExtendedShapes.java').read_text()
  assert '.setValue(EXTENDED,false)' in cot and '.setValue(EXTENDED,true)' in cot and 'state.getValue(EXTENDED)?3:2' in cot
  assert 'SHAPES[0]=InfirmaryCotShapes.SHAPES[0]' in helper and 'SHAPES[2]=' in helper and 'Shapes.or' not in helper
+ # Java method arguments require an explicit array creation, not a bare initializer.
+ assert len(re.findall(r'ExactVoxelShapes\.pixels\(new double\[\]\[\]\s*\{',helper))==2
+ assert not re.search(r'ExactVoxelShapes\.pixels\(\s*\{',helper)
  for segment in (1,2):
   model=read(A/f'models/block/infirmary_cot_extended_{segment}.json');assert model['elements']
   assert all(0<=e['from'][2]<e['to'][2]<=16 for e in model['elements'])

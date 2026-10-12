@@ -91,7 +91,7 @@ def cot():
    if z0<z1:local.append([b[0],b[1],z0-segment*16,b[3],b[4],z1-segment*16])
   arrays.append(local)
  java='package net.nicomar2009.lsmmod.block;\n\n/** Extended cot reuses the original angled headrest and shares direct grid rotations. */\npublic final class InfirmaryCotExtendedShapes {\n public static final net.minecraft.world.phys.shapes.VoxelShape[][] SHAPES=new net.minecraft.world.phys.shapes.VoxelShape[3][];\n static {\n  SHAPES[0]=InfirmaryCotShapes.SHAPES[0];\n'
- for i,boxes in enumerate(arrays,1):java+=f'  SHAPES[{i}]=SharedChairRotations.horizontal(ExactVoxelShapes.pixels('+json.dumps(boxes).replace('[','{').replace(']','}')+'));\n'
+ for i,boxes in enumerate(arrays,1):java+=f'  SHAPES[{i}]=SharedChairRotations.horizontal(ExactVoxelShapes.pixels(new double[][] '+json.dumps(boxes).replace('[','{').replace(']','}')+'));\n'
  write(J/'block/InfirmaryCotExtendedShapes.java',java+' }\n private InfirmaryCotExtendedShapes() {}\n}\n')
 
 def main():

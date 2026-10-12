@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+**2026-10-12 — Sintaxis de camilla ampliada:** `InfirmaryCotExtendedShapes` declara `new double[][]` en las dos llamadas a `ExactVoxelShapes.pixels`; generador corregido y comprobación estática añadida para impedir inicializadores sin tipo como argumentos. Coordenadas y rotaciones conservadas. Sin compilación ni Minecraft.
+
 **2026-10-12 — Instalaciones ampliadas:** entrada deslizable con 9 cuadrados por celda y school_tinted_glass entre barras; light_school_wall_railing sirve de soporte virtual (isSolid/isFaceSturdy) sin cambiar colisión. Camillas nuevas 3×1 y estatuas nuevas 2×3 con compatibilidad de las antiguas. dining_door_wide 2×3, hoja móvil 1.5×2.5, vidrio fijo arriba y light_school_wall únicamente en el exterior de la franja lateral; microondas y galería de 24 trofeos 6×4. Cuadrículas/cachés compartidas y capas de cristal separadas. Ver `docs/FACILITY_EXPANSIONS_AND_RAILING_SUPPORT.md`. Verificaciones estáticas; sin compilar ni ejecutar Minecraft.
 
 **2026-10-12 — Kiosco y entrada:** mesa nueva de 3×1 con compatibilidad de los pares antiguos; panel de madera vertical de 8 px, puerta de madera de tres filas, entrada deslizable de 6×4 con centro móvil de 4×4, bebedero elevado 8 px (dos celdas) y caja de objetos perdidos de 1×1 con rótulo blanco. Todos en School Functional Blocks, sin entidades/tickers nuevos. Cuadrículas y rotaciones compartidas, contornos simples; verificaciones estáticas. Ver `docs/KIOSK_ENTRANCE_ACCESSORIES.md`. Sin compilación ni Minecraft.
