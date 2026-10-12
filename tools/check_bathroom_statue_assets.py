@@ -33,7 +33,10 @@ def mesh(model, name):
             faces.append((axis, plane, rectangle))
             texture = model["textures"][face["texture"][1:]].split(":")[1]
             image = Image.open(ASSETS / f"textures/{texture}.png")
-            assert image.size == (16, 16)
+            expected_size = (16, 32) if texture in (
+                'block/san_martin_de_porres_habit', 'block/san_martin_de_porres_cream') else (16, 16)
+            assert image.size == expected_size
+            assert len(face['uv']) == 4 and all(0 <= v <= 16 for v in face['uv']), (name, face)
             if model.get('render_type') == 'minecraft:translucent':
                 assert image.mode == 'RGBA' and image.getextrema()[3][1] < 255
             else:
@@ -52,10 +55,12 @@ def main():
     for a in lower_caps:
         for b in upper_caps:
             assert min(a[2], b[2])-max(a[0], b[0]) <= 0 or min(a[3], b[3])-max(a[1], b[1]) <= 0
-    from render_texture_review import load
+    from render_texture_review import add, block, load, render
+    import numpy as np
     for layer in load('lsmmod:item/san_martin_de_porres'):
         mesh(layer, 'display item '+layer['render_type'])
     definition = read(ASSETS/'blockstates/san_martin_de_porres.json')['multipart']
+    assembled = []
     for row in range(3):
         for column in range(2):
             selected = [p['apply'] for p in definition if p['when'] == {
@@ -65,10 +70,23 @@ def main():
                 model = read(ASSETS/f"models/{apply['model'].split(':')[1]}.json")
                 mesh(model, apply['model'])
                 assert all(e['to'][1] <= (8 if row == 2 else 16) for e in model['elements'])
+                add(assembled, [model], (column*16, row*16, 0))
+    complete = []
+    for layer in ('solid', 'translucent'):
+        add(complete, [read(ROOT/f'newresources/san_martin_de_porres_complete_{layer}.json')])
+    # Compare the rendered appearance, not the clipping implementation. This catches
+    # reversed U, restarted folds, glass alpha changes and artificial seam caps.
+    for azimuth in (-90, -55, -135, 60, 135):
+        kwargs = dict(size=(320, 440), azimuth=azimuth, elevation=12)
+        # Non-integral zoom avoids samples exactly on triangle/texel edges.
+        expected = np.array(render(complete, [16, 20, 8], 8.73, **kwargs)).astype(int)
+        actual = np.array(render(assembled, [16, 20, 8], 8.73, **kwargs)).astype(int)
+        assert np.max(np.abs(actual-expected)) <= 1, ('complete/cell appearance differs', azimuth)
     from check_wide_bathroom_assets import main as check_wide
     check_wide()
     print("OK: legacy statue meshes without coplanar overlaps, clean two-half seam;")
-    print("six display cells and layered item, transparent glass, top row only half a block;")
+    print("six display cells visually match the complete model from five angles, continuous UVs;")
+    print("layered item, transparent glass, top row only half a block;")
     print("complete two-wide fixture resources, floor-contact geometry and passive standalone toilet.")
     print("Static checks only: no Java compilation or Minecraft rendering.")
 

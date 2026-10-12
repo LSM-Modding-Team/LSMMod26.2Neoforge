@@ -18,6 +18,18 @@ def main():
     canvas.paste(render(item, [8, 8, 8], 29, size=(420, 600), azimuth=-70, elevation=8), (1260, 0))
     ImageDraw.Draw(canvas).text((1275, 15), 'Item / cristal transparente', fill=(25, 25, 25))
     canvas.save(ROOT/'previews/san_martin_display_review.png')
+    # Inspect the actual cell surfaces behind the case, including the robe's back.
+    sculpture = [e for e in scene if all(s['texture'] not in (
+        'lsmmod:block/school_porcelain', 'lsmmod:block/san_martin_de_porres_glass')
+        for s in e['faces'].values())]
+    canvas = Image.new('RGB', (1680, 600))
+    for i, (label, azimuth) in enumerate((('Estatua / frente', -90),
+                         ('Frente y lateral', -55), ('Lateral opuesto', -135), ('Dorso', 100))):
+        canvas.paste(render(sculpture, [16, 20, 8], 15, size=(420, 600),
+                           azimuth=azimuth, elevation=8), (i*420, 0))
+        ImageDraw.Draw(canvas).text((i*420+15, 15), label, fill=(25, 25, 25))
+    ImageDraw.Draw(canvas).text((15, 580), 'Render externo de las superficies finales; vitrina oculta para revisar el detalle.', fill=(25, 25, 25))
+    canvas.save(ROOT/'previews/san_martin_sculpture_review.png')
 
 
 if __name__ == '__main__': main()

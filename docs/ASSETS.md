@@ -50,6 +50,8 @@ Enlaces relativos a `tools/`: ejecuta solo el generador/check/render de tu famil
 
 Puertas/cristal dinámico: [render_texture_review.py](../tools/render_texture_review.py) (`--vanilla-dir` para vanilla). OBJ: [render_school_inverted_slopes.py](../tools/render_school_inverted_slopes.py), [render_school_railing_slopes.py](../tools/render_school_railing_slopes.py). Papelería girada: [render_stationery_assets.py](../tools/render_stationery_assets.py), con Blender. Conserva el render específico cuando verifica apertura/conexiones; no escribas otro para un bloque nativo simple.
 
+San Martín: edita la figura completa en `sculpture()` de su generador. Este fija las UV antes de ocultar caras y dividir las seis celdas; exporta los modelos completos de cada capa a `newresources/san_martin_de_porres_complete_{solid,translucent}.json`. El hábito y las partes crema usan texturas 16×32 con proyección continua. El recorte respeta el sentido de las UV de cada cara (`crop_face_uv`); no reasignes texturas completas a los fragmentos. Su check compara renders del conjunto ensamblado con el modelo entero; su render también muestra la figura sin vitrina para revisar el dorso.
+
 ## Rendimiento y compatibilidad
 
 - Texturas pixeladas a la densidad de los materiales vecinos; evita aumentar resolución para disimular UV incorrectas. Al ampliar un atlas pixel art usa vecino más cercano. Luces y sombras de la escena las produce Minecraft.

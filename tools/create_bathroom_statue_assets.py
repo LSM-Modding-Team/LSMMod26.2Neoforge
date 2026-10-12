@@ -110,7 +110,26 @@ def textures():
             for half in ("up", "down"): im.save(ASSETS / f"textures/block/san_martin_de_porres_{half}.png")
 
 
-def solid_model(parts, half=None):
+def crop_face_uv(uv, face, low, high, clipped_low, clipped_high):
+    """Crop a face in Minecraft's vertex order, including reversed north/east/down U."""
+    u, reverse_u, v, reverse_v = {
+        "north": (0, True, 1, True), "south": (0, False, 1, True),
+        "east": (2, True, 1, True), "west": (2, False, 1, True),
+        "up": (0, False, 2, False), "down": (0, True, 2, False),
+    }[face]
+    fractions = []
+    for axis, reverse in ((u, reverse_u), (v, reverse_v)):
+        span = high[axis]-low[axis]
+        start, end = ((high[axis]-clipped_high[axis], high[axis]-clipped_low[axis])
+                      if reverse else (clipped_low[axis]-low[axis], clipped_high[axis]-low[axis]))
+        fractions.append((start/span, end/span))
+    return [uv[0]+(uv[2]-uv[0])*fractions[0][0],
+            uv[1]+(uv[3]-uv[1])*fractions[1][0],
+            uv[0]+(uv[2]-uv[0])*fractions[0][1],
+            uv[1]+(uv[3]-uv[1])*fractions[1][1]]
+
+
+def solid_model(parts, half=None, face_uv=None):
     """Clip all hidden/coplanar faces. Each remaining face belongs to one positive-volume box."""
     elements = []
     materials = set()
@@ -154,8 +173,9 @@ def solid_model(parts, half=None):
             for u0, u1, v0, v1 in rectangles:
                 box = list(b); box[a], box[a+3], box[c], box[c+3] = u0, u1, v0, v1
                 material = overrides.get(face, default); materials.add(material)
+                uv = face_uv(b, box, face, material) if face_uv else [0, 0, 16, 16]
                 elements.append({"from": box[:3], "to": box[3:], "faces": {
-                    face: {"texture": "#"+material, "uv": [0, 0, 16, 16]}}})
+                    face: {"texture": "#"+material, "uv": uv}}})
     textures = {m: f"lsmmod:block/school_{m}" for m in sorted(materials)}
     if half and "robe" in textures: textures["robe"] = f"lsmmod:block/san_martin_de_porres_{half}"
     textures["particle"] = "lsmmod:block/school_pedestal" if half else "lsmmod:block/school_porcelain"
