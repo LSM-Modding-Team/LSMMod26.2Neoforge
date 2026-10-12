@@ -134,24 +134,6 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> SCHOOL_SYNTHETIC_GRASS = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_SYNTHETIC_GRASS);
     // END CLASSROOM SURFACES
 
-    // BEGIN MIXED SCHOOL WALLS
-    public static final DeferredItem<BlockItem> LIGHT_DARK_SCHOOL_WALL_1 = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_DARK_SCHOOL_WALL_1);
-    public static final DeferredItem<BlockItem> LIGHT_DARK_SCHOOL_WALL_2 = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_DARK_SCHOOL_WALL_2);
-    public static final DeferredItem<BlockItem> LIGHT_DARK_SCHOOL_WALL_3 = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_DARK_SCHOOL_WALL_3);
-    public static final DeferredItem<BlockItem> LIGHT_DARK_SCHOOL_WALL_4 = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_DARK_SCHOOL_WALL_4);
-    public static final DeferredItem<BlockItem> LIGHT_DARK_SCHOOL_WALL_5 = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_DARK_SCHOOL_WALL_5);
-    public static final DeferredItem<BlockItem> LIGHT_STREET_SCHOOL_WALL_1 = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_STREET_SCHOOL_WALL_1);
-    public static final DeferredItem<BlockItem> LIGHT_STREET_SCHOOL_WALL_2 = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_STREET_SCHOOL_WALL_2);
-    public static final DeferredItem<BlockItem> LIGHT_STREET_SCHOOL_WALL_3 = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_STREET_SCHOOL_WALL_3);
-    public static final DeferredItem<BlockItem> LIGHT_STREET_SCHOOL_WALL_4 = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_STREET_SCHOOL_WALL_4);
-    public static final DeferredItem<BlockItem> LIGHT_STREET_SCHOOL_WALL_5 = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_STREET_SCHOOL_WALL_5);
-    public static final DeferredItem<BlockItem> DARK_STREET_SCHOOL_WALL_1 = ITEMS.registerSimpleBlockItem(ModBlocks.DARK_STREET_SCHOOL_WALL_1);
-    public static final DeferredItem<BlockItem> DARK_STREET_SCHOOL_WALL_2 = ITEMS.registerSimpleBlockItem(ModBlocks.DARK_STREET_SCHOOL_WALL_2);
-    public static final DeferredItem<BlockItem> DARK_STREET_SCHOOL_WALL_3 = ITEMS.registerSimpleBlockItem(ModBlocks.DARK_STREET_SCHOOL_WALL_3);
-    public static final DeferredItem<BlockItem> DARK_STREET_SCHOOL_WALL_4 = ITEMS.registerSimpleBlockItem(ModBlocks.DARK_STREET_SCHOOL_WALL_4);
-    public static final DeferredItem<BlockItem> DARK_STREET_SCHOOL_WALL_5 = ITEMS.registerSimpleBlockItem(ModBlocks.DARK_STREET_SCHOOL_WALL_5);
-    // END MIXED SCHOOL WALLS
-
     // BEGIN SCHOOL RAILING SLOPES
     // BEGIN SHORT RAISED SLOPES
     public static final DeferredItem<BlockItem> SCHOOL_INVERTED_SLOPE_SHORT_RAISED_1 = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_INVERTED_SLOPE_SHORT_RAISED_1);

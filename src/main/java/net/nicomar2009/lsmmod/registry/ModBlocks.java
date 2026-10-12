@@ -188,54 +188,6 @@ public final class ModBlocks {
             props -> props.strength(.8F).sound(SoundType.MOSS));
     // END CLASSROOM SURFACES
 
-    // BEGIN MIXED SCHOOL WALLS
-    public static final DeferredBlock<MixedSchoolWallBlock> LIGHT_DARK_SCHOOL_WALL_1 = BLOCKS.registerBlock(
-            "light_dark_school_wall_1", props -> new MixedSchoolWallBlock(1, props),
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<MixedSchoolWallBlock> LIGHT_DARK_SCHOOL_WALL_2 = BLOCKS.registerBlock(
-            "light_dark_school_wall_2", props -> new MixedSchoolWallBlock(2, props),
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<MixedSchoolWallBlock> LIGHT_DARK_SCHOOL_WALL_3 = BLOCKS.registerBlock(
-            "light_dark_school_wall_3", props -> new MixedSchoolWallBlock(3, props),
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<MixedSchoolWallBlock> LIGHT_DARK_SCHOOL_WALL_4 = BLOCKS.registerBlock(
-            "light_dark_school_wall_4", props -> new MixedSchoolWallBlock(4, props),
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<MixedSchoolWallBlock> LIGHT_DARK_SCHOOL_WALL_5 = BLOCKS.registerBlock(
-            "light_dark_school_wall_5", props -> new MixedSchoolWallBlock(5, props),
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<MixedSchoolWallBlock> LIGHT_STREET_SCHOOL_WALL_1 = BLOCKS.registerBlock(
-            "light_street_school_wall_1", props -> new MixedSchoolWallBlock(1, props),
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<MixedSchoolWallBlock> LIGHT_STREET_SCHOOL_WALL_2 = BLOCKS.registerBlock(
-            "light_street_school_wall_2", props -> new MixedSchoolWallBlock(2, props),
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<MixedSchoolWallBlock> LIGHT_STREET_SCHOOL_WALL_3 = BLOCKS.registerBlock(
-            "light_street_school_wall_3", props -> new MixedSchoolWallBlock(3, props),
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<MixedSchoolWallBlock> LIGHT_STREET_SCHOOL_WALL_4 = BLOCKS.registerBlock(
-            "light_street_school_wall_4", props -> new MixedSchoolWallBlock(4, props),
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<MixedSchoolWallBlock> LIGHT_STREET_SCHOOL_WALL_5 = BLOCKS.registerBlock(
-            "light_street_school_wall_5", props -> new MixedSchoolWallBlock(5, props),
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<MixedSchoolWallBlock> DARK_STREET_SCHOOL_WALL_1 = BLOCKS.registerBlock(
-            "dark_street_school_wall_1", props -> new MixedSchoolWallBlock(1, props),
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<MixedSchoolWallBlock> DARK_STREET_SCHOOL_WALL_2 = BLOCKS.registerBlock(
-            "dark_street_school_wall_2", props -> new MixedSchoolWallBlock(2, props),
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<MixedSchoolWallBlock> DARK_STREET_SCHOOL_WALL_3 = BLOCKS.registerBlock(
-            "dark_street_school_wall_3", props -> new MixedSchoolWallBlock(3, props),
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<MixedSchoolWallBlock> DARK_STREET_SCHOOL_WALL_4 = BLOCKS.registerBlock(
-            "dark_street_school_wall_4", props -> new MixedSchoolWallBlock(4, props),
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<MixedSchoolWallBlock> DARK_STREET_SCHOOL_WALL_5 = BLOCKS.registerBlock(
-            "dark_street_school_wall_5", props -> new MixedSchoolWallBlock(5, props),
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    // END MIXED SCHOOL WALLS
-
     public static final DeferredBlock<SchoolWallDecorationBlock> SCHOOL_CLOCK = BLOCKS.registerBlock(
             "school_clock", props -> new SchoolWallDecorationBlock(2,props),
             props -> props.strength(.5F).sound(SoundType.METAL).noOcclusion());
