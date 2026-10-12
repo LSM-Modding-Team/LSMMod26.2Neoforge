@@ -47,9 +47,11 @@ def add_visual_parts(multipart, textures, write):
             bounds[4] -= 16
             # One element, one complete UV rectangle: no cell seam or UV shrink gap.
             name = f'framed_door_window_{int(opened)}_{int(right)}'
+            pane=cube(bounds,'window')
+            for face in pane['faces'].values():face['uv']=[1,1,15,15]
             write(A/f'models/block/{name}.json', {'parent':'minecraft:block/block',
                   'render_type':'minecraft:cutout', 'textures':{'window':'minecraft:block/glass',
-                  'particle':'minecraft:block/glass'}, 'elements':[cube(bounds,'window')]})
+                  'particle':'minecraft:block/glass'}, 'elements':[pane]})
             for turn, facing in enumerate(('north','east','south','west')):
                 multipart.append({'when':{'facing':facing,'open':str(opened).lower(),
                     'hinge':'right' if right else 'left','row':'1','column':str(column),'depth':'0'},

@@ -40,11 +40,18 @@ public class SchoolFramedDiningDoorBlock extends Block {
 
     public static final EnumProperty<net.minecraft.world.level.block.state.properties.DoorHingeSide> HINGE=BlockStateProperties.DOOR_HINGE;
 
-    public SchoolFramedDiningDoorBlock(Properties properties) {
+    private final boolean sideGlazing;
+
+    public SchoolFramedDiningDoorBlock(Properties properties) { this(properties, false); }
+
+    public SchoolFramedDiningDoorBlock(Properties properties, boolean sideGlazing) {
         super(properties);
+        this.sideGlazing = sideGlazing;
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH)
                 .setValue(HINGE,net.minecraft.world.level.block.state.properties.DoorHingeSide.LEFT).setValue(OPEN, false).setValue(COLUMN, 0).setValue(ROW, 0).setValue(DEPTH, 0));
     }
+
+    public boolean hasSideGlazing() { return sideGlazing; }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
@@ -203,7 +210,10 @@ public class SchoolFramedDiningDoorBlock extends Block {
         boolean open=(key&1)!=0,right=(key&2)!=0;
         int col=(key>>2)&1,row=(key>>3)&3,depth=(key>>5)&1;
         var boxes=new java.util.ArrayList<double[]>();
-        for(double[] source:open?SchoolFacilityShapes.DINING_OPEN:SchoolFacilityShapes.DINING_CLOSED) {
+        double[][] geometry=(key&64)!=0
+                ? (open?SchoolFacilityShapes.INFIRMARY_OPEN:SchoolFacilityShapes.INFIRMARY_CLOSED)
+                : (open?SchoolFacilityShapes.DINING_OPEN:SchoolFacilityShapes.DINING_CLOSED);
+        for(double[] source:geometry) {
             double[] b=source.clone();if(right){b[0]=32-source[3];b[3]=32-source[0];}
             double x0=Math.max(b[0],col*16),x1=Math.min(b[3],col*16+16),y0=Math.max(b[1],row*16),y1=Math.min(b[4],row*16+16),z0=Math.max(b[2],depth*16),z1=Math.min(b[5],depth*16+16);
             if(x0<x1&&y0<y1&&z0<z1) boxes.add(new double[]{x0-col*16,y0-row*16,z0-depth*16,x1-col*16,y1-row*16,z1-depth*16});
@@ -214,7 +224,7 @@ public class SchoolFramedDiningDoorBlock extends Block {
     }
     @Override
     protected VoxelShape getCollisionShape(BlockState state,BlockGetter level,BlockPos pos,CollisionContext context) {
-        int key=(state.getValue(OPEN)?1:0)|(right(state)?2:0)|(state.getValue(COLUMN)<<2)|(state.getValue(ROW)<<3)|(state.getValue(DEPTH)<<5);
+        int key=(state.getValue(OPEN)?1:0)|(right(state)?2:0)|(state.getValue(COLUMN)<<2)|(state.getValue(ROW)<<3)|(state.getValue(DEPTH)<<5)|(sideGlazing?64:0);
         int turn=switch(state.getValue(FACING)){case EAST->1;case SOUTH->2;case WEST->3;default->0;};
         return COLLISIONS.computeIfAbsent(key,SchoolFramedDiningDoorBlock::physical)[turn];
     }
@@ -251,6 +261,8 @@ public class SchoolFramedDiningDoorBlock extends Block {
         } else {
             for (int column=0; column<2; column++)
                 SchoolGlazing.refreshHorizontal(level, cell(origin,facing,column,2,0));
+            if(sideGlazing) for(int row=1;row<3;row++)
+                SchoolGlazing.refreshHorizontal(level,cell(origin,facing,right(state)?0:1,row,0),true);
         }
     }
 

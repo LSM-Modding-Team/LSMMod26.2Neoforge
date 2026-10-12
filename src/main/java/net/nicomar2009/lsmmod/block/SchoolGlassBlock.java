@@ -57,10 +57,17 @@ public class SchoolGlassBlock extends Block {
         BlockState state = defaultBlockState().setValue(FACING, face.getAxis().isHorizontal()
                 ? face : context.getHorizontalDirection().getOpposite());
         if (face.getAxis().isVertical()) {
-            BlockState neighbor = context.getLevel().getBlockState(context.getClickedPos().relative(face.getOpposite()));
+            BlockPos neighborPos=context.getClickedPos().relative(face.getOpposite());
+            BlockState neighbor = context.getLevel().getBlockState(neighborPos);
             if (SchoolGlazing.isFramedTransom(neighbor) || neighbor.getBlock() instanceof SchoolGlassBlock || neighbor.getBlock() instanceof SchoolGlassStairBlock
                     || (neighbor.getBlock() instanceof TallClassroomEntranceBlock && neighbor.getValue(TallClassroomEntranceBlock.ROW)==2))
                 state=state.setValue(FACING,neighbor.getValue(FACING));
+            if(SchoolGlazing.hasSidePane(neighbor)) {
+                Direction back=neighbor.getValue(FACING).getOpposite();
+                double localDepth=(context.getClickLocation().x-neighborPos.getX()-.5)*back.getStepX()
+                        +(context.getClickLocation().z-neighborPos.getZ()-.5)*back.getStepZ();
+                if(localDepth>=0)state=state.setValue(FACING,SchoolGlazing.sideFacing(neighbor));
+            }
         }
         return connections(state, context.getLevel(), context.getClickedPos());
     }

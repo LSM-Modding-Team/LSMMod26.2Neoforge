@@ -34,6 +34,8 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> BATHROOM_DOOR_WIDE = ITEMS.registerSimpleBlockItem(ModBlocks.BATHROOM_DOOR_WIDE);
     public static final DeferredItem<BlockItem> SCHOOL_MICROWAVE = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_MICROWAVE);
     public static final DeferredItem<BlockItem> SCHOOL_TROPHY_GALLERY = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_TROPHY_GALLERY);
+    public static final DeferredItem<BlockItem> INFIRMARY_DOOR = ITEMS.registerSimpleBlockItem(ModBlocks.INFIRMARY_DOOR);
+    public static final DeferredItem<BlockItem> DINING_DOOR_WIDE_LIGHT = ITEMS.registerSimpleBlockItem(ModBlocks.DINING_DOOR_WIDE_LIGHT);
     // END FACILITY EXPANSIONS
 
     // BEGIN KIOSK ENTRANCE ACCESSORIES

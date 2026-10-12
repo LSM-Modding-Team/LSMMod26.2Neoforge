@@ -24,7 +24,8 @@ def load(ident, mask=3):
                 if isinstance(entry,str):
                     result.extend(load(entry,mask));continue
                 condition = entry.get('condition',{})
-                if condition and mask not in condition.get('masks',[condition.get('mask')]):
+                selected=mask.get(condition.get('channel','main'),3) if isinstance(mask,dict) else mask
+                if condition and selected not in condition.get('masks',[condition.get('mask')]):
                     continue
                 result.extend(load(entry['model'],mask))
                 if condition:
@@ -68,14 +69,26 @@ def block(ident, state, mask=3):
     return models
 
 
-def door(ident, opened=False, right=False):
+def door(ident, opened=False, right=False, connected=False):
     scene = []
     for col in range(2):
         for row in range(3):
             for depth in range(2):
                 state = {'facing':'north','column':col,'row':row,'depth':depth,
                          'open':str(opened).lower(),'hinge':'right' if right else 'left'}
-                add(scene,block(ident,state,1 if col==0 else 2),(16*col,16*row,16*depth))
+                side=(3 if not connected else (1 if not right else 2))|(8 if row==1 else 16)
+                main=1 if col==0 else (0 if connected else 2)
+                add(scene,block(ident,state,{'main':main,'side':side}),(16*col,16*row,16*depth))
+    if connected:
+        add(scene,load('lsmmod:block/school_connected_tinted_glass',2),(32,32,0))
+        for row in (1,2):
+            neighbor=[];add(neighbor,load('lsmmod:block/school_connected_tinted_glass',2|(8 if row==1 else 16)))
+            for e in neighbor:
+                lo,hi=e['from'],e['to'];e['from']=[16-hi[2]+16,lo[1]+row*16,lo[0]+16];e['to']=[16-lo[2]+16,hi[1]+row*16,hi[0]+16]
+                e['faces']={dict(north='east',east='south',south='west',west='north').get(f,f):v for f,v in e['faces'].items()}
+                for f in ('up','down'):
+                    if f in e['faces']:e['faces'][f]['rotation']=90
+            scene+=neighbor
     return scene
 
 
@@ -209,6 +222,20 @@ def sheet(items, filename):
 
 def main():
     (ROOT/'previews').mkdir(exist_ok=True)
+    sheet([('infirmary_door / frontal',door('infirmary_door'),[16,24,8],9,{}),
+           ('infirmary_door / lateral posterior',door('infirmary_door'),[16,24,8],9,{'azimuth':55}),
+           ('infirmary_door / bisagra derecha',door('infirmary_door',False,True),[16,24,8],9,{'azimuth':140}),
+           ('infirmary_door / abierta',door('infirmary_door',True),[16,24,8],9,{'azimuth':-55})],
+          'infirmary_door_texture_review.png')
+    sheet([('Transom y lateral conectados',door('infirmary_door',connected=True),[24,24,16],8,{'azimuth':55}),
+           ('dining_door_wide / un solo marco',door('dining_door_wide'),[16,24,5],9,{}),
+           ('dining_door_wide_light / frente claro',door('dining_door_wide_light'),[16,24,5],9,{}),
+           ('dining_door_wide_light / posterior blanco',door('dining_door_wide_light'),[16,24,5],9,{'azimuth':110})],
+          'door_variants_and_connections_review.png')
+    inventory=[]
+    for ident in ('infirmary_door','dining_door_wide_light'):
+        scene=[];add(scene,load('lsmmod:item/'+ident));inventory.append((ident,scene,[8,8,8],25,{}))
+    sheet(inventory,'new_door_inventory_review.png')
     items = []
     for ident in ('dining_door_wide','bathroom_door_wide'):
         items += [(ident+' / cerrada',door(ident),[16,24,5],9,{}),

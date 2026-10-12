@@ -69,7 +69,7 @@ def main():
                 e = model['elements'][0]
                 assert e['from'][1] == -8.5 and e['to'][1] == 19
                 assert min(e['from']) >= -16 and max(e['to']) <= 32
-                assert all(face['uv'] == [0,0,16,16] for face in e['faces'].values())
+                assert all(face['uv'] == [1,1,15,15] for face in e['faces'].values())
             state = {'facing':facing,'open':opened,'hinge':hinge,'depth':'0'}
             for column in (0,1):
                 state = dict(state,row='2',column=str(column))
@@ -83,8 +83,8 @@ def main():
     assert 'instanceof SchoolFramedDiningDoorBlock' in shared
     assert 'state.getValue(SchoolFramedDiningDoorBlock.DEPTH)==0' in shared
     assert 'isFramedTransom(state)||state.getBlock() instanceof TallClassroomEntranceBlock' in shared
-    assert 'sameRow(level.getBlockState(start),level.getBlockState(start.relative(right.getOpposite())))' in shared
-    assert shared.count('length-1)),level.getBlockState(start.relative(right,length))') == 2
+    assert 'adjacent(level.getBlockState(start.relative(right.getOpposite())),level.getBlockState(start),facing)' in shared
+    assert shared.count('length-1)),level.getBlockState(start.relative(right,length)),facing)') == 2
     assert 'SchoolGlazing.isFramedTransom(neighbor)' in (java/'SchoolGlassBlock.java').read_text()
     door = (java/'SchoolFramedDiningDoorBlock.java').read_text()
     assert 'SchoolGlazing.refreshHorizontal(level, cell(origin,facing,column,2,0))' in door

@@ -5,7 +5,7 @@ from PIL import Image
 from create_bathroom_statue_assets import STATUE,solid_model
 from create_kiosk_entrance_assets import rotated
 ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmod';D=ROOT/'src/main/resources/data';J=ROOT/'src/main/java/net/nicomar2009/lsmmod';GENERATED=[]
-IDS=['dining_door_wide','bathroom_door_wide','school_microwave','school_trophy_gallery']
+IDS=['dining_door_wide','bathroom_door_wide','school_microwave','school_trophy_gallery','infirmary_door','dining_door_wide_light']
 FACES=('north','south','east','west','up','down')
 MICROWAVE=[([1,1,2,15,10,14],'metal'),([1,1,1,11,9,2],'black'),([2,2,.75,10,8,1],'glass'),([11,1,1,15,9,2],'metal'),([11.5,3,.5,12.25,7,1],'metal'),([13,5,.75,14,7,1],'black'),([13,2.5,.75,14,3.5,1],'button')]
 DINING_FIXED=[([24,0,0,32,40,16],'white',{'east':'light'}),([0,40,0,32,48,8],'glass')]
@@ -216,13 +216,17 @@ def main():
  from create_framed_door_glazing import bathroom_variant
  bathroom_variant(multipart,tex,write)
  basic('bathroom_door_wide',controller={'column':'0','row':'0','depth':'0'})
+ from create_infirmary_door_assets import generate,INFIRMARY_CLOSED,INFIRMARY_OPEN
+ generate(multipart,tex,write,clipped,mesh,layered_item,basic)
  # One generated geometry source for physical cells and models.
- arrays={'STATUE':[b for b,*_ in statue],'TROPHIES':[b for b,*_ in trophies]+[[0,0,0,96,64,.125]],'MICROWAVE':[b for b,*_ in MICROWAVE],'DINING_CLOSED':[b for b,*_ in DINING_CLOSED],'DINING_OPEN':[b for b,*_ in DINING_OPEN]}
+ arrays={'STATUE':[b for b,*_ in statue],'TROPHIES':[b for b,*_ in trophies]+[[0,0,0,96,64,.125]],'MICROWAVE':[b for b,*_ in MICROWAVE],'DINING_CLOSED':[b for b,*_ in DINING_CLOSED],'DINING_OPEN':[b for b,*_ in DINING_OPEN],'INFIRMARY_CLOSED':[b for b,*_ in INFIRMARY_CLOSED],'INFIRMARY_OPEN':[b for b,*_ in INFIRMARY_OPEN]}
  java='package net.nicomar2009.lsmmod.block;\n\n/** Model-identical facility boxes; per-cell grids and rotations are cached. */\npublic final class SchoolFacilityShapes {\n private SchoolFacilityShapes() {}\n'
  for name,boxes in arrays.items():java+=' public static final double[][] '+name+' = '+json.dumps(boxes).replace('[','{').replace(']','}')+';\n'
  write(J/'block/SchoolFacilityShapes.java',java+'}\n')
  registrations='''    public static final DeferredBlock<SchoolFramedDiningDoorBlock> DINING_DOOR_WIDE = BLOCKS.registerBlock("dining_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
     public static final DeferredBlock<SchoolFramedDiningDoorBlock> BATHROOM_DOOR_WIDE = BLOCKS.registerBlock("bathroom_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolFramedDiningDoorBlock> INFIRMARY_DOOR = BLOCKS.registerBlock("infirmary_door", props -> new SchoolFramedDiningDoorBlock(props,true), props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolFramedDiningDoorBlock> DINING_DOOR_WIDE_LIGHT = BLOCKS.registerBlock("dining_door_wide_light", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
     public static final DeferredBlock<SchoolPassiveAccessoryBlock> SCHOOL_MICROWAVE = BLOCKS.registerBlock("school_microwave", props -> new SchoolPassiveAccessoryBlock(props,SchoolFacilityShapes.MICROWAVE), props -> props.strength(2F).sound(SoundType.METAL).noOcclusion());
     public static final DeferredBlock<SchoolTrophyGalleryBlock> SCHOOL_TROPHY_GALLERY = BLOCKS.registerBlock("school_trophy_gallery", SchoolTrophyGalleryBlock::new, props -> props.strength(2F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));'''
  for filename,body in [('ModBlocks.java',registrations),('ModItems.java','\n'.join(f'    public static final DeferredItem<BlockItem> {i.upper()} = ITEMS.registerSimpleBlockItem(ModBlocks.{i.upper()});' for i in IDS))]:
@@ -231,13 +235,13 @@ def main():
   else:s=s.replace('    // BEGIN KIOSK ENTRANCE ACCESSORIES',section+'\n\n    // BEGIN KIOSK ENTRANCE ACCESSORIES',1)
   if filename=='ModBlocks.java':s=s.replace('DeferredBlock<TwoTallBlock> SAN_MARTIN_DE_PORRES','DeferredBlock<SchoolSanMartinBlock> SAN_MARTIN_DE_PORRES').replace('"san_martin_de_porres",\n            TwoTallBlock::new','"san_martin_de_porres",\n            SchoolSanMartinBlock::new')
   write(p,s)
- for locale,names in [('es_es',['Puerta del comedor con marco (2×3)','Puerta del baño con marco (2×3)','Microondas del colegio','Galería de trofeos del colegio']),('en_us',['Framed Dining Door (2×3)','Framed Bathroom Door (2×3)','School Microwave','School Trophy Gallery'])]:
+ for locale,names in [('es_es',['Puerta del comedor con marco (2×3)','Puerta del baño con marco (2×3)','Microondas del colegio','Galería de trofeos del colegio','Puerta de enfermería','Puerta del comedor con frente claro']),('en_us',['Framed Dining Door (2×3)','Framed Bathroom Door (2×3)','School Microwave','School Trophy Gallery','Infirmary Door','Dining Door with Light Front'])]:
   p=A/f'lang/{locale}.json';v=json.loads(p.read_text());v.update({'block.lsmmod.'+i:n for i,n in zip(IDS,names)});write(p,v)
- for tool,ids in [('axe',['dining_door_wide','bathroom_door_wide','school_trophy_gallery']),('pickaxe',['school_microwave'])]:
+ for tool,ids in [('axe',['dining_door_wide','bathroom_door_wide','school_trophy_gallery','infirmary_door','dining_door_wide_light']),('pickaxe',['school_microwave'])]:
   p=D/f'minecraft/tags/block/mineable/{tool}.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+i for i in ids]));write(p,v)
  Path('/tmp/facility-generated.json').write_text(json.dumps(GENERATED))
  # Retire unused cells when changed geometry produces a different shared model count.
- for prefix in ('dining_door_wide_part_','bathroom_door_wide_part_','school_trophy_gallery_part_'):
+ for prefix in ('dining_door_wide_part_','bathroom_door_wide_part_','school_trophy_gallery_part_','infirmary_door_part_','dining_door_wide_light_part_'):
   for p in (A/'models/block').glob(prefix+'*.json'):
    if str(p.relative_to(ROOT)) not in GENERATED:p.unlink()
 if __name__=='__main__':main()

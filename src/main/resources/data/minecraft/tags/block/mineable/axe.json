@@ -25,6 +25,8 @@
     "lsmmod:lost_and_found_box",
     "lsmmod:dining_door_wide",
     "lsmmod:school_trophy_gallery",
-    "lsmmod:bathroom_door_wide"
+    "lsmmod:bathroom_door_wide",
+    "lsmmod:infirmary_door",
+    "lsmmod:dining_door_wide_light"
   ]
 }

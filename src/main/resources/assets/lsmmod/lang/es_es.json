@@ -352,5 +352,7 @@
   "block.lsmmod.school_trophy_gallery": "Galería de trofeos del colegio",
   "block.lsmmod.dining_room_counter": "Cubierta del mostrador del comedor",
   "block.lsmmod.bathroom_door_wide": "Puerta del baño con marco (2×3)",
-  "block.lsmmod.school_connected_tinted_glass": "Cristal tintado conectado del colegio"
+  "block.lsmmod.school_connected_tinted_glass": "Cristal tintado conectado del colegio",
+  "block.lsmmod.infirmary_door": "Puerta de enfermería",
+  "block.lsmmod.dining_door_wide_light": "Puerta del comedor con frente claro"
 }

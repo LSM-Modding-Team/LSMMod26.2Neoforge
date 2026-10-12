@@ -93,7 +93,7 @@ def main():
     assert 'extends StairBlock' in stair and 'super.getStateForPlacement(context)' in stair
     assert 'super.updateShape' in stair and 'return super.getShape' in stair and 'SimpleBlockOutline.forState' in stair
     joins=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolGlazing.java').read_text()
-    assert 'footprint(state)!=footprint(neighbor)' in joins and 'reachesTop(state)&&reachesBottom(neighbor)' in joins
+    assert 'a.footprint()!=b.footprint()' in joins and 'a.high()==16&&reachesBottom(neighbor,b)' in joins
     loot=read(D/'lsmmod/loot_table/blocks/tall_classroom_entrance.json')
     assert loot['pools'][0]['conditions'][1]['properties']=={'row':'0'}
     print('OK: edge-aligned 2-row door + moving third-row apron; centered handles; 13440 geometry selections plus curtain overlays; four vanilla stairs (corners/top/waterlogging), material layout, shared glazing and single door drop.')

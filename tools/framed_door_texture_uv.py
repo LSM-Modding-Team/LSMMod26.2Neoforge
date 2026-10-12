@@ -42,3 +42,8 @@ def fix_item(write):
                 leaf_face(original,face,material)
                 material['uv'] = [round(v,10) for v in material['uv']]
     write(path,model)
+    path=A/'models/item/dining_door_wide_item_cutout.json'
+    model=json.loads(path.read_text())
+    for element in model['elements']:
+        for material in element['faces'].values():material['uv']=[1,1,15,15]
+    write(path,model)

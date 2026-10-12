@@ -21,49 +21,86 @@ public final class SchoolGlazing {
                 && state.getValue(SchoolFramedDiningDoorBlock.DEPTH)==0;
     }
     public static boolean isGlass(BlockState state) {
-        return isFramedTransom(state) || state.getBlock() instanceof SchoolGlassBlock || state.getBlock() instanceof SchoolGlassStairBlock
+        return hasSidePane(state) || isFramedTransom(state) || state.getBlock() instanceof SchoolGlassBlock || state.getBlock() instanceof SchoolGlassStairBlock
                 || (state.getBlock() instanceof TallClassroomEntranceBlock && state.getValue(TallClassroomEntranceBlock.ROW)==2)
                 || (state.getBlock() instanceof DoubleSchoolEntranceBlock && state.getValue(DoubleSchoolEntranceBlock.ROW)==2 && state.getValue(DoubleSchoolEntranceBlock.DEPTH)==0);
     }
-    private static boolean reachesBottom(BlockState state) {
-        if(state.getBlock() instanceof SchoolGlassStairBlock)return state.getValue(StairBlock.HALF)==Half.TOP;
-        if(isFramedTransom(state)||state.getBlock() instanceof TallClassroomEntranceBlock||state.getBlock() instanceof DoubleSchoolEntranceBlock)return false;
-        return ((SchoolGlassBlock)state.getBlock()).glassReachesBottom();
+    public static boolean hasSidePane(BlockState state) {
+        return state.getBlock() instanceof SchoolFramedDiningDoorBlock door && door.hasSideGlazing()
+                && state.getValue(SchoolFramedDiningDoorBlock.DEPTH)==0
+                && state.getValue(SchoolFramedDiningDoorBlock.ROW)>=1
+                && state.getValue(SchoolFramedDiningDoorBlock.COLUMN)==(rightHinge(state)?0:1);
     }
-    private static boolean reachesTop(BlockState state) {
-        return !(state.getBlock() instanceof SchoolGlassStairBlock)||state.getValue(StairBlock.HALF)==Half.BOTTOM;
+    private static boolean rightHinge(BlockState state) {
+        return state.getValue(SchoolFramedDiningDoorBlock.HINGE)==net.minecraft.world.level.block.state.properties.DoorHingeSide.RIGHT;
     }
-    private static int footprint(BlockState state) {
-        if(!(state.getBlock() instanceof SchoolGlassStairBlock))return 3;
-        return switch(state.getValue(StairBlock.SHAPE)) {
-            case STRAIGHT->3;case OUTER_LEFT->1;case OUTER_RIGHT->2;case INNER_LEFT->11;case INNER_RIGHT->7;
-        };
+    public static Direction sideFacing(BlockState state) {
+        Direction facing=state.getValue(SchoolGlassBlock.FACING);
+        return rightHinge(state)?facing.getCounterClockWise():facing.getClockWise();
+    }
+    private static Direction defaultFacing(BlockState state) {
+        return hasSidePane(state)&&!isFramedTransom(state)?sideFacing(state):state.getValue(SchoolGlassBlock.FACING);
+    }
+    /** Pane extent in its own facing coordinates; side glazing occupies the rear half only. */
+    private record Pane(int low, int high, int start, int end, int footprint, boolean transom) {}
+    private static final Pane FULL=new Pane(0,16,0,16,3,false);
+    private static final Pane UPPER=new Pane(8,16,0,16,3,false);
+    private static final Pane TRANSOM=new Pane(8,16,0,16,3,true);
+    private static final Pane SIDE_LEFT=new Pane(0,16,8,16,3,false);
+    private static final Pane SIDE_RIGHT=new Pane(0,16,0,8,3,false);
+    private static final Pane[][] STAIRS=new Pane[2][12];
+    static {
+        for(int footprint:new int[]{1,2,3,7,11}) {
+            STAIRS[0][footprint]=new Pane(0,8,0,16,footprint,false);
+            STAIRS[1][footprint]=new Pane(8,16,0,16,footprint,false);
+        }
+    }
+    private static Pane pane(BlockState state,Direction facing) {
+        if(hasSidePane(state)&&sideFacing(state)==facing)
+            return rightHinge(state)?SIDE_RIGHT:SIDE_LEFT;
+        if(!isGlass(state)||state.getValue(SchoolGlassBlock.FACING)!=facing)return null;
+        if(state.getBlock() instanceof SchoolGlassStairBlock) {
+            int footprint=switch(state.getValue(StairBlock.SHAPE)) {
+                case STRAIGHT->3;case OUTER_LEFT->1;case OUTER_RIGHT->2;case INNER_LEFT->11;case INNER_RIGHT->7;
+            };
+            return STAIRS[state.getValue(StairBlock.HALF)==Half.TOP?0:1][footprint];
+        }
+        if(isFramedTransom(state)||state.getBlock() instanceof TallClassroomEntranceBlock||state.getBlock() instanceof DoubleSchoolEntranceBlock)
+            return isFramedTransom(state)?TRANSOM:UPPER;
+        if(state.getBlock() instanceof SchoolGlassBlock)
+            return FULL;
+        return null;
+    }
+    private static boolean connects(BlockState state,BlockState neighbor,Direction side,Direction facing) {
+        Pane a=pane(state,facing),b=pane(neighbor,facing);
+        if(!side.getAxis().isVertical()||a==null||b==null||a.footprint()!=b.footprint()
+                ||a.start()!=b.start()||a.end()!=b.end())return false;
+        return side==Direction.UP?a.high()==16&&reachesBottom(neighbor,b):reachesBottom(state,a)&&b.high()==16;
+    }
+    private static boolean reachesBottom(BlockState state,Pane pane) {
+        return state.getBlock() instanceof SchoolGlassBlock glass?glass.glassReachesBottom():pane.low()==0;
     }
     public static boolean connects(BlockState state,BlockState neighbor,Direction side) {
-        if(!side.getAxis().isVertical()||!isGlass(state)||!isGlass(neighbor)
-                ||state.getValue(SchoolGlassBlock.FACING)!=neighbor.getValue(SchoolGlassBlock.FACING)
-                ||footprint(state)!=footprint(neighbor))return false;
-        return side==Direction.UP?reachesTop(state)&&reachesBottom(neighbor):reachesBottom(state)&&reachesTop(neighbor);
+        if(!isGlass(state))return false;
+        return connects(state,neighbor,side,defaultFacing(state));
     }
-
-    private static int band(BlockState state) {
-        if (!isGlass(state) || footprint(state) != 3) return -1;
-        if (state.getBlock() instanceof SchoolGlassStairBlock)
-            return state.getValue(StairBlock.HALF) == Half.TOP ? 1 : 2;
-        return isFramedTransom(state) || state.getBlock() instanceof TallClassroomEntranceBlock || state.getBlock() instanceof DoubleSchoolEntranceBlock ? 2 : 0;
+    private static boolean sameRow(BlockState state,BlockState other,Direction facing) {
+        Pane a=pane(state,facing),b=pane(other,facing);
+        if(a==null||b==null||a.footprint()!=3||b.footprint()!=3)return false;
+        boolean overlap=a.low()==b.low()&&a.high()==b.high()
+                ||(a.transom()||b.transom())&&a.high()==16&&b.high()==16;
+        return overlap;
     }
-
-    private static boolean sameRow(BlockState state, BlockState other) {
-        int a=band(state),b=band(other);
-        boolean overlap=a==b || ((isFramedTransom(state)||isFramedTransom(other))
-                && (a==0||a==2) && (b==0||b==2));
-        return a>=0 && b>=0 && overlap
-                && state.getValue(SchoolGlassBlock.FACING)==other.getValue(SchoolGlassBlock.FACING);
+    /** Consecutive cells connect only when their visible glass actually reaches the shared edge. */
+    private static boolean adjacent(BlockState left,BlockState right,Direction facing) {
+        return sameRow(left,right,facing)&&pane(left,facing).end()==16&&pane(right,facing).start()==0;
     }
-
     public static boolean connectsHorizontal(BlockState state,BlockState neighbor,Direction side) {
-        return side.getAxis().isHorizontal() && sameRow(state,neighbor)
-                && side.getAxis()!=state.getValue(SchoolGlassBlock.FACING).getAxis();
+        if(!side.getAxis().isHorizontal()||!isGlass(state))return false;
+        Direction facing=side.getCounterClockWise();
+        if(adjacent(state,neighbor,facing))return true;
+        facing=side.getClockWise();
+        return adjacent(neighbor,state,facing);
     }
 
     /** A glass join does not imply that the neighbor covers the entire block-side face. */
@@ -95,58 +132,70 @@ public final class SchoolGlazing {
         return result;
     }
 
-    /** Pure visual mask: horizontal frame bits plus vertical joins; no saved properties. */
+    /** Pure visual masks for the front transom and perpendicular rear-half pane. */
     public static int visualMask(net.minecraft.world.level.LevelReader level,BlockPos pos,BlockState state) {
+        return visualMask(level,pos,state,false);
+    }
+    public static int visualMask(net.minecraft.world.level.LevelReader level,BlockPos pos,BlockState state,boolean side) {
+        if(!isGlass(state)||side&&!hasSidePane(state))return 3;
+        Direction facing=side?sideFacing(state):defaultFacing(state),right=facing.getClockWise();
+        Pane current=pane(state,facing);
         int mask=3;
-        if(band(state)>=0) {
-            Direction right=state.getValue(SchoolGlassBlock.FACING).getClockWise();
+        if(current!=null&&current.footprint()==3) {
             BlockPos start=pos;
             int index=0;
             while(level.hasChunkAt(start.relative(right.getOpposite()))
-                    &&sameRow(level.getBlockState(start),level.getBlockState(start.relative(right.getOpposite())))) {start=start.relative(right.getOpposite());index++;}
+                    &&adjacent(level.getBlockState(start.relative(right.getOpposite())),level.getBlockState(start),facing)) {start=start.relative(right.getOpposite());index++;}
             int length=0;
-            while(level.hasChunkAt(start.relative(right,length))&&(length==0||sameRow(level.getBlockState(start.relative(right,length-1)),level.getBlockState(start.relative(right,length)))))length++;
+            while(level.hasChunkAt(start.relative(right,length))&&(length==0||adjacent(level.getBlockState(start.relative(right,length-1)),level.getBlockState(start.relative(right,length)),facing)))length++;
             if(level.hasChunkAt(start.relative(right.getOpposite()))&&level.hasChunkAt(start.relative(right,length))) {
-                int x=16*index,spacing=length%2==0?32:24;
-                mask=(index==0||x%spacing==0?1:0)|(index==length-1||(x+16)%spacing==0?2:0)|((x+8)%spacing==0?4:0);
+                int first=pane(level.getBlockState(start),facing).start();
+                int last=(length-1)*16+pane(level.getBlockState(start.relative(right,length-1)),facing).end();
+                mask=layout(current,index,length,first,last);
             }
         }
-        if(level.hasChunkAt(pos.above())&&connects(state,level.getBlockState(pos.above()),Direction.UP))mask|=8;
-        if(level.hasChunkAt(pos.below())&&connects(state,level.getBlockState(pos.below()),Direction.DOWN))mask|=16;
+        if(level.hasChunkAt(pos.above())&&connects(state,level.getBlockState(pos.above()),Direction.UP,facing))mask|=8;
+        if(level.hasChunkAt(pos.below())&&connects(state,level.getBlockState(pos.below()),Direction.DOWN,facing))mask|=16;
         return mask;
     }
 
-    /** Recompute the entire loaded row, so changing its parity refreshes distant separators too. */
-    public static void refreshHorizontal(ServerLevel level, BlockPos pos) {
-        BlockState state = level.getBlockState(pos);
-        if (band(state) < 0) {
-            if (state.hasProperty(FRAME_LAYOUT) && state.getValue(FRAME_LAYOUT) != 3)
-                level.setBlock(pos, state.setValue(FRAME_LAYOUT, 3), Block.UPDATE_CLIENTS);
+    private static int layout(Pane pane,int index,int length,int first,int last) {
+        int x=16*index,spacing=length % 2 == 0 ? 32 : 24;
+        return (x+pane.start()==first||(x+pane.start()-first)%spacing==0?1:0)
+                |(x+pane.end()==last||(x+pane.end()-first)%spacing==0?2:0)
+                |(pane.start()<8&&pane.end()>8&&(x+8-first)%spacing==0?4:0);
+    }
+
+    /** Refresh both orientations independently, retaining normal glass frame-layout states. */
+    public static void refreshHorizontal(ServerLevel level,BlockPos pos) { refreshHorizontal(level,pos,false); }
+    public static void refreshHorizontal(ServerLevel level,BlockPos pos,boolean side) {
+        BlockState state=level.getBlockState(pos);
+        if(!isGlass(state)||side&&!hasSidePane(state))return;
+        Direction facing=side?sideFacing(state):defaultFacing(state),right=facing.getClockWise();
+        Pane current=pane(state,facing);
+        if(current==null||current.footprint()!=3) {
+            if(state.hasProperty(FRAME_LAYOUT)&&state.getValue(FRAME_LAYOUT)!=3)
+                level.setBlock(pos,state.setValue(FRAME_LAYOUT,3),Block.UPDATE_CLIENTS);
             return;
         }
-        Direction right = state.getValue(SchoolGlassBlock.FACING).getClockWise();
-        BlockPos start = pos;
-        while (level.hasChunkAt(start.relative(right.getOpposite()))
-                && sameRow(level.getBlockState(start), level.getBlockState(start.relative(right.getOpposite()))))
-            start = start.relative(right.getOpposite());
-        int length = 0;
-        while (level.hasChunkAt(start.relative(right, length))
-                && (length==0||sameRow(level.getBlockState(start.relative(right,length-1)),level.getBlockState(start.relative(right,length))))) length++;
-        if(!level.hasChunkAt(start.relative(right.getOpposite())) || !level.hasChunkAt(start.relative(right,length))) {
+        BlockPos start=pos;
+        while(level.hasChunkAt(start.relative(right.getOpposite()))
+                &&adjacent(level.getBlockState(start.relative(right.getOpposite())),level.getBlockState(start),facing))start=start.relative(right.getOpposite());
+        int length=0;
+        while(level.hasChunkAt(start.relative(right,length))&&(length==0||adjacent(level.getBlockState(start.relative(right,length-1)),level.getBlockState(start.relative(right,length)),facing)))length++;
+        if(!level.hasChunkAt(start.relative(right.getOpposite()))||!level.hasChunkAt(start.relative(right,length))) {
             level.scheduleTick(pos,state.getBlock(),20);
             return;
         }
-        int spacing = length % 2 == 0 ? 32 : 24;
-        for (int index = 0; index < length; index++) {
-            int x = 16 * index;
-            int layout = (index == 0 || x % spacing == 0 ? 1 : 0)
-                    | (index == length - 1 || (x + 16) % spacing == 0 ? 2 : 0)
-                    | ((x + 8) % spacing == 0 ? 4 : 0);
-            BlockPos target = start.relative(right, index);
-            BlockState current = level.getBlockState(target);
-            if(current.hasProperty(FRAME_LAYOUT)) {
-                if(current.getValue(FRAME_LAYOUT)!=layout)level.setBlock(target,current.setValue(FRAME_LAYOUT,layout),Block.UPDATE_CLIENTS);
-            } else level.sendBlockUpdated(target,current,current,Block.UPDATE_CLIENTS);
+        int first=pane(level.getBlockState(start),facing).start();
+        int last=(length-1)*16+pane(level.getBlockState(start.relative(right,length-1)),facing).end();
+        for(int index=0;index < length;index++) {
+            BlockPos target=start.relative(right,index);
+            BlockState value=level.getBlockState(target);
+            int layout=layout(pane(value,facing),index,length,first,last);
+            if(value.hasProperty(FRAME_LAYOUT)) {
+                if(value.getValue(FRAME_LAYOUT)!=layout)level.setBlock(target,value.setValue(FRAME_LAYOUT,layout),Block.UPDATE_CLIENTS);
+            } else level.sendBlockUpdated(target,value,value,Block.UPDATE_CLIENTS);
         }
     }
 }
