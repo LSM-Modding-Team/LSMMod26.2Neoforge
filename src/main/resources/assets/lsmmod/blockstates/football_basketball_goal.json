@@ -113,19 +113,19 @@
       "y": 270
     },
     "cell=7,facing=north": {
-      "model": "lsmmod:block/football_basketball_goal_7",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 0
     },
     "cell=7,facing=east": {
-      "model": "lsmmod:block/football_basketball_goal_7",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 90
     },
     "cell=7,facing=south": {
-      "model": "lsmmod:block/football_basketball_goal_7",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 180
     },
     "cell=7,facing=west": {
-      "model": "lsmmod:block/football_basketball_goal_7",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 270
     },
     "cell=8,facing=north": {
@@ -241,19 +241,19 @@
       "y": 270
     },
     "cell=15,facing=north": {
-      "model": "lsmmod:block/football_basketball_goal_15",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 0
     },
     "cell=15,facing=east": {
-      "model": "lsmmod:block/football_basketball_goal_15",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 90
     },
     "cell=15,facing=south": {
-      "model": "lsmmod:block/football_basketball_goal_15",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 180
     },
     "cell=15,facing=west": {
-      "model": "lsmmod:block/football_basketball_goal_15",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 270
     },
     "cell=16,facing=north": {
@@ -369,19 +369,19 @@
       "y": 270
     },
     "cell=23,facing=north": {
-      "model": "lsmmod:block/football_basketball_goal_23",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 0
     },
     "cell=23,facing=east": {
-      "model": "lsmmod:block/football_basketball_goal_23",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 90
     },
     "cell=23,facing=south": {
-      "model": "lsmmod:block/football_basketball_goal_23",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 180
     },
     "cell=23,facing=west": {
-      "model": "lsmmod:block/football_basketball_goal_23",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 270
     },
     "cell=24,facing=north": {
@@ -545,19 +545,19 @@
       "y": 270
     },
     "cell=34,facing=north": {
-      "model": "lsmmod:block/football_basketball_goal_34",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 0
     },
     "cell=34,facing=east": {
-      "model": "lsmmod:block/football_basketball_goal_34",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 90
     },
     "cell=34,facing=south": {
-      "model": "lsmmod:block/football_basketball_goal_34",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 180
     },
     "cell=34,facing=west": {
-      "model": "lsmmod:block/football_basketball_goal_34",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 270
     },
     "cell=35,facing=north": {
@@ -673,19 +673,19 @@
       "y": 270
     },
     "cell=42,facing=north": {
-      "model": "lsmmod:block/football_basketball_goal_42",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 0
     },
     "cell=42,facing=east": {
-      "model": "lsmmod:block/football_basketball_goal_42",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 90
     },
     "cell=42,facing=south": {
-      "model": "lsmmod:block/football_basketball_goal_42",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 180
     },
     "cell=42,facing=west": {
-      "model": "lsmmod:block/football_basketball_goal_42",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 270
     },
     "cell=43,facing=north": {
@@ -881,19 +881,19 @@
       "y": 270
     },
     "cell=55,facing=north": {
-      "model": "lsmmod:block/football_basketball_goal_55",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 0
     },
     "cell=55,facing=east": {
-      "model": "lsmmod:block/football_basketball_goal_55",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 90
     },
     "cell=55,facing=south": {
-      "model": "lsmmod:block/football_basketball_goal_55",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 180
     },
     "cell=55,facing=west": {
-      "model": "lsmmod:block/football_basketball_goal_55",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 270
     },
     "cell=56,facing=north": {
@@ -1009,19 +1009,19 @@
       "y": 270
     },
     "cell=63,facing=north": {
-      "model": "lsmmod:block/football_basketball_goal_63",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 0
     },
     "cell=63,facing=east": {
-      "model": "lsmmod:block/football_basketball_goal_63",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 90
     },
     "cell=63,facing=south": {
-      "model": "lsmmod:block/football_basketball_goal_63",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 180
     },
     "cell=63,facing=west": {
-      "model": "lsmmod:block/football_basketball_goal_63",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 270
     },
     "cell=64,facing=north": {
@@ -1137,19 +1137,19 @@
       "y": 270
     },
     "cell=71,facing=north": {
-      "model": "lsmmod:block/football_basketball_goal_71",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 0
     },
     "cell=71,facing=east": {
-      "model": "lsmmod:block/football_basketball_goal_71",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 90
     },
     "cell=71,facing=south": {
-      "model": "lsmmod:block/football_basketball_goal_71",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 180
     },
     "cell=71,facing=west": {
-      "model": "lsmmod:block/football_basketball_goal_71",
+      "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 270
     },
     "cell=72,facing=north": {
@@ -2301,6 +2301,294 @@
       "y": 180
     },
     "cell=143,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 270
+    },
+    "cell=144,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_144",
+      "y": 0
+    },
+    "cell=144,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_144",
+      "y": 90
+    },
+    "cell=144,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_144",
+      "y": 180
+    },
+    "cell=144,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_144",
+      "y": 270
+    },
+    "cell=145,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_145",
+      "y": 0
+    },
+    "cell=145,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_145",
+      "y": 90
+    },
+    "cell=145,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_145",
+      "y": 180
+    },
+    "cell=145,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_145",
+      "y": 270
+    },
+    "cell=146,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_146",
+      "y": 0
+    },
+    "cell=146,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_146",
+      "y": 90
+    },
+    "cell=146,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_146",
+      "y": 180
+    },
+    "cell=146,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_146",
+      "y": 270
+    },
+    "cell=147,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_147",
+      "y": 0
+    },
+    "cell=147,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_147",
+      "y": 90
+    },
+    "cell=147,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_147",
+      "y": 180
+    },
+    "cell=147,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_147",
+      "y": 270
+    },
+    "cell=148,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 0
+    },
+    "cell=148,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 90
+    },
+    "cell=148,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 180
+    },
+    "cell=148,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 270
+    },
+    "cell=149,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 0
+    },
+    "cell=149,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 90
+    },
+    "cell=149,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 180
+    },
+    "cell=149,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 270
+    },
+    "cell=150,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_150",
+      "y": 0
+    },
+    "cell=150,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_150",
+      "y": 90
+    },
+    "cell=150,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_150",
+      "y": 180
+    },
+    "cell=150,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_150",
+      "y": 270
+    },
+    "cell=151,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_151",
+      "y": 0
+    },
+    "cell=151,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_151",
+      "y": 90
+    },
+    "cell=151,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_151",
+      "y": 180
+    },
+    "cell=151,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_151",
+      "y": 270
+    },
+    "cell=152,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_152",
+      "y": 0
+    },
+    "cell=152,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_152",
+      "y": 90
+    },
+    "cell=152,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_152",
+      "y": 180
+    },
+    "cell=152,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_152",
+      "y": 270
+    },
+    "cell=153,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_153",
+      "y": 0
+    },
+    "cell=153,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_153",
+      "y": 90
+    },
+    "cell=153,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_153",
+      "y": 180
+    },
+    "cell=153,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_153",
+      "y": 270
+    },
+    "cell=154,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 0
+    },
+    "cell=154,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 90
+    },
+    "cell=154,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 180
+    },
+    "cell=154,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 270
+    },
+    "cell=155,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 0
+    },
+    "cell=155,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 90
+    },
+    "cell=155,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 180
+    },
+    "cell=155,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 270
+    },
+    "cell=156,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_156",
+      "y": 0
+    },
+    "cell=156,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_156",
+      "y": 90
+    },
+    "cell=156,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_156",
+      "y": 180
+    },
+    "cell=156,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_156",
+      "y": 270
+    },
+    "cell=157,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_157",
+      "y": 0
+    },
+    "cell=157,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_157",
+      "y": 90
+    },
+    "cell=157,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_157",
+      "y": 180
+    },
+    "cell=157,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_157",
+      "y": 270
+    },
+    "cell=158,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_158",
+      "y": 0
+    },
+    "cell=158,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_158",
+      "y": 90
+    },
+    "cell=158,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_158",
+      "y": 180
+    },
+    "cell=158,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_158",
+      "y": 270
+    },
+    "cell=159,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_159",
+      "y": 0
+    },
+    "cell=159,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_159",
+      "y": 90
+    },
+    "cell=159,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_159",
+      "y": 180
+    },
+    "cell=159,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_159",
+      "y": 270
+    },
+    "cell=160,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 0
+    },
+    "cell=160,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 90
+    },
+    "cell=160,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 180
+    },
+    "cell=160,facing=west": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 270
+    },
+    "cell=161,facing=north": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 0
+    },
+    "cell=161,facing=east": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 90
+    },
+    "cell=161,facing=south": {
+      "model": "lsmmod:block/football_basketball_goal_empty",
+      "y": 180
+    },
+    "cell=161,facing=west": {
       "model": "lsmmod:block/football_basketball_goal_empty",
       "y": 270
     }

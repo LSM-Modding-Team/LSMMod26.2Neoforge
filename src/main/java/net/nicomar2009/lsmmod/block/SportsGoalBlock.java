@@ -28,7 +28,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 /** One item places an 8-wide, 6-high, 3-deep goal and basketball hoop. */
 public class SportsGoalBlock extends Block {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final IntegerProperty CELL = IntegerProperty.create("cell", 0, 143);
+    public static final IntegerProperty CELL = IntegerProperty.create("cell", 0, 161);
     private static final VoxelShape[][] COLLISION = buildShapes();
 
     public SportsGoalBlock(Properties properties) {
@@ -37,8 +37,8 @@ public class SportsGoalBlock extends Block {
     }
 
     private static VoxelShape[][] buildShapes() {
-        VoxelShape[][] result = new VoxelShape[144][4];
-        for (int i = 0; i < 144; i++) {
+        VoxelShape[][] result = new VoxelShape[162][4];
+        for (int i = 0; i < 162; i++) {
             result[i] = SharedChairRotations.horizontal(ExactVoxelShapes.pixels(SportsGoalShapes.CELLS[i]));
         }
         return result;
@@ -47,15 +47,20 @@ public class SportsGoalBlock extends Block {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) { builder.add(FACING, CELL); }
 
+    // Existing cell IDs 0..143 retain their original coordinates; extra column is appended.
+    private static int column(int index) { return index<144 ? index%8 : 8; }
+    private static int row(int index) { return index<144 ? index/8%6 : (index-144)%6; }
+    private static int depth(int index) { return index<144 ? index/48 : (index-144)/6; }
+    private static int encode(int column,int row,int depth) { return column<8 ? column+8*row+48*depth : 144+row+6*depth; }
     private static BlockPos cell(BlockPos origin, Direction facing, int index) {
-        return origin.relative(facing.getClockWise(), index % 8).above(index / 8 % 6)
-                .relative(facing.getOpposite(), index / 48);
+        return origin.relative(facing.getClockWise(), column(index)).above(row(index))
+                .relative(facing.getOpposite(), depth(index));
     }
 
     private static BlockPos origin(BlockPos pos, BlockState state) {
         int index = state.getValue(CELL);
         Direction facing = state.getValue(FACING);
-        return pos.relative(facing.getClockWise(), -(index % 8)).below(index / 8 % 6).relative(facing, index / 48);
+        return pos.relative(facing.getClockWise(), -(column(index))).below(row(index)).relative(facing, depth(index));
     }
 
     private boolean matches(BlockState state, Direction facing, int index) {
@@ -63,7 +68,7 @@ public class SportsGoalBlock extends Block {
     }
 
     private static boolean supported(LevelReader level, BlockPos origin, Direction facing) {
-        for (int index : new int[]{0, 7, 96, 103}) {
+        for (int index : new int[]{0, 144, 96, 156}) {
             BlockPos below = cell(origin, facing, index).below();
             if (!level.getBlockState(below).isFaceSturdy(level, below, Direction.UP)) return false;
         }
@@ -82,7 +87,7 @@ public class SportsGoalBlock extends Block {
         Player player = context.getPlayer();
         BlockPos origin = context.getClickedPos();
         BlockState base = defaultBlockState().setValue(FACING, facing);
-        for (int index = 0; index < 144; index++) {
+        for (int index = 0; index < 162; index++) {
             BlockPos target = cell(origin, facing, index);
             if (!level.hasChunkAt(target) || level.isOutsideBuildHeight(target)
                     || !level.getWorldBorder().isWithinBounds(target)
@@ -162,7 +167,7 @@ public class SportsGoalBlock extends Block {
         Direction facing = state.getValue(FACING);
         Direction reflected = mirror.mirror(facing);
         int index = state.getValue(CELL);
-        int column = mirror.mirror(facing.getClockWise()) == reflected.getClockWise() ? index % 8 : 7 - index % 8;
-        return state.setValue(FACING, reflected).setValue(CELL, column + 8 * (index / 8 % 6) + 48 * (index / 48));
+        int column = mirror.mirror(facing.getClockWise()) == reflected.getClockWise() ? column(index) : 8 - column(index);
+        return state.setValue(FACING, reflected).setValue(CELL, encode(column,row(index),depth(index)));
     }
 }

@@ -10,7 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "src/main/resources/assets/lsmmod"
 DATA = ROOT / "src/main/resources/data"
 ID = "football_basketball_goal"
-WIDTH, HEIGHT, DEPTH = 8, 6, 3
+WIDTH, HEIGHT, DEPTH = 9, 6, 3
+SHIFT_X = 8
 # North-facing mouth; the rear shoulders slope from z30 at the top to z46 below.
 PARTS = [
     ([0, 0, 14, 2, 64, 16], "frame"), ([126, 0, 14, 128, 64, 16], "frame"),
@@ -56,13 +57,22 @@ for y in range(64, 72):
 
 
 
+for part in PARTS:
+    part[0][0] += SHIFT_X
+    part[0][3] += SHIFT_X
+
+
 def write_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
 
 
 def index(column, row, depth):
-    return column+WIDTH*row+WIDTH*HEIGHT*depth
+    return column+8*row+48*depth if column<8 else 144+row+6*depth
+
+
+def coordinates(cell):
+    return (cell%8,cell//8%6,cell//48) if cell<144 else (8,(cell-144)%6,(cell-144)//6)
 
 
 def clips(bounds, column, row, depth):
@@ -76,10 +86,10 @@ def uv_for(direction, low, high, origin, material):
     local_low = [low[a]-origin[a] for a in range(3)]
     local_high = [high[a]-origin[a] for a in range(3)]
     if material == "board_front":
-        return [(high[0]-40)/3, (96-high[1])*2/3, (low[0]-40)/3, (96-low[1])*2/3]
+        return [(high[0]-40-SHIFT_X)/3, (96-high[1])*2/3, (low[0]-40-SHIFT_X)/3, (96-low[1])*2/3]
     if material == "basket_net":
         if direction in ("north", "south"):
-            return [(high[0]-57.5)*16/13, (72-high[1])*2, (low[0]-57.5)*16/13, (72-low[1])*2]
+            return [(high[0]-57.5-SHIFT_X)*16/13, (72-high[1])*2, (low[0]-57.5-SHIFT_X)*16/13, (72-low[1])*2]
         if direction in ("east", "west"):
             return [(high[2]-1.5)*16/9, (72-high[1])*2, (low[2]-1.5)*16/9, (72-low[1])*2]
     if direction == "north": return [local_high[0], 16-local_high[1], local_low[0], 16-local_low[1]]
@@ -161,11 +171,11 @@ def main():
     write_json(ASSETS / f"blockstates/{ID}.json", {"variants": variants})
     item_elements = []
     for cell, value in all_cells.items():
-        column, row, depth = cell%WIDTH, (cell//WIDTH)%HEIGHT, cell//(WIDTH*HEIGHT)
+        column, row, depth = coordinates(cell)
         for element in value["elements"]:
             e = json.loads(json.dumps(element))
             for side in ("from", "to"):
-                e[side] = [(e[side][0]+column*16)/WIDTH, 1+(e[side][1]+row*16)/WIDTH, 4+(e[side][2]+depth*16)/WIDTH]
+                e[side] = [(e[side][0]+column*16-SHIFT_X)/8, 1+(e[side][1]+row*16)/8, 4+(e[side][2]+depth*16)/8]
             item_elements.append(e)
     write_json(ASSETS / f"models/item/{ID}.json", {"parent": "minecraft:block/block", "render_type": "minecraft:cutout", "textures": mappings, "elements": item_elements})
     write_json(ASSETS / f"items/{ID}.json", {"model": {"type": "minecraft:model", "model": f"lsmmod:item/{ID}"}})
