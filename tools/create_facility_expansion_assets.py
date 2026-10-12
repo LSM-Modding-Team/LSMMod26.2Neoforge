@@ -10,7 +10,7 @@ FACES=('north','south','east','west','up','down')
 MICROWAVE=[([1,1,2,15,10,14],'metal'),([1,1,1,11,9,2],'black'),([2,2,.75,10,8,1],'glass'),([11,1,1,15,9,2],'metal'),([11.5,3,.5,12.25,7,1],'metal'),([13,5,.75,14,7,1],'black'),([13,2.5,.75,14,3.5,1],'button')]
 DINING_FIXED=[([24,0,0,32,40,16],'white',{'east':'light','north':'light'}),([0,40,0,32,48,8],'glass')]
 # A real opening in the wooden leaf, with vanilla bordered glass inset into it.
-DINING_LEAF=[([0,0,0,24,6,4],'bottom'),([0,6,0,8,16,4],'bottom'),([20,6,0,24,16,4],'bottom'),([0,16,0,8,32,4],'top'),([20,16,0,24,32,4],'top'),([0,32,0,24,40,4],'top'),([8,6,1,20,32,3],'window')]
+DINING_LEAF=[([0,0,0,24,6,4],'bottom'),([0,6,0,8,20,4],'bottom'),([20,6,0,24,20,4],'bottom'),([0,20,0,8,32,4],'top'),([20,20,0,24,32,4],'top'),([0,32,0,24,40,4],'top'),([8,6,1,20,32,3],'window')]
 DINING_CLOSED=DINING_FIXED+DINING_LEAF
 DINING_OPEN=DINING_FIXED+[([b[2],b[1],b[0],b[5],b[4],b[3]],mat) for b,mat in DINING_LEAF]
 
@@ -170,7 +170,7 @@ def main():
       parts=clipped(DINING_OPEN if op else DINING_CLOSED,col,row,depth,right)
       if not op and depth>0:parts=[]
       for layer in ('solid','translucent','cutout'):
-       subset=[p for p in parts if p[1] not in ('glass','window') and ('translucent' if p[1]=='glass' else 'cutout' if p[1]=='window' else 'solid')==layer]
+       subset=[p for p in parts if p[1] not in ('glass','window') and ('translucent' if p[1]=='glass' else 'cutout' if p[1] in ('window','bottom','top') else 'solid')==layer]
        if not subset:continue
        value=mesh(subset,tex);value['render_type']='minecraft:'+layer
        for e in value['elements']:
@@ -189,13 +189,9 @@ def main():
           u0,u1=(lo-8)*16/12,(hi-8)*16/12
           if face==('west' if op else 'north'):u0,u1=u1,u0
           s['uv']=[u0,(32-e['to'][1]-row*16)*16/26,u1,(32-e['from'][1]-row*16)*16/26]
-         if s['texture'] in ('#bottom','#top') and face in (('west','east') if op else ('north','south')):
-          axis=2 if op else 0;offset=depth*16 if op else col*16;lo=e['from'][axis]+offset;hi=e['to'][axis]+offset
-          if right and not op:lo,hi=32-hi,32-lo
-          u0,u1=lo*16/24,hi*16/24
-          if face==('west' if op else 'north'):u0,u1=u1,u0
-          end,height=(16,16) if s['texture']=='#bottom' else (40,24)
-          s['uv']=[u0,(end-e['to'][1]-row*16)*16/height,u1,(end-e['from'][1]-row*16)*16/height]
+         if s['texture'] in ('#bottom','#top'):
+          from framed_door_texture_uv import leaf_face
+          leaf_face(e,face,s,col,row,depth,op,right)
        value['elements']=[e for e in value['elements'] if e['faces']]
        if not value['elements']:continue
        key=json.dumps(value,sort_keys=True)
@@ -208,6 +204,8 @@ def main():
  write(A/'blockstates/dining_door_wide.json',{'multipart':multipart})
  # Keep opaque wood and both kinds of glass in their own inventory layers as well.
  layered_item('dining_door_wide',[(layer,[p for p in DINING_CLOSED if p[1] in materials]) for layer,materials in [('solid',('white','bottom','top')),('translucent',('glass',)),('cutout',('window',))]],tex,32,48)
+ from framed_door_texture_uv import fix_item
+ fix_item(write)
  from create_framed_door_glazing import item_transom
  item_transom(write)
  basic('dining_door_wide',controller={'column':'0','row':'0','depth':'0'})

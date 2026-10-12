@@ -76,6 +76,14 @@ Recoloca las camillas/estatuas antiguas para obtener las dimensiones nuevas.
   Los modelos de ítem de puerta y vitrina usan componentes Fusion base con
   geometría real y capas de renderizado independientes.
 
+Las dos puertas con marco usan las texturas originales de sus versiones pequeñas:
+mitad inferior Y0..20 y superior Y20..40, escala vertical uniforme de 1,25 y
+horizontal de 1,5. Las caras comparten coordenadas UV globales al dividirse
+entre celdas; los cantos usan las tres columnas de textura de la puerta vanilla.
+El inventario utiliza ese mismo mapeo. La madera usa cutout, como las puertas
+pequeñas, para conservar los píxeles transparentes de dining_door. Generador
+auxiliar `tools/framed_door_texture_uv.py`; sin modificar los PNG originales.
+
 ## Verificación
 
 `check_facility_expansion_assets.py`: 604 estados, cobertura de variantes/capas,
