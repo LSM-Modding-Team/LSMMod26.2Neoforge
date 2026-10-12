@@ -58,7 +58,7 @@ public class SchoolGlassBlock extends Block {
                 ? face : context.getHorizontalDirection().getOpposite());
         if (face.getAxis().isVertical()) {
             BlockState neighbor = context.getLevel().getBlockState(context.getClickedPos().relative(face.getOpposite()));
-            if (neighbor.getBlock() instanceof SchoolGlassBlock || neighbor.getBlock() instanceof SchoolGlassStairBlock
+            if (SchoolGlazing.isFramedTransom(neighbor) || neighbor.getBlock() instanceof SchoolGlassBlock || neighbor.getBlock() instanceof SchoolGlassStairBlock
                     || (neighbor.getBlock() instanceof TallClassroomEntranceBlock && neighbor.getValue(TallClassroomEntranceBlock.ROW)==2))
                 state=state.setValue(FACING,neighbor.getValue(FACING));
         }

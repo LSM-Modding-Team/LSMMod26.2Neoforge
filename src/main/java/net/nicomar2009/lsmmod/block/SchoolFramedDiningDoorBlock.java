@@ -30,7 +30,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-/** A 2x3 framed bathroom-textured leaf, bordered glass window and fixed transom. */
+/** Shared 2x3 dining/bathroom doors with one visual window and a connected fixed transom. */
 public class SchoolFramedDiningDoorBlock extends Block {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
@@ -246,7 +246,12 @@ public class SchoolFramedDiningDoorBlock extends Block {
                 }
             }
         }
-        if (!complete || !supported(level, origin, facing)) dismantle(level, origin, facing, true, null);
+        if (!complete || !supported(level, origin, facing)) {
+            dismantle(level, origin, facing, true, null);
+        } else {
+            for (int column=0; column<2; column++)
+                SchoolGlazing.refreshHorizontal(level, cell(origin,facing,column,2,0));
+        }
     }
 
     private void dismantle(Level level, BlockPos origin, Direction facing, boolean drop, BlockPos mined) {

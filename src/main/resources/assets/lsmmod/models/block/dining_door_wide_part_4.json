@@ -1,13 +1,13 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "bottom": "lsmmod:block/bathroom_door_bottom",
-    "top": "lsmmod:block/bathroom_door_top",
+    "bottom": "lsmmod:block/dining_door_bottom",
+    "top": "lsmmod:block/dining_door_top",
     "white": "lsmmod:block/classroom_white_wall",
     "light": "lsmmod:block/light_school_wall",
     "glass": "lsmmod:block/school_glass",
     "window": "minecraft:block/glass",
-    "particle": "lsmmod:block/bathroom_door_bottom"
+    "particle": "lsmmod:block/dining_door_bottom"
   },
   "elements": [
     {
@@ -17,8 +17,8 @@
         0
       ],
       "to": [
-        8,
         16,
+        8,
         4
       ],
       "faces": {
@@ -40,8 +40,8 @@
         0
       ],
       "to": [
-        8,
         16,
+        8,
         4
       ],
       "faces": {
@@ -63,8 +63,8 @@
         0
       ],
       "to": [
-        8,
         16,
+        8,
         4
       ],
       "faces": {
@@ -86,8 +86,8 @@
         0
       ],
       "to": [
-        8,
         16,
+        8,
         4
       ],
       "faces": {
@@ -109,18 +109,18 @@
         0
       ],
       "to": [
-        8,
         16,
+        8,
         4
       ],
       "faces": {
         "north": {
           "texture": "#top",
           "uv": [
-            5.333333333333333,
-            5.333333333333333,
+            10.666666666666666,
             0.0,
-            16.0
+            0.0,
+            5.333333333333333
           ]
         }
       }
@@ -132,8 +132,8 @@
         0
       ],
       "to": [
-        8,
         16,
+        8,
         4
       ],
       "faces": {
@@ -141,9 +141,9 @@
           "texture": "#top",
           "uv": [
             0.0,
-            5.333333333333333,
-            5.333333333333333,
-            16.0
+            0.0,
+            10.666666666666666,
+            5.333333333333333
           ]
         }
       }

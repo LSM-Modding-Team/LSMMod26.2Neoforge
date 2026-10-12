@@ -34,19 +34,37 @@ Recoloca las camillas/estatuas antiguas para obtener las dimensiones nuevas.
 ## Bloques nuevos en School Functional Blocks
 
 - `dining_door_wide`: conjunto de 2×3. La hoja de madera mide 24×40 px
-  (1.5×2.5) y utiliza las texturas originales de bathroom_door. Su abertura
+  (1.5×2.5) y utiliza las texturas originales de dining_door. Su abertura
   de 12×26 px (X8..20/Y6..32) lleva vidrio vanilla con su borde, insertado
   a Z1..3 dentro de los 4 px de grosor de la hoja. La franja superior completa
-  mide 32×8×16 px y usa school_glass. No se generan tapas interiores al dividir
-  el cristal entre celdas; las UV conservan un único borde en la ventana.
+  mide 32×8×8 px y usa el cristal/marco de school_glass, con el mismo espesor
+  y posición que las demás piezas escolares. El modelo Fusion del dintel
+  selecciona las máscaras de SchoolGlazing sin añadir propiedades al bloque:
+  suprime el borde superior al conectar con cristal encima y comparte los
+  separadores horizontales, incluso junto a school_glass completo. Se comprueban
+  orientación, huella y contacto; no conecta con el tramo inferior de vidrio
+  de una escalera invertida. El cristal escolar colocado encima hereda su
+  orientación; las filas se refrescan al colocar, abrir, cerrar o retirar.
+  Las tapas del cristal conectadas desaparecen sin ocultar las caras del muro.
+  La ventana vanilla se dibuja una sola vez desde una celda inferior con un
+  elemento completo de 12×26 px y UV0..16; sus límites quedan dentro del rango
+  nativo de modelos -16..32. Evita las uniones y diferencias de contracción UV
+  de varias piezas. Las colisiones y la selección permanecen en cada celda.
   La franja lateral de medio bloque usa classroom_white_wall, salvo la cara
-  exterior que limita con el bloque vecino: esa cara usa light_school_wall.
+  exterior que limita con el bloque vecino y el frente marcado en verde en
+  la última referencia: esas caras usan light_school_wall. La cara posterior,
+  interior, superior e inferior conservan el blanco.
   Dos bisagras, cuatro orientaciones, 192 estados. Se coloca sobre el suelo
   mediante BlockItem, sin exigir clic en un marco o pared; el lado del clic y
   los bloques contiguos eligen la bisagra. Clic derecho abre/cierra.
   Al abrir se reservan tres celdas adicionales para los 8 px del giro que exceden
   la profundidad original; apertura y cierre comprueban todo antes de modificar
   el mundo. El vidrio y la franja lateral permanecen fijos.
+- `bathroom_door_wide`: variante independiente de la misma puerta con marco,
+  textura de madera bathroom_door, ítem, drop, traducciones y etiqueta de hacha
+  propios. 192 estados; misma clase, colisiones y conexiones. Los modelos
+  estáticos heredan los de dining_door_wide cambiando únicamente las texturas
+  de madera; el dintel dinámico y los cuatro modelos de ventana son compartidos.
 - `school_microwave`: microondas decorativo de una celda, cuerpo claro,
   puerta oscura, ventana opaca, tirador y controles. Cuatro estados.
 - `school_trophy_gallery`: vitrina de 6×4×0,75 con seis columnas, cuatro niveles y
@@ -60,10 +78,16 @@ Recoloca las camillas/estatuas antiguas para obtener las dimensiones nuevas.
 
 ## Verificación
 
-`check_facility_expansion_assets.py`: 412 estados, cobertura de variantes/capas,
+`check_facility_expansion_assets.py`: 604 estados, cobertura de variantes/capas,
 dimensiones, vidrio opaco entre las nueve casillas, rutas antiguas, giro y material
 exterior de la puerta, ventana/dintel/materiales/UV/bisagras, dimensión exacta
 de vitrina, perfiles/alturas/metales de los premios, soporte virtual, cachés e idempotencia.
+`check_framed_door_glazing.py`: las 32 máscaras de conexión, profundidad de
+8px, tapas/bordes retirados, una sola ventana en las 32 combinaciones de
+variante/orientación/apertura/bisagra, UV completa y materiales/ítems/drops.
+`check_horizontal_glazing.py`, `check_glazing_face_culling.py` y
+`check_school_glass.py`: regresión de conexiones escolares existentes,
+espaciado par/impar y caras expuestas junto a puertas/escaleras.
 `check_kiosk_entrance_assets.py`, `check_bathroom_statue_assets.py`,
 `check_furniture_direct_grids.py` y `check_optimized_model_resources.py`: regresiones
 de los conjuntos originales, colisiones originales compartidas y referencias/UV.

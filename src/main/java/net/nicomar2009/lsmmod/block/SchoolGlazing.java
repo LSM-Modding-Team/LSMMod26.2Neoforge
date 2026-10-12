@@ -15,14 +15,19 @@ public final class SchoolGlazing {
     /** Bits: left edge, right edge, middle post. Collision stays unchanged. */
     public static final IntegerProperty FRAME_LAYOUT = IntegerProperty.create("frame_layout", 0, 7);
     private SchoolGlazing() {}
+    public static boolean isFramedTransom(BlockState state) {
+        return state.getBlock() instanceof SchoolFramedDiningDoorBlock
+                && state.getValue(SchoolFramedDiningDoorBlock.ROW)==2
+                && state.getValue(SchoolFramedDiningDoorBlock.DEPTH)==0;
+    }
     public static boolean isGlass(BlockState state) {
-        return state.getBlock() instanceof SchoolGlassBlock || state.getBlock() instanceof SchoolGlassStairBlock
+        return isFramedTransom(state) || state.getBlock() instanceof SchoolGlassBlock || state.getBlock() instanceof SchoolGlassStairBlock
                 || (state.getBlock() instanceof TallClassroomEntranceBlock && state.getValue(TallClassroomEntranceBlock.ROW)==2)
                 || (state.getBlock() instanceof DoubleSchoolEntranceBlock && state.getValue(DoubleSchoolEntranceBlock.ROW)==2 && state.getValue(DoubleSchoolEntranceBlock.DEPTH)==0);
     }
     private static boolean reachesBottom(BlockState state) {
         if(state.getBlock() instanceof SchoolGlassStairBlock)return state.getValue(StairBlock.HALF)==Half.TOP;
-        if(state.getBlock() instanceof TallClassroomEntranceBlock||state.getBlock() instanceof DoubleSchoolEntranceBlock)return false;
+        if(isFramedTransom(state)||state.getBlock() instanceof TallClassroomEntranceBlock||state.getBlock() instanceof DoubleSchoolEntranceBlock)return false;
         return ((SchoolGlassBlock)state.getBlock()).glassReachesBottom();
     }
     private static boolean reachesTop(BlockState state) {
@@ -45,12 +50,15 @@ public final class SchoolGlazing {
         if (!isGlass(state) || footprint(state) != 3) return -1;
         if (state.getBlock() instanceof SchoolGlassStairBlock)
             return state.getValue(StairBlock.HALF) == Half.TOP ? 1 : 2;
-        return state.getBlock() instanceof TallClassroomEntranceBlock || state.getBlock() instanceof DoubleSchoolEntranceBlock ? 2 : 0;
+        return isFramedTransom(state) || state.getBlock() instanceof TallClassroomEntranceBlock || state.getBlock() instanceof DoubleSchoolEntranceBlock ? 2 : 0;
     }
 
     private static boolean sameRow(BlockState state, BlockState other) {
-        return band(state) >= 0 && band(state) == band(other)
-                && state.getValue(SchoolGlassBlock.FACING) == other.getValue(SchoolGlassBlock.FACING);
+        int a=band(state),b=band(other);
+        boolean overlap=a==b || ((isFramedTransom(state)||isFramedTransom(other))
+                && (a==0||a==2) && (b==0||b==2));
+        return a>=0 && b>=0 && overlap
+                && state.getValue(SchoolGlassBlock.FACING)==other.getValue(SchoolGlassBlock.FACING);
     }
 
     public static boolean connectsHorizontal(BlockState state,BlockState neighbor,Direction side) {
@@ -95,9 +103,9 @@ public final class SchoolGlazing {
             BlockPos start=pos;
             int index=0;
             while(level.hasChunkAt(start.relative(right.getOpposite()))
-                    &&sameRow(state,level.getBlockState(start.relative(right.getOpposite())))) {start=start.relative(right.getOpposite());index++;}
+                    &&sameRow(level.getBlockState(start),level.getBlockState(start.relative(right.getOpposite())))) {start=start.relative(right.getOpposite());index++;}
             int length=0;
-            while(level.hasChunkAt(start.relative(right,length))&&sameRow(state,level.getBlockState(start.relative(right,length))))length++;
+            while(level.hasChunkAt(start.relative(right,length))&&(length==0||sameRow(level.getBlockState(start.relative(right,length-1)),level.getBlockState(start.relative(right,length)))))length++;
             if(level.hasChunkAt(start.relative(right.getOpposite()))&&level.hasChunkAt(start.relative(right,length))) {
                 int x=16*index,spacing=length%2==0?32:24;
                 mask=(index==0||x%spacing==0?1:0)|(index==length-1||(x+16)%spacing==0?2:0)|((x+8)%spacing==0?4:0);
@@ -119,11 +127,11 @@ public final class SchoolGlazing {
         Direction right = state.getValue(SchoolGlassBlock.FACING).getClockWise();
         BlockPos start = pos;
         while (level.hasChunkAt(start.relative(right.getOpposite()))
-                && sameRow(state, level.getBlockState(start.relative(right.getOpposite()))))
+                && sameRow(level.getBlockState(start), level.getBlockState(start.relative(right.getOpposite()))))
             start = start.relative(right.getOpposite());
         int length = 0;
         while (level.hasChunkAt(start.relative(right, length))
-                && sameRow(state, level.getBlockState(start.relative(right, length)))) length++;
+                && (length==0||sameRow(level.getBlockState(start.relative(right,length-1)),level.getBlockState(start.relative(right,length))))) length++;
         if(!level.hasChunkAt(start.relative(right.getOpposite())) || !level.hasChunkAt(start.relative(right,length))) {
             level.scheduleTick(pos,state.getBlock(),20);
             return;

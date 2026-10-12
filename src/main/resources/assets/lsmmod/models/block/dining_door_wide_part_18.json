@@ -1,13 +1,13 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "bottom": "lsmmod:block/bathroom_door_bottom",
-    "top": "lsmmod:block/bathroom_door_top",
+    "bottom": "lsmmod:block/dining_door_bottom",
+    "top": "lsmmod:block/dining_door_top",
     "white": "lsmmod:block/classroom_white_wall",
     "light": "lsmmod:block/light_school_wall",
     "glass": "lsmmod:block/school_glass",
     "window": "minecraft:block/glass",
-    "particle": "lsmmod:block/bathroom_door_bottom"
+    "particle": "lsmmod:block/dining_door_bottom"
   },
   "elements": [
     {
@@ -18,12 +18,12 @@
       ],
       "to": [
         16,
-        16,
-        4
+        8,
+        16
       ],
       "faces": {
         "west": {
-          "texture": "#top",
+          "texture": "#white",
           "uv": [
             0,
             0,
@@ -41,12 +41,12 @@
       ],
       "to": [
         16,
-        16,
-        4
+        8,
+        16
       ],
       "faces": {
         "east": {
-          "texture": "#top",
+          "texture": "#light",
           "uv": [
             0,
             0,
@@ -64,12 +64,12 @@
       ],
       "to": [
         16,
-        16,
-        4
+        8,
+        16
       ],
       "faces": {
         "down": {
-          "texture": "#top",
+          "texture": "#white",
           "uv": [
             0,
             0,
@@ -87,12 +87,12 @@
       ],
       "to": [
         16,
-        16,
-        4
+        8,
+        16
       ],
       "faces": {
         "up": {
-          "texture": "#top",
+          "texture": "#white",
           "uv": [
             0,
             0,
@@ -110,17 +110,17 @@
       ],
       "to": [
         16,
-        16,
-        4
+        8,
+        16
       ],
       "faces": {
         "north": {
-          "texture": "#top",
+          "texture": "#light",
           "uv": [
-            5.333333333333333,
-            5.333333333333333,
-            0.0,
-            16.0
+            0,
+            0,
+            16,
+            16
           ]
         }
       }
@@ -133,17 +133,17 @@
       ],
       "to": [
         16,
-        16,
-        4
+        8,
+        16
       ],
       "faces": {
         "south": {
-          "texture": "#top",
+          "texture": "#white",
           "uv": [
-            0.0,
-            5.333333333333333,
-            5.333333333333333,
-            16.0
+            0,
+            0,
+            16,
+            16
           ]
         }
       }

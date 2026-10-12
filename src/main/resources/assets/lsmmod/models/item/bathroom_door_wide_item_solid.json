@@ -1,0 +1,10 @@
+{
+  "loader": "fusion:model",
+  "type": "base",
+  "parent": "lsmmod:item/dining_door_wide_item_solid",
+  "textures": {
+    "bottom": "lsmmod:block/bathroom_door_bottom",
+    "top": "lsmmod:block/bathroom_door_top",
+    "particle": "lsmmod:block/bathroom_door_bottom"
+  }
+}

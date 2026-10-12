@@ -1,13 +1,13 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "bottom": "lsmmod:block/bathroom_door_bottom",
-    "top": "lsmmod:block/bathroom_door_top",
+    "bottom": "lsmmod:block/dining_door_bottom",
+    "top": "lsmmod:block/dining_door_top",
     "white": "lsmmod:block/classroom_white_wall",
     "light": "lsmmod:block/light_school_wall",
     "glass": "lsmmod:block/school_glass",
     "window": "minecraft:block/glass",
-    "particle": "lsmmod:block/bathroom_door_bottom"
+    "particle": "lsmmod:block/dining_door_bottom"
   },
   "elements": [
     {
@@ -17,18 +17,18 @@
         0
       ],
       "to": [
+        4,
         16,
-        6,
-        4
+        8
       ],
       "faces": {
         "west": {
-          "texture": "#bottom",
+          "texture": "#top",
           "uv": [
-            0,
-            0,
-            16,
-            16
+            5.333333333333333,
+            5.333333333333333,
+            0.0,
+            16.0
           ]
         }
       }
@@ -40,18 +40,18 @@
         0
       ],
       "to": [
+        4,
         16,
-        6,
-        4
+        8
       ],
       "faces": {
         "east": {
-          "texture": "#bottom",
+          "texture": "#top",
           "uv": [
-            0,
-            0,
-            16,
-            16
+            0.0,
+            5.333333333333333,
+            5.333333333333333,
+            16.0
           ]
         }
       }
@@ -63,13 +63,13 @@
         0
       ],
       "to": [
+        4,
         16,
-        6,
-        4
+        8
       ],
       "faces": {
         "down": {
-          "texture": "#bottom",
+          "texture": "#top",
           "uv": [
             0,
             0,
@@ -86,13 +86,13 @@
         0
       ],
       "to": [
-        8,
-        6,
-        4
+        4,
+        16,
+        8
       ],
       "faces": {
         "up": {
-          "texture": "#bottom",
+          "texture": "#top",
           "uv": [
             0,
             0,
@@ -109,18 +109,18 @@
         0
       ],
       "to": [
+        4,
         16,
-        6,
-        4
+        8
       ],
       "faces": {
         "north": {
-          "texture": "#bottom",
+          "texture": "#top",
           "uv": [
-            10.666666666666666,
-            10.0,
-            0.0,
-            16.0
+            0,
+            0,
+            16,
+            16
           ]
         }
       }
@@ -132,133 +132,18 @@
         0
       ],
       "to": [
+        4,
         16,
-        6,
-        4
+        8
       ],
       "faces": {
         "south": {
-          "texture": "#bottom",
-          "uv": [
-            0.0,
-            10.0,
-            10.666666666666666,
-            16.0
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        8,
-        6,
-        0
-      ],
-      "to": [
-        16,
-        16,
-        4
-      ],
-      "faces": {
-        "west": {
-          "texture": "#bottom",
+          "texture": "#top",
           "uv": [
             0,
             0,
             16,
             16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        8,
-        6,
-        0
-      ],
-      "to": [
-        16,
-        16,
-        4
-      ],
-      "faces": {
-        "east": {
-          "texture": "#bottom",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        8,
-        6,
-        0
-      ],
-      "to": [
-        16,
-        16,
-        4
-      ],
-      "faces": {
-        "up": {
-          "texture": "#bottom",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        8,
-        6,
-        0
-      ],
-      "to": [
-        16,
-        16,
-        4
-      ],
-      "faces": {
-        "north": {
-          "texture": "#bottom",
-          "uv": [
-            5.333333333333333,
-            0.0,
-            0.0,
-            10.0
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        8,
-        6,
-        0
-      ],
-      "to": [
-        16,
-        16,
-        4
-      ],
-      "faces": {
-        "south": {
-          "texture": "#bottom",
-          "uv": [
-            0.0,
-            0.0,
-            5.333333333333333,
-            10.0
           ]
         }
       }

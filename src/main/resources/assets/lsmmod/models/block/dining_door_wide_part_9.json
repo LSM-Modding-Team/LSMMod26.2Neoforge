@@ -1,52 +1,75 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "bottom": "lsmmod:block/bathroom_door_bottom",
-    "top": "lsmmod:block/bathroom_door_top",
+    "bottom": "lsmmod:block/dining_door_bottom",
+    "top": "lsmmod:block/dining_door_top",
     "white": "lsmmod:block/classroom_white_wall",
     "light": "lsmmod:block/light_school_wall",
     "glass": "lsmmod:block/school_glass",
     "window": "minecraft:block/glass",
-    "particle": "lsmmod:block/bathroom_door_bottom"
+    "particle": "lsmmod:block/dining_door_bottom"
   },
   "elements": [
     {
       "from": [
-        0,
         8,
+        0,
         0
       ],
       "to": [
         16,
         16,
-        16
+        4
       ],
       "faces": {
         "west": {
-          "texture": "#glass",
+          "texture": "#top",
           "uv": [
             0,
             0,
             16,
-            8
+            16
           ]
         }
       }
     },
     {
       "from": [
-        0,
         8,
+        0,
         0
       ],
       "to": [
         16,
         16,
-        16
+        4
+      ],
+      "faces": {
+        "east": {
+          "texture": "#top",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        8,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        4
       ],
       "faces": {
         "down": {
-          "texture": "#glass",
+          "texture": "#top",
           "uv": [
             0,
             0,
@@ -58,18 +81,18 @@
     },
     {
       "from": [
-        0,
         8,
+        0,
         0
       ],
       "to": [
         16,
         16,
-        16
+        4
       ],
       "faces": {
         "up": {
-          "texture": "#glass",
+          "texture": "#top",
           "uv": [
             0,
             0,
@@ -81,50 +104,50 @@
     },
     {
       "from": [
-        0,
         8,
+        0,
         0
       ],
       "to": [
         16,
         16,
-        16
+        4
       ],
       "faces": {
         "north": {
-          "texture": "#glass",
+          "texture": "#top",
           "uv": [
-            0,
-            0,
-            16,
-            8
+            5.333333333333333,
+            5.333333333333333,
+            0.0,
+            16.0
           ]
         }
       }
     },
     {
       "from": [
-        0,
         8,
+        0,
         0
       ],
       "to": [
         16,
         16,
-        16
+        4
       ],
       "faces": {
         "south": {
-          "texture": "#glass",
+          "texture": "#top",
           "uv": [
-            0,
-            0,
-            16,
-            8
+            0.0,
+            5.333333333333333,
+            5.333333333333333,
+            16.0
           ]
         }
       }
     }
   ],
-  "render_type": "minecraft:translucent"
+  "render_type": "minecraft:solid"
 }

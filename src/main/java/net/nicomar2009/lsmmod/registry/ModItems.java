@@ -27,6 +27,7 @@ public final class ModItems {
 
     // BEGIN FACILITY EXPANSIONS
     public static final DeferredItem<BlockItem> DINING_DOOR_WIDE = ITEMS.registerSimpleBlockItem(ModBlocks.DINING_DOOR_WIDE);
+    public static final DeferredItem<BlockItem> BATHROOM_DOOR_WIDE = ITEMS.registerSimpleBlockItem(ModBlocks.BATHROOM_DOOR_WIDE);
     public static final DeferredItem<BlockItem> SCHOOL_MICROWAVE = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_MICROWAVE);
     public static final DeferredItem<BlockItem> SCHOOL_TROPHY_GALLERY = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_TROPHY_GALLERY);
     // END FACILITY EXPANSIONS

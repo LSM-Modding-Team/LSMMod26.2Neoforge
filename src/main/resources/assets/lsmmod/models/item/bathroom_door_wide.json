@@ -1,0 +1,20 @@
+{
+  "loader": "fusion:model",
+  "type": "composite",
+  "textures": {
+    "bottom": "lsmmod:block/bathroom_door_bottom",
+    "top": "lsmmod:block/bathroom_door_top",
+    "white": "lsmmod:block/classroom_white_wall",
+    "light": "lsmmod:block/light_school_wall",
+    "glass": "lsmmod:block/school_glass",
+    "window": "minecraft:block/glass",
+    "particle": "lsmmod:block/bathroom_door_bottom"
+  },
+  "models": [
+    [
+      "lsmmod:item/bathroom_door_wide_item_solid",
+      "lsmmod:item/bathroom_door_wide_item_translucent",
+      "lsmmod:item/bathroom_door_wide_item_cutout"
+    ]
+  ]
+}
