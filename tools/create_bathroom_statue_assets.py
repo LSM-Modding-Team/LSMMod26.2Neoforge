@@ -209,6 +209,8 @@ def main():
     # Keep the corrected two-block fixtures when regenerating the original asset family.
     from create_tall_bathroom_assets import main as rebuild_tall_fixtures
     rebuild_tall_fixtures()
+    from create_san_martin_display import generate as rebuild_san_martin
+    rebuild_san_martin()
 
 
 if __name__ == "__main__":

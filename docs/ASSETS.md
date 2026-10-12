@@ -37,6 +37,7 @@ Nombres de generadores/checks bajo `tools/`; úsalo como índice, no como lista 
 | Textura de cubo/suelo | `classroom_floor`, `school_parquet` | `create_classroom_surfaces.py`, `create_school_parquet_assets.py` |
 | Decoración pequeña orientable | `SchoolPassiveAccessoryBlock`, `SchoolRouterBlock` | `create_school_cabinet_and_router.py` / `check_school_cabinet_and_router.py` |
 | Mueble de varias celdas | `SchoolRectangularBlock`, `WideBathroomBlock` | `create_facility_expansion_assets.py` / `check_facility_expansion_assets.py` |
+| San Martín en vitrina | Caja blanca 2×2,5×1; estatua centrada 1×2, cristal frontal; ítem EPIC | `create_san_martin_display.py` / `check_bathroom_statue_assets.py`; render `render_san_martin_display.py` |
 | Puertas anchas y cristal fijo | `SchoolFramedDiningDoorBlock`, `SchoolGlazing` | `create_facility_expansion_assets.py`, `create_framed_door_glazing.py` / `check_framed_door_glazing.py` |
 | Enfermería y frente claro | Mismos perfiles físicos y dos canales de cristal | `create_infirmary_door_assets.py` / `check_infirmary_door_assets.py` |
 | Cristal, escaleras y cortinas | `SchoolGlassBlock`, `SchoolGlassStairBlock` | `create_school_glass_assets.py`, `create_school_curtain_assets.py` / `check_school_glass.py`, `check_compact_school_glazing.py` |

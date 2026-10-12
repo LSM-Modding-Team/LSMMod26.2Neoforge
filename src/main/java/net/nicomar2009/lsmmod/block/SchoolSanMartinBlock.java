@@ -31,7 +31,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-/** Expanded 2x3 statue with compatibility for original two-half instances. */
+/** White 2x2.5x1 display with compatibility for original two-half statues. */
 public class SchoolSanMartinBlock extends TwoTallBlock {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
@@ -45,9 +45,9 @@ public class SchoolSanMartinBlock extends TwoTallBlock {
 
     public static final BooleanProperty EXPANDED=BooleanProperty.create("expanded");
     public SchoolSanMartinBlock(Properties properties) {
-        this(properties,SchoolFacilityShapes.STATUE,SchoolFacilityShapes.STATUE,false,3,false);
+        this(properties,SchoolFacilityShapes.STATUE,false,3,false);
     }
-    private SchoolSanMartinBlock(Properties properties,double[][] closed,double[][] opened,boolean wallMounted,int height,boolean operable) {
+    private SchoolSanMartinBlock(Properties properties,double[][] closed,boolean wallMounted,int height,boolean operable) {
         super(properties);
         this.wallMounted = wallMounted;
         this.height = height;
@@ -55,10 +55,10 @@ public class SchoolSanMartinBlock extends TwoTallBlock {
         collisions = new VoxelShape[2][height][2][4];
         var sharedRotations = new java.util.HashMap<java.util.List<net.minecraft.world.phys.AABB>, java.util.Map<Direction,VoxelShape>>();
         for (int open = 0; open < 2; open++) {
-            if (open == 1 && closed == opened) { collisions[open] = collisions[0]; continue; }
+            if (open == 1) { collisions[open] = collisions[0]; continue; }
             for (int half = 0; half < height; half++) for (int column = 0; column < 2; column++) {
                 java.util.List<net.minecraft.world.phys.AABB> volumes = new java.util.ArrayList<>();
-                for (double[] b : open == 0 ? closed : opened) {
+                for (double[] b : closed) {
                     double x0 = Math.max(b[0], column*16), x1 = Math.min(b[3], column*16+16);
                     double y0 = Math.max(b[1], half*16), y1 = Math.min(b[4], half*16+16);
                     if (x0 < x1 && y0 < y1) volumes.add(ExactVoxelShapes.box(

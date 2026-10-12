@@ -2,7 +2,7 @@
 import copy,json,re
 from pathlib import Path
 from PIL import Image
-from create_bathroom_statue_assets import STATUE,solid_model
+from create_bathroom_statue_assets import solid_model
 from create_kiosk_entrance_assets import rotated
 ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmod';D=ROOT/'src/main/resources/data';J=ROOT/'src/main/java/net/nicomar2009/lsmmod';GENERATED=[]
 IDS=['dining_door_wide','bathroom_door_wide','school_microwave','school_trophy_gallery','infirmary_door','dining_door_wide_light']
@@ -105,18 +105,10 @@ def cot():
 
 def main():
  cot()
- # Rotate the original east-facing sculpt to NORTH, scale to a 2x3 footprint.
- statue=[]
- textures=json.loads((A/'models/block/san_martin_de_porres_down.json').read_text())['textures'];textures.pop('robe');textures['robe_down']='lsmmod:block/san_martin_de_porres_down';textures['robe_up']='lsmmod:block/san_martin_de_porres_up'
- for part in STATUE:
-  b,mat=part[:2];over=part[2] if len(part)>2 else {};mat=('robe_down' if b[1]<16 else 'robe_up') if mat=='robe' else mat
-  mapping={'east':'north','north':'west','west':'south','south':'east'}
-  statue.append(([b[2]*2,b[1]*1.5,16-b[3]*2,b[5]*2,b[4]*1.5,16-b[0]*2],mat,{mapping.get(f,f):m for f,m in over.items()}))
- ordinary_rectangle('san_martin_de_porres',statue,textures,2,3)
- states=json.loads((A/'blockstates/san_martin_de_porres.json').read_text())['variants'];states={key+',expanded=true':value for key,value in states.items()}
- for half,suffix in [('lower','down'),('upper','up')]:
-  for face,angle in [('north',270),('east',0),('south',90),('west',180)]:states[f'facing={face},half={half},expanded=false']={'model':'lsmmod:block/san_martin_de_porres_'+suffix,'y':angle}
- write(A/'blockstates/san_martin_de_porres.json',{'variants':states})
+ from create_san_martin_display import generate as rebuild_san_martin
+ GENERATED.extend(rebuild_san_martin())
+ # Solid enclosure collision; the centered sculpture is decorative inside it.
+ statue=[([0,0,0,32,40,16],'white')]
  loot=json.loads((D/'lsmmod/loot_table/blocks/san_martin_de_porres.json').read_text());loot['pools'][0]['conditions']=[{'condition':'minecraft:survives_explosion'},{'condition':'minecraft:any_of','terms':[{'condition':'minecraft:block_state_property','block':'lsmmod:san_martin_de_porres','properties':{'expanded':'true','column':'0','row':'0'}},{'condition':'minecraft:block_state_property','block':'lsmmod:san_martin_de_porres','properties':{'expanded':'false','half':'lower'}}]}];write(D/'lsmmod/loot_table/blocks/san_martin_de_porres.json',loot)
  # Six columns, four shelves, 12px total depth; 18 gold and six silver/bronze awards.
  trophies=[([0,0,10.5,96,64,12],'wood')]

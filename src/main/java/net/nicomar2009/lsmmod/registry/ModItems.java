@@ -311,9 +311,11 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> ELEMENTARY_DESK =
             ITEMS.registerSimpleBlockItem(ModBlocks.ELEMENTARY_DESK);
 
-    // Block item for the statue of San Martín De Porres (a double block)
+    // EPIC is the highest vanilla item rarity; placement creates the complete display.
     public static final DeferredItem<BlockItem> SAN_MARTIN_DE_PORRES =
-            ITEMS.registerSimpleBlockItem(ModBlocks.SAN_MARTIN_DE_PORRES);
+            ITEMS.registerItem("san_martin_de_porres",
+                    props -> new BlockItem(ModBlocks.SAN_MARTIN_DE_PORRES.get(), props),
+                    props -> props.rarity(Rarity.EPIC));
 
     public static final DeferredItem<BlockItem> SCHOOL_SHIELD =
             ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_SHIELD);

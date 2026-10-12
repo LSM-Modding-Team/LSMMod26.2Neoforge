@@ -33,7 +33,11 @@ def mesh(model, name):
             faces.append((axis, plane, rectangle))
             texture = model["textures"][face["texture"][1:]].split(":")[1]
             image = Image.open(ASSETS / f"textures/{texture}.png")
-            assert image.size == (16, 16) and image.mode == "RGB"
+            assert image.size == (16, 16)
+            if model.get('render_type') == 'minecraft:translucent':
+                assert image.mode == 'RGBA' and image.getextrema()[3][1] < 255
+            else:
+                assert image.mode == 'RGB'
     return faces
 
 
@@ -48,10 +52,23 @@ def main():
     for a in lower_caps:
         for b in upper_caps:
             assert min(a[2], b[2])-max(a[0], b[0]) <= 0 or min(a[3], b[3])-max(a[1], b[1]) <= 0
-    mesh(read(ASSETS / "models/item/san_martin_de_porres.json"), "statue item")
+    from render_texture_review import load
+    for layer in load('lsmmod:item/san_martin_de_porres'):
+        mesh(layer, 'display item '+layer['render_type'])
+    definition = read(ASSETS/'blockstates/san_martin_de_porres.json')['multipart']
+    for row in range(3):
+        for column in range(2):
+            selected = [p['apply'] for p in definition if p['when'] == {
+                'expanded': 'true', 'facing': 'north', 'column': str(column), 'row': str(row)}]
+            assert len(selected) == 2
+            for apply in selected:
+                model = read(ASSETS/f"models/{apply['model'].split(':')[1]}.json")
+                mesh(model, apply['model'])
+                assert all(e['to'][1] <= (8 if row == 2 else 16) for e in model['elements'])
     from check_wide_bathroom_assets import main as check_wide
     check_wide()
-    print("OK: solid statue meshes/item without coplanar overlaps, clean two-half seam,")
+    print("OK: legacy statue meshes without coplanar overlaps, clean two-half seam;")
+    print("six display cells and layered item, transparent glass, top row only half a block;")
     print("complete two-wide fixture resources, floor-contact geometry and passive standalone toilet.")
     print("Static checks only: no Java compilation or Minecraft rendering.")
 

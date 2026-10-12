@@ -1,132 +1,668 @@
 {
-  "variants": {
-    "facing=north,column=0,row=0,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_0",
-      "y": 0
+  "multipart": [
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "north",
+        "column": "0",
+        "row": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_0_0",
+        "y": 0
+      }
     },
-    "facing=east,column=0,row=0,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_0",
-      "y": 90
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "east",
+        "column": "0",
+        "row": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_0_0",
+        "y": 90
+      }
     },
-    "facing=south,column=0,row=0,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_0",
-      "y": 180
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "south",
+        "column": "0",
+        "row": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_0_0",
+        "y": 180
+      }
     },
-    "facing=west,column=0,row=0,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_0",
-      "y": 270
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "west",
+        "column": "0",
+        "row": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_0_0",
+        "y": 270
+      }
     },
-    "facing=north,column=1,row=0,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_1",
-      "y": 0
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "north",
+        "column": "1",
+        "row": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_1_0",
+        "y": 0
+      }
     },
-    "facing=east,column=1,row=0,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_1",
-      "y": 90
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "east",
+        "column": "1",
+        "row": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_1_0",
+        "y": 90
+      }
     },
-    "facing=south,column=1,row=0,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_1",
-      "y": 180
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "south",
+        "column": "1",
+        "row": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_1_0",
+        "y": 180
+      }
     },
-    "facing=west,column=1,row=0,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_1",
-      "y": 270
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "west",
+        "column": "1",
+        "row": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_1_0",
+        "y": 270
+      }
     },
-    "facing=north,column=0,row=1,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_2",
-      "y": 0
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "north",
+        "column": "0",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_0_1",
+        "y": 0
+      }
     },
-    "facing=east,column=0,row=1,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_2",
-      "y": 90
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "east",
+        "column": "0",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_0_1",
+        "y": 90
+      }
     },
-    "facing=south,column=0,row=1,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_2",
-      "y": 180
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "south",
+        "column": "0",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_0_1",
+        "y": 180
+      }
     },
-    "facing=west,column=0,row=1,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_2",
-      "y": 270
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "west",
+        "column": "0",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_0_1",
+        "y": 270
+      }
     },
-    "facing=north,column=1,row=1,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_3",
-      "y": 0
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "north",
+        "column": "1",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_1_1",
+        "y": 0
+      }
     },
-    "facing=east,column=1,row=1,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_3",
-      "y": 90
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "east",
+        "column": "1",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_1_1",
+        "y": 90
+      }
     },
-    "facing=south,column=1,row=1,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_3",
-      "y": 180
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "south",
+        "column": "1",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_1_1",
+        "y": 180
+      }
     },
-    "facing=west,column=1,row=1,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_3",
-      "y": 270
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "west",
+        "column": "1",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_1_1",
+        "y": 270
+      }
     },
-    "facing=north,column=0,row=2,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_4",
-      "y": 0
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "north",
+        "column": "0",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_0_2",
+        "y": 0
+      }
     },
-    "facing=east,column=0,row=2,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_4",
-      "y": 90
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "east",
+        "column": "0",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_0_2",
+        "y": 90
+      }
     },
-    "facing=south,column=0,row=2,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_4",
-      "y": 180
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "south",
+        "column": "0",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_0_2",
+        "y": 180
+      }
     },
-    "facing=west,column=0,row=2,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_4",
-      "y": 270
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "west",
+        "column": "0",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_0_2",
+        "y": 270
+      }
     },
-    "facing=north,column=1,row=2,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_5",
-      "y": 0
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "north",
+        "column": "1",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_1_2",
+        "y": 0
+      }
     },
-    "facing=east,column=1,row=2,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_5",
-      "y": 90
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "east",
+        "column": "1",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_1_2",
+        "y": 90
+      }
     },
-    "facing=south,column=1,row=2,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_5",
-      "y": 180
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "south",
+        "column": "1",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_1_2",
+        "y": 180
+      }
     },
-    "facing=west,column=1,row=2,expanded=true": {
-      "model": "lsmmod:block/san_martin_de_porres_part_5",
-      "y": 270
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "west",
+        "column": "1",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_solid_1_2",
+        "y": 270
+      }
     },
-    "facing=north,half=lower,expanded=false": {
-      "model": "lsmmod:block/san_martin_de_porres_down",
-      "y": 270
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "north",
+        "column": "0",
+        "row": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_0_0",
+        "y": 0
+      }
     },
-    "facing=east,half=lower,expanded=false": {
-      "model": "lsmmod:block/san_martin_de_porres_down",
-      "y": 0
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "east",
+        "column": "0",
+        "row": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_0_0",
+        "y": 90
+      }
     },
-    "facing=south,half=lower,expanded=false": {
-      "model": "lsmmod:block/san_martin_de_porres_down",
-      "y": 90
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "south",
+        "column": "0",
+        "row": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_0_0",
+        "y": 180
+      }
     },
-    "facing=west,half=lower,expanded=false": {
-      "model": "lsmmod:block/san_martin_de_porres_down",
-      "y": 180
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "west",
+        "column": "0",
+        "row": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_0_0",
+        "y": 270
+      }
     },
-    "facing=north,half=upper,expanded=false": {
-      "model": "lsmmod:block/san_martin_de_porres_up",
-      "y": 270
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "north",
+        "column": "1",
+        "row": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_1_0",
+        "y": 0
+      }
     },
-    "facing=east,half=upper,expanded=false": {
-      "model": "lsmmod:block/san_martin_de_porres_up",
-      "y": 0
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "east",
+        "column": "1",
+        "row": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_1_0",
+        "y": 90
+      }
     },
-    "facing=south,half=upper,expanded=false": {
-      "model": "lsmmod:block/san_martin_de_porres_up",
-      "y": 90
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "south",
+        "column": "1",
+        "row": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_1_0",
+        "y": 180
+      }
     },
-    "facing=west,half=upper,expanded=false": {
-      "model": "lsmmod:block/san_martin_de_porres_up",
-      "y": 180
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "west",
+        "column": "1",
+        "row": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_1_0",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "north",
+        "column": "0",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_0_1",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "east",
+        "column": "0",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_0_1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "south",
+        "column": "0",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_0_1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "west",
+        "column": "0",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_0_1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "north",
+        "column": "1",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_1_1",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "east",
+        "column": "1",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_1_1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "south",
+        "column": "1",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_1_1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "west",
+        "column": "1",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_1_1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "north",
+        "column": "0",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_0_2",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "east",
+        "column": "0",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_0_2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "south",
+        "column": "0",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_0_2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "west",
+        "column": "0",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_0_2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "north",
+        "column": "1",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_1_2",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "east",
+        "column": "1",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_1_2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "south",
+        "column": "1",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_1_2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "expanded": "true",
+        "facing": "west",
+        "column": "1",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_translucent_1_2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "expanded": "false",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_down",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "expanded": "false",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_down",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "expanded": "false",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_down",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "expanded": "false",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_down",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "expanded": "false",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_up",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "expanded": "false",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_up",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "expanded": "false",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_up",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "expanded": "false",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "lsmmod:block/san_martin_de_porres_up",
+        "y": 180
+      }
     }
-  }
+  ]
 }
