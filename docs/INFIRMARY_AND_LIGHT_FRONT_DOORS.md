@@ -14,6 +14,8 @@ Los nuevos bloques reutilizan SchoolFramedDiningDoorBlock. La caché física inc
 
 ## Recursos y comprobación
 
+Corrección del crash al renderizar con Xaero (2026-10-12): el estado que recibe el render puede quedar obsoleto respecto al mundo consultado. SchoolGlazing valida el perfil de la celda actual y los extremos leídos después del recorrido; ante una fila desaparecida o incompleta conserva la máscara segura de bordes. El refresco horizontal del servidor también valida extremos y celdas antes de calcular el marco. No cambia los perfiles, UV, geometría ni conexiones de filas estables. La comprobación es estática; falta confirmar el caso dentro de Minecraft con Xaero.
+
 Generar: `python tools/create_facility_expansion_assets.py`; el módulo `tools/create_infirmary_door_assets.py` produce las variantes reproduciblemente.
 
 Renders externos: `python tools/render_texture_review.py --vanilla-dir /tmp/lsm-render-assets`. Se revisaron las vistas frontales/posteriores, apertura, ambas bisagras, conexiones e inventario, conforme al capítulo 8 de START_HERE. Son renders de los modelos y materiales finales, no capturas de Minecraft:
