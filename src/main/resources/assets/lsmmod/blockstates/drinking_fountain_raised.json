@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "facing=north,half=lower": {
+      "model": "lsmmod:block/drinking_fountain_raised_0",
+      "y": 0
+    },
+    "facing=east,half=lower": {
+      "model": "lsmmod:block/drinking_fountain_raised_0",
+      "y": 90
+    },
+    "facing=south,half=lower": {
+      "model": "lsmmod:block/drinking_fountain_raised_0",
+      "y": 180
+    },
+    "facing=west,half=lower": {
+      "model": "lsmmod:block/drinking_fountain_raised_0",
+      "y": 270
+    },
+    "facing=north,half=upper": {
+      "model": "lsmmod:block/drinking_fountain_raised_1",
+      "y": 0
+    },
+    "facing=east,half=upper": {
+      "model": "lsmmod:block/drinking_fountain_raised_1",
+      "y": 90
+    },
+    "facing=south,half=upper": {
+      "model": "lsmmod:block/drinking_fountain_raised_1",
+      "y": 180
+    },
+    "facing=west,half=upper": {
+      "model": "lsmmod:block/drinking_fountain_raised_1",
+      "y": 270
+    }
+  }
+}

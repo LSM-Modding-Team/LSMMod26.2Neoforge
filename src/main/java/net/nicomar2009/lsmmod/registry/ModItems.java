@@ -21,6 +21,14 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
+    // BEGIN KIOSK ENTRANCE ACCESSORIES
+    public static final DeferredItem<BlockItem> SCHOOL_WOOD_PANEL = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_WOOD_PANEL);
+    public static final DeferredItem<BlockItem> SCHOOL_WOOD_DOOR = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_WOOD_DOOR);
+    public static final DeferredItem<BlockItem> SCHOOL_SLIDING_ENTRANCE = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_SLIDING_ENTRANCE);
+    public static final DeferredItem<BlockItem> DRINKING_FOUNTAIN_RAISED = ITEMS.registerSimpleBlockItem(ModBlocks.DRINKING_FOUNTAIN_RAISED);
+    public static final DeferredItem<BlockItem> LOST_AND_FOUND_BOX = ITEMS.registerSimpleBlockItem(ModBlocks.LOST_AND_FOUND_BOX);
+    // END KIOSK ENTRANCE ACCESSORIES
+
     // BEGIN SCHOOL CRUCIFIX
     public static final DeferredItem<BlockItem> SCHOOL_CRUCIFIX = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_CRUCIFIX);
     // END SCHOOL CRUCIFIX

@@ -356,5 +356,10 @@
   "block.lsmmod.school_crucifix": "Crucifijo del colegio",
   "block.lsmmod.school_inverted_slope_short_raised_1": "Pendiente invertida elevada corta 1",
   "block.lsmmod.school_inverted_slope_short_raised_2": "Pendiente invertida elevada corta 2",
-  "block.lsmmod.school_inverted_slope_short_raised_3": "Pendiente invertida elevada corta 3"
+  "block.lsmmod.school_inverted_slope_short_raised_3": "Pendiente invertida elevada corta 3",
+  "block.lsmmod.school_wood_panel": "Panel de madera del colegio",
+  "block.lsmmod.school_wood_door": "Puerta de madera del colegio",
+  "block.lsmmod.school_sliding_entrance": "Entrada deslizable del colegio",
+  "block.lsmmod.drinking_fountain_raised": "Bebedero elevado",
+  "block.lsmmod.lost_and_found_box": "Caja de objetos perdidos"
 }

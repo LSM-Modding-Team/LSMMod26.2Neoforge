@@ -362,5 +362,10 @@
   "block.lsmmod.school_crucifix": "School Crucifix",
   "block.lsmmod.school_inverted_slope_short_raised_1": "Short raised inverted slope 1",
   "block.lsmmod.school_inverted_slope_short_raised_2": "Short raised inverted slope 2",
-  "block.lsmmod.school_inverted_slope_short_raised_3": "Short raised inverted slope 3"
+  "block.lsmmod.school_inverted_slope_short_raised_3": "Short raised inverted slope 3",
+  "block.lsmmod.school_wood_panel": "School Wood Panel",
+  "block.lsmmod.school_wood_door": "School Wood Door",
+  "block.lsmmod.school_sliding_entrance": "School Sliding Entrance",
+  "block.lsmmod.drinking_fountain_raised": "Raised Drinking Fountain",
+  "block.lsmmod.lost_and_found_box": "Lost and Found Box"
 }
