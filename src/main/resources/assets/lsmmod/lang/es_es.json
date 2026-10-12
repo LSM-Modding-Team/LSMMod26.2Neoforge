@@ -353,5 +353,8 @@
   "block.lsmmod.school_circular_column": "Columna circular del colegio",
   "item.lsmmod.dark_tiled_floor_paint": "Pintura de baldosas oscuras",
   "config.jade.plugin_lsmmod.painted_wall_name": "Cara del bloque pintado: nombre e icono",
-  "block.lsmmod.school_crucifix": "Crucifijo del colegio"
+  "block.lsmmod.school_crucifix": "Crucifijo del colegio",
+  "block.lsmmod.school_inverted_slope_short_raised_1": "Pendiente invertida elevada corta 1",
+  "block.lsmmod.school_inverted_slope_short_raised_2": "Pendiente invertida elevada corta 2",
+  "block.lsmmod.school_inverted_slope_short_raised_3": "Pendiente invertida elevada corta 3"
 }

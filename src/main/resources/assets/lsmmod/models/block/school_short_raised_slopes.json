@@ -1,0 +1,11 @@
+{
+  "loader": "neoforge:obj",
+  "model": "lsmmod:models/block/school_short_raised_slopes.obj",
+  "automatic_culling": false,
+  "flip_v": true,
+  "shade_quads": true,
+  "textures": {
+    "wall": "lsmmod:block/classroom_white_wall",
+    "particle": "lsmmod:block/classroom_white_wall"
+  }
+}

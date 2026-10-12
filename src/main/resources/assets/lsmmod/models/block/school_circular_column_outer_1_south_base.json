@@ -4,1285 +4,26 @@
     "shaft": "lsmmod:block/dark_school_wall",
     "base": "lsmmod:block/classroom_floor",
     "particle": "lsmmod:block/dark_school_wall",
-    "column_lsmmod_block_dark_school_wall": "lsmmod:block/dark_school_wall",
     "column_lsmmod_block_classroom_floor": "lsmmod:block/classroom_floor"
   },
   "elements": [
     {
       "from": [
         7.5,
-        2,
-        16
-      ],
-      "to": [
-        8.0,
-        8,
-        24.0
-      ],
-      "faces": {
-        "east": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            8.0,
-            8,
-            16,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        7.5,
-        2,
-        16
-      ],
-      "to": [
-        8.0,
-        8,
-        24.0
-      ],
-      "faces": {
-        "up": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            8.0,
-            8.0,
-            8.5,
-            16
-          ],
-          "rotation": 180
-        }
-      }
-    },
-    {
-      "from": [
-        7.5,
-        2,
-        16
-      ],
-      "to": [
-        8.0,
-        8,
-        24.0
-      ],
-      "faces": {
-        "south": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            7.5,
-            8,
-            8.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        7.5,
-        2,
-        16
-      ],
-      "to": [
-        8.0,
-        8,
-        24.0
-      ],
-      "faces": {
-        "north": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            8.0,
-            8,
-            8.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        7.0,
-        2,
-        16
-      ],
-      "to": [
-        7.5,
-        8,
-        24.0
-      ],
-      "faces": {
-        "up": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            8.5,
-            8.0,
-            9.0,
-            16
-          ],
-          "rotation": 180
-        }
-      }
-    },
-    {
-      "from": [
-        7.0,
-        2,
-        16
-      ],
-      "to": [
-        7.5,
-        8,
-        24.0
-      ],
-      "faces": {
-        "south": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            7.0,
-            8,
-            7.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        7.0,
-        2,
-        16
-      ],
-      "to": [
-        7.5,
-        8,
-        24.0
-      ],
-      "faces": {
-        "north": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            8.5,
-            8,
-            9.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        6.5,
-        2,
-        16
-      ],
-      "to": [
-        7.0,
-        8,
-        24.0
-      ],
-      "faces": {
-        "up": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            9.0,
-            8.0,
-            9.5,
-            16
-          ],
-          "rotation": 180
-        }
-      }
-    },
-    {
-      "from": [
-        6.5,
-        2,
-        16
-      ],
-      "to": [
-        7.0,
-        8,
-        24.0
-      ],
-      "faces": {
-        "south": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            6.5,
-            8,
-            7.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        6.5,
-        2,
-        16
-      ],
-      "to": [
-        7.0,
-        8,
-        24.0
-      ],
-      "faces": {
-        "north": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            9.0,
-            8,
-            9.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        6.0,
-        2,
-        16
-      ],
-      "to": [
-        6.5,
-        8,
-        24.0
-      ],
-      "faces": {
-        "up": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            9.5,
-            8.0,
-            10.0,
-            16
-          ],
-          "rotation": 180
-        }
-      }
-    },
-    {
-      "from": [
-        6.0,
-        2,
-        16
-      ],
-      "to": [
-        6.5,
-        8,
-        24.0
-      ],
-      "faces": {
-        "south": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            6.0,
-            8,
-            6.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        6.0,
-        2,
-        16
-      ],
-      "to": [
-        6.5,
-        8,
-        24.0
-      ],
-      "faces": {
-        "north": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            9.5,
-            8,
-            10.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        5.5,
-        2,
-        16
-      ],
-      "to": [
-        6.0,
-        8,
-        24.0
-      ],
-      "faces": {
-        "up": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            10.0,
-            8.0,
-            10.5,
-            16
-          ],
-          "rotation": 180
-        }
-      }
-    },
-    {
-      "from": [
-        5.5,
-        2,
-        16
-      ],
-      "to": [
-        6.0,
-        8,
-        24.0
-      ],
-      "faces": {
-        "south": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            5.5,
-            8,
-            6.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        5.5,
-        2,
-        16
-      ],
-      "to": [
-        6.0,
-        8,
-        24.0
-      ],
-      "faces": {
-        "north": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            10.0,
-            8,
-            10.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        5.0,
-        2,
-        23.5
-      ],
-      "to": [
-        5.5,
-        8,
-        24.0
-      ],
-      "faces": {
-        "west": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            7.5,
-            8,
-            8.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        5.0,
-        2,
-        16
-      ],
-      "to": [
-        5.5,
-        8,
-        24.0
-      ],
-      "faces": {
-        "up": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            10.5,
-            8.0,
-            11.0,
-            16
-          ],
-          "rotation": 180
-        }
-      }
-    },
-    {
-      "from": [
-        5.0,
-        2,
-        16
-      ],
-      "to": [
-        5.5,
-        8,
-        24.0
-      ],
-      "faces": {
-        "south": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            5.0,
-            8,
-            5.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        5.0,
-        2,
-        16
-      ],
-      "to": [
-        5.5,
-        8,
-        24.0
-      ],
-      "faces": {
-        "north": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            10.5,
-            8,
-            11.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        4.5,
-        2,
-        16
-      ],
-      "to": [
-        5.0,
-        8,
-        23.5
-      ],
-      "faces": {
-        "up": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            11.0,
-            8.5,
-            11.5,
-            16
-          ],
-          "rotation": 180
-        }
-      }
-    },
-    {
-      "from": [
-        4.5,
-        2,
-        16
-      ],
-      "to": [
-        5.0,
-        8,
-        23.5
-      ],
-      "faces": {
-        "south": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            4.5,
-            8,
-            5.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        4.5,
-        2,
-        16
-      ],
-      "to": [
-        5.0,
-        8,
-        23.5
-      ],
-      "faces": {
-        "north": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            11.0,
-            8,
-            11.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        4.0,
-        2,
-        16
-      ],
-      "to": [
-        4.5,
-        8,
-        23.5
-      ],
-      "faces": {
-        "up": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            11.5,
-            8.5,
-            12.0,
-            16
-          ],
-          "rotation": 180
-        }
-      }
-    },
-    {
-      "from": [
-        4.0,
-        2,
-        16
-      ],
-      "to": [
-        4.5,
-        8,
-        23.5
-      ],
-      "faces": {
-        "south": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            4.0,
-            8,
-            4.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        4.0,
-        2,
-        16
-      ],
-      "to": [
-        4.5,
-        8,
-        23.5
-      ],
-      "faces": {
-        "north": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            11.5,
-            8,
-            12.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        3.5,
-        2,
-        16
-      ],
-      "to": [
-        4.0,
-        8,
-        23.5
-      ],
-      "faces": {
-        "up": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            12.0,
-            8.5,
-            12.5,
-            16
-          ],
-          "rotation": 180
-        }
-      }
-    },
-    {
-      "from": [
-        3.5,
-        2,
-        16
-      ],
-      "to": [
-        4.0,
-        8,
-        23.5
-      ],
-      "faces": {
-        "south": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            3.5,
-            8,
-            4.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        3.5,
-        2,
-        16
-      ],
-      "to": [
-        4.0,
-        8,
-        23.5
-      ],
-      "faces": {
-        "north": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            12.0,
-            8,
-            12.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        3.0,
-        2,
-        23.0
-      ],
-      "to": [
-        3.5,
-        8,
-        23.5
-      ],
-      "faces": {
-        "west": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            7.0,
-            8,
-            7.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        3.0,
-        2,
-        16
-      ],
-      "to": [
-        3.5,
-        8,
-        23.5
-      ],
-      "faces": {
-        "up": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            12.5,
-            8.5,
-            13.0,
-            16
-          ],
-          "rotation": 180
-        }
-      }
-    },
-    {
-      "from": [
-        3.0,
-        2,
-        16
-      ],
-      "to": [
-        3.5,
-        8,
-        23.5
-      ],
-      "faces": {
-        "south": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            3.0,
-            8,
-            3.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        3.0,
-        2,
-        16
-      ],
-      "to": [
-        3.5,
-        8,
-        23.5
-      ],
-      "faces": {
-        "north": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            12.5,
-            8,
-            13.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        2.5,
-        2,
-        16
-      ],
-      "to": [
-        3.0,
-        8,
-        23.0
-      ],
-      "faces": {
-        "up": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            13.0,
-            9.0,
-            13.5,
-            16
-          ],
-          "rotation": 180
-        }
-      }
-    },
-    {
-      "from": [
-        2.5,
-        2,
-        16
-      ],
-      "to": [
-        3.0,
-        8,
-        23.0
-      ],
-      "faces": {
-        "south": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            2.5,
-            8,
-            3.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        2.5,
-        2,
-        16
-      ],
-      "to": [
-        3.0,
-        8,
-        23.0
-      ],
-      "faces": {
-        "north": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            13.0,
-            8,
-            13.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        2.0,
-        2,
-        22.5
-      ],
-      "to": [
-        2.5,
-        8,
-        23.0
-      ],
-      "faces": {
-        "west": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            6.5,
-            8,
-            7.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        2.0,
-        2,
-        16
-      ],
-      "to": [
-        2.5,
-        8,
-        23.0
-      ],
-      "faces": {
-        "up": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            13.5,
-            9.0,
-            14.0,
-            16
-          ],
-          "rotation": 180
-        }
-      }
-    },
-    {
-      "from": [
-        2.0,
-        2,
-        16
-      ],
-      "to": [
-        2.5,
-        8,
-        23.0
-      ],
-      "faces": {
-        "south": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            2.0,
-            8,
-            2.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        2.0,
-        2,
-        16
-      ],
-      "to": [
-        2.5,
-        8,
-        23.0
-      ],
-      "faces": {
-        "north": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            13.5,
-            8,
-            14.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        1.5,
-        2,
-        16
-      ],
-      "to": [
-        2.0,
-        8,
-        22.5
-      ],
-      "faces": {
-        "up": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            14.0,
-            9.5,
-            14.5,
-            16
-          ],
-          "rotation": 180
-        }
-      }
-    },
-    {
-      "from": [
-        1.5,
-        2,
-        16
-      ],
-      "to": [
-        2.0,
-        8,
-        22.5
-      ],
-      "faces": {
-        "south": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            1.5,
-            8,
-            2.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        1.5,
-        2,
-        16
-      ],
-      "to": [
-        2.0,
-        8,
-        22.5
-      ],
-      "faces": {
-        "north": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            14.0,
-            8,
-            14.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        1.0,
-        2,
-        16
-      ],
-      "to": [
-        1.5,
-        8,
-        22.5
-      ],
-      "faces": {
-        "up": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            14.5,
-            9.5,
-            15.0,
-            16
-          ],
-          "rotation": 180
-        }
-      }
-    },
-    {
-      "from": [
-        1.0,
-        2,
-        16
-      ],
-      "to": [
-        1.5,
-        8,
-        22.5
-      ],
-      "faces": {
-        "south": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            1.0,
-            8,
-            1.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        1.0,
-        2,
-        16
-      ],
-      "to": [
-        1.5,
-        8,
-        22.5
-      ],
-      "faces": {
-        "north": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            14.5,
-            8,
-            15.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0.5,
-        2,
-        22.0
-      ],
-      "to": [
-        1.0,
-        8,
-        22.5
-      ],
-      "faces": {
-        "west": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            6.0,
-            8,
-            6.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0.5,
-        2,
-        16
-      ],
-      "to": [
-        1.0,
-        8,
-        22.5
-      ],
-      "faces": {
-        "up": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            15.0,
-            9.5,
-            15.5,
-            16
-          ],
-          "rotation": 180
-        }
-      }
-    },
-    {
-      "from": [
-        0.5,
-        2,
-        16
-      ],
-      "to": [
-        1.0,
-        8,
-        22.5
-      ],
-      "faces": {
-        "south": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            0.5,
-            8,
-            1.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0.5,
-        2,
-        16
-      ],
-      "to": [
-        1.0,
-        8,
-        22.5
-      ],
-      "faces": {
-        "north": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            15.0,
-            8,
-            15.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0.0,
-        2,
-        16
-      ],
-      "to": [
-        0.5,
-        8,
-        22.0
-      ],
-      "faces": {
-        "west": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            0,
-            8,
-            6.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0.0,
-        2,
-        16
-      ],
-      "to": [
-        0.5,
-        8,
-        22.0
-      ],
-      "faces": {
-        "up": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            15.5,
-            10.0,
-            16.0,
-            16
-          ],
-          "rotation": 180
-        }
-      }
-    },
-    {
-      "from": [
-        0.0,
-        2,
-        16
-      ],
-      "to": [
-        0.5,
-        8,
-        22.0
-      ],
-      "faces": {
-        "south": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            0.0,
-            8,
-            0.5,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0.0,
-        2,
-        16
-      ],
-      "to": [
-        0.5,
-        8,
-        22.0
-      ],
-      "faces": {
-        "north": {
-          "texture": "#column_lsmmod_block_dark_school_wall",
-          "uv": [
-            15.5,
-            8,
-            16.0,
-            14
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        7.5,
         0,
         16
       ],
       "to": [
         8.0,
-        2,
-        24.0
+        8,
+        25.0
       ],
       "faces": {
         "east": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
-            8.0,
-            14,
+            7.0,
+            8,
             16,
             16
           ]
@@ -1297,8 +38,8 @@
       ],
       "to": [
         8.0,
-        2,
-        24.0
+        8,
+        25.0
       ],
       "faces": {
         "down": {
@@ -1307,7 +48,7 @@
             8.0,
             0,
             8.5,
-            8.0
+            9.0
           ],
           "rotation": 180
         }
@@ -1321,15 +62,39 @@
       ],
       "to": [
         8.0,
-        2,
-        24.0
+        8,
+        25.0
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            8.0,
+            7.0,
+            8.5,
+            16
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        7.5,
+        0,
+        16
+      ],
+      "to": [
+        8.0,
+        8,
+        25.0
       ],
       "faces": {
         "south": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             7.5,
-            14,
+            8,
             8.0,
             16
           ]
@@ -1344,15 +109,15 @@
       ],
       "to": [
         8.0,
-        2,
-        24.0
+        8,
+        25.0
       ],
       "faces": {
         "north": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             8.0,
-            14,
+            8,
             8.5,
             16
           ]
@@ -1367,8 +132,8 @@
       ],
       "to": [
         7.5,
-        2,
-        24.0
+        8,
+        25.0
       ],
       "faces": {
         "down": {
@@ -1377,7 +142,7 @@
             8.5,
             0,
             9.0,
-            8.0
+            9.0
           ],
           "rotation": 180
         }
@@ -1391,15 +156,39 @@
       ],
       "to": [
         7.5,
-        2,
-        24.0
+        8,
+        25.0
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            8.5,
+            7.0,
+            9.0,
+            16
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        7.0,
+        0,
+        16
+      ],
+      "to": [
+        7.5,
+        8,
+        25.0
       ],
       "faces": {
         "south": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             7.0,
-            14,
+            8,
             7.5,
             16
           ]
@@ -1414,15 +203,15 @@
       ],
       "to": [
         7.5,
-        2,
-        24.0
+        8,
+        25.0
       ],
       "faces": {
         "north": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             8.5,
-            14,
+            8,
             9.0,
             16
           ]
@@ -1437,8 +226,8 @@
       ],
       "to": [
         7.0,
-        2,
-        24.0
+        8,
+        25.0
       ],
       "faces": {
         "down": {
@@ -1447,7 +236,7 @@
             9.0,
             0,
             9.5,
-            8.0
+            9.0
           ],
           "rotation": 180
         }
@@ -1461,15 +250,39 @@
       ],
       "to": [
         7.0,
-        2,
-        24.0
+        8,
+        25.0
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            9.0,
+            7.0,
+            9.5,
+            16
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        6.5,
+        0,
+        16
+      ],
+      "to": [
+        7.0,
+        8,
+        25.0
       ],
       "faces": {
         "south": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             6.5,
-            14,
+            8,
             7.0,
             16
           ]
@@ -1484,15 +297,15 @@
       ],
       "to": [
         7.0,
-        2,
-        24.0
+        8,
+        25.0
       ],
       "faces": {
         "north": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             9.0,
-            14,
+            8,
             9.5,
             16
           ]
@@ -1507,8 +320,8 @@
       ],
       "to": [
         6.5,
-        2,
-        24.0
+        8,
+        25.0
       ],
       "faces": {
         "down": {
@@ -1517,7 +330,7 @@
             9.5,
             0,
             10.0,
-            8.0
+            9.0
           ],
           "rotation": 180
         }
@@ -1531,15 +344,39 @@
       ],
       "to": [
         6.5,
-        2,
-        24.0
+        8,
+        25.0
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            9.5,
+            7.0,
+            10.0,
+            16
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        6.0,
+        0,
+        16
+      ],
+      "to": [
+        6.5,
+        8,
+        25.0
       ],
       "faces": {
         "south": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             6.0,
-            14,
+            8,
             6.5,
             16
           ]
@@ -1554,15 +391,15 @@
       ],
       "to": [
         6.5,
-        2,
-        24.0
+        8,
+        25.0
       ],
       "faces": {
         "north": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             9.5,
-            14,
+            8,
             10.0,
             16
           ]
@@ -1577,8 +414,8 @@
       ],
       "to": [
         6.0,
-        2,
-        24.0
+        8,
+        25.0
       ],
       "faces": {
         "down": {
@@ -1587,7 +424,7 @@
             10.0,
             0,
             10.5,
-            8.0
+            9.0
           ],
           "rotation": 180
         }
@@ -1601,15 +438,39 @@
       ],
       "to": [
         6.0,
-        2,
-        24.0
+        8,
+        25.0
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            10.0,
+            7.0,
+            10.5,
+            16
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        5.5,
+        0,
+        16
+      ],
+      "to": [
+        6.0,
+        8,
+        25.0
       ],
       "faces": {
         "south": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             5.5,
-            14,
+            8,
             6.0,
             16
           ]
@@ -1624,15 +485,15 @@
       ],
       "to": [
         6.0,
-        2,
-        24.0
+        8,
+        25.0
       ],
       "faces": {
         "north": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             10.0,
-            14,
+            8,
             10.5,
             16
           ]
@@ -1643,20 +504,20 @@
       "from": [
         5.0,
         0,
-        23.5
+        24.5
       ],
       "to": [
         5.5,
-        2,
-        24.0
+        8,
+        25.0
       ],
       "faces": {
         "west": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
-            7.5,
-            14,
-            8.0,
+            8.5,
+            8,
+            9.0,
             16
           ]
         }
@@ -1670,8 +531,8 @@
       ],
       "to": [
         5.5,
-        2,
-        24.0
+        8,
+        25.0
       ],
       "faces": {
         "down": {
@@ -1680,7 +541,7 @@
             10.5,
             0,
             11.0,
-            8.0
+            9.0
           ],
           "rotation": 180
         }
@@ -1694,15 +555,39 @@
       ],
       "to": [
         5.5,
-        2,
-        24.0
+        8,
+        25.0
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            10.5,
+            7.0,
+            11.0,
+            16
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        5.0,
+        0,
+        16
+      ],
+      "to": [
+        5.5,
+        8,
+        25.0
       ],
       "faces": {
         "south": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             5.0,
-            14,
+            8,
             5.5,
             16
           ]
@@ -1717,15 +602,15 @@
       ],
       "to": [
         5.5,
-        2,
-        24.0
+        8,
+        25.0
       ],
       "faces": {
         "north": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             10.5,
-            14,
+            8,
             11.0,
             16
           ]
@@ -1740,8 +625,8 @@
       ],
       "to": [
         5.0,
-        2,
-        23.5
+        8,
+        24.5
       ],
       "faces": {
         "down": {
@@ -1750,7 +635,7 @@
             11.0,
             0,
             11.5,
-            7.5
+            8.5
           ],
           "rotation": 180
         }
@@ -1764,15 +649,39 @@
       ],
       "to": [
         5.0,
-        2,
-        23.5
+        8,
+        24.5
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            11.0,
+            7.5,
+            11.5,
+            16
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        4.5,
+        0,
+        16
+      ],
+      "to": [
+        5.0,
+        8,
+        24.5
       ],
       "faces": {
         "south": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             4.5,
-            14,
+            8,
             5.0,
             16
           ]
@@ -1787,15 +696,15 @@
       ],
       "to": [
         5.0,
-        2,
-        23.5
+        8,
+        24.5
       ],
       "faces": {
         "north": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             11.0,
-            14,
+            8,
             11.5,
             16
           ]
@@ -1810,8 +719,8 @@
       ],
       "to": [
         4.5,
-        2,
-        23.5
+        8,
+        24.5
       ],
       "faces": {
         "down": {
@@ -1820,7 +729,7 @@
             11.5,
             0,
             12.0,
-            7.5
+            8.5
           ],
           "rotation": 180
         }
@@ -1834,15 +743,39 @@
       ],
       "to": [
         4.5,
-        2,
-        23.5
+        8,
+        24.5
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            11.5,
+            7.5,
+            12.0,
+            16
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        4.0,
+        0,
+        16
+      ],
+      "to": [
+        4.5,
+        8,
+        24.5
       ],
       "faces": {
         "south": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             4.0,
-            14,
+            8,
             4.5,
             16
           ]
@@ -1857,15 +790,15 @@
       ],
       "to": [
         4.5,
-        2,
-        23.5
+        8,
+        24.5
       ],
       "faces": {
         "north": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             11.5,
-            14,
+            8,
             12.0,
             16
           ]
@@ -1880,8 +813,8 @@
       ],
       "to": [
         4.0,
-        2,
-        23.5
+        8,
+        24.5
       ],
       "faces": {
         "down": {
@@ -1890,7 +823,7 @@
             12.0,
             0,
             12.5,
-            7.5
+            8.5
           ],
           "rotation": 180
         }
@@ -1904,15 +837,39 @@
       ],
       "to": [
         4.0,
-        2,
-        23.5
+        8,
+        24.5
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            12.0,
+            7.5,
+            12.5,
+            16
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        3.5,
+        0,
+        16
+      ],
+      "to": [
+        4.0,
+        8,
+        24.5
       ],
       "faces": {
         "south": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             3.5,
-            14,
+            8,
             4.0,
             16
           ]
@@ -1927,15 +884,15 @@
       ],
       "to": [
         4.0,
-        2,
-        23.5
+        8,
+        24.5
       ],
       "faces": {
         "north": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             12.0,
-            14,
+            8,
             12.5,
             16
           ]
@@ -1946,20 +903,20 @@
       "from": [
         3.0,
         0,
-        23.0
+        24.0
       ],
       "to": [
         3.5,
-        2,
-        23.5
+        8,
+        24.5
       ],
       "faces": {
         "west": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
-            7.0,
-            14,
-            7.5,
+            8.0,
+            8,
+            8.5,
             16
           ]
         }
@@ -1973,8 +930,8 @@
       ],
       "to": [
         3.5,
-        2,
-        23.5
+        8,
+        24.5
       ],
       "faces": {
         "down": {
@@ -1983,7 +940,7 @@
             12.5,
             0,
             13.0,
-            7.5
+            8.5
           ],
           "rotation": 180
         }
@@ -1997,15 +954,39 @@
       ],
       "to": [
         3.5,
-        2,
-        23.5
+        8,
+        24.5
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            12.5,
+            7.5,
+            13.0,
+            16
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        3.0,
+        0,
+        16
+      ],
+      "to": [
+        3.5,
+        8,
+        24.5
       ],
       "faces": {
         "south": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             3.0,
-            14,
+            8,
             3.5,
             16
           ]
@@ -2020,15 +1001,15 @@
       ],
       "to": [
         3.5,
-        2,
-        23.5
+        8,
+        24.5
       ],
       "faces": {
         "north": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             12.5,
-            14,
+            8,
             13.0,
             16
           ]
@@ -2043,8 +1024,8 @@
       ],
       "to": [
         3.0,
-        2,
-        23.0
+        8,
+        24.0
       ],
       "faces": {
         "down": {
@@ -2053,7 +1034,7 @@
             13.0,
             0,
             13.5,
-            7.0
+            8.0
           ],
           "rotation": 180
         }
@@ -2067,15 +1048,39 @@
       ],
       "to": [
         3.0,
-        2,
-        23.0
+        8,
+        24.0
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            13.0,
+            8.0,
+            13.5,
+            16
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        2.5,
+        0,
+        16
+      ],
+      "to": [
+        3.0,
+        8,
+        24.0
       ],
       "faces": {
         "south": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             2.5,
-            14,
+            8,
             3.0,
             16
           ]
@@ -2090,39 +1095,16 @@
       ],
       "to": [
         3.0,
-        2,
-        23.0
+        8,
+        24.0
       ],
       "faces": {
         "north": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             13.0,
-            14,
+            8,
             13.5,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        2.0,
-        0,
-        22.5
-      ],
-      "to": [
-        2.5,
-        2,
-        23.0
-      ],
-      "faces": {
-        "west": {
-          "texture": "#column_lsmmod_block_classroom_floor",
-          "uv": [
-            6.5,
-            14,
-            7.0,
             16
           ]
         }
@@ -2136,8 +1118,8 @@
       ],
       "to": [
         2.5,
-        2,
-        23.0
+        8,
+        24.0
       ],
       "faces": {
         "down": {
@@ -2146,7 +1128,7 @@
             13.5,
             0,
             14.0,
-            7.0
+            8.0
           ],
           "rotation": 180
         }
@@ -2160,15 +1142,39 @@
       ],
       "to": [
         2.5,
-        2,
-        23.0
+        8,
+        24.0
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            13.5,
+            8.0,
+            14.0,
+            16
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        2.0,
+        0,
+        16
+      ],
+      "to": [
+        2.5,
+        8,
+        24.0
       ],
       "faces": {
         "south": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             2.0,
-            14,
+            8,
             2.5,
             16
           ]
@@ -2183,16 +1189,39 @@
       ],
       "to": [
         2.5,
-        2,
-        23.0
+        8,
+        24.0
       ],
       "faces": {
         "north": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             13.5,
-            14,
+            8,
             14.0,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        1.5,
+        0,
+        23.5
+      ],
+      "to": [
+        2.0,
+        8,
+        24.0
+      ],
+      "faces": {
+        "west": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            7.5,
+            8,
+            8.0,
             16
           ]
         }
@@ -2206,8 +1235,8 @@
       ],
       "to": [
         2.0,
-        2,
-        22.5
+        8,
+        24.0
       ],
       "faces": {
         "down": {
@@ -2216,7 +1245,7 @@
             14.0,
             0,
             14.5,
-            6.5
+            8.0
           ],
           "rotation": 180
         }
@@ -2230,15 +1259,39 @@
       ],
       "to": [
         2.0,
-        2,
-        22.5
+        8,
+        24.0
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            14.0,
+            8.0,
+            14.5,
+            16
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        1.5,
+        0,
+        16
+      ],
+      "to": [
+        2.0,
+        8,
+        24.0
       ],
       "faces": {
         "south": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             1.5,
-            14,
+            8,
             2.0,
             16
           ]
@@ -2253,15 +1306,15 @@
       ],
       "to": [
         2.0,
-        2,
-        22.5
+        8,
+        24.0
       ],
       "faces": {
         "north": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             14.0,
-            14,
+            8,
             14.5,
             16
           ]
@@ -2276,8 +1329,8 @@
       ],
       "to": [
         1.5,
-        2,
-        22.5
+        8,
+        23.5
       ],
       "faces": {
         "down": {
@@ -2286,7 +1339,7 @@
             14.5,
             0,
             15.0,
-            6.5
+            7.5
           ],
           "rotation": 180
         }
@@ -2300,15 +1353,39 @@
       ],
       "to": [
         1.5,
-        2,
-        22.5
+        8,
+        23.5
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            14.5,
+            8.5,
+            15.0,
+            16
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        1.0,
+        0,
+        16
+      ],
+      "to": [
+        1.5,
+        8,
+        23.5
       ],
       "faces": {
         "south": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             1.0,
-            14,
+            8,
             1.5,
             16
           ]
@@ -2323,15 +1400,15 @@
       ],
       "to": [
         1.5,
-        2,
-        22.5
+        8,
+        23.5
       ],
       "faces": {
         "north": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             14.5,
-            14,
+            8,
             15.0,
             16
           ]
@@ -2342,20 +1419,20 @@
       "from": [
         0.5,
         0,
-        22.0
+        23.0
       ],
       "to": [
         1.0,
-        2,
-        22.5
+        8,
+        23.5
       ],
       "faces": {
         "west": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
-            6.0,
-            14,
-            6.5,
+            7.0,
+            8,
+            7.5,
             16
           ]
         }
@@ -2369,8 +1446,8 @@
       ],
       "to": [
         1.0,
-        2,
-        22.5
+        8,
+        23.5
       ],
       "faces": {
         "down": {
@@ -2379,7 +1456,7 @@
             15.0,
             0,
             15.5,
-            6.5
+            7.5
           ],
           "rotation": 180
         }
@@ -2393,15 +1470,39 @@
       ],
       "to": [
         1.0,
-        2,
-        22.5
+        8,
+        23.5
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            15.0,
+            8.5,
+            15.5,
+            16
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        0.5,
+        0,
+        16
+      ],
+      "to": [
+        1.0,
+        8,
+        23.5
       ],
       "faces": {
         "south": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             0.5,
-            14,
+            8,
             1.0,
             16
           ]
@@ -2416,15 +1517,15 @@
       ],
       "to": [
         1.0,
-        2,
-        22.5
+        8,
+        23.5
       ],
       "faces": {
         "north": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             15.0,
-            14,
+            8,
             15.5,
             16
           ]
@@ -2439,16 +1540,16 @@
       ],
       "to": [
         0.5,
-        2,
-        22.0
+        8,
+        23.0
       ],
       "faces": {
         "west": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             0,
-            14,
-            6.0,
+            8,
+            7.0,
             16
           ]
         }
@@ -2462,8 +1563,8 @@
       ],
       "to": [
         0.5,
-        2,
-        22.0
+        8,
+        23.0
       ],
       "faces": {
         "down": {
@@ -2472,7 +1573,7 @@
             15.5,
             0,
             16.0,
-            6.0
+            7.0
           ],
           "rotation": 180
         }
@@ -2486,15 +1587,39 @@
       ],
       "to": [
         0.5,
-        2,
-        22.0
+        8,
+        23.0
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            15.5,
+            9.0,
+            16.0,
+            16
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        0.0,
+        0,
+        16
+      ],
+      "to": [
+        0.5,
+        8,
+        23.0
       ],
       "faces": {
         "south": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             0.0,
-            14,
+            8,
             0.5,
             16
           ]
@@ -2509,15 +1634,15 @@
       ],
       "to": [
         0.5,
-        2,
-        22.0
+        8,
+        23.0
       ],
       "faces": {
         "north": {
           "texture": "#column_lsmmod_block_classroom_floor",
           "uv": [
             15.5,
-            14,
+            8,
             16.0,
             16
           ]

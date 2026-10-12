@@ -26,7 +26,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class SchoolInvertedSlopeBlock extends Block implements SimpleWaterloggedBlock {
     public static final EnumProperty<Direction> FACING=BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED=BlockStateProperties.WATERLOGGED;
-    private final VoxelShape[] collisions=new VoxelShape[4];
+    private record Profile(double start,double rise,double offset,double top) {}
+    private static final java.util.concurrent.ConcurrentMap<Profile,VoxelShape[]> SHARED_SHAPES=new java.util.concurrent.ConcurrentHashMap<>();
+    private final VoxelShape[] collisions;
     public SchoolInvertedSlopeBlock(double lowerStart,double rise,Properties properties) {
         this(lowerStart,rise,0,properties);
     }
@@ -36,15 +38,19 @@ public class SchoolInvertedSlopeBlock extends Block implements SimpleWaterlogged
     public SchoolInvertedSlopeBlock(double lowerStart,double rise,double verticalOffset,double topHeight,Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any().setValue(FACING,Direction.NORTH).setValue(WATERLOGGED,false));
+        collisions=SHARED_SHAPES.computeIfAbsent(new Profile(lowerStart,rise,verticalOffset,topHeight),SchoolInvertedSlopeBlock::buildShapes);
+    }
+    private static VoxelShape[] buildShapes(Profile profile) {
+        VoxelShape[] shapes=new VoxelShape[4];
         java.util.List<net.minecraft.world.phys.AABB> boxes=new java.util.ArrayList<>(32);
         for(int i=0;i<32;i++) {
             double t0=i/32.0,t1=(i+1)/32.0;
-            boxes.add(new net.minecraft.world.phys.AABB(0,lowerStart-rise*t1+verticalOffset,1-t1,1,topHeight,1-t0));
+            double y0=profile.start()-profile.rise()*t0+profile.offset(),y1=profile.start()-profile.rise()*t1+profile.offset();
+            boxes.add(new net.minecraft.world.phys.AABB(0,Math.min(y0,y1),1-t1,1,profile.top(),1-t0));
         }
-        collisions[0]=ExactVoxelShapes.union(boxes);
-        for(int i=1;i<4;i++) {
-            collisions[i] = Shapes.rotate(collisions[i-1], com.mojang.math.OctahedralGroup.BLOCK_ROT_Y_90);
-        }
+        shapes[0]=ExactVoxelShapes.union(boxes);
+        for(int i=1;i<4;i++) shapes[i]=Shapes.rotate(shapes[i-1],com.mojang.math.OctahedralGroup.BLOCK_ROT_Y_90);
+        return shapes;
     }
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {builder.add(FACING,WATERLOGGED);}

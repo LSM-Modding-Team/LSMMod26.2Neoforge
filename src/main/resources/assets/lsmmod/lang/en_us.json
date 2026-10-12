@@ -359,5 +359,8 @@
   "block.lsmmod.school_circular_column": "School Circular Column",
   "item.lsmmod.dark_tiled_floor_paint": "Dark Tiled Floor Paint",
   "config.jade.plugin_lsmmod.painted_wall_name": "Painted block face: name and icon",
-  "block.lsmmod.school_crucifix": "School Crucifix"
+  "block.lsmmod.school_crucifix": "School Crucifix",
+  "block.lsmmod.school_inverted_slope_short_raised_1": "Short raised inverted slope 1",
+  "block.lsmmod.school_inverted_slope_short_raised_2": "Short raised inverted slope 2",
+  "block.lsmmod.school_inverted_slope_short_raised_3": "Short raised inverted slope 3"
 }

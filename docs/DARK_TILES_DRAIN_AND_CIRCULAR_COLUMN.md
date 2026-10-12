@@ -1,3 +1,5 @@
+> Proporciones vigentes desde 2026-10-12: fuste Ø28 px y base Ø34 px × 8 px. Consulte [la actualización](SHORT_RAISED_SLOPES_AND_COLUMN_DIMENSIONS.md). Las medidas anteriores descritas abajo son históricas.
+
 # Baldosas oscuras, desagüe y columna circular
 
 `dark_tiled_floor` es un cubo completo en School Blocks. Reutiliza el dibujo de classroom_floor, recoloreado alrededor de #656667, un gris intermedio entre stone y deepslate. No cambia las baldosas existentes. Su pintura dark_tiled_floor_paint (School Items, ID 11 añadido después de los anteriores) funciona con ambos pintables, copia, limpiador, lija, rectángulos y Jade; no cambia el formato de cuatro bits.

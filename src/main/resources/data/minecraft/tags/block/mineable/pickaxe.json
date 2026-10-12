@@ -118,6 +118,9 @@
     "lsmmod:orange_playground_floor",
     "lsmmod:dark_tiled_floor",
     "lsmmod:school_drain",
-    "lsmmod:school_circular_column"
+    "lsmmod:school_circular_column",
+    "lsmmod:school_inverted_slope_short_raised_1",
+    "lsmmod:school_inverted_slope_short_raised_2",
+    "lsmmod:school_inverted_slope_short_raised_3"
   ]
 }

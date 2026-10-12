@@ -7,26 +7,31 @@ ROOT=Path(__file__).resolve().parents[1]; A=ROOT/'src/main/resources/assets/lsmm
 from create_paintable_school_block import PAINTS
 COLORS=PAINTS
 DRAIN=[([0,0,0,16,8,16],'gray'),([8,8,0,16,16,16],'gray',{'up':'tile'})]+[([0,15,z,8,16,z+1],'metal') for z in (0,3,6,9,12,15)]
-# Diameter 32px, centered on (8,8), extending eight pixels into each neighboring cell.
-CIRCLE=[]
-for i in range(64):
- x=-8+i*.5;edge=round((8-math.sqrt(256-(x+.25-8)**2))*2)/2
- CIRCLE.append([x,0,edge,x+.5,16,16-edge])
-FIXED=[];ALL=[];OUTER=[[],[]]
-for b in CIRCLE:
- for low,high in zip((-8,0,8,16),(0,8,16,24)):
-  z0,z1=max(b[2],low),min(b[5],high)
-  if z0>=z1:continue
-  cell=[b[0],0,z0,b[3],16,z1];ALL.append(cell)
-  cardinal=(0<=b[0]<16 and (z1<=0 or z0>=16)) or (0<=z0<16 and (b[3]<=0 or b[0]>=16))
-  if not cardinal:FIXED.append(cell)
-  elif z1<=0:OUTER[int(b[0]>=8)].append(cell)
-
-def connectors(q):
- # North-facing overhang; rotations share this section in all four directions.
- return [[b[0],8*(q//2),b[2],b[3],8+8*(q//2),b[5]] for b in OUTER[q%2]]
-def outer_boxes(q,height):
- return [[b[0],max(b[1],height),b[2],b[3],b[4],b[5]] for b in connectors(q) if b[4]>height]
+# Half-pixel circular grids, sharing cardinal sectors in all four directions.
+def circle(radius,height):
+ boxes=[]
+ for i in range(int(radius*4)):
+  x=8-radius+i*.5;edge=round((8-math.sqrt(radius**2-(x+.25-8)**2))*2)/2
+  boxes.append([x,0,edge,x+.5,height,16-edge])
+ return boxes
+def partition(boxes,radius):
+ fixed=[];all_boxes=[];outer=[[],[]]
+ bounds=(8-radius,0,8,16,8+radius)
+ for b in boxes:
+  for low,high in zip(bounds,bounds[1:]):
+   z0,z1=max(b[2],low),min(b[5],high)
+   if z0>=z1:continue
+   cell=[b[0],0,z0,b[3],b[4],z1];all_boxes.append(cell)
+   cardinal=(0<=b[0]<16 and (z1<=0 or z0>=16)) or (0<=z0<16 and (b[3]<=0 or b[0]>=16))
+   if not cardinal:fixed.append(cell)
+   elif z1<=0:outer[int(b[0]>=8)].append(cell)
+ return fixed,all_boxes,outer
+CIRCLE=circle(14,16);FIXED,ALL,OUTER=partition(CIRCLE,14)
+BASE_CIRCLE=circle(17,8);BASE_FIXED,BASE_ALL,BASE_SECTORS=partition(BASE_CIRCLE,17)
+def connectors(q,base=False):
+ return vertical((BASE_SECTORS if base else OUTER)[q%2],8*(q//2),8+8*(q//2))
+def outer_boxes(q,height,base=False):
+ return [[b[0],max(b[1],height),b[2],b[3],b[4],b[5]] for b in connectors(q,base) if b[4]>height]
 def vertical(boxes,low,high):
  return [[b[0],max(b[1],low),b[2],b[3],min(b[4],high),b[5]] for b in boxes if max(b[1],low)<min(b[4],high)]
 def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
@@ -93,9 +98,9 @@ def main():
   return fusion_base(explicit_materials(value))
  for base in (False,True):
   name='school_circular_column_shaft'+('_raised' if base else '')
-  write(A/f'models/block/{name}.json',column_mesh([(b,'shaft') for b in vertical(FIXED,2 if base else 0,16)],True))
+  write(A/f'models/block/{name}.json',column_mesh([(b,'shaft') for b in vertical(FIXED,8 if base else 0,16)],True))
  models.append([{'model':'lsmmod:block/school_circular_column_shaft_raised','condition':{'type':'lsmmod:column_part','side':-1,'quarter':0,'paint':0}},{'model':'lsmmod:block/school_circular_column_shaft'}])
- write(A/'models/block/school_circular_column_base.json',column_mesh([(b,'base') for b in vertical(FIXED,0,2)],True))
+ write(A/'models/block/school_circular_column_base.json',column_mesh([(b,'base') for b in BASE_FIXED],True))
  models.append({'model':'lsmmod:block/school_circular_column_base','condition':{'type':'lsmmod:column_part','side':-1,'quarter':0,'paint':0}})
  # Fusion 1.3.16 returns null for elements=[] and rejects faceless elements.
  # This valid quad is enclosed by the fixed solid shaft in every neighbor profile.
@@ -112,7 +117,7 @@ def main():
     series.append({'model':'lsmmod:block/'+ident,'condition':{'type':'lsmmod:column_part','side':side,'quarter':worldq,'paint':-1,'height':height}})
    for base in ((True,False) if q<2 else (False,)):
     name=f'school_circular_column_outer_{q}{suffix}'+('_base' if base else '')
-    parts=[(b,'shaft') for b in vertical(connectors(q),2 if base else 0,16)]+([(b,'base') for b in vertical(connectors(q),0,2)] if base else [])
+    parts=[(b,'base' if base else 'shaft') for b in connectors(q,base)]
     write(A/f'models/block/{name}.json',oriented_model(column_mesh(parts),side))
     entry={'model':'lsmmod:block/'+name}
     if base:entry['condition']={'type':'lsmmod:column_part','side':side,'quarter':worldq,'paint':-1,'height':0,'base':1}
@@ -138,12 +143,13 @@ def main():
  write(A/'models/block/school_circular_column.json',{'loader':'fusion:model','type':'composite','textures':{**textures,**{'column_'+t.replace(':','_').replace('/','_'):t for t in COLORS}},'models':models})
  write(A/'blockstates/school_circular_column.json',{'variants':{'':{'model':'lsmmod:block/school_circular_column'}}})
  # Inventory uses a single complete cylinder scaled to fit a normal block icon.
- item=column_mesh([(b,'shaft') for b in vertical(ALL,2,16)]+[(b,'base') for b in vertical(ALL,0,2)])
+ item=column_mesh([(b,'shaft') for b in vertical(ALL,8,16)]+[(b,'base') for b in BASE_ALL])
  for element in item['elements']:
-  for key in ('from','to'):element[key]=[8+(element[key][0]-8)/2,element[key][1],8+(element[key][2]-8)/2]
+  for key in ('from','to'):element[key]=[8+(element[key][0]-8)*16/34,element[key][1],8+(element[key][2]-8)*16/34]
  write(A/'models/item/school_circular_column.json',item);basic('school_circular_column','school_circular_column');write(A/'items/school_circular_column.json',{'model':{'type':'minecraft:model','model':'lsmmod:item/school_circular_column'}})
  java='package net.nicomar2009.lsmmod.block;\n\n/** Generated mesh-identical physical boxes. */\npublic final class SchoolDrainColumnShapes {\n private SchoolDrainColumnShapes() {}\n'
- for name,boxes in [('DRAIN',[b[0] for b in DRAIN]),('SHAFT',CIRCLE),('FIXED',FIXED)]:java+=' public static final double[][] '+name+' = '+json.dumps(boxes).replace('[','{').replace(']','}')+';\n'
+ for name,boxes in [('DRAIN',[b[0] for b in DRAIN]),('SHAFT',CIRCLE),('FIXED',FIXED),('BASE_FIXED',BASE_FIXED)]:java+=' public static final double[][] '+name+' = '+json.dumps(boxes).replace('[','{').replace(']','}')+';\n'
+ java+=' public static final double[][][][] BASE_OUTER = '+json.dumps([[outer_boxes(q,height,True) for height in (0,12,16)] for q in range(4)]).replace('[','{').replace(']','}')+';\n'
  java+=' public static final double[][][][] OUTER = '+json.dumps([[outer_boxes(q,height) for height in (0,12,16)] for q in range(4)]).replace('[','{').replace(']','}')+';\n}\n';p=J/'block/SchoolDrainColumnShapes.java';p.write_text(java);GENERATED.append(str(p.relative_to(ROOT)))
  registrations='''    public static final DeferredBlock<Block> DARK_TILED_FLOOR = BLOCKS.registerBlock("dark_tiled_floor", Block::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).requiresCorrectToolForDrops());
     public static final DeferredBlock<SchoolDrainBlock> SCHOOL_DRAIN = BLOCKS.registerBlock("school_drain", SchoolDrainBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());

@@ -1,0 +1,112 @@
+{
+  "length_pixels": 48,
+  "height_pixels": 64,
+  "underside_start_pixels": 8,
+  "underside_end_pixels": 56,
+  "placements": {
+    "north": [
+      {
+        "id": "school_inverted_slope_short_raised_1",
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "school_inverted_slope_short_raised_2",
+        "offset": [
+          0,
+          1,
+          -1
+        ]
+      },
+      {
+        "id": "school_inverted_slope_short_raised_3",
+        "offset": [
+          0,
+          2,
+          -2
+        ]
+      }
+    ],
+    "east": [
+      {
+        "id": "school_inverted_slope_short_raised_1",
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "school_inverted_slope_short_raised_2",
+        "offset": [
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "id": "school_inverted_slope_short_raised_3",
+        "offset": [
+          2,
+          2,
+          0
+        ]
+      }
+    ],
+    "south": [
+      {
+        "id": "school_inverted_slope_short_raised_1",
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "school_inverted_slope_short_raised_2",
+        "offset": [
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "school_inverted_slope_short_raised_3",
+        "offset": [
+          0,
+          2,
+          2
+        ]
+      }
+    ],
+    "west": [
+      {
+        "id": "school_inverted_slope_short_raised_1",
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "school_inverted_slope_short_raised_2",
+        "offset": [
+          -1,
+          1,
+          0
+        ]
+      },
+      {
+        "id": "school_inverted_slope_short_raised_3",
+        "offset": [
+          -2,
+          2,
+          0
+        ]
+      }
+    ]
+  }
+}
