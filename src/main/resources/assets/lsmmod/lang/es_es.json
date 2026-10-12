@@ -361,5 +361,8 @@
   "block.lsmmod.school_wood_door": "Puerta de madera del colegio",
   "block.lsmmod.school_sliding_entrance": "Entrada deslizable del colegio",
   "block.lsmmod.drinking_fountain_raised": "Bebedero elevado",
-  "block.lsmmod.lost_and_found_box": "Caja de objetos perdidos"
+  "block.lsmmod.lost_and_found_box": "Caja de objetos perdidos",
+  "block.lsmmod.dining_door_wide": "Puerta del comedor con marco (2×3)",
+  "block.lsmmod.school_microwave": "Microondas del colegio",
+  "block.lsmmod.school_trophy_gallery": "Galería de trofeos del colegio"
 }

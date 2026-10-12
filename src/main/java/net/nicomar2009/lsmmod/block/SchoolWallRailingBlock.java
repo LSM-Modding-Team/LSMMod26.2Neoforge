@@ -131,6 +131,8 @@ public class SchoolWallRailingBlock extends FenceBlock {
         return SimpleBlockOutline.forState(state,()->getCollisionShape(state,level,pos,context));
     }
     @Override
+    protected VoxelShape getBlockSupportShape(BlockState state,BlockGetter level,BlockPos pos) {return Shapes.block();}
+    @Override
     protected VoxelShape getOcclusionShape(BlockState state) {return BASE;}
     @Override
     protected BlockState rotate(BlockState state,Rotation rotation) {

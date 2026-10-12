@@ -367,5 +367,8 @@
   "block.lsmmod.school_wood_door": "School Wood Door",
   "block.lsmmod.school_sliding_entrance": "School Sliding Entrance",
   "block.lsmmod.drinking_fountain_raised": "Raised Drinking Fountain",
-  "block.lsmmod.lost_and_found_box": "Lost and Found Box"
+  "block.lsmmod.lost_and_found_box": "Lost and Found Box",
+  "block.lsmmod.dining_door_wide": "Framed Dining Door (2×3)",
+  "block.lsmmod.school_microwave": "School Microwave",
+  "block.lsmmod.school_trophy_gallery": "School Trophy Gallery"
 }

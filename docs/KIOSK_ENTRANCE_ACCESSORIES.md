@@ -13,7 +13,7 @@ Todos estos bloques están en **LSM Mod School Functional Blocks**.
 
 ## Entrada deslizable
 
-Las columnas negras internas delimitan el paso central. Cuatro hojas de un bloque
+Cada celda tiene ahora nueve cuadrados (3×3), rellenados con school_tinted_glass opaco. Las columnas negras internas delimitan el paso central. Cuatro hojas de un bloque
 (dos por lado) se recogen en dos carriles detrás de los laterales decorativos.
 La puerta abierta deja libres las cuatro columnas centrales en sus cuatro filas;
 no invade posiciones fuera de los seis bloques de ancho.

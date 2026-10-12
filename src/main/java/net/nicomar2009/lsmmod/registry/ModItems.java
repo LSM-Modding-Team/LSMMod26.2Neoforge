@@ -21,6 +21,12 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
+    // BEGIN FACILITY EXPANSIONS
+    public static final DeferredItem<BlockItem> DINING_DOOR_WIDE = ITEMS.registerSimpleBlockItem(ModBlocks.DINING_DOOR_WIDE);
+    public static final DeferredItem<BlockItem> SCHOOL_MICROWAVE = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_MICROWAVE);
+    public static final DeferredItem<BlockItem> SCHOOL_TROPHY_GALLERY = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_TROPHY_GALLERY);
+    // END FACILITY EXPANSIONS
+
     // BEGIN KIOSK ENTRANCE ACCESSORIES
     public static final DeferredItem<BlockItem> SCHOOL_WOOD_PANEL = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_WOOD_PANEL);
     public static final DeferredItem<BlockItem> SCHOOL_WOOD_DOOR = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_WOOD_DOOR);

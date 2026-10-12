@@ -24,7 +24,8 @@ def main():
  for y in range(64):
   for x in range(16,80):
    assert not inside(opened,(x+.5,y+.5,8.5))
-   assert inside(closed,(x+.5,y+.5,8.5))==(x%4==0 or x%16==15 or y%4==0)
+   assert inside(closed,(x+.5,y+.5,8.5)) # opaque glazing fills the lattice
+   assert inside(closed,(x+.5,y+.5,8.1))==(x%16 in (0,5,10,15) or y%16 in (0,5,10,15))
  # All leaves remain within 6x4 and are preserved in distinct lateral tracks.
  for b in opened:assert 0<=b[0]<b[3]<=96 and 0<=b[1]<b[4]<=64 and 0<=b[2]<b[5]<=16
  assert closed[:len(closed)-4*21]==opened[:len(opened)-4*21] # fixed decorative lattice

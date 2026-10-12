@@ -26,19 +26,19 @@ def rotated(value):
 
 def gate_parts(opened):
  parts=[]
- # Fixed decorative lattice sides, full-height black boundary posts and upper rail.
- for x in (0,80):
-  for u in range(0,16,4):parts.append(([x+u,0,6,x+u+1,64,8],'metal'))
-  for y in range(0,64,4):parts.append(([x,y,6,x+16,y+1,8],'metal'))
+ def lattice(x,z):
+  # Three openings per axis in each 16px cell: exactly nine squares.
+  for u in (0,5,10,15):parts.append(([x+u,0,z,x+u+1,64,z+1],'metal'))
+  for row in range(4):
+   for y in (0,5,10,15):parts.append(([x,row*16+y,z,x+16,row*16+y+1,z+1],'metal'))
+  # Opaque school glass is inset into the bars, visible from both sides.
+  parts.append(([x,0,z+.25,x+16,64,z+.75],'glass'))
+ for x in (0,80):lattice(x,6)
  for x in (0,15,80,95):parts.append(([x,0,5,x+1,64,9],'metal'))
- # The two internal black posts at x16 and x80 delimit the moving 4x4 section.
- # Two one-block leaves per side retract into a one-block decorative pocket.
  for panel in range(4):
   x=(16+panel*16) if not opened else (0 if panel<2 else 80)
   z=8 if not opened else 9+(panel%2)*2
-  for u in range(0,16,4):parts.append(([x+u,0,z,x+u+1,64,z+1],'metal'))
-  for y in range(0,64,4):parts.append(([x,y,z,x+16,y+1,z+1],'metal'))
-  parts.append(([x+15,0,z,x+16,64,z+1],'metal'))
+  lattice(x,z)
  return parts
 GATE_CLOSED=gate_parts(False);GATE_OPEN=gate_parts(True)
 
@@ -72,7 +72,7 @@ def rectangular(ident,closed,opened,width,height,textures):
  write(A/f'blockstates/{ident}.json',{'variants':states})
  if ident=='school_sliding_entrance':
   icon=Image.new('RGBA',(96,96));draw=ImageDraw.Draw(icon)
-  for b,material in closed:draw.rectangle((int(b[0]),16+64-int(b[4]),int(b[3])-1,16+64-int(b[1])-1),fill=(34,35,33,255))
+  for b,material in sorted(closed,key=lambda p:p[1]!='glass'):draw.rectangle((int(b[0]),16+64-int(b[4]),int(b[3])-1,16+64-int(b[1])-1),fill=(47,52,56,255) if material=='glass' else (34,35,33,255))
   path=A/'textures/item/school_sliding_entrance.png';path.parent.mkdir(parents=True,exist_ok=True);icon.save(path);GENERATED.append(str(path.relative_to(ROOT)))
   write(A/f'models/item/{ident}.json',{'parent':'minecraft:item/generated','textures':{'layer0':'lsmmod:item/school_sliding_entrance'}})
   basic(ident,'item/'+ident,{'column':'0','row':'0'});return
@@ -111,7 +111,7 @@ def main():
     name=f'school_wood_door_{row}_{hinge}_{str(op).lower()}';write(A/f'models/block/{name}.json',source)
     for n,f in enumerate(('north','east','south','west')):states[f'facing={f},hinge={hinge},row={row},open={str(op).lower()}']={'model':'lsmmod:block/'+name,'y':n*90}
  write(A/'blockstates/school_wood_door.json',{'variants':states});write(A/'models/item/school_wood_door.json',{'parent':'lsmmod:block/school_wood_door_0_left_false'});basic('school_wood_door','item/school_wood_door',{'row':'0'})
- rectangular('school_sliding_entrance',GATE_CLOSED,GATE_OPEN,6,4,{'metal':'lsmmod:block/school_entrance_black_metal','particle':'lsmmod:block/school_entrance_black_metal'})
+ rectangular('school_sliding_entrance',GATE_CLOSED,GATE_OPEN,6,4,{'metal':'lsmmod:block/school_entrance_black_metal','glass':'lsmmod:block/school_tinted_glass','particle':'lsmmod:block/school_entrance_black_metal'})
  # Raise the original fountain eight pixels and reserve both affected world cells.
  source=json.loads((A/'models/block/drinking_fountain.json').read_text());parts=[]
  for e in source['elements']:

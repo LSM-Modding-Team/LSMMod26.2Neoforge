@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        },
+        {
+          "condition": "minecraft:any_of",
+          "terms": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "lsmmod:san_martin_de_porres",
+              "properties": {
+                "expanded": "true",
+                "column": "0",
+                "row": "0"
+              }
+            },
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "lsmmod:san_martin_de_porres",
+              "properties": {
+                "expanded": "false",
+                "half": "lower"
+              }
+            }
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lsmmod:san_martin_de_porres"
+        }
+      ]
+    }
+  ]
+}
