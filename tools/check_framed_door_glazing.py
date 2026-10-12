@@ -58,17 +58,19 @@ def main():
                                     if key in ('#bottom','#top'):
                                         assert model['textures'][key[1:]] == f'lsmmod:block/{wood}_{key[1:]}'
                                     if key == '#light':
-                                        assert f == 'north' or f in ('east','west')
+                                        assert f in ('east','west')
                                     if f == 'south' and key in ('#light','#white'):
                                         assert key == '#white'
-            assert len(windows) == 1, (ident,facing,opened,hinge)
-            model, state = windows[0]
-            assert state['row'] == '0' and state['depth'] == '0'
-            assert len(model['elements']) == 1 and model['textures']['window'] == 'minecraft:block/glass'
-            e = model['elements'][0]
-            assert e['from'][1] == 6 and e['to'][1] == 32
-            assert max(e['to']) <= 32
-            assert all(face['uv'] == [0,0,16,16] for face in e['faces'].values())
+            assert len(windows) == (1 if ident=='dining_door_wide' else 0), (ident,facing,opened,hinge)
+            if windows:
+                model, state = windows[0]
+                assert state['row'] == '1' and state['depth'] == '0'
+                assert len(model['elements']) == 1 and model['textures']['window'] == 'minecraft:block/glass'
+                e = model['elements'][0]
+                assert e['from'][1] == -8.5 and e['to'][1] == 19
+                assert min(e['from']) >= -16 and max(e['to']) <= 32
+                assert all(face['uv'] == [0,0,16,16] for face in e['faces'].values())
+            state = {'facing':facing,'open':opened,'hinge':hinge,'depth':'0'}
             for column in (0,1):
                 state = dict(state,row='2',column=str(column))
                 assert sum('framed_door_transom' in p['apply']['model'] for p in parts if matches(p['when'],state)) == 1
@@ -87,7 +89,7 @@ def main():
     door = (java/'SchoolFramedDiningDoorBlock.java').read_text()
     assert 'SchoolGlazing.refreshHorizontal(level, cell(origin,facing,column,2,0))' in door
     assert 'SimpleBlockOutline.forState' in door and 'COLLISIONS.computeIfAbsent' in door
-    print(f'OK: 32 dynamic glazing masks; 8px transom matches school-glass footprint, connected caps/top frame removed; {count} facing/open/hinge assemblies each render one complete vanilla pane; dining/bathroom textures, front-only wall change, shared caches and single drops.')
+    print(f'OK: 32 dynamic glazing masks; 8px transom matches school-glass footprint, connected caps/top frame removed; {count} facing/open/hinge assemblies have a single dining pane or a solid bathroom leaf; native textures, restored white front, shared caches and single drops.')
 
 
 if __name__ == '__main__':

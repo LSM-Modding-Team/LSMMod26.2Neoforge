@@ -27,8 +27,12 @@ public final class ModBlocks {
     // BEGIN SCHOOL SPLIT RAISED EXTRAS
     // BEGIN ENTRANCE PAVEMENT SHAPES
     // BEGIN DINING COUNTER
-    public static final DeferredBlock<BathroomFloorBlock> DINING_ROOM_COUNTER = BLOCKS.registerBlock("dining_room_counter", BathroomFloorBlock::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<DiningRoomCounterBlock> DINING_ROOM_COUNTER = BLOCKS.registerBlock("dining_room_counter", DiningRoomCounterBlock::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
     // END DINING COUNTER
+
+    // BEGIN CONNECTED TINTED GLASS
+    public static final DeferredBlock<SchoolGlassBlock> SCHOOL_CONNECTED_TINTED_GLASS = BLOCKS.registerBlock("school_connected_tinted_glass", props -> new SchoolGlassBlock(props, new double[][]{{0,0,0,16,16,8}}), props -> props.strength(0.3F).sound(SoundType.GLASS).noOcclusion());
+    // END CONNECTED TINTED GLASS
 
     // BEGIN FACILITY EXPANSIONS
     public static final DeferredBlock<SchoolFramedDiningDoorBlock> DINING_DOOR_WIDE = BLOCKS.registerBlock("dining_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));

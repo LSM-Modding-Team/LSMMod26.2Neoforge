@@ -1,31 +1,31 @@
 {
   "variants": {
     "tile_x=0,tile_z=0": {
-      "model": "lsmmod:block/dining_room_counter_0_0"
+      "model": "lsmmod:block/dining_room_counter"
     },
     "tile_x=0,tile_z=1": {
-      "model": "lsmmod:block/dining_room_counter_0_1"
+      "model": "lsmmod:block/dining_room_counter"
     },
     "tile_x=0,tile_z=2": {
-      "model": "lsmmod:block/dining_room_counter_0_2"
+      "model": "lsmmod:block/dining_room_counter"
     },
     "tile_x=1,tile_z=0": {
-      "model": "lsmmod:block/dining_room_counter_1_0"
+      "model": "lsmmod:block/dining_room_counter"
     },
     "tile_x=1,tile_z=1": {
-      "model": "lsmmod:block/dining_room_counter_1_1"
+      "model": "lsmmod:block/dining_room_counter"
     },
     "tile_x=1,tile_z=2": {
-      "model": "lsmmod:block/dining_room_counter_1_2"
+      "model": "lsmmod:block/dining_room_counter"
     },
     "tile_x=2,tile_z=0": {
-      "model": "lsmmod:block/dining_room_counter_2_0"
+      "model": "lsmmod:block/dining_room_counter"
     },
     "tile_x=2,tile_z=1": {
-      "model": "lsmmod:block/dining_room_counter_2_1"
+      "model": "lsmmod:block/dining_room_counter"
     },
     "tile_x=2,tile_z=2": {
-      "model": "lsmmod:block/dining_room_counter_2_2"
+      "model": "lsmmod:block/dining_room_counter"
     }
   }
 }

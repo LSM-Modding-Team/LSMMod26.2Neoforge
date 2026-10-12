@@ -8,9 +8,9 @@ ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmo
 IDS=['dining_door_wide','bathroom_door_wide','school_microwave','school_trophy_gallery']
 FACES=('north','south','east','west','up','down')
 MICROWAVE=[([1,1,2,15,10,14],'metal'),([1,1,1,11,9,2],'black'),([2,2,.75,10,8,1],'glass'),([11,1,1,15,9,2],'metal'),([11.5,3,.5,12.25,7,1],'metal'),([13,5,.75,14,7,1],'black'),([13,2.5,.75,14,3.5,1],'button')]
-DINING_FIXED=[([24,0,0,32,40,16],'white',{'east':'light','north':'light'}),([0,40,0,32,48,8],'glass')]
+DINING_FIXED=[([24,0,0,32,40,16],'white',{'east':'light'}),([0,40,0,32,48,8],'glass')]
 # A real opening in the wooden leaf, with vanilla bordered glass inset into it.
-DINING_LEAF=[([0,0,0,24,6,4],'bottom'),([0,6,0,8,20,4],'bottom'),([20,6,0,24,20,4],'bottom'),([0,20,0,8,32,4],'top'),([20,20,0,24,32,4],'top'),([0,32,0,24,40,4],'top'),([8,6,1,20,32,3],'window')]
+DINING_LEAF=[([0,0,0,24,20,4],'bottom'),([0,20,0,24,40,4],'top'),([7.5,7.5,1,16.5,35,3],'window')]
 DINING_CLOSED=DINING_FIXED+DINING_LEAF
 DINING_OPEN=DINING_FIXED+[([b[2],b[1],b[0],b[5],b[4],b[3]],mat) for b,mat in DINING_LEAF]
 
@@ -178,6 +178,10 @@ def main():
          # Do not expose caps where one glass volume was split across grid cells.
          axis,positive={'west':(0,False),'east':(0,True),'down':(1,False),'up':(1,True),'north':(2,False),'south':(2,True)}[face]
          plane=e['to' if positive else 'from'][axis]+(col*16,row*16,depth*16)[axis]
+         # Clipping a full leaf into cells must not invent wood caps inside
+         # its texture-cutout window. Those caps looked like dividing bars.
+         if s['texture'] in ('#bottom','#top') and ((axis==1 and plane in (16,32)) or (axis==(2 if op else 0) and plane==16)):
+          del e['faces'][face];continue
          if (s['texture']=='#glass' and axis==0 and plane==16) or (s['texture']=='#window' and plane==16 and (axis==1 or axis==(2 if op else 0))):
           del e['faces'][face];continue
          # Side-wall outer face alone is light; lower/front/back/bottom remain white.

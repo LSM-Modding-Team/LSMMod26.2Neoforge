@@ -1,20 +1,18 @@
 # Mostrador del comedor y materiales escolares
 
-`dining_room_counter` (Mostrador del comedor / Dining Room Counter) es el bloque
-de mampostería de la segunda referencia, de 1×1×1. Se coloca individualmente
-y puede alinearse con otros mostradores sin juntas geométricas adicionales.
+`dining_room_counter` (Cubierta del mostrador del comedor / Dining Room Countertop)
+conserva únicamente la cubierta Y14..16 px, de 1×1 bloques y 2 píxeles de espesor.
+Base y cuerpo eliminados del modelo, selección y colisión. Se coloca individualmente
+y puede alinearse con otras cubiertas.
 
-- Base Y0..1 px: `dark_school_tiled_floor`, material elegido por el usuario
-  para la zona que en la referencia se llamaba dining_room_floor.
-- Cuerpo Y1..14 px: `light_school_wall`.
-- Cubierta Y14..16 px: `light_school_tiled_floor`, con sus lados claros y
-  superficie de baldosas de paso 24 px.
-
-Reutiliza `BathroomFloorBlock`: nueve fases X/Z módulo tres, incluso en
-coordenadas negativas, para alinear las baldosas de la cubierta con el suelo.
-Colisión y contorno de cubo completo vanilla; un ítem/drop, resistencia y
-sonidos de piedra, etiqueta de pico y School Functional Blocks. Sin entidad,
-inventario, interacción ni ticker nuevos.
+Textura nueva y uniforme RGB22/31/37, tomada de la cara superior de teachers_desk.
+`DiningRoomCounterBlock` hereda las nueve fases X/Z anteriores de `BathroomFloorBlock`
+para conservar los estados guardados. Todos seleccionan un solo modelo/imagen;
+colisión y contorno comparten una caja constante Y14..16, con espacio libre debajo.
+La cara inferior es visible a Y14 y no se marca con cullface=down, porque no está
+en el límite inferior de la celda. Un ítem/drop, resistencia y sonidos de piedra,
+etiqueta de pico y School Functional Blocks. Sin entidad, inventario, interacción
+ni ticker nuevos.
 
 Los pisos pasan a llamarse `dark_school_tiled_floor` y `light_school_tiled_floor`.
 Texturas, geometría y estados originales conservados. Los recursos, registros,
@@ -34,3 +32,5 @@ Generador: `tools/create_dining_counter_assets.py`. Comprobación estática:
 IDs/alias, recursos, rojo compartido e idempotencia). Las regresiones de pisos,
 sanitarios, lavadero, rejillas/rotaciones de muebles y recursos se ejecutan con
 Python. Sin compilación ni ejecución de Minecraft.
+Render revisado: previews/tinted_glass_and_counter_review.png, generado con
+tools/render_texture_review.py usando el modelo y la textura finales.

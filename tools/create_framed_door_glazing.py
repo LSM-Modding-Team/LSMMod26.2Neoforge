@@ -35,14 +35,16 @@ def add_visual_parts(multipart, textures, write):
                           'apply':{'model':'lsmmod:block/framed_door_transom','y':turn*90}})
     for opened in (False, True):
         for right in (False, True):
-            bounds = [8,6,1,20,32,3]
+            bounds = [7.5,7.5,1,16.5,35,3]
             if opened:
-                bounds = [1,6,8,3,32,20]
+                bounds = [1,7.5,7.5,3,35,16.5]
             if right:
                 bounds[0], bounds[3] = 32-bounds[3], 32-bounds[0]
             column = 1 if opened and right else 0
             bounds[0] -= column*16
             bounds[3] -= column*16
+            bounds[1] -= 16
+            bounds[4] -= 16
             # One element, one complete UV rectangle: no cell seam or UV shrink gap.
             name = f'framed_door_window_{int(opened)}_{int(right)}'
             write(A/f'models/block/{name}.json', {'parent':'minecraft:block/block',
@@ -50,7 +52,7 @@ def add_visual_parts(multipart, textures, write):
                   'particle':'minecraft:block/glass'}, 'elements':[cube(bounds,'window')]})
             for turn, facing in enumerate(('north','east','south','west')):
                 multipart.append({'when':{'facing':facing,'open':str(opened).lower(),
-                    'hinge':'right' if right else 'left','row':'0','column':str(column),'depth':'0'},
+                    'hinge':'right' if right else 'left','row':'1','column':str(column),'depth':'0'},
                     'apply':{'model':'lsmmod:block/'+name,'y':turn*90}})
 
 
@@ -58,7 +60,7 @@ def bathroom_variant(multipart, textures, write):
     overrides = {'bottom':'lsmmod:block/bathroom_door_bottom',
                  'top':'lsmmod:block/bathroom_door_top',
                  'particle':'lsmmod:block/bathroom_door_bottom'}
-    result = copy.deepcopy(multipart)
+    result = [copy.deepcopy(entry) for entry in multipart if 'framed_door_window_' not in entry['apply']['model']]
     for entry in result:
         name = entry['apply']['model'].split(':')[1]
         if name.startswith('block/dining_door_wide_part_'):
@@ -67,11 +69,12 @@ def bathroom_variant(multipart, textures, write):
             entry['apply']['model'] = 'lsmmod:'+new
     write(A/'blockstates/bathroom_door_wide.json', {'multipart':result})
     layers = []
-    for layer in ('solid','translucent','cutout'):
+    for layer in ('solid','translucent'):
         name = f'bathroom_door_wide_item_{layer}'
         write(A/f'models/item/{name}.json', {'loader':'fusion:model','type':'base',
               'parent':f'lsmmod:item/dining_door_wide_item_{layer}','textures':overrides})
         layers.append('lsmmod:item/'+name)
+    (A/'models/item/bathroom_door_wide_item_cutout.json').unlink(missing_ok=True)
     write(A/'models/item/bathroom_door_wide.json', {'loader':'fusion:model',
           'type':'composite','textures':dict(textures,**overrides),'models':[layers]})
 

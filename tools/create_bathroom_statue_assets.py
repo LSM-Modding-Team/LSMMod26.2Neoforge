@@ -82,7 +82,7 @@ def textures():
               "chrome": (174, 185, 187), "drain": (82, 91, 94), "pedestal": (92, 39, 43),
               "grass": (89, 104, 45), "cream": (232, 218, 173), "robe": (17, 24, 31),
               "skin": (109, 73, 47), "face": (109, 73, 47), "hair": (26, 23, 20),
-              "gold": (185, 144, 54), "wood": (114, 75, 35), "broom": (191, 156, 77),
+              "gold": (185, 144, 54), "wood": (150, 108, 62), "broom": (191, 156, 77),
               "cat": (184, 179, 152), "dog": (216, 169, 97)}
     for material, base in colors.items():
         rng = random.Random(782)

@@ -26,21 +26,20 @@ def main():
         for filename in ('ModBlocks.java', 'ModItems.java'):
             source = (J/'registry'/filename).read_text()
             assert re.search(r'addAlias\([^;]*"'+old+r'"\),\s*'+new.upper()+r'\.getId\(\)\)', source)
-    # The horizontal surfaces use the same world phase as the two floor blocks,
-    # including negative positions. Their textures are the original floor images.
-    counter_states = read(A/f'blockstates/{ID}.json')['variants']
-    for bx, bz in itertools.product(range(-4, 5), repeat=2):
-        x, z = bx % 3, bz % 3
-        model = read(A/('models/'+counter_states[f'tile_x={x},tile_z={z}']['model'].split(':')[1]+'.json'))
-        assert [(e['from'], e['to']) for e in model['elements']] == [
-            ([0,0,0], [16,1,16]), ([0,1,0], [16,14,16]), ([0,14,0], [16,16,16])]
-        assert model['textures']['body'] == 'lsmmod:block/light_school_wall'
-        for face, floor, element in [('up', floors[1], model['elements'][2]), ('down', floors[0], model['elements'][0])]:
-            key = element['faces'][face]['texture'][1:]
-            assert model['textures'][key] == f'lsmmod:block/{floor}_{x}_{z}'
-            assert element['faces'][face]['uv'] == [0,0,16,16]
-        for direction in ('north','east','south','west'):
-            assert all(direction in e['faces'] for e in model['elements'])
+    # Every saved tile phase now shares exactly the same thin upper surface.
+    states = read(A/f'blockstates/{ID}.json')['variants']
+    assert {v['model'] for v in states.values()} == {'lsmmod:block/'+ID}
+    model = read(A/f'models/block/{ID}.json')
+    assert len(model['elements']) == 1
+    element = model['elements'][0]
+    assert element['from'] == [0,14,0] and element['to'] == [16,16,16]
+    assert set(element['faces']) == {'north','south','east','west','up','down'}
+    assert 'cullface' not in element['faces']['down']
+    assert model['textures']['top'] == 'lsmmod:block/'+ID
+    assert Image.open(A/f'textures/block/{ID}.png').getcolors(256) == [(256,(22,31,37))]
+    counter = (J/'block/DiningRoomCounterBlock.java').read_text()
+    assert 'extends BathroomFloorBlock' in counter and 'Block.box(0,14,0,16,16,16)' in counter
+    assert counter.count('return TOP;') == 2
     assert 'lsmmod:'+ID in read(D/'minecraft/tags/block/mineable/pickaxe.json')['values']
     for locale in ('en_us', 'es_es'):
         assert all('block.lsmmod.'+ident in read(A/f'lang/{locale}.json') for ident in (*floors, ID))
@@ -49,7 +48,7 @@ def main():
     assert Image.open(A/'textures/block/chair_red.png').convert('RGB').getcolors(256) == [(256,paint)]
     for chair in ('hallchair', 'plasticchair_red', 'plasticchair_red_arms'):
         assert read(A/f'models/block/{chair}.json')['textures']['body'] == 'lsmmod:block/chair_red'
-    paths = list(A.glob(f'models/block/{ID}_*.json')) + [
+    paths = [A/f'models/block/{ID}.json',A/f'textures/block/{ID}.png'] + [
         A/f'blockstates/{ID}.json', A/f'models/item/{ID}.json', A/f'items/{ID}.json',
         A/'textures/block/chair_red.png', A/'lang/es_es.json', A/'lang/en_us.json',
         D/f'lsmmod/loot_table/blocks/{ID}.json', D/'minecraft/tags/block/mineable/pickaxe.json',
@@ -57,7 +56,7 @@ def main():
     before = {p:hashlib.sha256(p.read_bytes()).digest() for p in paths}
     generate()
     assert all(hashlib.sha256(p.read_bytes()).digest() == h for p,h in before.items())
-    print('OK: 1x1x1 counter, 1px dark plinth/13px light wall/2px light tiled worktop; 9 phases aligned at positive/negative coordinates; renamed floors and block/item aliases; all red chairs match bell RGB 112/21/36; generator idempotent.')
+    print('OK: counter contains only Y14..16px with matching collision and teachers-desk RGB22/31/37; nine saved phases share one model; renamed floors and block/item aliases; all red chairs match bell RGB 112/21/36; generator idempotent.')
 
 
 if __name__ == '__main__':

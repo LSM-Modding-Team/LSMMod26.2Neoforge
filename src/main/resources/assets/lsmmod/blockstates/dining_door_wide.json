@@ -2065,7 +2065,7 @@
         "facing": "north",
         "open": "false",
         "hinge": "left",
-        "row": "0",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -2079,7 +2079,7 @@
         "facing": "east",
         "open": "false",
         "hinge": "left",
-        "row": "0",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -2093,7 +2093,7 @@
         "facing": "south",
         "open": "false",
         "hinge": "left",
-        "row": "0",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -2107,7 +2107,7 @@
         "facing": "west",
         "open": "false",
         "hinge": "left",
-        "row": "0",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -2121,7 +2121,7 @@
         "facing": "north",
         "open": "false",
         "hinge": "right",
-        "row": "0",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -2135,7 +2135,7 @@
         "facing": "east",
         "open": "false",
         "hinge": "right",
-        "row": "0",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -2149,7 +2149,7 @@
         "facing": "south",
         "open": "false",
         "hinge": "right",
-        "row": "0",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -2163,7 +2163,7 @@
         "facing": "west",
         "open": "false",
         "hinge": "right",
-        "row": "0",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -2177,7 +2177,7 @@
         "facing": "north",
         "open": "true",
         "hinge": "left",
-        "row": "0",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -2191,7 +2191,7 @@
         "facing": "east",
         "open": "true",
         "hinge": "left",
-        "row": "0",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -2205,7 +2205,7 @@
         "facing": "south",
         "open": "true",
         "hinge": "left",
-        "row": "0",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -2219,7 +2219,7 @@
         "facing": "west",
         "open": "true",
         "hinge": "left",
-        "row": "0",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -2233,7 +2233,7 @@
         "facing": "north",
         "open": "true",
         "hinge": "right",
-        "row": "0",
+        "row": "1",
         "column": "1",
         "depth": "0"
       },
@@ -2247,7 +2247,7 @@
         "facing": "east",
         "open": "true",
         "hinge": "right",
-        "row": "0",
+        "row": "1",
         "column": "1",
         "depth": "0"
       },
@@ -2261,7 +2261,7 @@
         "facing": "south",
         "open": "true",
         "hinge": "right",
-        "row": "0",
+        "row": "1",
         "column": "1",
         "depth": "0"
       },
@@ -2275,7 +2275,7 @@
         "facing": "west",
         "open": "true",
         "hinge": "right",
-        "row": "0",
+        "row": "1",
         "column": "1",
         "depth": "0"
       },

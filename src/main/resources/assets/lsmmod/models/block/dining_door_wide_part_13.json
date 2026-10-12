@@ -115,7 +115,7 @@
       ],
       "faces": {
         "north": {
-          "texture": "#light",
+          "texture": "#white",
           "uv": [
             0,
             0,

@@ -17,6 +17,8 @@ def leaf_face(element, face, material, column=0, row=0, depth=0, opened=False, r
     end = 20 if material['texture']=='#bottom' else 40
     v0,v1 = (end-hi[1])*16/20,(end-lo[1])*16/20
     u0,u1 = lo[0]*16/24,hi[0]*16/24
+    if right and not opened:
+        u0,u1 = u1,u0
     if face in ('north','south'):
         material['uv'] = [u1,v0,u0,v1] if face=='north' else [u0,v0,u1,v1]
     elif face in ('east','west'):

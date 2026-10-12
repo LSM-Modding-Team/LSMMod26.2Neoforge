@@ -34,7 +34,8 @@ def main():
    for apply in applies:
     for model in resolved(apply['model']):
      limit=32 if 'framed_door_window_' in apply['model'] else 16
-     assert model['elements'] and all(all(0<=e['from'][i]<e['to'][i]<=limit for i in range(3)) for e in model['elements'])
+     minimum=-16 if limit==32 else 0
+     assert model['elements'] and all(all(minimum<=e['from'][i]<e['to'][i]<=limit for i in range(3)) for e in model['elements'])
    total+=1
  assert total==604
  # Exactly nine clear lattice rectangles per 16px cell, filled by opaque tinted glass.
@@ -49,8 +50,8 @@ def main():
   assert inside([p[0] for p in DINING_OPEN],(2,y,20))
  assert max(p[0][4] for p in DINING_CLOSED if p[1] in ('bottom','top'))==40
  assert max(p[0][3] for p in DINING_CLOSED if p[1] in ('bottom','top'))==24
- # The central window is physically inset in a genuine wood opening, not painted over.
- assert not inside([b for b,m,*_ in DINING_CLOSED if m in ('bottom','top')],(12,20,2))
+ # Native cutout textures define the window; physical collision remains a full door leaf.
+ assert inside([b for b,m,*_ in DINING_CLOSED if m in ('bottom','top')],(12,20,2))
  assert inside([b for b,m,*_ in DINING_CLOSED if m=='window'],(12,20,2))
  assert inside([b for b,m,*_ in DINING_OPEN if m=='window'],(2,20,12))
  assert next(b for b,m,*_ in DINING_FIXED if m=='glass')==[0,40,0,32,48,8]
@@ -67,7 +68,7 @@ def main():
   m=read(p)
   for e in m['elements']:
    for f,s in e['faces'].items():
-    if s['texture']=='#light':assert f=='north' or f in ('east','west') and (e['to'][0]==16 if f=='east' else e['from'][0]==0)
+    if s['texture']=='#light':assert f in ('east','west') and (e['to'][0]==16 if f=='east' else e['from'][0]==0)
  # Cot extension preserves headrest and old pairs; new tail reaches the third cell.
  cot=(J/'block/InfirmaryCotBlock.java').read_text();helper=(J/'block/InfirmaryCotExtendedShapes.java').read_text()
  assert '.setValue(EXTENDED,false)' in cot and '.setValue(EXTENDED,true)' in cot and 'state.getValue(EXTENDED)?3:2' in cot

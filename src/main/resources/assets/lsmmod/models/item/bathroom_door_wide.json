@@ -13,8 +13,7 @@
   "models": [
     [
       "lsmmod:item/bathroom_door_wide_item_solid",
-      "lsmmod:item/bathroom_door_wide_item_translucent",
-      "lsmmod:item/bathroom_door_wide_item_cutout"
+      "lsmmod:item/bathroom_door_wide_item_translucent"
     ]
   ]
 }
