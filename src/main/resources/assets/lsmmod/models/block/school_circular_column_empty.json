@@ -1,0 +1,8 @@
+{
+  "loader": "fusion:model",
+  "type": "base",
+  "textures": {
+    "particle": "lsmmod:block/dark_school_wall"
+  },
+  "elements": []
+}

@@ -40,18 +40,27 @@ public class SchoolCircularColumnBlock extends Block {
         }
         return -1;
     }
+    /** The railing's masonry ends at y=12px; its wooden bars are never copied. */
+    public static int wallHeight(BlockGetter level,BlockPos pos,int side,int quarter) {
+        if(wallPaint(level,pos,side,quarter)<0) return 0;
+        return level.getBlockState(pos.relative(SIDES[side])).is(ModBlocks.LIGHT_SCHOOL_WALL_RAILING.get()) ? 12 : 16;
+    }
     private static int geometryKey(BlockGetter level,BlockPos pos) {
-        int key=hasBase(level,pos)?1<<16:0;
-        for(int side=0;side<4;side++) for(int q=0;q<4;q++) if(wallPaint(level,pos,side,q)>=0) key|=1<<(side*4+q);
-        return key;
+        int key=0;
+        for(int side=0;side<4;side++) for(int q=0;q<4;q++) {
+            int height=wallHeight(level,pos,side,q);
+            if(height>0) key|=1<<(side*4+q);
+            if(height==12) key|=1<<(16+side);
+        }
+        return key; // Color and base texture do not change the physical cylinder.
     }
     private static Geometry build(int key) {
         ArrayList<double[]> boxes=new ArrayList<>();
-        for(double[] b:SchoolDrainColumnShapes.SHAFT) boxes.add(b);
-        if((key&(1<<16))!=0) boxes.add(new double[]{0,0,0,16,2,16});
-        for(int side=0;side<4;side++) for(int q=0;q<4;q++) if((key&(1<<(side*4+q)))!=0) {
+        for(double[] b:SchoolDrainColumnShapes.FIXED) boxes.add(b);
+        for(int side=0;side<4;side++) for(int q=0;q<4;q++) {
+            int profile=(key&(1<<(side*4+q)))==0 ? 0 : (key&(1<<(16+side)))!=0 ? 1 : 2;
             int local=side>=2 ? q^1 : q;
-            for(double[] source:SchoolDrainColumnShapes.JOINS[local]) {
+            for(double[] source:SchoolDrainColumnShapes.OUTER[local][profile]) {
                 double[] b=source.clone();
                 for(int turn=0;turn<side;turn++) b=new double[]{16-b[5],b[1],b[0],16-b[2],b[4],b[3]};
                 boxes.add(b);

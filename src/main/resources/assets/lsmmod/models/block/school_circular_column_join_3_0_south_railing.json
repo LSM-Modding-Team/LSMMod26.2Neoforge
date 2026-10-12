@@ -1,0 +1,9 @@
+{
+  "loader": "fusion:model",
+  "type": "base",
+  "parent": "lsmmod:block/school_circular_column_join_3_south_railing",
+  "textures": {
+    "column_join_surface": "#column_minecraft_block_light_gray_concrete",
+    "particle": "minecraft:block/light_gray_concrete"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "loader": "fusion:model",
+  "type": "base",
+  "parent": "lsmmod:block/school_circular_column_join_3_railing",
+  "textures": {
+    "column_join_surface": "#column_lsmmod_block_green_playground_floor",
+    "particle": "lsmmod:block/green_playground_floor"
+  }
+}

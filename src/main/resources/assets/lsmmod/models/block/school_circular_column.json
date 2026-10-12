@@ -19,9 +19,20 @@
     "column_lsmmod_block_dark_tiled_floor": "lsmmod:block/dark_tiled_floor"
   },
   "models": [
-    {
-      "model": "lsmmod:block/school_circular_column_shaft"
-    },
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_shaft_raised",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": -1,
+          "quarter": 0,
+          "paint": 0
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_shaft"
+      }
+    ],
     {
       "model": "lsmmod:block/school_circular_column_base",
       "condition": {
@@ -32,6 +43,51 @@
       }
     },
     [
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 0,
+          "paint": -1,
+          "height": 16
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 0,
+          "paint": -1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_0_base",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 0,
+          "paint": -1,
+          "height": 0,
+          "base": 1
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_0"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_join_0_0",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 0,
+          "paint": 0
+        }
+      },
       {
         "model": "lsmmod:block/school_circular_column_join_0_1",
         "condition": {
@@ -130,18 +186,54 @@
           "quarter": 0,
           "paint": 11
         }
-      },
-      {
-        "model": "lsmmod:block/school_circular_column_join_0_0",
-        "condition": {
-          "type": "lsmmod:column_part",
-          "side": 0,
-          "quarter": 0,
-          "paint": 0
-        }
       }
     ],
     [
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 0,
+          "paint": -1,
+          "height": 16
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 0,
+          "paint": -1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_0_east_base",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 0,
+          "paint": -1,
+          "height": 0,
+          "base": 1
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_0_east"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_join_0_0_east",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 0,
+          "paint": 0
+        }
+      },
       {
         "model": "lsmmod:block/school_circular_column_join_0_1_east",
         "condition": {
@@ -240,18 +332,54 @@
           "quarter": 0,
           "paint": 11
         }
-      },
-      {
-        "model": "lsmmod:block/school_circular_column_join_0_0_east",
-        "condition": {
-          "type": "lsmmod:column_part",
-          "side": 1,
-          "quarter": 0,
-          "paint": 0
-        }
       }
     ],
     [
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 1,
+          "paint": -1,
+          "height": 16
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 1,
+          "paint": -1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_0_south_base",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 1,
+          "paint": -1,
+          "height": 0,
+          "base": 1
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_0_south"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_join_0_0_south",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 1,
+          "paint": 0
+        }
+      },
       {
         "model": "lsmmod:block/school_circular_column_join_0_1_south",
         "condition": {
@@ -350,18 +478,54 @@
           "quarter": 1,
           "paint": 11
         }
-      },
-      {
-        "model": "lsmmod:block/school_circular_column_join_0_0_south",
-        "condition": {
-          "type": "lsmmod:column_part",
-          "side": 2,
-          "quarter": 1,
-          "paint": 0
-        }
       }
     ],
     [
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 1,
+          "paint": -1,
+          "height": 16
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 1,
+          "paint": -1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_0_west_base",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 1,
+          "paint": -1,
+          "height": 0,
+          "base": 1
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_0_west"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_join_0_0_west",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 1,
+          "paint": 0
+        }
+      },
       {
         "model": "lsmmod:block/school_circular_column_join_0_1_west",
         "condition": {
@@ -460,18 +624,54 @@
           "quarter": 1,
           "paint": 11
         }
-      },
-      {
-        "model": "lsmmod:block/school_circular_column_join_0_0_west",
-        "condition": {
-          "type": "lsmmod:column_part",
-          "side": 3,
-          "quarter": 1,
-          "paint": 0
-        }
       }
     ],
     [
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 1,
+          "paint": -1,
+          "height": 16
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 1,
+          "paint": -1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_1_base",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 1,
+          "paint": -1,
+          "height": 0,
+          "base": 1
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_1"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_join_1_0",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 1,
+          "paint": 0
+        }
+      },
       {
         "model": "lsmmod:block/school_circular_column_join_1_1",
         "condition": {
@@ -570,18 +770,54 @@
           "quarter": 1,
           "paint": 11
         }
-      },
-      {
-        "model": "lsmmod:block/school_circular_column_join_1_0",
-        "condition": {
-          "type": "lsmmod:column_part",
-          "side": 0,
-          "quarter": 1,
-          "paint": 0
-        }
       }
     ],
     [
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 1,
+          "paint": -1,
+          "height": 16
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 1,
+          "paint": -1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_1_east_base",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 1,
+          "paint": -1,
+          "height": 0,
+          "base": 1
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_1_east"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_join_1_0_east",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 1,
+          "paint": 0
+        }
+      },
       {
         "model": "lsmmod:block/school_circular_column_join_1_1_east",
         "condition": {
@@ -680,18 +916,54 @@
           "quarter": 1,
           "paint": 11
         }
-      },
-      {
-        "model": "lsmmod:block/school_circular_column_join_1_0_east",
-        "condition": {
-          "type": "lsmmod:column_part",
-          "side": 1,
-          "quarter": 1,
-          "paint": 0
-        }
       }
     ],
     [
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 0,
+          "paint": -1,
+          "height": 16
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 0,
+          "paint": -1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_1_south_base",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 0,
+          "paint": -1,
+          "height": 0,
+          "base": 1
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_1_south"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_join_1_0_south",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 0,
+          "paint": 0
+        }
+      },
       {
         "model": "lsmmod:block/school_circular_column_join_1_1_south",
         "condition": {
@@ -790,18 +1062,54 @@
           "quarter": 0,
           "paint": 11
         }
-      },
-      {
-        "model": "lsmmod:block/school_circular_column_join_1_0_south",
-        "condition": {
-          "type": "lsmmod:column_part",
-          "side": 2,
-          "quarter": 0,
-          "paint": 0
-        }
       }
     ],
     [
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 0,
+          "paint": -1,
+          "height": 16
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 0,
+          "paint": -1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_1_west_base",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 0,
+          "paint": -1,
+          "height": 0,
+          "base": 1
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_1_west"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_join_1_0_west",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 0,
+          "paint": 0
+        }
+      },
       {
         "model": "lsmmod:block/school_circular_column_join_1_1_west",
         "condition": {
@@ -900,25 +1208,52 @@
           "quarter": 0,
           "paint": 11
         }
-      },
-      {
-        "model": "lsmmod:block/school_circular_column_join_1_0_west",
-        "condition": {
-          "type": "lsmmod:column_part",
-          "side": 3,
-          "quarter": 0,
-          "paint": 0
-        }
       }
     ],
     [
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 2,
+          "paint": -1,
+          "height": 16
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_2_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 2,
+          "paint": -1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_2"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_0",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 2,
+          "paint": 0,
+          "height": 16
+        }
+      },
       {
         "model": "lsmmod:block/school_circular_column_join_2_1",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 2,
-          "paint": 1
+          "paint": 1,
+          "height": 16
         }
       },
       {
@@ -927,7 +1262,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 2,
-          "paint": 2
+          "paint": 2,
+          "height": 16
         }
       },
       {
@@ -936,7 +1272,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 2,
-          "paint": 3
+          "paint": 3,
+          "height": 16
         }
       },
       {
@@ -945,7 +1282,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 2,
-          "paint": 4
+          "paint": 4,
+          "height": 16
         }
       },
       {
@@ -954,7 +1292,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 2,
-          "paint": 5
+          "paint": 5,
+          "height": 16
         }
       },
       {
@@ -963,7 +1302,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 2,
-          "paint": 6
+          "paint": 6,
+          "height": 16
         }
       },
       {
@@ -972,7 +1312,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 2,
-          "paint": 7
+          "paint": 7,
+          "height": 16
         }
       },
       {
@@ -981,7 +1322,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 2,
-          "paint": 8
+          "paint": 8,
+          "height": 16
         }
       },
       {
@@ -990,7 +1332,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 2,
-          "paint": 9
+          "paint": 9,
+          "height": 16
         }
       },
       {
@@ -999,7 +1342,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 2,
-          "paint": 10
+          "paint": 10,
+          "height": 16
         }
       },
       {
@@ -1008,27 +1352,175 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 2,
-          "paint": 11
+          "paint": 11,
+          "height": 16
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_0",
+        "model": "lsmmod:block/school_circular_column_join_2_0_railing",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 2,
-          "paint": 0
+          "paint": 0,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_1_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 2,
+          "paint": 1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_2_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 2,
+          "paint": 2,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_3_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 2,
+          "paint": 3,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_4_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 2,
+          "paint": 4,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_5_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 2,
+          "paint": 5,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_6_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 2,
+          "paint": 6,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_7_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 2,
+          "paint": 7,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_8_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 2,
+          "paint": 8,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_9_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 2,
+          "paint": 9,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_10_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 2,
+          "paint": 10,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_11_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 2,
+          "paint": 11,
+          "height": 12
         }
       }
     ],
     [
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 2,
+          "paint": -1,
+          "height": 16
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_2_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 2,
+          "paint": -1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_2_east"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_0_east",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 2,
+          "paint": 0,
+          "height": 16
+        }
+      },
       {
         "model": "lsmmod:block/school_circular_column_join_2_1_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 2,
-          "paint": 1
+          "paint": 1,
+          "height": 16
         }
       },
       {
@@ -1037,7 +1529,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 2,
-          "paint": 2
+          "paint": 2,
+          "height": 16
         }
       },
       {
@@ -1046,7 +1539,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 2,
-          "paint": 3
+          "paint": 3,
+          "height": 16
         }
       },
       {
@@ -1055,7 +1549,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 2,
-          "paint": 4
+          "paint": 4,
+          "height": 16
         }
       },
       {
@@ -1064,7 +1559,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 2,
-          "paint": 5
+          "paint": 5,
+          "height": 16
         }
       },
       {
@@ -1073,7 +1569,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 2,
-          "paint": 6
+          "paint": 6,
+          "height": 16
         }
       },
       {
@@ -1082,7 +1579,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 2,
-          "paint": 7
+          "paint": 7,
+          "height": 16
         }
       },
       {
@@ -1091,7 +1589,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 2,
-          "paint": 8
+          "paint": 8,
+          "height": 16
         }
       },
       {
@@ -1100,7 +1599,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 2,
-          "paint": 9
+          "paint": 9,
+          "height": 16
         }
       },
       {
@@ -1109,7 +1609,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 2,
-          "paint": 10
+          "paint": 10,
+          "height": 16
         }
       },
       {
@@ -1118,27 +1619,175 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 2,
-          "paint": 11
+          "paint": 11,
+          "height": 16
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_0_east",
+        "model": "lsmmod:block/school_circular_column_join_2_0_east_railing",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 2,
-          "paint": 0
+          "paint": 0,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_1_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 2,
+          "paint": 1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_2_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 2,
+          "paint": 2,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_3_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 2,
+          "paint": 3,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_4_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 2,
+          "paint": 4,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_5_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 2,
+          "paint": 5,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_6_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 2,
+          "paint": 6,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_7_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 2,
+          "paint": 7,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_8_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 2,
+          "paint": 8,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_9_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 2,
+          "paint": 9,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_10_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 2,
+          "paint": 10,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_11_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 2,
+          "paint": 11,
+          "height": 12
         }
       }
     ],
     [
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 3,
+          "paint": -1,
+          "height": 16
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_2_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 3,
+          "paint": -1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_2_south"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_0_south",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 3,
+          "paint": 0,
+          "height": 16
+        }
+      },
       {
         "model": "lsmmod:block/school_circular_column_join_2_1_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 3,
-          "paint": 1
+          "paint": 1,
+          "height": 16
         }
       },
       {
@@ -1147,7 +1796,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 3,
-          "paint": 2
+          "paint": 2,
+          "height": 16
         }
       },
       {
@@ -1156,7 +1806,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 3,
-          "paint": 3
+          "paint": 3,
+          "height": 16
         }
       },
       {
@@ -1165,7 +1816,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 3,
-          "paint": 4
+          "paint": 4,
+          "height": 16
         }
       },
       {
@@ -1174,7 +1826,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 3,
-          "paint": 5
+          "paint": 5,
+          "height": 16
         }
       },
       {
@@ -1183,7 +1836,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 3,
-          "paint": 6
+          "paint": 6,
+          "height": 16
         }
       },
       {
@@ -1192,7 +1846,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 3,
-          "paint": 7
+          "paint": 7,
+          "height": 16
         }
       },
       {
@@ -1201,7 +1856,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 3,
-          "paint": 8
+          "paint": 8,
+          "height": 16
         }
       },
       {
@@ -1210,7 +1866,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 3,
-          "paint": 9
+          "paint": 9,
+          "height": 16
         }
       },
       {
@@ -1219,7 +1876,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 3,
-          "paint": 10
+          "paint": 10,
+          "height": 16
         }
       },
       {
@@ -1228,27 +1886,175 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 3,
-          "paint": 11
+          "paint": 11,
+          "height": 16
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_0_south",
+        "model": "lsmmod:block/school_circular_column_join_2_0_south_railing",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 3,
-          "paint": 0
+          "paint": 0,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_1_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 3,
+          "paint": 1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_2_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 3,
+          "paint": 2,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_3_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 3,
+          "paint": 3,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_4_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 3,
+          "paint": 4,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_5_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 3,
+          "paint": 5,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_6_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 3,
+          "paint": 6,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_7_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 3,
+          "paint": 7,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_8_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 3,
+          "paint": 8,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_9_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 3,
+          "paint": 9,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_10_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 3,
+          "paint": 10,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_11_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 3,
+          "paint": 11,
+          "height": 12
         }
       }
     ],
     [
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 3,
+          "paint": -1,
+          "height": 16
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_2_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 3,
+          "paint": -1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_2_west"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_0_west",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 3,
+          "paint": 0,
+          "height": 16
+        }
+      },
       {
         "model": "lsmmod:block/school_circular_column_join_2_1_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 3,
-          "paint": 1
+          "paint": 1,
+          "height": 16
         }
       },
       {
@@ -1257,7 +2063,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 3,
-          "paint": 2
+          "paint": 2,
+          "height": 16
         }
       },
       {
@@ -1266,7 +2073,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 3,
-          "paint": 3
+          "paint": 3,
+          "height": 16
         }
       },
       {
@@ -1275,7 +2083,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 3,
-          "paint": 4
+          "paint": 4,
+          "height": 16
         }
       },
       {
@@ -1284,7 +2093,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 3,
-          "paint": 5
+          "paint": 5,
+          "height": 16
         }
       },
       {
@@ -1293,7 +2103,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 3,
-          "paint": 6
+          "paint": 6,
+          "height": 16
         }
       },
       {
@@ -1302,7 +2113,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 3,
-          "paint": 7
+          "paint": 7,
+          "height": 16
         }
       },
       {
@@ -1311,7 +2123,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 3,
-          "paint": 8
+          "paint": 8,
+          "height": 16
         }
       },
       {
@@ -1320,7 +2133,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 3,
-          "paint": 9
+          "paint": 9,
+          "height": 16
         }
       },
       {
@@ -1329,7 +2143,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 3,
-          "paint": 10
+          "paint": 10,
+          "height": 16
         }
       },
       {
@@ -1338,27 +2153,175 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 3,
-          "paint": 11
+          "paint": 11,
+          "height": 16
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_0_west",
+        "model": "lsmmod:block/school_circular_column_join_2_0_west_railing",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 3,
-          "paint": 0
+          "paint": 0,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_1_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 3,
+          "paint": 1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_2_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 3,
+          "paint": 2,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_3_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 3,
+          "paint": 3,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_4_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 3,
+          "paint": 4,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_5_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 3,
+          "paint": 5,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_6_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 3,
+          "paint": 6,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_7_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 3,
+          "paint": 7,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_8_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 3,
+          "paint": 8,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_9_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 3,
+          "paint": 9,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_10_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 3,
+          "paint": 10,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_2_11_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 3,
+          "paint": 11,
+          "height": 12
         }
       }
     ],
     [
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 3,
+          "paint": -1,
+          "height": 16
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_3_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 3,
+          "paint": -1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_3"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_0",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 3,
+          "paint": 0,
+          "height": 16
+        }
+      },
       {
         "model": "lsmmod:block/school_circular_column_join_3_1",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 3,
-          "paint": 1
+          "paint": 1,
+          "height": 16
         }
       },
       {
@@ -1367,7 +2330,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 3,
-          "paint": 2
+          "paint": 2,
+          "height": 16
         }
       },
       {
@@ -1376,7 +2340,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 3,
-          "paint": 3
+          "paint": 3,
+          "height": 16
         }
       },
       {
@@ -1385,7 +2350,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 3,
-          "paint": 4
+          "paint": 4,
+          "height": 16
         }
       },
       {
@@ -1394,7 +2360,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 3,
-          "paint": 5
+          "paint": 5,
+          "height": 16
         }
       },
       {
@@ -1403,7 +2370,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 3,
-          "paint": 6
+          "paint": 6,
+          "height": 16
         }
       },
       {
@@ -1412,7 +2380,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 3,
-          "paint": 7
+          "paint": 7,
+          "height": 16
         }
       },
       {
@@ -1421,7 +2390,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 3,
-          "paint": 8
+          "paint": 8,
+          "height": 16
         }
       },
       {
@@ -1430,7 +2400,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 3,
-          "paint": 9
+          "paint": 9,
+          "height": 16
         }
       },
       {
@@ -1439,7 +2410,8 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 3,
-          "paint": 10
+          "paint": 10,
+          "height": 16
         }
       },
       {
@@ -1448,27 +2420,175 @@
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 3,
-          "paint": 11
+          "paint": 11,
+          "height": 16
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_0",
+        "model": "lsmmod:block/school_circular_column_join_3_0_railing",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
           "quarter": 3,
-          "paint": 0
+          "paint": 0,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_1_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 3,
+          "paint": 1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_2_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 3,
+          "paint": 2,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_3_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 3,
+          "paint": 3,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_4_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 3,
+          "paint": 4,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_5_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 3,
+          "paint": 5,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_6_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 3,
+          "paint": 6,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_7_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 3,
+          "paint": 7,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_8_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 3,
+          "paint": 8,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_9_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 3,
+          "paint": 9,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_10_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 3,
+          "paint": 10,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_11_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 0,
+          "quarter": 3,
+          "paint": 11,
+          "height": 12
         }
       }
     ],
     [
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 3,
+          "paint": -1,
+          "height": 16
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_3_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 3,
+          "paint": -1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_3_east"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_0_east",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 3,
+          "paint": 0,
+          "height": 16
+        }
+      },
       {
         "model": "lsmmod:block/school_circular_column_join_3_1_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 3,
-          "paint": 1
+          "paint": 1,
+          "height": 16
         }
       },
       {
@@ -1477,7 +2597,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 3,
-          "paint": 2
+          "paint": 2,
+          "height": 16
         }
       },
       {
@@ -1486,7 +2607,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 3,
-          "paint": 3
+          "paint": 3,
+          "height": 16
         }
       },
       {
@@ -1495,7 +2617,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 3,
-          "paint": 4
+          "paint": 4,
+          "height": 16
         }
       },
       {
@@ -1504,7 +2627,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 3,
-          "paint": 5
+          "paint": 5,
+          "height": 16
         }
       },
       {
@@ -1513,7 +2637,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 3,
-          "paint": 6
+          "paint": 6,
+          "height": 16
         }
       },
       {
@@ -1522,7 +2647,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 3,
-          "paint": 7
+          "paint": 7,
+          "height": 16
         }
       },
       {
@@ -1531,7 +2657,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 3,
-          "paint": 8
+          "paint": 8,
+          "height": 16
         }
       },
       {
@@ -1540,7 +2667,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 3,
-          "paint": 9
+          "paint": 9,
+          "height": 16
         }
       },
       {
@@ -1549,7 +2677,8 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 3,
-          "paint": 10
+          "paint": 10,
+          "height": 16
         }
       },
       {
@@ -1558,27 +2687,175 @@
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 3,
-          "paint": 11
+          "paint": 11,
+          "height": 16
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_0_east",
+        "model": "lsmmod:block/school_circular_column_join_3_0_east_railing",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
           "quarter": 3,
-          "paint": 0
+          "paint": 0,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_1_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 3,
+          "paint": 1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_2_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 3,
+          "paint": 2,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_3_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 3,
+          "paint": 3,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_4_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 3,
+          "paint": 4,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_5_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 3,
+          "paint": 5,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_6_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 3,
+          "paint": 6,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_7_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 3,
+          "paint": 7,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_8_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 3,
+          "paint": 8,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_9_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 3,
+          "paint": 9,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_10_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 3,
+          "paint": 10,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_11_east_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 1,
+          "quarter": 3,
+          "paint": 11,
+          "height": 12
         }
       }
     ],
     [
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 2,
+          "paint": -1,
+          "height": 16
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_3_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 2,
+          "paint": -1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_3_south"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_0_south",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 2,
+          "paint": 0,
+          "height": 16
+        }
+      },
       {
         "model": "lsmmod:block/school_circular_column_join_3_1_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 2,
-          "paint": 1
+          "paint": 1,
+          "height": 16
         }
       },
       {
@@ -1587,7 +2864,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 2,
-          "paint": 2
+          "paint": 2,
+          "height": 16
         }
       },
       {
@@ -1596,7 +2874,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 2,
-          "paint": 3
+          "paint": 3,
+          "height": 16
         }
       },
       {
@@ -1605,7 +2884,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 2,
-          "paint": 4
+          "paint": 4,
+          "height": 16
         }
       },
       {
@@ -1614,7 +2894,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 2,
-          "paint": 5
+          "paint": 5,
+          "height": 16
         }
       },
       {
@@ -1623,7 +2904,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 2,
-          "paint": 6
+          "paint": 6,
+          "height": 16
         }
       },
       {
@@ -1632,7 +2914,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 2,
-          "paint": 7
+          "paint": 7,
+          "height": 16
         }
       },
       {
@@ -1641,7 +2924,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 2,
-          "paint": 8
+          "paint": 8,
+          "height": 16
         }
       },
       {
@@ -1650,7 +2934,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 2,
-          "paint": 9
+          "paint": 9,
+          "height": 16
         }
       },
       {
@@ -1659,7 +2944,8 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 2,
-          "paint": 10
+          "paint": 10,
+          "height": 16
         }
       },
       {
@@ -1668,27 +2954,175 @@
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 2,
-          "paint": 11
+          "paint": 11,
+          "height": 16
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_0_south",
+        "model": "lsmmod:block/school_circular_column_join_3_0_south_railing",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
           "quarter": 2,
-          "paint": 0
+          "paint": 0,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_1_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 2,
+          "paint": 1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_2_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 2,
+          "paint": 2,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_3_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 2,
+          "paint": 3,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_4_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 2,
+          "paint": 4,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_5_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 2,
+          "paint": 5,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_6_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 2,
+          "paint": 6,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_7_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 2,
+          "paint": 7,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_8_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 2,
+          "paint": 8,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_9_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 2,
+          "paint": 9,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_10_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 2,
+          "paint": 10,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_11_south_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 2,
+          "quarter": 2,
+          "paint": 11,
+          "height": 12
         }
       }
     ],
     [
+      {
+        "model": "lsmmod:block/school_circular_column_empty",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 2,
+          "paint": -1,
+          "height": 16
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_3_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 2,
+          "paint": -1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_outer_3_west"
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_0_west",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 2,
+          "paint": 0,
+          "height": 16
+        }
+      },
       {
         "model": "lsmmod:block/school_circular_column_join_3_1_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 2,
-          "paint": 1
+          "paint": 1,
+          "height": 16
         }
       },
       {
@@ -1697,7 +3131,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 2,
-          "paint": 2
+          "paint": 2,
+          "height": 16
         }
       },
       {
@@ -1706,7 +3141,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 2,
-          "paint": 3
+          "paint": 3,
+          "height": 16
         }
       },
       {
@@ -1715,7 +3151,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 2,
-          "paint": 4
+          "paint": 4,
+          "height": 16
         }
       },
       {
@@ -1724,7 +3161,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 2,
-          "paint": 5
+          "paint": 5,
+          "height": 16
         }
       },
       {
@@ -1733,7 +3171,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 2,
-          "paint": 6
+          "paint": 6,
+          "height": 16
         }
       },
       {
@@ -1742,7 +3181,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 2,
-          "paint": 7
+          "paint": 7,
+          "height": 16
         }
       },
       {
@@ -1751,7 +3191,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 2,
-          "paint": 8
+          "paint": 8,
+          "height": 16
         }
       },
       {
@@ -1760,7 +3201,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 2,
-          "paint": 9
+          "paint": 9,
+          "height": 16
         }
       },
       {
@@ -1769,7 +3211,8 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 2,
-          "paint": 10
+          "paint": 10,
+          "height": 16
         }
       },
       {
@@ -1778,16 +3221,128 @@
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 2,
-          "paint": 11
+          "paint": 11,
+          "height": 16
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_0_west",
+        "model": "lsmmod:block/school_circular_column_join_3_0_west_railing",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
           "quarter": 2,
-          "paint": 0
+          "paint": 0,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_1_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 2,
+          "paint": 1,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_2_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 2,
+          "paint": 2,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_3_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 2,
+          "paint": 3,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_4_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 2,
+          "paint": 4,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_5_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 2,
+          "paint": 5,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_6_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 2,
+          "paint": 6,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_7_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 2,
+          "paint": 7,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_8_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 2,
+          "paint": 8,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_9_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 2,
+          "paint": 9,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_10_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 2,
+          "paint": 10,
+          "height": 12
+        }
+      },
+      {
+        "model": "lsmmod:block/school_circular_column_join_3_11_west_railing",
+        "condition": {
+          "type": "lsmmod:column_part",
+          "side": 3,
+          "quarter": 2,
+          "paint": 11,
+          "height": 12
         }
       }
     ]

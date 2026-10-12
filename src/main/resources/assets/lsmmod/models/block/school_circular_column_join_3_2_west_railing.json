@@ -1,0 +1,9 @@
+{
+  "loader": "fusion:model",
+  "type": "base",
+  "parent": "lsmmod:block/school_circular_column_join_3_west_railing",
+  "textures": {
+    "column_join_surface": "#column_lsmmod_block_dark_school_wall",
+    "particle": "lsmmod:block/dark_school_wall"
+  }
+}

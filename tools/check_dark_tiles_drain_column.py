@@ -1,92 +1,95 @@
-"""Check exposed drain geometry and all circular-column quadrant orientations/occupancies."""
-import json,hashlib,math
+"""Check the 32px cylinder, circular base, neighbor cuts, face colors and railing height."""
+import hashlib,itertools,json,re
 from pathlib import Path
-from create_dark_tiles_drain_column import ROOT,A,CIRCLE,DRAIN,COLORS,connectors,GENERATED,main as generate
+from create_dark_tiles_drain_column import ROOT,A,CIRCLE,FIXED,DRAIN,COLORS,connectors,outer_boxes,vertical,GENERATED,main as generate
 from audit_block_states import audit
 
+def read(p):return json.loads(p.read_text())
 def inside(boxes,p):return any(all(b[i]<=p[i]<b[i+3] for i in range(3)) for b in boxes)
 def rotate(b,side):
  for _ in range(side):b=[16-b[5],b[1],b[0],16-b[2],b[4],b[3]]
  return b
 
-VERTICES={'down':[(0,0,1),(0,0,0),(1,0,0),(1,0,1)],'up':[(0,1,0),(0,1,1),(1,1,1),(1,1,0)],'north':[(1,1,0),(1,0,0),(0,0,0),(0,1,0)],'south':[(0,1,1),(0,0,1),(1,0,1),(1,1,1)],'west':[(0,1,0),(0,0,0),(0,0,1),(0,1,1)],'east':[(1,1,1),(1,0,1),(1,0,0),(1,1,0)]}
-def quad_uv(element,face):
- surface=element['faces'][face];u0,v0,u1,v1=surface['uv'];uvs=[(u0,v0),(u0,v1),(u1,v1),(u1,v0)];shift=surface.get('rotation',0)//90
- return {tuple(element['to'][i] if high else element['from'][i] for i,high in enumerate(corner)):uvs[(n+shift)%4] for n,corner in enumerate(VERTICES[face])}
-def rotate_point(point,side):
- x,y,z=point
- for _ in range(side):x,z=16-z,x
- return x,y,z
+def matches(condition,base,height,color):
+ if not condition:return True
+ if 'base' in condition and base!=(condition['base']==1):return False
+ if condition['side']<0:return base
+ if 'height' in condition and height!=condition['height']:return False
+ return condition['paint']<0 or height>0 and condition['paint']==color
+
+def choose(series,base,height,color):return next((e for e in series if matches(e.get('condition'),base,height,color)),None)
+def resolve(ident,trail=()):
+ assert ident not in trail
+ data=read(A/'models'/Path(ident.split(':')[1]+'.json'))
+ parent=resolve(data['parent'],trail+(ident,)) if data.get('parent','').startswith('lsmmod:') else {}
+ return {**parent,**data,'textures':{**parent.get('textures',{}),**data.get('textures',{})}}
 
 def main():
  rows={r['id']:r['states'] for r in audit()};assert [rows[k] for k in ('dark_tiled_floor','school_drain','school_circular_column')]==[1,4,1]
- boxes=[b[0] for b in DRAIN]
- assert inside(boxes,(12,12,8)) and inside(boxes,(4,4,8)) and not inside(boxes,(4,12,8))
- for z in range(16):assert inside(boxes,(4,15.5,z+.5))==(z in (0,3,6,9,12,15))
- # Every connection meets the circular section without overlapping it and reaches the neighboring cell.
- tested=0
- for side in range(4):
-  for q in range(4):
-   local=q^1 if side>=2 else q;join=[rotate(b,side) for b in connectors(local)]
-   assert join and all(0<=b[i]<b[i+3]<=16 for b in join for i in range(3))
-   for b in join:
-    y=(b[1]+b[4])/2;x=(b[0]+b[3])/2;z=(b[2]+b[5])/2
-    worldu=z if side%2 else x
-    assert (worldu>=8)==bool(q&1) and (y>=8)==bool(q&2)
-    assert not inside(CIRCLE,(x,y,z));tested+=1
- # The selected custom-neighbor cube always touches the joining face for all 256 occupancies.
- for occupied in range(256):
-  for side in range(4):
-   for q in range(4):
-    u=q&1;y=q>>1;x=(1 if side==3 else 0) if side%2 else u;z=(1 if side==0 else 0) if side%2==0 else u
-    cube=x+2*y+4*z;visible=bool(occupied&(1<<cube));assert visible==bool((occupied>>cube)&1);tested+=1
- root=json.loads((A/'models/block/school_circular_column.json').read_text());assert len(root['models'])==18
- for series in root['models'][2:]:
-  assert len(series)==len(COLORS) and len({e['condition']['paint'] for e in series})==len(COLORS)
-  for e in series:
-   assert 'transform' not in e
-   leaf=json.loads((A/'models/block'/Path(e['model'].split(':block/')[1]+'.json')).read_text())
-   assert leaf['loader']=='fusion:model' and leaf['type']=='base' and 'elements' not in leaf
-   mesh=json.loads((A/'models/block'/Path(leaf['parent'].split(':block/')[1]+'.json')).read_text())
-   assert mesh['loader']=='fusion:model' and mesh['type']=='base'
-   side=e['condition']['side'];q=e['condition']['quarter'];local=q^1 if side>=2 else q
-   physical=[rotate(b,side) for b in connectors(local)]
-   key=leaf['textures']['column_join_surface'][1:];assert root['textures'][key]==COLORS[e['condition']['paint']]
-   for element in mesh['elements']:
-    assert any(all(b[i]<=element['from'][i]<element['to'][i]<=b[i+3] for i in range(3)) for b in physical)
-    for surface in element['faces'].values():assert surface['texture']=='#column_join_surface'
- # Baked-in orientations preserve every vertex UV and cull direction from the former matrix transform.
- horizontal={'north':'east','east':'south','south':'west','west':'north'}
+ assert min(b[0] for b in CIRCLE)==min(b[2] for b in CIRCLE)==-8
+ assert max(b[3] for b in CIRCLE)==max(b[5] for b in CIRCLE)==24
+ assert not inside(CIRCLE,(-7.75,1,-7.75)) and inside(CIRCLE,(-7.75,1,8))
+ drain=[b[0] for b in DRAIN];assert inside(drain,(12,12,8)) and not inside(drain,(4,12,8))
+ for z in range(16):assert inside(drain,(4,15.5,z+.5))==(z in (0,3,6,9,12,15))
+ root=read(A/'models/block/school_circular_column.json');assert len(root['models'])==34
+ assert root['models'][0][-1]['model']=='lsmmod:block/school_circular_column_shaft'
+ assert root['models'][1]['model']=='lsmmod:block/school_circular_column_base'
+ count=0
  for q in range(4):
-  source=json.loads((A/f'models/block/school_circular_column_join_{q}.json').read_text())
-  for side,direction in enumerate(('north','east','south','west')):
-   suffix='' if side==0 else '_'+direction
-   target=json.loads((A/f'models/block/school_circular_column_join_{q}{suffix}.json').read_text())
-   assert len(source['elements'])==len(target['elements'])
-   for old,new in zip(source['elements'],target['elements']):
-    for face,surface in old['faces'].items():
-     newface=face;cull=surface.get('cullface')
-     for _ in range(side):newface=horizontal.get(newface,newface);cull=horizontal.get(cull,cull)
-     assert {rotate_point(point,side):uv for point,uv in quad_uv(old,face).items()}==quad_uv(new,newface)
-     assert new['faces'][newface].get('cullface')==cull
- # Every registered Jade provider needs a translated configuration name, even before entering a world.
- import re
- providers=ROOT/'src/main/java/net/nicomar2009/lsmmod/compat/jade'
+  for side in range(4):
+   worldq=q^1 if side>=2 else q
+   outer=root['models'][2+(q*4+side)*2];caps=root['models'][3+(q*4+side)*2]
+   for height,base,color in itertools.product((0,12,16),(False,True),range(len(COLORS))):
+    selected=choose(outer,base,height,color);assert selected and 'transform' not in selected
+    mesh=resolve(selected['model']);assert mesh['loader']=='fusion:model' and mesh['type']=='base'
+    physical=[rotate(b,side) for b in outer_boxes(q,height)]
+    for element in mesh.get('elements',[]):
+     assert any(all(b[i]<=element['from'][i]<element['to'][i]<=b[i+3] for i in range(3)) for b in physical)
+     for face,surface in element['faces'].items():
+      key=surface['texture'][1:];texture=root['textures'].get(key,mesh['textures'].get(key))
+      expected='lsmmod:block/classroom_floor' if base and element['to'][1]<=2 else 'lsmmod:block/dark_school_wall'
+      assert texture==expected
+      assert all(0<=v<=16 for v in surface['uv']),surface
+      assert 'cullface' not in surface or all(0<=element['from'][i]<element['to'][i]<=16 for i in (0,2))
+    cap=choose(caps,base,height,color)
+    if height==0:assert cap is None
+    else:
+     assert cap and cap['condition']['quarter']==worldq
+     leaf=resolve(cap['model']);key=leaf['textures']['column_join_surface'][1:];assert root['textures'][key]==COLORS[color]
+     assert max(e['to'][1] for e in leaf['elements'])==min(height,8+8*(q//2))
+     assert len({next(iter(e['faces'])) for e in leaf['elements']})==1
+    count+=1
+ # Model/physics cut the actual neighboring quarter, not a full infinite clipping plane.
+ samples=[(x+.25,y,z+.25) for x,z in itertools.product(range(-8,24,2),repeat=2) for y in (1,10,14)]
+ for heights in itertools.product((0,12,16),repeat=4):
+  boxes=FIXED[:]
+  for side,height in enumerate(heights):
+   for q in range(4):boxes.extend(rotate(b,side) for b in outer_boxes(q,height))
+  for point in samples:
+   x,y,z=point
+   occupied=any(height>y and ((side==0 and 0<=x<16 and -16<=z<0) or (side==1 and 16<=x<32 and 0<=z<16) or (side==2 and 0<=x<16 and 16<=z<32) or (side==3 and -16<=x<0 and 0<=z<16)) for side,height in enumerate(heights))
+   assert inside(boxes,point)==(inside(CIRCLE,point) and not occupied),(heights,point)
+   count+=1
+ # Every combination of removed front-facing half cubes keeps precisely the corresponding column sector.
+ for mask in range(16):
+  for side in range(4):
+   boxes=FIXED[:]
+   for other in range(4):
+    for q in range(4):
+     local=q^1 if other>=2 else q
+     boxes.extend(rotate(b,other) for b in outer_boxes(local,16 if other==side and mask&(1<<q) else 0))
+   for q in range(4):
+    local=q^1 if side>=2 else q;b=rotate(connectors(local)[len(connectors(local))//2],side)
+    point=tuple((b[i]+b[i+3])/2 for i in range(3));assert inside(boxes,point)==(not bool(mask&(1<<q)));count+=1
+ # The circular base replaces exactly the lowest two pixels; it does not enlarge the collision again.
+ for base in (False,True):
+  mesh=resolve(choose(root['models'][0],base,0,0)['model']);assert min(e['from'][1] for e in mesh['elements'])==(2 if base else 0)
+ base=resolve(root['models'][1]['model']);assert all(e['to'][1]<=2 for e in base['elements'])
+ item=resolve('lsmmod:item/school_circular_column');assert all(all(0<=e['from'][i]<e['to'][i]<=16 for i in range(3)) for e in item['elements'])
+ source=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolCircularColumnBlock.java').read_text();assert 'SchoolDrainColumnShapes.FIXED' in source and 'SchoolDrainColumnShapes.OUTER' in source and ' ? 12 : 16' in source and 'forState' not in source
  ids=set()
- for path in providers.glob('*Provider.java'):ids.update(re.findall(r'fromNamespaceAndPath\(LSMMod.MOD_ID,\s*"([a-z_]+)"\)',path.read_text()))
- assert 'painted_wall_name' in ids
- for locale in ('en_us','es_es'):
-  translations=json.loads((A/f'lang/{locale}.json').read_text())
-  assert all(translations.get('config.jade.plugin_lsmmod.'+ident) for ident in ids)
- for name in ('school_circular_column_shaft','school_circular_column_base'):
-  leaf=json.loads((A/f'models/block/{name}.json').read_text());assert leaf['loader']=='fusion:model' and leaf['type']=='base'
-  for element in leaf['elements']:
-   for surface in element['faces'].values():
-    key=surface['texture'][1:];assert leaf['textures'][key]==root['textures'][key]
- # Geometry generated from boxes must only expose surfaces belonging to those volumes.
- for filename,source in [('school_drain',boxes),('school_circular_column_shaft',CIRCLE)]:
-  mesh=json.loads((A/f'models/block/{filename}.json').read_text())
-  for e in mesh['elements']:assert any(all(b[i]<=e['from'][i]<e['to'][i]<=b[i+3] for i in range(3)) for b in source)
+ for p in (ROOT/'src/main/java/net/nicomar2009/lsmmod/compat/jade').glob('*Provider.java'):ids.update(re.findall(r'fromNamespaceAndPath\(LSMMod.MOD_ID,\s*"([a-z_]+)"\)',p.read_text()))
+ for locale in ('en_us','es_es'):assert all(read(A/f'lang/{locale}.json').get('config.jade.plugin_lsmmod.'+i) for i in ids)
  generate();before={p:hashlib.sha256((ROOT/p).read_bytes()).digest() for p in GENERATED};generate();assert all(hashlib.sha256((ROOT/p).read_bytes()).digest()==h for p,h in before.items())
- print(f'OK: six-bar open drain, circular mesh/physics, {tested} oriented quadrant/occupancy checks, shared wall paints, 1+4+1 states, idempotent generator.')
+ print(f'OK: {count} render/profile/physical cases; diameter 32px (-8..24), circular 2px base, wall material continuity, railing cuts at 12px, preserved holes, six states, cached color-independent physics and idempotent generator.')
 if __name__=='__main__':main()
