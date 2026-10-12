@@ -22,10 +22,6 @@ Faltan generación jigsaw y mapas, NPC concretos y sus zonas/llamados, efectos e
 | Decisiones de diseño pendientes | [DESIGN](docs/DESIGN.md) |
 | API nueva o error de compatibilidad | [API_NOTES](docs/API_NOTES.md), luego código/fuentes locales |
 
-## Para empezar un cambio de arte
-
-1. Busca el ID o un bloque parecido en `registry/ModBlocks.java`, `registry/ModItems.java`, los assets y `tools/` con `rg`.
-2. Lee ASSETS y el generador correspondiente; cambia generador y recursos coherentemente.
-3. Ejecuta el check de esa familia y revisa renders del modelo/ítem final. Resume lo comprobado y publica según AGENTS.
+Para crear un bloque o cambiar arte, sigue únicamente [ASSETS: flujo y herramientas por familia](docs/ASSETS.md#flujo-rápido); no hace falta leer los demás specs salvo que cambies su comportamiento.
 
 Raíz Java: `src/main/java/net/nicomar2009/lsmmod/`. Recursos activos: `src/main/resources/`. Referencias y fuentes originales: `newresources/`. Previews: `previews/`. No hace falta leer todos los specs para editar una textura.

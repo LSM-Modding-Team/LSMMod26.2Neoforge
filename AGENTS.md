@@ -1,7 +1,7 @@
 # LSM Mod — instrucciones para Codex
 
 - Responde en español. La petición actual del usuario tiene prioridad. Código, IDs y comentarios en inglés.
-- Lee [START_HERE.md](START_HERE.md) y solo la guía del área que vas a cambiar. Para modelos/texturas: [docs/ASSETS.md](docs/ASSETS.md).
+- Para crear bloques/modelos/texturas, entra directamente en [ASSETS: flujo](docs/ASSETS.md#flujo-rápido) y su tabla de generador/check/render. Para otros trabajos, usa [START_HERE](START_HERE.md).
 - **No compiles ni ejecutes Minecraft**, por instrucción vigente del usuario. Usa comprobaciones estáticas relevantes; distingue revisión estática, render externo, compilación y prueba en juego.
 - **Haz commit y push en la rama existente `master` en la misma respuesta**, sin pedir autorización. Trae e integra `origin/master` antes de publicar, conservando cambios de otras conversaciones. No crees ramas nuevas ni uses force-push.
 - Reutiliza clases, materiales, modelos padre y generadores existentes. Conserva IDs, NBT y propiedades guardadas; una retirada o migración requiere petición del usuario.

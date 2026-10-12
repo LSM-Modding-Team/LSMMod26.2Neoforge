@@ -1,6 +1,6 @@
 # Modelos y texturas
 
-Guía para peticiones de arte a Codex. Lee solo la familia que cambias; registros y generadores son la fuente del inventario actual.
+Entrada única para crear bloques/modelos/texturas: sigue el flujo y abre solo las herramientas de tu familia. Registros y generadores son el inventario real.
 
 ## Rutas y entrega completa
 
@@ -21,34 +21,34 @@ Un bloque nuevo necesita registro, ítem, estado, modelo, definición de ítem, 
 
 ## Flujo rápido
 
-1. Busca un ID o patrón similar con `rg '<id>' src/main/java tools` y localiza sus recursos. Lee el generador antes de editar: algunos también escriben Java, registros, idiomas y tags.
+1. Elige el patrón en la tabla inferior y abre sus enlaces; para un ID existente usa `rg '<id>' src/main/java tools`. Lee el generador: puede escribir Java/registros/idiomas/tags. Consulta [BLOCK_SPECS](BLOCK_SPECS.md) solo al cambiar comportamiento o compatibilidad.
 2. Usa las referencias del usuario para fijar proporciones, materiales y silueta. Expresa medidas en píxeles: **16 px = 1 bloque**. Si solo cambia una textura, conserva geometría y colisión. No inventes funciones para decoración.
 3. Reutiliza geometría padre, texturas y clases. Modifica el generador que produce el resultado y sus archivos finales; no ejecutes todos los generadores. Revisa `git diff` para detectar sobrescrituras ajenas al pedido.
 4. Comprueba referencias, UV, materiales, alfa y modelo de inventario. Para conjuntos, verifica todas las celdas y orientaciones, bisagras/apertura, apoyo, retirada y drop único. Mantén UV continuas y elimina tapas artificiales en cortes entre celdas.
-5. **Render obligatorio para cualquier textura nueva o modificada:** aplica los PNG finales al modelo real, revisa frente/dorso/laterales e ítem, y corrige estiramientos, costuras, caras negras/magenta y transparencia. Inspeccionar solo el PNG no basta. Guarda la preview en `previews/`; distingue render externo de captura en Minecraft.
+5. **Render obligatorio:** `python tools/render_block_review.py <id>`; para rejilla column/row/depth añade `--grid ancho alto fondo`, por ejemplo `school_refrigerator --grid 2 3 1`. Usa `--state facing=north clave=valor` para otros estados y `--vanilla-dir` para materiales vanilla. Requiere Pillow/numpy; guarda frente/laterales/dorso/ítem en `previews/<id>_review.png`. Abre la imagen y corrige UV/costuras/materiales/alfa. Para OBJ, piezas giradas, estados dinámicos u otras rejillas usa el render de la familia; el comando exige geometría nativa sin giro. Es render externo, no prueba en Minecraft.
 6. Ejecuta el check existente de la familia. Si cambias selección, herencia, loaders o preparación Fusion, ejecuta también `python tools/check_optimized_model_resources.py`. No compiles según AGENTS. Documenta solo un contrato nuevo o un pendiente real.
 
 ## Patrones reutilizables
 
-Nombres de generadores/checks bajo `tools/`; úsalo como índice, no como lista que haya que ejecutar completa.
+Enlaces relativos a `tools/`: ejecuta solo el generador/check/render de tu familia. El render nativo común es [render_block_review.py](../tools/render_block_review.py).
 
 | Familia | Referencia de implementación | Generador / comprobación |
 |---|---|---|
-| Textura de cubo/suelo | `classroom_floor`, `school_parquet` | `create_classroom_surfaces.py`, `create_school_parquet_assets.py` |
-| Decoración pequeña orientable | `SchoolPassiveAccessoryBlock`, `SchoolRouterBlock` | `create_school_cabinet_and_router.py` / `check_school_cabinet_and_router.py` |
-| Mueble de varias celdas | `SchoolRectangularBlock`, `WideBathroomBlock` | `create_facility_expansion_assets.py` / `check_facility_expansion_assets.py` |
-| San Martín en vitrina | Caja blanca 2×2,5×1; estatua centrada 1×2, cristal frontal; ítem EPIC | `create_san_martin_display.py` / `check_bathroom_statue_assets.py`; render `render_san_martin_display.py` |
-| Puertas anchas y cristal fijo | `SchoolFramedDiningDoorBlock`, `SchoolGlazing` | `create_facility_expansion_assets.py`, `create_framed_door_glazing.py` / `check_framed_door_glazing.py` |
-| Enfermería y frente claro | Mismos perfiles físicos y dos canales de cristal | `create_infirmary_door_assets.py` / `check_infirmary_door_assets.py` |
-| Cristal, escaleras y cortinas | `SchoolGlassBlock`, `SchoolGlassStairBlock` | `create_school_glass_assets.py`, `create_school_curtain_assets.py` / `check_school_glass.py`, `check_compact_school_glazing.py` |
-| Pintura/medios cubos | `SchoolPaint`, bloques pintables | `create_paintable_school_block.py`, `create_custom_paintable_blocks.py` / checks de los mismos nombres |
-| Pendientes OBJ | `SchoolInvertedSlopeBlock`, cuadrículas de formas | `create_school_inverted_slopes.py` / `check_school_inverted_slopes.py` |
-| Escudo de suelo 4×4 | `SchoolShieldBlock` | `create_school_shield_floor_assets.py` / `check_school_shield.py` |
-| Papelería/modelos padre | `folder`, `notebook`, 16 colores | `create_stationery_assets.py`; render con `blender -b --python tools/render_stationery_assets.py` |
-| Uniforme equipado/ítem | `SchoolUniformItem`, equipment vanilla | `create_uniform_assets.py`; contrato en [ARMOR_SPECS](ARMOR_SPECS.md) |
-| Skins/retratos de Student | `PlaceholderSchoolNpcModel`, `StudentAppearanceTextures` | `create_placeholder_student_skins.py`, `create_student_appearance_assets.py`, `create_student_gender_skins.py` |
+| Textura de cubo/suelo | `classroom_floor`, `school_parquet` | [create_classroom_surfaces.py](../tools/create_classroom_surfaces.py), [create_school_parquet_assets.py](../tools/create_school_parquet_assets.py); render nativo |
+| Decoración pequeña orientable | [SchoolPassiveAccessoryBlock](../src/main/java/net/nicomar2009/lsmmod/block/SchoolPassiveAccessoryBlock.java), SchoolRouterBlock | [create_school_cabinet_and_router.py](../tools/create_school_cabinet_and_router.py) / [check_school_cabinet_and_router.py](../tools/check_school_cabinet_and_router.py); render nativo |
+| Mueble de varias celdas | [SchoolRectangularBlock](../src/main/java/net/nicomar2009/lsmmod/block/SchoolRectangularBlock.java), [WideBathroomBlock](../src/main/java/net/nicomar2009/lsmmod/block/WideBathroomBlock.java) | [create_facility_expansion_assets.py](../tools/create_facility_expansion_assets.py) / [check_facility_expansion_assets.py](../tools/check_facility_expansion_assets.py); referencia cerrada con vidrio: [create_school_refrigerator_assets.py](../tools/create_school_refrigerator_assets.py), render nativo con `--grid` |
+| San Martín en vitrina | Caja blanca 2×2,5×1; estatua centrada 1×2, cristal frontal; ítem EPIC | [create_san_martin_display.py](../tools/create_san_martin_display.py) / [check_bathroom_statue_assets.py](../tools/check_bathroom_statue_assets.py); render [render_san_martin_display.py](../tools/render_san_martin_display.py) |
+| Puertas anchas y cristal fijo | `SchoolFramedDiningDoorBlock`, `SchoolGlazing` | [create_facility_expansion_assets.py](../tools/create_facility_expansion_assets.py), [create_framed_door_glazing.py](../tools/create_framed_door_glazing.py) / [check_framed_door_glazing.py](../tools/check_framed_door_glazing.py) |
+| Enfermería y frente claro | Mismos perfiles físicos y dos canales de cristal | [create_infirmary_door_assets.py](../tools/create_infirmary_door_assets.py) / [check_infirmary_door_assets.py](../tools/check_infirmary_door_assets.py) |
+| Cristal, escaleras y cortinas | `SchoolGlassBlock`, `SchoolGlassStairBlock` | [create_school_glass_assets.py](../tools/create_school_glass_assets.py), [create_school_curtain_assets.py](../tools/create_school_curtain_assets.py) / [check_school_glass.py](../tools/check_school_glass.py), [check_compact_school_glazing.py](../tools/check_compact_school_glazing.py) |
+| Pintura/medios cubos | `SchoolPaint`, bloques pintables | [create_paintable_school_block.py](../tools/create_paintable_school_block.py), [create_custom_paintable_blocks.py](../tools/create_custom_paintable_blocks.py) / checks de los mismos nombres |
+| Pendientes OBJ | `SchoolInvertedSlopeBlock`, cuadrículas de formas | [create_school_inverted_slopes.py](../tools/create_school_inverted_slopes.py) / [check_school_inverted_slopes.py](../tools/check_school_inverted_slopes.py) |
+| Escudo de suelo 4×4 | `SchoolShieldBlock` | [create_school_shield_floor_assets.py](../tools/create_school_shield_floor_assets.py) / [check_school_shield.py](../tools/check_school_shield.py) |
+| Papelería/modelos padre | `folder`, `notebook`, 16 colores | [create_stationery_assets.py](../tools/create_stationery_assets.py); render con `blender -b --python tools/render_stationery_assets.py` |
+| Uniforme equipado/ítem | `SchoolUniformItem`, equipment vanilla | [create_uniform_assets.py](../tools/create_uniform_assets.py); contrato en [ARMOR_SPECS](ARMOR_SPECS.md) |
+| Skins/retratos de Student | `PlaceholderSchoolNpcModel`, `StudentAppearanceTextures` | [create_placeholder_student_skins.py](../tools/create_placeholder_student_skins.py), [create_student_appearance_assets.py](../tools/create_student_appearance_assets.py), [create_student_gender_skins.py](../tools/create_student_gender_skins.py) |
 
-Para las puertas, madera, cristal tintado y cubierta existe `python tools/render_texture_review.py`; usa `--vanilla-dir` si necesita la carpeta de texturas vanilla. Otros renders: `tools/render_*.py`. Algunos requieren Blender/Pillow; cada script indica sus dependencias.
+Puertas/cristal dinámico: [render_texture_review.py](../tools/render_texture_review.py) (`--vanilla-dir` para vanilla). OBJ: [render_school_inverted_slopes.py](../tools/render_school_inverted_slopes.py), [render_school_railing_slopes.py](../tools/render_school_railing_slopes.py). Papelería girada: [render_stationery_assets.py](../tools/render_stationery_assets.py), con Blender. Conserva el render específico cuando verifica apertura/conexiones; no escribas otro para un bloque nativo simple.
 
 ## Rendimiento y compatibilidad
 
@@ -61,7 +61,3 @@ Para las puertas, madera, cristal tintado y cubierta existe `python tools/render
 - `optimize_model_resources.py` prepara originales y `src/generated/resources` en `build/generated/optimizedResources`, antes de `processResources`. Edita **los fuentes**, nunca esa salida. Comparte duplicados, padres sólidos y selectores; `prepare_high_state_models.py` exige una hoja por modelo nativo en cada raíz.
 - Fusion 1.3.16: conserva `neoforge:obj` para OBJ; declara materiales/particle en compuestos. El MTL de pavimento usa `map_Kd gray`/`yellow` sin `#`. Un `fusion:base` usado como componente debe tener geometría real válida; no uses bases vacías ni supongas soporte de matrices `transform` en compuestos.
 - Reducir modelos o selectores no prueba una mejora de tiempo. Mide arranque/JFR si se pide rendimiento; no inventes segundos ahorrados.
-
-## Peticiones del usuario
-
-Basta una instrucción libre como «crea una mesa de 3×1 según esta foto» o «cambia la madera a este tono». Aprovecha medidas y referencias disponibles; pregunta solo por información que cambie el resultado. Codex debe entregar recursos integrados, generador coherente, preview revisada y comprobaciones relevantes, sin exigir una plantilla.
