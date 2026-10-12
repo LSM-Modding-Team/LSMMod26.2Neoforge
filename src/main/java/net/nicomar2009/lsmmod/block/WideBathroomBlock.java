@@ -36,6 +36,7 @@ public class WideBathroomBlock extends Block {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
+    public static final IntegerProperty ROW = IntegerProperty.create("row", 0, 2);
     public static final IntegerProperty COLUMN = IntegerProperty.create("column", 0, 1);
     private final boolean wallMounted;
     private final int height;
@@ -71,6 +72,7 @@ public class WideBathroomBlock extends Block {
             }
         }
         BlockState initial = stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(COLUMN, 0);
+        if (initial.hasProperty(ROW)) initial = initial.setValue(ROW, 0);
         if (initial.hasProperty(HALF)) initial = initial.setValue(HALF, DoubleBlockHalf.LOWER);
         if (initial.hasProperty(OPEN)) initial = initial.setValue(OPEN, false);
         registerDefaultState(initial);
@@ -82,6 +84,7 @@ public class WideBathroomBlock extends Block {
     }
 
     private static int half(BlockState state) {
+        if (state.hasProperty(ROW)) return state.getValue(ROW);
         return state.hasProperty(HALF) && state.getValue(HALF) == DoubleBlockHalf.UPPER ? 1 : 0;
     }
 
@@ -99,6 +102,7 @@ public class WideBathroomBlock extends Block {
 
     private BlockState part(BlockState state, int half, int column) {
         BlockState value = state.setValue(COLUMN, column);
+        if (value.hasProperty(ROW)) return value.setValue(ROW, half);
         return value.hasProperty(HALF) ? value.setValue(HALF, half == 0 ? DoubleBlockHalf.LOWER : DoubleBlockHalf.UPPER) : value;
     }
 

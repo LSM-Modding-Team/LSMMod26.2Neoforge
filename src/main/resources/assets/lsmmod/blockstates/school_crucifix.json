@@ -1,0 +1,100 @@
+{
+  "variants": {
+    "column=0,row=0,facing=north": {
+      "model": "lsmmod:block/school_crucifix_0_0",
+      "y": 0
+    },
+    "column=0,row=0,facing=east": {
+      "model": "lsmmod:block/school_crucifix_0_0",
+      "y": 90
+    },
+    "column=0,row=0,facing=south": {
+      "model": "lsmmod:block/school_crucifix_0_0",
+      "y": 180
+    },
+    "column=0,row=0,facing=west": {
+      "model": "lsmmod:block/school_crucifix_0_0",
+      "y": 270
+    },
+    "column=1,row=0,facing=north": {
+      "model": "lsmmod:block/school_crucifix_1_0",
+      "y": 0
+    },
+    "column=1,row=0,facing=east": {
+      "model": "lsmmod:block/school_crucifix_1_0",
+      "y": 90
+    },
+    "column=1,row=0,facing=south": {
+      "model": "lsmmod:block/school_crucifix_1_0",
+      "y": 180
+    },
+    "column=1,row=0,facing=west": {
+      "model": "lsmmod:block/school_crucifix_1_0",
+      "y": 270
+    },
+    "column=0,row=1,facing=north": {
+      "model": "lsmmod:block/school_crucifix_0_1",
+      "y": 0
+    },
+    "column=0,row=1,facing=east": {
+      "model": "lsmmod:block/school_crucifix_0_1",
+      "y": 90
+    },
+    "column=0,row=1,facing=south": {
+      "model": "lsmmod:block/school_crucifix_0_1",
+      "y": 180
+    },
+    "column=0,row=1,facing=west": {
+      "model": "lsmmod:block/school_crucifix_0_1",
+      "y": 270
+    },
+    "column=1,row=1,facing=north": {
+      "model": "lsmmod:block/school_crucifix_1_1",
+      "y": 0
+    },
+    "column=1,row=1,facing=east": {
+      "model": "lsmmod:block/school_crucifix_1_1",
+      "y": 90
+    },
+    "column=1,row=1,facing=south": {
+      "model": "lsmmod:block/school_crucifix_1_1",
+      "y": 180
+    },
+    "column=1,row=1,facing=west": {
+      "model": "lsmmod:block/school_crucifix_1_1",
+      "y": 270
+    },
+    "column=0,row=2,facing=north": {
+      "model": "lsmmod:block/school_crucifix_0_2",
+      "y": 0
+    },
+    "column=0,row=2,facing=east": {
+      "model": "lsmmod:block/school_crucifix_0_2",
+      "y": 90
+    },
+    "column=0,row=2,facing=south": {
+      "model": "lsmmod:block/school_crucifix_0_2",
+      "y": 180
+    },
+    "column=0,row=2,facing=west": {
+      "model": "lsmmod:block/school_crucifix_0_2",
+      "y": 270
+    },
+    "column=1,row=2,facing=north": {
+      "model": "lsmmod:block/school_crucifix_1_2",
+      "y": 0
+    },
+    "column=1,row=2,facing=east": {
+      "model": "lsmmod:block/school_crucifix_1_2",
+      "y": 90
+    },
+    "column=1,row=2,facing=south": {
+      "model": "lsmmod:block/school_crucifix_1_2",
+      "y": 180
+    },
+    "column=1,row=2,facing=west": {
+      "model": "lsmmod:block/school_crucifix_1_2",
+      "y": 270
+    }
+  }
+}

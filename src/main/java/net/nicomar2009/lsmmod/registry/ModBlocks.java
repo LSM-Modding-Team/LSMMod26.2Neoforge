@@ -20,6 +20,10 @@ public final class ModBlocks {
     // BEGIN SCHOOL INVERTED SLOPES
     // BEGIN SCHOOL SPLIT RAISED EXTRAS
     // BEGIN ENTRANCE PAVEMENT SHAPES
+    // BEGIN SCHOOL CRUCIFIX
+    public static final DeferredBlock<SchoolCrucifixBlock> SCHOOL_CRUCIFIX = BLOCKS.registerBlock("school_crucifix", SchoolCrucifixBlock::new, props -> props.strength(1.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    // END SCHOOL CRUCIFIX
+
     // BEGIN DARK TILE DRAIN COLUMN
     public static final DeferredBlock<Block> DARK_TILED_FLOOR = BLOCKS.registerBlock("dark_tiled_floor", Block::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).requiresCorrectToolForDrops());
     public static final DeferredBlock<SchoolDrainBlock> SCHOOL_DRAIN = BLOCKS.registerBlock("school_drain", SchoolDrainBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());

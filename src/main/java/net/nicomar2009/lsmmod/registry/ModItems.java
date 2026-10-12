@@ -21,6 +21,10 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
+    // BEGIN SCHOOL CRUCIFIX
+    public static final DeferredItem<BlockItem> SCHOOL_CRUCIFIX = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_CRUCIFIX);
+    // END SCHOOL CRUCIFIX
+
     // BEGIN DARK TILE DRAIN COLUMN
     public static final DeferredItem<BlockItem> DARK_TILED_FLOOR = ITEMS.registerSimpleBlockItem(ModBlocks.DARK_TILED_FLOOR);
     public static final DeferredItem<BlockItem> SCHOOL_DRAIN = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_DRAIN);

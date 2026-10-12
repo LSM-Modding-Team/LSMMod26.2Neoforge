@@ -43,7 +43,11 @@ def main():
     selected=choose(outer,base,height,color);assert selected and 'transform' not in selected
     mesh=resolve(selected['model']);assert mesh['loader']=='fusion:model' and mesh['type']=='base'
     physical=[rotate(b,side) for b in outer_boxes(q,height)]
+    assert mesh.get('elements'), 'Fusion base must have a real geometry object; elements=[] bakes to null in 1.3.16'
     for element in mesh.get('elements',[]):
+     if selected['model'].endswith('_empty'):
+      assert element['faces'] and inside(FIXED,(8,8,8))
+      assert all(0<element['to'][i]-element['from'][i]<=1 for i in range(3));continue
      assert any(all(b[i]<=element['from'][i]<element['to'][i]<=b[i+3] for i in range(3)) for b in physical)
      for face,surface in element['faces'].items():
       key=surface['texture'][1:];texture=root['textures'].get(key,mesh['textures'].get(key))

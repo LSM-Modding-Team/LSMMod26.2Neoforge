@@ -4,5 +4,29 @@
   "textures": {
     "particle": "lsmmod:block/dark_school_wall"
   },
-  "elements": []
+  "elements": [
+    {
+      "from": [
+        7.5,
+        7.5,
+        7.5
+      ],
+      "to": [
+        8.5,
+        8.5,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#particle",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ]
+        }
+      }
+    }
+  ]
 }

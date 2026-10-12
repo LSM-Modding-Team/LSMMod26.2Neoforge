@@ -97,7 +97,9 @@ def main():
  models.append([{'model':'lsmmod:block/school_circular_column_shaft_raised','condition':{'type':'lsmmod:column_part','side':-1,'quarter':0,'paint':0}},{'model':'lsmmod:block/school_circular_column_shaft'}])
  write(A/'models/block/school_circular_column_base.json',column_mesh([(b,'base') for b in vertical(FIXED,0,2)],True))
  models.append({'model':'lsmmod:block/school_circular_column_base','condition':{'type':'lsmmod:column_part','side':-1,'quarter':0,'paint':0}})
- write(A/'models/block/school_circular_column_empty.json',{'loader':'fusion:model','type':'base','textures':{'particle':textures['particle']},'elements':[]})
+ # Fusion 1.3.16 returns null for elements=[] and rejects faceless elements.
+ # This valid quad is enclosed by the fixed solid shaft in every neighbor profile.
+ write(A/'models/block/school_circular_column_empty.json',{'loader':'fusion:model','type':'base','textures':{'particle':textures['particle']},'elements':[{'from':[7.5,7.5,7.5],'to':[8.5,8.5,8.5],'faces':{'north':{'texture':'#particle','uv':[0,0,1,1]}}}]})
  for q in range(4):
   for side,direction in enumerate(('north','east','south','west')):
    suffix='' if side==0 else '_'+direction;worldq=q^1 if side>=2 else q
