@@ -66,6 +66,7 @@ def main():
         assert read(A/f'items/{item}.json')['model']['model'] == f'lsmmod:item/{item}'
     for locale in ('en_us','es_es'):
         lang = read(A/f'lang/{locale}.json')
+        assert lang['config.jade.plugin_lsmmod.painted_wall_name']
         for name in ('school_paintable_block','light_school_wall','dark_school_wall','street_school_wall','classroom_white_wall','classroom_floor'):
             assert lang['block.lsmmod.'+name]
         for item in TOOLS:

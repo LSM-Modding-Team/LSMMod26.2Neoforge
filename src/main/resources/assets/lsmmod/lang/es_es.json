@@ -351,5 +351,6 @@
   "block.lsmmod.dark_tiled_floor": "Baldosas oscuras",
   "block.lsmmod.school_drain": "Desagüe del colegio",
   "block.lsmmod.school_circular_column": "Columna circular del colegio",
-  "item.lsmmod.dark_tiled_floor_paint": "Pintura de baldosas oscuras"
+  "item.lsmmod.dark_tiled_floor_paint": "Pintura de baldosas oscuras",
+  "config.jade.plugin_lsmmod.painted_wall_name": "Cara del bloque pintado: nombre e icono"
 }

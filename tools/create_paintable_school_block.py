@@ -43,6 +43,7 @@ def main():
   p=A/f'lang/{locale}.json';d=json.loads(p.read_text());d['block.lsmmod.school_paintable_block']='School Paintable Block' if locale=='en_us' else 'Bloque pintable del colegio'
   labels=('Light School Paint','Dark School Paint','Street School Paint','Classroom White Paint','Classroom Floor Paint','Yellow School Paint','White Playground Floor Paint','Gray Playground Floor Paint','Green Playground Floor Paint','Orange Playground Floor Paint','Dark Tiled Floor Paint','Paint Cleaner') if locale=='en_us' else ('Pintura clara del colegio','Pintura oscura del colegio','Pintura de pared de calle','Pintura blanca de aula','Pintura de suelo de aula','Pintura amarilla del colegio','Pintura de suelo claro del patio','Pintura de suelo gris del patio','Pintura de suelo verde del patio','Pintura de suelo naranja del patio','Pintura de baldosas oscuras','Limpiador de pintura')
   for item,label in zip(TOOLS,labels):d['item.lsmmod.'+item]=label
+  d['config.jade.plugin_lsmmod.painted_wall_name']='Painted block face: name and icon' if locale=='en_us' else 'Cara del bloque pintado: nombre e icono'
   d['message.lsmmod.paint_copied']='Six faces copied. Click another paintable block to apply once.' if locale=='en_us' else 'Se copiaron las seis caras. Haz clic en otro bloque pintable para aplicarlas una vez.'
   write(p,d)
  p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';d=json.loads(p.read_text());d['values']=list(dict.fromkeys(d['values']+['lsmmod:school_paintable_block']));write(p,d)

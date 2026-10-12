@@ -31,6 +31,22 @@ def explicit_materials(value):
    key='column_'+texture.replace(':','_').replace('/','_')
    v['textures'][key]=texture;surface['texture']='#'+key
  return v
+def fusion_base(value):
+ v=copy.deepcopy(value);v['loader']='fusion:model';v['type']='base';return v
+
+def oriented_model(value,turns):
+ v=copy.deepcopy(value);horizontal={'north':'east','east':'south','south':'west','west':'north'}
+ for _ in range(turns):
+  for e in v['elements']:
+   a,b=e['from'],e['to'];e['from']=[16-b[2],a[1],a[0]];e['to']=[16-a[2],b[1],b[0]]
+   faces={}
+   for face,surface in e['faces'].items():
+    if 'cullface' in surface:surface['cullface']=horizontal.get(surface['cullface'],surface['cullface'])
+    if face in ('up','down'):surface['rotation']=(surface.get('rotation',0)+(90 if face=='up' else 270))%360
+    faces[horizontal.get(face,face)]=surface
+   e['faces']=faces
+ return v
+
 def basic(id,root):
  write(A/f'items/{id}.json',{'model':{'type':'minecraft:model','model':'lsmmod:block/'+root}})
  write(D/f'lsmmod/loot_table/blocks/{id}.json',{'type':'minecraft:block','pools':[{'rolls':1,'conditions':[{'condition':'minecraft:survives_explosion'}],'entries':[{'type':'minecraft:item','name':'lsmmod:'+id}]}]})
@@ -41,22 +57,28 @@ def main():
  write(A/'models/block/dark_tiled_floor.json',{'parent':'minecraft:block/cube_all','textures':{'all':'lsmmod:block/dark_tiled_floor'}});write(A/'blockstates/dark_tiled_floor.json',{'variants':{'':{'model':'lsmmod:block/dark_tiled_floor'}}});basic('dark_tiled_floor','dark_tiled_floor')
  write(A/'models/block/school_drain.json',model(DRAIN,{'gray':'lsmmod:block/bathroom_floor_side','tile':'lsmmod:block/dark_tiled_floor','metal':'lsmmod:block/school_drain_metal','particle':'lsmmod:block/dark_tiled_floor'}));write(A/'blockstates/school_drain.json',{'variants':{f'facing={f}':{'model':'lsmmod:block/school_drain','y':i*90} for i,f in enumerate(('north','east','south','west'))}});basic('school_drain','school_drain')
  models=[{'model':'lsmmod:block/school_circular_column_shaft'},{'model':'lsmmod:block/school_circular_column_base','condition':{'type':'lsmmod:column_part','side':-1,'quarter':0,'paint':0}}]
- write(A/'models/block/school_circular_column_shaft.json',explicit_materials(model([(b,'shaft') for b in CIRCLE],{'shaft':'lsmmod:block/dark_school_wall','particle':'lsmmod:block/dark_school_wall'})))
+ write(A/'models/block/school_circular_column_shaft.json',fusion_base(explicit_materials(model([(b,'shaft') for b in CIRCLE],{'shaft':'lsmmod:block/dark_school_wall','particle':'lsmmod:block/dark_school_wall'}))))
  # Base top surface is clipped against the shaft, so there are no overlapping cap faces.
  base=model([([0,0,0,16,2,16],'base')]+[(b,'shaft') for b in CIRCLE],{'base':'lsmmod:block/classroom_floor','shaft':'lsmmod:block/dark_school_wall','particle':'lsmmod:block/classroom_floor'})
  # Retain only base-material surfaces; shaft is shared independently.
- base['elements']=[e for e in base['elements'] if next(iter(e['faces'].values()))['texture']=='#base'];write(A/'models/block/school_circular_column_base.json',explicit_materials(base))
+ base['elements']=[e for e in base['elements'] if next(iter(e['faces'].values()))['texture']=='#base'];write(A/'models/block/school_circular_column_base.json',fusion_base(explicit_materials(base)))
  for q in range(4):
   join=model([(b,'wall') for b in connectors(q)],{'wall':'lsmmod:block/light_school_wall','particle':'lsmmod:block/light_school_wall'})
   for e in join['elements']:
    for f in ('up','down'):
     if f in e['faces']:e['faces'][f].pop('cullface',None)
-  write(A/f'models/block/school_circular_column_join_{q}.json',join)
-  for color,texture in enumerate(COLORS):
-   name=f'school_circular_column_join_{q}_{color}';leaf=copy.deepcopy(join);leaf['textures']={'wall':texture,'particle':texture};write(A/f'models/block/{name}.json',explicit_materials(leaf))
-   for side in range(4):
+   for surface in e['faces'].values():surface['texture']='#column_join_surface'
+  join['textures']={'column_join_surface':'lsmmod:block/light_school_wall','particle':'lsmmod:block/light_school_wall'}
+  for side,direction in enumerate(('north','east','south','west')):
+   suffix='' if side==0 else '_'+direction
+   geometry=f'school_circular_column_join_{q}{suffix}'
+   write(A/f'models/block/{geometry}.json',fusion_base(oriented_model(join,side)))
+   for color,texture in enumerate(COLORS):
+    name=f'school_circular_column_join_{q}_{color}{suffix}'
+    write(A/f'models/block/{name}.json',{'loader':'fusion:model','type':'base','parent':'lsmmod:block/'+geometry,'textures':{'column_join_surface':'#column_'+texture.replace(':','_').replace('/','_'),'particle':texture}})
     worldq=(q^1) if side>=2 else q
-    models.append({'model':'lsmmod:block/'+name,'transform':[{'type':'rotate','axis':'y','angle':-side*90,'origin':[8,8,8]}],'condition':{'type':'lsmmod:column_part','side':side,'quarter':worldq,'paint':color}})
+    models.append({'model':'lsmmod:block/'+name,'condition':{'type':'lsmmod:column_part','side':side,'quarter':worldq,'paint':color}})
+
  groups={}
  for entry in models[2:]:
   c=entry['condition'];groups.setdefault((c['side'],c['quarter']),[]).append(entry)

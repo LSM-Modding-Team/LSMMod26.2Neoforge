@@ -9,6 +9,15 @@ def rotate(b,side):
  for _ in range(side):b=[16-b[5],b[1],b[0],16-b[2],b[4],b[3]]
  return b
 
+VERTICES={'down':[(0,0,1),(0,0,0),(1,0,0),(1,0,1)],'up':[(0,1,0),(0,1,1),(1,1,1),(1,1,0)],'north':[(1,1,0),(1,0,0),(0,0,0),(0,1,0)],'south':[(0,1,1),(0,0,1),(1,0,1),(1,1,1)],'west':[(0,1,0),(0,0,0),(0,0,1),(0,1,1)],'east':[(1,1,1),(1,0,1),(1,0,0),(1,1,0)]}
+def quad_uv(element,face):
+ surface=element['faces'][face];u0,v0,u1,v1=surface['uv'];uvs=[(u0,v0),(u0,v1),(u1,v1),(u1,v0)];shift=surface.get('rotation',0)//90
+ return {tuple(element['to'][i] if high else element['from'][i] for i,high in enumerate(corner)):uvs[(n+shift)%4] for n,corner in enumerate(VERTICES[face])}
+def rotate_point(point,side):
+ x,y,z=point
+ for _ in range(side):x,z=16-z,x
+ return x,y,z
+
 def main():
  rows={r['id']:r['states'] for r in audit()};assert [rows[k] for k in ('dark_tiled_floor','school_drain','school_circular_column')]==[1,4,1]
  boxes=[b[0] for b in DRAIN]
@@ -35,14 +44,42 @@ def main():
  for series in root['models'][2:]:
   assert len(series)==len(COLORS) and len({e['condition']['paint'] for e in series})==len(COLORS)
   for e in series:
-   t=e['transform'][0];assert t=={'type':'rotate','axis':'y','angle':-e['condition']['side']*90,'origin':[8,8,8]}
-   parent=json.loads((A/'models/block'/Path(e['model'].split(':block/')[1]+'.json')).read_text());assert 'elements' in parent
-   for element in parent['elements']:
-    for surface in element['faces'].values():
-     key=surface['texture'][1:];assert key.startswith('column_')
-     assert parent['textures'][key]==root['textures'][key]
+   assert 'transform' not in e
+   leaf=json.loads((A/'models/block'/Path(e['model'].split(':block/')[1]+'.json')).read_text())
+   assert leaf['loader']=='fusion:model' and leaf['type']=='base' and 'elements' not in leaf
+   mesh=json.loads((A/'models/block'/Path(leaf['parent'].split(':block/')[1]+'.json')).read_text())
+   assert mesh['loader']=='fusion:model' and mesh['type']=='base'
+   side=e['condition']['side'];q=e['condition']['quarter'];local=q^1 if side>=2 else q
+   physical=[rotate(b,side) for b in connectors(local)]
+   key=leaf['textures']['column_join_surface'][1:];assert root['textures'][key]==COLORS[e['condition']['paint']]
+   for element in mesh['elements']:
+    assert any(all(b[i]<=element['from'][i]<element['to'][i]<=b[i+3] for i in range(3)) for b in physical)
+    for surface in element['faces'].values():assert surface['texture']=='#column_join_surface'
+ # Baked-in orientations preserve every vertex UV and cull direction from the former matrix transform.
+ horizontal={'north':'east','east':'south','south':'west','west':'north'}
+ for q in range(4):
+  source=json.loads((A/f'models/block/school_circular_column_join_{q}.json').read_text())
+  for side,direction in enumerate(('north','east','south','west')):
+   suffix='' if side==0 else '_'+direction
+   target=json.loads((A/f'models/block/school_circular_column_join_{q}{suffix}.json').read_text())
+   assert len(source['elements'])==len(target['elements'])
+   for old,new in zip(source['elements'],target['elements']):
+    for face,surface in old['faces'].items():
+     newface=face;cull=surface.get('cullface')
+     for _ in range(side):newface=horizontal.get(newface,newface);cull=horizontal.get(cull,cull)
+     assert {rotate_point(point,side):uv for point,uv in quad_uv(old,face).items()}==quad_uv(new,newface)
+     assert new['faces'][newface].get('cullface')==cull
+ # Every registered Jade provider needs a translated configuration name, even before entering a world.
+ import re
+ providers=ROOT/'src/main/java/net/nicomar2009/lsmmod/compat/jade'
+ ids=set()
+ for path in providers.glob('*Provider.java'):ids.update(re.findall(r'fromNamespaceAndPath\(LSMMod.MOD_ID,\s*"([a-z_]+)"\)',path.read_text()))
+ assert 'painted_wall_name' in ids
+ for locale in ('en_us','es_es'):
+  translations=json.loads((A/f'lang/{locale}.json').read_text())
+  assert all(translations.get('config.jade.plugin_lsmmod.'+ident) for ident in ids)
  for name in ('school_circular_column_shaft','school_circular_column_base'):
-  leaf=json.loads((A/f'models/block/{name}.json').read_text())
+  leaf=json.loads((A/f'models/block/{name}.json').read_text());assert leaf['loader']=='fusion:model' and leaf['type']=='base'
   for element in leaf['elements']:
    for surface in element['faces'].values():
     key=surface['texture'][1:];assert leaf['textures'][key]==root['textures'][key]

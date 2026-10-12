@@ -357,5 +357,6 @@
   "block.lsmmod.dark_tiled_floor": "Dark Tiled Floor",
   "block.lsmmod.school_drain": "School Drain",
   "block.lsmmod.school_circular_column": "School Circular Column",
-  "item.lsmmod.dark_tiled_floor_paint": "Dark Tiled Floor Paint"
+  "item.lsmmod.dark_tiled_floor_paint": "Dark Tiled Floor Paint",
+  "config.jade.plugin_lsmmod.painted_wall_name": "Painted block face: name and icon"
 }

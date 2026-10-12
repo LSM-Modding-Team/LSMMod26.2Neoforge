@@ -34,18 +34,6 @@
     [
       {
         "model": "lsmmod:block/school_circular_column_join_0_1",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -55,18 +43,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_0_2",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -76,18 +52,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_0_3",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -97,18 +61,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_0_4",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -118,18 +70,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_0_5",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -139,18 +79,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_0_6",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -160,18 +88,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_0_7",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -181,18 +97,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_0_8",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -202,18 +106,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_0_9",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -223,18 +115,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_0_10",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -244,18 +124,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_0_11",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -265,18 +133,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_0_0",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -287,19 +143,7 @@
     ],
     [
       {
-        "model": "lsmmod:block/school_circular_column_join_0_1",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_1_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -308,19 +152,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_2",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_2_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -329,19 +161,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_3",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_3_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -350,19 +170,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_4",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_4_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -371,19 +179,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_5",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_5_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -392,19 +188,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_6",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_6_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -413,19 +197,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_7",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_7_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -434,19 +206,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_8",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_8_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -455,19 +215,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_9",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_9_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -476,19 +224,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_10",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_10_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -497,19 +233,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_11",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_11_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -518,19 +242,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_0",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_0_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -541,19 +253,7 @@
     ],
     [
       {
-        "model": "lsmmod:block/school_circular_column_join_0_1",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_1_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -562,19 +262,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_2",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_2_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -583,19 +271,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_3",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_3_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -604,19 +280,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_4",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_4_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -625,19 +289,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_5",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_5_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -646,19 +298,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_6",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_6_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -667,19 +307,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_7",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_7_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -688,19 +316,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_8",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_8_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -709,19 +325,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_9",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_9_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -730,19 +334,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_10",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_10_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -751,19 +343,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_11",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_11_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -772,19 +352,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_0",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_0_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -795,19 +363,7 @@
     ],
     [
       {
-        "model": "lsmmod:block/school_circular_column_join_0_1",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_1_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -816,19 +372,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_2",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_2_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -837,19 +381,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_3",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_3_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -858,19 +390,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_4",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_4_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -879,19 +399,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_5",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_5_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -900,19 +408,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_6",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_6_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -921,19 +417,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_7",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_7_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -942,19 +426,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_8",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_8_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -963,19 +435,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_9",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_9_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -984,19 +444,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_10",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_10_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -1005,19 +453,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_11",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_11_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -1026,19 +462,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_0_0",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_0_0_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -1050,18 +474,6 @@
     [
       {
         "model": "lsmmod:block/school_circular_column_join_1_1",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -1071,18 +483,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_1_2",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -1092,18 +492,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_1_3",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -1113,18 +501,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_1_4",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -1134,18 +510,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_1_5",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -1155,18 +519,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_1_6",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -1176,18 +528,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_1_7",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -1197,18 +537,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_1_8",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -1218,18 +546,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_1_9",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -1239,18 +555,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_1_10",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -1260,18 +564,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_1_11",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -1281,18 +573,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_1_0",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -1303,19 +583,7 @@
     ],
     [
       {
-        "model": "lsmmod:block/school_circular_column_join_1_1",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_1_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -1324,19 +592,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_2",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_2_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -1345,19 +601,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_3",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_3_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -1366,19 +610,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_4",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_4_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -1387,19 +619,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_5",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_5_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -1408,19 +628,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_6",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_6_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -1429,19 +637,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_7",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_7_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -1450,19 +646,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_8",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_8_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -1471,19 +655,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_9",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_9_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -1492,19 +664,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_10",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_10_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -1513,19 +673,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_11",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_11_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -1534,19 +682,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_0",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_0_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -1557,19 +693,7 @@
     ],
     [
       {
-        "model": "lsmmod:block/school_circular_column_join_1_1",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_1_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -1578,19 +702,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_2",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_2_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -1599,19 +711,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_3",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_3_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -1620,19 +720,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_4",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_4_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -1641,19 +729,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_5",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_5_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -1662,19 +738,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_6",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_6_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -1683,19 +747,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_7",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_7_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -1704,19 +756,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_8",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_8_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -1725,19 +765,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_9",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_9_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -1746,19 +774,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_10",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_10_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -1767,19 +783,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_11",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_11_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -1788,19 +792,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_0",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_0_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -1811,19 +803,7 @@
     ],
     [
       {
-        "model": "lsmmod:block/school_circular_column_join_1_1",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_1_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -1832,19 +812,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_2",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_2_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -1853,19 +821,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_3",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_3_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -1874,19 +830,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_4",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_4_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -1895,19 +839,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_5",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_5_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -1916,19 +848,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_6",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_6_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -1937,19 +857,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_7",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_7_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -1958,19 +866,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_8",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_8_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -1979,19 +875,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_9",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_9_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -2000,19 +884,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_10",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_10_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -2021,19 +893,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_11",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_11_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -2042,19 +902,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_1_0",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_1_0_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -2066,18 +914,6 @@
     [
       {
         "model": "lsmmod:block/school_circular_column_join_2_1",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -2087,18 +923,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_2_2",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -2108,18 +932,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_2_3",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -2129,18 +941,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_2_4",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -2150,18 +950,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_2_5",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -2171,18 +959,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_2_6",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -2192,18 +968,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_2_7",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -2213,18 +977,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_2_8",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -2234,18 +986,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_2_9",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -2255,18 +995,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_2_10",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -2276,18 +1004,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_2_11",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -2297,18 +1013,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_2_0",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -2319,19 +1023,7 @@
     ],
     [
       {
-        "model": "lsmmod:block/school_circular_column_join_2_1",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_1_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -2340,19 +1032,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_2",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_2_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -2361,19 +1041,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_3",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_3_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -2382,19 +1050,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_4",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_4_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -2403,19 +1059,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_5",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_5_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -2424,19 +1068,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_6",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_6_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -2445,19 +1077,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_7",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_7_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -2466,19 +1086,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_8",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_8_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -2487,19 +1095,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_9",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_9_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -2508,19 +1104,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_10",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_10_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -2529,19 +1113,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_11",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_11_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -2550,19 +1122,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_0",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_0_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -2573,19 +1133,7 @@
     ],
     [
       {
-        "model": "lsmmod:block/school_circular_column_join_2_1",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_1_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -2594,19 +1142,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_2",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_2_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -2615,19 +1151,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_3",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_3_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -2636,19 +1160,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_4",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_4_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -2657,19 +1169,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_5",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_5_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -2678,19 +1178,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_6",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_6_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -2699,19 +1187,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_7",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_7_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -2720,19 +1196,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_8",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_8_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -2741,19 +1205,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_9",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_9_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -2762,19 +1214,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_10",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_10_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -2783,19 +1223,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_11",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_11_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -2804,19 +1232,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_0",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_0_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -2827,19 +1243,7 @@
     ],
     [
       {
-        "model": "lsmmod:block/school_circular_column_join_2_1",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_1_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -2848,19 +1252,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_2",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_2_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -2869,19 +1261,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_3",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_3_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -2890,19 +1270,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_4",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_4_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -2911,19 +1279,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_5",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_5_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -2932,19 +1288,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_6",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_6_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -2953,19 +1297,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_7",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_7_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -2974,19 +1306,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_8",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_8_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -2995,19 +1315,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_9",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_9_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -3016,19 +1324,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_10",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_10_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -3037,19 +1333,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_11",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_11_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -3058,19 +1342,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_2_0",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_2_0_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -3082,18 +1354,6 @@
     [
       {
         "model": "lsmmod:block/school_circular_column_join_3_1",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -3103,18 +1363,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_3_2",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -3124,18 +1372,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_3_3",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -3145,18 +1381,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_3_4",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -3166,18 +1390,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_3_5",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -3187,18 +1399,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_3_6",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -3208,18 +1408,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_3_7",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -3229,18 +1417,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_3_8",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -3250,18 +1426,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_3_9",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -3271,18 +1435,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_3_10",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -3292,18 +1444,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_3_11",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -3313,18 +1453,6 @@
       },
       {
         "model": "lsmmod:block/school_circular_column_join_3_0",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": 0,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
         "condition": {
           "type": "lsmmod:column_part",
           "side": 0,
@@ -3335,19 +1463,7 @@
     ],
     [
       {
-        "model": "lsmmod:block/school_circular_column_join_3_1",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_1_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -3356,19 +1472,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_2",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_2_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -3377,19 +1481,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_3",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_3_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -3398,19 +1490,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_4",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_4_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -3419,19 +1499,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_5",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_5_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -3440,19 +1508,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_6",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_6_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -3461,19 +1517,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_7",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_7_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -3482,19 +1526,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_8",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_8_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -3503,19 +1535,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_9",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_9_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -3524,19 +1544,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_10",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_10_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -3545,19 +1553,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_11",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_11_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -3566,19 +1562,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_0",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -90,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_0_east",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 1,
@@ -3589,19 +1573,7 @@
     ],
     [
       {
-        "model": "lsmmod:block/school_circular_column_join_3_1",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_1_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -3610,19 +1582,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_2",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_2_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -3631,19 +1591,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_3",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_3_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -3652,19 +1600,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_4",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_4_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -3673,19 +1609,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_5",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_5_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -3694,19 +1618,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_6",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_6_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -3715,19 +1627,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_7",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_7_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -3736,19 +1636,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_8",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_8_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -3757,19 +1645,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_9",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_9_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -3778,19 +1654,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_10",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_10_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -3799,19 +1663,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_11",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_11_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -3820,19 +1672,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_0",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -180,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_0_south",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 2,
@@ -3843,19 +1683,7 @@
     ],
     [
       {
-        "model": "lsmmod:block/school_circular_column_join_3_1",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_1_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -3864,19 +1692,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_2",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_2_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -3885,19 +1701,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_3",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_3_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -3906,19 +1710,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_4",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_4_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -3927,19 +1719,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_5",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_5_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -3948,19 +1728,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_6",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_6_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -3969,19 +1737,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_7",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_7_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -3990,19 +1746,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_8",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_8_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -4011,19 +1755,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_9",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_9_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -4032,19 +1764,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_10",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_10_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -4053,19 +1773,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_11",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_11_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
@@ -4074,19 +1782,7 @@
         }
       },
       {
-        "model": "lsmmod:block/school_circular_column_join_3_0",
-        "transform": [
-          {
-            "type": "rotate",
-            "axis": "y",
-            "angle": -270,
-            "origin": [
-              8,
-              8,
-              8
-            ]
-          }
-        ],
+        "model": "lsmmod:block/school_circular_column_join_3_0_west",
         "condition": {
           "type": "lsmmod:column_part",
           "side": 3,
