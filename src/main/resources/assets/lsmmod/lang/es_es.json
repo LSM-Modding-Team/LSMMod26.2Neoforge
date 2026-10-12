@@ -347,5 +347,8 @@
   "block.lsmmod.green_playground_floor": "Suelo verde del patio",
   "block.lsmmod.orange_playground_floor": "Suelo naranja del patio",
   "item.lsmmod.green_playground_floor_paint": "Pintura de suelo verde del patio",
-  "item.lsmmod.orange_playground_floor_paint": "Pintura de suelo naranja del patio"
+  "item.lsmmod.orange_playground_floor_paint": "Pintura de suelo naranja del patio",
+  "block.lsmmod.dark_tiled_floor": "Baldosas oscuras",
+  "block.lsmmod.school_drain": "Desagüe del colegio",
+  "block.lsmmod.school_circular_column": "Columna circular del colegio"
 }

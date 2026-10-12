@@ -1,0 +1,7 @@
+{
+  "parent": "lsmmod:block/school_circular_column_join_3",
+  "textures": {
+    "wall": "lsmmod:block/light_school_wall",
+    "particle": "lsmmod:block/light_school_wall"
+  }
+}

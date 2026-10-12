@@ -353,5 +353,8 @@
   "block.lsmmod.green_playground_floor": "Green Playground Floor",
   "block.lsmmod.orange_playground_floor": "Orange Playground Floor",
   "item.lsmmod.green_playground_floor_paint": "Green Playground Floor Paint",
-  "item.lsmmod.orange_playground_floor_paint": "Orange Playground Floor Paint"
+  "item.lsmmod.orange_playground_floor_paint": "Orange Playground Floor Paint",
+  "block.lsmmod.dark_tiled_floor": "Dark Tiled Floor",
+  "block.lsmmod.school_drain": "School Drain",
+  "block.lsmmod.school_circular_column": "School Circular Column"
 }

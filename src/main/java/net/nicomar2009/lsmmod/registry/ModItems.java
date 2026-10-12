@@ -21,6 +21,12 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
+    // BEGIN DARK TILE DRAIN COLUMN
+    public static final DeferredItem<BlockItem> DARK_TILED_FLOOR = ITEMS.registerSimpleBlockItem(ModBlocks.DARK_TILED_FLOOR);
+    public static final DeferredItem<BlockItem> SCHOOL_DRAIN = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_DRAIN);
+    public static final DeferredItem<BlockItem> SCHOOL_CIRCULAR_COLUMN = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_CIRCULAR_COLUMN);
+    // END DARK TILE DRAIN COLUMN
+
     // BEGIN CHILDREN LOCKER AND CEILING PROJECTOR
     public static final DeferredItem<BlockItem> CHILDREN_LOCKER = ITEMS.registerSimpleBlockItem(ModBlocks.CHILDREN_LOCKER);
     public static final DeferredItem<BlockItem> CEILING_PROJECTOR = ITEMS.registerSimpleBlockItem(ModBlocks.CEILING_PROJECTOR);

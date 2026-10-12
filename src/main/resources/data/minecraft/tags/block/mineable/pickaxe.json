@@ -115,6 +115,9 @@
     "lsmmod:gray_playground_floor",
     "lsmmod:school_connected_sink",
     "lsmmod:green_playground_floor",
-    "lsmmod:orange_playground_floor"
+    "lsmmod:orange_playground_floor",
+    "lsmmod:dark_tiled_floor",
+    "lsmmod:school_drain",
+    "lsmmod:school_circular_column"
   ]
 }
