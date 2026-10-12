@@ -354,5 +354,6 @@
   "block.lsmmod.bathroom_door_wide": "Puerta del baño con marco (2×3)",
   "block.lsmmod.school_connected_tinted_glass": "Cristal tintado conectado del colegio",
   "block.lsmmod.infirmary_door": "Puerta de enfermería",
-  "block.lsmmod.dining_door_wide_light": "Puerta del comedor con frente claro"
+  "block.lsmmod.dining_door_wide_light": "Puerta del comedor con frente claro",
+  "block.lsmmod.school_refrigerator": "Refrigeradora del comedor"
 }
