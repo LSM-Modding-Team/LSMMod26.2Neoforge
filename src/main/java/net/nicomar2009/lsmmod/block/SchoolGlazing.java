@@ -141,17 +141,24 @@ public final class SchoolGlazing {
         Direction facing=side?sideFacing(state):defaultFacing(state),right=facing.getClockWise();
         Pane current=pane(state,facing);
         int mask=3;
-        if(current!=null&&current.footprint()==3) {
+        // Map renderers may supply a cached state after the live block has changed.
+        if(current==null||!level.hasChunkAt(pos)||!current.equals(pane(level.getBlockState(pos),facing)))return mask;
+        if(current.footprint()==3) {
             BlockPos start=pos;
             int index=0;
             while(level.hasChunkAt(start.relative(right.getOpposite()))
                     &&adjacent(level.getBlockState(start.relative(right.getOpposite())),level.getBlockState(start),facing)) {start=start.relative(right.getOpposite());index++;}
             int length=0;
             while(level.hasChunkAt(start.relative(right,length))&&(length==0||adjacent(level.getBlockState(start.relative(right,length-1)),level.getBlockState(start.relative(right,length)),facing)))length++;
-            if(level.hasChunkAt(start.relative(right.getOpposite()))&&level.hasChunkAt(start.relative(right,length))) {
-                int first=pane(level.getBlockState(start),facing).start();
-                int last=(length-1)*16+pane(level.getBlockState(start.relative(right,length-1)),facing).end();
-                mask=layout(current,index,length,first,last);
+            if(length>index&&level.hasChunkAt(start.relative(right.getOpposite()))&&level.hasChunkAt(start.relative(right,length))) {
+                // Resolve once: another thread can replace a block after the row scan.
+                Pane firstPane=pane(level.getBlockState(start),facing);
+                Pane lastPane=pane(level.getBlockState(start.relative(right,length-1)),facing);
+                if(firstPane!=null&&lastPane!=null) {
+                    int first=firstPane.start();
+                    int last=(length-1)*16+lastPane.end();
+                    mask=layout(current,index,length,first,last);
+                }
             }
         }
         if(level.hasChunkAt(pos.above())&&connects(state,level.getBlockState(pos.above()),Direction.UP,facing))mask|=8;
@@ -187,12 +194,18 @@ public final class SchoolGlazing {
             level.scheduleTick(pos,state.getBlock(),20);
             return;
         }
-        int first=pane(level.getBlockState(start),facing).start();
-        int last=(length-1)*16+pane(level.getBlockState(start.relative(right,length-1)),facing).end();
+        if(length==0)return;
+        Pane firstPane=pane(level.getBlockState(start),facing);
+        Pane lastPane=pane(level.getBlockState(start.relative(right,length-1)),facing);
+        if(firstPane==null||lastPane==null)return;
+        int first=firstPane.start();
+        int last=(length-1)*16+lastPane.end();
         for(int index=0;index < length;index++) {
             BlockPos target=start.relative(right,index);
             BlockState value=level.getBlockState(target);
-            int layout=layout(pane(value,facing),index,length,first,last);
+            Pane targetPane=pane(value,facing);
+            if(targetPane==null)continue;
+            int layout=layout(targetPane,index,length,first,last);
             if(value.hasProperty(FRAME_LAYOUT)) {
                 if(value.getValue(FRAME_LAYOUT)!=layout)level.setBlock(target,value.setValue(FRAME_LAYOUT,layout),Block.UPDATE_CLIENTS);
             } else level.sendBlockUpdated(target,value,value,Block.UPDATE_CLIENTS);
