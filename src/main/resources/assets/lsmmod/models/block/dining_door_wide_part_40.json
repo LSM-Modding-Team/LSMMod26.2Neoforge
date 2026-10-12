@@ -1,0 +1,153 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "bottom": "lsmmod:block/bathroom_door_bottom",
+    "top": "lsmmod:block/bathroom_door_top",
+    "white": "lsmmod:block/classroom_white_wall",
+    "light": "lsmmod:block/light_school_wall",
+    "glass": "lsmmod:block/school_glass",
+    "window": "minecraft:block/glass",
+    "particle": "lsmmod:block/bathroom_door_bottom"
+  },
+  "elements": [
+    {
+      "from": [
+        12,
+        0,
+        4
+      ],
+      "to": [
+        16,
+        16,
+        8
+      ],
+      "faces": {
+        "west": {
+          "texture": "#top",
+          "uv": [
+            16.0,
+            5.333333333333333,
+            13.333333333333334,
+            16.0
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        12,
+        0,
+        4
+      ],
+      "to": [
+        16,
+        16,
+        8
+      ],
+      "faces": {
+        "east": {
+          "texture": "#top",
+          "uv": [
+            13.333333333333334,
+            5.333333333333333,
+            16.0,
+            16.0
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        12,
+        0,
+        4
+      ],
+      "to": [
+        16,
+        16,
+        8
+      ],
+      "faces": {
+        "down": {
+          "texture": "#top",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        12,
+        0,
+        4
+      ],
+      "to": [
+        16,
+        16,
+        8
+      ],
+      "faces": {
+        "up": {
+          "texture": "#top",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        12,
+        0,
+        4
+      ],
+      "to": [
+        16,
+        16,
+        8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#top",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        12,
+        0,
+        4
+      ],
+      "to": [
+        16,
+        16,
+        8
+      ],
+      "faces": {
+        "south": {
+          "texture": "#top",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ],
+  "render_type": "minecraft:solid"
+}

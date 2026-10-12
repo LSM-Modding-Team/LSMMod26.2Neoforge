@@ -39,6 +39,27 @@ def main():
   assert inside([p[0] for p in DINING_OPEN],(2,y,20))
  assert max(p[0][4] for p in DINING_CLOSED if p[1] in ('bottom','top'))==40
  assert max(p[0][3] for p in DINING_CLOSED if p[1] in ('bottom','top'))==24
+ # The central window is physically inset in a genuine wood opening, not painted over.
+ assert not inside([b for b,m,*_ in DINING_CLOSED if m in ('bottom','top')],(12,20,2))
+ assert inside([b for b,m,*_ in DINING_CLOSED if m=='window'],(12,20,2))
+ assert inside([b for b,m,*_ in DINING_OPEN if m=='window'],(2,20,12))
+ assert next(b for b,m,*_ in DINING_FIXED if m=='glass')==[0,40,0,32,48,16]
+ glass_faces=set();window_uv=[]
+ for p in (A/'models/block').glob('dining_door_wide_part_*.json'):
+  m=read(p)
+  assert m['textures']['bottom']=='lsmmod:block/bathroom_door_bottom'
+  assert m['textures']['top']=='lsmmod:block/bathroom_door_top'
+  assert m['textures']['window']=='minecraft:block/glass'
+  for e in m['elements']:
+   for f,s in e['faces'].items():
+    if s['texture']=='#glass':
+     assert m['render_type']=='minecraft:translucent';glass_faces.add(f)
+    if s['texture']=='#window':
+     assert m['render_type']=='minecraft:cutout'
+     assert all(0<=v<=16 for v in s['uv']),s
+     if f in ('north','south','east','west'):window_uv.extend(s['uv'][1::2])
+ assert glass_faces==set(('north','south','east','west','up','down'))
+ assert min(window_uv)==0 and max(window_uv)==16
  # Material is light ONLY on the outer side facing the adjacent block; no interior light face.
  for p in (A/'models/block').glob('dining_door_wide_part_*.json'):
   m=read(p)
@@ -63,11 +84,25 @@ def main():
  assert re.search(r'"light_school_wall_railing".*?forceSolidOn\(\)',reg,re.S)
  door=(J/'block/SchoolFramedDiningDoorBlock.java').read_text();placement=door[door.index('getStateForPlacement'):door.index('private static boolean supported')]
  assert 'hit.' not in placement and 'context.getItemInHand()' in placement
+ assert 'context.getClickLocation()' in placement and '.setValue(HINGE, rightHinge' in placement
  use=door[door.index('protected InteractionResult useWithoutItem'):door.index('private void notifyCells')];assert use.index('!level.isUnobstructed')<use.index('level.setBlock') and 'existing.isAir()' in use and 'level.hasChunkAt' in use
  assert 'COLLISIONS.computeIfAbsent' in door and 'SimpleBlockOutline.forState' in door
  # Dedicated translucent layer only for glass, avoiding opaque geometry sorting with the pane.
  pane=read(A/'models/block/school_trophy_gallery_glass.json');assert pane['render_type']=='minecraft:translucent' and all(set(e['faces'])<=set(('north','south')) for e in pane['elements'])
+ source=(J/'block/SchoolFacilityShapes.java').read_text()
+ trophies=json.loads(re.search(r'double\[\]\[\] TROPHIES = (.*?);',source)[1].replace('{','[').replace('}',']'))
+ assert [max(b[i+3] for b in trophies)-min(b[i] for b in trophies) for i in range(3)]==[96,64,12]
+ award_profiles=set();metals=[];heights=set()
+ for col,row in itertools.product(range(6),range(4)):
+  model=read(A/('models/'+read(A/'blockstates/school_trophy_gallery.json')['multipart'][row*6*4+col*4]['apply']['model'].split(':')[1]+'.json'))
+  awards=[e for e in model['elements'] if any(s['texture'] in ('#gold','#silver','#bronze') for s in e['faces'].values())]
+  assert awards,(col,row)
+  metals.append(next(iter(awards[0]['faces'].values()))['texture'])
+  heights.add(max(e['to'][1] for e in awards))
+  award_profiles.add(tuple(tuple(e['from']+e['to']) for e in awards))
+ assert metals.count('#gold')==18 and set(metals)=={'#gold','#silver','#bronze'}
+ assert len(award_profiles)>=4 and len(heights)>=4
  assert max(b[3] for b,*_ in MICROWAVE)<=16 and max(b[4] for b,*_ in MICROWAVE)<=16
  generate();before={p:hashlib.sha256((ROOT/p).read_bytes()).digest() for p in GENERATED};generate();assert all(hashlib.sha256((ROOT/p).read_bytes()).digest()==h for p,h in before.items())
- print('OK: 412 states covered; 3x3 opaque grids, 3-cell cot and 2x3 statue with legacy paths; 24x40px moving door, fixed glass/wall, mirrored outer light face, protected swing cells; 6x4 glass trophy gallery, microwave, support faces, shared caches and idempotence.')
+ print('OK: 412 states; bathroom-textured 24x40px leaf, inset vanilla glass, full school-glass transom, two hinges and protected swing; 6x4x0.75 gallery with four award profiles/heights, 18 gold and six silver/bronze; cot/statue legacy paths, support faces, shared caches and idempotence.')
 if __name__=='__main__':main()

@@ -1,23 +1,23 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "bottom": "lsmmod:block/dining_door_bottom",
-    "top": "lsmmod:block/dining_door_top",
+    "bottom": "lsmmod:block/bathroom_door_bottom",
+    "top": "lsmmod:block/bathroom_door_top",
     "white": "lsmmod:block/classroom_white_wall",
     "light": "lsmmod:block/light_school_wall",
     "glass": "lsmmod:block/school_glass",
-    "frame": "lsmmod:block/school_glass_frame",
-    "particle": "lsmmod:block/dining_door_bottom"
+    "window": "minecraft:block/glass",
+    "particle": "lsmmod:block/bathroom_door_bottom"
   },
   "elements": [
     {
       "from": [
-        12,
+        0,
         0,
         0
       ],
       "to": [
-        16,
+        4,
         16,
         8
       ],
@@ -25,9 +25,9 @@
         "west": {
           "texture": "#top",
           "uv": [
-            16.0,
             5.333333333333333,
-            10.666666666666666,
+            5.333333333333333,
+            0.0,
             16.0
           ]
         }
@@ -35,12 +35,12 @@
     },
     {
       "from": [
-        12,
+        0,
         0,
         0
       ],
       "to": [
-        16,
+        4,
         16,
         8
       ],
@@ -48,9 +48,9 @@
         "east": {
           "texture": "#top",
           "uv": [
-            10.666666666666666,
+            0.0,
             5.333333333333333,
-            16.0,
+            5.333333333333333,
             16.0
           ]
         }
@@ -58,12 +58,12 @@
     },
     {
       "from": [
-        12,
+        0,
         0,
         0
       ],
       "to": [
-        16,
+        4,
         16,
         8
       ],
@@ -81,12 +81,12 @@
     },
     {
       "from": [
-        12,
+        0,
         0,
         0
       ],
       "to": [
-        16,
+        4,
         16,
         8
       ],
@@ -104,12 +104,12 @@
     },
     {
       "from": [
-        12,
+        0,
         0,
         0
       ],
       "to": [
-        16,
+        4,
         16,
         8
       ],
@@ -127,12 +127,12 @@
     },
     {
       "from": [
-        12,
+        0,
         0,
         0
       ],
       "to": [
-        16,
+        4,
         16,
         8
       ],

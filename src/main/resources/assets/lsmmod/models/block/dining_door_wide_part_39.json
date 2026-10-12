@@ -1,0 +1,107 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "bottom": "lsmmod:block/bathroom_door_bottom",
+    "top": "lsmmod:block/bathroom_door_top",
+    "white": "lsmmod:block/classroom_white_wall",
+    "light": "lsmmod:block/light_school_wall",
+    "glass": "lsmmod:block/school_glass",
+    "window": "minecraft:block/glass",
+    "particle": "lsmmod:block/bathroom_door_bottom"
+  },
+  "elements": [
+    {
+      "from": [
+        13,
+        0,
+        8
+      ],
+      "to": [
+        15,
+        16,
+        16
+      ],
+      "faces": {
+        "west": {
+          "texture": "#window",
+          "uv": [
+            10.666666666666666,
+            0.0,
+            0.0,
+            9.846153846153847
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        13,
+        0,
+        8
+      ],
+      "to": [
+        15,
+        16,
+        16
+      ],
+      "faces": {
+        "east": {
+          "texture": "#window",
+          "uv": [
+            0.0,
+            0.0,
+            10.666666666666666,
+            9.846153846153847
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        13,
+        0,
+        8
+      ],
+      "to": [
+        15,
+        16,
+        16
+      ],
+      "faces": {
+        "up": {
+          "texture": "#window",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        13,
+        0,
+        8
+      ],
+      "to": [
+        15,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#window",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ],
+  "render_type": "minecraft:cutout"
+}

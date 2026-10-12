@@ -2,7 +2,7 @@
   "loader": "fusion:model",
   "type": "composite",
   "textures": {
-    "particle": "lsmmod:block/bathroom_floor_side"
+    "particle": "lsmmod:block/dark_school_tiled_floor_side"
   },
   "models": [
     [

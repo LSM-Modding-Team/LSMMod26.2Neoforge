@@ -26,6 +26,10 @@ public final class ModBlocks {
     // BEGIN SCHOOL INVERTED SLOPES
     // BEGIN SCHOOL SPLIT RAISED EXTRAS
     // BEGIN ENTRANCE PAVEMENT SHAPES
+    // BEGIN DINING COUNTER
+    public static final DeferredBlock<BathroomFloorBlock> DINING_ROOM_COUNTER = BLOCKS.registerBlock("dining_room_counter", BathroomFloorBlock::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    // END DINING COUNTER
+
     // BEGIN FACILITY EXPANSIONS
     public static final DeferredBlock<SchoolFramedDiningDoorBlock> DINING_DOOR_WIDE = BLOCKS.registerBlock("dining_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
     public static final DeferredBlock<SchoolPassiveAccessoryBlock> SCHOOL_MICROWAVE = BLOCKS.registerBlock("school_microwave", props -> new SchoolPassiveAccessoryBlock(props,SchoolFacilityShapes.MICROWAVE), props -> props.strength(2F).sound(SoundType.METAL).noOcclusion());
@@ -453,12 +457,12 @@ public final class ModBlocks {
             "school_parquet", Block::new,
             props -> props.strength(2.0F,3.0F).sound(SoundType.WOOD));
 
-    public static final DeferredBlock<BathroomFloorBlock> BATHROOM_FLOOR = BLOCKS.registerBlock(
-            "bathroom_floor", BathroomFloorBlock::new,
+    public static final DeferredBlock<BathroomFloorBlock> DARK_SCHOOL_TILED_FLOOR = BLOCKS.registerBlock(
+            "dark_school_tiled_floor", BathroomFloorBlock::new,
             props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
 
-    public static final DeferredBlock<BathroomFloorBlock> LIGHT_BATHROOM_FLOOR = BLOCKS.registerBlock(
-            "light_bathroom_floor", BathroomFloorBlock::new,
+    public static final DeferredBlock<BathroomFloorBlock> LIGHT_SCHOOL_TILED_FLOOR = BLOCKS.registerBlock(
+            "light_school_tiled_floor", BathroomFloorBlock::new,
             props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
 
     public static final DeferredBlock<Block> CLASSROOM_FLOOR = BLOCKS.registerBlock(
@@ -713,6 +717,9 @@ public final class ModBlocks {
     }
 
     public static void register(IEventBus modEventBus) {
+        // Resolve saved block palettes under the new names without duplicate blocks.
+        BLOCKS.addAlias(net.minecraft.resources.Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "bathroom_floor"), DARK_SCHOOL_TILED_FLOOR.getId());
+        BLOCKS.addAlias(net.minecraft.resources.Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "light_bathroom_floor"), LIGHT_SCHOOL_TILED_FLOOR.getId());
         BLOCKS.register(modEventBus);
     }
 }

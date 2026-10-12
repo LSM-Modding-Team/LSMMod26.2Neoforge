@@ -1,18 +1,18 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "bottom": "lsmmod:block/dining_door_bottom",
-    "top": "lsmmod:block/dining_door_top",
+    "bottom": "lsmmod:block/bathroom_door_bottom",
+    "top": "lsmmod:block/bathroom_door_top",
     "white": "lsmmod:block/classroom_white_wall",
     "light": "lsmmod:block/light_school_wall",
     "glass": "lsmmod:block/school_glass",
-    "frame": "lsmmod:block/school_glass_frame",
-    "particle": "lsmmod:block/dining_door_bottom"
+    "window": "minecraft:block/glass",
+    "particle": "lsmmod:block/bathroom_door_bottom"
   },
   "elements": [
     {
       "from": [
-        12,
+        8,
         0,
         0
       ],
@@ -23,19 +23,19 @@
       ],
       "faces": {
         "west": {
-          "texture": "#top",
+          "texture": "#white",
           "uv": [
-            10.666666666666666,
-            5.333333333333333,
-            0.0,
-            16.0
+            0,
+            0,
+            16,
+            16
           ]
         }
       }
     },
     {
       "from": [
-        12,
+        8,
         0,
         0
       ],
@@ -46,19 +46,19 @@
       ],
       "faces": {
         "east": {
-          "texture": "#top",
+          "texture": "#light",
           "uv": [
-            0.0,
-            5.333333333333333,
-            10.666666666666666,
-            16.0
+            0,
+            0,
+            16,
+            16
           ]
         }
       }
     },
     {
       "from": [
-        12,
+        8,
         0,
         0
       ],
@@ -69,7 +69,7 @@
       ],
       "faces": {
         "down": {
-          "texture": "#top",
+          "texture": "#white",
           "uv": [
             0,
             0,
@@ -81,7 +81,7 @@
     },
     {
       "from": [
-        12,
+        8,
         0,
         0
       ],
@@ -92,7 +92,7 @@
       ],
       "faces": {
         "up": {
-          "texture": "#top",
+          "texture": "#white",
           "uv": [
             0,
             0,
@@ -104,7 +104,7 @@
     },
     {
       "from": [
-        12,
+        8,
         0,
         0
       ],
@@ -115,7 +115,7 @@
       ],
       "faces": {
         "north": {
-          "texture": "#top",
+          "texture": "#white",
           "uv": [
             0,
             0,
@@ -127,7 +127,7 @@
     },
     {
       "from": [
-        12,
+        8,
         0,
         0
       ],
@@ -138,7 +138,7 @@
       ],
       "faces": {
         "south": {
-          "texture": "#top",
+          "texture": "#white",
           "uv": [
             0,
             0,

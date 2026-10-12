@@ -6,7 +6,7 @@ El cubículo conserva el clic para abrir/cerrar. Dos hojas se recogen contra las
 
 `standalone_toilet` reutiliza únicamente taza, asiento, pedestal, cisterna y manija del inodoro, sin paneles ni puerta. Ocupa dos bloques de ancho y uno de alto, es decorativo y aparece en **LSM Mod School Functional Blocks**, al igual que los sanitarios existentes.
 
-`light_bathroom_floor` aparece en **LSM Mod School Blocks**. Gris base **#D7DADE**, juntas más oscuras y ruido discreto de 16×16. Reutiliza `BathroomFloorBlock`: nueve fases alineadas con coordenadas del mundo, baldosas de 24 píxeles (1,5×1,5 bloques), incluidas coordenadas negativas. `bathroom_floor` y sus texturas originales se conservan.
+`light_school_tiled_floor` aparece en **LSM Mod School Blocks**. Gris base **#D7DADE**, juntas más oscuras y ruido discreto de 16×16. Reutiliza `BathroomFloorBlock`: nueve fases alineadas con coordenadas del mundo, baldosas de 24 píxeles (1,5×1,5 bloques), incluidas coordenadas negativas. `dark_school_tiled_floor` y sus texturas originales se conservan.
 
 ## Rendimiento
 
@@ -23,6 +23,6 @@ Los bloques ya colocados con el formato anterior no tienen la segunda columna. D
 
 ## Verificación
 
-`python tools/check_wide_bathroom_assets.py`, `python tools/check_bathroom_statue_assets.py`, `python tools/check_bathroom_floor_assets.py` y `python tools/check_optimized_model_resources.py`: geometría en celda, caras sin solapamiento, apertura, selección de cuatro orientaciones, controlador/drop único, referencias y juntas de 24px. Regeneración idempotente mediante los puntos de entrada antiguos. Firmas de rotación e iteración comprobadas en la API 26.2 con javap.
+`python tools/check_wide_bathroom_assets.py`, `python tools/check_bathroom_statue_assets.py`, `python tools/check_dark_school_tiled_floor_assets.py` y `python tools/check_optimized_model_resources.py`: geometría en celda, caras sin solapamiento, apertura, selección de cuatro orientaciones, controlador/drop único, referencias y juntas de 24px. Regeneración idempotente mediante los puntos de entrada antiguos. Firmas de rotación e iteración comprobadas en la API 26.2 con javap.
 
 No se compiló Java/Gradle ni se abrió Minecraft; colocación, interacción y renderizado requieren comprobación dentro del juego.

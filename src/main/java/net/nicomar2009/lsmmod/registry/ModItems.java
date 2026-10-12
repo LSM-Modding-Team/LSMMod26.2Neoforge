@@ -21,6 +21,10 @@ import net.nicomar2009.lsmmod.item.InstrumentItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
 
+    // BEGIN DINING COUNTER
+    public static final DeferredItem<BlockItem> DINING_ROOM_COUNTER = ITEMS.registerSimpleBlockItem(ModBlocks.DINING_ROOM_COUNTER);
+    // END DINING COUNTER
+
     // BEGIN FACILITY EXPANSIONS
     public static final DeferredItem<BlockItem> DINING_DOOR_WIDE = ITEMS.registerSimpleBlockItem(ModBlocks.DINING_DOOR_WIDE);
     public static final DeferredItem<BlockItem> SCHOOL_MICROWAVE = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_MICROWAVE);
@@ -259,8 +263,8 @@ public final class ModItems {
 
     public static final DeferredItem<BlockItem> SCHOOL_PARQUET = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PARQUET);
 
-    public static final DeferredItem<BlockItem> LIGHT_BATHROOM_FLOOR = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_BATHROOM_FLOOR);
-    public static final DeferredItem<BlockItem> BATHROOM_FLOOR = ITEMS.registerSimpleBlockItem(ModBlocks.BATHROOM_FLOOR);
+    public static final DeferredItem<BlockItem> LIGHT_SCHOOL_TILED_FLOOR = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_SCHOOL_TILED_FLOOR);
+    public static final DeferredItem<BlockItem> DARK_SCHOOL_TILED_FLOOR = ITEMS.registerSimpleBlockItem(ModBlocks.DARK_SCHOOL_TILED_FLOOR);
 
     public static final DeferredItem<BlockItem> CLASSROOM_FLOOR =
             ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_FLOOR);
@@ -563,6 +567,9 @@ public final class ModItems {
     }
 
     public static void register(IEventBus modEventBus) {
+        // Keep existing inventories readable after the tiled-floor rename.
+        ITEMS.addAlias(net.minecraft.resources.Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "bathroom_floor"), DARK_SCHOOL_TILED_FLOOR.getId());
+        ITEMS.addAlias(net.minecraft.resources.Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "light_bathroom_floor"), LIGHT_SCHOOL_TILED_FLOOR.getId());
         ITEMS.register(modEventBus);
     }
 }

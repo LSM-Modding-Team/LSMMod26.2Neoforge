@@ -22,6 +22,11 @@ usa una envolvente sólida para facilitar el clic; los otros modelos usan sus
 partes sólidas como colisión. Todas aparecen en la pestaña creativa del mod,
 tienen drops propios, receta y nombres en inglés y español (`es_es`).
 
+2026-10-12: hallchair y las dos plasticchair rojas usan RGB112/21/36,
+el mismo rojo de school_bell, mediante la textura compartida chair_red.
+Generador tools/create_dining_counter_assets.py; geometría y demás colores
+conservados. Comprobación estática, sin compilar ni Minecraft.
+
 Recetas (mesa de trabajo):
 
 - Aula / hall: `L  / LLL / I I`, con lana gris clara / roja e hierro.

@@ -13,7 +13,7 @@ def main():
             selected=next(e for e in root['models'][0] if 'condition' not in e or e['condition']['mask']==mask)
             assert selected['model']==f'lsmmod:block/school_connected_sink_{h}_{mask}'
             model=read(A/f'models/block/school_connected_sink_{h}_{mask}.json')
-            assert model['textures']['wall']=='lsmmod:block/bathroom_floor_side'
+            assert model['textures']['wall']=='lsmmod:block/dark_school_tiled_floor_side'
             for e in model['elements']:
                 lo=e['from'][:];hi=e['to'][:];lo[1]+=half*16;hi[1]+=half*16
                 assert all(0<=a<b<=16 for a,b in zip(e['from'],e['to']))

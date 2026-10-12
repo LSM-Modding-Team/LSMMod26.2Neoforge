@@ -62,7 +62,7 @@
         "open": "false",
         "hinge": "left",
         "row": "0",
-        "column": "1",
+        "column": "0",
         "depth": "0"
       },
       "apply": {
@@ -76,7 +76,7 @@
         "open": "false",
         "hinge": "left",
         "row": "0",
-        "column": "1",
+        "column": "0",
         "depth": "0"
       },
       "apply": {
@@ -90,7 +90,7 @@
         "open": "false",
         "hinge": "left",
         "row": "0",
-        "column": "1",
+        "column": "0",
         "depth": "0"
       },
       "apply": {
@@ -104,7 +104,7 @@
         "open": "false",
         "hinge": "left",
         "row": "0",
-        "column": "1",
+        "column": "0",
         "depth": "0"
       },
       "apply": {
@@ -117,8 +117,8 @@
         "facing": "north",
         "open": "false",
         "hinge": "left",
-        "row": "1",
-        "column": "0",
+        "row": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
@@ -131,8 +131,8 @@
         "facing": "east",
         "open": "false",
         "hinge": "left",
-        "row": "1",
-        "column": "0",
+        "row": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
@@ -145,8 +145,8 @@
         "facing": "south",
         "open": "false",
         "hinge": "left",
-        "row": "1",
-        "column": "0",
+        "row": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
@@ -159,8 +159,8 @@
         "facing": "west",
         "open": "false",
         "hinge": "left",
-        "row": "1",
-        "column": "0",
+        "row": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
@@ -173,7 +173,7 @@
         "facing": "north",
         "open": "false",
         "hinge": "left",
-        "row": "1",
+        "row": "0",
         "column": "1",
         "depth": "0"
       },
@@ -187,7 +187,7 @@
         "facing": "east",
         "open": "false",
         "hinge": "left",
-        "row": "1",
+        "row": "0",
         "column": "1",
         "depth": "0"
       },
@@ -201,7 +201,7 @@
         "facing": "south",
         "open": "false",
         "hinge": "left",
-        "row": "1",
+        "row": "0",
         "column": "1",
         "depth": "0"
       },
@@ -215,7 +215,7 @@
         "facing": "west",
         "open": "false",
         "hinge": "left",
-        "row": "1",
+        "row": "0",
         "column": "1",
         "depth": "0"
       },
@@ -229,7 +229,7 @@
         "facing": "north",
         "open": "false",
         "hinge": "left",
-        "row": "2",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -243,7 +243,7 @@
         "facing": "east",
         "open": "false",
         "hinge": "left",
-        "row": "2",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -257,7 +257,7 @@
         "facing": "south",
         "open": "false",
         "hinge": "left",
-        "row": "2",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -271,7 +271,7 @@
         "facing": "west",
         "open": "false",
         "hinge": "left",
-        "row": "2",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -285,7 +285,7 @@
         "facing": "north",
         "open": "false",
         "hinge": "left",
-        "row": "2",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -299,7 +299,7 @@
         "facing": "east",
         "open": "false",
         "hinge": "left",
-        "row": "2",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -313,7 +313,7 @@
         "facing": "south",
         "open": "false",
         "hinge": "left",
-        "row": "2",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -327,7 +327,7 @@
         "facing": "west",
         "open": "false",
         "hinge": "left",
-        "row": "2",
+        "row": "1",
         "column": "0",
         "depth": "0"
       },
@@ -341,7 +341,7 @@
         "facing": "north",
         "open": "false",
         "hinge": "left",
-        "row": "2",
+        "row": "1",
         "column": "1",
         "depth": "0"
       },
@@ -355,7 +355,7 @@
         "facing": "east",
         "open": "false",
         "hinge": "left",
-        "row": "2",
+        "row": "1",
         "column": "1",
         "depth": "0"
       },
@@ -369,7 +369,7 @@
         "facing": "south",
         "open": "false",
         "hinge": "left",
-        "row": "2",
+        "row": "1",
         "column": "1",
         "depth": "0"
       },
@@ -383,7 +383,7 @@
         "facing": "west",
         "open": "false",
         "hinge": "left",
-        "row": "2",
+        "row": "1",
         "column": "1",
         "depth": "0"
       },
@@ -397,7 +397,7 @@
         "facing": "north",
         "open": "false",
         "hinge": "left",
-        "row": "2",
+        "row": "1",
         "column": "1",
         "depth": "0"
       },
@@ -411,7 +411,7 @@
         "facing": "east",
         "open": "false",
         "hinge": "left",
-        "row": "2",
+        "row": "1",
         "column": "1",
         "depth": "0"
       },
@@ -425,7 +425,7 @@
         "facing": "south",
         "open": "false",
         "hinge": "left",
-        "row": "2",
+        "row": "1",
         "column": "1",
         "depth": "0"
       },
@@ -439,12 +439,236 @@
         "facing": "west",
         "open": "false",
         "hinge": "left",
-        "row": "2",
+        "row": "1",
         "column": "1",
         "depth": "0"
       },
       "apply": {
         "model": "lsmmod:block/dining_door_wide_part_7",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "false",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_8",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "false",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_8",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "false",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_8",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "false",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_8",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "false",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_9",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "false",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_9",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "false",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_9",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "false",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_9",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "false",
+        "hinge": "left",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_10",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "false",
+        "hinge": "left",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_10",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "false",
+        "hinge": "left",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_10",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "false",
+        "hinge": "left",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_10",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "false",
+        "hinge": "left",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_11",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "false",
+        "hinge": "left",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_11",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "false",
+        "hinge": "left",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_11",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "false",
+        "hinge": "left",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_11",
         "y": 270
       }
     },
@@ -458,7 +682,7 @@
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_8",
+        "model": "lsmmod:block/dining_door_wide_part_12",
         "y": 0
       }
     },
@@ -472,7 +696,7 @@
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_8",
+        "model": "lsmmod:block/dining_door_wide_part_12",
         "y": 90
       }
     },
@@ -486,7 +710,7 @@
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_8",
+        "model": "lsmmod:block/dining_door_wide_part_12",
         "y": 180
       }
     },
@@ -500,7 +724,63 @@
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_8",
+        "model": "lsmmod:block/dining_door_wide_part_12",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "false",
+        "hinge": "right",
+        "row": "0",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_13",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "false",
+        "hinge": "right",
+        "row": "0",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_13",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "false",
+        "hinge": "right",
+        "row": "0",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_13",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "false",
+        "hinge": "right",
+        "row": "0",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_13",
         "y": 270
       }
     },
@@ -514,7 +794,7 @@
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_0",
+        "model": "lsmmod:block/dining_door_wide_part_14",
         "y": 0
       }
     },
@@ -528,7 +808,7 @@
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_0",
+        "model": "lsmmod:block/dining_door_wide_part_14",
         "y": 90
       }
     },
@@ -542,7 +822,7 @@
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_0",
+        "model": "lsmmod:block/dining_door_wide_part_14",
         "y": 180
       }
     },
@@ -556,7 +836,63 @@
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_0",
+        "model": "lsmmod:block/dining_door_wide_part_14",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "false",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_15",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "false",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_15",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "false",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_15",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "false",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_15",
         "y": 270
       }
     },
@@ -566,6 +902,286 @@
         "open": "false",
         "hinge": "right",
         "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_16",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "false",
+        "hinge": "right",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_16",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "false",
+        "hinge": "right",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_16",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "false",
+        "hinge": "right",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_16",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "false",
+        "hinge": "right",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_17",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "false",
+        "hinge": "right",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_17",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "false",
+        "hinge": "right",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_17",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "false",
+        "hinge": "right",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_17",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "false",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_18",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "false",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_18",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "false",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_18",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "false",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_18",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "false",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_19",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "false",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_19",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "false",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_19",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "false",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_19",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "false",
+        "hinge": "right",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_20",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "false",
+        "hinge": "right",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_20",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "false",
+        "hinge": "right",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_20",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "false",
+        "hinge": "right",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_20",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "false",
+        "hinge": "right",
+        "row": "2",
         "column": "0",
         "depth": "0"
       },
@@ -579,7 +1195,7 @@
         "facing": "east",
         "open": "false",
         "hinge": "right",
-        "row": "1",
+        "row": "2",
         "column": "0",
         "depth": "0"
       },
@@ -593,7 +1209,7 @@
         "facing": "south",
         "open": "false",
         "hinge": "right",
-        "row": "1",
+        "row": "2",
         "column": "0",
         "depth": "0"
       },
@@ -607,7 +1223,7 @@
         "facing": "west",
         "open": "false",
         "hinge": "right",
-        "row": "1",
+        "row": "2",
         "column": "0",
         "depth": "0"
       },
@@ -621,68 +1237,12 @@
         "facing": "north",
         "open": "false",
         "hinge": "right",
-        "row": "1",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_2",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "open": "false",
-        "hinge": "right",
-        "row": "1",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_2",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "open": "false",
-        "hinge": "right",
-        "row": "1",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_2",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "open": "false",
-        "hinge": "right",
-        "row": "1",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_2",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "open": "false",
-        "hinge": "right",
         "row": "2",
-        "column": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_10",
+        "model": "lsmmod:block/dining_door_wide_part_8",
         "y": 0
       }
     },
@@ -692,11 +1252,11 @@
         "open": "false",
         "hinge": "right",
         "row": "2",
-        "column": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_10",
+        "model": "lsmmod:block/dining_door_wide_part_8",
         "y": 90
       }
     },
@@ -706,11 +1266,11 @@
         "open": "false",
         "hinge": "right",
         "row": "2",
-        "column": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_10",
+        "model": "lsmmod:block/dining_door_wide_part_8",
         "y": 180
       }
     },
@@ -720,11 +1280,11 @@
         "open": "false",
         "hinge": "right",
         "row": "2",
-        "column": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_10",
+        "model": "lsmmod:block/dining_door_wide_part_8",
         "y": 270
       }
     },
@@ -734,7 +1294,7 @@
         "open": "false",
         "hinge": "right",
         "row": "2",
-        "column": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
@@ -748,7 +1308,7 @@
         "open": "false",
         "hinge": "right",
         "row": "2",
-        "column": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
@@ -762,7 +1322,7 @@
         "open": "false",
         "hinge": "right",
         "row": "2",
-        "column": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
@@ -776,7 +1336,7 @@
         "open": "false",
         "hinge": "right",
         "row": "2",
-        "column": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
@@ -787,626 +1347,10 @@
     {
       "when": {
         "facing": "north",
-        "open": "false",
-        "hinge": "right",
-        "row": "2",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_12",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "open": "false",
-        "hinge": "right",
-        "row": "2",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_12",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "open": "false",
-        "hinge": "right",
-        "row": "2",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_12",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "open": "false",
-        "hinge": "right",
-        "row": "2",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_12",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "open": "false",
-        "hinge": "right",
-        "row": "2",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_13",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "open": "false",
-        "hinge": "right",
-        "row": "2",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_13",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "open": "false",
-        "hinge": "right",
-        "row": "2",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_13",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "open": "false",
-        "hinge": "right",
-        "row": "2",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_13",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
         "open": "true",
         "hinge": "left",
         "row": "0",
         "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_14",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "open": "true",
-        "hinge": "left",
-        "row": "0",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_14",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "open": "true",
-        "hinge": "left",
-        "row": "0",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_14",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "open": "true",
-        "hinge": "left",
-        "row": "0",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_14",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "open": "true",
-        "hinge": "left",
-        "row": "0",
-        "column": "0",
-        "depth": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_15",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "open": "true",
-        "hinge": "left",
-        "row": "0",
-        "column": "0",
-        "depth": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_15",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "open": "true",
-        "hinge": "left",
-        "row": "0",
-        "column": "0",
-        "depth": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_15",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "open": "true",
-        "hinge": "left",
-        "row": "0",
-        "column": "0",
-        "depth": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_15",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "open": "true",
-        "hinge": "left",
-        "row": "0",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_16",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "open": "true",
-        "hinge": "left",
-        "row": "0",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_16",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "open": "true",
-        "hinge": "left",
-        "row": "0",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_16",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "open": "true",
-        "hinge": "left",
-        "row": "0",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_16",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "open": "true",
-        "hinge": "left",
-        "row": "1",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_17",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "open": "true",
-        "hinge": "left",
-        "row": "1",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_17",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "open": "true",
-        "hinge": "left",
-        "row": "1",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_17",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "open": "true",
-        "hinge": "left",
-        "row": "1",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_17",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "open": "true",
-        "hinge": "left",
-        "row": "1",
-        "column": "0",
-        "depth": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_18",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "open": "true",
-        "hinge": "left",
-        "row": "1",
-        "column": "0",
-        "depth": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_18",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "open": "true",
-        "hinge": "left",
-        "row": "1",
-        "column": "0",
-        "depth": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_18",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "open": "true",
-        "hinge": "left",
-        "row": "1",
-        "column": "0",
-        "depth": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_18",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "open": "true",
-        "hinge": "left",
-        "row": "1",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_16",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "open": "true",
-        "hinge": "left",
-        "row": "1",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_16",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "open": "true",
-        "hinge": "left",
-        "row": "1",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_16",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "open": "true",
-        "hinge": "left",
-        "row": "1",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_16",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "open": "true",
-        "hinge": "left",
-        "row": "2",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_19",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "open": "true",
-        "hinge": "left",
-        "row": "2",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_19",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "open": "true",
-        "hinge": "left",
-        "row": "2",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_19",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "open": "true",
-        "hinge": "left",
-        "row": "2",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_19",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "open": "true",
-        "hinge": "left",
-        "row": "2",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_5",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "open": "true",
-        "hinge": "left",
-        "row": "2",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_5",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "open": "true",
-        "hinge": "left",
-        "row": "2",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_5",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "open": "true",
-        "hinge": "left",
-        "row": "2",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_5",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "open": "true",
-        "hinge": "left",
-        "row": "2",
-        "column": "0",
-        "depth": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_20",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "open": "true",
-        "hinge": "left",
-        "row": "2",
-        "column": "0",
-        "depth": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_20",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "open": "true",
-        "hinge": "left",
-        "row": "2",
-        "column": "0",
-        "depth": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_20",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "open": "true",
-        "hinge": "left",
-        "row": "2",
-        "column": "0",
-        "depth": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_20",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "open": "true",
-        "hinge": "left",
-        "row": "2",
-        "column": "1",
         "depth": "0"
       },
       "apply": {
@@ -1419,8 +1363,8 @@
         "facing": "east",
         "open": "true",
         "hinge": "left",
-        "row": "2",
-        "column": "1",
+        "row": "0",
+        "column": "0",
         "depth": "0"
       },
       "apply": {
@@ -1433,8 +1377,8 @@
         "facing": "south",
         "open": "true",
         "hinge": "left",
-        "row": "2",
-        "column": "1",
+        "row": "0",
+        "column": "0",
         "depth": "0"
       },
       "apply": {
@@ -1447,8 +1391,8 @@
         "facing": "west",
         "open": "true",
         "hinge": "left",
-        "row": "2",
-        "column": "1",
+        "row": "0",
+        "column": "0",
         "depth": "0"
       },
       "apply": {
@@ -1461,12 +1405,12 @@
         "facing": "north",
         "open": "true",
         "hinge": "left",
-        "row": "2",
-        "column": "1",
+        "row": "0",
+        "column": "0",
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_7",
+        "model": "lsmmod:block/dining_door_wide_part_22",
         "y": 0
       }
     },
@@ -1475,12 +1419,12 @@
         "facing": "east",
         "open": "true",
         "hinge": "left",
-        "row": "2",
-        "column": "1",
+        "row": "0",
+        "column": "0",
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_7",
+        "model": "lsmmod:block/dining_door_wide_part_22",
         "y": 90
       }
     },
@@ -1489,12 +1433,12 @@
         "facing": "south",
         "open": "true",
         "hinge": "left",
-        "row": "2",
-        "column": "1",
+        "row": "0",
+        "column": "0",
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_7",
+        "model": "lsmmod:block/dining_door_wide_part_22",
         "y": 180
       }
     },
@@ -1503,62 +1447,6 @@
         "facing": "west",
         "open": "true",
         "hinge": "left",
-        "row": "2",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_7",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "open": "true",
-        "hinge": "right",
-        "row": "0",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_22",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "open": "true",
-        "hinge": "right",
-        "row": "0",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_22",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "open": "true",
-        "hinge": "right",
-        "row": "0",
-        "column": "0",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_22",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "open": "true",
-        "hinge": "right",
         "row": "0",
         "column": "0",
         "depth": "0"
@@ -1572,10 +1460,10 @@
       "when": {
         "facing": "north",
         "open": "true",
-        "hinge": "right",
+        "hinge": "left",
         "row": "0",
-        "column": "1",
-        "depth": "0"
+        "column": "0",
+        "depth": "1"
       },
       "apply": {
         "model": "lsmmod:block/dining_door_wide_part_23",
@@ -1586,10 +1474,10 @@
       "when": {
         "facing": "east",
         "open": "true",
-        "hinge": "right",
+        "hinge": "left",
         "row": "0",
-        "column": "1",
-        "depth": "0"
+        "column": "0",
+        "depth": "1"
       },
       "apply": {
         "model": "lsmmod:block/dining_door_wide_part_23",
@@ -1600,10 +1488,10 @@
       "when": {
         "facing": "south",
         "open": "true",
-        "hinge": "right",
+        "hinge": "left",
         "row": "0",
-        "column": "1",
-        "depth": "0"
+        "column": "0",
+        "depth": "1"
       },
       "apply": {
         "model": "lsmmod:block/dining_door_wide_part_23",
@@ -1614,10 +1502,10 @@
       "when": {
         "facing": "west",
         "open": "true",
-        "hinge": "right",
+        "hinge": "left",
         "row": "0",
-        "column": "1",
-        "depth": "0"
+        "column": "0",
+        "depth": "1"
       },
       "apply": {
         "model": "lsmmod:block/dining_door_wide_part_23",
@@ -1628,9 +1516,9 @@
       "when": {
         "facing": "north",
         "open": "true",
-        "hinge": "right",
+        "hinge": "left",
         "row": "0",
-        "column": "1",
+        "column": "0",
         "depth": "1"
       },
       "apply": {
@@ -1642,9 +1530,9 @@
       "when": {
         "facing": "east",
         "open": "true",
-        "hinge": "right",
+        "hinge": "left",
         "row": "0",
-        "column": "1",
+        "column": "0",
         "depth": "1"
       },
       "apply": {
@@ -1656,9 +1544,9 @@
       "when": {
         "facing": "south",
         "open": "true",
-        "hinge": "right",
+        "hinge": "left",
         "row": "0",
-        "column": "1",
+        "column": "0",
         "depth": "1"
       },
       "apply": {
@@ -1670,9 +1558,9 @@
       "when": {
         "facing": "west",
         "open": "true",
-        "hinge": "right",
+        "hinge": "left",
         "row": "0",
-        "column": "1",
+        "column": "0",
         "depth": "1"
       },
       "apply": {
@@ -1684,13 +1572,13 @@
       "when": {
         "facing": "north",
         "open": "true",
-        "hinge": "right",
-        "row": "1",
-        "column": "0",
+        "hinge": "left",
+        "row": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_22",
+        "model": "lsmmod:block/dining_door_wide_part_25",
         "y": 0
       }
     },
@@ -1698,13 +1586,13 @@
       "when": {
         "facing": "east",
         "open": "true",
-        "hinge": "right",
-        "row": "1",
-        "column": "0",
+        "hinge": "left",
+        "row": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_22",
+        "model": "lsmmod:block/dining_door_wide_part_25",
         "y": 90
       }
     },
@@ -1712,13 +1600,13 @@
       "when": {
         "facing": "south",
         "open": "true",
-        "hinge": "right",
-        "row": "1",
-        "column": "0",
+        "hinge": "left",
+        "row": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_22",
+        "model": "lsmmod:block/dining_door_wide_part_25",
         "y": 180
       }
     },
@@ -1726,13 +1614,13 @@
       "when": {
         "facing": "west",
         "open": "true",
-        "hinge": "right",
-        "row": "1",
-        "column": "0",
+        "hinge": "left",
+        "row": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_22",
+        "model": "lsmmod:block/dining_door_wide_part_25",
         "y": 270
       }
     },
@@ -1740,7 +1628,231 @@
       "when": {
         "facing": "north",
         "open": "true",
-        "hinge": "right",
+        "hinge": "left",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_26",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "left",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_26",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "left",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_26",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "left",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_26",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "left",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_27",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "left",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_27",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "left",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_27",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "left",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_27",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "left",
+        "row": "1",
+        "column": "0",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_28",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "left",
+        "row": "1",
+        "column": "0",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_28",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "left",
+        "row": "1",
+        "column": "0",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_28",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "left",
+        "row": "1",
+        "column": "0",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_28",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "left",
+        "row": "1",
+        "column": "0",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_29",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "left",
+        "row": "1",
+        "column": "0",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_29",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "left",
+        "row": "1",
+        "column": "0",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_29",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "left",
+        "row": "1",
+        "column": "0",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_29",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "left",
         "row": "1",
         "column": "1",
         "depth": "0"
@@ -1754,7 +1866,7 @@
       "when": {
         "facing": "east",
         "open": "true",
-        "hinge": "right",
+        "hinge": "left",
         "row": "1",
         "column": "1",
         "depth": "0"
@@ -1768,7 +1880,7 @@
       "when": {
         "facing": "south",
         "open": "true",
-        "hinge": "right",
+        "hinge": "left",
         "row": "1",
         "column": "1",
         "depth": "0"
@@ -1782,7 +1894,7 @@
       "when": {
         "facing": "west",
         "open": "true",
-        "hinge": "right",
+        "hinge": "left",
         "row": "1",
         "column": "1",
         "depth": "0"
@@ -1796,13 +1908,741 @@
       "when": {
         "facing": "north",
         "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_30",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_30",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_30",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_30",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_9",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_9",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_9",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_9",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_31",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_31",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_31",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "0",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_31",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_32",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_32",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_32",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_32",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_11",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_11",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_11",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "left",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_11",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_33",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_33",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_33",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_33",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_34",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_34",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_34",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_34",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_35",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_35",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_35",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_35",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_36",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_36",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_36",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_36",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_37",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_37",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_37",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "right",
+        "row": "0",
+        "column": "1",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_37",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "right",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_33",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "right",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_33",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "right",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_33",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "right",
+        "row": "1",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_33",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_38",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_38",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_38",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_38",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_39",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_39",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_39",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_39",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
         "hinge": "right",
         "row": "1",
         "column": "1",
         "depth": "1"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_26",
+        "model": "lsmmod:block/dining_door_wide_part_40",
         "y": 0
       }
     },
@@ -1816,7 +2656,7 @@
         "depth": "1"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_26",
+        "model": "lsmmod:block/dining_door_wide_part_40",
         "y": 90
       }
     },
@@ -1830,7 +2670,7 @@
         "depth": "1"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_26",
+        "model": "lsmmod:block/dining_door_wide_part_40",
         "y": 180
       }
     },
@@ -1844,7 +2684,63 @@
         "depth": "1"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_26",
+        "model": "lsmmod:block/dining_door_wide_part_40",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_41",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_41",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_41",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "right",
+        "row": "1",
+        "column": "1",
+        "depth": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_41",
         "y": 270
       }
     },
@@ -1858,7 +2754,7 @@
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_27",
+        "model": "lsmmod:block/dining_door_wide_part_42",
         "y": 0
       }
     },
@@ -1872,7 +2768,7 @@
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_27",
+        "model": "lsmmod:block/dining_door_wide_part_42",
         "y": 90
       }
     },
@@ -1886,7 +2782,7 @@
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_27",
+        "model": "lsmmod:block/dining_door_wide_part_42",
         "y": 180
       }
     },
@@ -1900,7 +2796,7 @@
         "depth": "0"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_27",
+        "model": "lsmmod:block/dining_door_wide_part_42",
         "y": 270
       }
     },
@@ -1911,6 +2807,118 @@
         "hinge": "right",
         "row": "2",
         "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_9",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "right",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_9",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "right",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_9",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "right",
+        "row": "2",
+        "column": "0",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_9",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "right",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_43",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "open": "true",
+        "hinge": "right",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_43",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "open": "true",
+        "hinge": "right",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_43",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "open": "true",
+        "hinge": "right",
+        "row": "2",
+        "column": "1",
+        "depth": "0"
+      },
+      "apply": {
+        "model": "lsmmod:block/dining_door_wide_part_43",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "open": "true",
+        "hinge": "right",
+        "row": "2",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
@@ -1924,7 +2932,7 @@
         "open": "true",
         "hinge": "right",
         "row": "2",
-        "column": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
@@ -1938,7 +2946,7 @@
         "open": "true",
         "hinge": "right",
         "row": "2",
-        "column": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
@@ -1952,7 +2960,7 @@
         "open": "true",
         "hinge": "right",
         "row": "2",
-        "column": "0",
+        "column": "1",
         "depth": "0"
       },
       "apply": {
@@ -1967,122 +2975,10 @@
         "hinge": "right",
         "row": "2",
         "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_28",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "open": "true",
-        "hinge": "right",
-        "row": "2",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_28",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "open": "true",
-        "hinge": "right",
-        "row": "2",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_28",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "open": "true",
-        "hinge": "right",
-        "row": "2",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_28",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "open": "true",
-        "hinge": "right",
-        "row": "2",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_13",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "open": "true",
-        "hinge": "right",
-        "row": "2",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_13",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "open": "true",
-        "hinge": "right",
-        "row": "2",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_13",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "open": "true",
-        "hinge": "right",
-        "row": "2",
-        "column": "1",
-        "depth": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_13",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "open": "true",
-        "hinge": "right",
-        "row": "2",
-        "column": "1",
         "depth": "1"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_29",
+        "model": "lsmmod:block/dining_door_wide_part_44",
         "y": 0
       }
     },
@@ -2096,7 +2992,7 @@
         "depth": "1"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_29",
+        "model": "lsmmod:block/dining_door_wide_part_44",
         "y": 90
       }
     },
@@ -2110,7 +3006,7 @@
         "depth": "1"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_29",
+        "model": "lsmmod:block/dining_door_wide_part_44",
         "y": 180
       }
     },
@@ -2124,7 +3020,7 @@
         "depth": "1"
       },
       "apply": {
-        "model": "lsmmod:block/dining_door_wide_part_29",
+        "model": "lsmmod:block/dining_door_wide_part_44",
         "y": 270
       }
     }

@@ -61,8 +61,8 @@ def main():
         point = (16, y, .5)
         assert any(inside(b, point) for b, *_ in FIXTURES['toilet'][0])
         assert not any(inside(b, point) for b, *_ in FIXTURES['toilet'][1])
-    tiles = {(x,z): Image.open(ASSETS / f'textures/block/light_bathroom_floor_{x}_{z}.png') for x,z in itertools.product(range(3),repeat=2)}
-    assert len(read(ASSETS / 'blockstates/light_bathroom_floor.json')['variants']) == 9
+    tiles = {(x,z): Image.open(ASSETS / f'textures/block/light_school_tiled_floor_{x}_{z}.png') for x,z in itertools.product(range(3),repeat=2)}
+    assert len(read(ASSETS / 'blockstates/light_school_tiled_floor.json')['variants']) == 9
     for bx,bz in itertools.product(range(-4,5),repeat=2):
         tile = tiles[bx%3,bz%3]
         for y,x in itertools.product(range(16),repeat=2):
@@ -75,7 +75,7 @@ def main():
     from audit_block_states import audit
     rows = {r['id']: r for r in audit()}
     for name, (_, _, height) in FIXTURES.items(): assert rows[name]['states'] == (32 if height == 2 else 8)
-    assert rows['light_bathroom_floor']['states'] == 9
+    assert rows['light_school_tiled_floor']['states'] == 9
     print('OK: four two-wide fixtures, exact cell models, four rotations, hollow bowl, door passage, single controller drops; light tiles every 24px including negative coordinates.')
 
 

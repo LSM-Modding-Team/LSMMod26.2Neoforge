@@ -8,9 +8,11 @@ ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmo
 IDS=['dining_door_wide','school_microwave','school_trophy_gallery']
 FACES=('north','south','east','west','up','down')
 MICROWAVE=[([1,1,2,15,10,14],'metal'),([1,1,1,11,9,2],'black'),([2,2,.75,10,8,1],'glass'),([11,1,1,15,9,2],'metal'),([11.5,3,.5,12.25,7,1],'metal'),([13,5,.75,14,7,1],'black'),([13,2.5,.75,14,3.5,1],'button')]
-DINING_FIXED=[([24,0,0,32,48,16],'white',{'east':'light'}),([1,41,.25,23,47,3.75],'glass'),([0,40,0,24,41,4],'frame'),([0,47,0,24,48,4],'frame'),([0,41,0,1,47,4],'frame'),([23,41,0,24,47,4],'frame')]
-DINING_CLOSED=DINING_FIXED+[([0,0,0,24,16,4],'bottom'),([0,16,0,24,40,4],'top')]
-DINING_OPEN=DINING_FIXED+[([0,0,0,4,16,24],'bottom'),([0,16,0,4,40,24],'top')]
+DINING_FIXED=[([24,0,0,32,40,16],'white',{'east':'light'}),([0,40,0,32,48,16],'glass')]
+# A real opening in the wooden leaf, with vanilla bordered glass inset into it.
+DINING_LEAF=[([0,0,0,24,6,4],'bottom'),([0,6,0,8,16,4],'bottom'),([20,6,0,24,16,4],'bottom'),([0,16,0,8,32,4],'top'),([20,16,0,24,32,4],'top'),([0,32,0,24,40,4],'top'),([8,6,1,20,32,3],'window')]
+DINING_CLOSED=DINING_FIXED+DINING_LEAF
+DINING_OPEN=DINING_FIXED+[([b[2],b[1],b[0],b[5],b[4],b[3]],mat) for b,mat in DINING_LEAF]
 
 def write(p,v):
  p.parent.mkdir(parents=True,exist_ok=True);p.write_text(v if isinstance(v,str) else json.dumps(v,ensure_ascii=False,indent=2)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
@@ -47,6 +49,13 @@ def ordinary_rectangle(ident,parts,textures,width,height):
     name=f'{ident}_part_{len(shared)}';shared[key]=name;write(A/f'models/block/{name}.json',m)
    for turn,f in enumerate(('north','east','south','west')):states[f'facing={f},column={col},row={row}']={'model':'lsmmod:block/'+shared[key],'y':turn*90}
  write(A/f'blockstates/{ident}.json',{'variants':states});write(A/f'models/item/{ident}.json',scaled_item(parts,textures,width*16,height*16));basic(ident,controller={'column':'0','row':'0'})
+
+def layered_item(ident,layers,textures,width,height):
+ references=[]
+ for layer,parts in layers:
+  m=scaled_item(parts,textures,width,height);m.update({'render_type':'minecraft:'+layer,'loader':'fusion:model','type':'base'})
+  name=ident+'_item_'+layer;write(A/f'models/item/{name}.json',m);references.append('lsmmod:item/'+name)
+ write(A/f'models/item/{ident}.json',{'loader':'fusion:model','type':'composite','textures':textures,'models':[references]})
 
 def cot():
  source=json.loads((A/'models/block/infirmary_cot_1.json').read_text());states={}
@@ -109,16 +118,35 @@ def main():
   for face,angle in [('north',270),('east',0),('south',90),('west',180)]:states[f'facing={face},half={half},expanded=false']={'model':'lsmmod:block/san_martin_de_porres_'+suffix,'y':angle}
  write(A/'blockstates/san_martin_de_porres.json',{'variants':states})
  loot=json.loads((D/'lsmmod/loot_table/blocks/san_martin_de_porres.json').read_text());loot['pools'][0]['conditions']=[{'condition':'minecraft:survives_explosion'},{'condition':'minecraft:any_of','terms':[{'condition':'minecraft:block_state_property','block':'lsmmod:san_martin_de_porres','properties':{'expanded':'true','column':'0','row':'0'}},{'condition':'minecraft:block_state_property','block':'lsmmod:san_martin_de_porres','properties':{'expanded':'false','half':'lower'}}]}];write(D/'lsmmod/loot_table/blocks/san_martin_de_porres.json',loot)
- # Golden cup display: six columns, four shelves, one decorated cup per bay.
- trophies=[([0,0,14,96,64,16],'wood')]
- for x in (0,95):trophies.append(([x,0,0,x+1,64,14],'wood'))
- for y in (0,16,32,48,63):trophies.append(([0,y,0,96,y+1,14],'wood'))
+ # Six columns, four shelves, 12px total depth; 18 gold and six silver/bronze awards.
+ trophies=[([0,0,10.5,96,64,12],'wood')]
+ for x in (0,95):trophies.append(([x,0,0,x+1,64,10.5],'wood'))
+ for y in (0,16,32,48,63):trophies.append(([0,y,0,96,y+1,10.5],'wood'))
  for col in range(6):
   for row in range(4):
    x,y=col*16,row*16
-   trophies.extend([([x+4,y+1,5,x+12,y+2,12],'base'),([x+6,y+2,6,x+10,y+3,11],'gold'),([x+7,y+3,7,x+9,y+6,10],'gold'),([x+5,y+6,6,x+11,y+10,11],'gold'),([x+4,y+10,5,x+12,y+11,12],'gold'),([x+3,y+7,7,x+4,y+10,10],'gold'),([x+12,y+7,7,x+13,y+10,10],'gold'),([x+4,y+9,7,x+5,y+10,10],'gold'),([x+11,y+9,7,x+12,y+10,10],'gold')])
+   variant=(col+row)%4;metal='gold' if (col*4+row)%4!=3 else ('silver' if col%2 else 'bronze')
+   height=(10,13,8,12)[variant]
+   trophies.append(([x+4,y+1,3,x+12,y+2,9],'base'))
+   if variant in (0,1):
+    neck=height-5
+    pieces=[[6,2,4,10,3,8],[7,3,5,9,neck,7],[5,neck,4,11,height-1,8],[4,height-1,3,12,height,9],[3,neck+1,5,4,height-1,7],[12,neck+1,5,13,height-1,7],[4,height-2,5,5,height-1,7],[11,height-2,5,12,height-1,7]]
+   elif variant==2:
+    # Broad shield on a short pedestal.
+    pieces=[[6,2,4,10,4,8],[5,4,5,11,5,7],[4,5,5,12,7,7],[5,7,5,11,8,7]]
+   else:
+    # Tall stepped award with a contrasting inset plaque.
+    pieces=[[6,2,4,10,4,8],[7,4,5,9,9,7],[5,9,4,11,11,8],[6,11,5,10,12,7]]
+   trophies.extend([([x+b[0],y+b[1],b[2],x+b[3],y+b[4],b[5]],metal) for b in pieces])
  # Glass front is a separate translucent multipart layer, never mixed with opaque cups.
- ordinary_rectangle('school_trophy_gallery',trophies,{'wood':'lsmmod:block/school_wood_panel','base':'lsmmod:block/dark_school_wall','gold':'lsmmod:block/school_gold','particle':'lsmmod:block/school_wood_panel'},6,4)
+ trophy_textures={'wood':'lsmmod:block/school_wood_panel','base':'lsmmod:block/dark_school_wall','gold':'lsmmod:block/school_gold','silver':'lsmmod:block/school_trophy_silver','bronze':'lsmmod:block/school_trophy_bronze','glass':'lsmmod:block/school_glass','particle':'lsmmod:block/school_wood_panel'}
+ ordinary_rectangle('school_trophy_gallery',trophies,trophy_textures,6,4)
+ layered_item('school_trophy_gallery',[('solid',trophies),('translucent',[([0,0,0,96,64,.125],'glass')])],trophy_textures,96,64)
+ for material,color in [('silver',(192,199,207)),('bronze',(164,104,55))]:
+  image=Image.new('RGB',(16,16))
+  for y in range(16):
+   for x in range(16):image.putpixel((x,y),tuple(c+((x*3+y*5)%5-2) for c in color))
+  image.save(A/f'textures/block/school_trophy_{material}.png')
  glass=mesh([([0,0,0,16,16,.125],'glass')],{'glass':'lsmmod:block/school_glass','particle':'lsmmod:block/school_glass'});glass['render_type']='minecraft:translucent';glass['elements']=[e for e in glass['elements'] if any(f in ('north','south') for f in e['faces'])];write(A/'models/block/school_trophy_gallery_glass.json',glass)
  old=json.loads((A/'blockstates/school_trophy_gallery.json').read_text())['variants'];multipart=[]
  for key,value in old.items():multipart.append({'when':dict(t.split('=') for t in key.split(',')),'apply':value})
@@ -132,7 +160,7 @@ def main():
    if s['texture']=='#metal':s['uv']=[12,0,15.5,7.5]
  write(A/'models/block/school_microwave.json',microwave);write(A/'blockstates/school_microwave.json',{'variants':{f'facing={f}':{'model':'lsmmod:block/school_microwave','y':n*90} for n,f in enumerate(('north','east','south','west'))}});basic('school_microwave','block/school_microwave')
  # Door: wood leaf, glazed upper half-row, fixed half-block side wall.
- tex={'bottom':'lsmmod:block/dining_door_bottom','top':'lsmmod:block/dining_door_top','white':'lsmmod:block/classroom_white_wall','light':'lsmmod:block/light_school_wall','glass':'lsmmod:block/school_glass','frame':'lsmmod:block/school_glass_frame','particle':'lsmmod:block/dining_door_bottom'}
+ tex={'bottom':'lsmmod:block/bathroom_door_bottom','top':'lsmmod:block/bathroom_door_top','white':'lsmmod:block/classroom_white_wall','light':'lsmmod:block/light_school_wall','glass':'lsmmod:block/school_glass','window':'minecraft:block/glass','particle':'lsmmod:block/bathroom_door_bottom'}
  multipart=[];shared={}
  for op in (False,True):
   for right in (False,True):
@@ -141,15 +169,26 @@ def main():
      for depth in range(2):
       parts=clipped(DINING_OPEN if op else DINING_CLOSED,col,row,depth,right)
       if not op and depth>0:parts=[]
-      for layer in ('solid','translucent'):
-       subset=[p for p in parts if (p[1]=='glass')==(layer=='translucent')]
+      for layer in ('solid','translucent','cutout'):
+       subset=[p for p in parts if ('translucent' if p[1]=='glass' else 'cutout' if p[1]=='window' else 'solid')==layer]
        if not subset:continue
        value=mesh(subset,tex);value['render_type']='minecraft:'+layer
-       if layer=='translucent':value['elements']=[e for e in value['elements'] if any(f in ('north','south') for f in e['faces'])]
        for e in value['elements']:
-        for face,s in e['faces'].items():
+        for face,s in list(e['faces'].items()):
+         # Do not expose caps where one glass volume was split across grid cells.
+         axis,positive={'west':(0,False),'east':(0,True),'down':(1,False),'up':(1,True),'north':(2,False),'south':(2,True)}[face]
+         plane=e['to' if positive else 'from'][axis]+(col*16,row*16,depth*16)[axis]
+         if (s['texture']=='#glass' and axis==0 and plane==16) or (s['texture']=='#window' and plane==16 and (axis==1 or axis==(2 if op else 0))):
+          del e['faces'][face];continue
          # Side-wall outer face alone is light; lower/front/back/bottom remain white.
          if s['texture'] in ('#white','#light'):s['uv']=[0,0,16,16]
+         if s['texture']=='#glass' and face in ('north','south','east','west'):s['uv']=[0,48-e['to'][1]-row*16,16,48-e['from'][1]-row*16]
+         if s['texture']=='#window' and face in (('west','east') if op else ('north','south')):
+          axis=2 if op else 0;offset=depth*16 if op else col*16;lo=e['from'][axis]+offset;hi=e['to'][axis]+offset
+          if right and not op:lo,hi=32-hi,32-lo
+          u0,u1=(lo-8)*16/12,(hi-8)*16/12
+          if face==('west' if op else 'north'):u0,u1=u1,u0
+          s['uv']=[u0,(32-e['to'][1]-row*16)*16/26,u1,(32-e['from'][1]-row*16)*16/26]
          if s['texture'] in ('#bottom','#top') and face in (('west','east') if op else ('north','south')):
           axis=2 if op else 0;offset=depth*16 if op else col*16;lo=e['from'][axis]+offset;hi=e['to'][axis]+offset
           if right and not op:lo,hi=32-hi,32-lo
@@ -157,12 +196,17 @@ def main():
           if face==('west' if op else 'north'):u0,u1=u1,u0
           end,height=(16,16) if s['texture']=='#bottom' else (40,24)
           s['uv']=[u0,(end-e['to'][1]-row*16)*16/height,u1,(end-e['from'][1]-row*16)*16/height]
+       value['elements']=[e for e in value['elements'] if e['faces']]
+       if not value['elements']:continue
        key=json.dumps(value,sort_keys=True)
        if key not in shared:
         name=f'dining_door_wide_part_{len(shared)}';shared[key]=name;write(A/f'models/block/{name}.json',value)
        for turn,f in enumerate(('north','east','south','west')):
         multipart.append({'when':{'facing':f,'open':str(op).lower(),'hinge':'right' if right else 'left','row':str(row),'column':str(col),'depth':str(depth)},'apply':{'model':'lsmmod:block/'+shared[key],'y':turn*90}})
- write(A/'blockstates/dining_door_wide.json',{'multipart':multipart});write(A/'models/item/dining_door_wide.json',scaled_item(DINING_CLOSED,tex,32,48));basic('dining_door_wide',controller={'column':'0','row':'0','depth':'0'})
+ write(A/'blockstates/dining_door_wide.json',{'multipart':multipart})
+ # Keep opaque wood and both kinds of glass in their own inventory layers as well.
+ layered_item('dining_door_wide',[(layer,[p for p in DINING_CLOSED if p[1] in materials]) for layer,materials in [('solid',('white','bottom','top')),('translucent',('glass',)),('cutout',('window',))]],tex,32,48)
+ basic('dining_door_wide',controller={'column':'0','row':'0','depth':'0'})
  # One generated geometry source for physical cells and models.
  arrays={'STATUE':[b for b,*_ in statue],'TROPHIES':[b for b,*_ in trophies]+[[0,0,0,96,64,.125]],'MICROWAVE':[b for b,*_ in MICROWAVE],'DINING_CLOSED':[b for b,*_ in DINING_CLOSED],'DINING_OPEN':[b for b,*_ in DINING_OPEN]}
  java='package net.nicomar2009.lsmmod.block;\n\n/** Model-identical facility boxes; per-cell grids and rotations are cached. */\npublic final class SchoolFacilityShapes {\n private SchoolFacilityShapes() {}\n'
@@ -182,4 +226,8 @@ def main():
  for tool,ids in [('axe',['dining_door_wide','school_trophy_gallery']),('pickaxe',['school_microwave'])]:
   p=D/f'minecraft/tags/block/mineable/{tool}.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+i for i in ids]));write(p,v)
  Path('/tmp/facility-generated.json').write_text(json.dumps(GENERATED))
+ # Retire unused cells when changed geometry produces a different shared model count.
+ for prefix in ('dining_door_wide_part_','school_trophy_gallery_part_'):
+  for p in (A/'models/block').glob(prefix+'*.json'):
+   if str(p.relative_to(ROOT)) not in GENERATED:p.unlink()
 if __name__=='__main__':main()

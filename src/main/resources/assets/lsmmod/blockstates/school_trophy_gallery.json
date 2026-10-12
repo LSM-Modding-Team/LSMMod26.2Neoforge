@@ -95,7 +95,7 @@
         "row": "0"
       },
       "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
+        "model": "lsmmod:block/school_trophy_gallery_part_2",
         "y": 0
       }
     },
@@ -106,7 +106,7 @@
         "row": "0"
       },
       "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
+        "model": "lsmmod:block/school_trophy_gallery_part_2",
         "y": 90
       }
     },
@@ -117,7 +117,7 @@
         "row": "0"
       },
       "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
+        "model": "lsmmod:block/school_trophy_gallery_part_2",
         "y": 180
       }
     },
@@ -128,7 +128,7 @@
         "row": "0"
       },
       "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
+        "model": "lsmmod:block/school_trophy_gallery_part_2",
         "y": 270
       }
     },
@@ -137,666 +137,6 @@
         "facing": "north",
         "column": "3",
         "row": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "3",
-        "row": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "3",
-        "row": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "3",
-        "row": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "4",
-        "row": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "4",
-        "row": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "4",
-        "row": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "4",
-        "row": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "5",
-        "row": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_2",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "5",
-        "row": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_2",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "5",
-        "row": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_2",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "5",
-        "row": "0"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_2",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "0",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_0",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "0",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_0",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "0",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_0",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "0",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_0",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "1",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "1",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "1",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "1",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "2",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "2",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "2",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "2",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "3",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "3",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "3",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "3",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "4",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "4",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "4",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "4",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "5",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_2",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "5",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_2",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "5",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_2",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "5",
-        "row": "1"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_2",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "0",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_0",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "0",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_0",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "0",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_0",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "0",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_0",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "1",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "1",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "1",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "1",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "2",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "2",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "2",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "2",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "3",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "3",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "3",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "3",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "4",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "4",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "4",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "4",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_1",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "5",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_2",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "5",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_2",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "5",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_2",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "5",
-        "row": "2"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_2",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "0",
-        "row": "3"
       },
       "apply": {
         "model": "lsmmod:block/school_trophy_gallery_part_3",
@@ -806,8 +146,8 @@
     {
       "when": {
         "facing": "east",
-        "column": "0",
-        "row": "3"
+        "column": "3",
+        "row": "0"
       },
       "apply": {
         "model": "lsmmod:block/school_trophy_gallery_part_3",
@@ -817,8 +157,8 @@
     {
       "when": {
         "facing": "south",
-        "column": "0",
-        "row": "3"
+        "column": "3",
+        "row": "0"
       },
       "apply": {
         "model": "lsmmod:block/school_trophy_gallery_part_3",
@@ -828,8 +168,8 @@
     {
       "when": {
         "facing": "west",
-        "column": "0",
-        "row": "3"
+        "column": "3",
+        "row": "0"
       },
       "apply": {
         "model": "lsmmod:block/school_trophy_gallery_part_3",
@@ -839,140 +179,8 @@
     {
       "when": {
         "facing": "north",
-        "column": "1",
-        "row": "3"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_4",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "1",
-        "row": "3"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_4",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "1",
-        "row": "3"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_4",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "1",
-        "row": "3"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_4",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "2",
-        "row": "3"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_4",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "2",
-        "row": "3"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_4",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "2",
-        "row": "3"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_4",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "2",
-        "row": "3"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_4",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
-        "column": "3",
-        "row": "3"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_4",
-        "y": 0
-      }
-    },
-    {
-      "when": {
-        "facing": "east",
-        "column": "3",
-        "row": "3"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_4",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "facing": "south",
-        "column": "3",
-        "row": "3"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_4",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "facing": "west",
-        "column": "3",
-        "row": "3"
-      },
-      "apply": {
-        "model": "lsmmod:block/school_trophy_gallery_part_4",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "facing": "north",
         "column": "4",
-        "row": "3"
+        "row": "0"
       },
       "apply": {
         "model": "lsmmod:block/school_trophy_gallery_part_4",
@@ -983,7 +191,7 @@
       "when": {
         "facing": "east",
         "column": "4",
-        "row": "3"
+        "row": "0"
       },
       "apply": {
         "model": "lsmmod:block/school_trophy_gallery_part_4",
@@ -994,7 +202,7 @@
       "when": {
         "facing": "south",
         "column": "4",
-        "row": "3"
+        "row": "0"
       },
       "apply": {
         "model": "lsmmod:block/school_trophy_gallery_part_4",
@@ -1005,7 +213,7 @@
       "when": {
         "facing": "west",
         "column": "4",
-        "row": "3"
+        "row": "0"
       },
       "apply": {
         "model": "lsmmod:block/school_trophy_gallery_part_4",
@@ -1016,7 +224,7 @@
       "when": {
         "facing": "north",
         "column": "5",
-        "row": "3"
+        "row": "0"
       },
       "apply": {
         "model": "lsmmod:block/school_trophy_gallery_part_5",
@@ -1027,7 +235,7 @@
       "when": {
         "facing": "east",
         "column": "5",
-        "row": "3"
+        "row": "0"
       },
       "apply": {
         "model": "lsmmod:block/school_trophy_gallery_part_5",
@@ -1038,7 +246,7 @@
       "when": {
         "facing": "south",
         "column": "5",
-        "row": "3"
+        "row": "0"
       },
       "apply": {
         "model": "lsmmod:block/school_trophy_gallery_part_5",
@@ -1049,10 +257,802 @@
       "when": {
         "facing": "west",
         "column": "5",
-        "row": "3"
+        "row": "0"
       },
       "apply": {
         "model": "lsmmod:block/school_trophy_gallery_part_5",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "0",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_6",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "0",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_6",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "0",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_6",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "0",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_6",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "1",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_2",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "1",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "1",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "1",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "2",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_3",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "2",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_3",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "2",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_3",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "2",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_3",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "3",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_4",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "3",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_4",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "3",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_4",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "3",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_4",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "4",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_1",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "4",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "4",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "4",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "5",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_7",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "5",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_7",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "5",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_7",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "5",
+        "row": "1"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_7",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "0",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_8",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "0",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_8",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "0",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_8",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "0",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_8",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "1",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_3",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "1",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_3",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "1",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_3",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "1",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_3",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "2",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_4",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "2",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_4",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "2",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_4",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "2",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_4",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "3",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_1",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "3",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "3",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "3",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "4",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_2",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "4",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "4",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "4",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "5",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_9",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "5",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_9",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "5",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_9",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "5",
+        "row": "2"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_9",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "0",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_10",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "0",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_10",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "0",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_10",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "0",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_10",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "1",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_11",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "1",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_11",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "1",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_11",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "1",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_11",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "2",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_12",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "2",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_12",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "2",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_12",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "2",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_12",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "3",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_13",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "3",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_13",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "3",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_13",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "3",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_13",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "4",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_14",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "4",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_14",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "4",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_14",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "4",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_14",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "column": "5",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_15",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "column": "5",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_15",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "column": "5",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_15",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "column": "5",
+        "row": "3"
+      },
+      "apply": {
+        "model": "lsmmod:block/school_trophy_gallery_part_15",
         "y": 270
       }
     },

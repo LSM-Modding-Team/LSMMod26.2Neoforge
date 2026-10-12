@@ -1,75 +1,75 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "bottom": "lsmmod:block/dining_door_bottom",
-    "top": "lsmmod:block/dining_door_top",
+    "bottom": "lsmmod:block/bathroom_door_bottom",
+    "top": "lsmmod:block/bathroom_door_top",
     "white": "lsmmod:block/classroom_white_wall",
     "light": "lsmmod:block/light_school_wall",
     "glass": "lsmmod:block/school_glass",
-    "frame": "lsmmod:block/school_glass_frame",
-    "particle": "lsmmod:block/dining_door_bottom"
+    "window": "minecraft:block/glass",
+    "particle": "lsmmod:block/bathroom_door_bottom"
   },
   "elements": [
     {
       "from": [
-        0,
-        0,
-        0
+        1,
+        6,
+        8
       ],
       "to": [
-        8,
+        3,
         16,
         16
       ],
       "faces": {
         "west": {
-          "texture": "#light",
+          "texture": "#window",
           "uv": [
-            0,
-            0,
-            16,
-            16
+            10.666666666666666,
+            9.846153846153847,
+            0.0,
+            16.0
           ]
         }
       }
     },
     {
       "from": [
-        0,
-        0,
-        0
+        1,
+        6,
+        8
       ],
       "to": [
-        8,
+        3,
         16,
         16
       ],
       "faces": {
         "east": {
-          "texture": "#white",
+          "texture": "#window",
           "uv": [
-            0,
-            0,
-            16,
-            16
+            0.0,
+            9.846153846153847,
+            10.666666666666666,
+            16.0
           ]
         }
       }
     },
     {
       "from": [
-        0,
-        0,
-        0
+        1,
+        6,
+        8
       ],
       "to": [
-        8,
+        3,
         16,
         16
       ],
       "faces": {
         "down": {
-          "texture": "#white",
+          "texture": "#window",
           "uv": [
             0,
             0,
@@ -81,64 +81,18 @@
     },
     {
       "from": [
-        0,
-        0,
-        0
+        1,
+        6,
+        8
       ],
       "to": [
-        8,
-        16,
-        16
-      ],
-      "faces": {
-        "up": {
-          "texture": "#white",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        8,
+        3,
         16,
         16
       ],
       "faces": {
         "north": {
-          "texture": "#white",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        8,
-        16,
-        16
-      ],
-      "faces": {
-        "south": {
-          "texture": "#white",
+          "texture": "#window",
           "uv": [
             0,
             0,
@@ -149,5 +103,5 @@
       }
     }
   ],
-  "render_type": "minecraft:solid"
+  "render_type": "minecraft:cutout"
 }

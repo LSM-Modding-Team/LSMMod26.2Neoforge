@@ -1,29 +1,29 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "bottom": "lsmmod:block/dining_door_bottom",
-    "top": "lsmmod:block/dining_door_top",
+    "bottom": "lsmmod:block/bathroom_door_bottom",
+    "top": "lsmmod:block/bathroom_door_top",
     "white": "lsmmod:block/classroom_white_wall",
     "light": "lsmmod:block/light_school_wall",
     "glass": "lsmmod:block/school_glass",
-    "frame": "lsmmod:block/school_glass_frame",
-    "particle": "lsmmod:block/dining_door_bottom"
+    "window": "minecraft:block/glass",
+    "particle": "lsmmod:block/bathroom_door_bottom"
   },
   "elements": [
     {
       "from": [
         0,
-        8,
-        0
+        0,
+        1
       ],
       "to": [
+        8,
         16,
-        9,
-        4
+        3
       ],
       "faces": {
-        "west": {
-          "texture": "#frame",
+        "east": {
+          "texture": "#window",
           "uv": [
             0,
             0,
@@ -36,63 +36,17 @@
     {
       "from": [
         0,
-        8,
-        0
+        0,
+        1
       ],
       "to": [
-        16,
-        9,
-        4
-      ],
-      "faces": {
-        "east": {
-          "texture": "#frame",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        4,
         8,
-        0
-      ],
-      "to": [
         16,
-        9,
-        4
-      ],
-      "faces": {
-        "down": {
-          "texture": "#frame",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        1,
-        8,
-        0
-      ],
-      "to": [
-        16,
-        9,
-        4
+        3
       ],
       "faces": {
         "up": {
-          "texture": "#frame",
+          "texture": "#window",
           "uv": [
             0,
             0,
@@ -105,298 +59,22 @@
     {
       "from": [
         0,
-        8,
-        0
+        0,
+        1
       ],
       "to": [
+        8,
         16,
-        9,
-        4
+        3
       ],
       "faces": {
         "north": {
-          "texture": "#frame",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        8,
-        0
-      ],
-      "to": [
-        16,
-        9,
-        4
-      ],
-      "faces": {
-        "south": {
-          "texture": "#frame",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        15,
-        0
-      ],
-      "to": [
-        16,
-        16,
-        4
-      ],
-      "faces": {
-        "west": {
-          "texture": "#frame",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        15,
-        0
-      ],
-      "to": [
-        16,
-        16,
-        4
-      ],
-      "faces": {
-        "east": {
-          "texture": "#frame",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        1,
-        15,
-        0
-      ],
-      "to": [
-        16,
-        16,
-        4
-      ],
-      "faces": {
-        "down": {
-          "texture": "#frame",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        15,
-        0
-      ],
-      "to": [
-        16,
-        16,
-        4
-      ],
-      "faces": {
-        "up": {
-          "texture": "#frame",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        15,
-        0
-      ],
-      "to": [
-        16,
-        16,
-        4
-      ],
-      "faces": {
-        "north": {
-          "texture": "#frame",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        15,
-        0
-      ],
-      "to": [
-        16,
-        16,
-        4
-      ],
-      "faces": {
-        "south": {
-          "texture": "#frame",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        9,
-        0
-      ],
-      "to": [
-        1,
-        15,
-        4
-      ],
-      "faces": {
-        "west": {
-          "texture": "#frame",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        9,
-        0
-      ],
-      "to": [
-        1,
-        15,
-        4
-      ],
-      "faces": {
-        "east": {
-          "texture": "#frame",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        9,
-        0
-      ],
-      "to": [
-        1,
-        15,
-        4
-      ],
-      "faces": {
-        "north": {
-          "texture": "#frame",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        9,
-        0
-      ],
-      "to": [
-        1,
-        15,
-        4
-      ],
-      "faces": {
-        "south": {
-          "texture": "#frame",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        4,
-        8,
-        16
-      ],
-      "faces": {
-        "west": {
-          "texture": "#top",
+          "texture": "#window",
           "uv": [
             10.666666666666666,
             0.0,
             0.0,
-            5.333333333333333
+            9.846153846153847
           ]
         }
       }
@@ -405,117 +83,25 @@
       "from": [
         0,
         0,
-        0
+        1
       ],
       "to": [
-        4,
         8,
-        16
+        16,
+        3
       ],
       "faces": {
-        "east": {
-          "texture": "#top",
+        "south": {
+          "texture": "#window",
           "uv": [
             0.0,
             0.0,
             10.666666666666666,
-            5.333333333333333
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        4,
-        8,
-        16
-      ],
-      "faces": {
-        "down": {
-          "texture": "#top",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        0,
-        4
-      ],
-      "to": [
-        4,
-        8,
-        16
-      ],
-      "faces": {
-        "up": {
-          "texture": "#top",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        4,
-        8,
-        16
-      ],
-      "faces": {
-        "north": {
-          "texture": "#top",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        4,
-        8,
-        16
-      ],
-      "faces": {
-        "south": {
-          "texture": "#top",
-          "uv": [
-            0,
-            0,
-            16,
-            16
+            9.846153846153847
           ]
         }
       }
     }
   ],
-  "render_type": "minecraft:solid"
+  "render_type": "minecraft:cutout"
 }

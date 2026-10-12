@@ -60,7 +60,7 @@
     "lsmmod:street_school_wall",
     "lsmmod:street_school_bars",
     "lsmmod:school_entrance_pavement",
-    "lsmmod:bathroom_floor",
+    "lsmmod:dark_school_tiled_floor",
     "lsmmod:school_entrance_pavement_slope_1",
     "lsmmod:school_entrance_pavement_slope_2",
     "lsmmod:school_entrance_pavement_slope_3",
@@ -93,7 +93,7 @@
     "lsmmod:school_paintable_custom_block",
     "lsmmod:ceiling_projector",
     "lsmmod:standalone_toilet",
-    "lsmmod:light_bathroom_floor",
+    "lsmmod:light_school_tiled_floor",
     "lsmmod:yellow_school_block",
     "lsmmod:tiled_parquet_floor",
     "lsmmod:white_dark_school_glass",
@@ -124,6 +124,7 @@
     "lsmmod:school_inverted_slope_short_raised_3",
     "lsmmod:school_sliding_entrance",
     "lsmmod:drinking_fountain_raised",
-    "lsmmod:school_microwave"
+    "lsmmod:school_microwave",
+    "lsmmod:dining_room_counter"
   ]
 }

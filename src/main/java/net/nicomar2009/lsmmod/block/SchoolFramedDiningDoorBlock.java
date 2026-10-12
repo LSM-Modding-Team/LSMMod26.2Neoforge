@@ -30,7 +30,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-/** A 2x3 framed door: 1.5x2.5 moving wood, fixed glass and side wall. */
+/** A 2x3 framed bathroom-textured leaf, bordered glass window and fixed transom. */
 public class SchoolFramedDiningDoorBlock extends Block {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
@@ -78,7 +78,21 @@ public class SchoolFramedDiningDoorBlock extends Block {
         BlockPos origin = context.getClickedPos();
         Direction facing = context.getHorizontalDirection().getOpposite();
         Player player = context.getPlayer();
-        BlockState base = defaultBlockState().setValue(FACING, facing);
+        Direction right = facing.getClockWise();
+        int leftSolid = 0, rightSolid = 0;
+        for (int row = 0; row < 3; row++) {
+            BlockPos leftPos = origin.relative(right.getOpposite()).above(row);
+            BlockPos rightPos = origin.relative(right, 2).above(row);
+            if (level.getBlockState(leftPos).isCollisionShapeFullBlock(level, leftPos)) leftSolid++;
+            if (level.getBlockState(rightPos).isCollisionShapeFullBlock(level, rightPos)) rightSolid++;
+        }
+        double hit = facing.getAxis() == Direction.Axis.Z
+                ? context.getClickLocation().x - origin.getX() : context.getClickLocation().z - origin.getZ();
+        if (right.getAxisDirection() == Direction.AxisDirection.NEGATIVE) hit = 1 - hit;
+        boolean rightHinge = rightSolid > leftSolid || (rightSolid == leftSolid && hit > 0.5);
+        BlockState base = defaultBlockState().setValue(FACING, facing).setValue(HINGE, rightHinge
+                ? net.minecraft.world.level.block.state.properties.DoorHingeSide.RIGHT
+                : net.minecraft.world.level.block.state.properties.DoorHingeSide.LEFT);
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 2; column++) {
                 BlockPos target = cell(origin, facing, column, row, 0);

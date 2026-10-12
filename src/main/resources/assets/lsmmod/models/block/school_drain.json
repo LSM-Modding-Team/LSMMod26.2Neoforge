@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "gray": "lsmmod:block/bathroom_floor_side",
+    "gray": "lsmmod:block/dark_school_tiled_floor_side",
     "tile": "lsmmod:block/dark_tiled_floor",
     "metal": "lsmmod:block/school_drain_metal",
     "particle": "lsmmod:block/dark_tiled_floor"

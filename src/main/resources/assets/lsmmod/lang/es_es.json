@@ -259,7 +259,7 @@
   "block.lsmmod.street_school_bars": "Reja de malla del colegio",
   "block.lsmmod.school_parquet": "Parquet del colegio",
   "block.lsmmod.school_entrance_pavement": "Pavimento de la entrada del colegio",
-  "block.lsmmod.bathroom_floor": "Suelo del baño",
+  "block.lsmmod.dark_school_tiled_floor": "Suelo de baldosas oscuras del colegio",
   "block.lsmmod.school_entrance_pavement_slope_1": "Pendiente del pavimento de entrada 1",
   "block.lsmmod.school_entrance_pavement_slope_2": "Pendiente del pavimento de entrada 2",
   "block.lsmmod.school_entrance_pavement_slope_3": "Pendiente del pavimento de entrada 3",
@@ -312,7 +312,7 @@
   "block.lsmmod.children_locker": "Casillero infantil",
   "block.lsmmod.ceiling_projector": "Proyector de techo",
   "block.lsmmod.standalone_toilet": "Inodoro sin cubículo",
-  "block.lsmmod.light_bathroom_floor": "Suelo claro del baño",
+  "block.lsmmod.light_school_tiled_floor": "Suelo de baldosas claras del colegio",
   "block.lsmmod.yellow_school_block": "Bloque amarillo del colegio",
   "item.lsmmod.yellow_school_paint": "Pintura amarilla del colegio",
   "block.lsmmod.tiled_parquet_floor": "Suelo de baldosas con borde de parquet",
@@ -364,5 +364,6 @@
   "block.lsmmod.lost_and_found_box": "Caja de objetos perdidos",
   "block.lsmmod.dining_door_wide": "Puerta del comedor con marco (2×3)",
   "block.lsmmod.school_microwave": "Microondas del colegio",
-  "block.lsmmod.school_trophy_gallery": "Galería de trofeos del colegio"
+  "block.lsmmod.school_trophy_gallery": "Galería de trofeos del colegio",
+  "block.lsmmod.dining_room_counter": "Mostrador del comedor"
 }
