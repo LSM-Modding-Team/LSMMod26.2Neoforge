@@ -4,8 +4,8 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmod'
 SIDES=('down','up','north','south','west','east')
 PAINTS=('minecraft:block/light_gray_concrete','lsmmod:block/light_school_wall',
-        'lsmmod:block/dark_school_wall','lsmmod:block/street_school_wall','lsmmod:block/classroom_white_wall','lsmmod:block/classroom_floor','lsmmod:block/yellow_school_block','lsmmod:block/white_playground_floor','lsmmod:block/gray_playground_floor','lsmmod:block/green_playground_floor','lsmmod:block/orange_playground_floor')
-TOOLS=('light_school','dark_school','street_school','classroom_white','classroom_floor_paint','yellow_school_paint','white_playground_floor_paint','gray_playground_floor_paint','green_playground_floor_paint','orange_playground_floor_paint','paint_cleaner')
+        'lsmmod:block/dark_school_wall','lsmmod:block/street_school_wall','lsmmod:block/classroom_white_wall','lsmmod:block/classroom_floor','lsmmod:block/yellow_school_block','lsmmod:block/white_playground_floor','lsmmod:block/gray_playground_floor','lsmmod:block/green_playground_floor','lsmmod:block/orange_playground_floor','lsmmod:block/dark_tiled_floor')
+TOOLS=('light_school','dark_school','street_school','classroom_white','classroom_floor_paint','yellow_school_paint','white_playground_floor_paint','gray_playground_floor_paint','green_playground_floor_paint','orange_playground_floor_paint','dark_tiled_floor_paint','paint_cleaner')
 def write(p,d):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 def main():
  series=[]
@@ -31,7 +31,7 @@ def main():
   write(A/f'items/{item}.json',{'model':{'type':'minecraft:model','model':'lsmmod:item/'+item}})
  block='    public static final DeferredBlock<SchoolPaintableBlock> SCHOOL_PAINTABLE_BLOCK = BLOCKS.registerBlock(\n            "school_paintable_block", SchoolPaintableBlock::new,\n            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());'
  items=['    public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_BLOCK);']
- for name,color in zip(TOOLS[:-1],('LIGHT','DARK','STREET','WHITE','FLOOR','YELLOW','PLAYGROUND_WHITE','PLAYGROUND_GRAY','PLAYGROUND_GREEN','PLAYGROUND_ORANGE')):
+ for name,color in zip(TOOLS[:-1],('LIGHT','DARK','STREET','WHITE','FLOOR','YELLOW','PLAYGROUND_WHITE','PLAYGROUND_GRAY','PLAYGROUND_GREEN','PLAYGROUND_ORANGE','DARK_TILED')):
   items.append(f'    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> {name.upper()} = ITEMS.registerItem("{name}", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.{color}, props));')
  items.append('    public static final DeferredItem<net.nicomar2009.lsmmod.item.PaintCleanerItem> PAINT_CLEANER = ITEMS.registerItem("paint_cleaner", net.nicomar2009.lsmmod.item.PaintCleanerItem::new);')
  for filename,body in [('ModBlocks.java',block),('ModItems.java','\n'.join(items))]:
@@ -41,7 +41,7 @@ def main():
   p.write_text(s)
  for locale in ['en_us','es_es']:
   p=A/f'lang/{locale}.json';d=json.loads(p.read_text());d['block.lsmmod.school_paintable_block']='School Paintable Block' if locale=='en_us' else 'Bloque pintable del colegio'
-  labels=('Light School Paint','Dark School Paint','Street School Paint','Classroom White Paint','Classroom Floor Paint','Yellow School Paint','White Playground Floor Paint','Gray Playground Floor Paint','Green Playground Floor Paint','Orange Playground Floor Paint','Paint Cleaner') if locale=='en_us' else ('Pintura clara del colegio','Pintura oscura del colegio','Pintura de pared de calle','Pintura blanca de aula','Pintura de suelo de aula','Pintura amarilla del colegio','Pintura de suelo claro del patio','Pintura de suelo gris del patio','Pintura de suelo verde del patio','Pintura de suelo naranja del patio','Limpiador de pintura')
+  labels=('Light School Paint','Dark School Paint','Street School Paint','Classroom White Paint','Classroom Floor Paint','Yellow School Paint','White Playground Floor Paint','Gray Playground Floor Paint','Green Playground Floor Paint','Orange Playground Floor Paint','Dark Tiled Floor Paint','Paint Cleaner') if locale=='en_us' else ('Pintura clara del colegio','Pintura oscura del colegio','Pintura de pared de calle','Pintura blanca de aula','Pintura de suelo de aula','Pintura amarilla del colegio','Pintura de suelo claro del patio','Pintura de suelo gris del patio','Pintura de suelo verde del patio','Pintura de suelo naranja del patio','Pintura de baldosas oscuras','Limpiador de pintura')
   for item,label in zip(TOOLS,labels):d['item.lsmmod.'+item]=label
   d['message.lsmmod.paint_copied']='Six faces copied. Click another paintable block to apply once.' if locale=='en_us' else 'Se copiaron las seis caras. Haz clic en otro bloque pintable para aplicarlas una vez.'
   write(p,d)

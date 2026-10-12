@@ -350,5 +350,6 @@
   "item.lsmmod.orange_playground_floor_paint": "Pintura de suelo naranja del patio",
   "block.lsmmod.dark_tiled_floor": "Baldosas oscuras",
   "block.lsmmod.school_drain": "Desagüe del colegio",
-  "block.lsmmod.school_circular_column": "Columna circular del colegio"
+  "block.lsmmod.school_circular_column": "Columna circular del colegio",
+  "item.lsmmod.dark_tiled_floor_paint": "Pintura de baldosas oscuras"
 }

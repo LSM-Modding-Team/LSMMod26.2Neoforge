@@ -1,10 +1,11 @@
 """Low-state dark tiles, open drain, and shared per-quadrant circular-column connections."""
-import json, math, random
+import json, math, random, copy
 from pathlib import Path
 from PIL import Image
 from create_bathroom_statue_assets import solid_model
 ROOT=Path(__file__).resolve().parents[1]; A=ROOT/'src/main/resources/assets/lsmmod'; D=ROOT/'src/main/resources/data'; J=ROOT/'src/main/java/net/nicomar2009/lsmmod'; GENERATED=[]
-COLORS=['minecraft:block/light_gray_concrete','lsmmod:block/light_school_wall','lsmmod:block/dark_school_wall','lsmmod:block/street_school_wall','lsmmod:block/classroom_white_wall','lsmmod:block/classroom_floor','lsmmod:block/yellow_school_block','lsmmod:block/white_playground_floor','lsmmod:block/gray_playground_floor','lsmmod:block/green_playground_floor','lsmmod:block/orange_playground_floor']
+from create_paintable_school_block import PAINTS
+COLORS=PAINTS
 DRAIN=[([0,0,0,16,8,16],'gray'),([8,8,0,16,16,16],'gray',{'up':'tile'})]+[([0,15,z,8,16,z+1],'metal') for z in (0,3,6,9,12,15)]
 # A pixel-friendly circular cross-section sampled at half-pixel intervals. Model and physics use exactly the same strips.
 CIRCLE=[]
@@ -21,6 +22,15 @@ def model(parts,textures):
    axis={'west':0,'east':0,'down':1,'up':1,'north':2,'south':2}[f]
    if (f in ('west','down','north') and e['from'][axis]==0) or (f in ('east','up','south') and e['to'][axis]==16):s['cullface']=f
  return v
+def explicit_materials(value):
+ v=copy.deepcopy(value)
+ for e in v.get('elements',[]):
+  for surface in e['faces'].values():
+   texture=surface['texture']
+   while texture.startswith('#'):texture=v['textures'][texture[1:]]
+   key='column_'+texture.replace(':','_').replace('/','_')
+   v['textures'][key]=texture;surface['texture']='#'+key
+ return v
 def basic(id,root):
  write(A/f'items/{id}.json',{'model':{'type':'minecraft:model','model':'lsmmod:block/'+root}})
  write(D/f'lsmmod/loot_table/blocks/{id}.json',{'type':'minecraft:block','pools':[{'rolls':1,'conditions':[{'condition':'minecraft:survives_explosion'}],'entries':[{'type':'minecraft:item','name':'lsmmod:'+id}]}]})
@@ -31,11 +41,11 @@ def main():
  write(A/'models/block/dark_tiled_floor.json',{'parent':'minecraft:block/cube_all','textures':{'all':'lsmmod:block/dark_tiled_floor'}});write(A/'blockstates/dark_tiled_floor.json',{'variants':{'':{'model':'lsmmod:block/dark_tiled_floor'}}});basic('dark_tiled_floor','dark_tiled_floor')
  write(A/'models/block/school_drain.json',model(DRAIN,{'gray':'lsmmod:block/bathroom_floor_side','tile':'lsmmod:block/dark_tiled_floor','metal':'lsmmod:block/school_drain_metal','particle':'lsmmod:block/dark_tiled_floor'}));write(A/'blockstates/school_drain.json',{'variants':{f'facing={f}':{'model':'lsmmod:block/school_drain','y':i*90} for i,f in enumerate(('north','east','south','west'))}});basic('school_drain','school_drain')
  models=[{'model':'lsmmod:block/school_circular_column_shaft'},{'model':'lsmmod:block/school_circular_column_base','condition':{'type':'lsmmod:column_part','side':-1,'quarter':0,'paint':0}}]
- write(A/'models/block/school_circular_column_shaft.json',model([(b,'shaft') for b in CIRCLE],{'shaft':'lsmmod:block/dark_school_wall','particle':'lsmmod:block/dark_school_wall'}))
+ write(A/'models/block/school_circular_column_shaft.json',explicit_materials(model([(b,'shaft') for b in CIRCLE],{'shaft':'lsmmod:block/dark_school_wall','particle':'lsmmod:block/dark_school_wall'})))
  # Base top surface is clipped against the shaft, so there are no overlapping cap faces.
  base=model([([0,0,0,16,2,16],'base')]+[(b,'shaft') for b in CIRCLE],{'base':'lsmmod:block/classroom_floor','shaft':'lsmmod:block/dark_school_wall','particle':'lsmmod:block/classroom_floor'})
  # Retain only base-material surfaces; shaft is shared independently.
- base['elements']=[e for e in base['elements'] if next(iter(e['faces'].values()))['texture']=='#base'];write(A/'models/block/school_circular_column_base.json',base)
+ base['elements']=[e for e in base['elements'] if next(iter(e['faces'].values()))['texture']=='#base'];write(A/'models/block/school_circular_column_base.json',explicit_materials(base))
  for q in range(4):
   join=model([(b,'wall') for b in connectors(q)],{'wall':'lsmmod:block/light_school_wall','particle':'lsmmod:block/light_school_wall'})
   for e in join['elements']:
@@ -43,7 +53,7 @@ def main():
     if f in e['faces']:e['faces'][f].pop('cullface',None)
   write(A/f'models/block/school_circular_column_join_{q}.json',join)
   for color,texture in enumerate(COLORS):
-   name=f'school_circular_column_join_{q}_{color}';write(A/f'models/block/{name}.json',{'parent':f'lsmmod:block/school_circular_column_join_{q}','textures':{'wall':texture,'particle':texture}})
+   name=f'school_circular_column_join_{q}_{color}';leaf=copy.deepcopy(join);leaf['textures']={'wall':texture,'particle':texture};write(A/f'models/block/{name}.json',explicit_materials(leaf))
    for side in range(4):
     worldq=(q^1) if side>=2 else q
     models.append({'model':'lsmmod:block/'+name,'transform':[{'type':'rotate','axis':'y','angle':-side*90,'origin':[8,8,8]}],'condition':{'type':'lsmmod:column_part','side':side,'quarter':worldq,'paint':color}})
@@ -51,9 +61,9 @@ def main():
  for entry in models[2:]:
   c=entry['condition'];groups.setdefault((c['side'],c['quarter']),[]).append(entry)
  models=models[:2]+[sorted(series,key=lambda e:e['condition']['paint']==0) for series in groups.values()]
- write(A/'models/block/school_circular_column.json',{'loader':'fusion:model','type':'composite','textures':{'particle':'lsmmod:block/dark_school_wall'},'models':models})
+ write(A/'models/block/school_circular_column.json',{'loader':'fusion:model','type':'composite','textures':{'shaft':'lsmmod:block/dark_school_wall','base':'lsmmod:block/classroom_floor','particle':'lsmmod:block/dark_school_wall',**{'column_'+t.replace(':','_').replace('/','_'):t for t in COLORS}},'models':models})
  write(A/'blockstates/school_circular_column.json',{'variants':{'':{'model':'lsmmod:block/school_circular_column'}}})
- item=model([([0,0,0,16,2,16],'base')]+[(b,'shaft') for b in CIRCLE],{'base':'lsmmod:block/classroom_floor','shaft':'lsmmod:block/dark_school_wall','particle':'lsmmod:block/dark_school_wall'});write(A/'models/item/school_circular_column.json',item);basic('school_circular_column','school_circular_column');write(A/'items/school_circular_column.json',{'model':{'type':'minecraft:model','model':'lsmmod:item/school_circular_column'}})
+ item=model([([0,0,0,16,2,16],'base')]+[(b,'shaft') for b in CIRCLE],{'base':'lsmmod:block/classroom_floor','shaft':'lsmmod:block/dark_school_wall','particle':'lsmmod:block/dark_school_wall'});write(A/'models/item/school_circular_column.json',explicit_materials(item));basic('school_circular_column','school_circular_column');write(A/'items/school_circular_column.json',{'model':{'type':'minecraft:model','model':'lsmmod:item/school_circular_column'}})
  java='package net.nicomar2009.lsmmod.block;\n\n/** Generated mesh-identical physical boxes. */\npublic final class SchoolDrainColumnShapes {\n private SchoolDrainColumnShapes() {}\n'
  for name,boxes in [('DRAIN',[b[0] for b in DRAIN]),('SHAFT',CIRCLE)]:java+=' public static final double[][] '+name+' = '+json.dumps(boxes).replace('[','{').replace(']','}')+';\n'
  java+=' public static final double[][][] JOINS = '+json.dumps([connectors(q) for q in range(4)]).replace('[','{').replace(']','}')+';\n}\n';p=J/'block/SchoolDrainColumnShapes.java';p.write_text(java);GENERATED.append(str(p.relative_to(ROOT)))

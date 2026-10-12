@@ -1,7 +1,1334 @@
 {
-  "parent": "lsmmod:block/school_circular_column_join_0",
+  "parent": "minecraft:block/block",
   "textures": {
     "wall": "lsmmod:block/classroom_floor",
-    "particle": "lsmmod:block/classroom_floor"
-  }
+    "particle": "lsmmod:block/classroom_floor",
+    "column_lsmmod_block_classroom_floor": "lsmmod:block/classroom_floor"
+  },
+  "elements": [
+    {
+      "from": [
+        2.0,
+        0,
+        0
+      ],
+      "to": [
+        2.5,
+        8,
+        6.5
+      ],
+      "faces": {
+        "west": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        2.0,
+        0,
+        5.0
+      ],
+      "to": [
+        2.5,
+        8,
+        6.5
+      ],
+      "faces": {
+        "east": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        2.0,
+        0,
+        0
+      ],
+      "to": [
+        2.5,
+        8,
+        6.5
+      ],
+      "faces": {
+        "down": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        2.0,
+        0,
+        0
+      ],
+      "to": [
+        2.5,
+        8,
+        6.5
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        2.0,
+        0,
+        0
+      ],
+      "to": [
+        2.5,
+        8,
+        6.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        2.0,
+        0,
+        0
+      ],
+      "to": [
+        2.5,
+        8,
+        6.5
+      ],
+      "faces": {
+        "south": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        2.5,
+        0,
+        4.5
+      ],
+      "to": [
+        3.0,
+        8,
+        5.0
+      ],
+      "faces": {
+        "east": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        2.5,
+        0,
+        0
+      ],
+      "to": [
+        3.0,
+        8,
+        5.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        2.5,
+        0,
+        0
+      ],
+      "to": [
+        3.0,
+        8,
+        5.0
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        2.5,
+        0,
+        0
+      ],
+      "to": [
+        3.0,
+        8,
+        5.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        2.5,
+        0,
+        0
+      ],
+      "to": [
+        3.0,
+        8,
+        5.0
+      ],
+      "faces": {
+        "south": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        3.0,
+        0,
+        4.0
+      ],
+      "to": [
+        3.5,
+        8,
+        4.5
+      ],
+      "faces": {
+        "east": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        3.0,
+        0,
+        0
+      ],
+      "to": [
+        3.5,
+        8,
+        4.5
+      ],
+      "faces": {
+        "down": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        3.0,
+        0,
+        0
+      ],
+      "to": [
+        3.5,
+        8,
+        4.5
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        3.0,
+        0,
+        0
+      ],
+      "to": [
+        3.5,
+        8,
+        4.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        3.0,
+        0,
+        0
+      ],
+      "to": [
+        3.5,
+        8,
+        4.5
+      ],
+      "faces": {
+        "south": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        3.5,
+        0,
+        3.5
+      ],
+      "to": [
+        4.0,
+        8,
+        4.0
+      ],
+      "faces": {
+        "east": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        3.5,
+        0,
+        0
+      ],
+      "to": [
+        4.0,
+        8,
+        4.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        3.5,
+        0,
+        0
+      ],
+      "to": [
+        4.0,
+        8,
+        4.0
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        3.5,
+        0,
+        0
+      ],
+      "to": [
+        4.0,
+        8,
+        4.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        3.5,
+        0,
+        0
+      ],
+      "to": [
+        4.0,
+        8,
+        4.0
+      ],
+      "faces": {
+        "south": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        4.0,
+        0,
+        3.0
+      ],
+      "to": [
+        4.5,
+        8,
+        3.5
+      ],
+      "faces": {
+        "east": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        4.0,
+        0,
+        0
+      ],
+      "to": [
+        4.5,
+        8,
+        3.5
+      ],
+      "faces": {
+        "down": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        4.0,
+        0,
+        0
+      ],
+      "to": [
+        4.5,
+        8,
+        3.5
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        4.0,
+        0,
+        0
+      ],
+      "to": [
+        4.5,
+        8,
+        3.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        4.0,
+        0,
+        0
+      ],
+      "to": [
+        4.5,
+        8,
+        3.5
+      ],
+      "faces": {
+        "south": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        4.5,
+        0,
+        2.5
+      ],
+      "to": [
+        5.0,
+        8,
+        3.0
+      ],
+      "faces": {
+        "east": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        4.5,
+        0,
+        0
+      ],
+      "to": [
+        5.0,
+        8,
+        3.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        4.5,
+        0,
+        0
+      ],
+      "to": [
+        5.0,
+        8,
+        3.0
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        4.5,
+        0,
+        0
+      ],
+      "to": [
+        5.0,
+        8,
+        3.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        4.5,
+        0,
+        0
+      ],
+      "to": [
+        5.0,
+        8,
+        3.0
+      ],
+      "faces": {
+        "south": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5.0,
+        0,
+        0
+      ],
+      "to": [
+        5.5,
+        8,
+        2.5
+      ],
+      "faces": {
+        "down": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5.0,
+        0,
+        0
+      ],
+      "to": [
+        5.5,
+        8,
+        2.5
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5.0,
+        0,
+        0
+      ],
+      "to": [
+        5.5,
+        8,
+        2.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        5.0,
+        0,
+        0
+      ],
+      "to": [
+        5.5,
+        8,
+        2.5
+      ],
+      "faces": {
+        "south": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5.5,
+        0,
+        0
+      ],
+      "to": [
+        6.0,
+        8,
+        2.5
+      ],
+      "faces": {
+        "down": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5.5,
+        0,
+        0
+      ],
+      "to": [
+        6.0,
+        8,
+        2.5
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5.5,
+        0,
+        0
+      ],
+      "to": [
+        6.0,
+        8,
+        2.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        5.5,
+        0,
+        0
+      ],
+      "to": [
+        6.0,
+        8,
+        2.5
+      ],
+      "faces": {
+        "south": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.0,
+        0,
+        2.0
+      ],
+      "to": [
+        6.5,
+        8,
+        2.5
+      ],
+      "faces": {
+        "east": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.0,
+        0,
+        0
+      ],
+      "to": [
+        6.5,
+        8,
+        2.5
+      ],
+      "faces": {
+        "down": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.0,
+        0,
+        0
+      ],
+      "to": [
+        6.5,
+        8,
+        2.5
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.0,
+        0,
+        0
+      ],
+      "to": [
+        6.5,
+        8,
+        2.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        6.0,
+        0,
+        0
+      ],
+      "to": [
+        6.5,
+        8,
+        2.5
+      ],
+      "faces": {
+        "south": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.5,
+        0,
+        0
+      ],
+      "to": [
+        7.0,
+        8,
+        2.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.5,
+        0,
+        0
+      ],
+      "to": [
+        7.0,
+        8,
+        2.0
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.5,
+        0,
+        0
+      ],
+      "to": [
+        7.0,
+        8,
+        2.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        6.5,
+        0,
+        0
+      ],
+      "to": [
+        7.0,
+        8,
+        2.0
+      ],
+      "faces": {
+        "south": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.0,
+        0,
+        0
+      ],
+      "to": [
+        7.5,
+        8,
+        2.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.0,
+        0,
+        0
+      ],
+      "to": [
+        7.5,
+        8,
+        2.0
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.0,
+        0,
+        0
+      ],
+      "to": [
+        7.5,
+        8,
+        2.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        7.0,
+        0,
+        0
+      ],
+      "to": [
+        7.5,
+        8,
+        2.0
+      ],
+      "faces": {
+        "south": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.5,
+        0,
+        0
+      ],
+      "to": [
+        8.0,
+        8,
+        2.0
+      ],
+      "faces": {
+        "east": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.5,
+        0,
+        0
+      ],
+      "to": [
+        8.0,
+        8,
+        2.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.5,
+        0,
+        0
+      ],
+      "to": [
+        8.0,
+        8,
+        2.0
+      ],
+      "faces": {
+        "up": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.5,
+        0,
+        0
+      ],
+      "to": [
+        8.0,
+        8,
+        2.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        7.5,
+        0,
+        0
+      ],
+      "to": [
+        8.0,
+        8,
+        2.0
+      ],
+      "faces": {
+        "south": {
+          "texture": "#column_lsmmod_block_classroom_floor",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ],
+  "render_type": "minecraft:solid"
 }

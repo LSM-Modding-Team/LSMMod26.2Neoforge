@@ -12,7 +12,8 @@ public enum SchoolPaint {
     PLAYGROUND_WHITE("white_playground_floor", "lsmmod:block/white_playground_floor"),
     PLAYGROUND_GRAY("gray_playground_floor", "lsmmod:block/gray_playground_floor"),
     PLAYGROUND_GREEN("green_playground_floor", "lsmmod:block/green_playground_floor"),
-    PLAYGROUND_ORANGE("orange_playground_floor", "lsmmod:block/orange_playground_floor");
+    PLAYGROUND_ORANGE("orange_playground_floor", "lsmmod:block/orange_playground_floor"),
+    DARK_TILED("dark_tiled_floor", "lsmmod:block/dark_tiled_floor");
 
     private static final SchoolPaint[] COLORS = values();
     public static boolean validId(int id) { return id >= 0 && id < COLORS.length; }

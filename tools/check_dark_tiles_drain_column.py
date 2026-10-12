@@ -1,7 +1,7 @@
 """Check exposed drain geometry and all circular-column quadrant orientations/occupancies."""
 import json,hashlib,math
 from pathlib import Path
-from create_dark_tiles_drain_column import ROOT,A,CIRCLE,DRAIN,connectors,GENERATED,main as generate
+from create_dark_tiles_drain_column import ROOT,A,CIRCLE,DRAIN,COLORS,connectors,GENERATED,main as generate
 from audit_block_states import audit
 
 def inside(boxes,p):return any(all(b[i]<=p[i]<b[i+3] for i in range(3)) for b in boxes)
@@ -33,10 +33,19 @@ def main():
     cube=x+2*y+4*z;visible=bool(occupied&(1<<cube));assert visible==bool((occupied>>cube)&1);tested+=1
  root=json.loads((A/'models/block/school_circular_column.json').read_text());assert len(root['models'])==18
  for series in root['models'][2:]:
-  assert len(series)==11 and len({e['condition']['paint'] for e in series})==11
+  assert len(series)==len(COLORS) and len({e['condition']['paint'] for e in series})==len(COLORS)
   for e in series:
    t=e['transform'][0];assert t=={'type':'rotate','axis':'y','angle':-e['condition']['side']*90,'origin':[8,8,8]}
-   parent=json.loads((A/'models/block'/Path(e['model'].split(':block/')[1]+'.json')).read_text());assert 'elements' not in parent
+   parent=json.loads((A/'models/block'/Path(e['model'].split(':block/')[1]+'.json')).read_text());assert 'elements' in parent
+   for element in parent['elements']:
+    for surface in element['faces'].values():
+     key=surface['texture'][1:];assert key.startswith('column_')
+     assert parent['textures'][key]==root['textures'][key]
+ for name in ('school_circular_column_shaft','school_circular_column_base'):
+  leaf=json.loads((A/f'models/block/{name}.json').read_text())
+  for element in leaf['elements']:
+   for surface in element['faces'].values():
+    key=surface['texture'][1:];assert leaf['textures'][key]==root['textures'][key]
  # Geometry generated from boxes must only expose surfaces belonging to those volumes.
  for filename,source in [('school_drain',boxes),('school_circular_column_shaft',CIRCLE)]:
   mesh=json.loads((A/f'models/block/{filename}.json').read_text())
