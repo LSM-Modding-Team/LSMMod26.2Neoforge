@@ -32,6 +32,8 @@ Marcas de los docs (se conservan literales en todos): sin marca = **decidido**; 
 
 ## 2. ESTADO ACTUAL (se edita al final de CADA sesión y debe ser siempre verdadero)
 
+**2026-10-12 — Revisión visual de texturas obligatoria:** la sección 8 exige comprobar mediante renders toda textura creada o modificada, aplicada al modelo real con sus UV y materiales, y corregir los errores visibles antes de publicar. Se mantiene la prohibición de compilar.
+
 **2026-10-12 — UV de puertas grandes:** dining_door_wide y bathroom_door_wide reutilizan sus texturas pequeñas con ambas mitades escaladas de 16 a 20px, anchura de 16 a 24px y cantos de tres columnas como vanilla. UV continuas por celda/bisagra/apertura e inventario; madera en cutout para respetar la transparencia original. Ventana, dintel/conexiones, paredes y volumen físico conservados. Generador corregido; verificaciones estáticas, sin compilar ni Minecraft.
 
 **2026-10-12 — Cristales de puertas con marco:** dining_door_wide recupera sus texturas dining_door y nueva bathroom_door_wide hereda geometría/materiales comunes con madera bathroom_door, 192 estados cada una. Frente de la franja lateral cambiado a light_school_wall, cara posterior y resto blanco conservados. Dintel 32×8×8px alineado al cristal escolar: selección Fusion con máscaras compartidas, conexiones verticales/horizontales y refresco de filas mixtas; sin propiedades visuales nuevas. Ventana vanilla dibujada una sola vez con una pieza/UV completa hasta Y32, colisiones por celda conservadas. Regresiones estáticas de máscaras/orientaciones/bisagras/apertura/materiales/recursos e idempotencia; sin compilar ni Minecraft. Ver docs/FACILITY_EXPANSIONS_AND_RAILING_SUPPORT.md.
@@ -401,6 +403,20 @@ Todos los docs del plan existen desde la sesión 4. `PLANNED` = se escribe solo 
 | Historia de la API | `docs/history/API_HISTORY.md` | `PLANNED` (solo cuando `API_NOTES.md` tenga secciones viejas) |
 
 **El spec de un sistema gana sobre cualquier otro doc.** Los comentarios del código que citan "README section 9.1" o "Phase 3/4" vienen de un README anterior que no está en el zip: no te fíes de ellos.
+
+---
+
+## 8. Creación y revisión de texturas
+
+**Siempre que se cree o modifique una textura, se comprobará con renders cómo se vería aplicada en Minecraft.** El render debe utilizar el modelo real, las UV, la escala y los materiales finales, incluyendo transparencia, recortes y capas de renderizado. Revisar únicamente el PNG o pasar comprobaciones estáticas no basta.
+
+Revisar las caras y orientaciones afectadas y, cuando corresponda, el ítem de inventario, las uniones entre bloques y los estados de apertura o conexión. Comprobar colores, proporciones, continuidad, bordes, transparencia y ausencia de estiramientos, repeticiones incorrectas, costuras o píxeles mal asignados. Comparar con la referencia del usuario o con el modelo original cuando se esté creando una variante.
+
+Corregir los errores encontrados y repetir los renders antes de dar la textura por terminada o publicarla en GitHub. Conservar las vistas revisadas en `previews/`. Identificar los renders externos como vistas previas: no equivalen a una prueba dentro de Minecraft. Este requisito no autoriza a compilar; se mantiene la instrucción vigente del usuario de no compilar.
+
+---
+
+## 9. Notas históricas
 
 2026-10-05: dining_table actualiza los cuatro cantos del tablero al mismo gris sólido #D1D1D1 del pedestal; superficie superior blanca y geometría conservadas. Render actualizado. Cambio solo de UV, sin nueva compilación ni prueba Minecraft.
 
