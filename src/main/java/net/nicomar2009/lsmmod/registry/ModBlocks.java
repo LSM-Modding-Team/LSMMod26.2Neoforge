@@ -126,6 +126,8 @@ public final class ModBlocks {
     // BEGIN PLAYGROUND FLOORS
     public static final DeferredBlock<Block> WHITE_PLAYGROUND_FLOOR = BLOCKS.registerBlock("white_playground_floor", Block::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
     public static final DeferredBlock<Block> GRAY_PLAYGROUND_FLOOR = BLOCKS.registerBlock("gray_playground_floor", Block::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<Block> GREEN_PLAYGROUND_FLOOR = BLOCKS.registerBlock("green_playground_floor", Block::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<Block> ORANGE_PLAYGROUND_FLOOR = BLOCKS.registerBlock("orange_playground_floor", Block::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
     // END PLAYGROUND FLOORS
 
     // BEGIN CONNECTED SCHOOL SINK

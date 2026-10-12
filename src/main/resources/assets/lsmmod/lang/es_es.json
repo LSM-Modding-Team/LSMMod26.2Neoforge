@@ -343,5 +343,9 @@
   "message.lsmmod.rectangle.large": "El rectángulo admite como máximo 256 bloques.",
   "message.lsmmod.rectangle.unloaded": "Toda la selección debe estar en una zona cargada.",
   "message.lsmmod.rectangle.denied": "No tienes permiso para modificar toda la selección.",
-  "message.lsmmod.rectangle.target": "La cara o el punto seleccionado no es válido."
+  "message.lsmmod.rectangle.target": "La cara o el punto seleccionado no es válido.",
+  "block.lsmmod.green_playground_floor": "Suelo verde del patio",
+  "block.lsmmod.orange_playground_floor": "Suelo naranja del patio",
+  "item.lsmmod.green_playground_floor_paint": "Pintura de suelo verde del patio",
+  "item.lsmmod.orange_playground_floor_paint": "Pintura de suelo naranja del patio"
 }

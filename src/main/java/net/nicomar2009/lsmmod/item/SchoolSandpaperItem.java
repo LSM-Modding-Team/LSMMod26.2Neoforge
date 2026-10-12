@@ -20,6 +20,8 @@ public class SchoolSandpaperItem extends Item {
             case FLOOR -> ModItems.CLASSROOM_FLOOR_PAINT.get(); case YELLOW -> ModItems.YELLOW_SCHOOL_PAINT.get();
             case PLAYGROUND_WHITE -> ModItems.WHITE_PLAYGROUND_FLOOR_PAINT.get();
             case PLAYGROUND_GRAY -> ModItems.GRAY_PLAYGROUND_FLOOR_PAINT.get();
+            case PLAYGROUND_GREEN -> ModItems.GREEN_PLAYGROUND_FLOOR_PAINT.get();
+            case PLAYGROUND_ORANGE -> ModItems.ORANGE_PLAYGROUND_FLOOR_PAINT.get();
             default -> throw new IllegalArgumentException("Unpainted faces cannot yield paint");
         };
         ItemStack recovered=new ItemStack(item);

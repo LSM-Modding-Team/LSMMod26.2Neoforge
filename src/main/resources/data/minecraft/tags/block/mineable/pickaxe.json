@@ -113,6 +113,8 @@
     "lsmmod:yellow_school_slope_4",
     "lsmmod:white_playground_floor",
     "lsmmod:gray_playground_floor",
-    "lsmmod:school_connected_sink"
+    "lsmmod:school_connected_sink",
+    "lsmmod:green_playground_floor",
+    "lsmmod:orange_playground_floor"
   ]
 }

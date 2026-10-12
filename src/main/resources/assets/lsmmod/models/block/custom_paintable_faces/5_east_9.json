@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:solid",
+  "textures": {
+    "surface": "lsmmod:block/green_playground_floor",
+    "particle": "#surface"
+  },
+  "elements": [
+    {
+      "from": [
+        8,
+        0,
+        8
+      ],
+      "to": [
+        16,
+        8,
+        16
+      ],
+      "faces": {
+        "east": {
+          "texture": "#surface",
+          "uv": [
+            0,
+            8,
+            8,
+            16
+          ],
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

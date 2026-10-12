@@ -26,7 +26,7 @@ def main():
     assert border==(255,211,0) and {yellow.getpixel((x,y)) for x in range(16) for y in range(16)}=={border}
     enum=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolPaint.java').read_text()
     import re
-    assert re.findall(r'^    ([A-Z_]+)\(',enum,re.M)==['UNPAINTED','LIGHT','DARK','STREET','WHITE','FLOOR','YELLOW','PLAYGROUND_WHITE','PLAYGROUND_GRAY']
+    assert re.findall(r'^    ([A-Z_]+)\(',enum,re.M)==['UNPAINTED','LIGHT','DARK','STREET','WHITE','FLOOR','YELLOW','PLAYGROUND_WHITE','PLAYGROUND_GRAY','PLAYGROUND_GREEN','PLAYGROUND_ORANGE']
     assert read(A/'blockstates/yellow_school_block.json')['variants']=={'':{'model':'lsmmod:block/yellow_school_block'}}
     assert read(A/'models/block/yellow_school_block.json')['parent']=='minecraft:block/cube_all'
     assert 'case YELLOW -> ModItems.YELLOW_SCHOOL_PAINT.get();' in (ROOT/'src/main/java/net/nicomar2009/lsmmod/item/SchoolSandpaperItem.java').read_text()
