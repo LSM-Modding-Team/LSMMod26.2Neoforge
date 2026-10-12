@@ -1,30 +1,24 @@
-# NPC_SPECS: un NPC por fila, sistema de stats y rasgos
+# NPC previstos
 
-**Estado: implementación parcial de laboratorio.** `student` y `teacher` reemplazan el laboratorio y conservan su combate y datos de salón/observación (detalle en `docs/SCHOOL_NPCS.md`, pendiente de compilación/prueba). Student y Teacher ya tienen cinco estadísticas universales de nivel 1–5 (Vitalidad, Fuerza, Velocidad, Percepción y Velocidad de Ataque), multiplicadores 0.75/0.875/1/1.125/1.25, bases de combate por dificultad y compatibilidad opcional con Jade; detalle actual en `docs/SCHOOL_NPCS.md`. Los NPC concretos, rasgos y efectos de este spec siguen sin implementar. Escrito en la sesión 3 (Tanda B); en la sesión 4 se actualizaron los grupos de inmunidad y la fila de 6to con lo que el usuario resolvió (V1, V5; ver `ARMOR_SPECS.md` §2 y `BOSS_SPECS.md` §3). Fuente: `docs/history/DESIGN_SOURCE_v1.md` §7.2, §7.3, §7.4, §7.5, §9.2.
+Student/Teacher genéricos implementados; personas concretas, rasgos y colocación por zonas pendientes. Contrato actual en [SCHOOL_NPCS](SCHOOL_NPCS.md).
 
-**Implementan este spec (todos `PLANNED`, ver `docs/CHUNKS.md`):** `N1` (NPC base: una entidad de alumno), luego los demás NPC de uno en uno; `K1` (minibosses y boss). La matriz de hostilidad que usan está en `docs/MECHANICS_SPECS.md` §6.
+Sin marca = decidido; *(propuesta)* = ajustable; *(a confirmar)* = supuesto. Datos sin definir e IDs P/V/D/A: [DESIGN](DESIGN.md).
 
-Marcas: sin marca = **decidido**; *(propuesta)*; *(a confirmar)*. `V#` / `P#` = vacío o pendiente en `docs/DESIGN.md` §5. **Donde el diseño no dice nada la celda dice `—` o "sin definir": no se rellena por inferencia.** Qué hizo cada chunk distinto del plan: ninguno todavía.
+## Sistema de stats y rasgos de los alumnos
 
----
-
-## 1. Sistema de stats y rasgos de los alumnos
-
-Para dar variedad **sin crear mobs nuevos** (principio 3 de `DESIGN.md` §1). Parecido al de los bunnidogs pero más sencillo y **sin reproducción**.
+Para dar variedad **sin crear mobs nuevos** (principio 3 de [DESIGN](DESIGN.md)). Parecido al de los bunnidogs pero más sencillo y **sin reproducción**.
 
 | Elemento | Valores |
 |---|---|
 | **Stats universales actuales** (1–5) | Vitalidad, Fuerza, Velocidad, Percepción (= rango de visión), Velocidad de Ataque |
 | **Rasgos opcionales** *(propuesta)* | Vicioso (**fijo** en el Aula interactiva), Líder, Atlético |
-| **Cuándo se asignan** | Student/Teacher: nivel 3 por defecto en comandos; cinco niveles aleatorios independientes por huevo, editables mediante NBT ingleses y persistentes. No se implementa herencia ni asignación aleatoria. |
+| **Cuándo se asignan** | Student/Teacher: nivel 3 por defecto en comandos; cinco niveles aleatorios independientes por huevo, editables mediante NBT ingleses y persistentes. No se implementan herencia ni rasgos aleatorios. |
 
-**Bases universales definidas para Student/Teacher:** ver `SCHOOL_NPCS.md`. Para los NPC concretos de la tabla siguen sin definir las bases específicas (P4); qué hace exactamente cada rasgo salvo Vicioso; los stats de secundaria, 4to y 5to (P6); cómo se combina la Percepción con la reducción de visión por prendas (V6). Cada NPC de abajo es "muy OP por defecto" (principio 1): los números no se eligen todavía.
+**Bases universales definidas para Student/Teacher:** ver [SCHOOL_NPCS](SCHOOL_NPCS.md). Para los NPC concretos de la tabla siguen sin definir las bases específicas (P4); qué hace exactamente cada rasgo salvo Vicioso; los stats de secundaria, 4to y 5to (P6); cómo se combina la Percepción con la reducción de visión por prendas (V6). Cada NPC de abajo es "muy OP por defecto" (principio 1): los números no se eligen todavía.
 
----
+## Tabla de NPC
 
-## 2. Tabla de NPC
-
-**Imp.** = importante para la condición del Director (`DESIGN_SOURCE_v1.md` §9.2): **Sí** = hay que matarlo; **No** = no hace falta. **Grupo de inmunidad** (prendas, `MECHANICS_SPECS.md` §6.2), **V5 resuelto por el usuario**: *Alumnos*, *Profesores* o *Sin grupo*. Qué profesor es "de primaria" y si los items "para profesores" alcanzan a todo el grupo: V13.
+**Imp.** = importante para la condición del Director ([DESIGN](DESIGN.md)): **Sí** = hay que matarlo; **No** = no hace falta. **Grupo de inmunidad** (prendas, [MECHANICS_SPECS](MECHANICS_SPECS.md)), **V5 resuelto por el usuario**: *Alumnos*, *Profesores* o *Sin grupo*. Qué profesor es "de primaria" y si los items "para profesores" alcanzan a todo el grupo: V13.
 
 | NPC | Grupo de inmunidad | Imp. | Zona | Comportamiento y stats (lo que dice el diseño) | Llama / lo llaman |
 |---|---|---|---|---|---|
@@ -39,7 +33,7 @@ Para dar variedad **sin crear mobs nuevos** (principio 3 de `DESIGN.md` §1). Pa
 | **Rosa Sanmartiniana** | Alumnos | Sí | — | Alumna especial. | **Puede llamar a cualquiera** del colegio (V3: cuándo) |
 | **Brigadieres** | Alumnos | Sí | — | Dos: uno de **6to de primaria** y otro de **5to de secundaria**. | — |
 | **Yahu (Alcalde)** | Alumnos | Sí (miniboss) | — | Alumno de **2do de secundaria**. Miniboss; stats sin definir. | — |
-| **Bianca** | Alumnos | **No** | — | Alumna de **4to**. Los bunnidogs **no la atacan** (marca propia en la entidad de LSM; ver `INTEGRATION_BUNNIDOGS.md`). | — |
+| **Bianca** | Alumnos | **No** | — | Alumna de **4to**. Los bunnidogs **no la atacan** (marca propia en la entidad de LSM; ver [INTEGRATION_BUNNIDOGS](INTEGRATION_BUNNIDOGS.md)). | — |
 | **Tutores** | Profesores | Sí | **Sus aulas** | Permanecen en su aula. | — |
 | **Profesores** | Profesores | Sí | **11 en la sala de profes**, más otros en sus oficinas | Intentan quedarse en su zona. Usan la regla. Uniforme con protección y durabilidad altísimas (casi imposible matarlos sin romperlo). Capitanes de patrulla. Los enoja la bola de papel; **todos atacan a quien lleve un sticker**. | Los llaman los alumnos de primaria; el escudo llama a 6-10 |
 | **Miss Alessandra** | Profesores | Sí | Su aula (los tutores permanecen en su aula; *a confirmar*) | **Tutora de 3ro de secundaria.** | Se llaman mutuamente con la **enfermera** |
@@ -55,23 +49,10 @@ Para dar variedad **sin crear mobs nuevos** (principio 3 de `DESIGN.md` §1). Pa
 | **Fantasma de Manuel Tirado** | Sin grupo | Sí (miniboss) | **Auditorio**, aparece tras vencer a Hidalgo | Estilo fantasma de *Ice and Fire*. Su drop es el **alma**. | — |
 | **Manuel Tirado Andrade** (boss final, invocado) | Sin grupo | — | Solo se invoca **dentro de la estructura del colegio** | Tiene **fases**. Mientras su vida baja, revive a todos los muertos como **fantasmas** (los fantasmas son vulnerables). Sigue vivo hasta que lo matas. Su drop es el **traje**. | — |
 
-**Mencionados sin fila propia en el diseño (V8):** los **vexes de Manuel Tirado** (los invoca Expulsión) y los **fantasmas** que revive el boss (no se sabe si uno por NPC muerto ni con qué stats). Se definen en `BOSS_SPECS.md`.
+**Mencionados sin fila propia en el diseño (V8):** los **vexes de Manuel Tirado** (los invoca Expulsión) y los **fantasmas** que revive el boss (no se sabe si uno por NPC muerto ni con qué stats). Se definen en [BOSS_SPECS](BOSS_SPECS.md).
 
 **Cuenta de importantes** (para `N0`): importantes = todos salvo Bianca, Lucio, Deivis y un décimo de primaria. Incluye, **por nombre en el diseño**: Yahu, el vicioso, Rosa Sanmartiniana y los brigadieres; profesores, tutores (incluida Miss Alessandra), personal de limpieza salvo Deivis, psicólogas, enfermera, Moisés, Pollo, Junior, el resto de los alumnos y los minibosses. El 90 % de primaria se cuenta **con los alumnos de 6to dentro** (V1).
 
----
+## Lo que sí está en el mundo hoy
 
-## 3. Lo que sí está en el mundo hoy
-
-Existen las entidades genéricas **Student y Teacher**, sus huevos (incluidos once salones), modelo/renderer de jugador y cinco estadísticas universales 1–5. El sistema actual de estadísticas reemplaza la propuesta histórica 0–5 para estas dos entidades; consulta `SCHOOL_NPCS.md`. Las variantes concretas de la tabla y su colocación en estructuras siguen pendientes.
-
----
-
-## 4. Preguntas para el plan de `N1` *(a confirmar; no son decisiones)*
-
-Antes de codificar el primer NPC hace falta un plan (R10). Lo que el diseño deja abierto y el plan debe proponer como pick:
-
-* Cuántos tipos de entidad: el diseño pide variedad "sin crear mobs nuevos" y una entidad distinta por grado en 4to/5to; para el resto no dice nada.
-* Cómo se ve cada estado (neutral, enojado, apaciguado) en el mundo (R11).
-* Cómo se materializa "se quedan en su zona" (jigsaw + una zona por NPC) y el llamado de ida y vuelta.
-* Qué patrones de entidad reutilizar de bunnidogs: sus filas COMPILED están en `docs/history/bunnidogs_patterns/API_NOTES.md`; **su código compilado no está en este zip** (`DESIGN.md` §6, D5).
+Existen las entidades genéricas **Student y Teacher**, sus huevos (incluidos once salones), modelo/renderer de jugador y cinco estadísticas universales 1–5. El sistema actual de estadísticas reemplaza la propuesta histórica 0–5 para estas dos entidades; consulta [SCHOOL_NPCS](SCHOOL_NPCS.md). Las variantes concretas de la tabla y su colocación en estructuras siguen pendientes.

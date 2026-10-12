@@ -1,50 +1,7 @@
-# newresources: recursos que todavía no se usan
+# Referencias y fuentes originales
 
-Aquí van **únicamente** los recursos (texturas, modelos, sonidos, blockstates, etc.) que **todavía no está usando ningún bloque, item ni entidad del mod**. Es una sala de espera: el material está listo o a medias, pero nada lo carga.
+Esta carpeta queda fuera del mod empaquetado. Contiene modelos/texturas aportados, fuentes editables, renders y entregas anteriores; algunos ya están integrados. Los assets activos son los de `src/main/resources/` y sus generadores en `tools/`.
 
-**Estado: carpeta vacía** (solo este README). Nace en la sesión 5 a pedido del usuario.
+Busca primero el recurso por ID en registros/assets antes de integrarlo: estar aquí no significa que falte en el juego. Conserva originales editables y referencias del usuario. Nuevos recursos se integran con sus rutas, registros y traducciones siguiendo [ASSETS](../docs/ASSETS.md); evita duplicar entregas o listas de archivos.
 
-Marcas de los docs (se conservan literales): sin marca = **decidido**; *(propuesta)* = valor elegido, ajustable; *(a confirmar)* = supuesto sin validar.
-
----
-
-## Reglas de la carpeta
-
-* **No es parte del mod.** Está fuera de `src/`, así que Gradle no la empaqueta ni el juego la carga. Un archivo aquí **no se ve en el juego**, y es a propósito.
-* **Solo recursos sin usar.** Nada de código, docs de diseño ni archivos de trabajo (para eso están `docs/` y `tools/`). Si un recurso ya lo usa algo, **no va aquí**.
-* **Nombres en inglés, minúsculas y con guion bajo**, como en `assets/lsmmod/` (`teachers_chair.png`). Los identificadores y nombres de archivo son en inglés; este README y los docs, en español.
-* **Misma estructura que `src/main/resources/`**, para que al promover un archivo baste con moverlo: `assets/lsmmod/textures/block/`, `assets/lsmmod/models/block/`, `assets/lsmmod/sounds/`, etc. (formato 26.x: las carpetas van en singular; ver `docs/REFERENCE.md` §4).
-* **Un recurso a medias se anota:** si falta algo para usarlo (p. ej. una textura sin modelo), se dice en la tabla de abajo.
-
----
-
-## Cómo se promueve un recurso
-
-1. Un chunk (`docs/CHUNKS.md`) decide usarlo y lo **mueve** (no lo copia) a `src/main/resources/` en la misma ruta relativa.
-2. Ese chunk lo registra en el código y en `lang/en_us.json` si hace falta (R16: las tablas mandan).
-3. El chunk borra su fila de la tabla de abajo y lo dice en la lista de archivos tocados (R17).
-
-Arte generado con scripts (decisión D3, abierta): iría en `tools/art/`; lo que produzca y aún no se use, aquí.
-
----
-
-## Recursos que hay ahora
-
-Las tres puertas (`dining_door`, `teachers_office_door`, `bathroom_door`) se
-promovieron a `src/main/resources` y están registradas como bloques e items.
-Los renders y ZIP aquí son vistas previas y entregas, no recursos pendientes.
-
-Revisión actual de recursos y pendientes: [RESOURCE_INTEGRATION_AUDIT.md](../docs/RESOURCE_INTEGRATION_AUDIT.md).
-La tabla histórica de abajo está desactualizada: timbre, pupitre de primaria y
-estatua de San Martín de Porres ya están registrados y sus modelos incorporados.
-
-| Archivo | Para qué es | Qué falta para usarlo | Descripción del bloque |
-|---|---|---|---|
-| *school_bell.json* | modelo de la campana | añadir el bloque | Los NPC salen al patio (salvo algunos alumnos) durante 90 s, tiempo para lootear ~2 salones. Cooldown de 15 min (propuesta). |
-| *school_bell.png* | textura de la campana | añadir el bloque | Los NPC salen al patio (salvo algunos alumnos) durante 90 s, tiempo para lootear ~2 salones. Cooldown de 15 min (propuesta). |
-| *elementary_desk.json* | modelo de la carpeta | añadir el bloque | Función decorativa y de almacenamiento, ofreciendo 9 slots para almacenar objetos. **A diferencia de las otras carpetas, esta únicamente consiste de un único bloque, no de una combinación de 2** |
-| *elementary_desk.png* | textura de la carpeta | añadir el bloque | Función decorativa y de almacenamiento, ofreciendo 9 slots para almacenar objetos. **A diferencia de las otras carpetas, esta únicamente consiste de un único bloque, no de una combinación de 2** |
-| *sanmartindeporresdown.json* |modelo de la parte inferior del bloque de San Martín de Porres | añadir el bloque | Parte inferior del bloque. Click derecho: regeneración ~30 s. Pasivo: regenera automáticamente a profesores y alumnos cercanos, más a profesores. Legendario: tarda muchísimo en minarse. Dos se usan en el ritual (BOSS_SPECS.md). |
-| *sanmartindeporresdown.png* |textura de la parte inferior del bloque de San Martín de Porres | añadir el bloque | Parte inferior del bloque. Click derecho: regeneración ~30 s. Pasivo: regenera automáticamente a profesores y alumnos cercanos, más a profesores. Legendario: tarda muchísimo en minarse. Dos se usan en el ritual (BOSS_SPECS.md). |
-| *sanmartindeporresup.json* |modelo de la parte superior del bloque de San Martín de Porres | añadir el bloque | Parte superior del bloque. Click derecho: regeneración ~30 s. Pasivo: regenera automáticamente a profesores y alumnos cercanos, más a profesores. Legendario: tarda muchísimo en minarse. Dos se usan en el ritual (BOSS_SPECS.md). |
-| *sanmartindeporresup.png* |textura de la parte superior del bloque de San Martín de Porres | añadir el bloque | Parte superior del bloque. Click derecho: regeneración ~30 s. Pasivo: regenera automáticamente a profesores y alumnos cercanos, más a profesores. Legendario: tarda muchísimo en minarse. Dos se usan en el ritual (BOSS_SPECS.md). |
+El escudo antiguo de `escudo/` es una referencia 3×3; el bloque actual es el slab 4×4 descrito en [BLOCK_SPECS](../docs/BLOCK_SPECS.md). Papelería actual: [ITEM_SPECS](../docs/ITEM_SPECS.md).

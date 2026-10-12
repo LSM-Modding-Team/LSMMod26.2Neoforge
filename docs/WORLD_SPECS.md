@@ -1,115 +1,48 @@
-# WORLD_SPECS: generación del colegio, zonas, colocación de NPC y mapa
+# Colegio, zonas y catálogo de espacios
 
-**Estado: generación SPEC, catálogo del mundo suministrado implementado.** No existe todavía generación jigsaw ni mapa crafteable. `data/lsmmod/school_spaces.json` contiene las delimitaciones del colegio de `world (3).zip`; no constituye una estructura generable. Escrito en la sesión 3 (Tanda C) a partir de `docs/history/DESIGN_SOURCE_v1.md` §3.4 y de lo que el resto del diseño dice sobre dónde está cada cosa.
+Implementado: catálogo editable del mundo suministrado. Pendiente: generación jigsaw, mapas y aparición de NPC por zonas. Sin marca = decidido; *(propuesta)* = ajustable; *(a confirmar)* = supuesto. Pendientes: [DESIGN](DESIGN.md).
 
-**Implementan este spec (todos `PLANNED`, ver `docs/CHUNKS.md`):** `W1` (estructura por jigsaw, aulas, colocación de NPC), `W2` (uno garantizado cerca del spawn y mapa crafteable). Hito M5, **riesgo alto** (estructuras jigsaw, mapa de exploración).
+## Generación y mapas (diseño)
 
-Marcas: sin marca = **decidido**; *(propuesta)*; *(a confirmar)*. `V#` / `P#` / `D#` = vacío, pendiente o decisión abierta en `docs/DESIGN.md` §5 y §6. **El diseño casi no da datos de tamaño ni de distribución: lo que falta dice "sin definir" y no se rellena.** Qué hizo cada chunk distinto del plan: ninguno todavía.
+Colegios extremadamente raros en planicies; uno garantizado en la planicie más cercana al spawn. Frecuencia, separación y biomas exactos sin definir. Mapa tipo cartógrafo al colegio más cercano, fabricado con legendarios de bunnidogs (P1). El traje final facilita lootear otros colegios.
 
----
+Piezas jigsaw delimitan zonas; NPC no salen salvo eventos temporales y luego vuelven. Debe poder consultarse si una posición está dentro de un colegio y de cuál, para Expulsión, ritual y boss. Representación exacta y progreso por colegio/global (D4) pendientes; el catálogo fijo no sustituye una instancia generada.
 
-## 1. Generación de colegios (diseño §3.4)
-
-* Los colegios se generan en **planicies** y son **extremadamente raros**. (Frecuencia, separación y biomas exactos: sin definir.)
-* Hay **uno garantizado** en la planicie más cercana al spawn.
-* Existe un **mapa crafteable** (tipo mapa de cartógrafo de vanilla) que lleva al **colegio más cercano**. Se craftea con **objetos legendarios del mod bunnidogs**; la lista está pendiente (P1; candidatos en `docs/INTEGRATION_BUNNIDOGS.md` §2).
-* **Los otros colegios** (los que no son el primero) permiten lootear con facilidad si llevas puesto el **traje de Manuel Tirado** (`ARMOR_SPECS.md` §5).
-
----
-
-## 2. El colegio: estructura y zonas
-
-La estructura es un **híbrido entre una mansión de pillagers y un bastión de piglins** (`DESIGN.md` §1): patrullas, raids y capitanes por un lado; zonas de loot cerradas y con mucha hostilidad por otro. Los NPC **se quedan en su zona**, controlado **con jigsaw** (cada zona es una pieza; el NPC de la pieza no sale salvo por eventos).
-
-**Zonas que el diseño nombra** (todas `PLANNED`; el tamaño y la posición de cada una: sin definir, V19):
-
-| Zona | Qué hay según el diseño | Fuente |
-|---|---|---|
-| **Sala de profes** | 11 profesores | §3.1, §7.3 |
-| **Oficinas** | Otros profesores; ropa de profesor ("solo en sus oficinas") | §3.1, §6 |
-| **Aulas** | Un tutor por aula; un rollo de papel higiénico por salón; libros de 2do a 5to; los casilleros de 4to y 5to guardan la Ardilla PUCP | §4, §5.4, §5.5, §7.3 |
-| **Aula de 3ro de secundaria** | Su tutora, Miss Alessandra | §7.3 |
-| **Aula interactiva** (y de inglés) | Carpetas grises con CPU, sillas grises, PC; el **alumno vicioso**, que no sale | §4, §7.3 |
-| **Escritorio negro** | Una PC | §4 |
-| **Hall** | Sillas negras con rojo | §4 |
-| **Auditorio** | Sillas rojas o blancas; aquí aparece el **fantasma de Manuel** al vencer a Hidalgo | §4, §7.4 |
-| **Kiosko** | La mesa de kiosko y la **mamá de cuarto** | §4, §7.3 |
-| **Patio** | A donde salen los NPC cuando suena la campana (90 s) | §4 |
-
-**Sin zona en el diseño:** dónde están el escudo, la campana, los dos San Martín de Porres, los objetos perdidos, la laptop de Moisés, Hidalgo, Yahu, el Director, Pollo, la enfermera, Junior, las psicólogas, Lucio, Deivis y el personal de limpieza, Rosa, los brigadieres y la estudiantina. `NPC_SPECS.md` §2 lleva la columna de zona con las mismas celdas vacías.
-
----
-
-## 3. Colocación de NPC
-
-* Cada NPC pertenece a una zona (jigsaw); salvo eventos, **no sale**. Qué NPC va en qué zona: la tabla de §2 más la columna "Zona" de `NPC_SPECS.md` §2; el resto, sin definir.
-* **Cuántos** NPC por zona (más allá de "11 en la sala de profes") y cuántos alumnos por salón: sin definir (V19).
-* Los stats se asignan **al aparecer** (`NPC_SPECS.md` §1), así que la colocación no necesita crear mobs nuevos.
-* **Un tutor por aula** y las aulas por grado: qué grados existen y cuántas aulas: el diseño nombra 6to de primaria, 2do, 3ro y 5to de secundaria, y 4to sin decir el nivel; no da la lista completa de grados (V19).
-
----
-
-## 4. "Dentro de la estructura del colegio"
-
-Tres reglas del diseño dependen de saber si alguien está **dentro del colegio**:
-
-| Regla | Dónde |
+| Zona | Diseño |
 |---|---|
-| **Expulsión** (si sigues dentro 10 s después del ataque de Hidalgo, invoca alumnos o vexes) | `MECHANICS_SPECS.md` §5 |
-| **Ritual** (si no se hace dentro de la estructura y con los dos santos, no funciona) | `BOSS_SPECS.md` §7 |
-| **Invocar al boss** (solo dentro de la estructura) | `BOSS_SPECS.md` §8 |
+| Sala de profes/oficinas | 11 profesores en sala, otros en oficinas; ropa de profesor solo en oficinas |
+| Aulas | Tutor por aula; papel higiénico por salón, libros 2do–5to, casilleros 4to/5to con Ardilla |
+| 3ro secundaria | Miss Alessandra como tutora |
+| Aula interactiva/inglés | Mobiliario gris, PC; vicioso fijo en interactiva |
+| Hall | Sillas negras/rojas |
+| Auditorio | Sillas rojas/blancas; fantasma de Manuel tras Hidalgo |
+| Kiosko | Mesa y mamá de cuarto |
+| Patio | Salida temporal al sonar campana |
 
-El código debe poder preguntar "¿esta posición está dentro de un colegio?" y "¿de cuál?" (relevante para D4: el progreso es por colegio, ver `DESIGN.md` §6). Cómo se resuelve (la caja de la estructura, una pieza, un dato): es parte del plan de `W1`, no se decide aquí.
+Faltan cantidad de NPC por salón y distribución generable (V19), y zonas de escudo/campana/santos/objetos perdidos/Moisés/Hidalgo/Yahu/Director/otros personajes. Student ya soporta primaria 1–6 y secundaria 1–5; usar esos once grados actuales como referencia sin inventar cantidades por salón.
 
----
+Recursos 26.x: `data/lsmmod/structure/`, `worldgen/`, `tags/`. Construcciones exportadas como NBT; verifica API 26.2 antes de registrar estructuras/mapas.
 
-## 5. Mapa crafteable
+## Catálogo actual y comandos
 
-* Tipo mapa de cartógrafo de vanilla; **lleva al colegio más cercano**.
-* Ingredientes: **objetos legendarios de bunnidogs** (P1: lista por definir). Cruce con el otro mod: `docs/INTEGRATION_BUNNIDOGS.md` §6.
-* Es la forma de llegar a los colegios que no son el garantizado cerca del spawn (cadena de eventos, paso 1: `BOSS_SPECS.md` §1).
+38 espacios del mundo original: 32 nombres del usuario más arte, auditorio, enfermería, hall, kiosko y patio. Cajas/nombres: [SCHOOL_SPACES](SCHOOL_SPACES.md). Fuente activa: `src/main/resources/data/lsmmod/school_spaces.json`; tabla interna `school_spaces_migration.json` migra IDs antiguos, sin aceptarlos como alias. No hay detección automática de ampliaciones ni modificación de bloques.
 
----
+Comandos Overworld con permisos equivalentes a `/tp`:
 
-## 6. Riesgos y dónde viven los archivos
+| Comando `/lsmmod ...` | Acción |
+|---|---|
+| `define <id> <x1> <y1> <z1> <x2> <y2> <z2>` | Crea o reemplaza todas las cajas de un espacio |
+| `addbox <id> <x1> <y1> <z1> <x2> <y2> <z2>` | Añade sector; rechaza duplicados |
+| `delete <id>` | Elimina y guarda baja; define puede recrear deliberadamente |
+| `rename <nombre>` / `renameid <id> <nombre>` | Renombra y cambia ID; requiere estar dentro |
+| `rooms [página]`, `where`, `tp <id>` | Consulta/TP seguro según catálogo activo |
+| `boundingbox <id> [segundos]` / `boundingbox off` | Partículas privadas, 30 s por defecto (5–120) |
+| `export` | Guarda archivo y ofrece copia del catálogo activo con cajas/bajas |
 
-* **Riesgo alto** (M5): estructuras jigsaw y mapa de exploración son familias de API que ningún código compilado en 26.2 cubre. **Una API nueva por chunk** (R6): `W1` (estructura) y `W2` (mapa y colocación garantizada) ya están separados por eso. Índice: `docs/REFERENCE.md` §8.
-* **Archivos** (formato 26.x; las carpetas van en singular, `docs/REFERENCE.md` §4): `data/lsmmod/structure/` (piezas), `data/lsmmod/worldgen/` (estructura, template pools, conjunto de estructuras, tags de bioma o de planicie), `data/lsmmod/tags/`. Hoy vacías.
-* **Patrones de bunnidogs** (registro de estructura y pieza, comando de depuración `/lsm ...` planeado): su código compilado **no está en este zip** (`DESIGN.md` §6, D5); solo su `API_NOTES.md`.
-* **Arte (D3):** las estructuras las construye el usuario en el juego y se guardan como NBT; el sandbox no tiene Minecraft.
+Esquinas de comandos inclusivas/en cualquier orden, con relativas vanilla. JSON tiene máximos exclusivos. Límites: 128 bloques por lado, 16 cajas/espacio, volumen 65536, posiciones finitas/altura válida. Rename elige espacio menor contenedor; empate requiere renameid. Nombres hasta 80 caracteres, IDs minúsculas/sin tildes/guion bajo; sin duplicados, off reservado. TP comprueba apoyo, colisión, fluidos y peligros. Editar/eliminar cancela visualizaciones anteriores.
 
----
+## Persistencia
 
-## 7. Vacíos que tocan este doc
+Ediciones/bajas por mundo en `<mundo>/lsmmod/school_space_edits.json`, esquema 2, guardado inmediato con archivo temporal/reemplazo atómico. Bajas prevalecen sobre base. Si no existe esquema nuevo, migra school_space_names.json, omite retirados y rechaza conflictos; original intacto. Después no vuelve a importar para no resucitar regiones. Fallos no deben reiniciar catálogo ni confirmar éxito.
 
-V19 (tamaño, distribución, grados y cantidad de NPC), P1 (ingredientes del mapa), D4 (progreso por colegio), D6 (raids por nidos). Detalle en `docs/DESIGN.md` §5 y §6.
-
-## 8. Catálogo editable del mundo suministrado (2026-10-05)
-
-El catálogo inicial contiene 38 espacios: los 32 nombres confirmados por el usuario y arte, auditorio, enfermería, hall, kiosko y patio. Se retiraron 55 espacios provisionales y los 31 IDs sustituidos. Los IDs como salon_11 o computacion_02 ya no aparecen ni se aceptan como alias; ahora se usan 5tosec y aula_interactiva. La tabla de nombres y cajas está en SCHOOL_SPACES.md. La geometría de los espacios conservados no cambió al asignar los nombres confirmados.
-
-Los recursos school_spaces.json y school_spaces_migration.json son, respectivamente, la base activa y la tabla interna de actualización. La tabla de migración reconoce los 93 IDs de la versión anterior, incluyendo los retirados, pero nunca los registra como comandos. No se implementa worldgen, NPC ni detección automática de ampliaciones.
-
-### Crear, modificar y eliminar delimitaciones
-
-Todos los comandos requieren permisos equivalentes a /tp vanilla. En el Overworld:
-
-* `/lsmmod define <id> <x1> <y1> <z1> <x2> <y2> <z2>` crea un espacio o reemplaza todas sus cajas por la caja nueva. El mensaje distingue creación de reemplazo y muestra la delimitación si lo ejecuta un jugador.
-* `/lsmmod addbox <id> <x1> <y1> <z1> <x2> <y2> <z2>` añade otra caja a un espacio existente, para formas con recodos. Rechaza cajas exactamente repetidas.
-* `/lsmmod delete <id>` elimina el espacio completo, incluso uno de la base. Se conserva su baja para que no reaparezca al reiniciar o exportar. Volver a usar define con ese ID lo recrea deliberadamente.
-
-Las dos esquinas representan bloques inclusivos, se aceptan en cualquier orden y admiten coordenadas relativas vanilla. Por ejemplo, dos esquinas iguales representan una caja de un bloque. En el JSON el máximo es exclusivo: al extremo mayor de cada eje se le suma uno. Cada esquina debe estar dentro de la altura construible. Límites: 128 bloques por lado de caja, 16 cajas por espacio y 65536 bloques de volumen acumulado. Las posiciones deben ser finitas y estar en el rango del mundo. No se colocan, retiran ni modifican bloques.
-
-### Renombrar y usar el catálogo activo
-
-`/lsmmod rename <nombre>` cambia el nombre y el ID del espacio actual; el ID anterior deja de funcionar. `/lsmmod renameid <id> <nombre>` selecciona explícitamente uno de los espacios que contienen al jugador. Se sigue eligiendo el recinto de menor volumen cuando hay superposiciones; empates requieren selección explícita. Los nombres admiten espacios y tildes hasta 80 caracteres; el ID resultante usa minúsculas sin tildes y guiones bajos. Se rechazan IDs duplicados o inválidos; off está reservado.
-
-`rooms [página]`, `where`, Tab, `tp <id>` y `boundingbox <id> [segundos]` usan exclusivamente el catálogo activo del mundo. TP valida apoyo, colisión, fluidos y peligros antes de mover al jugador; un recinto puede ser demasiado bajo para estar de pie. Contornos privados con partículas durante 30 segundos, configurable de 5 a 120; boundingbox off detiene la selección. Para cajas grandes se reduce la densidad de partículas conservando todas las aristas. Cambiar geometría o eliminar espacios cancela las selecciones anteriores para no seguir mostrando límites obsoletos.
-
-### Persistencia, migración y entrega de resultados
-
-Se guardan inmediatamente cambios y bajas en `<mundo>/lsmmod/school_space_edits.json`, esquema 2, mediante archivo temporal y reemplazo atómico si está disponible. Las bajas prevalecen sobre la base y las modificaciones se aplican únicamente en su mundo. Si existe el anterior school_space_names.json y todavía no hay archivo de ediciones, se migra automáticamente: nombres de espacios conservados mantienen sus cajas, los retirados se omiten y se rechazan conflictos. El archivo anterior permanece intacto como respaldo. Una vez guardado el esquema nuevo no se vuelve a aplicar el archivo antiguo, evitando resucitar regiones eliminadas. Errores de lectura/escritura se comunican sin reiniciar el catálogo ni confirmar cambios fallidos.
-
-`/lsmmod export` guarda school_spaces_export.json y ofrece **[Copiar espacios y límites para pegar en el chat]**. Ambos contienen el catálogo activo completo: ID, nombre, cajas y lista de bajas, con dimensión Overworld y máximos exclusivos. Se puede pegar el texto en Codex o adjuntar el archivo; la ruta se muestra en el chat. En servidor el archivo queda en el servidor y el portapapeles en el equipo del jugador. Para informes que superen 60000 caracteres se entrega el archivo completo sin enviar una acción de copia excesiva por el chat.
-
-BUILD SUCCESSFUL con Java 25 offline. Comprobación independiente: las 32 migraciones proporcionadas, exclusión de IDs antiguos, creación/reemplazo/ampliación con esquinas inclusivas, renombrado, bajas que sobreviven a reinicio y exportación, separación entre mundos y preservación ante fallo de escritura. Prueba dentro de Minecraft pendiente.
+Export en school_spaces_export.json: ID/nombre/cajas/bajas, dimensión Overworld y máximos exclusivos. Archivo en servidor, copia en cliente; informes >60000 caracteres se entregan completos en archivo. Código: `world/SchoolSpaceCatalog.java`, `SchoolSpaceCommands.java`, `SchoolSpaces.java`.

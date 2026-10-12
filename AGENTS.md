@@ -1,14 +1,12 @@
-# LSM Mod — trabajo en este proyecto
+# LSM Mod — instrucciones para Codex
 
-- Responde en español. Sigue primero la petición actual del usuario.
-- **Instrucción vigente del usuario (2026-10-10):** hacer commits y publicar los cambios en GitHub en la misma respuesta, sin pedir autorización. Se mantiene la prohibición de compilar; las verificaciones deben ser estáticas.
-- **Git:** trabajar y hacer push siempre a la rama existente `master`. No crear ramas nuevas. Antes de publicar, traer los cambios de `origin/master` e integrarlos conservando el trabajo de otras conversaciones. No usar force-push.
-- Lee START_HERE.md para el contexto; usa los specs únicamente para el área que estás cambiando.
-- La compilación sí está disponible. Usa `bash tools/build/compile.sh` desde la raíz. Para builds sin nuevas dependencias: `bash tools/build/compile.sh build --offline`.
-- El harness reutiliza Java 25 y las cachés o instala Java 25 cuando falta; detalles en tools/build/README.md. Respeta los permisos y la política de red del entorno. Ante un bloqueo de sockets locales de Gradle, usa el mecanismo de permisos del entorno para ejecutar el mismo comando.
-- No confundas compilación correcta con prueba dentro de Minecraft. Informa el resultado real de cada una. Las notas históricas que decían que el sandbox no tenía Gradle están obsoletas.
-- school_shield se coloca completo como un slab de suelo 4×4, de 8 píxeles de alto, con dieciséis texturas de 16×16, fondo de classroom_floor y borde dorado. Emblema redibujado debajo del encabezado de la referencia; controlador column=1,row=1 y un solo drop. No requiere interacción para ampliarlo.
-- No incluyas .build-tools, .gradle, build ni run en el ZIP del código fuente.
-
-- **Rendimiento de modelos:** al crear o modificar bloques con modelos detallados, separa la selección y el contorno (`getShape`) de la colisión física (`getCollisionShape`). Usa una caja exterior simple para seleccionar y resaltar el bloque; no dibujes cada listón, pata o escalón de la colisión. Reutiliza `SimpleBlockOutline.forState` cuando la geometría dependa solo del estado; si depende del mundo o del contexto, no uses esa caché por estado. Conserva la geometría física y comprueba las orientaciones y celdas de bloques múltiples. Mantén los generadores compatibles con esta separación y ejecuta `checkFurnitureOutlines` (incluido en `build`) cuando cambies estas formas.
-
+- Responde en español. La petición actual del usuario tiene prioridad. Código, IDs y comentarios en inglés.
+- Lee [START_HERE.md](START_HERE.md) y solo la guía del área que vas a cambiar. Para modelos/texturas: [docs/ASSETS.md](docs/ASSETS.md).
+- **No compiles ni ejecutes Minecraft**, por instrucción vigente del usuario. Usa comprobaciones estáticas relevantes; distingue revisión estática, render externo, compilación y prueba en juego.
+- **Haz commit y push en la rama existente `master` en la misma respuesta**, sin pedir autorización. Trae e integra `origin/master` antes de publicar, conservando cambios de otras conversaciones. No crees ramas nuevas ni uses force-push.
+- Reutiliza clases, materiales, modelos padre y generadores existentes. Conserva IDs, NBT y propiedades guardadas; una retirada o migración requiere petición del usuario.
+- **Revisión visual obligatoria:** toda textura creada o modificada debe revisarse aplicada al modelo real mediante renders, con sus UV, materiales y transparencia. Corrige errores visibles antes de publicar; revisa también el ítem y las caras/orientaciones afectadas. Un render externo no demuestra funcionamiento en Minecraft.
+- **Formas:** separa `getShape` (contorno sencillo) de `getCollisionShape` (geometría física). Usa `SimpleBlockOutline.forState` solo si depende del estado; las formas que dependen del mundo/contexto no admiten esa caché. Reutiliza cuadrículas y rotaciones; verifica orientaciones y celdas múltiples. `checkFurnitureOutlines` requiere compilar: queda pendiente mientras siga la prohibición.
+- Ejecuta solo las comprobaciones existentes que cubran el cambio. Para lógica pura, usa `RulesCheck`; para arte/documentación, evita crear tests que solo repitan la implementación.
+- Actualiza únicamente la guía afectada si cambia su contrato. No añadas historiales, registros de sesiones, documentos por cada bloque ni entradas de cambios en varios archivos. Git guarda la historia. Mantén START_HERE breve y sin cronología.
+- Entrega un resumen corto de cambios, verificación y commit. Genera ZIP solo si se pide; excluye `.git`, `.build-tools`, `.gradle`, `build` y `run`.
