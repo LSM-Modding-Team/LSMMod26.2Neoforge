@@ -39,6 +39,8 @@ public final class ModBlockEntities {
 
     public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolGlassStairPaintEntity>> SCHOOL_GLASS_STAIR_PAINT = BLOCK_ENTITIES.register("school_glass_stair_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolGlassStairPaintEntity::new, ModBlocks.SCHOOL_PAINTABLE_GLASS_STAIRS.get()));
 
+    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolBathroomColumnPaintEntity>> SCHOOL_BATHROOM_COLUMN_PAINT = BLOCK_ENTITIES.register("school_bathroom_column_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolBathroomColumnPaintEntity::new, ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN.get()));
+
     // Only the LEFT half creates a DeskBlockEntity, but the type is valid for the whole block.
     // Only the student's desk has storage; the teacher's desk is decorative and has no block entity.
     public static final Supplier<BlockEntityType<DeskBlockEntity>> STUDENTS_DESK = BLOCK_ENTITIES.register(

@@ -109,6 +109,7 @@
     "lsmmod:bathroom_door_wide_paintable",
     "lsmmod:school_paintable_mini_cube_block",
     "lsmmod:school_entrance_door_paintable",
-    "lsmmod:school_paintable_glass_stairs"
+    "lsmmod:school_paintable_glass_stairs",
+    "lsmmod:bathroom_door_wide_paintable_column"
   ]
 }

@@ -91,7 +91,48 @@ def review_entrance():
         draw.text((offset[0]+10,offset[1]-18),label,fill=(25,25,25))
     canvas.save(preview_path(ENTRANCE_ID+'_review.png'))
 
+def column_scene(opened=False,right=False,paint=0,facing='north',ident=None):
+    from create_paintable_bathroom_door import COLUMN_ID
+    ident=ident or COLUMN_ID;result=[];turn=('north','east','south','west').index(facing)
+    entries=json.loads((A/f'blockstates/{ident}.json').read_text())['multipart']
+    for column,row,depth in itertools.product(range(2),range(3),range(2)):
+        state=dict(facing=facing,open=str(opened).lower(),hinge='right' if right else 'left',column=str(column),row=str(row),depth=str(depth))
+        def predicate(condition):
+            if condition['type']=='lsmmod:glazing_mask':
+                return (1 if column==0 else 2) in condition.get('masks',[condition.get('mask')])
+            face=condition['face']
+            if condition.get('local') and face in ('north','east','south','west'):
+                face=('north','east','south','west')[(('north','east','south','west').index(face)+turn)%4]
+            color=paint(row,face) if callable(paint) else paint
+            return condition['paint']==color
+        for entry in entries:
+            if not all(state[k] in v.split('|') for k,v in entry['when'].items()):continue
+            for model in load(entry['apply']['model'],predicate=predicate):
+                for _ in range(3*turn):model=rotated(model)
+                offset=((column*16,row*16,depth*16),(-depth*16,row*16,column*16),
+                        (-column*16,row*16,-depth*16),(depth*16,row*16,-column*16))[turn]
+                add(result,[model],offset)
+    return result
+
+
+def review_column():
+    from create_paintable_bathroom_door import COLUMN_ID
+    colors={'down':3,'up':6,'north':9,'south':12,'west':1,'east':2}
+    paint=lambda row,face:colors[face] if row==0 else 4 if row==1 else 10
+    cases=[('Columna sin pintar / cristal original',column_scene()),('Abierta / columna fija',column_scene(True,paint=9)),
+           ('Pintura por cara y por bloque',column_scene(True,paint=paint)),('Bisagra derecha / columna pintable',column_scene(True,True,paint)),
+           ('Dorso / otra cara independiente',column_scene(True,paint=paint)),('Item / modelo real',item_scene(COLUMN_ID))]
+    for facing in ('east','south','west'):cases.append(('Orientacion '+facing,column_scene(True,paint=paint,facing=facing)))
+    canvas=Image.new('RGB',(1440,1860),(194,194,194));draw=ImageDraw.Draw(canvas)
+    for index,(label,elements) in enumerate(cases):
+        origin,scale=framing(elements,size=(480,580));offset=(index%3*480,index//3*620+25)
+        canvas.paste(render(elements,origin,scale,size=(480,580),azimuth=120 if index==4 else -65,elevation=12,minecraft_orientation=True),offset)
+        draw.text((offset[0]+10,offset[1]-18),label,fill=(25,25,25))
+    canvas.save(preview_path(COLUMN_ID+'_review.png'))
+
+
 if __name__=='__main__':
     import sys
-    if '--entrance-only' in sys.argv:review_entrance()
+    if '--column-only' in sys.argv:review_column()
+    elif '--entrance-only' in sys.argv:review_entrance()
     else:review()

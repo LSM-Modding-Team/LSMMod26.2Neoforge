@@ -141,6 +141,74 @@ def check_paintable_bathroom():
     print('OK: original leaf in all 192 states; 2x3 frame, 8px edit groups, all 13 materials, hidden seams, item/drop and unchanged fine storage for legacy paint/cuts. Java interactions remain uncompiled and untested in Minecraft.')
 
 
+def check_paintable_column():
+    from create_paintable_bathroom_door import COLUMN_ID
+    from create_paintable_school_block import PAINTS,SIDES
+    from render_texture_review import load,add
+    from render_paintable_bathroom_door import column_scene,item_scene
+    from create_kiosk_entrance_assets import rotated
+    original=read(A/'blockstates/bathroom_door_wide.json')['multipart']
+    parts=read(A/f'blockstates/{COLUMN_ID}.json')['multipart']
+    assert {row['id']:row for row in audit()}[COLUMN_ID]['states']==192
+    def selected(entries,state,color=0):
+        result=[]
+        for entry in entries:
+            if not matches(entry['when'],state):continue
+            def predicate(condition):
+                if condition['type']=='lsmmod:glazing_mask':return 3 in condition.get('masks',[condition.get('mask')])
+                assert condition['type']=='lsmmod:painted_face' and 'quadrant' not in condition
+                return condition['paint']==color
+            for model in load(entry['apply']['model'],predicate=predicate):
+                for _ in range(3*(entry['apply'].get('y',0)//90)):model=rotated(model)
+                add(result,[model])
+        return result
+    def canonical(elements):return sorted(json.dumps(e,sort_keys=True) for e in elements)
+    for facing,opened,hinge,column,row,depth in itertools.product(('north','east','south','west'),('false','true'),('left','right'),range(2),range(3),range(2)):
+        state=dict(facing=facing,open=opened,hinge=hinge,column=str(column),row=str(row),depth=str(depth))
+        old=selected(original,state);new=selected(parts,state)
+        is_wall=lambda surface:surface['texture'] in ('lsmmod:block/classroom_white_wall','lsmmod:block/light_school_wall')
+        expected=[]
+        for element in old:
+            element=dict(element,faces={face:dict(surface) for face,surface in element['faces'].items()})
+            for surface in element['faces'].values():
+                if is_wall(surface):surface['texture']=PAINTS[0];surface.pop('cullface',None)
+            expected.append(element)
+        assert canonical(new)==canonical(expected),(state,'geometry, leaf or fixed transom changed')
+        wall=[e for e in new if any(f['texture']==PAINTS[0] for f in e['faces'].values())]
+        column_cell=depth==0 and column==(0 if hinge=='right' else 1)
+        assert bool(wall)==column_cell,(state,'paintable cell does not match physical column')
+        if wall:
+            assert len(wall)==6 and {f for e in wall for f in e['faces']}==set(SIDES)
+            assert all(e['to'][1]-e['from'][1]==(8 if row==2 else 16) for e in wall)
+            for color in range(13):
+                painted=selected(parts,state,color)
+                assert sum(any(f['texture']==PAINTS[color] for f in e['faces'].values()) for e in painted)==6
+    # Distinct paints on each world direction and row survive all four rotations and hinges.
+    colors={'down':1,'up':2,'north':3,'south':5,'west':6,'east':9}
+    for facing,right in itertools.product(('north','east','south','west'),(False,True)):
+        painted=column_scene(True,right,paint=lambda row,face:colors[face],facing=facing)
+        column_faces=[e for e in painted if any(f['texture'] in {PAINTS[c] for c in colors.values()} for f in e['faces'].values())]
+        assert len(column_faces)==18
+        for element in column_faces:
+            face,surface=next(iter(element['faces'].items()));assert surface['texture']==PAINTS[colors[face]],(facing,right,face)
+    item=item_scene(COLUMN_ID)
+    assert any(e['render_type']=='minecraft:translucent' for e in item) and any(f['texture']==PAINTS[0] for e in item for f in e['faces'].values())
+    assert all(0<=v<=16 for e in item for key in ('from','to') for v in e[key])
+    loot=read(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{COLUMN_ID}.json')
+    assert loot['pools'][0]['conditions'][1]['properties']=={'column':'0','row':'0','depth':'0'}
+    assert loot['pools'][0]['entries'][0]['name']=='lsmmod:'+COLUMN_ID
+    java=ROOT/'src/main/java/net/nicomar2009/lsmmod'
+    entity=(java/'block/SchoolBathroomColumnPaintEntity.java').read_text()
+    block=(java/'block/SchoolPaintableBathroomColumnDoorBlock.java').read_text()
+    assert 'extends SchoolPaintableBlockEntity' in entity and 'saveAdditional' not in entity and 'loadAdditional' not in entity
+    assert 'extends SchoolFramedDiningDoorBlock implements EntityBlock' in block and 'hasTransomGlazing' not in block
+    assert 'columnCell(state)?new SchoolBathroomColumnPaintEntity(pos,state):null' in block
+    rectangle=(java/'item/RectanglePaintTool.java').read_text()
+    assert 'block instanceof SchoolBathroomColumnPaintEntity column' in rectangle and 'column.canPaintAt' in rectangle
+    assert 'end=new End(end.plane,a,a+3,b,b+3)' in rectangle
+    print('OK: 192 states preserve original geometry, leaf/UV and glass; six independent whole-face paints per column cell, 13 materials, both hinges/all orientations, complete item and single drop. Java/Minecraft remain uncompiled.')
+
+
 def main():
     wrapper = read(A/'models/block/framed_door_transom.json')
     entries = wrapper['models'][0]
@@ -225,6 +293,7 @@ def main():
 
 if __name__ == '__main__':
     import sys
-    if '--paintable-bathroom-only' in sys.argv:check_paintable_bathroom()
+    if '--column-only' in sys.argv:check_paintable_column()
+    elif '--paintable-bathroom-only' in sys.argv:check_paintable_bathroom()
     elif '--entrance-only' in sys.argv:check_paintable_entrance()
     else:main()

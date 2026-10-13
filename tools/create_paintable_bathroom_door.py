@@ -153,7 +153,83 @@ def generate_entrance():
         if 'lsmmod:'+ENTRANCE_ID not in data['values']:data['values'].append('lsmmod:'+ENTRANCE_ID)
         write(path,data)
 
+COLUMN_ID='bathroom_door_wide_paintable_column'
+
+
+def generate_column():
+    """Keep original door/glass resources; replace only stationary masonry faces."""
+    source=json.loads((A/'blockstates/bathroom_door_wide.json').read_text())['multipart']
+    multipart=[];wall_parts={}
+    for entry in source:
+        models=load(entry['apply']['model'])
+        has_wall=any(face['texture'] in ('#white','#light') for model in models for element in model.get('elements',[]) for face in element['faces'].values())
+        if not has_wall:
+            multipart.append(copy.deepcopy(entry));continue
+        remaining=[]
+        for original in models:
+            model=copy.deepcopy(original);elements=[]
+            for element in model.get('elements',[]):
+                faces={face:surface for face,surface in element['faces'].items() if surface['texture'] in ('#white','#light')}
+                if faces and entry['when']['facing']=='north' and entry['when']['open']=='false':
+                    key=(entry['when']['hinge'],int(entry['when']['row']))
+                    part=wall_parts.setdefault(key,{})
+                    for face,surface in faces.items():
+                        native=copy.deepcopy(element);native['faces']={face:dict(surface,texture='#surface')}
+                        native['faces'][face].pop('cullface',None)
+                        if face in part:assert part[face]==native
+                        part[face]=native
+                element['faces']={face:surface for face,surface in element['faces'].items() if surface['texture'] not in ('#white','#light')}
+                if element['faces']:elements.append(element)
+            model['elements']=elements
+            if elements:remaining.append(model)
+        assert not remaining,'Original column must be isolated from the door leaf'
+    for hinge in ('left','right'):
+        for row in range(3):
+            parts=wall_parts[hinge,row];assert set(parts)==set(SIDES)
+            band='upper' if row==2 else 'full';name=f'{COLUMN_ID}/{hinge}_{band}'
+            groups=[]
+            for face in SIDES:
+                parent=name+'_'+face
+                write(A/f'models/block/{parent}.json',{'parent':'minecraft:block/block','render_type':'minecraft:solid',
+                    'textures':{'surface':PAINTS[0],'particle':'#surface'},'elements':[parts[face]]})
+                series=[]
+                for paint,texture in enumerate(PAINTS):
+                    model=parent
+                    if paint:
+                        model=parent+'_'+str(paint)
+                        write(A/f'models/block/{model}.json',{'parent':'lsmmod:block/'+parent,'textures':{'surface':texture}})
+                    series.append({'model':'lsmmod:block/'+model,'condition':{'type':'lsmmod:painted_face','face':face,'paint':paint,'local':True}})
+                groups.append(series)
+            write(A/f'models/block/{name}.json',{'loader':'fusion:model','type':'composite','textures':{'particle':PAINTS[0]},'models':groups})
+            for turn,facing in enumerate(('north','east','south','west')):
+                multipart.append({'when':{'facing':facing,'hinge':hinge,'column':'0' if hinge=='right' else '1','row':str(row),'depth':'0'},
+                    'apply':{'model':'lsmmod:block/'+name,'y':turn*90}})
+    write(A/f'blockstates/{COLUMN_ID}.json',{'multipart':multipart})
+    item=load('lsmmod:item/bathroom_door_wide_item_solid')[0]
+    item['textures'].update(white=PAINTS[0],light=PAINTS[0])
+    write(A/f'models/item/{COLUMN_ID}_solid.json',item)
+    write(A/f'models/item/{COLUMN_ID}.json',{'loader':'fusion:model','type':'composite','textures':{'particle':PAINTS[0]},
+        'models':[['lsmmod:item/'+COLUMN_ID+'_solid'],['lsmmod:item/bathroom_door_wide_item_translucent']]})
+    basic(COLUMN_ID,controller={'column':'0','row':'0','depth':'0'})
+    for filename,entry in (
+        ('ModBlocks.java',f'    public static final DeferredBlock<SchoolPaintableBathroomColumnDoorBlock> BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN = BLOCKS.registerBlock("{COLUMN_ID}", SchoolPaintableBathroomColumnDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));'),
+        ('ModItems.java','    public static final DeferredItem<BlockItem> BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN = ITEMS.registerSimpleBlockItem(ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN);')):
+        path=J/'registry'/filename;text=path.read_text()
+        if ' BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN =' not in text:path.write_text(text.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
+    path=J/'registry/ModBlockEntities.java';text=path.read_text()
+    if ' SCHOOL_BATHROOM_COLUMN_PAINT =' not in text:
+        entry='    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolBathroomColumnPaintEntity>> SCHOOL_BATHROOM_COLUMN_PAINT = BLOCK_ENTITIES.register("school_bathroom_column_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolBathroomColumnPaintEntity::new, ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN.get()));\n\n'
+        path.write_text(text.replace('    // Only the LEFT half',entry+'    // Only the LEFT half',1))
+    for locale,label in (('es_es','Puerta ancha de baño con columna pintable'),('en_us','Wide Bathroom Door with Paintable Column')):
+        path=A/f'lang/{locale}.json';data=json.loads(path.read_text());data['block.lsmmod.'+COLUMN_ID]=label;write(path,data)
+    for tool in ('axe','pickaxe'):
+        path=D/f'minecraft/tags/block/mineable/{tool}.json';data=json.loads(path.read_text())
+        if 'lsmmod:'+COLUMN_ID not in data['values']:data['values'].append('lsmmod:'+COLUMN_ID)
+        write(path,data)
+
+
 if __name__=='__main__':
     import sys
-    if '--entrance-only' in sys.argv:generate_entrance()
+    if '--column-only' in sys.argv:generate_column()
+    elif '--entrance-only' in sys.argv:generate_entrance()
     else:main()
