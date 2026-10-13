@@ -112,6 +112,7 @@
     "lsmmod:school_microwave",
     "lsmmod:dining_room_counter",
     "lsmmod:school_refrigerator",
-    "lsmmod:fire_alarm"
+    "lsmmod:fire_alarm",
+    "lsmmod:school_shelving"
   ]
 }

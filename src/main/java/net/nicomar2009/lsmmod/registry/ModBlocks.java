@@ -38,6 +38,8 @@ public final class ModBlocks {
 
     public static final DeferredBlock<DiningWallCabinetBlock> DINING_WALL_CABINET = BLOCKS.registerBlock("dining_wall_cabinet", DiningWallCabinetBlock::new, props -> props.strength(2F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
 
+    public static final DeferredBlock<SchoolShelvingBlock> SCHOOL_SHELVING = BLOCKS.registerBlock("school_shelving", SchoolShelvingBlock::new, props -> props.strength(3F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
     // BEGIN FACILITY EXPANSIONS
     public static final DeferredBlock<SchoolFramedDiningDoorBlock> DINING_DOOR_WIDE = BLOCKS.registerBlock("dining_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
     public static final DeferredBlock<SchoolFramedDiningDoorBlock> BATHROOM_DOOR_WIDE = BLOCKS.registerBlock("bathroom_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
