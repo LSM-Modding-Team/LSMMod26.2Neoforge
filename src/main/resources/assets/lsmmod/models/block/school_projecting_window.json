@@ -9,66 +9,1691 @@
   "models": [
     [
       {
-        "model": "lsmmod:block/school_projecting_window/phase_0",
+        "model": "lsmmod:block/school_projecting_window/legacy",
         "condition": {
-          "type": "lsmmod:projecting_window",
-          "phase": 0
+          "type": "lsmmod:projecting_window_layout",
+          "key": "fallback",
+          "refresh": true
         }
       },
       {
-        "model": "lsmmod:block/school_projecting_window/phase_1",
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_0_0",
         "condition": {
-          "type": "lsmmod:projecting_window",
-          "phase": 1
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_0_0"
         }
       },
       {
-        "model": "lsmmod:block/school_projecting_window/phase_2",
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_1_0",
         "condition": {
-          "type": "lsmmod:projecting_window",
-          "phase": 2
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_1_0"
         }
       },
       {
-        "model": "lsmmod:block/school_projecting_window/phase_3",
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_2_0",
         "condition": {
-          "type": "lsmmod:projecting_window",
-          "phase": 3
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_2_0"
         }
       },
       {
-        "model": "lsmmod:block/school_projecting_window/phase_4",
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_3_0",
         "condition": {
-          "type": "lsmmod:projecting_window",
-          "phase": 4
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_3_0"
         }
       },
       {
-        "model": "lsmmod:block/school_projecting_window/phase_5",
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_4_0",
         "condition": {
-          "type": "lsmmod:projecting_window",
-          "phase": 5
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_4_0"
         }
       },
       {
-        "model": "lsmmod:block/school_projecting_window/phase_6",
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_5_0",
         "condition": {
-          "type": "lsmmod:projecting_window",
-          "phase": 6
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_5_0"
         }
       },
       {
-        "model": "lsmmod:block/school_projecting_window/phase_7",
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_6_0",
         "condition": {
-          "type": "lsmmod:projecting_window",
-          "phase": 7
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_6_0"
         }
       },
       {
-        "model": "lsmmod:block/school_projecting_window/phase_8",
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_0_1",
         "condition": {
-          "type": "lsmmod:projecting_window",
-          "phase": 8
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_0_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_1_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_1_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_2_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_2_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_3_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_3_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_4_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_4_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_5_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_5_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_6_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_6_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_0_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_0_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_1_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_1_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_2_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_2_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_3_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_3_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_4_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_4_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_5_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_5_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_0_6_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_0_6_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_0_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_0_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_1_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_1_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_2_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_2_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_3_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_3_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_4_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_4_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_5_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_5_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_6_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_6_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_7_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_7_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_0_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_0_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_1_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_1_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_2_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_2_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_3_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_3_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_4_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_4_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_5_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_5_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_6_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_6_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_7_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_7_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_0_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_0_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_1_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_1_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_2_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_2_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_3_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_3_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_4_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_4_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_5_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_5_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_6_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_6_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h48_8_7_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h48_8_7_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_0_0_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_0_0_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_0_1_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_0_1_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_0_2_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_0_2_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_0_0_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_0_0_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_0_1_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_0_1_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_0_2_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_0_2_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_0_0_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_0_0_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_0_1_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_0_1_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_0_2_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_0_2_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_8_0_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_8_0_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_8_1_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_8_1_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_8_2_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_8_2_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_8_0_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_8_0_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_8_1_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_8_1_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_8_2_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_8_2_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_8_0_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_8_0_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_8_1_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_8_1_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h48_8_2_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h48_8_2_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_0_0_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_0_0_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_0_1_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_0_1_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_0_2_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_0_2_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_0_3_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_0_3_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_0_0_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_0_0_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_0_1_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_0_1_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_0_2_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_0_2_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_0_3_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_0_3_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_0_0_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_0_0_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_0_1_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_0_1_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_0_2_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_0_2_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_0_3_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_0_3_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_8_0_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_8_0_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_8_1_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_8_1_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_8_2_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_8_2_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_8_3_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_8_3_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_8_4_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_8_4_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_8_0_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_8_0_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_8_1_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_8_1_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_8_2_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_8_2_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_8_3_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_8_3_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_8_4_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_8_4_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_8_0_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_8_0_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_8_1_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_8_1_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_8_2_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_8_2_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_8_3_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_8_3_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h48_8_4_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h48_8_4_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_0_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_0_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_1_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_1_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_2_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_2_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_3_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_3_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_4_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_4_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_5_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_5_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_6_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_6_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_0_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_0_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_1_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_1_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_2_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_2_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_3_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_3_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_4_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_4_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_5_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_5_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_6_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_6_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_0_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_0_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_1_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_1_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_2_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_2_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_3_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_3_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_4_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_4_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_5_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_5_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_6_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_6_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_0_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_0_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_1_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_1_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_2_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_2_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_3_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_3_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_4_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_4_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_5_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_5_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_6_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_6_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_0_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_0_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_1_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_1_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_2_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_2_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_3_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_3_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_4_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_4_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_5_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_5_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_0_6_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_0_6_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_0_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_0_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_1_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_1_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_2_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_2_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_3_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_3_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_4_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_4_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_5_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_5_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_6_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_6_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_7_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_7_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_0_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_0_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_1_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_1_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_2_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_2_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_3_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_3_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_4_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_4_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_5_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_5_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_6_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_6_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_7_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_7_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_0_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_0_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_1_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_1_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_2_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_2_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_3_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_3_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_4_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_4_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_5_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_5_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_6_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_6_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_7_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_7_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_0_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_0_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_1_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_1_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_2_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_2_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_3_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_3_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_4_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_4_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_5_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_5_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_6_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_6_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_7_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_7_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_0_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_0_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_1_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_1_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_2_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_2_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_3_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_3_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_4_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_4_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_5_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_5_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_6_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_6_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w112h80_8_7_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w112h80_8_7_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_0_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_0_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_1_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_1_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_2_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_2_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_0_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_0_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_1_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_1_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_2_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_2_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_0_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_0_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_1_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_1_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_2_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_2_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_0_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_0_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_1_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_1_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_2_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_2_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_0_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_0_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_1_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_1_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_2_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_2_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_8_0_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_8_0_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_8_1_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_8_1_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_8_2_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_8_2_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_8_0_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_8_0_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_8_1_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_8_1_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_8_2_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_8_2_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_8_0_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_8_0_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_8_1_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_8_1_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_8_2_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_8_2_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_8_0_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_8_0_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_8_1_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_8_1_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_8_2_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_8_2_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_8_0_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_8_0_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_8_1_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_8_1_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_8_2_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_8_2_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_0_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_0_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_1_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_1_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_2_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_2_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_3_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_3_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_0_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_0_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_1_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_1_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_2_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_2_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_3_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_3_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_0_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_0_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_1_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_1_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_2_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_2_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_3_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_3_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_0_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_0_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_1_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_1_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_2_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_2_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_3_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_3_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_0_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_0_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_1_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_1_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_2_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_2_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_0_3_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_0_3_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_0_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_0_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_1_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_1_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_2_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_2_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_3_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_3_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_4_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_4_0"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_0_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_0_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_1_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_1_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_2_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_2_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_3_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_3_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_4_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_4_1"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_0_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_0_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_1_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_1_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_2_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_2_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_3_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_3_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_4_2",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_4_2"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_0_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_0_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_1_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_1_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_2_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_2_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_3_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_3_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_4_3",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_4_3"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_0_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_0_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_1_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_1_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_2_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_2_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_3_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_3_4"
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w64h80_8_4_4",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w64h80_8_4_4"
         }
       }
     ]

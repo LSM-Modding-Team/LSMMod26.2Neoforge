@@ -1,0 +1,310 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "frame": "lsmmod:block/school_projecting_window_frame",
+    "glass": "lsmmod:block/school_projecting_window_glass",
+    "particle": "#frame"
+  },
+  "elements": [
+    {
+      "from": [
+        3.0,
+        0,
+        14
+      ],
+      "to": [
+        4.0,
+        15.0,
+        16
+      ],
+      "faces": {
+        "west": {
+          "texture": "#frame",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            10.909090909090908
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          -24.0,
+          16.0,
+          16
+        ],
+        "axis": "x",
+        "angle": -45,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        3.0,
+        0,
+        14
+      ],
+      "to": [
+        4.0,
+        16.0,
+        16
+      ],
+      "faces": {
+        "east": {
+          "texture": "#frame",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            10.666666666666666
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          -24.0,
+          16.0,
+          16
+        ],
+        "axis": "x",
+        "angle": -45,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        3.0,
+        0,
+        14
+      ],
+      "to": [
+        4.0,
+        16.0,
+        16
+      ],
+      "faces": {
+        "up": {
+          "texture": "#frame",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            16.0
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          -24.0,
+          16.0,
+          16
+        ],
+        "axis": "x",
+        "angle": -45,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        3.0,
+        0,
+        14
+      ],
+      "to": [
+        4.0,
+        16.0,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#frame",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            10.666666666666666
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          -24.0,
+          16.0,
+          16
+        ],
+        "axis": "x",
+        "angle": -45,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        3.0,
+        0,
+        14
+      ],
+      "to": [
+        4.0,
+        16.0,
+        16
+      ],
+      "faces": {
+        "south": {
+          "texture": "#frame",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            10.666666666666666
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          -24.0,
+          16.0,
+          16
+        ],
+        "axis": "x",
+        "angle": -45,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        0,
+        15.0,
+        14
+      ],
+      "to": [
+        3.0,
+        16.0,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#frame",
+          "uv": [
+            0.0,
+            0.0,
+            1.8461538461538463,
+            16.0
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          -24.0,
+          16.0,
+          16
+        ],
+        "axis": "x",
+        "angle": -45,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        0,
+        15.0,
+        14
+      ],
+      "to": [
+        3.0,
+        16.0,
+        16
+      ],
+      "faces": {
+        "up": {
+          "texture": "#frame",
+          "uv": [
+            14.153846153846153,
+            0.0,
+            16.0,
+            16.0
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          -24.0,
+          16.0,
+          16
+        ],
+        "axis": "x",
+        "angle": -45,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        0,
+        15.0,
+        14
+      ],
+      "to": [
+        3.0,
+        16.0,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#frame",
+          "uv": [
+            0.0,
+            0.0,
+            1.8461538461538463,
+            16.0
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          -24.0,
+          16.0,
+          16
+        ],
+        "axis": "x",
+        "angle": -45,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        0,
+        15.0,
+        14
+      ],
+      "to": [
+        3.0,
+        16.0,
+        16
+      ],
+      "faces": {
+        "south": {
+          "texture": "#frame",
+          "uv": [
+            14.153846153846153,
+            0.0,
+            16.0,
+            16.0
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          -24.0,
+          16.0,
+          16
+        ],
+        "axis": "x",
+        "angle": -45,
+        "rescale": false
+      }
+    }
+  ],
+  "render_type": "minecraft:solid",
+  "loader": "fusion:model",
+  "type": "base"
+}

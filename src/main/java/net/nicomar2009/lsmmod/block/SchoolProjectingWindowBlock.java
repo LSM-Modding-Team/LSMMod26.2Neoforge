@@ -171,7 +171,45 @@ public class SchoolProjectingWindowBlock extends Block {
             return shape;
         });
     }
+    private record LayoutGeometryKey(String key,int profile,Direction facing,List<Integer> poses) {}
+    private static final Map<LayoutGeometryKey,Geometry> LAYOUT_GEOMETRY=new ConcurrentHashMap<>();
+    private static double[] transform(SchoolProjectingWindowLayout.Part part,double x,double y,double z,boolean open,boolean inverse) {
+        if(!open)return new double[]{x,y,z};
+        double py=part.oy()+part.height(),angle=-Math.PI/4*(inverse?-1:1),c=Math.cos(angle),sin=Math.sin(angle);
+        y-=py;z-=16;
+        return new double[]{x,c*y-sin*z+py,sin*y+c*z+16};
+    }
+    private Geometry layoutGeometry(BlockState state,BlockGetter level,SchoolProjectingWindowLayout.View view) {
+        Direction facing=state.getValue(FACING);int profile=halfWindow(state)?state.getValue(WALL_LEFT)?1:2:0;
+        List<SchoolProjectingWindowLayout.Part> parts=view.parts();
+        List<Integer> poses=parts.stream().map(part->view.pose(level,facing,part)).toList();
+        return LAYOUT_GEOMETRY.computeIfAbsent(new LayoutGeometryKey(view.key(),profile,facing,poses),ignored->{
+            VoxelShape collision=Shapes.empty(),outline=Shapes.empty();
+            for(int i=0;i<parts.size();i++) {
+                var part=parts.get(i);List<AABB> boxes=new ArrayList<>();boolean open=poses.get(i)==1;
+                if(!open)boxes.add(ExactVoxelShapes.box(part.x0(),part.y0(),14,part.x1(),part.y1(),16));
+                else for(double start=part.y0();start<part.y1();start+=.25) {
+                    double[] low={Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY};
+                    double[] high={Double.NEGATIVE_INFINITY,Double.NEGATIVE_INFINITY,Double.NEGATIVE_INFINITY};
+                    for(double x:new double[]{part.x0(),part.x1()})for(double y:new double[]{start,Math.min(part.y1(),start+.25)})for(double z:new double[]{14,16}) {
+                        double[] point=transform(part,x,y,z,true,false);
+                        for(int axis=0;axis<3;axis++){low[axis]=Math.min(low[axis],point[axis]);high[axis]=Math.max(high[axis],point[axis]);}
+                    }
+                    boxes.add(ExactVoxelShapes.box(low[0],low[1],low[2],high[0],high[1],high[2]));
+                }
+                VoxelShape shape=Shapes.rotateHorizontal(ExactVoxelShapes.union(boxes)).get(facing);
+                collision=Shapes.or(collision,shape);outline=Shapes.or(outline,SimpleBlockOutline.boundingBox(shape));
+            }
+            if(profile!=0) {
+                VoxelShape wall=Shapes.rotateHorizontal(Block.box(profile==1?0:8,0,0,profile==1?8:16,16,16)).get(facing);
+                collision=Shapes.or(collision,wall);outline=Shapes.or(outline,wall);
+            }
+            return new Geometry(collision,outline);
+        });
+    }
     private Geometry geometry(BlockState state,BlockGetter level,BlockPos pos) {
+        var layout=SchoolProjectingWindowLayout.find(level,pos,state);
+        if(layout!=null)return layoutGeometry(state,level,layout);
         int phase=phase(state),facing=switch(state.getValue(FACING)){case EAST->1;case SOUTH->2;case WEST->3;default->0;};
         int profile=halfWindow(state)?state.getValue(WALL_LEFT)?1:2:0;
         List<Part> parts=parts(state);int code=0;int[] poses=new int[parts.size()];
@@ -273,7 +311,9 @@ public class SchoolProjectingWindowBlock extends Block {
     }
     private static void refresh(Level level,BlockPos origin,Direction facing) {
         Direction right=facing.getClockWise();
-        for(int y=-1;y<=2;y++)for(int x=-1;x<=2;x++) {
+        int width=SchoolProjectingWindowLayout.RULES.stream().mapToInt(rule->rule.cells(8)).max().orElse(2);
+        int height=SchoolProjectingWindowLayout.RULES.stream().mapToInt(rule->rule.height()/16).max().orElse(2);
+        for(int y=-height;y<=height;y++)for(int x=-width;x<=width;x++) {
             BlockPos target=origin.relative(right,x).above(y);
             if(level.hasChunkAt(target)) {
                 BlockState value=level.getBlockState(target);
@@ -285,6 +325,8 @@ public class SchoolProjectingWindowBlock extends Block {
         if(!player.mayBuild())return InteractionResult.PASS;
         if(level.getBlockEntity(pos) instanceof SchoolProjectingWindowPaintEntity wall
                 &&wall.canPaintAt(hit.getDirection(),hit.getLocation()))return InteractionResult.PASS;
+        var layout=SchoolProjectingWindowLayout.find(level,pos,state);
+        if(layout!=null)return useLayout(state,level,pos,player,hit,layout);
         if(state.getValue(GRID_PHASE)==9) {
             if(level.isClientSide())return InteractionResult.SUCCESS;
             migrateGrid(level,pos,state);state=level.getBlockState(pos);
@@ -301,6 +343,34 @@ public class SchoolProjectingWindowBlock extends Block {
         BlockState value=level.getBlockState(origin);boolean open=!value.getValue(OPEN);
         ProjectingWindowHinge hinge=ProjectingWindowHinge.TOP;
         level.setBlock(origin,value.setValue(OPEN,open).setValue(HINGE,hinge),Block.UPDATE_ALL);
+        refresh(level,origin,facing);
+        level.playSound(null,pos,open?SoundEvents.IRON_DOOR_OPEN:SoundEvents.IRON_DOOR_CLOSE,SoundSource.BLOCKS,.4F,1.2F);
+        return InteractionResult.SUCCESS;
+    }
+    private InteractionResult useLayout(BlockState state,Level level,BlockPos pos,Player player,BlockHitResult hit,SchoolProjectingWindowLayout.View view) {
+        Direction facing=state.getValue(FACING),right=facing.getClockWise(),back=facing.getOpposite();
+        double dx=hit.getLocation().x-pos.getX()-.5,dz=hit.getLocation().z-pos.getZ()-.5;
+        double x=8+16*(dx*right.getStepX()+dz*right.getStepZ()),y=16*(hit.getLocation().y-pos.getY());
+        double z=8+16*(dx*back.getStepX()+dz*back.getStepZ());
+        SchoolProjectingWindowLayout.Part chosen=null;double distance=Double.POSITIVE_INFINITY;
+        for(var part:view.parts()) {
+            double[] local=transform(part,x,y,z,view.pose(level,facing,part)==1,true);
+            double a=Math.max(part.x0()-local[0],Math.max(0,local[0]-part.x1()));
+            double b=Math.max(part.y0()-local[1],Math.max(0,local[1]-part.y1()));
+            double c=Math.max(14-local[2],Math.max(0,local[2]-16)),d=a*a+b*b+c*c;
+            if(d<distance){distance=d;chosen=part;}
+        }
+        if(chosen==null)return InteractionResult.PASS;
+        double paneX=view.x()*16+chosen.ox(),paneY=view.y()*16+chosen.oy();
+        int minX=(int)Math.floor(paneX/16),maxX=(int)Math.ceil((paneX+chosen.width())/16)-1;
+        int minY=(int)Math.floor(paneY/16),maxY=(int)Math.ceil((paneY+chosen.height())/16)-1;
+        for(int cy=minY;cy<=maxY;cy++)for(int cx=minX;cx<=maxX;cx++) {
+            BlockPos target=view.origin().relative(right,cx).above(cy);
+            if(!level.mayInteract(player,target)||!player.mayUseItemAt(target,hit.getDirection(),player.getMainHandItem()))return InteractionResult.PASS;
+        }
+        if(level.isClientSide())return InteractionResult.SUCCESS;
+        BlockPos origin=view.controller(right,chosen);BlockState value=level.getBlockState(origin);boolean open=!value.getValue(OPEN);
+        level.setBlock(origin,value.setValue(OPEN,open).setValue(HINGE,ProjectingWindowHinge.TOP),Block.UPDATE_ALL);
         refresh(level,origin,facing);
         level.playSound(null,pos,open?SoundEvents.IRON_DOOR_OPEN:SoundEvents.IRON_DOOR_CLOSE,SoundSource.BLOCKS,.4F,1.2F);
         return InteractionResult.SUCCESS;

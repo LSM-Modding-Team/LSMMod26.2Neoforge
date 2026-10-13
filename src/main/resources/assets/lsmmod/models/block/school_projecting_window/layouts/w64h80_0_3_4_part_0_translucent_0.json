@@ -1,0 +1,105 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "frame": "lsmmod:block/school_projecting_window_frame",
+    "glass": "lsmmod:block/school_projecting_window_glass",
+    "particle": "#frame"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        14
+      ],
+      "to": [
+        14.999999999999996,
+        15.000000000000004,
+        16
+      ],
+      "faces": {
+        "east": {
+          "texture": "#glass",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            9.729729729729732
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        14
+      ],
+      "to": [
+        14.999999999999996,
+        15.000000000000004,
+        16
+      ],
+      "faces": {
+        "up": {
+          "texture": "#glass",
+          "uv": [
+            3.5862068965517264,
+            0.0,
+            16.0,
+            16.0
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        14
+      ],
+      "to": [
+        14.999999999999996,
+        15.000000000000004,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#glass",
+          "uv": [
+            0.0,
+            0.0,
+            12.413793103448274,
+            9.729729729729732
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        14
+      ],
+      "to": [
+        14.999999999999996,
+        15.000000000000004,
+        16
+      ],
+      "faces": {
+        "south": {
+          "texture": "#glass",
+          "uv": [
+            3.5862068965517264,
+            0.0,
+            16.0,
+            9.729729729729732
+          ]
+        }
+      }
+    }
+  ],
+  "render_type": "minecraft:translucent",
+  "loader": "fusion:model",
+  "type": "base"
+}

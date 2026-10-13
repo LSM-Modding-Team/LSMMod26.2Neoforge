@@ -95,8 +95,70 @@ def check_projecting_windows():
                 b=np.asarray(render(expected,[16,12,16],7,size=(320,360),azimuth=angle,elevation=12)).astype(int)
                 delta=np.max(np.abs(a-b),axis=2)
                 assert np.count_nonzero(delta>3)<100 and np.mean(delta)<.12,('mixed',side,pose,angle,np.mean(delta))
+    check_projecting_layouts()
     print('OK: placement-anchored 24x24 panes, rigid reversed 45-degree hinges at the far edge; two-pixel thickness, preserved UVs/alpha and no curtains. Cell renders agree with whole-pane renders, front and back.')
 
+
+
+def check_projecting_layouts():
+    import math,copy
+    import numpy as np
+    from create_school_projecting_window_assets import ID,PAINTABLE_ID,layout_rules,layout_key,layout_parts,sized_pane_models
+    from render_school_projecting_window import layout_scene
+    from render_texture_review import add,render
+    rules=layout_rules()
+    assert rules, "The layout table must contain at least one opening"
+    for rule in rules:
+        width,height=rule['width']*16,rule['height']*16
+        pw,ph=width/rule['columns'],height/rule['rows'];base=sized_pane_models(pw,ph)
+        for start in (0,8):
+            area=0;controllers=set();tiles=set()
+            for y in range(int(height)//16):
+                for x in range(math.ceil((start+width)/16)):
+                    key=layout_key(rule,start,x,y)
+                    root=read(A/f'models/block/{ID}/layouts/{key}.json')
+                    for part in layout_parts(rule,start,x,y):
+                        area+=(part[1]-part[0])*(part[3]-part[2]);tiles.add(part[-2:])
+                        controllers.add((math.floor((part[4]+x*16)/16),math.floor((part[5]+y*16)/16)))
+                    for series in root['models']:
+                        assert {e['condition']['pose'] for e in series}=={0,1}
+                        for entry in series:
+                            leaf=read(A/f'models/{entry["model"].split(":")[1]}.json')
+                            for element in leaf['elements']:
+                                assert all(-1e-8<=element['from'][axis]<element['to'][axis]<=16+1e-8 for axis in range(3))
+                                assert element['from'][2]==14 and element['to'][2]==16
+                                if entry['condition']['pose']:
+                                    assert element['rotation']['axis']=='x' and element['rotation']['angle']==-45 and element['rotation']['rescale'] is False
+                                else:assert 'rotation' not in element
+                    for side in ('left','right'):
+                        if side=='left' and not (start==8 and x==0):continue
+                        if side=='right' and not ((start+width)%16==8 and x==math.ceil((start+width)/16)-1):continue
+                        half=read(A/f'models/block/{PAINTABLE_ID}/layouts/{key}_{side}.json')
+                        assert half['models']==[[f'lsmmod:block/{PAINTABLE_ID}/wall_{side}',f'lsmmod:block/{ID}/layouts/{key}']]
+            assert abs(area-width*height)<1e-6
+            assert len(tiles)==len(controllers)==rule['columns']*rule['rows'], 'Two panes share an opening controller'
+            # All assembled native fragments must match full, independently placed pane models.
+            for opened,one in ((False,None),(True,None),(False,(0,0))):
+                expected=[]
+                for row in range(rule['rows']):
+                    for column in range(rule['columns']):
+                        ox,oy=start+column*pw,row*ph;pose=opened or one==(column,row)
+                        for model in base.values():
+                            model=copy.deepcopy(model)
+                            if pose:
+                                for element in model['elements']:element['rotation']={'origin':[0,ph,16],'axis':'x','angle':-45,'rescale':False}
+                            add(expected,[model],(ox,oy,0))
+                assembled=layout_scene(rule,start,opened,one,walls=False)
+                for angle in (-65,115):
+                    center=[start+width/2,height/2,18];scale=min(5,260/width)
+                    a=np.asarray(render(assembled,center,scale,size=(360,300),azimuth=angle,elevation=12)).astype(int)
+                    b=np.asarray(render(expected,center,scale,size=(360,300),azimuth=angle,elevation=12)).astype(int)
+                    delta=np.max(np.abs(a-b),axis=2)
+                    assert np.mean(delta)<.2 and np.count_nonzero(delta>3)<160,(rule,start,opened,one,angle,np.mean(delta))
+    for ident,path in ((ID,A/f'models/block/{ID}.json'),(PAINTABLE_ID,A/f'models/block/{PAINTABLE_ID}/left.json'),(PAINTABLE_ID,A/f'models/block/{PAINTABLE_ID}/right.json')):
+        first=read(path)['models'][0][0]['condition']
+        assert first=={'type':'lsmmod:projecting_window_layout','key':'fallback','refresh':True}
+    print(f'OK: {len(rules)} listed layouts, uniform full coverage, independent controllers, shared half panes; whole-pane renders match all cell fragments closed, open and independently opened, front/back.')
 
 def main():
     names={'school_glass':16,'supported_school_glass':320,'mixed_school_glass':320,'supported_school_glass_reversed':320,'mixed_school_glass_reversed':320,'tall_classroom_entrance':384}

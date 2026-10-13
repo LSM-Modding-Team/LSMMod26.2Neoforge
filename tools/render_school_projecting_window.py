@@ -20,6 +20,40 @@ def scene(poses, width=3, height=3):
     return result
 
 
+
+def layout_scene(rule,start=0,opened=False,one=None,paint=4,walls=True):
+    import math
+    from create_school_projecting_window_assets import layout_key,layout_parts
+    result=[];width,height=rule['width']*16,rule['height']*16
+    for y in range(int(height)//16):
+        for x in range(math.ceil((start+width)/16)):
+            key=layout_key(rule,start,x,y)
+            if walls and (start==8 and x==0 or (start+width)%16==8 and x==math.ceil((start+width)/16)-1):
+                side='left' if x==0 and start==8 else 'right'
+                for face in ('north','south','east','west','up','down'):
+                    add(result,load(f'lsmmod:block/{PAINTABLE_ID}/wall_{side}_{face}_{paint}'),(x*16,y*16,0))
+            for index,part in enumerate(layout_parts(rule,start,x,y)):
+                pose=int(opened or one==(part[-2],part[-1]))
+                for layer in ('solid','translucent'):
+                    path=A/f'models/block/{ID}/layouts/{key}_part_{index}_{layer}_{pose}.json'
+                    if path.exists():add(result,[json.loads(path.read_text())],(x*16,y*16,0))
+    return result
+
+
+def review_layouts():
+    from create_school_projecting_window_assets import layout_rules
+    rules=layout_rules();canvas=Image.new('RGB',(1800,1500))
+    for index,rule in enumerate(rules):
+        start=8 if index%2==0 else 0
+        for opened in (False,True):
+            column=index%3;row=index//3*2+int(opened)
+            geometry=layout_scene(rule,start,opened=opened)
+            image=render(geometry,[rule['width']*8+start,rule['height']*8,18],min(460/(rule['width']*16+16),250/(rule['height']*16+16)),size=(600,375),azimuth=-65 if not opened else 115,elevation=12)
+            canvas.paste(image,(column*600,row*375))
+            label=f"{rule['width']}x{rule['height']} bloques -> {rule['columns']}x{rule['rows']} paneles / {'abierto, dorso' if opened else 'cerrado, frente'}"
+            ImageDraw.Draw(canvas).text((column*600+10,row*375+10),label,fill=(25,25,25))
+    canvas.save(ROOT/'previews/school_projecting_window_layouts_review.png')
+
 def main():
     closed = scene({})
     # A 3x3-block opening contains exactly four 24x24-pixel panes.
@@ -64,6 +98,7 @@ def main():
         half.paste(render(geometry,[8,8,14] if side=='item' else [16,24,18],25 if side=='item' else 9,size=(420,640),azimuth=-65,elevation=18),(420*index,0))
         ImageDraw.Draw(half).text((420*index+10,15),label,fill=(25,25,25))
     half.save(ROOT/'previews/school_paintable_projecting_window_review.png')
+    review_layouts()
 
 
 if __name__ == '__main__':

@@ -103,7 +103,7 @@ def fragment(model, part, pose):
         surfaces = {}
         for face, surface in e['faces'].items():
             axis, positive = axes[face]
-            if (hi if positive else lo)[axis] != (b if positive else a)[axis]: continue
+            if abs((hi if positive else lo)[axis]-(b if positive else a)[axis])>1e-8: continue
             cropped = copy.deepcopy(surface)
             cropped['uv'] = crop_face_uv(surface['uv'], face, a, b, lo, hi)
             surfaces[face] = cropped
@@ -114,6 +114,99 @@ def fragment(model, part, pose):
     result.update(loader='fusion:model', type='base')
     return result
 
+
+
+def layout_rules():
+    rules=json.loads((A/'projecting_window_layouts.json').read_text())
+    seen=set()
+    for rule in rules:
+        w,h=rule['width']*16,rule['height']*16;c,r=rule['columns'],rule['rows']
+        assert w==int(w) and h==int(h) and w%8==0 and h%16==0
+        assert isinstance(c,int) and isinstance(r,int) and c>0 and r>0 and w/c>=16 and h/r>=16 and w<=1024 and h<=1024
+        assert (w,h) not in seen;seen.add((w,h))
+    return rules
+
+
+def layout_key(rule,start,x,y):
+    return f"w{int(rule['width']*16)}h{int(rule['height']*16)}_{start}_{x}_{y}"
+
+
+def layout_parts(rule,start,x,y):
+    w,h=rule['width']*16,rule['height']*16;pw,ph=w/rule['columns'],h/rule['rows']
+    result=[]
+    for row in range(rule['rows']):
+        for column in range(rule['columns']):
+            ox,oy=start+column*pw-x*16,row*ph-y*16
+            lo,hi=max(0,start-x*16,ox),min(16,start+w-x*16,ox+pw)
+            bottom,top=max(0,oy),min(16,oy+ph)
+            if lo<hi-1e-8 and bottom<top-1e-8:result.append((lo,hi,bottom,top,ox,oy,pw,ph,column,row))
+    return result
+
+
+def sized_pane_models(width,height):
+    components={'solid':[([0,0,14,1,height,16],'frame'),([width-1,0,14,width,height,16],'frame'),
+                         ([1,0,14,width-1,1,16],'frame'),([1,height-1,14,width-1,height,16],'frame')],
+                'translucent':[([1,1,14,width-1,height-1,16],'glass')]}
+    result={}
+    for layer,boxes in components.items():
+        model=solid_model(boxes);model.update(textures=TEXTURES,render_type='minecraft:'+layer)
+        result[layer]=model
+    return result
+
+
+def layout_fragment(model,part,pose):
+    value=fragment(model,part[:6],0)
+    if pose:
+        for e in value['elements']:e['rotation']={'origin':[part[4],part[5]+part[7],16],'axis':'x','angle':-45,'rescale':False}
+    return value
+
+
+def layout_models():
+    # Rebuild this generated family so deleted table entries leave no obsolete adaptive models.
+    import shutil,math
+    for ident in (ID,PAINTABLE_ID):
+        directory=A/f'models/block/{ident}/layouts'
+        if directory.exists():shutil.rmtree(directory)
+    rules=layout_rules();choices=[];half_choices={'left':[],'right':[]}
+    for side in half_choices:
+        groups=json.loads((A/f'models/block/{PAINTABLE_ID}/phase_0_{side}.json').read_text())['models'][:6]
+        write(A/f'models/block/{PAINTABLE_ID}/wall_{side}.json',{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]),'models':groups})
+    for rule in rules:
+        width,height=rule['width']*16,rule['height']*16
+        base=sized_pane_models(width/rule['columns'],height/rule['rows'])
+        for start in (0,8):
+            cells=math.ceil((start+width)/16)
+            for y in range(int(height)//16):
+                for x in range(cells):
+                    key=layout_key(rule,start,x,y);groups=[]
+                    for index,part in enumerate(layout_parts(rule,start,x,y)):
+                        for layer,model in base.items():
+                            series=[]
+                            for pose in range(2):
+                                value=layout_fragment(model,part,pose)
+                                if not value['elements']:continue
+                                name=f'{ID}/layouts/{key}_part_{index}_{layer}_{pose}'
+                                write(A/f'models/block/{name}.json',value)
+                                series.append({'model':'lsmmod:block/'+name,'condition':{'type':'lsmmod:projecting_window_layout','key':key,'part':index,'pose':pose}})
+                            if series:groups.append(series)
+                    name=f'{ID}/layouts/{key}'
+                    write(A/f'models/block/{name}.json',{'loader':'fusion:model','type':'composite','textures':TEXTURES,'models':groups})
+                    condition={'type':'lsmmod:projecting_window_layout','key':key}
+                    choices.append({'model':'lsmmod:block/'+name,'condition':condition})
+                    for side in half_choices:
+                        if side=='left' and not (start==8 and x==0):continue
+                        if side=='right' and not ((start+width)%16==8 and x==cells-1):continue
+                        half_name=f'{PAINTABLE_ID}/layouts/{key}_{side}'
+                        write(A/f'models/block/{half_name}.json',{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]),
+                              'models':[[f'lsmmod:block/{PAINTABLE_ID}/wall_{side}','lsmmod:block/'+name]]})
+                        half_choices[side].append({'model':'lsmmod:block/'+half_name,'condition':condition})
+    # The first predicate scans the supplied snapshot once, including whenever a neighboring cell changes.
+    for ident,side,entries in ((ID,None,choices),*( (PAINTABLE_ID,side,entries) for side,entries in half_choices.items())):
+        source=A/f'models/block/{ident}{("/"+side) if side else ""}.json'
+        legacy=f'{ident}/legacy{("_"+side) if side else ""}'
+        write(A/f'models/block/{legacy}.json',json.loads(source.read_text()))
+        first={'model':'lsmmod:block/'+legacy,'condition':{'type':'lsmmod:projecting_window_layout','key':'fallback','refresh':True}}
+        write(source,{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]) if side else TEXTURES,'models':[[first]+entries]})
 
 def main():
     Image.new('RGB', (16, 16), (17, 18, 19)).save(A/f'textures/block/{ID}_frame.png')
@@ -174,6 +267,7 @@ def main():
     if 'lsmmod:'+PAINTABLE_ID not in data['values']: data['values'].append('lsmmod:'+PAINTABLE_ID)
     write(path, data)
     paintable_models()
+    layout_models()
 
 
 if __name__ == '__main__': main()

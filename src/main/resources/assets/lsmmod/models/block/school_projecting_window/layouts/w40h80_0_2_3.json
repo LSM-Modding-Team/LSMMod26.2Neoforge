@@ -1,0 +1,91 @@
+{
+  "loader": "fusion:model",
+  "type": "composite",
+  "textures": {
+    "frame": "lsmmod:block/school_projecting_window_frame",
+    "glass": "lsmmod:block/school_projecting_window_glass",
+    "particle": "#frame"
+  },
+  "models": [
+    [
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_2_3_part_0_solid_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_2_3",
+          "part": 0,
+          "pose": 0
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_2_3_part_0_solid_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_2_3",
+          "part": 0,
+          "pose": 1
+        }
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_2_3_part_0_translucent_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_2_3",
+          "part": 0,
+          "pose": 0
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_2_3_part_0_translucent_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_2_3",
+          "part": 0,
+          "pose": 1
+        }
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_2_3_part_1_solid_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_2_3",
+          "part": 1,
+          "pose": 0
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_2_3_part_1_solid_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_2_3",
+          "part": 1,
+          "pose": 1
+        }
+      }
+    ],
+    [
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_2_3_part_1_translucent_0",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_2_3",
+          "part": 1,
+          "pose": 0
+        }
+      },
+      {
+        "model": "lsmmod:block/school_projecting_window/layouts/w40h80_0_2_3_part_1_translucent_1",
+        "condition": {
+          "type": "lsmmod:projecting_window_layout",
+          "key": "w40h80_0_2_3",
+          "part": 1,
+          "pose": 1
+        }
+      }
+    ]
+  ]
+}

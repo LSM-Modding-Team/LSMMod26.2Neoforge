@@ -1,0 +1,145 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "frame": "lsmmod:block/school_projecting_window_frame",
+    "glass": "lsmmod:block/school_projecting_window_glass",
+    "particle": "#frame"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        1.0,
+        14
+      ],
+      "to": [
+        6.9999999999999964,
+        16,
+        16
+      ],
+      "faces": {
+        "east": {
+          "texture": "#glass",
+          "uv": [
+            0.0,
+            6.270270270270271,
+            16.0,
+            16.0
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          -13.333333333333336,
+          26.666666666666668,
+          16
+        ],
+        "axis": "x",
+        "angle": -45,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        0,
+        1.0,
+        14
+      ],
+      "to": [
+        6.9999999999999964,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#glass",
+          "uv": [
+            0.0,
+            0.0,
+            5.793103448275859,
+            16.0
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          -13.333333333333336,
+          26.666666666666668,
+          16
+        ],
+        "axis": "x",
+        "angle": -45,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        0,
+        1.0,
+        14
+      ],
+      "to": [
+        6.9999999999999964,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#glass",
+          "uv": [
+            0.0,
+            6.270270270270271,
+            5.793103448275859,
+            16.0
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          -13.333333333333336,
+          26.666666666666668,
+          16
+        ],
+        "axis": "x",
+        "angle": -45,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        0,
+        1.0,
+        14
+      ],
+      "to": [
+        6.9999999999999964,
+        16,
+        16
+      ],
+      "faces": {
+        "south": {
+          "texture": "#glass",
+          "uv": [
+            10.20689655172414,
+            6.270270270270271,
+            16.0,
+            16.0
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          -13.333333333333336,
+          26.666666666666668,
+          16
+        ],
+        "axis": "x",
+        "angle": -45,
+        "rescale": false
+      }
+    }
+  ],
+  "render_type": "minecraft:translucent",
+  "loader": "fusion:model",
+  "type": "base"
+}

@@ -1,0 +1,15 @@
+{
+  "loader": "fusion:model",
+  "type": "composite",
+  "textures": {
+    "frame": "lsmmod:block/school_projecting_window_frame",
+    "glass": "lsmmod:block/school_projecting_window_glass",
+    "particle": "minecraft:block/light_gray_concrete"
+  },
+  "models": [
+    [
+      "lsmmod:block/school_paintable_projecting_window/wall_left",
+      "lsmmod:block/school_projecting_window/layouts/w40h80_8_0_4"
+    ]
+  ]
+}
