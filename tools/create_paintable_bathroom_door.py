@@ -125,26 +125,17 @@ def generate_entrance():
                                 'apply':{'model':'lsmmod:block/'+shared[key],'y':turn*90}})
     for turn,facing in enumerate(('north','east','south','west')):
         multipart.append({'when':{'facing':facing,'depth':'0'},'apply':{'model':f'lsmmod:block/{ID}_frame','y':turn*90}})
-        multipart.append({'when':{'facing':facing,'depth':'0','row':'2'},'apply':{'model':'lsmmod:block/framed_door_transom','y':turn*90}})
     write(A/f'blockstates/{ENTRANCE_ID}.json',{'multipart':multipart})
     leaf=entrance_leaf()
     for e in leaf['elements']:
         for key in ('from','to'):
             x,y,z=e[key];e[key]=[8+(x-16)/3,y/3,8+(z-8)/3]
     write(A/f'models/item/{ENTRANCE_ID}_leaf.json',leaf)
-    frame=scaled_item(FRAME[:1],{'surface':PAINTS[0],'particle':PAINTS[0]},32,48)
+    frame=scaled_item(FRAME,{'surface':PAINTS[0],'particle':PAINTS[0]},32,48)
     write(A/f'models/item/{ENTRANCE_ID}_frame.json',frame)
-    glass={'parent':'minecraft:block/block','render_type':'minecraft:translucent','textures':{},'elements':[]}
-    for column,mask in enumerate((1,2)):
-        native=load('lsmmod:block/framed_door_transom_'+str(mask))[0];glass['textures'].update(native['textures'])
-        for e in copy.deepcopy(native['elements']):
-            for key in ('from','to'):
-                x,y,z=e[key];e[key]=[8+(x+column*16-16)/3,(y+32)/3,8+(z-8)/3]
-            for surface in e['faces'].values():surface.pop('cullface',None)
-            glass['elements'].append(e)
-    write(A/f'models/item/{ENTRANCE_ID}_glass.json',glass)
+    (A/f'models/item/{ENTRANCE_ID}_glass.json').unlink(missing_ok=True)
     write(A/f'models/item/{ENTRANCE_ID}.json',{'loader':'fusion:model','type':'composite','textures':{'particle':PAINTS[0]},
-        'models':[[f'lsmmod:item/{ENTRANCE_ID}_{part}'] for part in ('leaf','frame','glass')]})
+        'models':[[f'lsmmod:item/{ENTRANCE_ID}_{part}'] for part in ('leaf','frame')]})
     basic(ENTRANCE_ID,controller={'column':'0','row':'0','depth':'0'})
     for filename,entry in (
         ('ModBlocks.java','    public static final DeferredBlock<SchoolPaintableEntranceDoorBlock> SCHOOL_ENTRANCE_DOOR_PAINTABLE = BLOCKS.registerBlock("'+ENTRANCE_ID+'", SchoolPaintableEntranceDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));'),
@@ -155,7 +146,7 @@ def generate_entrance():
     path=J/'registry/ModBlockEntities.java';text=path.read_text()
     text=text.replace('ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE.get()));','ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE.get(),ModBlocks.SCHOOL_ENTRANCE_DOOR_PAINTABLE.get()));')
     path.write_text(text)
-    for locale,label in (('es_es','Puerta del colegio con claraboya y marco pintable'),('en_us','School Door with Transom and Paintable Frame')):
+    for locale,label in (('es_es','Puerta del colegio con marco pintable'),('en_us','School Entrance Door with Paintable Frame')):
         path=A/f'lang/{locale}.json';data=json.loads(path.read_text());data['block.lsmmod.'+ENTRANCE_ID]=label;write(path,data)
     for tool in ('axe','pickaxe'):
         path=D/f'minecraft/tags/block/mineable/{tool}.json';data=json.loads(path.read_text())

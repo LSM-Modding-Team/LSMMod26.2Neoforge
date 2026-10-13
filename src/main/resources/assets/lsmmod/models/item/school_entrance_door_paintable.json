@@ -1,1 +1,1 @@
-{"loader":"fusion:model","type":"composite","textures":{"particle":"minecraft:block/light_gray_concrete"},"models":[["lsmmod:item/school_entrance_door_paintable_leaf"],["lsmmod:item/school_entrance_door_paintable_frame"],["lsmmod:item/school_entrance_door_paintable_glass"]]}
+{"loader":"fusion:model","type":"composite","textures":{"particle":"minecraft:block/light_gray_concrete"},"models":[["lsmmod:item/school_entrance_door_paintable_leaf"],["lsmmod:item/school_entrance_door_paintable_frame"]]}

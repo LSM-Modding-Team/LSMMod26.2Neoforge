@@ -28,11 +28,13 @@ def check_paintable_entrance():
             state=dict(facing=facing,open=opened,hinge=hinge,column=str(column),row=str(row),depth=str(depth))
             selected=[entry for entry in parts if matches(entry['when'],state)]
             assert sum(entry['apply']['model']==f'lsmmod:block/{ID}_frame' for entry in selected)==(depth==0)
-            assert sum(entry['apply']['model']=='lsmmod:block/framed_door_transom' for entry in selected)==(row==2 and depth==0)
+            assert not any('framed_door_transom' in entry['apply']['model'] for entry in selected)
             assert all(entry['apply'].get('y',0)==('north','east','south','west').index(facing)*90 for entry in selected)
     for right in (False,True):
-        cells=frame_cells(right,transom=True)
-        assert len(cells)==80 and all(y<10 and (x<2 if right else x>=6) for x,y,z in cells)
+        cells=frame_cells(right)
+        assert len(cells)==144
+        header={cell for cell in cells if cell[1]>=10}
+        assert header==set(itertools.product(range(8),range(10,12),range(4)))
         for opened in (False,True):
             actual=scene(opened,right,leaf_only=True,ident=ENTRANCE_ID);whole=[];add(whole,[entrance_leaf(opened,right)])
             for angle in (-90,-65,115):
@@ -40,19 +42,21 @@ def check_paintable_entrance():
                 delta=np.max(np.abs(np.asarray(render(actual,**options)).astype(int)-np.asarray(render(whole,**options)).astype(int)),axis=2)
                 assert delta.mean()<.2 and np.count_nonzero(delta>3)<150,('Leaf UV/cell seam',opened,right,angle,delta.mean())
             geometry=scene(opened,right,paint=9,ident=ENTRANCE_ID)
-            assert all(e['to'][1]<=40 for e in geometry if any(s['texture']==PAINTS[9] for s in e['faces'].values()))
+            painted_header=[e for e in geometry if e['from'][1]>=40 and any(s['texture']==PAINTS[9] for s in e['faces'].values())]
+            assert painted_header and max(e['to'][2] for e in painted_header)==16
             glass=[e for e in geometry if any(s['texture']=='lsmmod:block/school_glass' for s in e['faces'].values())]
-            assert glass and all(e['from'][1]>=40 and e['to'][1]<=48 for e in glass)
+            assert not glass
     item=item_scene(ENTRANCE_ID)
     assert any(any(s['texture']==PAINTS[0] for s in e['faces'].values()) for e in item)
-    assert any(any(s['texture']=='lsmmod:block/school_glass' for s in e['faces'].values()) for e in item)
+    assert not any(any(s['texture']=='lsmmod:block/school_glass' for s in e['faces'].values()) for e in item)
     assert any(any('double_school_entrance_' in s['texture'] for s in e['faces'].values()) for e in item)
     loot=read(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ENTRANCE_ID}.json')
     assert loot['pools'][0]['conditions'][1]['properties']=={'column':'0','row':'0','depth':'0'}
     java=ROOT/'src/main/java/net/nicomar2009/lsmmod'
-    assert 'hasTransomGlazing() {return true;}' in (java/'block/SchoolPaintableEntranceDoorBlock.java').read_text()
+    assert 'hasTransomGlazing() {return true;}' not in (java/'block/SchoolPaintableEntranceDoorBlock.java').read_text()
+    assert 'hasTransomGlazing() { return false; }' in (java/'block/SchoolPaintableBathroomDoorBlock.java').read_text()
     assert 'ModBlocks.SCHOOL_ENTRANCE_DOOR_PAINTABLE.get()' in (java/'registry/ModBlockEntities.java').read_text()
-    print('OK: one unchanged 24x40 school entrance leaf, 2x3 assembly, 192 states, original textures/UV and seamless split cells; shared 8px paintable side excludes fixed glazing, both hinges/orientations, three item layers and single drop. Minecraft interactions remain uncompiled.')
+    print('OK: unchanged entrance leaf/UV, 2x3 assembly and 192 states; solid paintable 32x8x16px header and shared 8px editing, no upper glass, both hinges/orientations, full item frame and single drop. Minecraft interactions remain uncompiled.')
 
 
 def check_paintable_bathroom():

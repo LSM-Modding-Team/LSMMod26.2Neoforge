@@ -16,7 +16,7 @@ def frame_cells(right=False,removed=(),transom=False):
 
 
 def scene(opened=False,right=False,paint=0,removed=(),facing='north',leaf_only=False,ident=ID):
-    cells=frame_cells(right,removed,ident==ENTRANCE_ID);result=[]
+    cells=frame_cells(right,removed);result=[]
     definition=json.loads((A/f'blockstates/{ident}.json').read_text())['multipart']
     turn=('north','east','south','west').index(facing)
     for column,row,depth in itertools.product(range(2),range(3),range(2)):
@@ -79,10 +79,10 @@ def review():
 def review_entrance():
     def door(*args,**kwargs):return scene(*args,ident=ENTRANCE_ID,**kwargs)
     removed=list(itertools.product((6,7),(4,5),(0,1)))
-    cases=[('Hoja original de entrada / claraboya fija',door()),('Abierta / claraboya fija',door(True)),
+    cases=[('Hoja original / dintel solido de 16 px de fondo',door()),('Abierta / dintel fijo pintable',door(True)),
            ('Bisagra derecha / marco verde',door(False,True,9)),('Cuadrados pintables de 8x8 px',door(paint=lambda xyz,face:4 if sum(v//2 for v in xyz)%2 else 9)),
            ('Martillo / recorte de 8 px en el lateral',door(True,False,9,removed)),('Dorso / madera y cristal originales',door(paint=9)),
-           ('Item / tres capas simultaneas',item_scene(ENTRANCE_ID))]
+           ('Item / hoja y marco completos',item_scene(ENTRANCE_ID))]
     for facing in ('east','south','west'):cases.append(('Orientacion '+facing,door(True,paint=9,facing=facing)))
     canvas=Image.new('RGB',(1440,2480),(194,194,194));draw=ImageDraw.Draw(canvas)
     for index,(label,elements) in enumerate(cases):
