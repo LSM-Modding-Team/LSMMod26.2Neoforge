@@ -3,8 +3,7 @@ import json
 from create_school_glass_assets import A, T, write, model
 from create_bathroom_statue_assets import solid_model
 
-IDS=('school_glass','supported_school_glass','mixed_school_glass',
-     'supported_school_glass_reversed','mixed_school_glass_reversed','tall_classroom_entrance')
+IDS=('school_glass','tall_classroom_entrance')
 
 def glazing(layout, low, high, bottom, top, occluders):
     posts=[]
@@ -80,7 +79,6 @@ def main():
                     else:low,high,occluders=0,8,[([0,8,0,16,16,16],'occluder')]
                     result=model(preserved+glazing(layout,low,high,bottom,top,occluders))
                     result['textures']=dict(old['textures'])
-                    if name in ('supported_school_glass','mixed_school_glass_reversed'):result['textures']['light_wall']='lsmmod:block/street_school_wall'
                     write(A/f'models/block/{target}.json',result);generated.add(target)
                 states=dict(state,frame_layout=str(layout))
                 variants[','.join(f'{k}={v}' for k,v in sorted(states.items()))]=dict(value,model=f'lsmmod:block/{target}')

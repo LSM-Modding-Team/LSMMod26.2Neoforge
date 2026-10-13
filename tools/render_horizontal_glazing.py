@@ -48,12 +48,19 @@ def render(model,center,scale):
 def main():
     from check_horizontal_glazing import layouts
     canvas=Image.new('RGB',(960,1200),(112,130,128));labels=ImageDraw.Draw(canvas)
-    for panel,(length,family,label) in enumerate(((4,'school_glass','4 bloques: separador cada 2'),(3,'school_glass','3 bloques: separador cada 1.5'),(4,'mixed_school_glass_bottom_straight','Escaleras: misma separacion'),(3,'tall_classroom_transom_0_0','Puertas: solo cambia el cristal'))):
+    for panel,(length,family,label) in enumerate(((4,'school_glass','4 bloques: separador cada 2'),(3,'school_glass','3 bloques: separador cada 1.5'),(4,'school_paintable_glass_stairs','Escaleras: misma separacion'),(3,'tall_classroom_transom_0_0','Puertas: solo cambia el cristal'))):
         pieces=[]
         for index,layout in enumerate(layouts(length)):
             stem=f'{family}_0_0'
             if family.startswith('tall_classroom_transom'):
                 stem=f'tall_classroom_transom_{index%2}_0_0_0'
+            if family=='school_paintable_glass_stairs':
+                from render_school_glass import stair_scene
+                elements=stair_scene(mask=layout)
+                for e in elements:
+                    for k in ('from','to'):e[k][0]+=16*index
+                pieces.extend(elements)
+                continue
             suffix='' if layout==3 else f'_horizontal_{layout}'
             m=json.loads((A/f'models/block/{stem}{suffix}.json').read_text())
             for e in m['elements']:

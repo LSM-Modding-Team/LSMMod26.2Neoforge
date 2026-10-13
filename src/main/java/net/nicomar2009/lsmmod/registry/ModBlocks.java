@@ -52,6 +52,8 @@ public final class ModBlocks {
 
     public static final DeferredBlock<SchoolPaintableEntranceDoorBlock> SCHOOL_ENTRANCE_DOOR_PAINTABLE = BLOCKS.registerBlock("school_entrance_door_paintable", SchoolPaintableEntranceDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));
 
+    public static final DeferredBlock<SchoolPaintableGlassStairBlock> SCHOOL_PAINTABLE_GLASS_STAIRS = BLOCKS.registerBlock("school_paintable_glass_stairs", SchoolPaintableGlassStairBlock::new, props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().dynamicShape());
+
     // BEGIN FACILITY EXPANSIONS
     public static final DeferredBlock<SchoolFramedDiningDoorBlock> DINING_DOOR_WIDE = BLOCKS.registerBlock("dining_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
     public static final DeferredBlock<SchoolFramedDiningDoorBlock> BATHROOM_DOOR_WIDE = BLOCKS.registerBlock("bathroom_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
@@ -116,40 +118,6 @@ public final class ModBlocks {
             "tiled_parquet_floor", FloorTransitionBlock::new,
             props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
     // END TILED PARQUET FLOOR
-
-    // BEGIN REMAINING GLASS MATERIAL FAMILIES
-    public static final DeferredBlock<SchoolGlassStairBlock> WHITE_DARK_SCHOOL_GLASS = BLOCKS.registerBlock(
-            "white_dark_school_glass", SchoolGlassStairBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-
-    public static final DeferredBlock<SchoolGlassStairBlock> WHITE_STREET_SCHOOL_GLASS = BLOCKS.registerBlock(
-            "white_street_school_glass", SchoolGlassStairBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-
-    public static final DeferredBlock<SchoolGlassStairBlock> DARK_WHITE_SCHOOL_GLASS = BLOCKS.registerBlock(
-            "dark_white_school_glass", SchoolGlassStairBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-
-    public static final DeferredBlock<SchoolGlassStairBlock> DARK_STREET_SCHOOL_GLASS = BLOCKS.registerBlock(
-            "dark_street_school_glass", SchoolGlassStairBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-
-    public static final DeferredBlock<SchoolGlassStairBlock> LIGHT_WHITE_SCHOOL_GLASS = BLOCKS.registerBlock(
-            "light_white_school_glass", SchoolGlassStairBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-
-    public static final DeferredBlock<SchoolGlassStairBlock> LIGHT_DARK_SCHOOL_GLASS = BLOCKS.registerBlock(
-            "light_dark_school_glass", SchoolGlassStairBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-
-    public static final DeferredBlock<SchoolGlassStairBlock> LIGHT_STREET_SCHOOL_GLASS = BLOCKS.registerBlock(
-            "light_street_school_glass", SchoolGlassStairBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-
-    public static final DeferredBlock<SchoolGlassStairBlock> STREET_LIGHT_SCHOOL_GLASS = BLOCKS.registerBlock(
-            "street_light_school_glass", SchoolGlassStairBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    // END REMAINING GLASS MATERIAL FAMILIES
 
     // BEGIN SCHOOL CABINET AND ROUTER
     public static final DeferredBlock<SchoolCabinetBlock> SCHOOL_CABINET = BLOCKS.registerBlock(
@@ -349,22 +317,6 @@ public final class ModBlocks {
     public static final DeferredBlock<SchoolGlassBlock> SCHOOL_GLASS = BLOCKS.registerBlock(
             "school_glass", props -> new SchoolGlassBlock(props, new double[][]{{0, 0, 0, 16, 16, 8}}),
             props -> props.strength(0.3F).sound(SoundType.GLASS).noOcclusion());
-
-    public static final DeferredBlock<SchoolGlassStairBlock> SUPPORTED_SCHOOL_GLASS = BLOCKS.registerBlock(
-            "supported_school_glass", SchoolGlassStairBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-
-    public static final DeferredBlock<SchoolGlassStairBlock> MIXED_SCHOOL_GLASS = BLOCKS.registerBlock(
-            "mixed_school_glass", SchoolGlassStairBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-
-    public static final DeferredBlock<SchoolGlassStairBlock> SUPPORTED_SCHOOL_GLASS_REVERSED = BLOCKS.registerBlock(
-            "supported_school_glass_reversed", SchoolGlassStairBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-
-    public static final DeferredBlock<SchoolGlassStairBlock> MIXED_SCHOOL_GLASS_REVERSED = BLOCKS.registerBlock(
-            "mixed_school_glass_reversed", SchoolGlassStairBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
 
     public static final DeferredBlock<DoubleSchoolEntranceBlock> DOUBLE_SCHOOL_ENTRANCE = BLOCKS.registerBlock(
             "double_school_entrance", DoubleSchoolEntranceBlock::new,

@@ -3,7 +3,7 @@ import itertools,json,hashlib
 from pathlib import Path
 from PIL import Image
 from create_school_glass_assets import A, ROOT
-from create_school_glass_stair_assets import QUARTERS
+from create_school_glass_stair_assets import QUARTERS,ID
 from create_school_curtain_assets import IDS, PARTS, base_parts
 
 def read(path):return json.loads(path.read_text())
@@ -21,12 +21,12 @@ def selection(first,end,right):
 
 def main():
     cached={};tested=0
-    for block in IDS:
+    for block in (*IDS,ID):
         definition=read(A/f'blockstates/{block}.json')
         assert 'variants' not in definition and 'multipart' in definition
         base=base_parts(definition)
-        assert len(base)==(4 if block=='school_glass' else 80)
-        overlay=[p for p in definition['multipart'] if 'curtain' in p['when']]
+        assert len(base)==(4 if block=='school_glass' else 41)
+        overlay=[p for p in definition['multipart'] if 'curtain' in p.get('when',{})]
         cases=[(None,None)] if block=='school_glass' else list(itertools.product(('bottom','top'),QUARTERS))
         for facing,angle in (('north',0),('east',90),('south',180),('west',270)):
             for half,shape in cases:

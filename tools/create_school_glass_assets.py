@@ -28,9 +28,6 @@ PART_IDS={(0,0):'tall_classroom_entrance',(1,0):'tall_classroom_entrance_right_b
 
 def model(elements,block_name=None):
     textures=dict(T)
-    if block_name in ('mixed_school_glass','mixed_school_glass_reversed','supported_school_glass','supported_school_glass_reversed'):
-        textures['concrete']='lsmmod:block/classroom_white_wall'
-    if block_name in ('supported_school_glass','mixed_school_glass_reversed'):textures['light_wall']='lsmmod:block/street_school_wall'
     return {'parent':'minecraft:block/block','render_type':'minecraft:translucent','textures':textures,'elements':elements}
 
 def textures():
@@ -65,7 +62,7 @@ def transom_parts(top,bottom):
 
 def main():
     textures()
-    for name,sill in [('school_glass',False),('supported_school_glass',True),('mixed_school_glass',True)]:
+    for name,sill in [('school_glass',False)]:
         variants={}
         for top in (False,True):
             for bottom in (False,True):
@@ -76,10 +73,6 @@ def main():
                        cube([0,y,0,1,16,8],'frame'),cube([15,y,0,16,16,8],'frame')]
                 if not bottom:parts.append(cube([1,y,0,15,y+1,8],'frame'))
                 if not top:parts.append(cube([1,15,0,15,16,8],'frame'))
-                if name=='mixed_school_glass':
-                    parts.extend([cube([0,0,0,16,8,8],'concrete'),cube([0,0,8,16,8,16],'light_wall')])
-                    del parts[-2]['faces']['south'];del parts[-1]['faces']['north']
-                elif sill:parts.append(cube([0,0,0,16,8,16],'support'))
                 # Only boundary faces can be culled, never the top of the step.
                 for e in parts:
                     for f,axis,positive in [('west',0,False),('east',0,True),('down',1,False),('up',1,True)]:
@@ -160,8 +153,6 @@ def main():
         for path in [A/f'blockstates/{old}.json',A/f'items/{old}.json',A/f'models/item/{old}.json',D/f'lsmmod/loot_table/blocks/{old}.json']:
             path.unlink(missing_ok=True)
     names={'school_glass':('Cristal del colegio','School Glass'),
-           'supported_school_glass':('Cristal con alféizar de pared oscura','School Glass with Dark Wall Sill'),
-           'mixed_school_glass':('Cristal con muro claro y concreto blanco','School Glass with Light Wall and White Concrete'),
            'tall_classroom_entrance':('Puerta alta de aula','Tall Classroom Door')}
     for locale,index in [('es_es',0),('en_us',1)]:
         p=A/f'lang/{locale}.json';v=json.loads(p.read_text())
@@ -169,7 +160,7 @@ def main():
             if old!='tall_classroom_entrance':v.pop('block.lsmmod.'+old,None)
         for name,n in names.items():v['block.lsmmod.'+name]=n[index]
         write(p,v)
-    for tag,ids in [('pickaxe',['supported_school_glass','mixed_school_glass']),('axe',['tall_classroom_entrance'])]:
+    for tag,ids in [('axe',['tall_classroom_entrance'])]:
         p=D/f'minecraft/tags/block/mineable/{tag}.json';v=json.loads(p.read_text())
         v['values']=[x for x in v['values'] if x.removeprefix('lsmmod:') not in set(PART_IDS.values())-{'tall_classroom_entrance'}]
         for name in ids:

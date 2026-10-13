@@ -21,6 +21,8 @@ public final class SchoolNpcJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(PaintedWallNameProvider.INSTANCE, net.nicomar2009.lsmmod.block.SchoolPaintableProjectingWindowBlock.class);
         registration.registerBlockIcon(PaintedWallNameProvider.INSTANCE, net.nicomar2009.lsmmod.block.SchoolPaintableBathroomDoorBlock.class);
         registration.registerBlockComponent(PaintedWallNameProvider.INSTANCE, net.nicomar2009.lsmmod.block.SchoolPaintableBathroomDoorBlock.class);
+        registration.registerBlockIcon(PaintedWallNameProvider.INSTANCE, net.nicomar2009.lsmmod.block.SchoolPaintableGlassStairBlock.class);
+        registration.registerBlockComponent(PaintedWallNameProvider.INSTANCE, net.nicomar2009.lsmmod.block.SchoolPaintableGlassStairBlock.class);
         registration.registerBlockIcon(PaintedWallNameProvider.INSTANCE, net.nicomar2009.lsmmod.block.SchoolPaintableBlock.class);
         registration.registerBlockComponent(PaintedWallNameProvider.INSTANCE, net.nicomar2009.lsmmod.block.SchoolPaintableBlock.class);
         registration.registerEntityComponent(SchoolNpcStatsProvider.Client.INSTANCE, SchoolNpcEntity.class);

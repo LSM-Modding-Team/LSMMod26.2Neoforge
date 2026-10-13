@@ -22,6 +22,8 @@ public class SchoolPaintableCustomBlockEntity extends SchoolPaintableBlockEntity
                 SchoolPaint.fromId(input.getIntOr("paint_"+face.getSerializedName(),0)).ordinal());
     }
     public int occupied() { return occupied; }
+    protected void restrictOccupancy(int mask) {occupied&=mask;}
+    protected boolean removeEmptyBlock() {return true;}
     public boolean hasCube(int cube) { return (occupied & (1 << cube)) != 0; }
     public static int quadrant(Direction face, int x, int y, int z) {
         return switch (face.getAxis()) { case X -> z + 2*y; case Y -> x + 2*z; case Z -> x + 2*y; };
@@ -66,7 +68,7 @@ public class SchoolPaintableCustomBlockEntity extends SchoolPaintableBlockEntity
         int cube=hitCube(face,hit);
         if(!hasCube(cube)) return false;
         occupied &= ~(1<<cube);
-        if(occupied==0 && level!=null) level.removeBlock(worldPosition,false);
+        if(occupied==0 && level!=null && removeEmptyBlock()) level.removeBlock(worldPosition,false);
         else {
             changed();
             if(level!=null) level.updateNeighborsAt(worldPosition,getBlockState().getBlock());
@@ -84,7 +86,7 @@ public class SchoolPaintableCustomBlockEntity extends SchoolPaintableBlockEntity
     }
     @Override protected void loadAdditional(ValueInput input) {
         occupied=input.getIntOr("occupied",255)&255;
-        if(occupied==0) occupied=255; // Empty blocks are removed rather than persisted.
+        if(occupied==0 && removeEmptyBlock()) occupied=255; // Empty standalone blocks are removed rather than persisted.
         long low=input.getLongOr("paints_low",0),high=input.getLongOr("paints_high",0);
         int bits=input.getIntOr("paint_bits",3)==4 ? 4 : 3; // Legacy palettes used three bits.
         int mask=(1<<bits)-1;

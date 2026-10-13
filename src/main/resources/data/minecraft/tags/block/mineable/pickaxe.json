@@ -19,10 +19,6 @@
     "lsmmod:men_urinal",
     "lsmmod:adult_men_urinal",
     "lsmmod:football_basketball_goal",
-    "lsmmod:supported_school_glass",
-    "lsmmod:mixed_school_glass",
-    "lsmmod:supported_school_glass_reversed",
-    "lsmmod:mixed_school_glass_reversed",
     "lsmmod:light_school_wall_railing",
     "lsmmod:school_railing_slope_split_1",
     "lsmmod:school_railing_slope_split_2",
@@ -81,14 +77,6 @@
     "lsmmod:light_school_tiled_floor",
     "lsmmod:yellow_school_block",
     "lsmmod:tiled_parquet_floor",
-    "lsmmod:white_dark_school_glass",
-    "lsmmod:white_street_school_glass",
-    "lsmmod:dark_white_school_glass",
-    "lsmmod:dark_street_school_glass",
-    "lsmmod:light_white_school_glass",
-    "lsmmod:light_dark_school_glass",
-    "lsmmod:light_street_school_glass",
-    "lsmmod:street_light_school_glass",
     "lsmmod:school_cabinet",
     "lsmmod:school_router",
     "lsmmod:school_sink",
@@ -120,6 +108,7 @@
     "lsmmod:school_name_sign",
     "lsmmod:bathroom_door_wide_paintable",
     "lsmmod:school_paintable_mini_cube_block",
-    "lsmmod:school_entrance_door_paintable"
+    "lsmmod:school_entrance_door_paintable",
+    "lsmmod:school_paintable_glass_stairs"
   ]
 }

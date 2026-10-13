@@ -4,8 +4,7 @@ from PIL import Image, ImageDraw
 from create_school_glass_assets import A, ROOT, write
 from create_bathroom_statue_assets import solid_model
 
-IDS=('school_glass','supported_school_glass','mixed_school_glass',
-     'supported_school_glass_reversed','mixed_school_glass_reversed')
+IDS=('school_glass',)
 PARTS=('single','left','middle','right')
 
 def mounts():

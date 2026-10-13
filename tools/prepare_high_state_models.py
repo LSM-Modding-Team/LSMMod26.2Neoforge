@@ -1,18 +1,17 @@
-"""Build-time Fusion model decisions for the nineteen blocks with >=256 original states.
+"""Build-time Fusion model decisions for the blocks with >=256 original states.
 
 Native model/OBJ files are untouched. Physical state properties remain physical;
 only pavement borders and bars panel phase are selected from neighboring blocks.
 """
-from school_glass_material_families import NEW_GLASS_IDS
 from collections import defaultdict
 from pathlib import Path
 import itertools,hashlib,json,math
-TARGETS=('elementary_playground_awning','playground_awning','mixed_school_glass','mixed_school_glass_reversed',
- 'supported_school_glass','supported_school_glass_reversed','awning_support','school_gate','football_basketball_goal',
+TARGETS=('elementary_playground_awning','playground_awning',
+ 'awning_support','school_gate','football_basketball_goal',
  'school_entrance_pavement_slab','street_school_bars','double_school_entrance','light_school_wall_railing',
- *(f'school_entrance_pavement_slope_{i}' for i in range(1,7)),*NEW_GLASS_IDS)
+ *(f'school_entrance_pavement_slope_{i}' for i in range(1,7)))
 PAVEMENT=('school_entrance_pavement', 'school_entrance_pavement_slab',*(f'school_entrance_pavement_slope_{i}' for i in range(1,7)))
-GLASS=('mixed_school_glass','mixed_school_glass_reversed','supported_school_glass','supported_school_glass_reversed',*NEW_GLASS_IDS)
+GLASS=()
 BORDER=('north','east','south','west','up','down')
 def canonical(data):return json.dumps(data,sort_keys=True,separators=(',',':'),ensure_ascii=False)
 def read(path):return json.loads(path.read_text(encoding='utf-8-sig'))

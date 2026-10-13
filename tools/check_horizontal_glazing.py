@@ -16,8 +16,6 @@ def posts(model,y):
 
 def main():
     sources=['school_glass_0_0']
-    for name in ('supported_school_glass','mixed_school_glass','supported_school_glass_reversed','mixed_school_glass_reversed'):
-        sources += [f'{name}_{half}_straight_{t}_{b}' for half in ('bottom','top') for t in (0,1) for b in (0,1)]
     sources += [f'tall_classroom_transom_{h}_{o}_{t}_{b}' for h in (0,1) for o in (0,1) for t in (0,1) for b in (0,1)]
     for stem in sources:
         base=json.loads((A/f'models/block/{stem}.json').read_text())
@@ -57,6 +55,8 @@ def main():
         assert 'SchoolGlazing.refreshHorizontal' in s
         if file=='TallClassroomEntranceBlock.java':assert 'SchoolGlazing.FRAME_LAYOUT' not in s
         assert 'SchoolGlazing.mirrorLayout' in s and 'SimpleBlockOutline.forState' in s
-    print('OK: 1–17 blocks, even/odd spacing, distant parity changes, all four stairs, door open/closed, preserved supports and visible inner frame faces.')
+    from check_school_glass import check_paintable_stairs
+    check_paintable_stairs()
+    print('OK: 1–17 blocks, even/odd spacing, distant parity changes, paintable stairs, door open/closed, preserved supports and visible inner frame faces.')
 
 if __name__=='__main__':main()

@@ -6,8 +6,7 @@ import net.minecraft.nbt.ListTag;
 
 /** Copy-on-write conversion preserves palette indices and packed block data. */
 public final class LegacyCurtainStates {
-    private static final Set<String> HOSTS=Set.of("lsmmod:school_glass","lsmmod:supported_school_glass",
-            "lsmmod:mixed_school_glass","lsmmod:supported_school_glass_reversed","lsmmod:mixed_school_glass_reversed",
+    private static final Set<String> HOSTS=Set.of("lsmmod:school_glass","lsmmod:school_paintable_glass_stairs",
             "lsmmod:tall_classroom_entrance","lsmmod:tall_bathroom_door","lsmmod:tall_teachers_office_door",
             "lsmmod:tall_dining_door","lsmmod:double_school_entrance");
     private static final Set<String> PAVEMENT=Set.of("lsmmod:school_entrance_pavement","lsmmod:school_entrance_pavement_slab",

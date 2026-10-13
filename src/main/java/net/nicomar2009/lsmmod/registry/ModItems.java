@@ -47,6 +47,8 @@ public final class ModItems {
 
     public static final DeferredItem<BlockItem> SCHOOL_ENTRANCE_DOOR_PAINTABLE = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ENTRANCE_DOOR_PAINTABLE);
 
+    public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_GLASS_STAIRS = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_GLASS_STAIRS);
+
     // BEGIN FACILITY EXPANSIONS
     public static final DeferredItem<BlockItem> DINING_DOOR_WIDE = ITEMS.registerSimpleBlockItem(ModBlocks.DINING_DOOR_WIDE);
     public static final DeferredItem<BlockItem> BATHROOM_DOOR_WIDE = ITEMS.registerSimpleBlockItem(ModBlocks.BATHROOM_DOOR_WIDE);
@@ -112,17 +114,6 @@ public final class ModItems {
     // BEGIN TILED PARQUET FLOOR
     public static final DeferredItem<BlockItem> TILED_PARQUET_FLOOR = ITEMS.registerSimpleBlockItem(ModBlocks.TILED_PARQUET_FLOOR);
     // END TILED PARQUET FLOOR
-
-    // BEGIN REMAINING GLASS MATERIAL FAMILIES
-    public static final DeferredItem<BlockItem> WHITE_DARK_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.WHITE_DARK_SCHOOL_GLASS);
-    public static final DeferredItem<BlockItem> WHITE_STREET_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.WHITE_STREET_SCHOOL_GLASS);
-    public static final DeferredItem<BlockItem> DARK_WHITE_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.DARK_WHITE_SCHOOL_GLASS);
-    public static final DeferredItem<BlockItem> DARK_STREET_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.DARK_STREET_SCHOOL_GLASS);
-    public static final DeferredItem<BlockItem> LIGHT_WHITE_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_WHITE_SCHOOL_GLASS);
-    public static final DeferredItem<BlockItem> LIGHT_DARK_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_DARK_SCHOOL_GLASS);
-    public static final DeferredItem<BlockItem> LIGHT_STREET_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.LIGHT_STREET_SCHOOL_GLASS);
-    public static final DeferredItem<BlockItem> STREET_LIGHT_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.STREET_LIGHT_SCHOOL_GLASS);
-    // END REMAINING GLASS MATERIAL FAMILIES
 
     // BEGIN SCHOOL CABINET AND ROUTER
     public static final DeferredItem<BlockItem> SCHOOL_CABINET = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_CABINET);
@@ -231,10 +222,6 @@ public final class ModItems {
             ITEMS.registerItem("school_curtain",net.nicomar2009.lsmmod.item.SchoolCurtainItem::new);
 
     public static final DeferredItem<BlockItem> SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_GLASS);
-    public static final DeferredItem<BlockItem> SUPPORTED_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.SUPPORTED_SCHOOL_GLASS);
-    public static final DeferredItem<BlockItem> MIXED_SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.MIXED_SCHOOL_GLASS);
-    public static final DeferredItem<BlockItem> SUPPORTED_SCHOOL_GLASS_REVERSED = ITEMS.registerSimpleBlockItem(ModBlocks.SUPPORTED_SCHOOL_GLASS_REVERSED);
-    public static final DeferredItem<BlockItem> MIXED_SCHOOL_GLASS_REVERSED = ITEMS.registerSimpleBlockItem(ModBlocks.MIXED_SCHOOL_GLASS_REVERSED);
     public static final DeferredItem<BlockItem> DOUBLE_SCHOOL_ENTRANCE = ITEMS.registerSimpleBlockItem(ModBlocks.DOUBLE_SCHOOL_ENTRANCE);
     public static final DeferredItem<BlockItem> TALL_CLASSROOM_ENTRANCE = ITEMS.registerSimpleBlockItem(ModBlocks.TALL_CLASSROOM_ENTRANCE);
 

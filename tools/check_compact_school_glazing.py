@@ -44,7 +44,7 @@ def main():
  update=(J/'mixin/GlazingClientUpdatesMixin.java').read_text()
  assert 'handleBlockUpdate' in update and 'handleChunkBlocksUpdate' in update and 'setSectionDirtyWithNeighbors' in update
  assert 'else level.scheduleTick' not in (J/'block/SchoolCurtains.java').read_text()
- old=4*32*25+4*(4*2*5*2*32*25);new=4*17+4*(4*2*5*2*17)
- assert (old,new)==(259200,5508)
- print(f'OK: {checked} dynamic geometry/rotation conditions, 17 valid curtain layouts, idempotent generation; {old} -> {new} states (97.875% fewer); migration and client packet hooks checked statically.')
+ active_states=4*17+4*2*5*2*17
+ assert active_states==1428
+ print(f'OK: {checked} dynamic geometry/rotation conditions, 17 valid curtain layouts, idempotent generation; {active_states} active glass/stair states; paints and carving remain entity data; migration and client packet hooks checked statically.')
 if __name__=='__main__':main()

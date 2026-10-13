@@ -120,5 +120,5 @@ if __name__=='__main__':
  else:
   with tempfile.TemporaryDirectory() as t:
    output=Path(t)/'resources';report,aliases=prepare(output);count=verify(output,aliases)
- print(f'OK: {count} state/visual-profile combinations select exactly the same native geometry and transforms; 19 target blocks covered, physical ownership preserved; physical ownership preserved.')
+ print(f'OK: {count} state/visual-profile combinations select exactly the same native geometry and transforms; {len(TARGETS)} target blocks covered, physical ownership preserved; physical ownership preserved.')
  print(json.dumps(report))

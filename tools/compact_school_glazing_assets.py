@@ -8,7 +8,7 @@ from pathlib import Path
 from collections import defaultdict
 import json,hashlib
 R=Path(__file__).resolve().parents[1];A=R/'src/main/resources/assets/lsmmod'
-IDS=('school_glass','supported_school_glass','mixed_school_glass','supported_school_glass_reversed','mixed_school_glass_reversed')
+IDS=('school_glass',)
 CONNECTIONS=('frame_layout','top_connected','bottom_connected')
 def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, v, ensure_ascii=False)+'\n',encoding='utf-8')
 def main():
