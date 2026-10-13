@@ -41,7 +41,6 @@ public class SchoolProjectingWindowBlock extends Block {
     public static final EnumProperty<ProjectingWindowHinge> HINGE=EnumProperty.create("hinge",ProjectingWindowHinge.class);
     public static final IntegerProperty GRID_PHASE=IntegerProperty.create("grid_phase",0,9);
     public static final BooleanProperty WALL_LEFT=BooleanProperty.create("wall_left");
-    private static final int SCAN_LIMIT=64;
     /** Cell bounds and full pane origin in local north-facing coordinates. */
     public record Part(int x0,int x1,int y0,int y1,int ox,int oy) {}
     private record Axis(int low,int high,int origin) {}
@@ -120,14 +119,14 @@ public class SchoolProjectingWindowBlock extends Block {
         }
         return true;
     }
-    /** Closed fallback for missing controllers/chunks or a stale renderer state. */
+    /** All open sashes use the top hinge, including old saves with a different stored HINGE. */
     public static int pose(BlockGetter level,BlockPos pos,BlockState state,int index) {
         if(state==null||!(state.getBlock() instanceof SchoolProjectingWindowBlock)||pos==null)return 0;
         List<Part> parts=parts(state);
         if(index<0||index>=parts.size()||!visible(parts.get(index))||!same(read(level,pos),state))return 0;
         BlockPos origin=controller(pos,state.getValue(FACING).getClockWise(),parts.get(index));
         BlockState value=read(level,origin);
-        return same(value,state)&&complete(level,origin,state)&&value.getValue(OPEN)?1+value.getValue(HINGE).ordinal():0;
+        return same(value,state)&&complete(level,origin,state)&&value.getValue(OPEN)?1:0;
     }
     private static double[] pivot(Part part,int pose) {
         return new double[]{part.ox+(pose==4?24:0),part.oy+(pose==1?24:0),16};
@@ -272,41 +271,6 @@ public class SchoolProjectingWindowBlock extends Block {
         }
         return best;
     }
-    private static ProjectingWindowHinge nearestWall(Level level,BlockPos origin,BlockState state) {
-        Direction right=state.getValue(FACING).getClockWise();
-        Direction[] directions={Direction.UP,Direction.DOWN,right.getOpposite(),right};
-        ProjectingWindowHinge best=ProjectingWindowHinge.TOP;double nearest=Double.POSITIVE_INFINITY;
-        int grid=phase(level.getBlockState(origin));
-        int ox=grid%3==1?8:0,oy=grid/3==1?8:0;
-        int paneWidth=24,paneHeight=24;
-        for(int edge=0;edge<directions.length;edge++) {
-            // A solid half beside the shared sash is a wall at the sash edge.
-            if(edge>=2)for(int line=0;line<2;line++) {
-                BlockState boundary=read(level,origin.relative(right,edge==2?0:1).above(line));
-                if(halfWindow(boundary)&&boundary.getValue(WALL_LEFT)==(edge==2)
-                        &&(edge==2?ox==8:ox==0)&&nearest>0) {
-                    nearest=0;best=ProjectingWindowHinge.values()[edge];
-                }
-            }
-            for(int line=0;line<2;line++) {
-            Direction direction=directions[edge];boolean vertical=edge<2;
-            BlockPos start=vertical?origin.relative(right,line):origin.above(line);
-            for(int step=1;step<=SCAN_LIMIT;step++) {
-                BlockPos target=start.relative(direction,step);
-                if(!level.hasChunkAt(target)||level.isOutsideBuildHeight(target))break;
-                BlockState neighbor=level.getBlockState(target);
-                if(same(neighbor,state))continue;
-                if(neighbor.isFaceSturdy(level,target,direction.getOpposite())) {
-                    int offset=vertical?oy:ox;
-                    double distance=edge==0||edge==3?step*16-offset-(vertical?paneHeight:paneWidth):(step-1)*16+offset;
-                    if(distance<nearest){nearest=distance;best=ProjectingWindowHinge.values()[edge];}
-                }
-                break;
-            }
-            }
-        }
-        return best;
-    }
     private static void refresh(Level level,BlockPos origin,Direction facing) {
         Direction right=facing.getClockWise();
         for(int y=-1;y<=2;y++)for(int x=-1;x<=2;x++) {
@@ -335,7 +299,7 @@ public class SchoolProjectingWindowBlock extends Block {
         }
         if(level.isClientSide())return InteractionResult.SUCCESS;
         BlockState value=level.getBlockState(origin);boolean open=!value.getValue(OPEN);
-        ProjectingWindowHinge hinge=open?nearestWall(level,origin,state):value.getValue(HINGE);
+        ProjectingWindowHinge hinge=ProjectingWindowHinge.TOP;
         level.setBlock(origin,value.setValue(OPEN,open).setValue(HINGE,hinge),Block.UPDATE_ALL);
         refresh(level,origin,facing);
         level.playSound(null,pos,open?SoundEvents.IRON_DOOR_OPEN:SoundEvents.IRON_DOOR_CLOSE,SoundSource.BLOCKS,.4F,1.2F);

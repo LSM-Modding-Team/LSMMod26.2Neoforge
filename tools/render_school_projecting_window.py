@@ -23,13 +23,13 @@ def scene(poses, width=3, height=3):
 def main():
     closed = scene({})
     # A 3x3-block opening contains exactly four 24x24-pixel panes.
-    independent = scene({(0, 0): 3})
-    all_edges = scene({(0, 0): 2, (1, 0): 4, (0, 1): 3, (1, 1): 1})
+    independent = scene({(0, 0): 1})
+    all_edges = scene({(0, 0): 1, (1, 0): 1, (0, 1): 1, (1, 1): 1})
     item = []; add(item, load('lsmmod:item/'+ID))
     canvas = Image.new('RGB', (1680, 640))
     cases = [('1.5 x 1.5 / inicio desde el primer bloque', closed, [24, 24, 16], 8, -80),
              ('Abre alejandose del jugador', independent, [24, 24, 18], 8, -65),
-             ('Bisagras en los cuatro bordes', all_edges, [24, 24, 18], 8, -65),
+             ('Todos los cuadrados se elevan', all_edges, [24, 24, 18], 8, -65),
              ('Item / marco negro y vidrio tintado', item, [8, 8, 8], 25, -65)]
     for index, (label, elements, center, scale, azimuth) in enumerate(cases):
         canvas.paste(render(elements, center, scale, size=(420, 640), azimuth=azimuth, elevation=12), (420*index, 0))
@@ -41,8 +41,8 @@ def main():
         ImageDraw.Draw(reverse).text((420*index+10, 15), label, fill=(25, 25, 25))
     reverse.save(ROOT/'previews/school_projecting_window_reverse_review.png')
     half = Image.new('RGB',(1680,640))
-    cases=(('left',0,0,'Panel compartido / cerrado'),('left',3,4,'Panel compartido / abierto'),
-           ('right',4,2,'Mitad derecha / panel compartido'),('item',0,0,'Item / mitad fija'))
+    cases=(('left',0,0,'Panel compartido / cerrado'),('left',1,4,'Panel compartido / abierto'),
+           ('right',1,2,'Mitad derecha / panel compartido'),('item',0,0,'Item / mitad fija'))
     for index,(side,pose,color,label) in enumerate(cases):
         geometry=[]
         if side=='item':add(geometry,load('lsmmod:item/'+PAINTABLE_ID))
