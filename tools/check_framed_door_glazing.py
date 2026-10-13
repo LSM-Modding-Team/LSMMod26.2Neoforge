@@ -67,7 +67,8 @@ def check_paintable_bathroom():
         expected_faces=sum(tuple(p+s for p,s in zip(cell,step)) not in cells for cell in cells for step in STEPS.values())
         assert len(frame_faces)==expected_faces,'Internal caps or missing frame faces'
         for cell in cells:
-            carved=frame_cells(right,[cell]);assert len(carved)==len(cells)-1 and cell not in carved
+            group={tuple((v//2)*2+d for v,d in zip(cell,offset)) for offset in itertools.product(range(2),repeat=3)}
+            carved=frame_cells(right,group);assert len(carved)==len(cells)-8 and not group&carved
 
     item=item_scene();assert item and all(0<=v<=16 for e in item for key in ('from','to') for v in e[key])
     loot=read(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ID}.json')
@@ -86,8 +87,9 @@ def check_paintable_bathroom():
     assert 'extends SchoolFramedDiningDoorBlock implements EntityBlock' in block
     assert 'hasTransomGlazing() { return false; }' in block and 'SimpleBlockOutline.forState' not in block
     assert 'removed|=1L<<cube' in entity and 'level.removeBlock' not in entity
+    assert 'miniSize() {return 8;}' in entity and 'squareGroup(index)' in entity
     assert 'invalidateClientGeometry()' in entity and 'getLongOr("removed",0)' in entity
-    print('OK: original leaf preserved in all 192 states; 2x3 footprint, solid full-depth header and side, 4px faces/UV/all 13 materials, hidden cell seams, single-cube removals, item/drop and 96-color/64-bit storage. Java interactions remain uncompiled and untested in Minecraft.')
+    print('OK: original leaf in all 192 states; 2x3 frame, 8px edit groups, all 13 materials, hidden seams, item/drop and unchanged fine storage for legacy paint/cuts. Java interactions remain uncompiled and untested in Minecraft.')
 
 
 def main():

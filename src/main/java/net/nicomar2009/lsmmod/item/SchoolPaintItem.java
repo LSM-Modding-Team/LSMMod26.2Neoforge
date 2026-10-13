@@ -60,6 +60,11 @@ public class SchoolPaintItem extends Item {
             int[] colors = copied(tag);
             if (colors == null) block.paintAt(context.getClickedFace(), context.getClickLocation(), paint);
             else {
+                if(colors.length==96&&block instanceof net.nicomar2009.lsmmod.block.SchoolDoorFramePaintEntity frame&&frame.miniSize()==8) {
+                    int[] coarse=new int[24];
+                    for(int face=0;face<6;face++)for(int q=0;q<4;q++)coarse[face*4+q]=colors[face*16+(q%2)*2+(q/2)*8];
+                    colors=coarse;
+                }
                 block.apply(colors); tag.remove(COPY);
                 if (tag.isEmpty()) stack.remove(DataComponents.CUSTOM_DATA);
                 else stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));

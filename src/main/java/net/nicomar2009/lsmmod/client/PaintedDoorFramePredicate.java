@@ -27,11 +27,12 @@ public record PaintedDoorFramePredicate(int cube,Direction face,int paint) imple
         }
     };
     @Override public boolean testForBlockState(BlockAndTintGetter view,BlockPos pos,BlockState state) {
-        if(state==null||!(state.getBlock() instanceof SchoolPaintableBathroomDoorBlock))return false;
+        if(state==null||!(state.getBlock() instanceof SchoolPaintableBathroomDoorBlock
+                ||state.getBlock() instanceof net.nicomar2009.lsmmod.block.SchoolMiniCubePaintableBlock))return false;
         int x=cube&3,y=(cube>>2)&3,z=(cube>>4)&3;
         if(view!=null&&pos!=null&&view.getBlockEntity(pos) instanceof SchoolDoorFramePaintEntity entity)
             return entity.exposed(cube,face,view)&&entity.squarePaint(face,SchoolDoorFramePaintEntity.quadrant(face,x,y,z)).ordinal()==paint;
-        long occupied=SchoolPaintableBathroomDoorBlock.initialFrame(state);
+        long occupied=state.getBlock() instanceof SchoolPaintableBathroomDoorBlock?SchoolPaintableBathroomDoorBlock.initialFrame(state):-1L;
         if(paint!=0||(occupied&(1L<<cube))==0)return false;
         int nx=x+face.getStepX(),ny=y+face.getStepY(),nz=z+face.getStepZ();
         return nx<0||nx>=4||ny<0||ny>=4||nz<0||nz>=4||(occupied&(1L<<(nx+4*ny+16*nz)))==0;

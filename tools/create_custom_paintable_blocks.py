@@ -102,5 +102,41 @@ def main():
 def save_texture(image,p):
     p.parent.mkdir(parents=True,exist_ok=True);image.save(p);GENERATED.append(str(p.relative_to(ROOT)))
 
+FINE_ID='school_paintable_mini_cube_block'
+
+def generate_fine():
+    import copy
+    from create_facility_expansion_assets import J,D,basic
+    model=copy.deepcopy(json.loads((A/'models/block/bathroom_door_wide_paintable_frame.json').read_text()))
+    for group in model['models']:
+        for entry in group:
+            if 'condition' in entry:entry['condition']['type']='lsmmod:painted_mini_cube'
+    write(A/f'models/block/{FINE_ID}.json',model)
+    write(A/f'blockstates/{FINE_ID}.json',{'variants':{'':{'model':'lsmmod:block/'+FINE_ID}}})
+    write(A/f'models/item/{FINE_ID}.json',{'parent':'minecraft:block/block','textures':{'surface':PAINTS[0],'particle':'#surface'},
+        'elements':[{'from':[0,0,0],'to':[16,16,16],'faces':{face:{'texture':'#surface','uv':[0,0,16,16]} for face in SIDES}}]})
+    basic(FINE_ID)
+    for filename,entry in (
+        ('ModBlocks.java','    public static final DeferredBlock<SchoolMiniCubePaintableBlock> SCHOOL_PAINTABLE_MINI_CUBE_BLOCK = BLOCKS.registerBlock("'+FINE_ID+'", SchoolMiniCubePaintableBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).requiresCorrectToolForDrops().dynamicShape().noOcclusion());'),
+        ('ModItems.java','    public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_MINI_CUBE_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_MINI_CUBE_BLOCK);'),
+    ):
+        path=J/'registry'/filename;text=path.read_text()
+        if ' SCHOOL_PAINTABLE_MINI_CUBE_BLOCK =' not in text:path.write_text(text.replace('    // BEGIN CUSTOM PAINTABLE BLOCKS',entry+'\n\n    // BEGIN CUSTOM PAINTABLE BLOCKS',1))
+    path=J/'registry/ModBlockEntities.java';text=path.read_text()
+    if ' SCHOOL_MINI_CUBE_PAINT =' not in text:
+        entry='''    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolMiniCubePaintEntity>> SCHOOL_MINI_CUBE_PAINT = BLOCK_ENTITIES.register(
+            "school_mini_cube_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolMiniCubePaintEntity::new,
+                    ModBlocks.SCHOOL_PAINTABLE_MINI_CUBE_BLOCK.get()));
+
+'''
+        path.write_text(text.replace('    // Only the LEFT half',entry+'    // Only the LEFT half',1))
+    for locale,label in (('es_es','Bloque pintable de minicubos de 4 px'),('en_us','Paintable 4px Mini Cube Block')):
+        path=A/f'lang/{locale}.json';data=json.loads(path.read_text());data['block.lsmmod.'+FINE_ID]=label;write(path,data)
+    path=D/'minecraft/tags/block/mineable/pickaxe.json';data=json.loads(path.read_text())
+    if 'lsmmod:'+FINE_ID not in data['values']:data['values'].append('lsmmod:'+FINE_ID)
+    write(path,data)
+
 if __name__=='__main__':
-    main()
+    import sys
+    if '--fine-only' in sys.argv:generate_fine()
+    else:main()

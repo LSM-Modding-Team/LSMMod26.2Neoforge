@@ -45,7 +45,7 @@ def item_scene():
 def review():
     cases=[('Cerrada / marco sin pintar',scene()),('Abierta / misma hoja de bano',scene(True)),
            ('Bisagra derecha / marco verde pintado',scene(False,True,9)),
-           ('Marco verde / cubos retirados de 4 px',scene(True,False,9,[(6,5,0),(7,5,0),(6,6,0),(7,6,0)])),
+           ('Marco verde / cubo retirado de 8 px',scene(True,False,9,[(x,y,z) for x,y,z in itertools.product((6,7),(4,5),(0,1))])),
            ('Dorso / marco fijo',scene(False,False,9)),('Item / definicion real',item_scene())]
     for facing in ('east','south','west'):
         cases.append(('Orientacion '+facing,scene(True,False,9,facing=facing)))
@@ -64,7 +64,7 @@ def review():
         draw.text((offset[0]+10,offset[1]-18),f'Pintura {paint} / material real',fill=(25,25,25))
     palette.save(ROOT/f'previews/{ID}_palette_review.png')
     editing=Image.new('RGB',(1440,620),(194,194,194));draw=ImageDraw.Draw(editing)
-    cases=(('Cuadrados independientes de 4x4 px',scene(paint=lambda xyz,face:9 if sum(xyz)%2 else 4)),
+    cases=(('Cuadrados independientes de 8x8 px',scene(paint=lambda xyz,face:9 if sum(v//2 for v in xyz)%2 else 4)),
            ('Marco retirado / hoja conservada',scene(removed=frame_cells())),
            ('Hoja abierta / marco retirado',scene(True,removed=frame_cells())))
     for index,(label,elements) in enumerate(cases):

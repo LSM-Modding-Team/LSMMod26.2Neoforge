@@ -80,4 +80,48 @@ def main():
     assert list(read(A/'blockstates/school_foundation.json')['variants'])==['']
     print(f'OK: 256 occupancy masks, {len(entries)} face/color models, all exposed hit planes, 24 independent squares and {len(palettes)} packed palettes; two blocks with one state each.')
 
-if __name__=='__main__': main()
+def check_fine():
+    from create_custom_paintable_blocks import FINE_ID
+    from render_mini_cube_paintable import scene,FULL
+    from render_texture_review import load
+    model=read(A/f'models/block/{FINE_ID}.json')
+    assert len(model['models'])==385
+    references=set()
+    for group in model['models'][:-1]:
+        assert len(group)==len(PAINTS)
+        for paint,entry in enumerate(group):
+            condition=entry['condition'];cube,face=condition['cube'],condition['face'];references.add((cube,face,paint))
+            assert condition['type']=='lsmmod:painted_mini_cube' and condition['paint']==paint
+            assert entry['model'].startswith('lsmmod:block/door_frame_4px/')
+            leaf,=load(entry['model']);element,=leaf['elements']
+            assert element['from']==[(cube&3)*4,((cube>>2)&3)*4,((cube>>4)&3)*4]
+            assert element['to']==[v+4 for v in element['from']] and list(element['faces'])==[face]
+            assert leaf['textures']['surface']==PAINTS[paint]
+    assert len(references)==64*6*len(PAINTS)
+    rng=random.Random(4416)
+    masks=[FULL,0,1,1<<63]+[FULL&~(1<<cube) for cube in range(64)]+[rng.getrandbits(64) for _ in range(40)]
+    for mask in masks:
+        cells={(cube&3,(cube>>2)&3,(cube>>4)&3) for cube in range(64) if mask&(1<<cube)}
+        expected=sum(tuple(v+d for v,d in zip(cell,step)) not in cells for cell in cells for step in STEPS.values())
+        rendered=scene(mask,paint=lambda xyz,face:9 if sum(xyz)%2 else 4)
+        assert len(rendered)==expected,('Missing or internal face',mask)
+        for element in rendered:
+            xyz=tuple(int(v/4) for v in element['from'])
+            assert xyz in cells
+            for face,surface in element['faces'].items():assert surface['texture']==PAINTS[9 if sum(xyz)%2 else 4]
+    assert len(scene())==96 and not scene(0)
+    java=ROOT/'src/main/java/net/nicomar2009/lsmmod'
+    entity=(java/'block/SchoolMiniCubePaintEntity.java').read_text();frame=(java/'block/SchoolDoorFramePaintEntity.java').read_text()
+    assert 'miniSize() {return 4;}' in entity and 'occupied()==0' in entity and 'level.removeBlock(worldPosition,false)' in entity
+    assert 'miniSize() {return 8;}' in frame and 'return new int[]{start,start+1,start+4,start+5}' in frame
+    assert 'getLongOr("removed",0)' in frame and 'private final int[] squares=new int[96]' in frame
+    assert list(read(A/f'blockstates/{FINE_ID}.json')['variants'])==['']
+    assert read(A/f'items/{FINE_ID}.json')['model']['model']=='lsmmod:item/'+FINE_ID
+    loot=read(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{FINE_ID}.json')
+    assert loot['pools'][0]['entries'][0]['name']=='lsmmod:'+FINE_ID
+    print(f'OK: independent 64-cube block, shared geometry/all 13 materials, {len(masks)} occupancy masks including bit 63, 4px checker painting and exposed interior faces; door edits grouped at 8px and original storage preserved. Minecraft behavior untested.')
+
+if __name__=='__main__':
+    import sys
+    if '--fine-only' in sys.argv:check_fine()
+    else:main()

@@ -73,7 +73,7 @@ public final class RectanglePaintTool {
         if(player==null || player.isSpectator() || !player.mayBuild())return InteractionResult.FAIL;
         if(level.isClientSide())return InteractionResult.SUCCESS;
         var current=level.getBlockEntity(context.getClickedPos());
-        int divisions=current instanceof net.nicomar2009.lsmmod.block.SchoolDoorFramePaintEntity?4:current instanceof SchoolPaintableCustomBlockEntity?2:1;
+        int divisions=current instanceof net.nicomar2009.lsmmod.block.SchoolDoorFramePaintEntity frame?16/frame.miniSize():current instanceof SchoolPaintableCustomBlockEntity?2:1;
         End end=end(context,divisions);Direction face=context.getClickedFace();
         if(end==null)return fail(player,"target");
         String dimension=level.dimension().identifier().toString();
@@ -108,14 +108,21 @@ public final class RectanglePaintTool {
             if(!level.mayInteract(player,pos) || !player.mayUseItemAt(pos,face,stack))return fail(player,"denied");
             int[] colors=block.snapshot(),before=colors.clone();
             if(block instanceof net.nicomar2009.lsmmod.block.SchoolDoorFramePaintEntity frame) {
-                for(int qa=0;qa<4;qa++)for(int qb=0;qb<4;qb++) {
-                    if(a*4+qa<u0||a*4+qa>u1||b*4+qb<v0||b*4+qb>v1)continue;
+                int size=frame.miniSize()/4;
+                if(end.plane%size!=0)continue;
+                for(int qa=0;qa<4;qa+=size)for(int qb=0;qb<4;qb+=size) {
+                    if(a*4+qa+size-1<u0||a*4+qa>u1||b*4+qb+size-1<v0||b*4+qb>v1)continue;
                     double[] point={pos.getX()+.5,pos.getY()+.5,pos.getZ()+.5};
-                    point[axis]=end.plane*.25;point[u]=a+(qa+.5)*.25;point[v]=b+(qb+.5)*.25;
+                    point[axis]=end.plane*.25;point[u]=a+(qa+size*.5)*.25;point[v]=b+(qb+size*.5)*.25;
                     int index=frame.exposedSquare(face,new net.minecraft.world.phys.Vec3(point[0],point[1],point[2]),level);
                     if(index<0)continue;
-                    int next=paint==null?0:paint.ordinal();if(colors[index]==next)continue;
-                    if(paint==null)refunds[colors[index]]++;colors[index]=next;count++;
+                    int next=paint==null?0:paint.ordinal();
+                    int previous=colors[index];boolean changed=false;
+                    for(int square:frame.squareGroup(index)) {
+                        if(colors[square]==next)continue;
+                        colors[square]=next;changed=true;
+                    }
+                    if(changed) {if(paint==null&&previous!=0)refunds[previous]++;count++;}
                 }
             } else if(block instanceof SchoolPaintableCustomBlockEntity small) {
                 if(end.plane%2!=0)continue;

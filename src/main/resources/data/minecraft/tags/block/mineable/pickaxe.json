@@ -118,6 +118,7 @@
     "lsmmod:school_paintable_projecting_window",
     "lsmmod:red_street_wall",
     "lsmmod:school_name_sign",
-    "lsmmod:bathroom_door_wide_paintable"
+    "lsmmod:bathroom_door_wide_paintable",
+    "lsmmod:school_paintable_mini_cube_block"
   ]
 }

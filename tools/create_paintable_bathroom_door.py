@@ -1,4 +1,4 @@
-"""Reuse the bathroom leaf and make its 2x3 masonry frame editable in 4px cubes."""
+"""Reuse the bathroom leaf; edit its frame in 8px groups while preserving legacy fine storage."""
 import copy
 import json
 from create_facility_expansion_assets import ROOT,A,J,D,write,basic,mesh,scaled_item

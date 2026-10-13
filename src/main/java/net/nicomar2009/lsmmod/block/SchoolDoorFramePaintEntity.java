@@ -17,8 +17,17 @@ public class SchoolDoorFramePaintEntity extends SchoolPaintableBlockEntity {
     private long collisionMask;
     private net.minecraft.world.phys.shapes.VoxelShape collision;
     public SchoolDoorFramePaintEntity(BlockPos pos,BlockState state) {
-        super(ModBlockEntities.SCHOOL_DOOR_FRAME_PAINT.get(),pos,state);
+        this(ModBlockEntities.SCHOOL_DOOR_FRAME_PAINT.get(),pos,state);
     }
+    protected SchoolDoorFramePaintEntity(net.minecraft.world.level.block.entity.BlockEntityType<?> type,BlockPos pos,BlockState state) {super(type,pos,state);}
+    public int miniSize() {return 8;}
+    /** Keep fine storage for old paint and partial cuts, while editing four 8px squares per face. */
+    public int[] squareGroup(int index) {
+        if(miniSize()==4)return new int[]{index};
+        int face=index/16,q=index%16,start=face*16+(q%4/2)*2+(q/4/2)*8;
+        return new int[]{start,start+1,start+4,start+5};
+    }
+    protected long removedMask() {return removed;}
     public long occupied() {return SchoolPaintableBathroomDoorBlock.initialFrame(getBlockState())&~removed;}
     public net.minecraft.world.phys.shapes.VoxelShape collision(BlockState state,java.util.function.Supplier<net.minecraft.world.phys.shapes.VoxelShape> build) {
         long mask=occupied();
@@ -31,6 +40,7 @@ public class SchoolDoorFramePaintEntity extends SchoolPaintableBlockEntity {
     }
     public SchoolPaint squarePaint(Direction localFace,int quadrant) {return SchoolPaint.fromId(squares[localFace.ordinal()*16+quadrant]);}
     private int turns() {
+        if(!getBlockState().hasProperty(SchoolFramedDiningDoorBlock.FACING))return 0;
         return switch(getBlockState().getValue(SchoolFramedDiningDoorBlock.FACING)) {case EAST->1;case SOUTH->2;case WEST->3;default->0;};
     }
     public Direction worldFace(Direction face) {
@@ -63,7 +73,7 @@ public class SchoolDoorFramePaintEntity extends SchoolPaintableBlockEntity {
     @Override public SchoolPaint paint(Direction face) {return squarePaint(localFace(face),0);}
     @Override public void paintAt(Direction face,Vec3 hit,SchoolPaint color) {
         if(!canPaintAt(face,hit))return;int index=square(face,hit);
-        if(squares[index]!=color.ordinal()) {squares[index]=color.ordinal();changed();}
+        int[] copy=snapshot();for(int square:squareGroup(index))copy[square]=color.ordinal();apply(copy);
     }
     @Override public void paintFace(Direction face,SchoolPaint color) {
         int[] copy=snapshot();int start=localFace(face).ordinal()*16;
@@ -83,7 +93,12 @@ public class SchoolDoorFramePaintEntity extends SchoolPaintableBlockEntity {
     }
     public boolean removeCube(Direction face,Vec3 hit) {
         int cube=hitCube(face,hit);if(!hasCube(cube))return false;
-        removed|=1L<<cube;changed();
+        if(miniSize()==4)removed|=1L<<cube;
+        else {
+            int x=(cube&3)/2*2,y=((cube>>2)&3)/2*2,z=((cube>>4)&3)/2*2;
+            for(int dx=0;dx<2;dx++)for(int dy=0;dy<2;dy++)for(int dz=0;dz<2;dz++)removed|=1L<<(x+dx+4*(y+dy)+16*(z+dz));
+        }
+        changed();
         // Keep the controller/leaf even when the last masonry cube has been removed.
         if(level!=null) {
             level.updateNeighborsAt(worldPosition,getBlockState().getBlock());

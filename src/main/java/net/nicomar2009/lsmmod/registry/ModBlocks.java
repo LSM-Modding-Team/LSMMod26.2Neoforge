@@ -86,6 +86,8 @@ public final class ModBlocks {
             props -> props.strength(1.0F).sound(SoundType.METAL).noOcclusion());
     // END CHILDREN LOCKER AND CEILING PROJECTOR
 
+    public static final DeferredBlock<SchoolMiniCubePaintableBlock> SCHOOL_PAINTABLE_MINI_CUBE_BLOCK = BLOCKS.registerBlock("school_paintable_mini_cube_block", SchoolMiniCubePaintableBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).requiresCorrectToolForDrops().dynamicShape().noOcclusion());
+
     // BEGIN CUSTOM PAINTABLE BLOCKS
     public static final DeferredBlock<Block> SCHOOL_FOUNDATION = BLOCKS.registerBlock(
             "school_foundation", Block::new,

@@ -11,7 +11,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-/** Original bathroom leaf and lifecycle, with a stationary, editable 4px masonry frame. */
+/** Original bathroom leaf and lifecycle, with a stationary, editable 8px masonry frame. */
 public class SchoolPaintableBathroomDoorBlock extends SchoolFramedDiningDoorBlock implements EntityBlock {
     private static final long[][][] FRAME_MASKS=frameMasks();
     private static long[][][] frameMasks() {
