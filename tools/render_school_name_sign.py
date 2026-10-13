@@ -9,11 +9,11 @@ def scene(wall=True):
     result=[]
     if wall:
         for y in range(3):
-            for x in range(9):
+            for x in range(10):
                 models=load('lsmmod:block/school_paintable_block',predicate=lambda condition:condition.get('paint')==12)
                 add(result,models,(x*16,y*16,16))
     for row in range(3):
-        for column in range(9):
+        for column in range(10):
             add(result,block(ID,{'facing':'north','row':str(row),'column':str(column)}),(column*16,row*16,0))
     return result
 
@@ -21,9 +21,9 @@ def scene(wall=True):
 def main():
     painted=scene();letters=scene(False);item=[];add(item,load('lsmmod:item/'+ID))
     canvas=Image.new('RGB',(1800,1050),(194,194,194))
-    cases=(('Frente / texto exacto sobre pintura roja',painted,[72,24,16],8.5,-90,0,(1800,420),(0,0)),
-           ('Relieve de 1 pixel / lateral',painted,[72,24,16],5,-65,8,(900,420),(0,420)),
-           ('Item / proporciones 9x3',item,[8,8,8],42,-90,0,(900,420),(900,420)))
+    cases=(('Frente / texto exacto sobre pintura roja',painted,[80,24,16],8.5,-90,0,(1800,420),(0,0)),
+           ('Relieve de 1 pixel / lateral',painted,[80,24,16],5,-65,8,(900,420),(0,420)),
+           ('Item / proporciones 10x3',item,[8,8,8],42,-90,0,(900,420),(900,420)))
     for label,elements,center,scale,azimuth,elevation,size,offset in cases:
         canvas.paste(render(elements,center,scale,size=size,azimuth=azimuth,elevation=elevation,minecraft_orientation=True),offset)
         ImageDraw.Draw(canvas).text((offset[0]+12,offset[1]+10),label,fill=(25,25,25))
@@ -43,7 +43,7 @@ def main():
     canvas.save(ROOT/'previews/school_name_sign_review.png')
     reverse=Image.new('RGB',(1800,520),(194,194,194))
     for index,angle in enumerate((90,0,180)):
-        reverse.paste(render(letters,[72,24,15.5],3.8,size=(600,520),azimuth=angle,elevation=12,minecraft_orientation=True),(600*index,0))
+        reverse.paste(render(letters,[80,24,15.5],3.4,size=(600,520),azimuth=angle,elevation=12,minecraft_orientation=True),(600*index,0))
         ImageDraw.Draw(reverse).text((600*index+12,10),('Dorso / letras sin panel','Orientacion lateral este','Orientacion lateral oeste')[index],fill=(25,25,25))
     reverse.save(ROOT/'previews/school_name_sign_reverse_review.png')
 

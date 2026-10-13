@@ -22,12 +22,12 @@ def check_name_sign():
  from render_texture_review import add,load,render
  from audit_block_states import domains
  assert TEXT=='COLEGIO LIBERTADOR SAN MARTIN' and LINES==('COLEGIO','LIBERTADOR SAN MARTIN') and TEXT.isascii()
- assert domains('SchoolNameSignBlock')=={'facing':4,'column':9,'row':3}
- variants=json.loads((A/f'blockstates/{ID}.json').read_text())['variants'];assert len(variants)==108
+ assert domains('SchoolNameSignBlock')=={'facing':4,'column':10,'row':3}
+ variants=json.loads((A/f'blockstates/{ID}.json').read_text())['variants'];assert len(variants)==120
  reference=Image.open(ROOT/'newresources/school_name_sign_lettering.png').getchannel('A')
  coverage=np.zeros((HEIGHT*DENSITY,WIDTH*DENSITY),dtype=int)
  for row in range(3):
-  for column in range(9):
+  for column in range(10):
    path=A/f'models/block/{ID}_{row}_{column}.json';model=json.loads(path.read_text())
    for element in model['elements']:
     lo,hi=element['from'],element['to']
@@ -42,7 +42,7 @@ def check_name_sign():
  complete=json.loads((ROOT/'newresources/school_name_sign_complete.json').read_text());expected=[];add(expected,[complete])
  assembled=scene(False)
  for angle in (-90,-65,90):
-  args=dict(center=[72,24,15.5],scale=4,size=(640,320),azimuth=angle,elevation=12,minecraft_orientation=True)
+  args=dict(center=[80,24,15.5],scale=4,size=(640,320),azimuth=angle,elevation=12,minecraft_orientation=True)
   actual=np.asarray(render(assembled,**args)).astype(int);whole=np.asarray(render(expected,**args)).astype(int)
   delta=np.max(np.abs(actual-whole),axis=2)
   assert np.mean(delta)<.2 and np.count_nonzero(delta>3)<150,('sign seams',angle,np.mean(delta))
@@ -50,11 +50,11 @@ def check_name_sign():
  assert len(item['elements'])==len(complete['elements'])
  for leaf,original in zip(item['elements'],complete['elements']):
   for key in ('from','to'):
-   x,y,z=leaf[key];assert np.allclose([x*9,24+(y-8)*9,15.5+(z-8)*9],original[key])
+   x,y,z=leaf[key];assert np.allclose([x*10,24+(y-8)*10,15.5+(z-8)*10],original[key])
   assert leaf['faces']==original['faces']
  loot=json.loads((ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ID}.json').read_text())
  assert loot['pools'][0]['conditions'][1]['properties']=={'column':'0','row':'0'}
- print('OK: exact ASCII wording, 27 cells and 4 orientations, glyph coverage/reading direction match the reference, 1px relief, seam-free front/back renders, undistorted item and single controller drop. Placement/client behavior still needs Minecraft.')
+ print('OK: exact ASCII wording, 30 cells and 4 orientations, glyph coverage/reading direction match the reference, 1px relief, seam-free front/back renders, undistorted item and single controller drop. Placement/client behavior still needs Minecraft.')
 
 def main():
  atlas=Image.open(A/'textures/block/school_decoration_surface.png')

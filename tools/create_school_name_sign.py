@@ -1,4 +1,4 @@
-"""Nine-by-three wall lettering: exact ASCII wording, one-pixel relief, existing rectangular lifecycle."""
+"""Ten-by-three wall lettering: exact ASCII wording, one-pixel relief, existing rectangular lifecycle."""
 import copy,json
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont
@@ -9,7 +9,7 @@ from create_facility_expansion_assets import basic
 ID='school_name_sign'
 TEXT='COLEGIO LIBERTADOR SAN MARTIN'
 LINES=('COLEGIO','LIBERTADOR SAN MARTIN')
-WIDTH,HEIGHT,DENSITY=144,48,2
+WIDTH,HEIGHT,DENSITY=160,48,2
 GOLD=(218,199,128)
 TEXTURES={'gold':'lsmmod:block/school_name_sign_gold','particle':'#gold'}
 
@@ -56,7 +56,7 @@ def main():
     write(ROOT/'newresources/school_name_sign_complete.json',model)
     variants={}
     for row in range(3):
-        for column in range(9):
+        for column in range(10):
             name=f'{ID}_{row}_{column}';local=clip(model,column,row)
             write(A/f'models/block/{name}.json',local)
             for turn,facing in enumerate(('north','east','south','west')):
@@ -65,7 +65,7 @@ def main():
     item=copy.deepcopy(model)
     for element in item['elements']:
         for key in ('from','to'):
-            x,y,z=element[key];element[key]=[x/9,8+(y-HEIGHT/2)/9,8+(z-15.5)/9]
+            x,y,z=element[key];element[key]=[x/10,8+(y-HEIGHT/2)/10,8+(z-15.5)/10]
     item['display']={'gui':{'rotation':[0,180,0],'scale':[1,1,1]}}
     write(A/f'models/item/{ID}.json',item)
     basic(ID,controller={'column':'0','row':'0'})
@@ -76,12 +76,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
-/** One-pixel wall lettering over a 9x3 footprint; one item places/removes all 27 cells. */
+/** One-pixel wall lettering over a 10x3 footprint; one item places/removes all 30 cells. */
 public class SchoolNameSignBlock extends SchoolRectangularBlock {
-    public static final IntegerProperty COLUMN=IntegerProperty.create("column",0,8);
+    public static final IntegerProperty COLUMN=IntegerProperty.create("column",0,9);
     public static final IntegerProperty ROW=IntegerProperty.create("row",0,2);
-    private static final double[][] BOXES={{0,0,15,144,48,16}};
-    public SchoolNameSignBlock(Properties properties) {super(properties,BOXES,BOXES,true,9,3,false);}
+    private static final double[][] BOXES={{0,0,15,160,48,16}};
+    public SchoolNameSignBlock(Properties properties) {super(properties,BOXES,BOXES,true,10,3,false);}
     @Override protected IntegerProperty columnProperty() {return COLUMN;}
     @Override protected IntegerProperty rowProperty() {return ROW;}
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {builder.add(FACING,COLUMN,ROW);}
