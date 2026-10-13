@@ -200,6 +200,9 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> SCHOOL_SYNTHETIC_GRASS = BLOCKS.registerBlock(
             "school_synthetic_grass", Block::new,
             props -> props.strength(.8F).sound(SoundType.MOSS));
+    public static final DeferredBlock<Block> RED_STREET_WALL = BLOCKS.registerBlock(
+            "red_street_wall", Block::new,
+            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
     // END CLASSROOM SURFACES
 
     public static final DeferredBlock<SchoolWallDecorationBlock> SCHOOL_CLOCK = BLOCKS.registerBlock(

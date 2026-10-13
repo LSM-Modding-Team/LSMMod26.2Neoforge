@@ -115,6 +115,7 @@
     "lsmmod:fire_alarm",
     "lsmmod:school_shelving",
     "lsmmod:school_projecting_window",
-    "lsmmod:school_paintable_projecting_window"
+    "lsmmod:school_paintable_projecting_window",
+    "lsmmod:red_street_wall"
   ]
 }

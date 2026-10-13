@@ -146,6 +146,7 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> CLASSROOM_WHITE_WALL = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_WHITE_WALL);
     public static final DeferredItem<BlockItem> CLASSROOM_PAINTED_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_PAINTED_BLOCK);
     public static final DeferredItem<BlockItem> SCHOOL_SYNTHETIC_GRASS = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_SYNTHETIC_GRASS);
+    public static final DeferredItem<BlockItem> RED_STREET_WALL = ITEMS.registerSimpleBlockItem(ModBlocks.RED_STREET_WALL);
     // END CLASSROOM SURFACES
 
     // BEGIN SCHOOL RAILING SLOPES
