@@ -16,9 +16,9 @@ TEXTURES={'gold':'lsmmod:block/school_name_sign_gold','particle':'#gold'}
 
 def lettering():
     # Rasterize serif strokes at half-pixel geometry precision; the material itself remains a 16px texture.
-    candidates=(ROOT/'newresources/LiberationSerif-Regular.ttf',Path('/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf'),Path('C:/Windows/Fonts/times.ttf'))
+    candidates=(ROOT/'.build-tools/fonts/LiberationSerif-Regular.ttf',Path('/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf'),Path('C:/Windows/Fonts/times.ttf'))
     font_path=next((path for path in candidates if path.exists()),None)
-    if font_path is None:raise RuntimeError('Install Liberation Serif or provide newresources/LiberationSerif-Regular.ttf')
+    if font_path is None:raise RuntimeError('Install Liberation Serif or provide .build-tools/fonts/LiberationSerif-Regular.ttf')
     mask=Image.new('L',(WIDTH*DENSITY,HEIGHT*DENSITY))
     for text,size,top in ((LINES[0],36,14),(LINES[1],28,54)):
         font=ImageFont.truetype(str(font_path),size);bounds=font.getbbox(text)
@@ -45,15 +45,17 @@ def rectangles(mask):
     return result
 
 
-def main():
-    mask=lettering();reference=Image.new('RGBA',mask.size,GOLD+(0,));reference.putalpha(mask)
-    reference.save(ROOT/'newresources/school_name_sign_lettering.png')
-    Image.new('RGB',(16,16),GOLD).save(A/'textures/block/school_name_sign_gold.png')
+def complete_model(mask):
     # North-facing lettering starts at high world X, matching Minecraft's front-face UV orientation.
     boxes=[([WIDTH-x1/DENSITY,HEIGHT-y1/DENSITY,15,WIDTH-x0/DENSITY,HEIGHT-y0/DENSITY,16],'gold')
            for x0,y0,x1,y1 in rectangles(mask)]
     model=solid_model(boxes);model.update(textures=TEXTURES,render_type='minecraft:solid')
-    write(ROOT/'newresources/school_name_sign_complete.json',model)
+    return model
+
+
+def main():
+    model=complete_model(lettering())
+    Image.new('RGB',(16,16),GOLD).save(A/'textures/block/school_name_sign_gold.png')
     variants={}
     for row in range(3):
         for column in range(10):

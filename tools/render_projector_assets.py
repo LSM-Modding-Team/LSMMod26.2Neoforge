@@ -1,4 +1,5 @@
 """External model preview with alpha compositing; not a Minecraft screenshot."""
+from resource_json import preview_path
 import json,math,zipfile,io
 from pathlib import Path
 import numpy as np
@@ -68,6 +69,6 @@ def main():
     canvas.paste(render({'textures':textures,'elements':detail},[16,8,8],15),(480,0))
     labels.text((20,20),'Pantalla 4 x 3 / proyector centrado encima',fill='white')
     labels.text((500,20),'Proyector en 2 celdas / escala original',fill='white')
-    canvas.save(ROOT/'previews/projector_screen_4x3_centered.png')
+    canvas.save(preview_path('projector_screen_4x3_centered.png'))
 
 if __name__=='__main__':main()

@@ -1,12 +1,1 @@
-{
-  "loader": "neoforge:obj",
-  "model": "lsmmod:models/block/school_fan.obj",
-  "automatic_culling": false,
-  "flip_v": true,
-  "shade_quads": true,
-  "textures": {
-    "surface": "lsmmod:block/school_decoration_surface",
-    "clock_face": "lsmmod:block/school_clock_face",
-    "particle": "lsmmod:block/school_decoration_surface"
-  }
-}
+{"loader":"neoforge:obj","model":"lsmmod:models/block/school_fan.obj","automatic_culling":false,"flip_v":true,"shade_quads":true,"textures":{"surface":"lsmmod:block/school_decoration_surface","clock_face":"lsmmod:block/school_clock_face","particle":"lsmmod:block/school_decoration_surface"}}

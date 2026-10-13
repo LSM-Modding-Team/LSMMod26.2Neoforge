@@ -1,9 +1,1 @@
-{
-  "loader": "fusion:model",
-  "type": "base",
-  "parent": "lsmmod:block/school_circular_column_join_2_east_railing",
-  "textures": {
-    "column_join_surface": "#column_lsmmod_block_white_playground_floor",
-    "particle": "lsmmod:block/white_playground_floor"
-  }
-}
+{"loader":"fusion:model","type":"base","parent":"lsmmod:block/school_circular_column_join_2_east_railing","textures":{"column_join_surface":"#column_lsmmod_block_white_playground_floor","particle":"lsmmod:block/white_playground_floor"}}

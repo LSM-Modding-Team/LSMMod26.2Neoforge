@@ -1,4 +1,5 @@
 """Three shared raised underside pieces: 48px run, lower edge y=8..56px."""
+from resource_json import resource_json
 import json
 from pathlib import Path
 from create_school_inverted_slopes import inverted_obj
@@ -7,7 +8,7 @@ IDS=[f'school_inverted_slope_short_raised_{i}' for i in range(1,4)]
 GENERATED=[]
 def write(path,value):
  path.parent.mkdir(parents=True,exist_ok=True)
- path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n' if not isinstance(value,str) else value)
+ path.write_text(resource_json(path, value, ensure_ascii=False)+'\n' if not isinstance(value,str) else value)
  GENERATED.append(str(path.relative_to(ROOT)))
 def main():
  # Native north: back underside .5b, front underside 1.5b; roof 2b.

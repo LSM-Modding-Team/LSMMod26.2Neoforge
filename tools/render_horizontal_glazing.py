@@ -1,4 +1,5 @@
 """External preview of horizontal glass separators; not a Minecraft screenshot."""
+from resource_json import preview_path
 import json,math,zipfile,io
 from pathlib import Path
 import numpy as np
@@ -71,6 +72,6 @@ def main():
         center=[length*8,-8 if family.startswith('tall_classroom_transom') else 8,8]
         canvas.paste(render(m,center,5.5),(480*(panel%2),600*(panel//2)))
         labels.text((20+480*(panel%2),25+600*(panel//2)),label,fill='white')
-    canvas.save(ROOT/'previews/school_glass_horizontal_spacing.png')
+    canvas.save(preview_path('school_glass_horizontal_spacing.png'))
 
 if __name__=='__main__':main()

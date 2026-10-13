@@ -26,7 +26,7 @@ for lo,hi in [([1,base_bottom,7.5],[7.5,base_top,8.5]),
 for lo,hi in [([1,0,7.5],[2,.5,8.5]),([14,0,7.5],[15,.5,8.5]),
               ([7.5,0,1],[8.5,.5,2]),([7.5,0,14],[8.5,.5,15])]:
  t['elements'].append(box(lo,hi,'black',base_rotation))
-(a/'dining_table.json').write_text(json.dumps(t,indent=2)+'\n')
+(a/'dining_table.json').write_text(json.dumps(t,separators=(',',':'),ensure_ascii=False)+'\n')
 c=json.loads((a/'dining_chair.json').read_text()); es=[]
 # All side-frame connections share the same seat-height pivots.
 # Minecraft permits 22.5 degree rotations; derive endpoints from that angle.
@@ -77,7 +77,7 @@ assert abs(frame_y + (leg_bottom-frame_y)*cosine - foot_y) < 1e-9
 assert abs(rear_z-(frame_y-rack_y)*slope-rack_rear) < 1e-9
 assert abs(front_z+(frame_y-rack_y)*slope-rack_front) < 1e-9
 c['elements']=es
-(a/'dining_chair.json').write_text(json.dumps(c,indent=2)+'\n')
+(a/'dining_chair.json').write_text(json.dumps(c,separators=(',',':'),ensure_ascii=False)+'\n')
 # Rotation-aware collision approximation split into narrow horizontal slices.
 def bounds(e):
  lo,hi=e['from'],e['to'];r=e.get('rotation')

@@ -72,8 +72,9 @@ def main():
                 assert all(e['to'][1] <= (8 if row == 2 else 16) for e in model['elements'])
                 add(assembled, [model], (column*16, row*16, 0))
     complete = []
-    for layer in ('solid', 'translucent'):
-        add(complete, [read(ROOT/f'newresources/san_martin_de_porres_complete_{layer}.json')])
+    from create_san_martin_display import parts, model
+    for layer, geometry in zip(('solid', 'translucent'), parts()):
+        add(complete, [model(geometry, layer)])
     # Compare the rendered appearance, not the clipping implementation. This catches
     # reversed U, restarted folds, glass alpha changes and artificial seam caps.
     for azimuth in (-90, -55, -135, 60, 135):

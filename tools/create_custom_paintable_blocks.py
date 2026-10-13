@@ -1,4 +1,5 @@
 """Bounded Fusion face models for an editable eight-cell cube, tools and foundation."""
+from resource_json import resource_json
 import json
 import random
 from pathlib import Path
@@ -9,7 +10,7 @@ STEPS={'down':(0,-1,0),'up':(0,1,0),'north':(0,0,-1),'south':(0,0,1),'west':(-1,
 GENERATED=[]
 def write(p,value):
     p.parent.mkdir(parents=True,exist_ok=True)
-    p.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+    p.write_text(resource_json(p, value, ensure_ascii=False)+'\n',encoding='utf-8')
     GENERATED.append(str(p.relative_to(ROOT)))
 
 def uv(face,x,y,z):

@@ -1,4 +1,5 @@
 """Generate the gray 2x1x2 desk, using the interactive classroom chair's exact gray."""
+from resource_json import resource_json
 import copy
 import json
 from pathlib import Path
@@ -7,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 A = ROOT / 'src/main/resources/assets/lsmmod'
 def write(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    path.write_text(resource_json(path, data, ensure_ascii=False) + '\n', encoding='utf-8')
 
 def box(start, end, texture='gray', uv=None):
     return {'from':start, 'to':end, 'faces':{face:{'texture':'#'+texture, 'uv':uv or [0,0,16,16]}

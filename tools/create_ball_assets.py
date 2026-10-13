@@ -37,6 +37,6 @@ for name in ['plastic_ball','football_ball','basketball_ball','volleyball_ball']
    elements.append({'from':[lo,Y,Z],'to':[hi,Y+2,Z+2],'faces':faces})
 
  model={'textures':{'ball':f'lsmmod:item/{name}','particle':f'lsmmod:item/{name}'},'elements':elements,'display':{'gui':{'rotation':[25,35,0],'scale':[.65,.65,.65]},'ground':{'scale':[1,1,1]},'firstperson_righthand':{'translation':[0,1,0],'scale':[.5,.5,.5]},'thirdperson_righthand':{'scale':[.4,.4,.4]}}}
- (A/f'models/item/{name}.json').write_text(json.dumps(model,indent=2)+'\n')
+ (A/f'models/item/{name}.json').write_text(json.dumps(model,separators=(',',':'),ensure_ascii=False)+'\n')
  (A/f'items/{name}.json').write_text(json.dumps({'model':{'type':'minecraft:model','model':f'lsmmod:item/{name}'}},indent=2)+'\n')
 print('Generated four voxel-sphere models, four 16x16 RGBA textures and four item definitions.')

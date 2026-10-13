@@ -1,9 +1,11 @@
 """Vanilla-resolution plaster and a 4x3 dark chain-link bars panel."""
+from resource_json import preview_path
+from resource_json import resource_json
 import json,random
 from pathlib import Path
 from PIL import Image,ImageDraw
 ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmod';D=ROOT/'src/main/resources/data'
-def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, v, ensure_ascii=False)+'\n')
 def cube(a,b,uv):return {'from':a,'to':b,'faces':{f:{'texture':'#mesh','uv':[uv[2],uv[1],uv[0],uv[3]] if f in ('north','east') else uv} for f in ('north','south','east','west','up','down')}}
 def main():
  rng=random.Random(1613);wall=Image.new('RGB',(16,16))
@@ -38,5 +40,5 @@ def main():
  for locale,wall_name,bars_name in [('es_es','Pared exterior del colegio','Reja de malla del colegio'),('en_us','Street School Wall','School Chain-Link Bars')]:
   p=A/f'lang/{locale}.json';v=json.loads(p.read_text());v['block.lsmmod.street_school_wall']=wall_name;v['block.lsmmod.street_school_bars']=bars_name;write(p,v)
  p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:street_school_wall','lsmmod:street_school_bars']));write(p,v)
- (ROOT/'previews').mkdir(exist_ok=True);mesh.resize((512,384),Image.Resampling.NEAREST).save(ROOT/'previews/street_school_bars_4x3.png')
+ (ROOT/'previews').mkdir(exist_ok=True);mesh.resize((512,384),Image.Resampling.NEAREST).save(preview_path('street_school_bars_4x3.png'))
 if __name__=='__main__':main()

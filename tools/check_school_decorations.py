@@ -17,14 +17,14 @@ def mesh(name):
 
 
 def check_name_sign():
- from create_school_name_sign import ID,TEXT,LINES,DENSITY,WIDTH,HEIGHT
+ from create_school_name_sign import ID,TEXT,LINES,DENSITY,WIDTH,HEIGHT,lettering,complete_model
  from render_school_name_sign import scene
  from render_texture_review import add,load,render
  from audit_block_states import domains
  assert TEXT=='COLEGIO LIBERTADOR SAN MARTIN' and LINES==('COLEGIO','LIBERTADOR SAN MARTIN') and TEXT.isascii()
  assert domains('SchoolNameSignBlock')=={'facing':4,'column':10,'row':3}
  variants=json.loads((A/f'blockstates/{ID}.json').read_text())['variants'];assert len(variants)==120
- reference=Image.open(ROOT/'newresources/school_name_sign_lettering.png').getchannel('A')
+ reference=lettering()
  coverage=np.zeros((HEIGHT*DENSITY,WIDTH*DENSITY),dtype=int)
  for row in range(3):
   for column in range(10):
@@ -39,7 +39,7 @@ def check_name_sign():
    for turn,facing in enumerate(('north','east','south','west')):
     assert variants[f'column={column},row={row},facing={facing}']=={'model':f'lsmmod:block/{ID}_{row}_{column}','y':turn*90}
  assert np.max(coverage)==1 and np.array_equal(coverage>0,np.asarray(reference)>0), 'Split cells drop, overlap or mirror letters'
- complete=json.loads((ROOT/'newresources/school_name_sign_complete.json').read_text());expected=[];add(expected,[complete])
+ complete=complete_model(reference);expected=[];add(expected,[complete])
  assembled=scene(False)
  for angle in (-90,-65,90):
   args=dict(center=[80,24,15.5],scale=4,size=(640,320),azimuth=angle,elevation=12,minecraft_orientation=True)

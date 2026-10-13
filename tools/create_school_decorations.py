@@ -1,9 +1,10 @@
 """Static round wall clock/fan and manually switched circular ceiling lamp."""
+from resource_json import resource_json
 import json,math
 from pathlib import Path
 from PIL import Image,ImageDraw
 ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmod';D=ROOT/'src/main/resources/data'
-def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, v, ensure_ascii=False)+'\n')
 UV={'metal':(.1,.1),'blade':(.35,.1),'rim':(.6,.1),'body':(.85,.1),'hub':(.1,.6),'on':(.35,.6),'off':(.6,.6)}
 class Mesh:
  def __init__(self):self.lines=['mtllib school_decorations.mtl'];self.index=0

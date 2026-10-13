@@ -24,4 +24,4 @@ Faltan generación jigsaw y mapas, NPC concretos y sus zonas/llamados, efectos e
 
 Para crear un bloque o cambiar arte, sigue únicamente [ASSETS: flujo y herramientas por familia](docs/ASSETS.md#flujo-rápido); no hace falta leer los demás specs salvo que cambies su comportamiento.
 
-Raíz Java: `src/main/java/net/nicomar2009/lsmmod/`. Recursos activos: `src/main/resources/`. Referencias y fuentes originales: `newresources/`. Previews: `previews/`. No hace falta leer todos los specs para editar una textura.
+Raíz Java: `src/main/java/net/nicomar2009/lsmmod/`. Recursos activos: `src/main/resources/`. Generadores y fixtures: `tools/`. Previews temporales, fuera de Git: `previews/`. Dependencias de herramientas: `python3 -m pip install -r tools/requirements.txt`. No hace falta leer todos los specs para editar una textura.

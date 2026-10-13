@@ -1,4 +1,1 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": { "layer0": "lsmmod:item/lsm_march" }
-}
+{"parent":"minecraft:item/generated","textures":{"layer0":"lsmmod:item/lsm_march"}}

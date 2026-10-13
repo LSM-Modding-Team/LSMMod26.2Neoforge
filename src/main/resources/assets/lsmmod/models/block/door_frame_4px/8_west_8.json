@@ -1,6 +1,1 @@
-{
-  "parent": "lsmmod:block/door_frame_4px/8_west",
-  "textures": {
-    "surface": "lsmmod:block/gray_playground_floor"
-  }
-}
+{"parent":"lsmmod:block/door_frame_4px/8_west","textures":{"surface":"lsmmod:block/gray_playground_floor"}}

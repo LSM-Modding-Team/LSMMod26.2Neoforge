@@ -1,4 +1,5 @@
 """Generate the school monitor's code-native model and pixel texture."""
+from resource_json import resource_json
 import json
 from pathlib import Path
 from PIL import Image, ImageDraw
@@ -8,7 +9,7 @@ ASSETS = ROOT / 'src/main/resources/assets/lsmmod'
 
 def write(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    path.write_text(resource_json(path, data, ensure_ascii=False) + '\n', encoding='utf-8')
 
 image = Image.new('RGB', (64, 64), '#35383c')
 draw = ImageDraw.Draw(image)

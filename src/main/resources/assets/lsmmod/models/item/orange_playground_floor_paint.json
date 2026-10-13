@@ -1,6 +1,1 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "lsmmod:block/orange_playground_floor"
-  }
-}
+{"parent":"minecraft:item/generated","textures":{"layer0":"lsmmod:block/orange_playground_floor"}}

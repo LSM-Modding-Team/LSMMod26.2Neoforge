@@ -1,4 +1,5 @@
 """Render Minecraft model faces with per-pixel depth, including intersecting parts."""
+from resource_json import preview_path
 import json
 import math
 from pathlib import Path
@@ -65,7 +66,7 @@ def render(name, width=800, height=900, center=(8,8,8), scale=35, elevation=23, 
 
 if __name__=='__main__':
     furniture = np.concatenate([render('dining_table'),render('dining_chair')],axis=1)
-    Image.fromarray(furniture).save(ROOT/'newresources/dining_reference_render.png')
+    Image.fromarray(furniture).save(preview_path('dining_reference_render.png'))
     closeups = np.concatenate([render('dining_table',height=700,center=(8,2.5,8),scale=45,elevation=28,base_only=True),
                               render('dining_table',height=700,center=(8,1,8),scale=45,elevation=90,azimuth=0,base_only=True)],axis=1)
-    Image.fromarray(closeups).save(ROOT/'newresources/dining_table_base_render.png')
+    Image.fromarray(closeups).save(preview_path('dining_table_base_render.png'))

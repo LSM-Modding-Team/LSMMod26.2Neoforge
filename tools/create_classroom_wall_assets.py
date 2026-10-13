@@ -1,4 +1,5 @@
 """Create four passive school decorations, their resources, and matching collision boxes."""
+from resource_json import resource_json
 import json
 import random
 from pathlib import Path
@@ -43,7 +44,7 @@ BACKPACK = [
 
 def write_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path.write_text(resource_json(path, value, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 def save_texture(name, image):

@@ -1,4 +1,6 @@
 """Regenerate registered door assets and previews from the existing classroom door."""
+from resource_json import preview_path
+from resource_json import resource_json
 import json
 from pathlib import Path
 import numpy as np
@@ -10,7 +12,7 @@ DEST = SOURCE
 
 def save_json(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, indent=2) + '\n')
+    path.write_text(resource_json(path, data, ensure_ascii=True) + '\n')
 
 def original():
     result = Image.new('RGBA', (16, 32))
@@ -131,7 +133,7 @@ def create_bathroom():
     rendered = preview(texture)
     font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 20)
     ImageDraw.Draw(rendered).text((220, 710), 'BAÑOS', anchor='mt', font=font, fill=(39, 49, 58))
-    rendered.save(ROOT / 'newresources/bathroom_door_render.png')
+    rendered.save(preview_path('bathroom_door_render.png'))
 
 def main():
     variants = [('dining_door', 'COMEDOR', dining_texture()),
@@ -142,9 +144,9 @@ def main():
         write_assets(name, texture)
         rendered = preview(texture)
         ImageDraw.Draw(rendered).text((220, 710), title, anchor='mt', font=font, fill=(39, 49, 58))
-        rendered.save(ROOT / f'newresources/{name}_render.png')
+        rendered.save(preview_path(f'{name}_render.png'))
         sheet.paste(rendered, (i*440, 0))
-    sheet.save(ROOT / 'newresources/door_variants_render.png')
+    sheet.save(preview_path('door_variants_render.png'))
     create_bathroom()
 
 if __name__ == '__main__':

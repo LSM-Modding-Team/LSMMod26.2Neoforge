@@ -1,4 +1,5 @@
 """Inspect the real two-half bucket models, materials and inventory item offline."""
+from resource_json import preview_path
 from PIL import Image, ImageDraw
 from render_texture_review import ROOT, add, block, load, render
 
@@ -15,7 +16,7 @@ def main():
         ImageDraw.Draw(canvas).text((420*index+15, 15), label, fill=(25, 25, 25))
     canvas.paste(render(item, [8, 8, 8], 29, size=(420, 620), azimuth=-55, elevation=20), (1260, 0))
     ImageDraw.Draw(canvas).text((1275, 15), 'nido_storage_bucket / item', fill=(25, 25, 25))
-    canvas.save(ROOT/'previews/nido_storage_bucket_review.png')
+    canvas.save(preview_path('nido_storage_bucket_review.png'))
 
 
 if __name__ == '__main__': main()

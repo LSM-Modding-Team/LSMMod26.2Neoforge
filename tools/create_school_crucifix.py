@@ -1,4 +1,5 @@
 """Wall-mounted sculpted crucifix: 22x40px inside a two-by-three-cell controller grid."""
+from resource_json import resource_json
 import copy,json,math,random
 from pathlib import Path
 from PIL import Image,ImageDraw
@@ -29,7 +30,7 @@ PARTS+=LEFT+[([32-b[3],b[1],b[2],32-b[0],b[4],b[5]],m) for b,m in LEFT]
 # Small bevels on the shoulders and chest keep the relief readable at Minecraft scale.
 PARTS += [([14,24.5,10.25,15.75,26,10.75],'skin_light'),([16.25,24.5,10.25,18,26,10.75],'skin_light'),([15.25,21,10.25,16.75,24,10.75],'skin_light')]
 
-def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
+def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, v, ensure_ascii=False)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
 def texture(name,image):p=A/f'textures/block/school_crucifix_{name}.png';image.save(p);GENERATED.append(str(p.relative_to(ROOT)))
 def textures():
  for name,color in [('wood',(143,96,54)),('skin',(181,135,94)),('skin_light',(195,149,107)),('cloth',(219,213,192)),('hair',(60,43,30)),('metal',(79,77,71))]:

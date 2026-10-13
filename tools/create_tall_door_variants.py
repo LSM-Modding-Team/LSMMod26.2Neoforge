@@ -1,4 +1,5 @@
 """Tall decorative door variants inherit the complete classroom geometry and glazing."""
+from resource_json import resource_json
 import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
@@ -6,7 +7,7 @@ A=ROOT/'src/main/resources/assets/lsmmod'
 VARIANTS=('bathroom_door','teachers_office_door','dining_door')
 def write(path,value):
     path.parent.mkdir(parents=True,exist_ok=True)
-    path.write_text(json.dumps(value,indent=2,ensure_ascii=False)+'\n')
+    path.write_text(resource_json(path, value, ensure_ascii=False)+'\n')
 def main():
     from compact_school_door_assets import expand_variants,main as compact_doors
     source={'variants':expand_variants(json.loads((A/'blockstates/tall_classroom_entrance.json').read_text()))}

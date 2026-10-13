@@ -212,7 +212,7 @@ def main():
     Image.new('RGB', (16, 16), (17, 18, 19)).save(A/f'textures/block/{ID}_frame.png')
     # Vanilla 26.2 tinted-glass extraction, retained as the reproducible color reference.
     # Source: github.com/InventivetalentDev/minecraft-assets/tree/26.2/assets/minecraft/textures/block
-    glass = Image.open(ROOT/'newresources/projecting_window_tinted_reference.png').convert('RGBA')
+    glass = Image.open(ROOT/'tools/fixtures/projecting_window_tinted_reference.png').convert('RGBA')
     glass.putdata([tuple(max(0, channel-4) for channel in glass.getpixel((x, y))[:3])+(glass.getpixel((x, y))[3],)
                    for y in range(glass.height) for x in range(glass.width)])
     glass.save(A/f'textures/block/{ID}_glass.png')

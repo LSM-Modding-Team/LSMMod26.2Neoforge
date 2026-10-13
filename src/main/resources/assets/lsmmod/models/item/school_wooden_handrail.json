@@ -1,17 +1,1 @@
-{
-  "parent": "lsmmod:block/school_wooden_handrail_right_0_0",
-  "display": {
-    "gui": {
-      "rotation": [
-        25,
-        135,
-        0
-      ],
-      "scale": [
-        0.9,
-        0.9,
-        0.9
-      ]
-    }
-  }
-}
+{"parent":"lsmmod:block/school_wooden_handrail_right_0_0","display":{"gui":{"rotation":[25,135,0],"scale":[0.9,0.9,0.9]}}}

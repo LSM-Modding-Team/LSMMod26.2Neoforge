@@ -1,4 +1,5 @@
 """Render final models/UV/materials offline; these previews are not Minecraft screenshots."""
+from resource_json import preview_path
 import argparse
 import copy
 import json
@@ -221,11 +222,10 @@ def sheet(items, filename):
     for (label,*_),im in zip(items,images):
         canvas.paste(im,(x,32));draw.text((x+12,10),label,fill='black');x+=im.width
     draw.text((12,height-16),'Render externo de modelos y texturas finales; no es una captura de Minecraft.',fill='black')
-    canvas.save(ROOT/'previews'/filename)
+    canvas.save(preview_path(filename))
 
 
 def main():
-    (ROOT/'previews').mkdir(exist_ok=True)
     sheet([('infirmary_door / frontal',door('infirmary_door'),[16,24,8],9,{}),
            ('infirmary_door / lateral posterior',door('infirmary_door'),[16,24,8],9,{'azimuth':55}),
            ('infirmary_door / bisagra derecha',door('infirmary_door',False,True),[16,24,8],9,{'azimuth':140}),

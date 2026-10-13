@@ -1,12 +1,1 @@
-{
-  "loader": "neoforge:obj",
-  "model": "lsmmod:models/block/school_entrance_pavement_slab_bottom_1.obj",
-  "automatic_culling": false,
-  "flip_v": true,
-  "shade_quads": true,
-  "textures": {
-    "gray": "lsmmod:block/school_entrance_pavement_15",
-    "yellow": "lsmmod:block/school_entrance_pavement_0",
-    "particle": "lsmmod:block/school_entrance_pavement_15"
-  }
-}
+{"loader":"neoforge:obj","model":"lsmmod:models/block/school_entrance_pavement_slab_bottom_1.obj","automatic_culling":false,"flip_v":true,"shade_quads":true,"textures":{"gray":"lsmmod:block/school_entrance_pavement_15","yellow":"lsmmod:block/school_entrance_pavement_0","particle":"lsmmod:block/school_entrance_pavement_15"}}

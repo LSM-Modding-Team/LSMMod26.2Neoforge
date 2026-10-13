@@ -1,4 +1,5 @@
 """Closed 2x2x1 cabinet and independent decorative desktop router; bounded native models."""
+from resource_json import resource_json
 import json,random
 from PIL import Image,ImageDraw
 from create_children_locker_and_projector import ROOT,A,D
@@ -6,7 +7,7 @@ from create_bathroom_statue_assets import solid_model
 GENERATED=[]
 
 def write(path,value):
-    path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');GENERATED.append(str(path.relative_to(ROOT)))
+    path.parent.mkdir(parents=True,exist_ok=True);path.write_text(resource_json(path, value, ensure_ascii=False)+'\n',encoding='utf-8');GENERATED.append(str(path.relative_to(ROOT)))
 
 def save(image,name):
     path=A/f'textures/block/{name}.png';image.save(path);GENERATED.append(str(path.relative_to(ROOT)))

@@ -1,7 +1,1 @@
-{
-  "variants": {
-    "": {
-      "model": "lsmmod:block/school_foundation"
-    }
-  }
-}
+{"variants":{"":{"model":"lsmmod:block/school_foundation"}}}

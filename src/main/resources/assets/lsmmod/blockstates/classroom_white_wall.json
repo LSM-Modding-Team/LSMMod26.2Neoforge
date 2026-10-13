@@ -1,7 +1,1 @@
-{
-  "variants": {
-    "": {
-      "model": "lsmmod:block/classroom_white_wall"
-    }
-  }
-}
+{"variants":{"":{"model":"lsmmod:block/classroom_white_wall"}}}

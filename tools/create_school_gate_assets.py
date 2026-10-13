@@ -1,4 +1,6 @@
 """Generate the 6x4 double metal gate; every block texture is 16x16 pixels."""
+from resource_json import preview_path
+from resource_json import resource_json
 import json
 import random
 from pathlib import Path
@@ -14,7 +16,7 @@ MODELS = ASSETS / "models/block"
 
 def write_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path.write_text(resource_json(path, value, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 def gate_art():
@@ -77,7 +79,7 @@ def main():
     TEXTURES.mkdir(parents=True, exist_ok=True)
     image = gate_art()
     (ROOT/"previews").mkdir(exist_ok=True)
-    image.resize((576,384),Image.Resampling.NEAREST).save(ROOT/"previews/school_gate_6x4.png")
+    image.resize((576,384),Image.Resampling.NEAREST).save(preview_path('school_gate_6x4.png'))
     edge = Image.new("RGB", (16, 16), (57, 45, 39))
     draw = ImageDraw.Draw(edge)
     for x in range(0, 16, 4):

@@ -1,6 +1,1 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "lsmmod:item/school_sliding_entrance"
-  }
-}
+{"parent":"minecraft:item/generated","textures":{"layer0":"lsmmod:item/school_sliding_entrance"}}

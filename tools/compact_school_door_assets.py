@@ -1,4 +1,5 @@
 """Remove saved visual connection properties, selecting unchanged door models through Fusion."""
+from resource_json import resource_json
 from collections import defaultdict
 from pathlib import Path
 import hashlib,json
@@ -6,7 +7,7 @@ ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmo
 IDS=('tall_classroom_entrance','tall_bathroom_door','tall_teachers_office_door','tall_dining_door','double_school_entrance')
 PROPERTIES=('frame_layout','top_connected','bottom_connected')
 def read(p):return json.loads(p.read_text(encoding='utf-8'))
-def write(p,data):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+def write(p,data):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, data, ensure_ascii=False)+'\n',encoding='utf-8')
 def key(state):return ','.join(f'{k}={v}' for k,v in sorted(state.items()))
 def expand_variants(definition):
     """Recover all legacy selectors for generators and equivalence checks, never runtime states."""

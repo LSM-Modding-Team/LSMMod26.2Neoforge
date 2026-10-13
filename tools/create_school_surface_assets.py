@@ -1,4 +1,5 @@
 """Generate three opaque 16x16 vanilla cube surface assets (no build required)."""
+from resource_json import resource_json
 import json
 import random
 from pathlib import Path
@@ -17,7 +18,7 @@ SURFACES = {
 
 def write_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path.write_text(resource_json(path, value, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 def texture(block_id, base):

@@ -1,6 +1,1 @@
-{
-  "textures": {
-    "particle": "lsmmod:block/school_gate_edge"
-  },
-  "elements": []
-}
+{"textures":{"particle":"lsmmod:block/school_gate_edge"},"elements":[]}

@@ -1,6 +1,1 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "lsmmod:block/street_school_bars_0_1"
-  }
-}
+{"parent":"minecraft:item/generated","textures":{"layer0":"lsmmod:block/street_school_bars_0_1"}}

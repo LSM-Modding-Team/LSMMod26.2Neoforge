@@ -33,7 +33,7 @@ def check_projecting_windows():
                     assert bool(rotation)==bool(entry['condition']['pose'])
                     if rotation: assert abs(rotation['angle'])==45 and not rotation['rescale']
                     for face in e['faces'].values():assert all(0<=v<=16 for v in face['uv'])
-    reference=Image.open(ROOT/'newresources/projecting_window_tinted_reference.png').convert('RGBA')
+    reference=Image.open(ROOT/'tools/fixtures/projecting_window_tinted_reference.png').convert('RGBA')
     glass=Image.open(A/f'textures/block/{ID}_glass.png').convert('RGBA')
     assert reference.size==glass.size==(16,16)
     for y in range(16):

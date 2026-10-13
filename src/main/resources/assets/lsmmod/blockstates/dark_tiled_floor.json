@@ -1,7 +1,1 @@
-{
-  "variants": {
-    "": {
-      "model": "lsmmod:block/dark_tiled_floor"
-    }
-  }
-}
+{"variants":{"":{"model":"lsmmod:block/dark_tiled_floor"}}}

@@ -1,6 +1,1 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "lsmmod:block/dark_school_wall"
-  }
-}
+{"parent":"minecraft:item/generated","textures":{"layer0":"lsmmod:block/dark_school_wall"}}

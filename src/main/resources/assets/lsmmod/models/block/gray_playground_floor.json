@@ -1,6 +1,1 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "lsmmod:block/gray_playground_floor"
-  }
-}
+{"parent":"minecraft:block/cube_all","textures":{"all":"lsmmod:block/gray_playground_floor"}}

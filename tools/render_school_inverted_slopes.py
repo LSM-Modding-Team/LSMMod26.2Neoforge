@@ -1,4 +1,5 @@
 """External preview of the fixed Y-inverted wall-only slope assemblies."""
+from resource_json import preview_path
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -25,5 +26,5 @@ def main():
   ax.set_xlim(-.1,end+.1);ax.set_ylim(0,1.2);ax.set_zlim(-.1,7);ax.set_box_aspect((end+1,2,7));ax.view_init(elev=-8,azim=-75);ax.set_axis_off()
   ax.set_title('4 piezas invertidas: interrupcion central de 3 bloques' if idx==1 else '6 piezas invertidas: mismo perfil, sin baranda',fontsize=13)
  fig.text(.5,.04,'Vista previa externa. Borde inclinado inicial Y=0; caras planas arriba.',ha='center')
- fig.savefig(ROOT/'previews/school_inverted_slopes.png',dpi=140,bbox_inches='tight');plt.close(fig)
+ fig.savefig(preview_path('school_inverted_slopes.png'),dpi=140,bbox_inches='tight');plt.close(fig)
 if __name__=='__main__':main()

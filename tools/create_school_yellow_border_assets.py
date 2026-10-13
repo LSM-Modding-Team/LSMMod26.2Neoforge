@@ -1,4 +1,5 @@
 """Six-direction connected pavement, 3px yellow perimeter on every exposed face."""
+from resource_json import resource_json
 import itertools,json,random
 from pathlib import Path
 from PIL import Image
@@ -6,7 +7,7 @@ ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmo
 ID='school_entrance_pavement';SIDES=('north','east','south','west','up','down')
 # Face-local top/right/bottom/left following vanilla cube UV conventions.
 EDGES={'north':('up','west','down','east'),'south':('up','east','down','west'),'east':('up','north','down','south'),'west':('up','south','down','north'),'up':('north','east','south','west'),'down':('south','east','north','west')}
-def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, v, ensure_ascii=False)+'\n')
 def main():
  rng=random.Random(3106);base=Image.new('RGB',(16,16))
  for y,x in itertools.product(range(16),repeat=2):

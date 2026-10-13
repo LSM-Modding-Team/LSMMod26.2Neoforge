@@ -1,7 +1,1 @@
-{
-  "variants": {
-    "": {
-      "model": "lsmmod:block/dining_table"
-    }
-  }
-}
+{"variants":{"":{"model":"lsmmod:block/dining_table"}}}

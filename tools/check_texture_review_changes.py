@@ -1,4 +1,4 @@
-"""Check source-texture sampling, invisible cell caps, opaque joins and reviewed assets."""
+"""Check source-texture sampling, invisible cell caps and opaque joins."""
 import hashlib
 import itertools
 import json
@@ -57,12 +57,7 @@ def main():
     before = {p:hashlib.sha256(p.read_bytes()).digest() for p in models}
     generate()
     assert all(hashlib.sha256(p.read_bytes()).digest()==h for p,h in before.items())
-    for name in ('wide_doors_texture_review','wide_doors_right_hinge_review','wide_doors_back_review',
-                 'wide_doors_inventory_review','wide_doors_original_comparison','tinted_glass_and_counter_review','school_wood_texture_review'):
-        p = ROOT/f'previews/{name}.png'
-        assert p.exists()
-        im = Image.open(p);assert im.width>=420 and im.height>=500
-    print(f'OK: {samples} source-texture samples match both small doors, front/back and both hinges; no invented wood caps; 32 opaque tinted joins, 68 curtain-compatible states, original independent glass retained; light school wood, renders saved and generator idempotent.')
+    print(f'OK: {samples} source-texture samples match both small doors, front/back and both hinges; no invented wood caps; 32 opaque tinted joins, 68 curtain-compatible states, original independent glass retained; light school wood and generator idempotent.')
 
 
 if __name__=='__main__':

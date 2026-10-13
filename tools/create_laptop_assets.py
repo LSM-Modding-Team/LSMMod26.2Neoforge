@@ -1,4 +1,5 @@
 """Generate the two code-native pixel-art laptop models and texture atlases."""
+from resource_json import resource_json
 import json
 from pathlib import Path
 from PIL import Image, ImageDraw
@@ -8,7 +9,7 @@ ASSETS = ROOT / 'src/main/resources/assets/lsmmod'
 
 def write(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    path.write_text(resource_json(path, value, ensure_ascii=False) + '\n', encoding='utf-8')
 
 for name, luxury in [('laptop', False), ('moises_laptop', True)]:
     image = Image.new('RGB', (64, 64), '#d6ad39' if luxury else '#898d96')

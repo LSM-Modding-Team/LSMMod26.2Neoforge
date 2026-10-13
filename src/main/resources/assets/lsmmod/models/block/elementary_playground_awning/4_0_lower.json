@@ -1,7 +1,1 @@
-{
-  "parent": "lsmmod:block/playground_awning/4_0_lower",
-  "textures": {
-    "cloth": "lsmmod:block/elementary_playground_awning",
-    "particle": "lsmmod:block/elementary_playground_awning"
-  }
-}
+{"parent":"lsmmod:block/playground_awning/4_0_lower","textures":{"cloth":"lsmmod:block/elementary_playground_awning","particle":"lsmmod:block/elementary_playground_awning"}}

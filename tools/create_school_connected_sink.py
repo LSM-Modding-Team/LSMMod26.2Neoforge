@@ -1,4 +1,5 @@
 """Extendable dark-gray trough sink, eight mask/half meshes and no connection state properties."""
+from resource_json import resource_json
 import json
 from create_children_locker_and_projector import ROOT,A,D
 from create_bathroom_statue_assets import solid_model
@@ -7,7 +8,7 @@ GENERATED=[]
 BASE=[([0,0,14,16,24,16],'wall'),([0,6,3,16,10,14],'wall'),([0,10,3,16,11,4],'wall')]
 LEFT=([0,10,4,1,24,14],'wall');RIGHT=([15,10,4,16,24,14],'wall')
 def parts(mask):return BASE+([] if mask&1 else [LEFT])+([] if mask&2 else [RIGHT])
-def write(path,value):path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');GENERATED.append(str(path.relative_to(ROOT)))
+def write(path,value):path.parent.mkdir(parents=True,exist_ok=True);path.write_text(resource_json(path, value, ensure_ascii=False)+'\n',encoding='utf-8');GENERATED.append(str(path.relative_to(ROOT)))
 def mesh(mask):
     value=solid_model(parts(mask));value['textures']={'wall':'lsmmod:block/dark_school_tiled_floor_side','particle':'lsmmod:block/dark_school_tiled_floor_side'};value['render_type']='minecraft:solid';return value
 

@@ -1,4 +1,5 @@
 """Four interrupted and six independently placed smooth railing slopes."""
+from resource_json import resource_json
 import json,math
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmod'
@@ -12,7 +13,7 @@ def pieces():
   h=flight_height(i);row=math.floor(h+.75)
   yield f'school_railing_slope_flight_{i+1}',i,row,.75+h-row,flight_height(i+1)-h,i%2==0
 
-def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,indent=2,ensure_ascii=False)+'\n')
+def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, v, ensure_ascii=False)+'\n')
 def obj(low,rise,post,band=False):
  vertices=[];uv=[];faces=[]
  def prism(x0,x1,t0,t1,b0,b1,h0,h1,material):

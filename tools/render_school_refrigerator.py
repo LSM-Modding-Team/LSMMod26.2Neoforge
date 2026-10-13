@@ -1,4 +1,5 @@
 """Inspect the final refrigerator block cells and layered item using their actual textures."""
+from resource_json import preview_path
 from PIL import Image, ImageDraw
 from render_texture_review import ROOT, add, block, load, render
 
@@ -18,7 +19,7 @@ def main():
         ImageDraw.Draw(canvas).text((420*index+18, 18), label, fill=(30, 30, 30))
     canvas.paste(render(item, [8, 8, 8], 29, size=(420, 620), azimuth=-60, elevation=12), (1260, 0))
     ImageDraw.Draw(canvas).text((1278, 18), 'Item / capas solid y translucent', fill=(30, 30, 30))
-    canvas.save(ROOT/'previews/school_refrigerator_review.png')
+    canvas.save(preview_path('school_refrigerator_review.png'))
 
 
 if __name__ == '__main__':

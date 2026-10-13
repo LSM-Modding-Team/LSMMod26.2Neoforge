@@ -1,10 +1,11 @@
 """Opaque painted classroom/street cubes and short artificial turf; no connection state."""
+from resource_json import resource_json
 import json,random
 from pathlib import Path
 from PIL import Image
 ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmod'
 IDS=('classroom_white_wall','school_synthetic_grass','red_street_wall')
-def write(p,d):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+def write(p,d):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, d, ensure_ascii=False)+'\n',encoding='utf-8')
 def main():
  for ident in IDS:
   texture_name=ident

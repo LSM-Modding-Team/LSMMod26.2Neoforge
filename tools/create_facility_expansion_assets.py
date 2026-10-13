@@ -1,4 +1,5 @@
 """Opaque 3x3 entrance grids, 3-cell cot, 2x3 statue/door, microwave and trophy display."""
+from resource_json import resource_json
 import copy,json,re
 from pathlib import Path
 from PIL import Image
@@ -15,7 +16,7 @@ DINING_CLOSED=DINING_FIXED+DINING_LEAF
 DINING_OPEN=DINING_FIXED+[([b[2],b[1],b[0],b[5],b[4],b[3]],mat) for b,mat in DINING_LEAF]
 
 def write(p,v):
- p.parent.mkdir(parents=True,exist_ok=True);p.write_text(v if isinstance(v,str) else json.dumps(v,ensure_ascii=False,indent=2)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
+ p.parent.mkdir(parents=True,exist_ok=True);p.write_text(v if isinstance(v,str) else resource_json(p, v, ensure_ascii=False)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
 def basic(ident,root=None,controller=None):
  write(A/f'items/{ident}.json',{'model':{'type':'minecraft:model','model':'lsmmod:'+(root or 'item/'+ident)}})
  cond=[{'condition':'minecraft:survives_explosion'}]

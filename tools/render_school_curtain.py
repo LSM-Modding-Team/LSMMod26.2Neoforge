@@ -1,4 +1,5 @@
 """External curtain preview; not a Minecraft screenshot."""
+from resource_json import preview_path
 import json,math,zipfile,io
 from pathlib import Path
 import numpy as np
@@ -68,6 +69,6 @@ def main():
         scale=min(400/(width*16),490/(height*16))
         canvas.paste(render({'elements':pieces,'textures':textures},[width*8,height*8,8],scale),(480*panel,0))
         labels.text((20+480*panel,25),label,fill='white')
-    canvas.save(ROOT/'previews/school_curtain_vertical.png')
+    canvas.save(preview_path('school_curtain_vertical.png'))
 
 if __name__=='__main__':main()

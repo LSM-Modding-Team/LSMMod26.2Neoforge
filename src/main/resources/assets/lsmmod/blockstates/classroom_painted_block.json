@@ -1,7 +1,1 @@
-{
-  "variants": {
-    "": {
-      "model": "lsmmod:block/classroom_painted_block"
-    }
-  }
-}
+{"variants":{"":{"model":"lsmmod:block/classroom_painted_block"}}}

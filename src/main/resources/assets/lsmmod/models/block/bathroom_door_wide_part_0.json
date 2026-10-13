@@ -1,8 +1,1 @@
-{
-  "parent": "lsmmod:block/dining_door_wide_part_0",
-  "textures": {
-    "bottom": "lsmmod:block/bathroom_door_bottom",
-    "top": "lsmmod:block/bathroom_door_top",
-    "particle": "lsmmod:block/bathroom_door_bottom"
-  }
-}
+{"parent":"lsmmod:block/dining_door_wide_part_0","textures":{"bottom":"lsmmod:block/bathroom_door_bottom","top":"lsmmod:block/bathroom_door_top","particle":"lsmmod:block/bathroom_door_bottom"}}

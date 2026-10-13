@@ -1,4 +1,5 @@
 """Generate bounded block-state cloth models, metal supports and woven blue textures."""
+from resource_json import resource_json
 import json
 from pathlib import Path
 from PIL import Image
@@ -7,7 +8,7 @@ ASSETS=ROOT/'src/main/resources/assets/lsmmod'
 
 def write(path,value):
     path.parent.mkdir(parents=True,exist_ok=True)
-    path.write_text(json.dumps(value,indent=2)+'\n')
+    path.write_text(resource_json(path, value, ensure_ascii=True)+'\n')
 
 def cube(a,b,texture,uv=(0,0,16,16)):
     return {'from':a,'to':b,'faces':{f:{'uv':list(uv),'texture':texture} for f in ('up','down','north','south','east','west')}}

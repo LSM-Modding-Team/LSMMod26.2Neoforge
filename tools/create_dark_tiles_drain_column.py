@@ -1,4 +1,5 @@
 """Low-state dark tiles, open drain, and shared per-quadrant circular-column connections."""
+from resource_json import resource_json
 import json, math, random, copy
 from pathlib import Path
 from PIL import Image
@@ -34,7 +35,7 @@ def outer_boxes(q,height,base=False):
  return [[b[0],max(b[1],height),b[2],b[3],b[4],b[5]] for b in connectors(q,base) if b[4]>height]
 def vertical(boxes,low,high):
  return [[b[0],max(b[1],low),b[2],b[3],min(b[4],high),b[5]] for b in boxes if max(b[1],low)<min(b[4],high)]
-def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
+def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, v, ensure_ascii=False)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
 def model(parts,textures):
  v=solid_model(parts);v['textures']=textures;v['render_type']='minecraft:solid'
  for e in v['elements']:

@@ -1,6 +1,1 @@
-{
-  "parent": "lsmmod:item/notebook",
-  "textures": {
-    "cover": "lsmmod:item/stationery/cover_gray"
-  }
-}
+{"parent":"lsmmod:item/notebook","textures":{"cover":"lsmmod:item/stationery/cover_gray"}}

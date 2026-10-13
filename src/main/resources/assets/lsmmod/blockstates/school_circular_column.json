@@ -1,7 +1,1 @@
-{
-  "variants": {
-    "": {
-      "model": "lsmmod:block/school_circular_column"
-    }
-  }
-}
+{"variants":{"":{"model":"lsmmod:block/school_circular_column"}}}

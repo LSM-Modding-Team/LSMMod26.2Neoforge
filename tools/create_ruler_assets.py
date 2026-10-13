@@ -1,4 +1,5 @@
 """Generate six metre-ruler item models, engraved pixel atlases and vanilla-tier recipes."""
+from resource_json import resource_json
 from pathlib import Path
 import json
 from PIL import Image,ImageDraw,ImageFont
@@ -8,7 +9,7 @@ TIERS=json.loads((ROOT/'tools/ruler_tiers.json').read_text())
 PALETTES={'wooden':((191,145,77),(41,31,22)), 'stone':((142,145,147),(30,32,34)), 'golden':((232,188,61),(67,46,16)), 'iron':((206,214,219),(36,44,52)), 'diamond':((66,205,193),(15,56,67)), 'netherite':((73,65,70),(218,207,180))}
 MATERIALS={'wooden':'#minecraft:planks','stone':'#minecraft:stone_tool_materials','golden':'minecraft:gold_ingot','iron':'minecraft:iron_ingot','diamond':'minecraft:diamond'}
 def write(path,value):
- path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(value,indent=2)+'\n')
+ path.parent.mkdir(parents=True,exist_ok=True);path.write_text(resource_json(path, value, ensure_ascii=True)+'\n')
 def cube(a,b,uv):
  return {'from':a,'to':b,'faces':{f:{'texture':'#atlas','uv':uv} for f in ['north','south','east','west','up','down']}}
 DISPLAY={

@@ -1,4 +1,5 @@
 """Reference-based closed display refrigerator; shared furniture lifecycle and render layers."""
+from resource_json import resource_json
 import copy
 import json
 from pathlib import Path
@@ -62,7 +63,7 @@ def parts():
 
 def write(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+    path.write_text(resource_json(path, value, ensure_ascii=False)+'\n', encoding='utf-8')
 
 
 def mesh(parts, layer):

@@ -1,4 +1,5 @@
 """Generate connected school glazing and one three-block-tall operable classroom door."""
+from resource_json import resource_json
 import json
 from pathlib import Path
 from PIL import Image, ImageDraw
@@ -8,7 +9,7 @@ D=ROOT/'src/main/resources/data'
 
 def write(path,value):
     path.parent.mkdir(parents=True,exist_ok=True)
-    path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
+    path.write_text(resource_json(path, value, ensure_ascii=False)+'\n')
 
 def cube(bounds,material,uv=None,mirror=False):
     faces={f:{'texture':'#'+material,'uv': uv or [0,0,16,16]} for f in ['north','south','east','west','up','down']}

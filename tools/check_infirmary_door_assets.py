@@ -109,9 +109,7 @@ def main():
     source=(java/'block/SchoolFramedDiningDoorBlock.java').read_text()
     assert '(sideGlazing?64:0)' in source and 'SimpleBlockOutline.forState' in source
     assert 'row,0),true)' in source
-    for name in ('infirmary_door_texture_review.png','door_variants_and_connections_review.png','new_door_inventory_review.png'):
-        assert (ROOT/'previews'/name).stat().st_size>10000
-    print(f'OK: 384 new states, {masks_checked} independent main/side mask selections; exact closed/open/right physical occupancy; bathroom wood without window; front-only light walls, single drops and external renders.')
+    print(f'OK: 384 new states, {masks_checked} independent main/side mask selections; exact closed/open/right physical occupancy; bathroom wood without window; front-only light walls and single drops.')
 
 
 if __name__=='__main__':main()

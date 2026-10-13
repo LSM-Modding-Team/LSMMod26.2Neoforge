@@ -1,10 +1,11 @@
 """Four smooth OBJ wedges, uniform existing yellow, no connection states or new textures."""
+from resource_json import resource_json
 import json
 from create_entrance_pavement_shapes import ROOT,A,D,SIDES,obj
 GENERATED=[]
 
 def write(path,value):
-    path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');GENERATED.append(str(path.relative_to(ROOT)))
+    path.parent.mkdir(parents=True,exist_ok=True);path.write_text(resource_json(path, value, ensure_ascii=False)+'\n',encoding='utf-8');GENERATED.append(str(path.relative_to(ROOT)))
 def text(path,value):path.write_text(value);GENERATED.append(str(path.relative_to(ROOT)))
 
 def main():

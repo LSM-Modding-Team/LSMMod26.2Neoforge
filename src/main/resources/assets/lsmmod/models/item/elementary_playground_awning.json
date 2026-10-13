@@ -1,7 +1,1 @@
-{
-  "parent": "lsmmod:item/playground_awning",
-  "textures": {
-    "cloth": "lsmmod:block/elementary_playground_awning",
-    "particle": "lsmmod:block/elementary_playground_awning"
-  }
-}
+{"parent":"lsmmod:item/playground_awning","textures":{"cloth":"lsmmod:block/elementary_playground_awning","particle":"lsmmod:block/elementary_playground_awning"}}

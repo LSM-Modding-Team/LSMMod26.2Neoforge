@@ -1,6 +1,1 @@
-{
-  "textures": {
-    "particle": "lsmmod:block/school_wooden_handrail"
-  },
-  "elements": []
-}
+{"textures":{"particle":"lsmmod:block/school_wooden_handrail"},"elements":[]}

@@ -37,6 +37,7 @@ PY
     tar -xzf "$lsm_tools_root/jdk25.tar.gz" --strip-components=1 -C "$lsm_tools_root/jdk25"
     export JAVA_HOME="$lsm_tools_root/jdk25"
     lsm_java25 "$JAVA_HOME"
+    rm -f -- "$lsm_tools_root/jdk25.tar.gz" "$lsm_tools_root/jdk25.sha256"
 fi
 export PATH="$JAVA_HOME/bin:$PATH"
 if [ -z "${GRADLE_USER_HOME:-}" ]; then

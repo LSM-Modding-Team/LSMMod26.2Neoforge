@@ -1,4 +1,5 @@
 """External model preview with alpha compositing; not a Minecraft screenshot."""
+from resource_json import preview_path
 import json,math,zipfile,io
 from pathlib import Path
 import numpy as np
@@ -57,7 +58,7 @@ def main():
                 for k in ('from','to'):e[k]=[e[k][0]+16*col,e[k][1]+16*row,e[k][2]]
                 elements.append(e)
     m['elements']=elements;canvas.paste(render(m,[16,24,8],9.5),(1440,0));draw.text((1460,25),'Puerta escalonada: 3 bloques, cristal superior',fill='white')
-    p=ROOT/'previews/school_glass_entrance.png';p.parent.mkdir(exist_ok=True);canvas.save(p)
+    p=preview_path('school_glass_entrance.png');p.parent.mkdir(exist_ok=True);canvas.save(p)
     operation=Image.new('RGB',(960,600),(112,130,128));labels=ImageDraw.Draw(operation)
     for opened in (False,True):
         pieces=[]
@@ -69,7 +70,7 @@ def main():
                     pieces.append(e)
         m['elements']=pieces;operation.paste(render(m,[16,24,8],9.5),(480*int(opened),0))
         labels.text((20+480*int(opened),25),'Puertas '+('abiertas' if opened else 'cerradas')+' / cristal superior fijo',fill='white')
-    operation.save(ROOT/'previews/tall_classroom_door_open_closed.png')
+    operation.save(preview_path('tall_classroom_door_open_closed.png'))
     stairs=Image.new('RGB',(1920,600),(112,130,128));labels=ImageDraw.Draw(stairs)
     for index,(name,label) in enumerate([('supported_school_glass','Paredes: original'),('supported_school_glass_reversed','Paredes: materiales invertidos'),('mixed_school_glass','Muro/concreto: original'),('mixed_school_glass_reversed','Muro/concreto: materiales invertidos')]):
         m=json.loads((A/f'models/block/{name}_bottom_straight_1_0.json').read_text())
@@ -81,7 +82,7 @@ def main():
             for k in ('from','to'):e[k][1]+=16
         m['elements']+=upper['elements']
         stairs.paste(render(m,[8,16,8],14),(480*index,0));labels.text((20+480*index,25),label,fill='white')
-    stairs.save(ROOT/'previews/school_stairs_reversed_connections.png')
+    stairs.save(preview_path('school_stairs_reversed_connections.png'))
 
     stack=Image.new('RGB',(1920,600),(112,130,128));labels=ImageDraw.Draw(stack)
     for index,name in enumerate(('supported_school_glass','mixed_school_glass','supported_school_glass_reversed','mixed_school_glass_reversed')):
@@ -95,7 +96,7 @@ def main():
                 pieces.append(e)
         m['elements']=pieces;stack.paste(render(m,[8,24,8],10),(480*index,0))
         labels.text((20+480*index,25),name.replace('_school_glass',''),fill='white')
-    stack.save(ROOT/'previews/school_glass_stack_corrected.png')
+    stack.save(preview_path('school_glass_stack_corrected.png'))
 
 
 

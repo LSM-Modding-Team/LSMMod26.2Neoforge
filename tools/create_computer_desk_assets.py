@@ -1,4 +1,5 @@
 """Build the two-block school computer workstation and matching collision shapes."""
+from resource_json import resource_json
 import copy
 import json
 from pathlib import Path
@@ -8,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 A = ROOT / 'src/main/resources/assets/lsmmod'
 def write(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    path.write_text(resource_json(path, data, ensure_ascii=False) + '\n', encoding='utf-8')
 
 im = Image.new('RGB', (64, 64), '#bc8858')
 d = ImageDraw.Draw(im)

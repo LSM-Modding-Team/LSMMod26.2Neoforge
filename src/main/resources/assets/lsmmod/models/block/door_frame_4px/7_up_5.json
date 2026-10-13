@@ -1,6 +1,1 @@
-{
-  "parent": "lsmmod:block/door_frame_4px/7_up",
-  "textures": {
-    "surface": "lsmmod:block/classroom_floor"
-  }
-}
+{"parent":"lsmmod:block/door_frame_4px/7_up","textures":{"surface":"lsmmod:block/classroom_floor"}}

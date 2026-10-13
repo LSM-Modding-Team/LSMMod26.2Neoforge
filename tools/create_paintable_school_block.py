@@ -1,4 +1,5 @@
 """One painted cube state, reusable face models, and texture-only tools."""
+from resource_json import resource_json
 import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmod'
@@ -6,7 +7,7 @@ SIDES=('down','up','north','south','west','east')
 PAINTS=('minecraft:block/light_gray_concrete','lsmmod:block/light_school_wall',
         'lsmmod:block/dark_school_wall','lsmmod:block/street_school_wall','lsmmod:block/classroom_white_wall','lsmmod:block/classroom_floor','lsmmod:block/yellow_school_block','lsmmod:block/white_playground_floor','lsmmod:block/gray_playground_floor','lsmmod:block/green_playground_floor','lsmmod:block/orange_playground_floor','lsmmod:block/dark_tiled_floor','lsmmod:block/red_street_wall')
 TOOLS=('light_school','dark_school','street_school','classroom_white','classroom_floor_paint','yellow_school_paint','white_playground_floor_paint','gray_playground_floor_paint','green_playground_floor_paint','orange_playground_floor_paint','dark_tiled_floor_paint','red_street_wall_paint','paint_cleaner')
-def write(p,d):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+def write(p,d):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, d, ensure_ascii=False)+'\n',encoding='utf-8')
 def main():
  series=[]
  for face in SIDES:

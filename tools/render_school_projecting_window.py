@@ -1,4 +1,5 @@
 """Inspect actual pane fragments, rigid 45-degree hinges, shared seams and the inventory item."""
+from resource_json import preview_path
 import json
 from PIL import Image, ImageDraw
 from create_school_projecting_window_assets import A, ROOT, ID, PAINTABLE_ID, parts
@@ -60,7 +61,7 @@ def review_layouts():
             canvas.paste(image,(column*600,row*375))
             label=f"{rule['width']}x{rule['height']} bloques -> {rule['columns']}x{rule['rows']} paneles / {'abierto, dorso' if opened else 'cerrado, frente'}"
             ImageDraw.Draw(canvas).text((column*600+10,row*375+10),label,fill=(25,25,25))
-    canvas.save(ROOT/'previews/school_projecting_window_layouts_review.png')
+    canvas.save(preview_path('school_projecting_window_layouts_review.png'))
 
 def main():
     closed = scene({})
@@ -76,12 +77,12 @@ def main():
     for index, (label, elements, center, scale, azimuth) in enumerate(cases):
         canvas.paste(render(elements, center, scale, size=(420, 640), azimuth=azimuth, elevation=12), (420*index, 0))
         ImageDraw.Draw(canvas).text((420*index+10, 15), label, fill=(25, 25, 25))
-    canvas.save(ROOT/'previews/school_projecting_window_review.png')
+    canvas.save(preview_path('school_projecting_window_review.png'))
     reverse = Image.new('RGB', (840, 640))
     for index, (elements, label) in enumerate(((closed, 'Dorso cerrado'), (all_edges, 'Dorso abierto / bisagras independientes'))):
         reverse.paste(render(elements, [24, 24, 18], 8, size=(420, 640), azimuth=115, elevation=12), (420*index, 0))
         ImageDraw.Draw(reverse).text((420*index+10, 15), label, fill=(25, 25, 25))
-    reverse.save(ROOT/'previews/school_projecting_window_reverse_review.png')
+    reverse.save(preview_path('school_projecting_window_reverse_review.png'))
     half = Image.new('RGB',(1680,640))
     cases=(('left',0,0,'Panel compartido / cerrado'),('left',1,4,'Panel compartido / abierto'),
            ('right',1,2,'Mitad derecha / panel compartido'),('item',0,0,'Item / mitad fija'))
@@ -105,7 +106,7 @@ def main():
                                 if path.exists():add(geometry,[json.loads(path.read_text())],(16*x,16*y,0))
         half.paste(render(geometry,[8,8,14] if side=='item' else [16,24,18],25 if side=='item' else 9,size=(420,640),azimuth=-65,elevation=18),(420*index,0))
         ImageDraw.Draw(half).text((420*index+10,15),label,fill=(25,25,25))
-    half.save(ROOT/'previews/school_paintable_projecting_window_review.png')
+    half.save(preview_path('school_paintable_projecting_window_review.png'))
     review_layouts()
 
 

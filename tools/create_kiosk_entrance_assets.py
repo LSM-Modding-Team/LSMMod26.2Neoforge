@@ -1,4 +1,5 @@
 """Three-cell kiosk, timber panel/door, telescopic 6x4 entrance, raised fountain and lost box."""
+from resource_json import resource_json
 import copy,json,random,re,hashlib
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont
@@ -7,7 +8,7 @@ ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmo
 IDS=['school_wood_panel','school_wood_door','school_sliding_entrance','drinking_fountain_raised','lost_and_found_box']
 
 def write(p,v):
- p.parent.mkdir(parents=True,exist_ok=True);p.write_text(v if isinstance(v,str) else json.dumps(v,ensure_ascii=False,indent=2)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
+ p.parent.mkdir(parents=True,exist_ok=True);p.write_text(v if isinstance(v,str) else resource_json(p, v, ensure_ascii=False)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
 def save(im,name):
  p=A/f'textures/block/{name}.png';im.save(p);GENERATED.append(str(p.relative_to(ROOT)))
 def basic(ident,model=None,controller=None):

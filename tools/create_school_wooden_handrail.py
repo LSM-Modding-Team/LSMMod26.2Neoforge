@@ -1,10 +1,11 @@
 """Six-block wooden handrail: 24px rise, two rails, slim balusters, no tall post."""
+from resource_json import resource_json
 from pathlib import Path
 import json, random, re
 from PIL import Image
 ROOT=Path(__file__).resolve().parents[1]; A=ROOT/'src/main/resources/assets/lsmmod';D=ROOT/'src/main/resources/data'
 def write(p,v):
- p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+ p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, v, ensure_ascii=False)+'\n')
 def clip(poly,limit,keep_above):
  out=[]
  for a,b in zip(poly,poly[1:]+poly[:1]):

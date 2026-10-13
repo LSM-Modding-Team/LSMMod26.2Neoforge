@@ -1,7 +1,1 @@
-{
-  "variants": {
-    "": {
-      "model": "lsmmod:block/street_school_wall"
-    }
-  }
-}
+{"variants":{"":{"model":"lsmmod:block/street_school_wall"}}}

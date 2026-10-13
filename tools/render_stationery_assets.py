@@ -1,7 +1,9 @@
-import bpy, json, math
+import bpy, json, math, sys
 from pathlib import Path
 from mathutils import Vector
 root=Path(__file__).resolve().parents[1]; assets=root/'src/main/resources/assets/lsmmod'
+sys.path.insert(0, str(root/'tools'))
+from resource_json import preview_path
 bpy.ops.object.select_all(action='SELECT'); bpy.ops.object.delete(use_global=False)
 faces={'north': [0,2,6,4], 'south':[1,5,7,3], 'east':[4,6,7,5], 'west':[0,1,3,2], 'up':[2,3,7,6], 'down':[0,4,5,1]}
 materials={}
@@ -33,5 +35,5 @@ world=bpy.context.scene.world;world.use_nodes=True;world.node_tree.nodes['Backgr
 for loc,power,size in [((-12,15,27),2400,15),((18,0,18),1600,12)]:
     bpy.ops.object.light_add(type='AREA',location=loc);light=bpy.context.object;light.data.energy=power;light.data.shape='DISK';light.data.size=size;light.rotation_euler=(Vector((0,0,7))-light.location).to_track_quat('-Z','Y').to_euler()
 bpy.ops.object.camera_add(location=(22,-45,27));cam=bpy.context.object;cam.rotation_euler=(Vector((0,0,7))-cam.location).to_track_quat('-Z','Y').to_euler();cam.data.type='ORTHO';cam.data.ortho_scale=29
-s=bpy.context.scene;s.camera=cam;s.render.engine='CYCLES';s.cycles.samples=24;s.cycles.use_denoising=False;s.render.resolution_x=1300;s.render.resolution_y=850;s.render.resolution_percentage=100;s.render.image_settings.file_format='PNG';s.render.filepath=str(root/'newresources/stationery_preview.png');s.view_settings.view_transform='Standard';bpy.ops.render.render(write_still=True)
-cam.location=(0,-48,7);cam.rotation_euler=(Vector((0,0,7))-cam.location).to_track_quat('-Z','Y').to_euler();s.render.filepath=str(root/'newresources/stationery_front.png');bpy.ops.render.render(write_still=True)
+s=bpy.context.scene;s.camera=cam;s.render.engine='CYCLES';s.cycles.samples=24;s.cycles.use_denoising=False;s.render.resolution_x=1300;s.render.resolution_y=850;s.render.resolution_percentage=100;s.render.image_settings.file_format='PNG';s.render.filepath=str(preview_path('stationery_preview.png'));s.view_settings.view_transform='Standard';bpy.ops.render.render(write_still=True)
+cam.location=(0,-48,7);cam.rotation_euler=(Vector((0,0,7))-cam.location).to_track_quat('-Z','Y').to_euler();s.render.filepath=str(preview_path('stationery_front.png'));bpy.ops.render.render(write_still=True)

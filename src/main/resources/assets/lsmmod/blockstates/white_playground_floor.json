@@ -1,7 +1,1 @@
-{
-  "variants": {
-    "": {
-      "model": "lsmmod:block/white_playground_floor"
-    }
-  }
-}
+{"variants":{"":{"model":"lsmmod:block/white_playground_floor"}}}

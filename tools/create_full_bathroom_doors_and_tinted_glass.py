@@ -1,9 +1,10 @@
 """Fully moving bathroom doors (3/4 rows) and an independent opaque school panel."""
+from resource_json import resource_json
 from pathlib import Path
 import json,copy
 from PIL import Image,ImageDraw
 R=Path(__file__).resolve().parents[1];A=R/'src/main/resources/assets/lsmmod';D=R/'src/main/resources/data'
-def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, v, ensure_ascii=False)+'\n')
 def item_loot(ident,controller=False):
  write(A/f'items/{ident}.json',{'model':{'type':'minecraft:model','model':f'lsmmod:item/{ident}'}})
  conditions=[{'condition':'minecraft:survives_explosion'}]

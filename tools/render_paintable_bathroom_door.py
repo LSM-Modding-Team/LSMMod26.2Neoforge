@@ -1,4 +1,5 @@
 """Review the actual bathroom leaf, editable frame, palette selection and carved surfaces."""
+from resource_json import preview_path
 import itertools
 import json
 from PIL import Image,ImageDraw
@@ -56,13 +57,13 @@ def review():
         canvas.paste(render(elements,origin,scale,size=(480,580),azimuth=angle,elevation=12,minecraft_orientation=True),offset)
         draw.text((offset[0]+10,offset[1]-18),label,fill=(25,25,25))
     draw.text((10,1840),'Render externo de modelos finales; no es una prueba en Minecraft.',fill=(25,25,25))
-    canvas.save(ROOT/f'previews/{ID}_review.png')
+    canvas.save(preview_path(f'{ID}_review.png'))
     palette=Image.new('RGB',(1680,2340),(194,194,194));draw=ImageDraw.Draw(palette)
     for paint in range(13):
         elements=scene(paint=paint);origin,scale=framing(elements,size=(420,520));offset=(paint%4*420,paint//4*580+25)
         palette.paste(render(elements,origin,scale,size=(420,520),azimuth=-65,elevation=12,minecraft_orientation=True),offset)
         draw.text((offset[0]+10,offset[1]-18),f'Pintura {paint} / material real',fill=(25,25,25))
-    palette.save(ROOT/f'previews/{ID}_palette_review.png')
+    palette.save(preview_path(f'{ID}_palette_review.png'))
     editing=Image.new('RGB',(1440,620),(194,194,194));draw=ImageDraw.Draw(editing)
     cases=(('Cuadrados independientes de 8x8 px',scene(paint=lambda xyz,face:9 if sum(v//2 for v in xyz)%2 else 4)),
            ('Marco retirado / hoja conservada',scene(removed=frame_cells())),
@@ -71,7 +72,7 @@ def review():
         origin,scale=framing(elements,size=(480,580));offset=(index*480,25)
         editing.paste(render(elements,origin,scale,size=(480,580),azimuth=-65,elevation=12,minecraft_orientation=True),offset)
         draw.text((offset[0]+10,8),label,fill=(25,25,25))
-    editing.save(ROOT/f'previews/{ID}_editing_review.png')
+    editing.save(preview_path(f'{ID}_editing_review.png'))
 
 
 if __name__=='__main__':review()

@@ -1,4 +1,5 @@
 """Review modular sofa corners, connected assemblies, four orientations and the real item."""
+from resource_json import preview_path
 import json
 
 from PIL import Image, ImageDraw
@@ -51,11 +52,11 @@ def main():
         module(outside, 'south', x=offset)
         module(outside, 'east', z=offset)
     panel(canvas, 8, 'Conexion en L / esquina exterior', outside, azimuth=135)
-    target = ROOT/'previews/sofa_connections_review.png'
+    target = preview_path('sofa_connections_review.png')
     canvas.save(target)
     print(target)
     # Use the actual front of the SOUTH-native chair rather than the generic NORTH labels.
-    canvas.crop((0, 0, 1500, 380)).save(ROOT/'previews/sofa_review.png')
+    canvas.crop((0, 0, 1500, 380)).save(preview_path('sofa_review.png'))
 
     orientations = Image.new('RGB', (1500, 5*320), (194, 194, 194))
     for row, shape in enumerate(('straight', 'inner_left', 'inner_right', 'outer_left', 'outer_right')):
@@ -64,7 +65,7 @@ def main():
             module(scene, facing, shape)
             panel(orientations, row*4+column, shape+' / '+facing, scene,
                   columns=4, size=(375, 320), azimuth=60)
-    target = ROOT/'previews/sofa_orientations_review.png'
+    target = preview_path('sofa_orientations_review.png')
     orientations.save(target)
     print(target)
 

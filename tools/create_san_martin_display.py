@@ -1,4 +1,5 @@
 """Rebuild San Martin as a centered 1x2 sculpture in a white 2x2.5x1 display."""
+from resource_json import resource_json
 import copy
 import json
 from PIL import Image, ImageDraw
@@ -132,7 +133,7 @@ def parts():
 
 def write(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2)+'\n')
+    path.write_text(resource_json(path, data, ensure_ascii=False)+'\n')
     GENERATED.append(str(path.relative_to(ROOT)))
 
 
@@ -221,9 +222,6 @@ def generate():
     textures()
     opaque, glass = parts()
     models = {'solid': model(opaque, 'solid'), 'translucent': model(glass, 'translucent')}
-    # Complete models are reviewable/editable outside the packaged cell resources.
-    for layer, value in models.items():
-        write(ROOT/f'newresources/{ID}_complete_{layer}.json', value)
     states = []
     for layer, value in models.items():
         for row in range(3):

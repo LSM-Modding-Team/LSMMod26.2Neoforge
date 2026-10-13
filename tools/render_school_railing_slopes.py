@@ -1,4 +1,5 @@
 """External geometry preview of assembled railing slopes, not a game screenshot."""
+from resource_json import preview_path
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -36,5 +37,5 @@ def main():
   ax.set_xlim(-1,end+1);ax.set_ylim(0,1.2);ax.set_zlim(0,7);ax.set_box_aspect((end+2,2,7));ax.view_init(elev=12,azim=-74);ax.set_axis_off()
   ax.set_title('4 piezas: tramo 7x5 interrumpido por soporte de 3' if idx==1 else '6 piezas: extremos a 4 bloques de desnivel',fontsize=13)
  fig.text(.5,.03,'Vista previa externa: muro claro, metal del portón y bases planas en cada pieza.',ha='center')
- (ROOT/'previews').mkdir(exist_ok=True);fig.savefig(ROOT/'previews/school_railing_slopes.png',dpi=140,bbox_inches='tight');plt.close(fig)
+ (ROOT/'previews').mkdir(exist_ok=True);fig.savefig(preview_path('school_railing_slopes.png'),dpi=140,bbox_inches='tight');plt.close(fig)
 if __name__=='__main__':main()

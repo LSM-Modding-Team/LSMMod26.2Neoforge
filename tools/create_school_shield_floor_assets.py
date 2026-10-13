@@ -1,4 +1,6 @@
 """Generate a vanilla-resolution 4x4 crest slab from a deterministic pixel drawing."""
+from resource_json import preview_path
+from resource_json import resource_json
 import json
 from pathlib import Path
 from PIL import Image,ImageDraw
@@ -6,7 +8,7 @@ ROOT=Path(__file__).resolve().parents[1]
 ASSETS=ROOT/'src/main/resources/assets/lsmmod'
 BLOCKS=ASSETS/'textures/block'
 
-def write(path,value):path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
+def write(path,value):path.write_text(resource_json(path, value, ensure_ascii=False)+'\n')
 
 def crest():
  floor=Image.open(BLOCKS/'classroom_floor.png').convert('RGBA')
@@ -51,5 +53,5 @@ def main():
  write(ASSETS/'blockstates/school_shield.json',{'variants':states})
  canvas.save(ASSETS/'textures/item/school_shield.png')
  (ROOT/'previews').mkdir(exist_ok=True)
- canvas.resize((512,512),Image.Resampling.NEAREST).save(ROOT/'previews/school_shield_4x4.png')
+ canvas.resize((512,512),Image.Resampling.NEAREST).save(preview_path('school_shield_4x4.png'))
 if __name__=='__main__':main()

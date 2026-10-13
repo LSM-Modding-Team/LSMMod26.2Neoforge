@@ -1,4 +1,5 @@
 """Generate player school-uniform atlases and 3-D inventory models. Requires Pillow."""
+from resource_json import resource_json
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 import json
@@ -8,7 +9,7 @@ S=4
 NAMES=['fake_school_haircut','uniform_polo','uniform_pants','uniform_shoes']
 COLORS=[(23,22,24),(135,39,49),(92,100,106),(25,27,29)]
 def write(path,obj):
- path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(obj,indent=2)+'\n')
+ path.parent.mkdir(parents=True,exist_ok=True);path.write_text(resource_json(path, obj, ensure_ascii=True)+'\n')
 def rect(box,color):
  x,y,X,Y=[round(v*S) for v in box];d.rectangle((x,y,max(x,X-1),max(y,Y-1)),fill=color)
 def line(points,color,width=1):d.line([(round(x*S),round(y*S)) for x,y in points],fill=color,width=width)

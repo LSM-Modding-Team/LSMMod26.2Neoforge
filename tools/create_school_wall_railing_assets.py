@@ -1,10 +1,11 @@
 """Generate the lowered wall and connected railing, using existing textures."""
+from resource_json import resource_json
 import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 A=ROOT/'src/main/resources/assets/lsmmod'
 ID='light_school_wall_railing'
-def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, v, ensure_ascii=False)+'\n')
 def element(lo,hi,texture):
  return {'from':lo,'to':hi,'faces':{side:{'texture':'#'+texture,'uv':[0,0,16,16]} for side in ('north','south','east','west','up','down')}}
 def model(name,elements):write(A/f'models/block/{name}.json',{'parent':'minecraft:block/block','textures':{'wall':'lsmmod:block/light_school_wall','metal':'lsmmod:block/school_gate_edge','particle':'lsmmod:block/light_school_wall'},'elements':elements})

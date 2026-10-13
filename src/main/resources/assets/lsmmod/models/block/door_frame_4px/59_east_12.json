@@ -1,6 +1,1 @@
-{
-  "parent": "lsmmod:block/door_frame_4px/59_east",
-  "textures": {
-    "surface": "lsmmod:block/red_street_wall"
-  }
-}
+{"parent":"lsmmod:block/door_frame_4px/59_east","textures":{"surface":"lsmmod:block/red_street_wall"}}

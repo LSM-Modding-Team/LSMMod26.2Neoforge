@@ -1,4 +1,5 @@
 """Generate shared Minecraft stationery geometry and interchangeable pixel atlases."""
+from resource_json import resource_json
 import json
 from pathlib import Path
 from PIL import Image, ImageDraw
@@ -18,7 +19,7 @@ COLORS = {
 
 def write(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    path.write_text(resource_json(path, data, ensure_ascii=False) + '\n', encoding='utf-8')
 
 
 def box(start, end, texture='cover', uv=(0, 0, 8, 12), overrides=None):

@@ -35,7 +35,7 @@ Inventario real: `registry/ModBlocks.java` y `ModItems.java`. Para generar model
 
 Paredes mixtas `light_dark_school_wall_1..5`, `light_street_school_wall_1..5`, `dark_street_school_wall_1..5` retiradas por petición del usuario. No las reintroduzcas al regenerar. También se retiró awning base/colores; quedan playground_awning, elementary_playground_awning y awning_support. school_wood es RGB150/108/62 con grano 16×16; school_wood_panel es otro material.
 
-Si cambias dimensiones o rejilla de un conjunto, conserva estados antiguos o explica su migración/recolocación. Los datos y recursos actuales prevalecen sobre fuentes originales de `newresources`.
+Si cambias dimensiones o rejilla de un conjunto, conserva estados antiguos o explica su migración/recolocación. Los datos y recursos actuales, junto con sus generadores, son las fuentes editables.
 
 ## Pintura y edición
 

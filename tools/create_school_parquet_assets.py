@@ -1,9 +1,11 @@
 """16x16 warm oak parquet with staggered boards and restrained grain."""
+from resource_json import preview_path
+from resource_json import resource_json
 import json,random
 from pathlib import Path
 from PIL import Image
 ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmod';D=ROOT/'src/main/resources/data'
-def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, v, ensure_ascii=False)+'\n')
 def main():
  rng=random.Random(109);im=Image.new('RGB',(16,16));boards=[(184,130,73),(193,139,80),(176,122,67),(189,133,74)]
  for y in range(16):
@@ -23,5 +25,5 @@ def main():
  for locale,name in [('es_es','Parquet del colegio'),('en_us','School Parquet')]:
   p=A/f'lang/{locale}.json';v=json.loads(p.read_text());v['block.lsmmod.school_parquet']=name;write(p,v)
  p=D/'minecraft/tags/block/mineable/axe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:school_parquet']));write(p,v)
- (ROOT/'previews').mkdir(exist_ok=True);im.resize((256,256),Image.Resampling.NEAREST).save(ROOT/'previews/school_parquet.png')
+ (ROOT/'previews').mkdir(exist_ok=True);im.resize((256,256),Image.Resampling.NEAREST).save(preview_path('school_parquet.png'))
 if __name__=='__main__':main()

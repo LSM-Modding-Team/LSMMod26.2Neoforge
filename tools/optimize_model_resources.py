@@ -36,26 +36,29 @@ def prepare(output):
  for base in (ROOT/'src/main/resources',ROOT/'src/generated/resources'):
   if not base.exists():continue
   for p in base.rglob('*'):
-   if p.is_file() and p.suffix!='.bbmodel' and '.cache' not in p.parts:
+   if p.is_file() and p.suffix!='.bbmodel' and p.name!='.gitkeep' and '.cache' not in p.parts:
     dest=output/p.relative_to(base);dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dest)
  assets=output/'assets/lsmmod';models=assets/'models';before=list(models.rglob('*.json'));raw_bytes=sum(p.stat().st_size for p in before)
  from repair_door_glazing_faces import prepare as repair_door_faces
  door_faces=repair_door_faces(assets)
+ # Reuse parsed models through deduplication, reference repair and parent sharing.
+ documents={p:json.loads(p.read_text(encoding='utf-8-sig')) for p in sorted(models.rglob('*.json'))}
  groups=defaultdict(list)
- for p in sorted(models.rglob('*.json')):groups[canonical(json.loads(p.read_text(encoding='utf-8-sig')))].append(p)
+ for p,d in documents.items():groups[canonical(d)].append(p)
  aliases={}
  for paths in groups.values():
   keep=min(paths,key=lambda p:(len(str(p)),str(p)));ident=model_identifier(keep,models)
   for p in paths:
-   if p!=keep:aliases[model_identifier(p,models)]=ident;p.unlink()
+   if p!=keep:aliases[model_identifier(p,models)]=ident;p.unlink();del documents[p]
  # Replace exact duplicates in every reference, including model parents and modern item definitions.
  for p in assets.rglob('*.json'):
-  d=json.loads(p.read_text(encoding='utf-8-sig'));new=replace(d,aliases)
+  d=documents[p] if p in documents else json.loads(p.read_text(encoding='utf-8-sig'));new=replace(d,aliases)
+  if p in documents:documents[p]=new
   if new!=d:write(p,new)
  # Use Fusion only for opaque, explicit cuboids: transparency and OBJ rendering stay on NeoForge.
  shared=defaultdict(list)
- for p in sorted((models/'block').rglob('*.json')):
-  d=json.loads(p.read_text(encoding='utf-8-sig'))
+ for p,d in documents.items():
+  if models/'block' not in p.parents:continue
   if 'loader' not in d and d.get('render_type')=='minecraft:solid' and d.get('elements'):
    shared[canonical({'elements':d['elements'],'parent':d.get('parent','minecraft:block/block')})].append((p,d))
  fusion_count=0

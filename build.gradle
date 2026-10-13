@@ -23,6 +23,7 @@ sourceSets.main.resources {
 
     // Exclude common development only resources from finalized outputs
     exclude(".lsmmod-optimized-resources")
+    exclude("lsmmod_model_optimization.json")
     exclude("**/*.bbmodel") // BlockBench project files
     exclude("src/generated/**/.cache") // datagen cache files
 }
@@ -158,8 +159,6 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
     compileOnly files('libs/Jade-mc26.2-NeoForge-26.2.10.jar')
-    compileOnly files('libs/FramedBlocks-11.4.0-26.2-unofficial.1.jar')
-    compileOnly files('libs/bunnidogs-1.0.0.jar')
 }
 
 // Optimize the resource graph before packaging or development runs. Source assets stay editable.

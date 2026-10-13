@@ -1,9 +1,1 @@
-{
-  "parent": "minecraft:block/block",
-  "textures": {
-    "white": "lsmmod:block/school_porcelain",
-    "metal": "lsmmod:block/school_chrome",
-    "particle": "#white"
-  },
-  "elements": []
-}
+{"parent":"minecraft:block/block","textures":{"white":"lsmmod:block/school_porcelain","metal":"lsmmod:block/school_chrome","particle":"#white"},"elements":[]}

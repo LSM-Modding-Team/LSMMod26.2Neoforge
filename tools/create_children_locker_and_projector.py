@@ -1,4 +1,5 @@
 """Two native wooden cubbies, a ceiling projector and bounded reusable resources."""
+from resource_json import resource_json
 import json,random
 from pathlib import Path
 from PIL import Image,ImageDraw
@@ -6,7 +7,7 @@ ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmo
 GENERATED=[]
 SIDES=('north','south','east','west','up','down')
 def write(path,data):
-    path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+    path.parent.mkdir(parents=True,exist_ok=True);path.write_text(resource_json(path, data, ensure_ascii=False)+'\n')
     GENERATED.append(str(path.relative_to(ROOT)))
 def save(image,name):
     path=A/f'textures/block/{name}.png';path.parent.mkdir(parents=True,exist_ok=True);image.save(path);GENERATED.append(str(path.relative_to(ROOT)))

@@ -1,4 +1,5 @@
 """One-block masonry counter: dark tiled plinth, light wall and light tiled worktop."""
+from resource_json import resource_json
 import json
 from PIL import Image
 from create_school_yellow_border_assets import ROOT, A, D
@@ -9,7 +10,7 @@ J = ROOT / 'src/main/java/net/nicomar2009/lsmmod'
 
 def write(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(value if isinstance(value, str) else json.dumps(value, ensure_ascii=False, indent=2)+'\n')
+    path.write_text(value if isinstance(value, str) else resource_json(path, value, ensure_ascii=False)+'\n')
 
 
 def main():

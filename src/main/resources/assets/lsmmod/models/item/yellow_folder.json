@@ -1,6 +1,1 @@
-{
-  "parent": "lsmmod:item/folder",
-  "textures": {
-    "cover": "lsmmod:item/stationery/cover_yellow"
-  }
-}
+{"parent":"lsmmod:item/folder","textures":{"cover":"lsmmod:item/stationery/cover_yellow"}}
