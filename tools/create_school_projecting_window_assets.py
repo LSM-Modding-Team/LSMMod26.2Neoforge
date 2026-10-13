@@ -26,22 +26,6 @@ def rotation(part, pose):
             'axis': 'x' if pose <= 2 else 'y', 'angle': -45 if pose in (1, 3) else 45, 'rescale': False}
 
 
-def half_pane_models(left_wall, pose):
-    x=8 if left_wall else 0
-    half={'solid':[([x,0,14,x+1,16,16],'frame'),([x+7,0,14,x+8,16,16],'frame'),
-                   ([x+1,0,14,x+7,1,16],'frame'),([x+1,15,14,x+7,16,16],'frame')],
-          'translucent':[([x+1,1,14,x+7,15,16],'glass')]}
-    result={}
-    for layer,components in half.items():
-        model=solid_model(components);model.update(textures=TEXTURES,render_type='minecraft:'+layer,loader='fusion:model',type='base')
-        if pose:
-            for e in model['elements']:
-                e['rotation']={'origin':[x+(8 if pose==4 else 0),16 if pose==1 else 0,16],
-                               'axis':'x' if pose<=2 else 'y','angle':-45 if pose in (1,3) else 45,'rescale':False}
-        result[layer]=model
-    return result
-
-
 def paintable_models():
     variants={}
     for left_wall in (True,False):
@@ -60,19 +44,37 @@ def paintable_models():
                 if color:entry['condition']={'type':'lsmmod:painted_face','face':face,'paint':color,'local':True}
                 series.append(entry)
             wall_groups.append(series[1:]+series[:1])
-        for pose in range(5):
-            panes=[]
-            for layer,model in half_pane_models(left_wall,pose).items():
-                name=f'{PAINTABLE_ID}/pane_{side}_{pose}_{layer}';write(A/f'models/block/{name}.json',model);panes.append('lsmmod:block/'+name)
-            name=f'{PAINTABLE_ID}/{side}_{pose}'
-            write(A/f'models/block/{name}.json',{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]),'models':wall_groups+[panes]})
-            for turn,facing in enumerate(('north','east','south','west')):
-                if pose==0:conditions=[(hinge,'false') for hinge in ('top','bottom','left','right')]
-                else:conditions=[(('top','bottom','left','right')[pose-1],'true')]
-                for hinge,opened in conditions:
-                    variants[f'facing={facing},wall_left={str(left_wall).lower()},open={opened},hinge={hinge}']={'model':'lsmmod:block/'+name,'y':turn*90}
+        roots=[]
+        for phase in range(9):
+            groups=[]
+            for index,part in enumerate(parts(phase)):
+                x0,x1,y0,y1,ox,oy=part
+                cropped=(max(x0,8 if left_wall else 0),min(x1,16 if left_wall else 8),y0,y1,ox,oy)
+                if cropped[0]>=cropped[1]:continue
+                for layer,model in pane_models().items():
+                    choices=[]
+                    for pose in range(5):
+                        value=fragment(model,cropped,pose)
+                        if not value['elements']:continue
+                        name=f'{PAINTABLE_ID}/phase_{phase}_{side}_part_{index}_{layer}_{pose}'
+                        write(A/f'models/block/{name}.json',value)
+                        choices.append({'model':'lsmmod:block/'+name,'condition':{'type':'lsmmod:projecting_window','phase':phase,'part':index,'pose':pose}})
+                    if choices:groups.append(choices)
+            name=f'{PAINTABLE_ID}/phase_{phase}_{side}'
+            write(A/f'models/block/{name}.json',{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]),'models':wall_groups+groups})
+            roots.append({'model':'lsmmod:block/'+name,'condition':{'type':'lsmmod:projecting_window','phase':phase}})
+        name=f'{PAINTABLE_ID}/{side}'
+        write(A/f'models/block/{name}.json',{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]),'models':[roots]})
+        for turn,facing in enumerate(('north','east','south','west')):
+            variants[f'facing={facing},wall_left={str(left_wall).lower()}']={'model':'lsmmod:block/'+name,'y':turn*90}
     write(A/f'blockstates/{PAINTABLE_ID}.json',{'variants':variants})
-    write(A/f'models/item/{PAINTABLE_ID}.json',{'parent':f'lsmmod:block/{PAINTABLE_ID}/left_0'})
+    # Item preview is a closed section of the shared grid, with the unpainted fixed wall.
+    item_models=[f'lsmmod:block/{PAINTABLE_ID}/wall_left_{face}_0' for face in SIDES]
+    for layer,model in pane_models().items():
+        name=f'{PAINTABLE_ID}_{layer}'
+        write(A/f'models/item/{name}.json',fragment(model,(8,16,0,16,8,0),0))
+        item_models.append('lsmmod:item/'+name)
+    write(A/f'models/item/{PAINTABLE_ID}.json',{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]),'models':[item_models]})
     basic(PAINTABLE_ID)
 
 

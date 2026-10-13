@@ -1,0 +1,145 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "frame": "lsmmod:block/school_projecting_window_frame",
+    "glass": "lsmmod:block/school_projecting_window_glass",
+    "particle": "#frame"
+  },
+  "elements": [
+    {
+      "from": [
+        9,
+        0,
+        14
+      ],
+      "to": [
+        16,
+        15,
+        16
+      ],
+      "faces": {
+        "west": {
+          "texture": "#glass",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            10.909090909090908
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          -8,
+          16
+        ],
+        "axis": "x",
+        "angle": 45,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        9,
+        0,
+        14
+      ],
+      "to": [
+        16,
+        15,
+        16
+      ],
+      "faces": {
+        "up": {
+          "texture": "#glass",
+          "uv": [
+            0.0,
+            0.0,
+            5.090909090909091,
+            16.0
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          -8,
+          16
+        ],
+        "axis": "x",
+        "angle": 45,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        9,
+        0,
+        14
+      ],
+      "to": [
+        16,
+        15,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#glass",
+          "uv": [
+            10.909090909090908,
+            0.0,
+            16.0,
+            10.909090909090908
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          -8,
+          16
+        ],
+        "axis": "x",
+        "angle": 45,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        9,
+        0,
+        14
+      ],
+      "to": [
+        16,
+        15,
+        16
+      ],
+      "faces": {
+        "south": {
+          "texture": "#glass",
+          "uv": [
+            0.0,
+            0.0,
+            5.090909090909091,
+            10.909090909090908
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          -8,
+          16
+        ],
+        "axis": "x",
+        "angle": 45,
+        "rescale": false
+      }
+    }
+  ],
+  "render_type": "minecraft:translucent",
+  "loader": "fusion:model",
+  "type": "base"
+}

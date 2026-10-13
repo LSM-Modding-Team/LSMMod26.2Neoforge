@@ -68,6 +68,33 @@ def check_projecting_windows():
             # Triangle rasterization can differ by a pixel at cuts; geometry/materials must agree.
             delta=np.max(np.abs(a-b),axis=2)
             assert np.count_nonzero(delta>3)<100 and np.mean(delta)<.12,(poses,angle,np.mean(delta))
+    # Mixed and full cells must reconstruct the same complete 24px sash, without an extra frame at their seam.
+    from create_school_projecting_window_assets import PAINTABLE_ID
+    for side in ('left','right'):
+        shift=8 if side=='left' else 0
+        for pose in range(5):
+            assembled=[];expected=[]
+            for y in range(2):
+                for x in range(2):
+                    mixed=x==(0 if side=='left' else 1)
+                    phase=(x+1 if side=='left' else x)+3*y
+                    for index,part in enumerate(parts(phase)):
+                        if y*16+part[-1]!=0:continue
+                        for layer in ('solid','translucent'):
+                            stem=f'{PAINTABLE_ID}/phase_{phase}_{side}_part_{index}' if mixed else f'{ID}/phase_{phase}_part_{index}'
+                            path=A/f'models/block/{stem}_{layer}_{pose}.json'
+                            if path.exists():add(assembled,[json.loads(path.read_text())],(x*16,y*16,0))
+            for original in whole:
+                e=copy.deepcopy(original)
+                for key in ('from','to'):e[key][0]+=shift
+                if pose:e['rotation']={'origin':[shift+(24 if pose==4 else 0),24 if pose==1 else 0,16],
+                                      'axis':'x' if pose<=2 else 'y','angle':-45 if pose in (1,3) else 45,'rescale':False}
+                expected.append(e)
+            for angle in (-65,115):
+                a=np.asarray(render(assembled,[16,12,16],7,size=(320,360),azimuth=angle,elevation=12)).astype(int)
+                b=np.asarray(render(expected,[16,12,16],7,size=(320,360),azimuth=angle,elevation=12)).astype(int)
+                delta=np.max(np.abs(a-b),axis=2)
+                assert np.count_nonzero(delta>3)<100 and np.mean(delta)<.12,('mixed',side,pose,angle,np.mean(delta))
     print('OK: placement-anchored 24x24 panes, rigid reversed 45-degree hinges at the far edge; two-pixel thickness, preserved UVs/alpha and no curtains. Cell renders agree with whole-pane renders, front and back.')
 
 

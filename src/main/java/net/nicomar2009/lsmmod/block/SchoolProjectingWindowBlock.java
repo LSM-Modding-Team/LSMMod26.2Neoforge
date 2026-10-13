@@ -76,7 +76,20 @@ public class SchoolProjectingWindowBlock extends Block {
     public static List<Part> parts(int phase) {return PARTS.get(phase);}
     private static List<Part> parts(BlockState state) {
         if(!halfWindow(state))return parts(phase(state));
-        return List.of(state.getValue(WALL_LEFT)?new Part(8,16,0,16,8,0):new Part(0,8,0,16,0,0));
+        return parts(phase(state)).stream().map(part->clip(part,state.getValue(WALL_LEFT)?1:2)).toList();
+    }
+    private static Part clip(Part part,int profile) {
+        int low=profile==1?8:0,high=profile==2?8:16;
+        return new Part(Math.max(low,part.x0),Math.min(high,part.x1),part.y0,part.y1,part.ox,part.oy);
+    }
+    private static boolean visible(Part part) {return part.x0<part.x1;}
+    private static boolean touches(BlockState a,BlockState b,Direction direction) {
+        if(!same(a,b))return false;
+        int al=halfWindow(a)&&a.getValue(WALL_LEFT)?8:0,ah=halfWindow(a)&&!a.getValue(WALL_LEFT)?8:16;
+        int bl=halfWindow(b)&&b.getValue(WALL_LEFT)?8:0,bh=halfWindow(b)&&!b.getValue(WALL_LEFT)?8:16;
+        if(direction.getAxis()==Direction.Axis.Y)return Math.max(al,bl)<Math.min(ah,bh);
+        Direction right=a.getValue(FACING).getClockWise();
+        return direction==right?ah==16&&bl==0:direction==right.getOpposite()&&al==0&&bh==16;
     }
     private static BlockPos controller(BlockPos pos,Direction right,Part part) {
         return pos.relative(right,Math.floorDiv(part.ox,16)).above(Math.floorDiv(part.oy,16));
@@ -86,17 +99,19 @@ public class SchoolProjectingWindowBlock extends Block {
         return level.getBlockState(pos);
     }
     private static boolean same(BlockState value,BlockState state) {
-        return value.getBlock()==state.getBlock()&&value.hasProperty(FACING)&&value.getValue(FACING)==state.getValue(FACING);
+        return value.getBlock() instanceof SchoolProjectingWindowBlock&&value.hasProperty(FACING)&&value.getValue(FACING)==state.getValue(FACING);
     }
     private static boolean complete(BlockGetter level,BlockPos origin,BlockState state) {
-        if(halfWindow(state))return same(read(level,origin),state);
         Direction right=state.getValue(FACING).getClockWise();BlockState base=read(level,origin);
         if(!same(base,state))return false;
-        int basePhase=phase(base);
+        int basePhase=phase(base),ox=basePhase%3==1?8:0;
         for(int y=0;y<2;y++)for(int x=0;x<2;x++) {
             BlockState value=read(level,origin.relative(right,x).above(y));
             int expected=Math.floorMod(basePhase%3+x,3)+3*Math.floorMod(basePhase/3+y,3);
             if(!same(value,state)||phase(value)!=expected)return false;
+            int low=halfWindow(value)&&value.getValue(WALL_LEFT)?8:0;
+            int high=halfWindow(value)&&!value.getValue(WALL_LEFT)?8:16;
+            if(low>Math.max(0,ox-x*16)||high<Math.min(16,ox+24-x*16))return false;
         }
         return true;
     }
@@ -104,18 +119,18 @@ public class SchoolProjectingWindowBlock extends Block {
     public static int pose(BlockGetter level,BlockPos pos,BlockState state,int index) {
         if(state==null||!(state.getBlock() instanceof SchoolProjectingWindowBlock)||pos==null)return 0;
         List<Part> parts=parts(state);
-        if(index<0||index>=parts.size()||!same(read(level,pos),state))return 0;
+        if(index<0||index>=parts.size()||!visible(parts.get(index))||!same(read(level,pos),state))return 0;
         BlockPos origin=controller(pos,state.getValue(FACING).getClockWise(),parts.get(index));
         BlockState value=read(level,origin);
         return same(value,state)&&complete(level,origin,state)&&value.getValue(OPEN)?1+value.getValue(HINGE).ordinal():0;
     }
-    private static double[] pivot(Part part,int pose,boolean half) {
-        return new double[]{part.ox+(pose==4?(half?8:24):0),part.oy+(pose==1?(half?16:24):0),16};
+    private static double[] pivot(Part part,int pose) {
+        return new double[]{part.ox+(pose==4?24:0),part.oy+(pose==1?24:0),16};
     }
     /** Rigid rotation preserves the two-pixel thickness; positive Z faces away from the viewer. */
     public static double[] transform(Part part,int pose,double x,double y,double z,boolean inverse,boolean half) {
         if(pose==0)return new double[]{x,y,z};
-        double[] origin=pivot(part,pose,half);
+        double[] origin=pivot(part,pose);
         double angle=(pose==1||pose==3?-1:1)*Math.PI/4*(inverse?-1:1),c=Math.cos(angle),s=Math.sin(angle);
         x-=origin[0];y-=origin[1];z-=origin[2];
         if(pose<=2)return new double[]{x+origin[0],c*y-s*z+origin[1],s*y+c*z+origin[2]};
@@ -124,7 +139,8 @@ public class SchoolProjectingWindowBlock extends Block {
     private static VoxelShape fragment(int phase,int index,int pose,int facing,int profile) {
         int key=(((profile*9+phase)*4+index)*5+pose)*4+facing;
         return FRAGMENTS.computeIfAbsent(key,ignored->{
-            Part p=profile==0?parts(phase).get(index):profile==1?new Part(8,16,0,16,8,0):new Part(0,8,0,16,0,0);
+            Part p=clip(parts(phase).get(index),profile);
+            if(!visible(p))return Shapes.empty();
             List<AABB> boxes=new ArrayList<>();
             if(pose==0)boxes.add(ExactVoxelShapes.box(p.x0,p.y0,14,p.x1,p.y1,16));
             else {
@@ -180,15 +196,15 @@ public class SchoolProjectingWindowBlock extends Block {
         if(halfWindow(placed)) {
             double x=context.getClickLocation().x-context.getClickedPos().getX()-.5;
             double z=context.getClickLocation().z-context.getClickedPos().getZ()-.5;
-            return placed.setValue(WALL_LEFT,x*right.getStepX()+z*right.getStepZ()<=0);
+            placed=placed.setValue(WALL_LEFT,x*right.getStepX()+z*right.getStepZ()<=0);
         }
-        placed=placed.setValue(GRID_PHASE,0);
+        placed=placed.setValue(GRID_PHASE,halfWindow(placed)?1:0);
         Direction[] order={side.getOpposite(),Direction.DOWN,right.getOpposite(),Direction.UP,right};
         for(Direction direction:order) {
             BlockPos target=context.getClickedPos().relative(direction);
             if(!context.getLevel().hasChunkAt(target))continue;
             BlockState neighbor=context.getLevel().getBlockState(target);
-            if(!same(neighbor,placed)||halfWindow(neighbor))continue;
+            if(!touches(placed,neighbor,direction))continue;
             if(neighbor.getValue(GRID_PHASE)==9&&!context.getLevel().isClientSide()) {
                 migrateGrid(context.getLevel(),target,neighbor);
                 neighbor=context.getLevel().getBlockState(target);
@@ -201,7 +217,7 @@ public class SchoolProjectingWindowBlock extends Block {
     }
     /** Value 9 marks old saves without a grid origin; retain OPEN/HINGE while anchoring loaded cells. */
     private static void migrateGrid(Level level,BlockPos start,BlockState state) {
-        if(halfWindow(state)||state.getValue(GRID_PHASE)!=9||level.isClientSide())return;
+        if(state.getValue(GRID_PHASE)!=9||level.isClientSide())return;
         Direction right=state.getValue(FACING).getClockWise();
         Direction[] directions={Direction.DOWN,right.getOpposite(),Direction.UP,right};
         var visited=new HashSet<BlockPos>();var queue=new ArrayDeque<BlockPos>();var cells=new ArrayList<BlockPos>();
@@ -215,10 +231,16 @@ public class SchoolProjectingWindowBlock extends Block {
                 BlockPos target=pos.relative(direction);
                 if(!level.hasChunkAt(target))continue;
                 BlockState neighbor=level.getBlockState(target);
-                if(!same(neighbor,state)||halfWindow(neighbor))continue;
+                if(!touches(level.getBlockState(pos),neighbor,direction))continue;
                 if(neighbor.getValue(GRID_PHASE)<9) {
                     if(anchor==null){anchor=target;anchorPhase=phase(neighbor);}
                 } else if(visited.add(target))queue.addLast(target);
+            }
+        }
+        if(anchor==null) {
+            for(BlockPos pos:cells)if(pos.getX()*right.getStepX()+pos.getZ()*right.getStepZ()==minU) {
+                if(halfWindow(level.getBlockState(pos)))anchorPhase=1;
+                break;
             }
         }
         int anchorU=anchor==null?minU:anchor.getX()*right.getStepX()+anchor.getZ()*right.getStepZ();
@@ -238,7 +260,7 @@ public class SchoolProjectingWindowBlock extends Block {
         double z=8+16*(dx*back.getStepX()+dz*back.getStepZ());
         List<Part> parts=parts(state);int best=0;double distance=Double.POSITIVE_INFINITY;
         for(int i=0;i<parts.size();i++) {
-            Part p=parts.get(i);double[] v=transform(p,pose(level,pos,state,i),x,y,z,true,halfWindow(state));
+            Part p=parts.get(i);if(!visible(p))continue;double[] v=transform(p,pose(level,pos,state,i),x,y,z,true,halfWindow(state));
             double a=Math.max(p.x0-v[0],Math.max(0,v[0]-p.x1)),b=Math.max(p.y0-v[1],Math.max(0,v[1]-p.y1));
             double c=Math.max(14-v[2],Math.max(0,v[2]-16)),d=a*a+b*b+c*c;
             if(d<distance){distance=d;best=i;}
@@ -251,14 +273,17 @@ public class SchoolProjectingWindowBlock extends Block {
         ProjectingWindowHinge best=ProjectingWindowHinge.TOP;double nearest=Double.POSITIVE_INFINITY;
         int grid=phase(level.getBlockState(origin));
         int ox=grid%3==1?8:0,oy=grid/3==1?8:0;
-        int paneWidth=halfWindow(state)?8:24,paneHeight=halfWindow(state)?16:24;
-        if(halfWindow(state)){ox=state.getValue(WALL_LEFT)?8:0;oy=0;}
+        int paneWidth=24,paneHeight=24;
         for(int edge=0;edge<directions.length;edge++) {
-            if(halfWindow(state)&&edge==(state.getValue(WALL_LEFT)?2:3)) {
-                if(0<nearest){nearest=0;best=ProjectingWindowHinge.values()[edge];}
-                continue;
+            // A solid half beside the shared sash is a wall at the sash edge.
+            if(edge>=2)for(int line=0;line<2;line++) {
+                BlockState boundary=read(level,origin.relative(right,edge==2?0:1).above(line));
+                if(halfWindow(boundary)&&boundary.getValue(WALL_LEFT)==(edge==2)
+                        &&(edge==2?ox==8:ox==0)&&nearest>0) {
+                    nearest=0;best=ProjectingWindowHinge.values()[edge];
+                }
             }
-            for(int line=0;line<(halfWindow(state)?1:2);line++) {
+            for(int line=0;line<2;line++) {
             Direction direction=directions[edge];boolean vertical=edge<2;
             BlockPos start=vertical?origin.relative(right,line):origin.above(line);
             for(int step=1;step<=SCAN_LIMIT;step++) {
@@ -291,7 +316,7 @@ public class SchoolProjectingWindowBlock extends Block {
         if(!player.mayBuild())return InteractionResult.PASS;
         if(level.getBlockEntity(pos) instanceof SchoolProjectingWindowPaintEntity wall
                 &&wall.canPaintAt(hit.getDirection(),hit.getLocation()))return InteractionResult.PASS;
-        if(!halfWindow(state)&&state.getValue(GRID_PHASE)==9) {
+        if(state.getValue(GRID_PHASE)==9) {
             if(level.isClientSide())return InteractionResult.SUCCESS;
             migrateGrid(level,pos,state);state=level.getBlockState(pos);
             if(state.getValue(GRID_PHASE)==9)return InteractionResult.PASS;
@@ -299,7 +324,7 @@ public class SchoolProjectingWindowBlock extends Block {
         Direction facing=state.getValue(FACING),right=facing.getClockWise();
         Part part=parts(state).get(clickedPart(state,level,pos,hit));BlockPos origin=controller(pos,right,part);
         if(!complete(level,origin,state))return InteractionResult.PASS;
-        for(int y=0;y<(halfWindow(state)?1:2);y++)for(int x=0;x<(halfWindow(state)?1:2);x++) {
+        for(int y=0;y<2;y++)for(int x=0;x<2;x++) {
             BlockPos target=origin.relative(right,x).above(y);
             if(!level.mayInteract(player,target)||!player.mayUseItemAt(target,hit.getDirection(),player.getMainHandItem()))return InteractionResult.PASS;
         }
@@ -314,13 +339,14 @@ public class SchoolProjectingWindowBlock extends Block {
     @Override protected void onPlace(BlockState state,Level level,BlockPos pos,BlockState old,boolean moved) {
         super.onPlace(state,level,pos,old,moved);
         if(!level.isClientSide()&&!old.is(this))refresh(level,pos,state.getValue(FACING));
-        if(!level.isClientSide()&&!halfWindow(state)&&state.getValue(GRID_PHASE)==9)level.scheduleTick(pos,this,1);
+        if(!level.isClientSide()&&state.getValue(GRID_PHASE)==9)level.scheduleTick(pos,this,1);
     }
     @Override protected void affectNeighborsAfterRemoval(BlockState state,ServerLevel level,BlockPos pos,boolean moved) {
         Direction facing=state.getValue(FACING),right=facing.getClockWise();
         for(Part part:parts(state)) {
+            if(!visible(part))continue;
             BlockPos origin=controller(pos,right,part);BlockState value=read(level,origin);
-            if(value.is(this)&&value.getValue(OPEN))level.setBlock(origin,value.setValue(OPEN,false),Block.UPDATE_ALL);
+            if(same(value,state)&&value.getValue(OPEN))level.setBlock(origin,value.setValue(OPEN,false),Block.UPDATE_ALL);
         }
         refresh(level,pos,facing);
         super.affectNeighborsAfterRemoval(state,level,pos,moved);

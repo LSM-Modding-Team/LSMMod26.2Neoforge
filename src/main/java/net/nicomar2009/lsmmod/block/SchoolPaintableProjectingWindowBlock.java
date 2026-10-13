@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 public class SchoolPaintableProjectingWindowBlock extends SchoolProjectingWindowBlock implements EntityBlock {
     public SchoolPaintableProjectingWindowBlock(Properties properties) {super(properties);}
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {
-        builder.add(FACING,OPEN,HINGE,WALL_LEFT);
+        builder.add(FACING,OPEN,HINGE,GRID_PHASE,WALL_LEFT);
     }
     @Override public BlockEntity newBlockEntity(BlockPos pos,BlockState state) {
         return new SchoolProjectingWindowPaintEntity(pos,state);

@@ -1,259 +1,35 @@
 {
   "variants": {
-    "facing=north,wall_left=true,open=false,hinge=top": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_0",
+    "facing=north,wall_left=true": {
+      "model": "lsmmod:block/school_paintable_projecting_window/left",
       "y": 0
     },
-    "facing=north,wall_left=true,open=false,hinge=bottom": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_0",
-      "y": 0
-    },
-    "facing=north,wall_left=true,open=false,hinge=left": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_0",
-      "y": 0
-    },
-    "facing=north,wall_left=true,open=false,hinge=right": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_0",
-      "y": 0
-    },
-    "facing=east,wall_left=true,open=false,hinge=top": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_0",
+    "facing=east,wall_left=true": {
+      "model": "lsmmod:block/school_paintable_projecting_window/left",
       "y": 90
     },
-    "facing=east,wall_left=true,open=false,hinge=bottom": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_0",
-      "y": 90
-    },
-    "facing=east,wall_left=true,open=false,hinge=left": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_0",
-      "y": 90
-    },
-    "facing=east,wall_left=true,open=false,hinge=right": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_0",
-      "y": 90
-    },
-    "facing=south,wall_left=true,open=false,hinge=top": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_0",
+    "facing=south,wall_left=true": {
+      "model": "lsmmod:block/school_paintable_projecting_window/left",
       "y": 180
     },
-    "facing=south,wall_left=true,open=false,hinge=bottom": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_0",
-      "y": 180
-    },
-    "facing=south,wall_left=true,open=false,hinge=left": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_0",
-      "y": 180
-    },
-    "facing=south,wall_left=true,open=false,hinge=right": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_0",
-      "y": 180
-    },
-    "facing=west,wall_left=true,open=false,hinge=top": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_0",
+    "facing=west,wall_left=true": {
+      "model": "lsmmod:block/school_paintable_projecting_window/left",
       "y": 270
     },
-    "facing=west,wall_left=true,open=false,hinge=bottom": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_0",
-      "y": 270
-    },
-    "facing=west,wall_left=true,open=false,hinge=left": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_0",
-      "y": 270
-    },
-    "facing=west,wall_left=true,open=false,hinge=right": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_0",
-      "y": 270
-    },
-    "facing=north,wall_left=true,open=true,hinge=top": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_1",
+    "facing=north,wall_left=false": {
+      "model": "lsmmod:block/school_paintable_projecting_window/right",
       "y": 0
     },
-    "facing=east,wall_left=true,open=true,hinge=top": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_1",
+    "facing=east,wall_left=false": {
+      "model": "lsmmod:block/school_paintable_projecting_window/right",
       "y": 90
     },
-    "facing=south,wall_left=true,open=true,hinge=top": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_1",
+    "facing=south,wall_left=false": {
+      "model": "lsmmod:block/school_paintable_projecting_window/right",
       "y": 180
     },
-    "facing=west,wall_left=true,open=true,hinge=top": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_1",
-      "y": 270
-    },
-    "facing=north,wall_left=true,open=true,hinge=bottom": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_2",
-      "y": 0
-    },
-    "facing=east,wall_left=true,open=true,hinge=bottom": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_2",
-      "y": 90
-    },
-    "facing=south,wall_left=true,open=true,hinge=bottom": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_2",
-      "y": 180
-    },
-    "facing=west,wall_left=true,open=true,hinge=bottom": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_2",
-      "y": 270
-    },
-    "facing=north,wall_left=true,open=true,hinge=left": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_3",
-      "y": 0
-    },
-    "facing=east,wall_left=true,open=true,hinge=left": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_3",
-      "y": 90
-    },
-    "facing=south,wall_left=true,open=true,hinge=left": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_3",
-      "y": 180
-    },
-    "facing=west,wall_left=true,open=true,hinge=left": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_3",
-      "y": 270
-    },
-    "facing=north,wall_left=true,open=true,hinge=right": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_4",
-      "y": 0
-    },
-    "facing=east,wall_left=true,open=true,hinge=right": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_4",
-      "y": 90
-    },
-    "facing=south,wall_left=true,open=true,hinge=right": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_4",
-      "y": 180
-    },
-    "facing=west,wall_left=true,open=true,hinge=right": {
-      "model": "lsmmod:block/school_paintable_projecting_window/left_4",
-      "y": 270
-    },
-    "facing=north,wall_left=false,open=false,hinge=top": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_0",
-      "y": 0
-    },
-    "facing=north,wall_left=false,open=false,hinge=bottom": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_0",
-      "y": 0
-    },
-    "facing=north,wall_left=false,open=false,hinge=left": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_0",
-      "y": 0
-    },
-    "facing=north,wall_left=false,open=false,hinge=right": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_0",
-      "y": 0
-    },
-    "facing=east,wall_left=false,open=false,hinge=top": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_0",
-      "y": 90
-    },
-    "facing=east,wall_left=false,open=false,hinge=bottom": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_0",
-      "y": 90
-    },
-    "facing=east,wall_left=false,open=false,hinge=left": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_0",
-      "y": 90
-    },
-    "facing=east,wall_left=false,open=false,hinge=right": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_0",
-      "y": 90
-    },
-    "facing=south,wall_left=false,open=false,hinge=top": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_0",
-      "y": 180
-    },
-    "facing=south,wall_left=false,open=false,hinge=bottom": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_0",
-      "y": 180
-    },
-    "facing=south,wall_left=false,open=false,hinge=left": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_0",
-      "y": 180
-    },
-    "facing=south,wall_left=false,open=false,hinge=right": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_0",
-      "y": 180
-    },
-    "facing=west,wall_left=false,open=false,hinge=top": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_0",
-      "y": 270
-    },
-    "facing=west,wall_left=false,open=false,hinge=bottom": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_0",
-      "y": 270
-    },
-    "facing=west,wall_left=false,open=false,hinge=left": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_0",
-      "y": 270
-    },
-    "facing=west,wall_left=false,open=false,hinge=right": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_0",
-      "y": 270
-    },
-    "facing=north,wall_left=false,open=true,hinge=top": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_1",
-      "y": 0
-    },
-    "facing=east,wall_left=false,open=true,hinge=top": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_1",
-      "y": 90
-    },
-    "facing=south,wall_left=false,open=true,hinge=top": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_1",
-      "y": 180
-    },
-    "facing=west,wall_left=false,open=true,hinge=top": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_1",
-      "y": 270
-    },
-    "facing=north,wall_left=false,open=true,hinge=bottom": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_2",
-      "y": 0
-    },
-    "facing=east,wall_left=false,open=true,hinge=bottom": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_2",
-      "y": 90
-    },
-    "facing=south,wall_left=false,open=true,hinge=bottom": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_2",
-      "y": 180
-    },
-    "facing=west,wall_left=false,open=true,hinge=bottom": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_2",
-      "y": 270
-    },
-    "facing=north,wall_left=false,open=true,hinge=left": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_3",
-      "y": 0
-    },
-    "facing=east,wall_left=false,open=true,hinge=left": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_3",
-      "y": 90
-    },
-    "facing=south,wall_left=false,open=true,hinge=left": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_3",
-      "y": 180
-    },
-    "facing=west,wall_left=false,open=true,hinge=left": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_3",
-      "y": 270
-    },
-    "facing=north,wall_left=false,open=true,hinge=right": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_4",
-      "y": 0
-    },
-    "facing=east,wall_left=false,open=true,hinge=right": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_4",
-      "y": 90
-    },
-    "facing=south,wall_left=false,open=true,hinge=right": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_4",
-      "y": 180
-    },
-    "facing=west,wall_left=false,open=true,hinge=right": {
-      "model": "lsmmod:block/school_paintable_projecting_window/right_4",
+    "facing=west,wall_left=false": {
+      "model": "lsmmod:block/school_paintable_projecting_window/right",
       "y": 270
     }
   }
