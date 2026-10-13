@@ -1,4 +1,4 @@
-"""Static resource/geometry checks for the four wall decorations. Never compiles Java."""
+"""Static resource/geometry checks for passive wall decorations. Never compiles Java."""
 import itertools
 import json
 import re
@@ -8,7 +8,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "src/main/resources/assets/lsmmod"
-IDS = ("projector_screen", "wall_projector", "classroom_timetable", "emergency_backpack")
+IDS = ("projector_screen", "wall_projector", "classroom_timetable", "emergency_backpack", "fire_alarm")
 
 
 def read(path):
@@ -56,8 +56,10 @@ def main():
     assert next(c for c in screen_loot["pools"][0]["conditions"] if c["condition"] == "minecraft:block_state_property")["properties"] == {"column": "0", "row": "0"}
     # Check source/model agreement to catch invisible collision pieces and mismatched rotations.
     geometry = (ROOT / "src/main/java/net/nicomar2009/lsmmod/block/SchoolDecorationShapes.java").read_text()
-    for name, block_id in (("PROJECTOR", "wall_projector"), ("TIMETABLE", "classroom_timetable"), ("BACKPACK", "emergency_backpack")):
-        section = re.search(name+r" = \{(.*?)\n    \};", geometry, re.S).group(1)
+    for name, block_id in (("PROJECTOR", "wall_projector"), ("TIMETABLE", "classroom_timetable"), ("BACKPACK", "emergency_backpack"), ("BOXES", "fire_alarm")):
+        source_geometry = ((ROOT / "src/main/java/net/nicomar2009/lsmmod/block/FireAlarmShapes.java").read_text()
+                           if block_id == "fire_alarm" else geometry)
+        section = re.search(name+r" = \{(.*?)\n    \};", source_geometry, re.S).group(1)
         boxes = [[float(v) for v in group.split(",")] for group in re.findall(r"\{([^{}]+)\}", section)]
         models = read(ASSETS / f"models/block/{block_id}.json")["elements"]
         assert boxes == [e["from"]+e["to"] for e in models]
@@ -102,7 +104,7 @@ def main():
     assert 'IntegerProperty.create("row", 0, 2)' in screen and 'row < 2' not in screen
     timetable = read(ASSETS / "models/block/classroom_timetable.json")["elements"][0]
     assert [hi-lo for lo, hi in zip(timetable["from"], timetable["to"])] == [14, 7, 1]
-    print("OK: four complete resource families, pure white screen 64x48x1 px in four directions,")
+    print("OK: five complete resource families, pure white screen 64x48x1 px in four directions,")
     print("single screen/projector drops, unchanged projector pixel dimensions, sub-block timetable, and collision/model agreement for all decorations.")
     print("Static verification only; no Java compilation or Minecraft execution.")
 

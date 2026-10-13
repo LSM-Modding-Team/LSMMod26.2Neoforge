@@ -1,0 +1,22 @@
+{
+  "parent": "lsmmod:block/fire_alarm",
+  "display": {
+    "gui": {
+      "rotation": [
+        15,
+        165,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        -6
+      ],
+      "scale": [
+        1.6,
+        1.6,
+        1.6
+      ]
+    }
+  }
+}

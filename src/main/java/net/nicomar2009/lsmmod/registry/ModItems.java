@@ -249,6 +249,9 @@ public final class ModItems {
             ITEMS.registerSimpleBlockItem(ModBlocks.WALL_PROJECTOR);
     public static final DeferredItem<BlockItem> CLASSROOM_TIMETABLE =
             ITEMS.registerSimpleBlockItem(ModBlocks.CLASSROOM_TIMETABLE);
+    public static final DeferredItem<BlockItem> FIRE_ALARM =
+            ITEMS.registerSimpleBlockItem(ModBlocks.FIRE_ALARM);
+
     public static final DeferredItem<BlockItem> EMERGENCY_BACKPACK =
             ITEMS.registerSimpleBlockItem(ModBlocks.EMERGENCY_BACKPACK);
 

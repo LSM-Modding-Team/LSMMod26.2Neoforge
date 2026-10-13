@@ -111,6 +111,7 @@
     "lsmmod:drinking_fountain_raised",
     "lsmmod:school_microwave",
     "lsmmod:dining_room_counter",
-    "lsmmod:school_refrigerator"
+    "lsmmod:school_refrigerator",
+    "lsmmod:fire_alarm"
   ]
 }

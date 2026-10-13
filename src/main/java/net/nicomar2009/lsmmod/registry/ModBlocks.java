@@ -410,6 +410,10 @@ public final class ModBlocks {
             "classroom_timetable", props -> new WallDecorationBlock(props, SchoolDecorationShapes.TIMETABLE),
             props -> props.strength(0.2F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
 
+    public static final DeferredBlock<WallDecorationBlock> FIRE_ALARM = BLOCKS.registerBlock(
+            "fire_alarm", props -> new WallDecorationBlock(props, net.nicomar2009.lsmmod.block.FireAlarmShapes.BOXES),
+            props -> props.strength(1.0F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
+
     public static final DeferredBlock<WallDecorationBlock> EMERGENCY_BACKPACK = BLOCKS.registerBlock(
             "emergency_backpack", props -> new WallDecorationBlock(props, SchoolDecorationShapes.BACKPACK),
             props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
