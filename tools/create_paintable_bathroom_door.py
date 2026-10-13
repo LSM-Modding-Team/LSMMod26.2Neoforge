@@ -6,6 +6,7 @@ from create_paintable_school_block import SIDES,PAINTS
 from render_texture_review import load
 
 ID='bathroom_door_wide_paintable'
+ENTRANCE_ID='school_entrance_door_paintable'
 FRAME=[([24,0,0,32,40,16],'surface'),([0,40,0,32,48,16],'surface')]
 
 
@@ -87,4 +88,81 @@ def main():
         write(path,data)
 
 
-if __name__=='__main__':main()
+def entrance_leaf(opened=False,right=False):
+    from create_double_school_entrance import wood,model
+    parts=[copy.deepcopy(e) for e in wood(opened) if e['to'][0]<=(4 if opened else 24)]
+    if right:
+        for element in parts:
+            lo,hi=element['from'],element['to'];element['from']=[32-hi[0],lo[1],lo[2]];element['to']=[32-lo[0],hi[1],hi[2]]
+            element['faces']={dict(west='east',east='west').get(face,face):surface for face,surface in element['faces'].items()}
+            for surface in element['faces'].values():
+                u0,v0,u1,v1=surface['uv']
+                surface['uv']=[u0,v1,u1,v0] if surface.get('rotation',0)%180 else [u1,v0,u0,v1]
+    result=model(parts);result['textures']['particle']='lsmmod:block/double_school_entrance_0_0';return result
+
+def generate_entrance():
+    from create_double_school_entrance import crop
+    multipart=[];shared={}
+    for opened in (False,True):
+        for right in (False,True):
+            whole=entrance_leaf(opened,right)
+            for row in range(3):
+                for column in range(2):
+                    for depth in range(2):
+                        elements=[];offset=(column*16,row*16,depth*16)
+                        for source in whole['elements']:
+                            element=crop(source,[*offset,*(v+16 for v in offset)])
+                            if element:
+                                for key in ('from','to'):element[key]=[v-offset[axis] for axis,v in enumerate(element[key])]
+                                elements.append(element)
+                        if not elements:continue
+                        value=dict(whole,elements=elements);key=json.dumps(value,sort_keys=True)
+                        if key not in shared:
+                            name=f'{ENTRANCE_ID}_leaf_{len(shared)}';shared[key]=name;write(A/f'models/block/{name}.json',value)
+                        for turn,facing in enumerate(('north','east','south','west')):
+                            multipart.append({'when':dict(facing=facing,open=str(opened).lower(),hinge='right' if right else 'left',
+                                row=str(row),column=str(column),depth=str(depth)),
+                                'apply':{'model':'lsmmod:block/'+shared[key],'y':turn*90}})
+    for turn,facing in enumerate(('north','east','south','west')):
+        multipart.append({'when':{'facing':facing,'depth':'0'},'apply':{'model':f'lsmmod:block/{ID}_frame','y':turn*90}})
+        multipart.append({'when':{'facing':facing,'depth':'0','row':'2'},'apply':{'model':'lsmmod:block/framed_door_transom','y':turn*90}})
+    write(A/f'blockstates/{ENTRANCE_ID}.json',{'multipart':multipart})
+    leaf=entrance_leaf()
+    for e in leaf['elements']:
+        for key in ('from','to'):
+            x,y,z=e[key];e[key]=[8+(x-16)/3,y/3,8+(z-8)/3]
+    write(A/f'models/item/{ENTRANCE_ID}_leaf.json',leaf)
+    frame=scaled_item(FRAME[:1],{'surface':PAINTS[0],'particle':PAINTS[0]},32,48)
+    write(A/f'models/item/{ENTRANCE_ID}_frame.json',frame)
+    glass={'parent':'minecraft:block/block','render_type':'minecraft:translucent','textures':{},'elements':[]}
+    for column,mask in enumerate((1,2)):
+        native=load('lsmmod:block/framed_door_transom_'+str(mask))[0];glass['textures'].update(native['textures'])
+        for e in copy.deepcopy(native['elements']):
+            for key in ('from','to'):
+                x,y,z=e[key];e[key]=[8+(x+column*16-16)/3,(y+32)/3,8+(z-8)/3]
+            for surface in e['faces'].values():surface.pop('cullface',None)
+            glass['elements'].append(e)
+    write(A/f'models/item/{ENTRANCE_ID}_glass.json',glass)
+    write(A/f'models/item/{ENTRANCE_ID}.json',{'loader':'fusion:model','type':'composite','textures':{'particle':PAINTS[0]},
+        'models':[[f'lsmmod:item/{ENTRANCE_ID}_{part}'] for part in ('leaf','frame','glass')]})
+    basic(ENTRANCE_ID,controller={'column':'0','row':'0','depth':'0'})
+    for filename,entry in (
+        ('ModBlocks.java','    public static final DeferredBlock<SchoolPaintableEntranceDoorBlock> SCHOOL_ENTRANCE_DOOR_PAINTABLE = BLOCKS.registerBlock("'+ENTRANCE_ID+'", SchoolPaintableEntranceDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));'),
+        ('ModItems.java','    public static final DeferredItem<BlockItem> SCHOOL_ENTRANCE_DOOR_PAINTABLE = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ENTRANCE_DOOR_PAINTABLE);'),
+    ):
+        path=J/'registry'/filename;text=path.read_text()
+        if ' SCHOOL_ENTRANCE_DOOR_PAINTABLE =' not in text:path.write_text(text.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
+    path=J/'registry/ModBlockEntities.java';text=path.read_text()
+    text=text.replace('ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE.get()));','ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE.get(),ModBlocks.SCHOOL_ENTRANCE_DOOR_PAINTABLE.get()));')
+    path.write_text(text)
+    for locale,label in (('es_es','Puerta del colegio con claraboya y marco pintable'),('en_us','School Door with Transom and Paintable Frame')):
+        path=A/f'lang/{locale}.json';data=json.loads(path.read_text());data['block.lsmmod.'+ENTRANCE_ID]=label;write(path,data)
+    for tool in ('axe','pickaxe'):
+        path=D/f'minecraft/tags/block/mineable/{tool}.json';data=json.loads(path.read_text())
+        if 'lsmmod:'+ENTRANCE_ID not in data['values']:data['values'].append('lsmmod:'+ENTRANCE_ID)
+        write(path,data)
+
+if __name__=='__main__':
+    import sys
+    if '--entrance-only' in sys.argv:generate_entrance()
+    else:main()

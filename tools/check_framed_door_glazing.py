@@ -9,6 +9,51 @@ from audit_block_states import audit
 def read(path):
     return json.loads(path.read_text())
 
+def check_paintable_entrance():
+    import numpy as np
+    from create_paintable_bathroom_door import ENTRANCE_ID,ID,entrance_leaf
+    from create_double_school_entrance import wood,model
+    from render_paintable_bathroom_door import scene,frame_cells,item_scene
+    from render_texture_review import add,render,load
+    from create_paintable_school_block import PAINTS
+    original=model([e for e in wood(False) if e['to'][0]<=24])
+    leaf=entrance_leaf()
+    assert leaf['elements']==original['elements'] and leaf['render_type']==original['render_type']
+    for key in original['textures']:assert leaf['textures'][key]==original['textures'][key] or key=='particle'
+    assert max(e['to'][0] for e in leaf['elements'])==24 and max(e['to'][1] for e in leaf['elements'])==40
+    states={row['id']:row for row in audit()};assert states[ENTRANCE_ID]['states']==192
+    parts=read(A/f'blockstates/{ENTRANCE_ID}.json')['multipart']
+    for facing,opened,hinge in itertools.product(('north','east','south','west'),('false','true'),('left','right')):
+        for column,row,depth in itertools.product(range(2),range(3),range(2)):
+            state=dict(facing=facing,open=opened,hinge=hinge,column=str(column),row=str(row),depth=str(depth))
+            selected=[entry for entry in parts if matches(entry['when'],state)]
+            assert sum(entry['apply']['model']==f'lsmmod:block/{ID}_frame' for entry in selected)==(depth==0)
+            assert sum(entry['apply']['model']=='lsmmod:block/framed_door_transom' for entry in selected)==(row==2 and depth==0)
+            assert all(entry['apply'].get('y',0)==('north','east','south','west').index(facing)*90 for entry in selected)
+    for right in (False,True):
+        cells=frame_cells(right,transom=True)
+        assert len(cells)==80 and all(y<10 and (x<2 if right else x>=6) for x,y,z in cells)
+        for opened in (False,True):
+            actual=scene(opened,right,leaf_only=True,ident=ENTRANCE_ID);whole=[];add(whole,[entrance_leaf(opened,right)])
+            for angle in (-90,-65,115):
+                options=dict(center=[16,20,10],scale=8,size=(420,460),azimuth=angle,elevation=12,minecraft_orientation=True)
+                delta=np.max(np.abs(np.asarray(render(actual,**options)).astype(int)-np.asarray(render(whole,**options)).astype(int)),axis=2)
+                assert delta.mean()<.2 and np.count_nonzero(delta>3)<150,('Leaf UV/cell seam',opened,right,angle,delta.mean())
+            geometry=scene(opened,right,paint=9,ident=ENTRANCE_ID)
+            assert all(e['to'][1]<=40 for e in geometry if any(s['texture']==PAINTS[9] for s in e['faces'].values()))
+            glass=[e for e in geometry if any(s['texture']=='lsmmod:block/school_glass' for s in e['faces'].values())]
+            assert glass and all(e['from'][1]>=40 and e['to'][1]<=48 for e in glass)
+    item=item_scene(ENTRANCE_ID)
+    assert any(any(s['texture']==PAINTS[0] for s in e['faces'].values()) for e in item)
+    assert any(any(s['texture']=='lsmmod:block/school_glass' for s in e['faces'].values()) for e in item)
+    assert any(any('double_school_entrance_' in s['texture'] for s in e['faces'].values()) for e in item)
+    loot=read(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ENTRANCE_ID}.json')
+    assert loot['pools'][0]['conditions'][1]['properties']=={'column':'0','row':'0','depth':'0'}
+    java=ROOT/'src/main/java/net/nicomar2009/lsmmod'
+    assert 'hasTransomGlazing() {return true;}' in (java/'block/SchoolPaintableEntranceDoorBlock.java').read_text()
+    assert 'ModBlocks.SCHOOL_ENTRANCE_DOOR_PAINTABLE.get()' in (java/'registry/ModBlockEntities.java').read_text()
+    print('OK: one unchanged 24x40 school entrance leaf, 2x3 assembly, 192 states, original textures/UV and seamless split cells; shared 8px paintable side excludes fixed glazing, both hinges/orientations, three item layers and single drop. Minecraft interactions remain uncompiled.')
+
 
 def check_paintable_bathroom():
     import random
@@ -177,4 +222,5 @@ def main():
 if __name__ == '__main__':
     import sys
     if '--paintable-bathroom-only' in sys.argv:check_paintable_bathroom()
+    elif '--entrance-only' in sys.argv:check_paintable_entrance()
     else:main()

@@ -367,5 +367,6 @@
   "item.lsmmod.red_street_wall_paint": "Pintura roja de pared de calle",
   "block.lsmmod.school_name_sign": "Letrero Colegio Libertador San Martin",
   "block.lsmmod.bathroom_door_wide_paintable": "Puerta ancha de baño con marco pintable",
-  "block.lsmmod.school_paintable_mini_cube_block": "Bloque pintable de minicubos de 4 px"
+  "block.lsmmod.school_paintable_mini_cube_block": "Bloque pintable de minicubos de 4 px",
+  "block.lsmmod.school_entrance_door_paintable": "Puerta del colegio con claraboya y marco pintable"
 }

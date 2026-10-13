@@ -31,7 +31,7 @@ public final class ModBlockEntities {
 
     public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolDoorFramePaintEntity>> SCHOOL_DOOR_FRAME_PAINT = BLOCK_ENTITIES.register(
             "school_door_frame_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolDoorFramePaintEntity::new,
-                    ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE.get()));
+                    ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE.get(),ModBlocks.SCHOOL_ENTRANCE_DOOR_PAINTABLE.get()));
 
     public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolMiniCubePaintEntity>> SCHOOL_MINI_CUBE_PAINT = BLOCK_ENTITIES.register(
             "school_mini_cube_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolMiniCubePaintEntity::new,

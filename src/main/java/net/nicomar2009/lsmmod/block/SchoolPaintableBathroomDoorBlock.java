@@ -30,7 +30,11 @@ public class SchoolPaintableBathroomDoorBlock extends SchoolFramedDiningDoorBloc
     }
     public static long initialFrame(BlockState state) {
         if(state.getValue(DEPTH)!=0)return 0;
-        return FRAME_MASKS[state.getValue(HINGE)==DoorHingeSide.RIGHT?1:0][state.getValue(ROW)][state.getValue(COLUMN)];
+        long mask=FRAME_MASKS[state.getValue(HINGE)==DoorHingeSide.RIGHT?1:0][state.getValue(ROW)][state.getValue(COLUMN)];
+        // A glazed variant replaces the upper 8px masonry with fixed glass, never paint or carving.
+        if(state.getValue(ROW)==2&&state.getBlock() instanceof SchoolPaintableBathroomDoorBlock door&&door.hasTransomGlazing())
+            mask&=0x00ff00ff00ff00ffL;
+        return mask;
     }
     private static double[] leaf(BlockState state) {
         double[] b=state.getValue(OPEN)?new double[]{0,0,0,4,40,24}:new double[]{0,0,0,24,40,4};
@@ -55,6 +59,8 @@ public class SchoolPaintableBathroomDoorBlock extends SchoolFramedDiningDoorBloc
             present&=part[axis]<part[axis+3];
         }
         if(present)boxes.add(part);
+        if(state.getValue(ROW)==2&&state.getValue(DEPTH)==0&&state.getBlock() instanceof SchoolPaintableBathroomDoorBlock door&&door.hasTransomGlazing())
+            boxes.add(new double[]{0,8,0,16,16,8});
         return Shapes.rotateHorizontal(ExactVoxelShapes.pixels(boxes.toArray(double[][]::new))).get(state.getValue(FACING));
     }
     // World-dependent holes must remain targetable; a cache keyed only by BlockState is invalid here.

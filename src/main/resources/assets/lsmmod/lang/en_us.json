@@ -373,5 +373,6 @@
   "item.lsmmod.red_street_wall_paint": "Red Street Wall Paint",
   "block.lsmmod.school_name_sign": "Colegio Libertador San Martin Sign",
   "block.lsmmod.bathroom_door_wide_paintable": "Wide Bathroom Door with Paintable Frame",
-  "block.lsmmod.school_paintable_mini_cube_block": "Paintable 4px Mini Cube Block"
+  "block.lsmmod.school_paintable_mini_cube_block": "Paintable 4px Mini Cube Block",
+  "block.lsmmod.school_entrance_door_paintable": "School Door with Transom and Paintable Frame"
 }
