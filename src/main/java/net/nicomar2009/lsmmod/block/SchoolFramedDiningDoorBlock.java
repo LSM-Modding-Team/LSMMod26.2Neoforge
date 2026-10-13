@@ -53,6 +53,8 @@ public class SchoolFramedDiningDoorBlock extends Block {
 
     public boolean hasSideGlazing() { return sideGlazing; }
 
+    public boolean hasTransomGlazing() { return true; }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, OPEN, COLUMN, ROW, DEPTH, HINGE);

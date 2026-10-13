@@ -1,0 +1,6 @@
+{
+  "parent": "lsmmod:block/door_frame_4px/20_down",
+  "textures": {
+    "surface": "lsmmod:block/red_street_wall"
+  }
+}

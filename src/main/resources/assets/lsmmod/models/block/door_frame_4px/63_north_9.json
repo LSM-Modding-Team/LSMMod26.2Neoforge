@@ -1,0 +1,6 @@
+{
+  "parent": "lsmmod:block/door_frame_4px/63_north",
+  "textures": {
+    "surface": "lsmmod:block/green_playground_floor"
+  }
+}

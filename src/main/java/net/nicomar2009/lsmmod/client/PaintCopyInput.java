@@ -10,7 +10,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.nicomar2009.lsmmod.LSMMod;
-import net.nicomar2009.lsmmod.block.SchoolPaintableBlock;
 import net.nicomar2009.lsmmod.item.SchoolPaintItem;
 import net.nicomar2009.lsmmod.network.PaintCopyPayload;
 import org.lwjgl.glfw.GLFW;
@@ -21,7 +20,8 @@ public final class PaintCopyInput {
         Minecraft minecraft = Minecraft.getInstance();
         if (!event.isUseItem() || minecraft.player == null || minecraft.level == null
                 || !(minecraft.hitResult instanceof BlockHitResult hit)
-                || !(minecraft.level.getBlockState(hit.getBlockPos()).getBlock() instanceof SchoolPaintableBlock)) return;
+                || !(minecraft.level.getBlockEntity(hit.getBlockPos()) instanceof net.nicomar2009.lsmmod.block.SchoolPaintableBlockEntity block)
+                || !block.canPaintAt(hit.getDirection(),hit.getLocation())) return;
         var window = minecraft.getWindow();
         if (!InputConstants.isKeyDown(window, GLFW.GLFW_KEY_LEFT_CONTROL)
                 && !InputConstants.isKeyDown(window, GLFW.GLFW_KEY_RIGHT_CONTROL)) return;

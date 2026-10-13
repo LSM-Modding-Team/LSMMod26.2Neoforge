@@ -371,5 +371,6 @@
   "block.lsmmod.school_paintable_projecting_window": "Paintable Half with Projecting Window",
   "block.lsmmod.red_street_wall": "Red Street Wall",
   "item.lsmmod.red_street_wall_paint": "Red Street Wall Paint",
-  "block.lsmmod.school_name_sign": "Colegio Libertador San Martin Sign"
+  "block.lsmmod.school_name_sign": "Colegio Libertador San Martin Sign",
+  "block.lsmmod.bathroom_door_wide_paintable": "Wide Bathroom Door with Paintable Frame"
 }

@@ -40,6 +40,11 @@ public class SchoolPaintableCustomBlockEntity extends SchoolPaintableBlockEntity
     @Override public int[] snapshot() { return squares.clone(); }
     @Override public boolean painted() { for (int color:squares) if(color!=0) return true; return false; }
     @Override public void apply(int[] colors) {
+        if(colors.length==96) {
+            int[] coarse=new int[24];
+            for(int face=0;face<6;face++)for(int q=0;q<4;q++)coarse[face*4+q]=colors[face*16+(q%2)*2+(q/2)*8];
+            apply(coarse);return;
+        }
         if(colors.length!=6 && colors.length!=24) throw new IllegalArgumentException("Expected six faces or twenty-four squares");
         int[] copy=new int[24];
         for(int i=0;i<24;i++) copy[i]=SchoolPaint.fromId(colors[colors.length==6 ? i/4 : i]).ordinal();

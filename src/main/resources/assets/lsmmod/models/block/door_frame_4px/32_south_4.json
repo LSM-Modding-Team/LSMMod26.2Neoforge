@@ -1,0 +1,6 @@
+{
+  "parent": "lsmmod:block/door_frame_4px/32_south",
+  "textures": {
+    "surface": "lsmmod:block/classroom_white_wall"
+  }
+}

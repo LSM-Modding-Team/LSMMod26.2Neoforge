@@ -16,7 +16,7 @@ public final class SchoolGlazing {
     public static final IntegerProperty FRAME_LAYOUT = IntegerProperty.create("frame_layout", 0, 7);
     private SchoolGlazing() {}
     public static boolean isFramedTransom(BlockState state) {
-        return state.getBlock() instanceof SchoolFramedDiningDoorBlock
+        return state.getBlock() instanceof SchoolFramedDiningDoorBlock door && door.hasTransomGlazing()
                 && state.getValue(SchoolFramedDiningDoorBlock.ROW)==2
                 && state.getValue(SchoolFramedDiningDoorBlock.DEPTH)==0;
     }

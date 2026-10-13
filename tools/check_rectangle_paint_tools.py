@@ -33,6 +33,24 @@ def main():
         assert blocks=={q//2 for q in range(lo,hi+1)}
     for block in range(-4,5):
         assert {q%2 for q in range(block*2,block*2+2)}=={0,1}
+    # Quarter-grid planes distinguish every 4px surface, including signed world coordinates.
+    for origin,axis,step in itertools.product(range(-4,5),range(3),(-1,1)):
+        u=2 if axis==0 else 0;v=2 if axis==1 else 1
+        for cell in itertools.product(range(4),repeat=3):
+            plane=origin*4+cell[axis]+int(step>0)
+            assert (plane-int(step>0))//4==origin
+            assert (plane-int(step>0))%4==cell[axis]
+            point=[origin+(q+.5)/4 for q in cell];point[axis]=plane/4
+            point[axis]-=step*1e-6
+            assert tuple(int((p-origin)*4) for p in point)==cell
+    for origin,divisions,local in itertools.product(range(-4,5),(1,2,4),range(4)):
+        size=4//divisions;start=origin*4+(local//size)*size;end=start+size-1
+        assert end-start+1==size
+        assert {q//4 for q in range(start,end+1)}=={origin}
+        if divisions==2:
+            # Legacy half-grid endpoints scale to the same occupied interval.
+            old=origin*2+local//2
+            assert (start,end)==(old*2,old*2+1)
     source=(ROOT/'src/main/java/net/nicomar2009/lsmmod/item/RectanglePaintTool.java').read_text()
     assert 'MAX_BLOCKS=256' in source and 'Math.floorDiv' in source and 'Math.floorMod' in source
     assert 'Double.isFinite' in source and 'anchor.getStringOr("dimension"' in source and 'anchor.getStringOr("owner"' in source
@@ -43,7 +61,7 @@ def main():
     for name in ('SchoolPaintItem','SchoolSandpaperItem'):
         item=(ROOT/f'src/main/java/net/nicomar2009/lsmmod/item/{name}.java').read_text()
         assert 'RectanglePaintTool.use(context,' in item and 'RectanglePaintTool.cancel' in item
-    print(f'OK: {checked} coplanar occupancy/axis/negative-coordinate cases, exact inclusive half-grid rectangles, permissions/loaded preflight and one batched palette per block; ordinary tool paths retained.')
+    print(f'OK: {checked} half-grid cases plus every quarter-grid hit plane over signed coordinates; 4px/8px/full-face endpoints and legacy anchors, permissions/loaded preflight and one batched palette per block; ordinary tool paths retained.')
 
 
 if __name__=='__main__':main()

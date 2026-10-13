@@ -10,6 +10,86 @@ def read(path):
     return json.loads(path.read_text())
 
 
+def check_paintable_bathroom():
+    import random
+    from create_paintable_bathroom_door import ID,native_leaf
+    from create_paintable_school_block import PAINTS,SIDES
+    from render_texture_review import load,add
+    from render_paintable_bathroom_door import scene,frame_cells,item_scene
+    parts=read(A/f'blockstates/{ID}.json')['multipart']
+    assert {row['id']:row for row in audit()}[ID]['states']==192
+    original=read(A/'blockstates/bathroom_door_wide.json')['multipart']
+    for facing,opened,hinge in itertools.product(('north','east','south','west'),('false','true'),('left','right')):
+        for column,row,depth in itertools.product(range(2),range(3),range(2)):
+            state=dict(facing=facing,open=opened,hinge=hinge,column=str(column),row=str(row),depth=str(depth))
+            def leaves(entries,old=False):
+                result=[]
+                for entry in entries:
+                    if not matches(entry['when'],state):continue
+                    if entry['apply']['model'].endswith('_frame') or 'framed_door_transom' in entry['apply']['model']:continue
+                    for model in load(entry['apply']['model']):
+                        if old:model=native_leaf(model)
+                        assert entry['apply'].get('y',0)==('north','east','south','west').index(facing)*90
+                        add(result,[model])
+                return result
+            assert leaves(parts)==leaves(original,True),(state,'leaf geometry/UV/material changed')
+            assert sum(entry['apply']['model'].endswith('_frame') for entry in parts if matches(entry['when'],state))==(depth==0)
+    assert not any('transom' in entry['apply']['model'] for entry in parts)
+
+    frame=read(A/f'models/block/{ID}_frame.json');groups=frame['models'][:-1]
+    assert len(groups)==64*6 and frame['models'][-1]==[{'model':'lsmmod:block/custom_paintable_empty'}]
+    faces=set()
+    for group in groups:
+        assert len(group)==len(PAINTS)
+        first=group[0]['condition'];cube,face=first['cube'],first['face'];faces.add((cube,face))
+        for paint,entry in enumerate(group):
+            assert entry['condition']==dict(type='lsmmod:painted_door_frame',cube=cube,face=face,paint=paint)
+            model,=load(entry['model']);element,=model['elements']
+            assert element['from']==[(cube&3)*4,((cube>>2)&3)*4,((cube>>4)&3)*4]
+            assert element['to']==[v+4 for v in element['from']]
+            assert list(element['faces'])==[face] and all(0<=v<=16 for v in element['faces'][face]['uv'])
+            assert model['textures']['surface']==PAINTS[paint]
+            if paint:assert 'elements' not in read(A/f"models/{entry['model'].split(':')[1]}.json")
+    assert faces==set(itertools.product(range(64),SIDES))
+    for opened in (False,True):
+        assert scene(opened,removed=frame_cells())==scene(opened,leaf_only=True)
+    for right in (False,True):
+        cells=frame_cells(right)
+        assert len(cells)==144
+        assert all(0<=x<8 and 0<=y<12 and 0<=z<4 for x,y,z in cells)
+        assert all(y>=10 or (x<2 if right else x>=6) for x,y,z in cells)
+        # Compare final selected faces with the surface area of a whole solid L-shaped frame.
+        geometry=scene(right=right,paint=9)
+        frame_faces=[e for e in geometry if any(f['texture']==PAINTS[9] for f in e['faces'].values())]
+        # 144 cubes of 4px, fixed volume = 8*40*16 + 32*8*16.
+        assert len(cells)*64==8*40*16+32*8*16
+        from create_custom_paintable_blocks import STEPS
+        expected_faces=sum(tuple(p+s for p,s in zip(cell,step)) not in cells for cell in cells for step in STEPS.values())
+        assert len(frame_faces)==expected_faces,'Internal caps or missing frame faces'
+        for cell in cells:
+            carved=frame_cells(right,[cell]);assert len(carved)==len(cells)-1 and cell not in carved
+
+    item=item_scene();assert item and all(0<=v<=16 for e in item for key in ('from','to') for v in e[key])
+    loot=read(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ID}.json')
+    assert loot['pools'][0]['conditions'][1]['properties']=={'column':'0','row':'0','depth':'0'}
+    assert loot['pools'][0]['entries'][0]['name']=='lsmmod:'+ID
+    rng=random.Random(413)
+    for _ in range(1000):
+        colors=[rng.randrange(len(PAINTS)) for _ in range(96)]
+        packed=[sum(colors[face*16+q]<<(q*4) for q in range(16)) for face in range(6)]
+        assert colors==[(packed[face]>>(q*4))&15 for face in range(6) for q in range(16)]
+        mask=rng.getrandbits(64);signed=mask if mask<2**63 else mask-2**64
+        assert signed&((1<<64)-1)==mask
+    java=ROOT/'src/main/java/net/nicomar2009/lsmmod'
+    entity=(java/'block/SchoolDoorFramePaintEntity.java').read_text()
+    block=(java/'block/SchoolPaintableBathroomDoorBlock.java').read_text()
+    assert 'extends SchoolFramedDiningDoorBlock implements EntityBlock' in block
+    assert 'hasTransomGlazing() { return false; }' in block and 'SimpleBlockOutline.forState' not in block
+    assert 'removed|=1L<<cube' in entity and 'level.removeBlock' not in entity
+    assert 'invalidateClientGeometry()' in entity and 'getLongOr("removed",0)' in entity
+    print('OK: original leaf preserved in all 192 states; 2x3 footprint, solid full-depth header and side, 4px faces/UV/all 13 materials, hidden cell seams, single-cube removals, item/drop and 96-color/64-bit storage. Java interactions remain uncompiled and untested in Minecraft.')
+
+
 def main():
     wrapper = read(A/'models/block/framed_door_transom.json')
     entries = wrapper['models'][0]
@@ -93,4 +173,6 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    import sys
+    if '--paintable-bathroom-only' in sys.argv:check_paintable_bathroom()
+    else:main()

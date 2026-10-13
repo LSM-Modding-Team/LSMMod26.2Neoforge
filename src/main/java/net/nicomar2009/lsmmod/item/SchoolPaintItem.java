@@ -21,19 +21,21 @@ public class SchoolPaintItem extends Item {
         CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         CompoundTag copy = new CompoundTag(); int[] colors = source.snapshot();
         copy.putBoolean("quadrants", colors.length == 24);
+        int count=colors.length/6;copy.putInt("subdivisions",count);
         for (Direction face : Direction.values()) {
             if (colors.length == 6) copy.putInt(face.getSerializedName(), colors[face.ordinal()]);
-            else for (int q = 0; q < 4; q++) copy.putInt(face.getSerializedName()+"_"+q, colors[face.ordinal()*4+q]);
+            else for (int q = 0; q < count; q++) copy.putInt(face.getSerializedName()+"_"+q, colors[face.ordinal()*count+q]);
         }
         tag.put(COPY, copy); stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
     }
     private static int[] copied(CompoundTag tag) {
         if (!tag.contains(COPY)) return null;
         CompoundTag copy = tag.getCompoundOrEmpty(COPY);
-        int count = copy.getBooleanOr("quadrants", false) ? 4 : 1;
+        int count = copy.getIntOr("subdivisions",copy.getBooleanOr("quadrants", false) ? 4 : 1);
+        if(count!=1&&count!=4&&count!=16)return null;
         int[] colors = new int[6*count];
         for (Direction face : Direction.values()) for (int q = 0; q < count; q++) {
-            String key = face.getSerializedName() + (count == 4 ? "_"+q : "");
+            String key = face.getSerializedName() + (count > 1 ? "_"+q : "");
             if (!copy.contains(key)) return null;
             int color = copy.getIntOr(key, -1);
             if (!SchoolPaint.validId(color)) return null;

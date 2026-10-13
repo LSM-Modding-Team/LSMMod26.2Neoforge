@@ -32,9 +32,9 @@ public class SchoolPaintableBlockEntity extends BlockEntity {
     }
     public void clean() { apply(new int[6]); }
     public void apply(int[] colors) {
-        if (colors.length == 24) {
+        if (colors.length == 24 || colors.length == 96) {
             int[] wholeFaces = new int[6];
-            for (int face = 0; face < 6; face++) wholeFaces[face] = colors[face * 4];
+            for (int face = 0; face < 6; face++) wholeFaces[face] = colors[face * (colors.length/6)];
             apply(wholeFaces); return;
         }
         if (colors.length != 6) throw new IllegalArgumentException("Expected six face colors");

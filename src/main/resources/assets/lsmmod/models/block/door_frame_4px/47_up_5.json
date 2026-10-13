@@ -1,0 +1,6 @@
+{
+  "parent": "lsmmod:block/door_frame_4px/47_up",
+  "textures": {
+    "surface": "lsmmod:block/classroom_floor"
+  }
+}

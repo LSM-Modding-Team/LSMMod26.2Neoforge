@@ -38,17 +38,18 @@ public final class RectanglePaintTool {
     private static int axis(Direction face) { return switch(face.getAxis()) { case X->0;case Y->1;case Z->2; }; }
     private static int uAxis(int axis) { return axis==0 ? 2 : 0; }
     private static int vAxis(int axis) { return axis==1 ? 2 : 1; }
-    private static End end(UseOnContext context,boolean small) {
+    private static End end(UseOnContext context,int divisions) {
         BlockPos p=context.getClickedPos();int[] pos={p.getX(),p.getY(),p.getZ()};
         var hit=context.getClickLocation();double[] point={hit.x,hit.y,hit.z};
         for(int i=0;i<3;i++) if(!Double.isFinite(point[i]) || point[i]<pos[i]-1e-6 || point[i]>pos[i]+1+1e-6)return null;
         int axis=axis(context.getClickedFace()),u=uAxis(axis),v=vAxis(axis);
         double normal=point[axis]-pos[axis];
-        if(Math.abs(normal-Math.round(normal*2)/2.0)>1e-6)return null;
-        if(!small && Math.abs(normal-(context.getClickedFace().getAxisDirection()==Direction.AxisDirection.POSITIVE?1:0))>1e-6)return null;
-        int a=pos[u]*2,b=pos[v]*2;
-        if(small) { a+=Math.clamp((int)Math.floor((point[u]-pos[u])*2),0,1);b+=Math.clamp((int)Math.floor((point[v]-pos[v])*2),0,1); }
-        return new End((int)Math.round(point[axis]*2),a,a+(small?0:1),b,b+(small?0:1));
+        if(Math.abs(normal-Math.round(normal*divisions)/(double)divisions)>1e-6)return null;
+        if(divisions==1 && Math.abs(normal-(context.getClickedFace().getAxisDirection()==Direction.AxisDirection.POSITIVE?1:0))>1e-6)return null;
+        int size=4/divisions,a=pos[u]*4,b=pos[v]*4;
+        a+=Math.clamp((int)Math.floor((point[u]-pos[u])*divisions),0,divisions-1)*size;
+        b+=Math.clamp((int)Math.floor((point[v]-pos[v])*divisions),0,divisions-1)*size;
+        return new End((int)Math.round(point[axis]*4),a,a+size-1,b,b+size-1);
     }
     private static boolean exposed(Level level,BlockPos pos,Direction face,SchoolPaintableCustomBlockEntity block,int[] halves) {
         int cube=halves[0]+2*halves[1]+4*halves[2];if(!block.hasCube(cube))return false;
@@ -72,26 +73,33 @@ public final class RectanglePaintTool {
         if(player==null || player.isSpectator() || !player.mayBuild())return InteractionResult.FAIL;
         if(level.isClientSide())return InteractionResult.SUCCESS;
         var current=level.getBlockEntity(context.getClickedPos());
-        End end=end(context,current instanceof SchoolPaintableCustomBlockEntity);Direction face=context.getClickedFace();
+        int divisions=current instanceof net.nicomar2009.lsmmod.block.SchoolDoorFramePaintEntity?4:current instanceof SchoolPaintableCustomBlockEntity?2:1;
+        End end=end(context,divisions);Direction face=context.getClickedFace();
         if(end==null)return fail(player,"target");
         String dimension=level.dimension().identifier().toString();
         if(!pending) {
             CompoundTag anchor=new CompoundTag();anchor.putString("owner",player.getUUID().toString());anchor.putString("dimension",dimension);
             anchor.putString("face",face.getSerializedName());anchor.putInt("plane",end.plane);
+            anchor.putInt("grid",4);
             anchor.putInt("u0",end.u0);anchor.putInt("u1",end.u1);anchor.putInt("v0",end.v0);anchor.putInt("v1",end.v1);
             data.put(KEY,anchor);write(stack,data);player.containerMenu.broadcastChanges();
             player.sendOverlayMessage(Component.translatable("message.lsmmod.rectangle.start"));return InteractionResult.SUCCESS;
         }
         CompoundTag anchor=data.getCompoundOrEmpty(KEY);
+        if(anchor.getIntOr("grid",2)==2) {
+            for(String key:new String[]{"plane","u0","v0"})anchor.putInt(key,anchor.getIntOr(key,0)*2);
+            for(String key:new String[]{"u1","v1"})anchor.putInt(key,anchor.getIntOr(key,0)*2+1);
+            anchor.putInt("grid",4);
+        }
         if(!anchor.getStringOr("owner","").equals(player.getUUID().toString()) || !anchor.getStringOr("dimension","").equals(dimension)
                 || !anchor.getStringOr("face","").equals(face.getSerializedName()) || anchor.getIntOr("plane",Integer.MIN_VALUE)!=end.plane)
             return fail(player,"plane");
         int u0=Math.min(anchor.getIntOr("u0",end.u0),end.u0),u1=Math.max(anchor.getIntOr("u1",end.u1),end.u1);
         int v0=Math.min(anchor.getIntOr("v0",end.v0),end.v0),v1=Math.max(anchor.getIntOr("v1",end.v1),end.v1);
-        int bu0=Math.floorDiv(u0,2),bu1=Math.floorDiv(u1,2),bv0=Math.floorDiv(v0,2),bv1=Math.floorDiv(v1,2);
+        int bu0=Math.floorDiv(u0,4),bu1=Math.floorDiv(u1,4),bv0=Math.floorDiv(v0,4),bv1=Math.floorDiv(v1,4);
         if(((long)bu1-bu0+1)*((long)bv1-bv0+1)>MAX_BLOCKS)return fail(player,"large");
         int axis=axis(face),u=uAxis(axis),v=vAxis(axis),step=face.getAxisDirection()==Direction.AxisDirection.POSITIVE?1:-1;
-        int normal=Math.floorDiv(end.plane-(step>0?1:0),2),normalHalf=Math.floorMod(end.plane-(step>0?1:0),2);
+        int normal=Math.floorDiv(end.plane-(step>0?1:0),4),normalQuarter=Math.floorMod(end.plane-(step>0?1:0),4),normalHalf=normalQuarter/2;
         var changes=new ArrayList<Change>();int[] refunds=new int[SchoolPaint.values().length];int count=0;
         for(int a=bu0;a<=bu1;a++) for(int b=bv0;b<=bv1;b++) {
             int[] xyz=new int[3];xyz[axis]=normal;xyz[u]=a;xyz[v]=b;BlockPos pos=new BlockPos(xyz[0],xyz[1],xyz[2]);
@@ -99,9 +107,20 @@ public final class RectanglePaintTool {
             if(!(level.getBlockEntity(pos) instanceof SchoolPaintableBlockEntity block))continue;
             if(!level.mayInteract(player,pos) || !player.mayUseItemAt(pos,face,stack))return fail(player,"denied");
             int[] colors=block.snapshot(),before=colors.clone();
-            if(block instanceof SchoolPaintableCustomBlockEntity small) {
+            if(block instanceof net.nicomar2009.lsmmod.block.SchoolDoorFramePaintEntity frame) {
+                for(int qa=0;qa<4;qa++)for(int qb=0;qb<4;qb++) {
+                    if(a*4+qa<u0||a*4+qa>u1||b*4+qb<v0||b*4+qb>v1)continue;
+                    double[] point={pos.getX()+.5,pos.getY()+.5,pos.getZ()+.5};
+                    point[axis]=end.plane*.25;point[u]=a+(qa+.5)*.25;point[v]=b+(qb+.5)*.25;
+                    int index=frame.exposedSquare(face,new net.minecraft.world.phys.Vec3(point[0],point[1],point[2]),level);
+                    if(index<0)continue;
+                    int next=paint==null?0:paint.ordinal();if(colors[index]==next)continue;
+                    if(paint==null)refunds[colors[index]]++;colors[index]=next;count++;
+                }
+            } else if(block instanceof SchoolPaintableCustomBlockEntity small) {
+                if(end.plane%2!=0)continue;
                 for(int qa=0;qa<2;qa++) for(int qb=0;qb<2;qb++) {
-                    if(a*2+qa<u0 || a*2+qa>u1 || b*2+qb<v0 || b*2+qb>v1)continue;
+                    if(a*4+qa*2+1<u0 || a*4+qa*2>u1 || b*4+qb*2+1<v0 || b*4+qb*2>v1)continue;
                     int[] halves=new int[3];halves[axis]=normalHalf;halves[u]=qa;halves[v]=qb;
                     if(!exposed(level,pos,face,small,halves))continue;
                     int index=face.ordinal()*4+SchoolPaintableCustomBlockEntity.quadrant(face,halves[0],halves[1],halves[2]);
@@ -109,13 +128,13 @@ public final class RectanglePaintTool {
                     if(paint==null)refunds[colors[index]]++;colors[index]=next;count++;
                 }
             } else {
-                boolean outer=end.plane==normal*2+(step>0?2:0);
+                boolean outer=end.plane==normal*4+(step>0?4:0);
                 if(block instanceof net.nicomar2009.lsmmod.block.SchoolProjectingWindowPaintEntity) {
                     boolean solid=false;
                     for(int qa=0;qa<2;qa++)for(int qb=0;qb<2;qb++) {
-                        if(a*2+qa<u0||a*2+qa>u1||b*2+qb<v0||b*2+qb>v1)continue;
+                        if(a*4+qa*2+1<u0||a*4+qa*2>u1||b*4+qb*2+1<v0||b*4+qb*2>v1)continue;
                         double[] point={pos.getX()+.5,pos.getY()+.5,pos.getZ()+.5};
-                        point[axis]=end.plane*.5;point[u]=a+(qa+.5)*.5;point[v]=b+(qb+.5)*.5;
+                        point[axis]=end.plane*.25;point[u]=a+(qa+.5)*.5;point[v]=b+(qb+.5)*.5;
                         solid|=block.canPaintAt(face,new net.minecraft.world.phys.Vec3(point[0],point[1],point[2]));
                     }
                     if(!solid)continue;
