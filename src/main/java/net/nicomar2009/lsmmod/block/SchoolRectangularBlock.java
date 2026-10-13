@@ -72,7 +72,7 @@ public class SchoolRectangularBlock extends Block {
         BlockState initial = stateDefinition.any().setValue(FACING, Direction.NORTH);
         if(initial.hasProperty(columnProperty())) initial=initial.setValue(columnProperty(),0);
         if(initial.hasProperty(HALF)) initial=initial.setValue(HALF,DoubleBlockHalf.LOWER);
-        if (initial.hasProperty(ROW)) initial = initial.setValue(ROW, 0);
+        if (initial.hasProperty(rowProperty())) initial = initial.setValue(rowProperty(), 0);
         if (initial.hasProperty(OPEN)) initial = initial.setValue(OPEN, false);
         registerDefaultState(initial);
     }
@@ -82,14 +82,16 @@ public class SchoolRectangularBlock extends Block {
         builder.add(FACING, columnProperty());
     }
 
-    private static int half(BlockState state) {
-        if (state.hasProperty(ROW)) return state.getValue(ROW);
+    private int half(BlockState state) {
+        if (state.hasProperty(rowProperty())) return state.getValue(rowProperty());
         return state.hasProperty(HALF) && state.getValue(HALF)==DoubleBlockHalf.UPPER ? 1 : 0;
     }
 
     private static boolean opened(BlockState state) { return state.hasProperty(OPEN) && state.getValue(OPEN); }
 
     protected IntegerProperty columnProperty() { return COLUMN; }
+
+    protected IntegerProperty rowProperty() { return ROW; }
 
     private int column(BlockState state) { return state.hasProperty(columnProperty()) ? state.getValue(columnProperty()) : 0; }
 
@@ -105,7 +107,7 @@ public class SchoolRectangularBlock extends Block {
 
     private BlockState part(BlockState state, int half, int column) {
         BlockState value = state.hasProperty(columnProperty()) ? state.setValue(columnProperty(), column) : state;
-        if (value.hasProperty(ROW)) return value.setValue(ROW, half);
+        if (value.hasProperty(rowProperty())) return value.setValue(rowProperty(), half);
         return value.hasProperty(HALF) ? value.setValue(HALF,half==0?DoubleBlockHalf.LOWER:DoubleBlockHalf.UPPER) : value;
     }
 

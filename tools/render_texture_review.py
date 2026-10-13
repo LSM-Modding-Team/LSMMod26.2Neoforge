@@ -116,12 +116,14 @@ def texture(ident):
     return np.array(Image.open(path).convert('RGBA'))
 
 
-def render(scene, center, scale, size=(420,560), azimuth=-70, elevation=15):
+def render(scene, center, scale, size=(420,560), azimuth=-70, elevation=15, minecraft_orientation=False):
     width,height = size
     az,el = np.radians([azimuth,elevation])
     eye = np.array([math.cos(az)*math.cos(el),math.sin(el),math.sin(az)*math.cos(el)])
     right = np.array([-math.sin(az),0,math.cos(az)])
     up = np.cross(right,eye)
+    # Correct the horizontal camera handedness when reviewing readable world-space lettering.
+    if minecraft_orientation:right=-right
     # Neutral checker backdrop makes transparency and dark surfaces visible.
     yy,xx = np.indices((height,width))
     checker = ((xx//24+yy//24)%2)*8+186

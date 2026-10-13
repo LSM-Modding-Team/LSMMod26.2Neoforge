@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "gold": "lsmmod:block/school_name_sign_gold",
+    "particle": "#gold"
+  },
+  "elements": [],
+  "render_type": "minecraft:solid"
+}

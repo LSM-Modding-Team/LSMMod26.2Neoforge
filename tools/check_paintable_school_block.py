@@ -58,7 +58,7 @@ def check_projecting_half():
         if ident==PAINTABLE_ID:
             painted=[model for model in models if 'surface' in model.get('textures',{})]
             assert {face for model in painted for element in model['elements'] for face in element['faces']}==set(SIDES), 'Fusion drops painted wall faces from the item'
-    print('OK: twelve paint colors on all six fixed half-block faces; both wall sides, four orientations and five pane poses; glass/frame materials are isolated from the palette; actual Fusion item selections include the glass and all wall faces.')
+    print(f'OK: {len(PAINTS)} paint colors on all six fixed half-block faces; both wall sides, four orientations and five pane poses; glass/frame materials are isolated from the palette; actual Fusion item selections include the glass and all wall faces.')
 
 def main():
     for texture in PAINTS:
@@ -76,7 +76,7 @@ def main():
     assert border==(255,211,0) and {yellow.getpixel((x,y)) for x in range(16) for y in range(16)}=={border}
     enum=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolPaint.java').read_text()
     import re
-    assert re.findall(r'^    ([A-Z_]+)\(',enum,re.M)==['UNPAINTED','LIGHT','DARK','STREET','WHITE','FLOOR','YELLOW','PLAYGROUND_WHITE','PLAYGROUND_GRAY','PLAYGROUND_GREEN','PLAYGROUND_ORANGE','DARK_TILED']
+    assert re.findall(r'^    ([A-Z_]+)\(',enum,re.M)==['UNPAINTED','LIGHT','DARK','STREET','WHITE','FLOOR','YELLOW','PLAYGROUND_WHITE','PLAYGROUND_GRAY','PLAYGROUND_GREEN','PLAYGROUND_ORANGE','DARK_TILED','RED_STREET']
     assert read(A/'blockstates/yellow_school_block.json')['variants']=={'':{'model':'lsmmod:block/yellow_school_block'}}
     assert read(A/'models/block/yellow_school_block.json')['parent']=='minecraft:block/cube_all'
     assert 'case YELLOW -> ModItems.YELLOW_SCHOOL_PAINT.get();' in (ROOT/'src/main/java/net/nicomar2009/lsmmod/item/SchoolSandpaperItem.java').read_text()
@@ -93,7 +93,15 @@ def main():
     assert list(state['variants']) == [''], 'Paint must not multiply block states'
     model = read(A/'models/block/school_paintable_block.json')
     assert model['loader'] == 'fusion:model' and len(model['models']) == 6
-    for colors in itertools.product(range(len(PAINTS)), repeat=6):
+    # Prove the Cartesian product by independent face selectors rather than enumerating millions of combinations.
+    for face,series in zip(SIDES,model['models']):
+        assert len(series)==len(PAINTS)
+        assert all(entry['condition']=={'type':'lsmmod:painted_face','face':face,'paint':paint}
+                   for paint,entry in enumerate(series[:-1],1))
+        assert 'condition' not in series[-1]
+    palettes=[(color,)*6 for color in range(len(PAINTS))]
+    palettes += [tuple(color if i==face else 0 for i in range(6)) for face in range(6) for color in range(len(PAINTS))]
+    for colors in palettes:
         found = {}
         for series in model['models']:
             selected = next(entry for entry in series if 'condition' not in entry or
@@ -121,7 +129,7 @@ def main():
             assert lang['block.lsmmod.'+name]
         for item in TOOLS:
             assert lang['item.lsmmod.'+item]
-    print(f'OK: {len(PAINTS)**6} palettes render exactly six non-overlapping faces; one state, all tools, translations and white legacy alias preserved.')
+    print(f'OK: independent face selectors cover all {len(PAINTS)**6} palettes; {len(palettes)} isolation/uniform examples render exactly six non-overlapping faces; one state, tools, translations and white legacy alias preserved.')
 
 leaves = {f'lsmmod:block/paintable_faces/{face}_{paint}': read(A/f'models/block/paintable_faces/{face}_{paint}.json')
           for face in SIDES for paint in range(len(PAINTS))}

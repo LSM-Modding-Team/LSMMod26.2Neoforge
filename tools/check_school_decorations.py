@@ -15,6 +15,47 @@ def mesh(name):
   elif s[0]=='f':faces.append((material,[int(v.split('/')[0])-1 for v in s[1:]]))
  return np.array(vertices),np.array(uv),faces
 
+
+def check_name_sign():
+ from create_school_name_sign import ID,TEXT,LINES,DENSITY,WIDTH,HEIGHT
+ from render_school_name_sign import scene
+ from render_texture_review import add,load,render
+ from audit_block_states import domains
+ assert TEXT=='COLEGIO LIBERTADOR SAN MARTIN' and LINES==('COLEGIO','LIBERTADOR SAN MARTIN') and TEXT.isascii()
+ assert domains('SchoolNameSignBlock')=={'facing':4,'column':9,'row':3}
+ variants=json.loads((A/f'blockstates/{ID}.json').read_text())['variants'];assert len(variants)==108
+ reference=Image.open(ROOT/'newresources/school_name_sign_lettering.png').getchannel('A')
+ coverage=np.zeros((HEIGHT*DENSITY,WIDTH*DENSITY),dtype=int)
+ for row in range(3):
+  for column in range(9):
+   path=A/f'models/block/{ID}_{row}_{column}.json';model=json.loads(path.read_text())
+   for element in model['elements']:
+    lo,hi=element['from'],element['to']
+    assert all(0<=lo[axis]<hi[axis]<=16 for axis in range(3)) and lo[2]==15 and hi[2]==16
+    if 'north' in element['faces']:
+     x0=int(round((WIDTH-column*16-hi[0])*DENSITY));x1=int(round((WIDTH-column*16-lo[0])*DENSITY))
+     y0=int(round((HEIGHT-row*16-hi[1])*DENSITY));y1=int(round((HEIGHT-row*16-lo[1])*DENSITY))
+     coverage[y0:y1,x0:x1]+=1
+   for turn,facing in enumerate(('north','east','south','west')):
+    assert variants[f'column={column},row={row},facing={facing}']=={'model':f'lsmmod:block/{ID}_{row}_{column}','y':turn*90}
+ assert np.max(coverage)==1 and np.array_equal(coverage>0,np.asarray(reference)>0), 'Split cells drop, overlap or mirror letters'
+ complete=json.loads((ROOT/'newresources/school_name_sign_complete.json').read_text());expected=[];add(expected,[complete])
+ assembled=scene(False)
+ for angle in (-90,-65,90):
+  args=dict(center=[72,24,15.5],scale=4,size=(640,320),azimuth=angle,elevation=12,minecraft_orientation=True)
+  actual=np.asarray(render(assembled,**args)).astype(int);whole=np.asarray(render(expected,**args)).astype(int)
+  delta=np.max(np.abs(actual-whole),axis=2)
+  assert np.mean(delta)<.2 and np.count_nonzero(delta>3)<150,('sign seams',angle,np.mean(delta))
+ item=load('lsmmod:item/'+ID)[0]
+ assert len(item['elements'])==len(complete['elements'])
+ for leaf,original in zip(item['elements'],complete['elements']):
+  for key in ('from','to'):
+   x,y,z=leaf[key];assert np.allclose([x*9,24+(y-8)*9,15.5+(z-8)*9],original[key])
+  assert leaf['faces']==original['faces']
+ loot=json.loads((ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ID}.json').read_text())
+ assert loot['pools'][0]['conditions'][1]['properties']=={'column':'0','row':'0'}
+ print('OK: exact ASCII wording, 27 cells and 4 orientations, glyph coverage/reading direction match the reference, 1px relief, seam-free front/back renders, undistorted item and single controller drop. Placement/client behavior still needs Minecraft.')
+
 def main():
  atlas=Image.open(A/'textures/block/school_decoration_surface.png')
  colors={'metal':(95,98,94),'blade':(144,147,143),'rim':(168,168,157),'body':(219,221,215),'hub':(67,71,69),'on':(240,242,237),'off':(155,160,155)}
@@ -38,4 +79,7 @@ def main():
  assert 'state.cycle(LIT)' in java and '!level.isClientSide()' in java and 'setValue(LIT,true)' in java
  registry=(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java').read_text();assert 'CeilingLightBlock.LIT) ? 15 : 0' in registry
  print('OK: clock exact 2px depth, fan blades centred at (8,8), ceiling mount bounds, no degenerate triangles, correct palette UVs; four wall orientations, lit 15/off 0, server-only right-click toggle.')
-if __name__=='__main__':main()
+if __name__=='__main__':
+ import sys
+ if '--name-sign-only' in sys.argv:check_name_sign()
+ else:main()

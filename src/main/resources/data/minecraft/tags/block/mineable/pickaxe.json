@@ -116,6 +116,7 @@
     "lsmmod:school_shelving",
     "lsmmod:school_projecting_window",
     "lsmmod:school_paintable_projecting_window",
-    "lsmmod:red_street_wall"
+    "lsmmod:red_street_wall",
+    "lsmmod:school_name_sign"
   ]
 }
