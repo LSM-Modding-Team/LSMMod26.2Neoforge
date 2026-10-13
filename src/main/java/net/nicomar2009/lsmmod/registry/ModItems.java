@@ -31,6 +31,8 @@ public final class ModItems {
 
     public static final DeferredItem<BlockItem> SCHOOL_REFRIGERATOR = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_REFRIGERATOR);
 
+    public static final DeferredItem<BlockItem> DINING_WALL_CABINET = ITEMS.registerSimpleBlockItem(ModBlocks.DINING_WALL_CABINET);
+
     // BEGIN FACILITY EXPANSIONS
     public static final DeferredItem<BlockItem> DINING_DOOR_WIDE = ITEMS.registerSimpleBlockItem(ModBlocks.DINING_DOOR_WIDE);
     public static final DeferredItem<BlockItem> BATHROOM_DOOR_WIDE = ITEMS.registerSimpleBlockItem(ModBlocks.BATHROOM_DOOR_WIDE);

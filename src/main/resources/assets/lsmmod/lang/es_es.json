@@ -356,5 +356,6 @@
   "block.lsmmod.infirmary_door": "Puerta de enfermería",
   "block.lsmmod.dining_door_wide_light": "Puerta del comedor con frente claro",
   "block.lsmmod.school_refrigerator": "Refrigeradora del comedor",
-  "block.lsmmod.fire_alarm": "Alarma contra incendios"
+  "block.lsmmod.fire_alarm": "Alarma contra incendios",
+  "block.lsmmod.dining_wall_cabinet": "Armario de pared del comedor"
 }
