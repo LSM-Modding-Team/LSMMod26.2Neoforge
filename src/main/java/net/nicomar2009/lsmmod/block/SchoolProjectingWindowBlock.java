@@ -99,7 +99,12 @@ public class SchoolProjectingWindowBlock extends Block {
         return level.getBlockState(pos);
     }
     private static boolean same(BlockState value,BlockState state) {
-        return value.getBlock() instanceof SchoolProjectingWindowBlock&&value.hasProperty(FACING)&&value.getValue(FACING)==state.getValue(FACING);
+        // Placement can supply an ordinary wall as either argument; validate both before reading properties.
+        return value!=null&&state!=null
+                &&value.getBlock() instanceof SchoolProjectingWindowBlock
+                &&state.getBlock() instanceof SchoolProjectingWindowBlock
+                &&value.hasProperty(FACING)&&state.hasProperty(FACING)
+                &&value.getValue(FACING)==state.getValue(FACING);
     }
     private static boolean complete(BlockGetter level,BlockPos origin,BlockState state) {
         Direction right=state.getValue(FACING).getClockWise();BlockState base=read(level,origin);
