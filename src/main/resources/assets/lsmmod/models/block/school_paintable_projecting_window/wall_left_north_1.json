@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:block/block",
+  "loader": "fusion:model",
+  "type": "base",
+  "render_type": "minecraft:solid",
+  "textures": {
+    "surface": "lsmmod:block/light_school_wall",
+    "particle": "lsmmod:block/light_school_wall"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        8,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#surface",
+          "uv": [
+            0,
+            0,
+            8,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

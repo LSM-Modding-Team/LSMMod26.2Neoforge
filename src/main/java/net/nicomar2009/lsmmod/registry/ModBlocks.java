@@ -44,6 +44,8 @@ public final class ModBlocks {
 
     public static final DeferredBlock<SchoolProjectingWindowBlock> SCHOOL_PROJECTING_WINDOW = BLOCKS.registerBlock("school_projecting_window", SchoolProjectingWindowBlock::new, props -> props.strength(0.5F).sound(SoundType.GLASS).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));
 
+    public static final DeferredBlock<SchoolPaintableProjectingWindowBlock> SCHOOL_PAINTABLE_PROJECTING_WINDOW = BLOCKS.registerBlock("school_paintable_projecting_window", SchoolPaintableProjectingWindowBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));
+
     // BEGIN FACILITY EXPANSIONS
     public static final DeferredBlock<SchoolFramedDiningDoorBlock> DINING_DOOR_WIDE = BLOCKS.registerBlock("dining_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
     public static final DeferredBlock<SchoolFramedDiningDoorBlock> BATHROOM_DOOR_WIDE = BLOCKS.registerBlock("bathroom_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));

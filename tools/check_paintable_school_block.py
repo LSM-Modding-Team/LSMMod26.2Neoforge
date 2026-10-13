@@ -10,6 +10,47 @@ from create_paintable_school_block import ROOT, A, SIDES, PAINTS, TOOLS
 def read(path):
     return json.loads(path.read_text(encoding='utf-8'))
 
+def check_projecting_half():
+    """Paint palettes must affect only the fixed half, across both profiles and all hinge poses."""
+    from create_school_projecting_window_assets import PAINTABLE_ID
+    native={}
+    for side in ('left','right'):
+        white_low,white_high=(0,8) if side=='left' else (8,16)
+        previous=None
+        for pose in range(5):
+            root=read(A/f'models/block/{PAINTABLE_ID}/{side}_{pose}.json')
+            fixed=root['models'][:6]
+            assert previous is None or fixed==previous, 'Opening the window changes painted wall models'
+            previous=fixed
+            assert len(root['models'])==7
+            for group in fixed:
+                assert len(group)==len(PAINTS)
+                for paint in range(len(PAINTS)):
+                    chosen=next(e for e in group if 'condition' not in e or e['condition']['paint']==paint)
+                    leaf=read(A/f'models/{chosen["model"].split(":")[1]}.json')
+                    box,=leaf['elements'];assert box['from']==[white_low,0,0] and box['to']==[white_high,16,16]
+                    assert 'rotation' not in box and len(box['faces'])==1
+                    face,=box['faces'];assert leaf['textures']['surface']==PAINTS[paint]
+                    if paint:assert chosen['condition']['face']==face and chosen['condition']['local'] is True
+                    native[side,face,paint]=leaf
+            for name in root['models'][-1]:
+                pane=read(A/f'models/{name.split(":")[1]}.json')
+                assert pane['elements']
+                for e in pane['elements']:
+                    assert e['from'][2]==14 and e['to'][2]==16
+                    assert (e['from'][0]>=8 if side=='left' else e['to'][0]<=8)
+                    assert bool(e.get('rotation'))==bool(pose)
+                    if pose:assert abs(e['rotation']['angle'])==45 and not e['rotation']['rescale']
+    assert len(native)==2*6*len(PAINTS)
+    variants=read(A/f'blockstates/{PAINTABLE_ID}.json')['variants'];assert len(variants)==64
+    turns=dict(north=0,east=90,south=180,west=270)
+    for key,apply in variants.items():
+        fields=dict(value.split('=') for value in key.split(','));assert apply['y']==turns[fields['facing']]
+        side='left' if fields['wall_left']=='true' else 'right'
+        pose=0 if fields['open']=='false' else 1+('top','bottom','left','right').index(fields['hinge'])
+        assert apply['model']==f'lsmmod:block/{PAINTABLE_ID}/{side}_{pose}'
+    print('OK: twelve paint colors on all six fixed half-block faces; both wall sides, four orientations and five pane poses; glass/frame materials are isolated from the palette.')
+
 def main():
     for texture in PAINTS:
         namespace, path = texture.split(':')
@@ -76,4 +117,6 @@ def main():
 leaves = {f'lsmmod:block/paintable_faces/{face}_{paint}': read(A/f'models/block/paintable_faces/{face}_{paint}.json')
           for face in SIDES for paint in range(len(PAINTS))}
 if __name__ == '__main__':
-    main()
+    import sys
+    if '--projecting-half-only' in sys.argv:check_projecting_half()
+    else:main()

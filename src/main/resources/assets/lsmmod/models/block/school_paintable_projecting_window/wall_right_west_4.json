@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:block/block",
+  "loader": "fusion:model",
+  "type": "base",
+  "render_type": "minecraft:solid",
+  "textures": {
+    "surface": "lsmmod:block/classroom_white_wall",
+    "particle": "lsmmod:block/classroom_white_wall"
+  },
+  "elements": [
+    {
+      "from": [
+        8,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "west": {
+          "texture": "#surface",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

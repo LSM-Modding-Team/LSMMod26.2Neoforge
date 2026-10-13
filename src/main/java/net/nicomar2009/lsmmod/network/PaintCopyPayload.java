@@ -34,7 +34,8 @@ public record PaintCopyPayload(BlockPos pos, boolean offHand) implements CustomP
             var hit = player.pick(player.blockInteractionRange(), 1, false);
             if (!(hit instanceof BlockHitResult blockHit) || !blockHit.getBlockPos().equals(request.pos)
                     || !level.mayInteract(player, request.pos) || !player.mayUseItemAt(request.pos, blockHit.getDirection(), stack)) return;
-            if (level.getBlockEntity(request.pos) instanceof SchoolPaintableBlockEntity block && block.painted()) {
+            if (level.getBlockEntity(request.pos) instanceof SchoolPaintableBlockEntity block && block.painted()
+                    && block.canPaintAt(blockHit.getDirection(),blockHit.getLocation())) {
                 SchoolPaintItem.copyTo(stack, block); player.containerMenu.broadcastChanges();
                 player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("message.lsmmod.paint_copied"));
             }

@@ -27,7 +27,7 @@ public record ProjectingWindowPredicate(int phase,int part,int pose) implements 
     };
     @Override public boolean testForBlockState(BlockAndTintGetter level,BlockPos pos,BlockState state) {
         if(pos==null||state==null||!(state.getBlock() instanceof SchoolProjectingWindowBlock))return false;
-        if(SchoolProjectingWindowBlock.phase(pos,state.getValue(SchoolProjectingWindowBlock.FACING))!=phase)return false;
+        if(SchoolProjectingWindowBlock.phase(state)!=phase)return false;
         return part<0||SchoolProjectingWindowBlock.pose(level,pos,state,part)==pose;
     }
     @Override public boolean testForItem(ItemStack stack) {return phase==0&&(part<0||pose==0);}

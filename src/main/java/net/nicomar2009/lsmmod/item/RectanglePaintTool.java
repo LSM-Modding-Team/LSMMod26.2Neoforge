@@ -109,9 +109,19 @@ public final class RectanglePaintTool {
                     if(paint==null)refunds[colors[index]]++;colors[index]=next;count++;
                 }
             } else {
-                if(end.plane!=normal*2+(step>0?2:0))continue;
+                boolean outer=end.plane==normal*2+(step>0?2:0);
+                if(block instanceof net.nicomar2009.lsmmod.block.SchoolProjectingWindowPaintEntity) {
+                    boolean solid=false;
+                    for(int qa=0;qa<2;qa++)for(int qb=0;qb<2;qb++) {
+                        if(a*2+qa<u0||a*2+qa>u1||b*2+qb<v0||b*2+qb>v1)continue;
+                        double[] point={pos.getX()+.5,pos.getY()+.5,pos.getZ()+.5};
+                        point[axis]=end.plane*.5;point[u]=a+(qa+.5)*.5;point[v]=b+(qb+.5)*.5;
+                        solid|=block.canPaintAt(face,new net.minecraft.world.phys.Vec3(point[0],point[1],point[2]));
+                    }
+                    if(!solid)continue;
+                } else if(!outer)continue;
                 BlockPos neighbor=pos.relative(face);
-                if(!level.hasChunkAt(neighbor) || level.getBlockState(neighbor).isFaceSturdy(level,neighbor,face.getOpposite()))continue;
+                if(outer&&(!level.hasChunkAt(neighbor) || level.getBlockState(neighbor).isFaceSturdy(level,neighbor,face.getOpposite())))continue;
                 int index=face.ordinal(),next=paint==null?0:paint.ordinal();
                 if(colors[index]!=next) { if(paint==null)refunds[colors[index]]++;colors[index]=next;count++; }
             }

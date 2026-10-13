@@ -22,6 +22,7 @@ public class SchoolPaintableBlockEntity extends BlockEntity {
     }
     protected SchoolPaintableBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) { super(type, pos, state); }
     public SchoolPaint paint(Direction face) { return SchoolPaint.fromId(paints[face.ordinal()]); }
+    public boolean canPaintAt(Direction face,Vec3 hit) {return true;}
     public SchoolPaint paintAt(Direction face, Vec3 hit) { return paint(face); }
     public void paintAt(Direction face, Vec3 hit, SchoolPaint color) { paintFace(face, color); }
     public int[] snapshot() { return paints.clone(); }

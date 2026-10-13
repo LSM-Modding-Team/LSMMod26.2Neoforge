@@ -47,6 +47,7 @@ public class SchoolPaintItem extends Item {
     @Override public InteractionResult useOn(UseOnContext context) {
         var level = context.getLevel(); var pos = context.getClickedPos(); var player = context.getPlayer();
         if (!(level.getBlockEntity(pos) instanceof SchoolPaintableBlockEntity block)) return InteractionResult.PASS;
+        if (!block.canPaintAt(context.getClickedFace(),context.getClickLocation())) return InteractionResult.PASS;
         if (player == null || player.isSpectator() || !level.mayInteract(player, pos)
                 || !player.mayUseItemAt(pos, context.getClickedFace(), context.getItemInHand())) return InteractionResult.FAIL;
         InteractionResult rectangle=RectanglePaintTool.use(context,paint);

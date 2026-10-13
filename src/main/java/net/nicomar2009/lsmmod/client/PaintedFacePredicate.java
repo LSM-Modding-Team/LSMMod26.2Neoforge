@@ -13,20 +13,31 @@ import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.nicomar2009.lsmmod.block.SchoolPaint;
 import net.nicomar2009.lsmmod.block.SchoolPaintableBlockEntity;
 
-public record PaintedFacePredicate(Direction face, int paint) implements ModelPredicate {
+public record PaintedFacePredicate(Direction face, int paint, boolean local) implements ModelPredicate {
+    public PaintedFacePredicate(Direction face,int paint) {this(face,paint,false);}
     public static final Serializer<PaintedFacePredicate> SERIALIZER = new Serializer<>() {
         @Override public PaintedFacePredicate deserialize(JsonObject json) {
             int paint = json.get("paint").getAsInt();
             if (!SchoolPaint.validId(paint)) throw new JsonParseException("Unknown school paint");
-            return new PaintedFacePredicate(Direction.valueOf(json.get("face").getAsString().toUpperCase(Locale.ROOT)), paint);
+            return new PaintedFacePredicate(Direction.valueOf(json.get("face").getAsString().toUpperCase(Locale.ROOT)), paint,
+                    json.has("local")&&json.get("local").getAsBoolean());
         }
         @Override public JsonObject serialize(PaintedFacePredicate value) {
-            JsonObject json = new JsonObject(); json.addProperty("face", value.face.getSerializedName()); json.addProperty("paint", value.paint); return json;
+            JsonObject json = new JsonObject(); json.addProperty("face", value.face.getSerializedName()); json.addProperty("paint", value.paint);
+            if(value.local)json.addProperty("local",true);return json;
         }
     };
     @Override public boolean testForBlockState(BlockAndTintGetter level, BlockPos pos, BlockState state) {
+        Direction target=face;
+        if(local&&state!=null&&face.getAxis().isHorizontal()
+                &&state.hasProperty(net.nicomar2009.lsmmod.block.SchoolProjectingWindowBlock.FACING)) {
+            int turns=switch(state.getValue(net.nicomar2009.lsmmod.block.SchoolProjectingWindowBlock.FACING)) {
+                case EAST->1;case SOUTH->2;case WEST->3;default->0;
+            };
+            for(int i=0;i<turns;i++)target=target.getClockWise();
+        }
         int selected = pos != null && level != null && level.getBlockEntity(pos) instanceof SchoolPaintableBlockEntity block
-                ? block.paint(face).ordinal() : 0;
+                ? block.paint(target).ordinal() : 0;
         return selected == paint;
     }
     @Override public boolean testForItem(ItemStack stack) { return paint == 0; }

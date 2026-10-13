@@ -367,5 +367,6 @@
   "block.lsmmod.school_shelving": "Metal Shelving with White Shelves",
   "block.lsmmod.sofa": "Burgundy Sofa",
   "block.lsmmod.nido_storage_bucket": "nido_storage_bucket",
-  "block.lsmmod.school_projecting_window": "School Projecting Window"
+  "block.lsmmod.school_projecting_window": "School Projecting Window",
+  "block.lsmmod.school_paintable_projecting_window": "Paintable Half with Projecting Window"
 }

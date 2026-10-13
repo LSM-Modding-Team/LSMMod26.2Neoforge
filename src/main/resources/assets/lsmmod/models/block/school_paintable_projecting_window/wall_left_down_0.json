@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:block/block",
+  "loader": "fusion:model",
+  "type": "base",
+  "render_type": "minecraft:solid",
+  "textures": {
+    "surface": "minecraft:block/light_gray_concrete",
+    "particle": "minecraft:block/light_gray_concrete"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        8,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#surface",
+          "uv": [
+            0,
+            0,
+            8,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

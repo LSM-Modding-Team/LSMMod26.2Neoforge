@@ -7,7 +7,7 @@ from create_school_glass_stair_assets import QUARTERS
 def read(p):return json.loads(p.read_text())
 
 def check_projecting_windows():
-    """Compare cell fragments against whole rigid panes, including their actual textured renders."""
+    """Compare anchored cell fragments against whole panes with the inverted outward opening."""
     import copy
     import numpy as np
     from create_school_projecting_window_assets import ID, parts
@@ -28,7 +28,7 @@ def check_projecting_windows():
                 assert model['elements']
                 for e in model['elements']:
                     assert all(0<=e['from'][axis]<e['to'][axis]<=16 for axis in range(3))
-                    assert e['from'][2]==7 and e['to'][2]==9
+                    assert e['from'][2]==14 and e['to'][2]==16
                     rotation=e.get('rotation')
                     assert bool(rotation)==bool(entry['condition']['pose'])
                     if rotation: assert abs(rotation['angle'])==45 and not rotation['rescale']
@@ -58,8 +58,8 @@ def check_projecting_windows():
                     e=copy.deepcopy(original)
                     for key in ('from','to'):
                         e[key][0]+=tx*24;e[key][1]+=ty*24
-                    if pose:e['rotation']={'origin':[tx*24+(24 if pose==4 else 0),ty*24+(24 if pose==1 else 0),7],
-                                          'axis':'x' if pose<=2 else 'y','angle':45 if pose in (1,3) else -45,'rescale':False}
+                    if pose:e['rotation']={'origin':[tx*24+(24 if pose==4 else 0),ty*24+(24 if pose==1 else 0),16],
+                                          'axis':'x' if pose<=2 else 'y','angle':-45 if pose in (1,3) else 45,'rescale':False}
                     expected.append(e)
         assembled=scene(poses)
         for angle in (-65,115):
@@ -68,7 +68,7 @@ def check_projecting_windows():
             # Triangle rasterization can differ by a pixel at cuts; geometry/materials must agree.
             delta=np.max(np.abs(a-b),axis=2)
             assert np.count_nonzero(delta>3)<100 and np.mean(delta)<.12,(poses,angle,np.mean(delta))
-    print('OK: nine lattice phases, four independent 24x24 panes, rigid 45-degree hinges; two-pixel thickness, preserved UVs/alpha and no curtains. Cell renders agree with whole-pane renders, front and back.')
+    print('OK: placement-anchored 24x24 panes, rigid reversed 45-degree hinges at the far edge; two-pixel thickness, preserved UVs/alpha and no curtains. Cell renders agree with whole-pane renders, front and back.')
 
 
 def main():

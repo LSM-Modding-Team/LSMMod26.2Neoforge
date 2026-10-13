@@ -21,6 +21,10 @@ public final class ModBlockEntities {
             "school_paintable_block", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolPaintableBlockEntity::new,
                     ModBlocks.SCHOOL_PAINTABLE_BLOCK.get()));
 
+    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolProjectingWindowPaintEntity>> SCHOOL_PROJECTING_WINDOW_PAINT = BLOCK_ENTITIES.register(
+            "school_projecting_window_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolProjectingWindowPaintEntity::new,
+                    ModBlocks.SCHOOL_PAINTABLE_PROJECTING_WINDOW.get()));
+
     public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolPaintableCustomBlockEntity>> SCHOOL_PAINTABLE_CUSTOM = BLOCK_ENTITIES.register(
             "school_paintable_custom_block", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolPaintableCustomBlockEntity::new,
                     ModBlocks.SCHOOL_PAINTABLE_CUSTOM_BLOCK.get()));

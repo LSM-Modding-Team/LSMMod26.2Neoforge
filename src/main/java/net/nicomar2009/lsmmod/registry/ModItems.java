@@ -39,6 +39,8 @@ public final class ModItems {
 
     public static final DeferredItem<BlockItem> SCHOOL_PROJECTING_WINDOW = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PROJECTING_WINDOW);
 
+    public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_PROJECTING_WINDOW = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_PROJECTING_WINDOW);
+
     // BEGIN FACILITY EXPANSIONS
     public static final DeferredItem<BlockItem> DINING_DOOR_WIDE = ITEMS.registerSimpleBlockItem(ModBlocks.DINING_DOOR_WIDE);
     public static final DeferredItem<BlockItem> BATHROOM_DOOR_WIDE = ITEMS.registerSimpleBlockItem(ModBlocks.BATHROOM_DOOR_WIDE);
