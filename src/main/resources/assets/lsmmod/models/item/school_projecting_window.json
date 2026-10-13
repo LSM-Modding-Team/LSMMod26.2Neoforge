@@ -8,7 +8,9 @@
   },
   "models": [
     [
-      "lsmmod:item/school_projecting_window_solid",
+      "lsmmod:item/school_projecting_window_solid"
+    ],
+    [
       "lsmmod:item/school_projecting_window_translucent"
     ]
   ]

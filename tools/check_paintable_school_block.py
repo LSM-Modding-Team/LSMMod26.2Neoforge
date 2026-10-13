@@ -50,7 +50,15 @@ def check_projecting_half():
         fields=dict(value.split('=') for value in key.split(','));assert apply['y']==turns[fields['facing']]
         side='left' if fields['wall_left']=='true' else 'right'
         assert apply['model']==f'lsmmod:block/{PAINTABLE_ID}/{side}'
-    print('OK: twelve paint colors on all six fixed half-block faces; both wall sides, four orientations and five pane poses; glass/frame materials are isolated from the palette.')
+    from render_texture_review import load
+    for ident in ('school_projecting_window',PAINTABLE_ID):
+        models=load('lsmmod:item/'+ident)
+        assert any(model.get('render_type')=='minecraft:translucent' and model.get('elements') for model in models), 'Fusion drops the glass from the inventory model'
+        assert any(model.get('render_type')=='minecraft:solid' and model.get('elements') for model in models)
+        if ident==PAINTABLE_ID:
+            painted=[model for model in models if 'surface' in model.get('textures',{})]
+            assert {face for model in painted for element in model['elements'] for face in element['faces']}==set(SIDES), 'Fusion drops painted wall faces from the item'
+    print('OK: twelve paint colors on all six fixed half-block faces; both wall sides, four orientations and five pane poses; glass/frame materials are isolated from the palette; actual Fusion item selections include the glass and all wall faces.')
 
 def main():
     for texture in PAINTS:

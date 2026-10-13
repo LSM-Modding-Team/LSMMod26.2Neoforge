@@ -28,15 +28,23 @@ def layout_scene(rule,start=0,opened=False,one=None,paint=4,walls=True):
     for y in range(int(height)//16):
         for x in range(math.ceil((start+width)/16)):
             key=layout_key(rule,start,x,y)
-            if walls and (start==8 and x==0 or (start+width)%16==8 and x==math.ceil((start+width)/16)-1):
-                side='left' if x==0 and start==8 else 'right'
-                for face in ('north','south','east','west','up','down'):
-                    add(result,load(f'lsmmod:block/{PAINTABLE_ID}/wall_{side}_{face}_{paint}'),(x*16,y*16,0))
-            for index,part in enumerate(layout_parts(rule,start,x,y)):
-                pose=int(opened or one==(part[-2],part[-1]))
-                for layer in ('solid','translucent'):
-                    path=A/f'models/block/{ID}/layouts/{key}_part_{index}_{layer}_{pose}.json'
-                    if path.exists():add(result,[json.loads(path.read_text())],(x*16,y*16,0))
+            mixed=(start==8 and x==0 or (start+width)%16==8 and x==math.ceil((start+width)/16)-1)
+            side='left' if x==0 and start==8 else 'right'
+            cell_parts=layout_parts(rule,start,x,y)
+            def selected(condition):
+                kind=condition['type']
+                if kind=='lsmmod:painted_face':return condition['paint']==paint
+                if kind=='lsmmod:projecting_window_layout':
+                    if condition['key']!=key:return False
+                    if 'part' not in condition:return True
+                    part=cell_parts[condition['part']]
+                    return condition['pose']==int(opened or one==(part[-2],part[-1]))
+                return False
+            # Resolve the actual root and every nested Fusion group, including the painted wall + glass composition.
+            ident=f'lsmmod:block/{PAINTABLE_ID}/{side}' if mixed else 'lsmmod:block/'+ID
+            models=load(ident,predicate=selected)
+            if not walls:models=[model for model in models if 'glass' in model.get('textures',{})]
+            add(result,models,(x*16,y*16,0))
     return result
 
 

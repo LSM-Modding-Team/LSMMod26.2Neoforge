@@ -8,7 +8,9 @@
   },
   "models": [
     [
-      "lsmmod:block/school_paintable_projecting_window/wall_right",
+      "lsmmod:block/school_paintable_projecting_window/wall_right"
+    ],
+    [
       "lsmmod:block/school_projecting_window/layouts/w64h80_8_4_1"
     ]
   ]

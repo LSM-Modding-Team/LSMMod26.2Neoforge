@@ -8,13 +8,27 @@
   },
   "models": [
     [
-      "lsmmod:block/school_paintable_projecting_window/wall_left_down_0",
-      "lsmmod:block/school_paintable_projecting_window/wall_left_up_0",
-      "lsmmod:block/school_paintable_projecting_window/wall_left_north_0",
-      "lsmmod:block/school_paintable_projecting_window/wall_left_south_0",
-      "lsmmod:block/school_paintable_projecting_window/wall_left_west_0",
-      "lsmmod:block/school_paintable_projecting_window/wall_left_east_0",
-      "lsmmod:item/school_paintable_projecting_window_solid",
+      "lsmmod:block/school_paintable_projecting_window/wall_left_down_0"
+    ],
+    [
+      "lsmmod:block/school_paintable_projecting_window/wall_left_up_0"
+    ],
+    [
+      "lsmmod:block/school_paintable_projecting_window/wall_left_north_0"
+    ],
+    [
+      "lsmmod:block/school_paintable_projecting_window/wall_left_south_0"
+    ],
+    [
+      "lsmmod:block/school_paintable_projecting_window/wall_left_west_0"
+    ],
+    [
+      "lsmmod:block/school_paintable_projecting_window/wall_left_east_0"
+    ],
+    [
+      "lsmmod:item/school_paintable_projecting_window_solid"
+    ],
+    [
       "lsmmod:item/school_paintable_projecting_window_translucent"
     ]
   ]

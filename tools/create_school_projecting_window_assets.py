@@ -74,7 +74,7 @@ def paintable_models():
         name=f'{PAINTABLE_ID}_{layer}'
         write(A/f'models/item/{name}.json',fragment(model,(8,16,0,16,8,0),0))
         item_models.append('lsmmod:item/'+name)
-    write(A/f'models/item/{PAINTABLE_ID}.json',{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]),'models':[item_models]})
+    write(A/f'models/item/{PAINTABLE_ID}.json',{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]),'models':[[name] for name in item_models]})
     basic(PAINTABLE_ID)
 
 
@@ -198,7 +198,7 @@ def layout_models():
                         if side=='right' and not ((start+width)%16==8 and x==cells-1):continue
                         half_name=f'{PAINTABLE_ID}/layouts/{key}_{side}'
                         write(A/f'models/block/{half_name}.json',{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]),
-                              'models':[[f'lsmmod:block/{PAINTABLE_ID}/wall_{side}','lsmmod:block/'+name]]})
+                              'models':[[f'lsmmod:block/{PAINTABLE_ID}/wall_{side}'],['lsmmod:block/'+name]]})
                         half_choices[side].append({'model':'lsmmod:block/'+half_name,'condition':condition})
     # The first predicate scans the supplied snapshot once, including whenever a neighboring cell changes.
     for ident,side,entries in ((ID,None,choices),*( (PAINTABLE_ID,side,entries) for side,entries in half_choices.items())):
@@ -246,7 +246,7 @@ def main():
                 x, y, z = e[key]; e[key] = [x*2/3, y*2/3, 8+(z-8)*2/3]
         write(A/f'models/item/{ID}_{layer}.json', item)
     write(A/f'models/item/{ID}.json', {'loader': 'fusion:model', 'type': 'composite', 'textures': TEXTURES,
-          'models': [[f'lsmmod:item/{ID}_solid', f'lsmmod:item/{ID}_translucent']]})
+          'models': [[f'lsmmod:item/{ID}_solid'], [f'lsmmod:item/{ID}_translucent']]})
     basic(ID)
     for filename, entry in (
         ('ModBlocks.java', '    public static final DeferredBlock<SchoolProjectingWindowBlock> SCHOOL_PROJECTING_WINDOW = BLOCKS.registerBlock("school_projecting_window", SchoolProjectingWindowBlock::new, props -> props.strength(0.5F).sound(SoundType.GLASS).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));'),

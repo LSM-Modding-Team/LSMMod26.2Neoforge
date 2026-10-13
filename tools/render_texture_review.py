@@ -11,7 +11,7 @@ from create_school_glass_assets import ROOT, A
 VANILLA = Path('/tmp/lsm-render-assets')
 
 
-def load(ident, mask=3):
+def load(ident, mask=3, predicate=None):
     namespace, name = ident.split(':',1)
     path = A/f'models/{name}.json' if namespace=='lsmmod' else VANILLA/(Path(name).name+'.json')
     if namespace=='minecraft' and name=='block/block':
@@ -22,16 +22,16 @@ def load(ident, mask=3):
         for group in data['models']:
             for entry in group:
                 if isinstance(entry,str):
-                    result.extend(load(entry,mask));continue
+                    result.extend(load(entry,mask,predicate));break
                 condition = entry.get('condition',{})
                 selected=mask.get(condition.get('channel','main'),3) if isinstance(mask,dict) else mask
-                if condition and selected not in condition.get('masks',[condition.get('mask')]):
-                    continue
-                result.extend(load(entry['model'],mask))
                 if condition:
-                    break
+                    matches=predicate(condition) if predicate is not None else selected in condition.get('masks',[condition.get('mask')])
+                    if not matches:continue
+                result.extend(load(entry['model'],mask,predicate))
+                break
         return result
-    parents = load(data['parent'],mask) if 'parent' in data else [{}]
+    parents = load(data['parent'],mask,predicate) if 'parent' in data else [{}]
     return [dict(parent,**{k:v for k,v in data.items() if k not in ('textures','parent')},
                  textures={**parent.get('textures',{}),**data.get('textures',{})}) for parent in parents]
 

@@ -134,7 +134,7 @@ def check_projecting_layouts():
                         if side=='left' and not (start==8 and x==0):continue
                         if side=='right' and not ((start+width)%16==8 and x==math.ceil((start+width)/16)-1):continue
                         half=read(A/f'models/block/{PAINTABLE_ID}/layouts/{key}_{side}.json')
-                        assert half['models']==[[f'lsmmod:block/{PAINTABLE_ID}/wall_{side}',f'lsmmod:block/{ID}/layouts/{key}']]
+                        assert half['models']==[[f'lsmmod:block/{PAINTABLE_ID}/wall_{side}'],[f'lsmmod:block/{ID}/layouts/{key}']]
             assert abs(area-width*height)<1e-6
             assert len(tiles)==len(controllers)==rule['columns']*rule['rows'], 'Two panes share an opening controller'
             # All assembled native fragments must match full, independently placed pane models.
