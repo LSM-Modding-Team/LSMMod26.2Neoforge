@@ -391,6 +391,9 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> DINING_CHAIR =
             ITEMS.registerSimpleBlockItem(ModBlocks.DINING_CHAIR);
 
+    public static final DeferredItem<BlockItem> SOFA =
+            ITEMS.registerSimpleBlockItem(ModBlocks.SOFA);
+
     public static final DeferredItem<BlockItem> SPEAKER =
             ITEMS.registerSimpleBlockItem(ModBlocks.SPEAKER);
 

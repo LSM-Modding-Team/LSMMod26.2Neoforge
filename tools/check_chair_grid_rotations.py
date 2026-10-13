@@ -17,6 +17,21 @@ def main():
   for name,body in re.findall(r'(?:public|private) static final VoxelShape (\w+) = (?:Shapes.or|ExactVoxelShapes.union)\((.*?)\);',p.read_text(),re.S):
    boxes=[tuple(float(x.strip())/16 for x in values.split(',')) for values in re.findall(r'(?:Block.box|ExactVoxelShapes.box)\(([\d., \-]+)\)',body)]
    assert boxes,(file,name);profiles.append((file,name,boxes))
+ sofa=B/'SofaShapes.java'
+ if sofa.exists():
+  corners={}
+  for name,body in re.findall(r'\{ // (\w+)\n(.*?)\n        \}',sofa.read_text(),re.S):
+   boxes=[tuple(float(x.strip())/16 for x in values.split(',')) for values in re.findall(r'\{([\d., \-]+)\}',body)]
+   assert boxes,('SofaShapes.java',name)
+   assert all(all(b[i]<b[i+3] for i in range(3)) for b in boxes),name
+   # The seated player's hips fit in every corner; the opening under the seat stays empty.
+   assert not any(all(b[i]<p[i]<b[i+3] for i in range(3)) for b in boxes for p in ((.5,.5,.5),(.5,.0625,.5))),name
+   assert any(all(b[i]<=p[i]<=b[i+3] for i in range(3)) for b in boxes for p in ((.5,7/16,.5),)),name
+   corners[name]=boxes;profiles.append(('SofaShapes.java',name,boxes))
+  assert set(corners)=={'straight','inner_left','inner_right','outer_left','outer_right'}
+  for left,right in (('inner_left','inner_right'),('outer_left','outer_right')):
+   mirrored=[(1-b[3],b[1],b[2],1-b[0],b[4],b[5]) for b in corners[left]]
+   assert grid(mirrored)==grid(corners[right]),(left,right,'mirror occupancy')
  count=0
  for file,name,boxes in profiles:
   coords,occupied=grid(boxes)

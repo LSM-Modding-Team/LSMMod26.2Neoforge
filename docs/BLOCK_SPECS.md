@@ -7,6 +7,7 @@ Inventario real: `registry/ModBlocks.java` y `ModItems.java`. Para generar model
 | Familia | Contrato que debe conservarse |
 |---|---|
 | Sillas | Orientación y asiento mediante SeatEntity; geometría física separada del contorno sencillo |
+| Sillón | `sofa`: módulo sin brazos de 1×1 en `#390b12`, respaldo acolchado de 15,75 px y asiento de 7 px. `facing` apunta hacia el frente; `shape` adopta recta/esquinas interiores y exteriores a izquierda/derecha según vecinos del mismo bloque, con guardas de escaleras para filas y cruces. Los módulos se conectan sin huecos; colocar/retirar vecinos actualiza la esquina. Clic con mano vacía para sentarse usando ChairBlock/SeatEntity; al retirar el módulo se elimina su asiento. Rotación/espejo conservan la geometría, contorno sencillo y colisión del modelo generada con ExactVoxelShapes/SharedChairRotations. Ítem, drop por módulo, idiomas y hacha integrados; disponible en School Functional Blocks o `/give @s lsmmod:sofa`. Generador `tools/create_sofa_assets.py`. Compilación y prueba en Minecraft pendientes. |
 | Pupitres/casillero | Pupitres students/teachers: dos mitades y 27 slots; elementary_desk: una celda y 9 slots; locker: 54 slots. No confundir con accesorios decorativos |
 | Mesas de computación | `has_pc` representa una PC instalada; insertar con PC y retirar con Shift+mano vacía; sincronización de celdas y drop de PC único |
 | Kiosko | Mesa actual 3×1, con lectura de pares antiguos; decorativa |

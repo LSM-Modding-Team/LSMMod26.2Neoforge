@@ -570,6 +570,10 @@ public final class ModBlocks {
             props -> new ChairBlock(props, NewChairShapes.DINING_CHAIR),
             props -> props.strength(2.0F).sound(SoundType.METAL).noOcclusion());
 
+    public static final DeferredBlock<SofaBlock> SOFA = BLOCKS.registerBlock(
+            "sofa", SofaBlock::new,
+            props -> props.strength(1.0F).sound(SoundType.WOOL).noOcclusion());
+
     public static final DeferredBlock<SpeakerBlock> SPEAKER = BLOCKS.registerBlock(
             "speaker", SpeakerBlock::new,
             props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion());
