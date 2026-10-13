@@ -13,7 +13,7 @@ Busca primero un uso actual en el proyecto con `rg`. Si falta, consulta fuentes/
 | Equipment de jugador | `item/SchoolUniformItem.java`, `client/ClientSetup.java`; ruta de pantalón explícita |
 | Pantalla/entrada de GUI 26.2 | `client/screen/NpcSummonScreen.java`; `GuiGraphicsExtractor`, `MouseButtonEvent`, `KeyEvent` |
 | Red y separación cliente/servidor | `network/PaintCopyPayload.java`, `client/PaintCopyInput.java` |
-| Predicados de modelo Fusion | `client/GlazingFusionRegistration.java`, `SchoolGlazingPredicate.java`, `ModelSelectionPredicate.java` |
+| Predicados de modelo Fusion | `client/GlazingFusionRegistration.java`, `SchoolGlazingPredicate.java`, `ModelSelectionPredicate.java`. Fusion 1.3.16 rechaza tanto IDs como instancias de Serializer repetidas; cada tipo necesita su propio serializador y debe devolverlo desde `getSerializer()`. `PaintedMiniCubePredicate` delega la lógica del marco con un serializador propio; comprobación estática: `tools/check_custom_paintable_blocks.py --fine-only`. |
 | Conexiones y máscaras de vidrio | `block/SchoolGlazing.java`; canales independientes en puertas de enfermería |
 | Comandos, persistencia y permisos | `world/SchoolSpaceCommands.java`, `SchoolSpaceCatalog.java` |
 | Compatibilidad Jade | `compat/jade/`; opcional, sin cargar sus clases desde el arranque común |

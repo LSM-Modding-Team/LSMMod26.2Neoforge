@@ -81,6 +81,7 @@ def main():
     print(f'OK: 256 occupancy masks, {len(entries)} face/color models, all exposed hit planes, 24 independent squares and {len(palettes)} packed palettes; two blocks with one state each.')
 
 def check_fine():
+    import re
     from create_custom_paintable_blocks import FINE_ID
     from render_mini_cube_paintable import scene,FULL
     from render_texture_review import load
@@ -111,6 +112,17 @@ def check_fine():
             for face,surface in element['faces'].items():assert surface['texture']==PAINTS[9 if sum(xyz)%2 else 4]
     assert len(scene())==96 and not scene(0)
     java=ROOT/'src/main/java/net/nicomar2009/lsmmod'
+    registration=(java/'client/GlazingFusionRegistration.java').read_text()
+    entries=re.findall(r'LSMMod\.MOD_ID,\s*"([^"]+)"\),\s*(\w+\.SERIALIZER)',registration)
+    assert len(entries)==registration.count('registerModelPredicate('),'Unrecognized predicate registration'
+    assert len({identifier for identifier,_ in entries})==len(entries),'Duplicate Fusion predicate ID'
+    assert len({serializer for _,serializer in entries})==len(entries),'Fusion rejects registering the same serializer twice'
+    assert dict(entries)['painted_mini_cube']=='PaintedMiniCubePredicate.SERIALIZER'
+    assert dict(entries)['painted_door_frame']=='PaintedDoorFramePredicate.SERIALIZER'
+    for _,serializer in entries:
+        owner=serializer.split('.')[0];source=(java/f'client/{owner}.java').read_text()
+        assert re.search(r'SERIALIZER\s*=\s*new Serializer',source),f'{owner} aliases another serializer'
+        assert re.search(r'getSerializer\(\)\s*\{\s*return SERIALIZER;',source),f'{owner} returns a different serializer'
     entity=(java/'block/SchoolMiniCubePaintEntity.java').read_text();frame=(java/'block/SchoolDoorFramePaintEntity.java').read_text()
     assert 'miniSize() {return 4;}' in entity and 'occupied()==0' in entity and 'level.removeBlock(worldPosition,false)' in entity
     assert 'miniSize() {return 8;}' in frame and 'return new int[]{start,start+1,start+4,start+5}' in frame
@@ -119,7 +131,7 @@ def check_fine():
     assert read(A/f'items/{FINE_ID}.json')['model']['model']=='lsmmod:item/'+FINE_ID
     loot=read(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{FINE_ID}.json')
     assert loot['pools'][0]['entries'][0]['name']=='lsmmod:'+FINE_ID
-    print(f'OK: independent 64-cube block, shared geometry/all 13 materials, {len(masks)} occupancy masks including bit 63, 4px checker painting and exposed interior faces; door edits grouped at 8px and original storage preserved. Minecraft behavior untested.')
+    print(f'OK: {len(entries)} unique Fusion predicate IDs/serializer instances; independent 64-cube block, shared geometry/all 13 materials, {len(masks)} occupancy masks including bit 63, 4px painting/interior faces; door edits at 8px and original storage preserved. Minecraft behavior untested.')
 
 if __name__=='__main__':
     import sys
