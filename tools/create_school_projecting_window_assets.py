@@ -43,7 +43,27 @@ def paintable_models():
                 entry={'model':'lsmmod:block/'+name}
                 if color:entry['condition']={'type':'lsmmod:painted_face','face':face,'paint':color,'local':True}
                 series.append(entry)
-            wall_groups.append(series[1:]+series[:1])
+            # Keep the original whole-face models as shared material parents and for the item.
+            axes=(2,1) if face in ('west','east') else (0,2) if face in ('up','down') else (0,1)
+            squares=[]
+            for quadrant in range(4):
+                lo=[low,0,0];hi=[high,16,16]
+                for axis,index in zip(axes,(quadrant%2,quadrant//2)):
+                    lo[axis]=max(lo[axis],index*8);hi[axis]=min(hi[axis],(index+1)*8)
+                if any(a>=b for a,b in zip(lo,hi)):continue
+                choices=[]
+                for color,texture in enumerate(PAINTS):
+                    name=f'{PAINTABLE_ID}/wall_{side}_{face}_q{quadrant}_{color}'
+                    write(A/f'models/block/{name}.json',{'loader':'fusion:model','type':'base','render_type':'minecraft:solid',
+                        'parent':f'lsmmod:block/{PAINTABLE_ID}/wall_{side}_{face}_{color}',
+                        'elements':[{'from':lo,'to':hi,'faces':{face:{'texture':'#surface',
+                        'uv':crop_face_uv(uv,face,[low,0,0],[high,16,16],lo,hi)}}}]})
+                    choices.append({'model':'lsmmod:block/'+name,'condition':{'type':'lsmmod:painted_face','face':face,
+                        'paint':color,'local':True,'quadrant':quadrant}})
+                squares.append(choices)
+            name=f'{PAINTABLE_ID}/wall_{side}_{face}_squares'
+            write(A/f'models/block/{name}.json',{'loader':'fusion:model','type':'composite','textures':{'particle':PAINTS[0]},'models':squares})
+            wall_groups.append([{'model':'lsmmod:block/'+name}])
         roots=[]
         for phase in range(9):
             groups=[]

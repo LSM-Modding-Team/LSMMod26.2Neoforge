@@ -1,0 +1,1 @@
+{"loader":"fusion:model","type":"base","render_type":"minecraft:solid","parent":"lsmmod:block/school_paintable_projecting_window/wall_right_south_6","elements":[{"from":[8,0,0],"to":[16,8,16],"faces":{"south":{"texture":"#surface","uv":[8.0,8.0,16.0,16.0]}}}]}

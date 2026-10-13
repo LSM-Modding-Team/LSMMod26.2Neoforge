@@ -6,8 +6,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.nicomar2009.lsmmod.registry.ModBlockEntities;
 
-/** Standard six saved paints, constrained to the stationary solid half; no paint on glass. */
-public class SchoolProjectingWindowPaintEntity extends SchoolPaintableBlockEntity {
+/** Four 8px paint squares per face, constrained to the fixed wall; glass is never paintable. */
+public class SchoolProjectingWindowPaintEntity extends SchoolPaintableCustomBlockEntity {
     public SchoolProjectingWindowPaintEntity(BlockPos pos,BlockState state) {
         super(ModBlockEntities.SCHOOL_PROJECTING_WINDOW_PAINT.get(),pos,state);
     }
@@ -22,5 +22,10 @@ public class SchoolProjectingWindowPaintEntity extends SchoolPaintableBlockEntit
     }
     @Override public void paintAt(Direction face,Vec3 hit,SchoolPaint color) {
         if(canPaintAt(face,hit))super.paintAt(face,hit,color);
+    }
+    @Override public boolean removeCube(Direction face,Vec3 hit) {return false;}
+    @Override protected void loadAdditional(net.minecraft.world.level.storage.ValueInput input) {
+        if(input.getIntOr("paint_bits",0)==0) {loadWholeFaces(input);invalidateClientGeometry();}
+        else super.loadAdditional(input);
     }
 }

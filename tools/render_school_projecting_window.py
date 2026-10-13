@@ -34,7 +34,7 @@ def layout_scene(rule,start=0,opened=False,one=None,paint=4,walls=True):
             cell_parts=layout_parts(rule,start,x,y)
             def selected(condition):
                 kind=condition['type']
-                if kind=='lsmmod:painted_face':return condition['paint']==paint
+                if kind=='lsmmod:painted_face':return condition['paint']==(paint(condition) if callable(paint) else paint)
                 if kind=='lsmmod:projecting_window_layout':
                     if condition['key']!=key:return False
                     if 'part' not in condition:return True
@@ -95,10 +95,9 @@ def main():
                     mixed=x==(0 if side=='left' else 1)
                     phase=((x+1)%3 if side=='left' else x%3)+3*(y%3)
                     if mixed:
-                        root=json.loads((A/f'models/block/{PAINTABLE_ID}/phase_{phase}_{side}.json').read_text())
-                        for group in root['models']:
-                            selected=next((e for e in group if e.get('condition',{}).get('paint')==color or e.get('condition',{}).get('pose')==pose),group[-1])
-                            add(geometry,load(selected['model']),(16*x,16*y,0))
+                        def selected(condition):
+                            return condition.get('paint')==color if condition['type']=='lsmmod:painted_face' else condition.get('pose')==pose
+                        add(geometry,load(f'lsmmod:block/{PAINTABLE_ID}/phase_{phase}_{side}',predicate=selected),(16*x,16*y,0))
                     else:
                         for part_index,part in enumerate(parts(phase)):
                             for layer in ('solid','translucent'):
@@ -108,6 +107,28 @@ def main():
         ImageDraw.Draw(half).text((420*index+10,15),label,fill=(25,25,25))
     half.save(preview_path('school_paintable_projecting_window_review.png'))
     review_layouts()
+    review_squares()
+
+def review_squares():
+    from create_school_projecting_window_assets import layout_rules
+    rule=layout_rules()[1]
+    checker=lambda condition:4 if (condition['quadrant']%2+condition['quadrant']//2)%2==0 else 9
+    canvas=Image.new('RGB',(1800,900),(194,194,194));draw=ImageDraw.Draw(canvas)
+    wall=[];add(wall,load(f'lsmmod:block/{PAINTABLE_ID}/wall_left',predicate=lambda c:c['paint']==checker(c)))
+    cases=(('Izquierda / cuadrados 8x8 / cerrada',layout_scene(rule,8,paint=checker),-65),
+           ('Izquierda / cuadrados 8x8 / abierta',layout_scene(rule,8,opened=True,paint=checker),-65),
+           ('Dorso / cuatro cuadrados en el lateral',layout_scene(rule,8,paint=checker),115),
+           ('Derecha / cuadrados 8x8',layout_scene(rule,0,paint=checker),-65),
+           ('Corte interior / cuatro cuadrados 8x8',wall,-25))
+    for index,(label,elements,angle) in enumerate(cases):
+        from render_block_review import framing
+        origin,zoom=framing(elements,size=(600,420));offset=(index%3*600,index//3*450+25)
+        canvas.paste(render(elements,origin,zoom,size=(600,420),azimuth=angle,elevation=18,minecraft_orientation=True),offset)
+        draw.text((offset[0]+10,offset[1]-18),label,fill=(25,25,25))
+    item=[];add(item,load('lsmmod:item/'+PAINTABLE_ID))
+    canvas.paste(render(item,[8,8,8],20,size=(600,420),azimuth=-65,elevation=18,minecraft_orientation=True),(1200,475))
+    draw.text((1210,457),'Item / modelo real',fill=(25,25,25))
+    canvas.save(preview_path('school_paintable_projecting_window_squares_review.png'))
 
 
 if __name__ == '__main__':

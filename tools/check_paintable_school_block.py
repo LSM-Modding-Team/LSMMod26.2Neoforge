@@ -13,6 +13,7 @@ def read(path):
 def check_projecting_half():
     """Paint palettes must affect only the fixed half, across both profiles and all hinge poses."""
     from create_school_projecting_window_assets import PAINTABLE_ID, parts, rotation
+    from render_texture_review import load
     native={}
     for side in ('left','right'):
         white_low,white_high=(0,8) if side=='left' else (8,16)
@@ -22,16 +23,25 @@ def check_projecting_half():
             fixed=root['models'][:6]
             assert previous is None or fixed==previous, 'Opening the window changes painted wall models'
             previous=fixed
-            for group in fixed:
-                assert len(group)==len(PAINTS)
-                for paint in range(len(PAINTS)):
-                    chosen=next(e for e in group if 'condition' not in e or e['condition']['paint']==paint)
-                    leaf=read(A/f'models/{chosen["model"].split(":")[1]}.json')
-                    box,=leaf['elements'];assert box['from']==[white_low,0,0] and box['to']==[white_high,16,16]
-                    assert 'rotation' not in box and len(box['faces'])==1
-                    face,=box['faces'];assert leaf['textures']['surface']==PAINTS[paint]
-                    if paint:assert chosen['condition']['face']==face and chosen['condition']['local'] is True
-                    native[side,face,paint]=leaf
+            for face,group in zip(SIDES,fixed):
+                wrapper=read(A/f'models/{group[0]["model"].split(":")[1]}.json')
+                assert len(group)==1 and 'condition' not in group[0]
+                assert len(wrapper['models'])==(4 if face in ('east','west') else 2)
+                area=0
+                for squares in wrapper['models']:
+                    assert len(squares)==len(PAINTS)
+                    for paint,chosen in enumerate(squares):
+                        condition=chosen['condition'];q=condition['quadrant']
+                        assert condition=={'type':'lsmmod:painted_face','face':face,'paint':paint,'local':True,'quadrant':q}
+                        leaf,=load(chosen['model']);box,=leaf['elements']
+                        assert white_low<=box['from'][0]<box['to'][0]<=white_high and len(box['faces'])==1
+                        assert 'rotation' not in box and face in box['faces'] and leaf['textures']['surface']==PAINTS[paint]
+                        axes=(2,1) if face in ('east','west') else (0,2) if face in ('up','down') else (0,1)
+                        assert all(box['to'][a]-box['from'][a]==8 for a in axes)
+                        assert q==int(box['from'][axes[0]]//8)+2*int(box['from'][axes[1]]//8)
+                        native[side,face,q,paint]=leaf
+                    area+=64
+                assert area==(256 if face in ('east','west') else 128)
             for group in root['models'][6:]:
                 assert {e['condition']['pose'] for e in group}==set(range(5))
                 for entry in group:
@@ -43,7 +53,35 @@ def check_projecting_half():
                         assert (e['from'][0]>=8 if side=='left' else e['to'][0]<=8)
                         assert bool(e.get('rotation'))==bool(pose)
                         if pose:assert e['rotation']==rotation(part,pose), 'Half pane has a separate hinge'
-    assert len(native)==2*6*len(PAINTS)
+    assert len(native)==2*16*len(PAINTS)
+    # Geometry-based hit centers must map to the same saved world-space quadrants in every facing.
+    clockwise=dict(north='east',east='south',south='west',west='north',up='up',down='down')
+    def q_for(face,xyz):
+        x,y,z=xyz;return z+2*y if face in ('east','west') else x+2*z if face in ('up','down') else x+2*y
+    for (side,face,q,paint),model in native.items():
+        if paint!=0:continue
+        element,=model['elements'];center=[(a+b)/32 for a,b in zip(element['from'],element['to'])]
+        bits=[0,0,0]
+        axes=(2,1) if face in ('east','west') else (0,2) if face in ('up','down') else (0,1)
+        bits[axes[0]]=q%2;bits[axes[1]]=q//2;target=face
+        for turn in range(4):
+            assert q_for(target,[int(v>=.5) for v in center])==q_for(target,bits),(side,face,q,turn)
+            center=[1-center[2],center[1],center[0]];bits=[1-bits[2],bits[1],bits[0]];target=clockwise[target]
+    # Fragment UVs should reproduce the previous whole-face texture, front/back and oblique.
+    import numpy as np
+    from render_texture_review import add,render
+    for side in ('left','right'):
+        split=[];whole=[]
+        add(split,load(f'lsmmod:block/{PAINTABLE_ID}/wall_{side}',predicate=lambda c:c['paint']==12))
+        for face in SIDES:add(whole,load(f'lsmmod:block/{PAINTABLE_ID}/wall_{side}_{face}_12'))
+        for angle in (-90,-65,115):
+            options=dict(center=[8,8,8],scale=12,size=(320,320),azimuth=angle,elevation=20)
+            difference=np.abs(np.asarray(render(split,**options)).astype(int)-np.asarray(render(whole,**options)).astype(int))
+            assert difference.max()<=1,('Changed UV or square seam',side,angle,difference.max())
+    java=ROOT/'src/main/java/net/nicomar2009/lsmmod'
+    entity=(java/'block/SchoolProjectingWindowPaintEntity.java').read_text()
+    assert 'extends SchoolPaintableCustomBlockEntity' in entity and 'loadWholeFaces(input)' in entity
+    assert 'getIntOr("paint_bits",0)==0' in entity and 'removeCube(Direction face,Vec3 hit) {return false;}' in entity
     variants=read(A/f'blockstates/{PAINTABLE_ID}.json')['variants'];assert len(variants)==8
     turns=dict(north=0,east=90,south=180,west=270)
     for key,apply in variants.items():
@@ -58,7 +96,7 @@ def check_projecting_half():
         if ident==PAINTABLE_ID:
             painted=[model for model in models if 'surface' in model.get('textures',{})]
             assert {face for model in painted for element in model['elements'] for face in element['faces']}==set(SIDES), 'Fusion drops painted wall faces from the item'
-    print(f'OK: {len(PAINTS)} paint colors on all six fixed half-block faces; both wall sides, four orientations and five pane poses; glass/frame materials are isolated from the palette; actual Fusion item selections include the glass and all wall faces.')
+    print(f'OK: {len(PAINTS)} paints on 8x8 squares across all six fixed half-block faces; both wall sides, four orientations and five pane poses, whole-face legacy import and item layers; glass/frame geometry remains isolated from painting.')
 
 def main():
     for texture in PAINTS:

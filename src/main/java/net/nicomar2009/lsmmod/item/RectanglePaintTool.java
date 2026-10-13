@@ -124,6 +124,20 @@ public final class RectanglePaintTool {
                     }
                     if(changed) {if(paint==null&&previous!=0)refunds[previous]++;count++;}
                 }
+            } else if(block instanceof net.nicomar2009.lsmmod.block.SchoolProjectingWindowPaintEntity wall) {
+                if(end.plane%2!=0)continue;
+                for(int qa=0;qa<2;qa++)for(int qb=0;qb<2;qb++) {
+                    if(a*4+qa*2+1<u0||a*4+qa*2>u1||b*4+qb*2+1<v0||b*4+qb*2>v1)continue;
+                    double[] point={pos.getX()+.5,pos.getY()+.5,pos.getZ()+.5};
+                    point[axis]=end.plane*.25;point[u]=a+(qa+.5)*.5;point[v]=b+(qb+.5)*.5;
+                    if(!wall.canPaintAt(face,new net.minecraft.world.phys.Vec3(point[0],point[1],point[2])))continue;
+                    int[] halves=new int[3];halves[axis]=normalHalf;halves[u]=qa;halves[v]=qb;
+                    BlockPos neighbor=pos.relative(face);
+                    if(end.plane==normal*4+(step>0?4:0)&&(!level.hasChunkAt(neighbor)||level.getBlockState(neighbor).isFaceSturdy(level,neighbor,face.getOpposite())))continue;
+                    int index=face.ordinal()*4+SchoolPaintableCustomBlockEntity.quadrant(face,halves[0],halves[1],halves[2]);
+                    int next=paint==null?0:paint.ordinal();if(colors[index]==next)continue;
+                    if(paint==null)refunds[colors[index]]++;colors[index]=next;count++;
+                }
             } else if(block instanceof SchoolPaintableCustomBlockEntity small) {
                 if(end.plane%2!=0)continue;
                 for(int qa=0;qa<2;qa++) for(int qb=0;qb<2;qb++) {
@@ -136,16 +150,7 @@ public final class RectanglePaintTool {
                 }
             } else {
                 boolean outer=end.plane==normal*4+(step>0?4:0);
-                if(block instanceof net.nicomar2009.lsmmod.block.SchoolProjectingWindowPaintEntity) {
-                    boolean solid=false;
-                    for(int qa=0;qa<2;qa++)for(int qb=0;qb<2;qb++) {
-                        if(a*4+qa*2+1<u0||a*4+qa*2>u1||b*4+qb*2+1<v0||b*4+qb*2>v1)continue;
-                        double[] point={pos.getX()+.5,pos.getY()+.5,pos.getZ()+.5};
-                        point[axis]=end.plane*.25;point[u]=a+(qa+.5)*.5;point[v]=b+(qb+.5)*.5;
-                        solid|=block.canPaintAt(face,new net.minecraft.world.phys.Vec3(point[0],point[1],point[2]));
-                    }
-                    if(!solid)continue;
-                } else if(!outer)continue;
+                if(!outer)continue;
                 BlockPos neighbor=pos.relative(face);
                 if(outer&&(!level.hasChunkAt(neighbor) || level.getBlockState(neighbor).isFaceSturdy(level,neighbor,face.getOpposite())))continue;
                 int index=face.ordinal(),next=paint==null?0:paint.ordinal();

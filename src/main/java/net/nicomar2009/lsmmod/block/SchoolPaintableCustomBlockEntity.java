@@ -14,7 +14,12 @@ public class SchoolPaintableCustomBlockEntity extends SchoolPaintableBlockEntity
     private final int[] squares = new int[24];
     private int occupied = 255;
     public SchoolPaintableCustomBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.SCHOOL_PAINTABLE_CUSTOM.get(), pos, state);
+        this(ModBlockEntities.SCHOOL_PAINTABLE_CUSTOM.get(),pos,state);
+    }
+    protected SchoolPaintableCustomBlockEntity(net.minecraft.world.level.block.entity.BlockEntityType<?> type,BlockPos pos,BlockState state) {super(type,pos,state);}
+    protected void loadWholeFaces(ValueInput input) {
+        for(Direction face:Direction.values())Arrays.fill(squares,face.ordinal()*4,face.ordinal()*4+4,
+                SchoolPaint.fromId(input.getIntOr("paint_"+face.getSerializedName(),0)).ordinal());
     }
     public int occupied() { return occupied; }
     public boolean hasCube(int cube) { return (occupied & (1 << cube)) != 0; }
