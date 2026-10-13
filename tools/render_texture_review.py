@@ -140,8 +140,7 @@ def render(scene, center, scale, size=(420,560), azimuth=-70, elevation=15):
                    'up':[(x1,y2,z1),(x1,y2,z2),(x2,y2,z2),(x2,y2,z1)],
                    'down':[(x2,y1,z1),(x2,y1,z2),(x1,y1,z2),(x1,y1,z1)]}
         for face, material in element['faces'].items():
-            if np.array(normals[face])@eye<=0:
-                continue
+            normal = np.array(normals[face], float)
             vertices = np.array(corners[face],float)
             rotation = element.get('rotation')
             if rotation:
@@ -151,6 +150,9 @@ def render(scene, center, scale, size=(420,560), azimuth=-70, elevation=15):
                     c,s = math.cos(math.radians(angle)),math.sin(math.radians(angle))
                     matrix = {'x':[[1,0,0],[0,c,-s],[0,s,c]],'y':[[c,0,s],[0,1,0],[-s,0,c]],'z':[[c,-s,0],[s,c,0],[0,0,1]]}[axis]
                     vertices = (vertices-origin)@np.array(matrix).T+origin
+                    normal = normal@np.array(matrix).T
+            if normal@eye<=0:
+                continue
             vertices -= center
             projected = np.column_stack((width/2+vertices@right*scale,height/2-vertices@up*scale,vertices@eye))
             u0,v0,u1,v1 = material.get('uv',[0,0,16,16])

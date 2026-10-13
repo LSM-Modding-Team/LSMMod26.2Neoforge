@@ -28,6 +28,10 @@ def property_domain(cls,field):
  m=re.search(r'EnumProperty.create\("([^"]+)",\s*(\w+).class\)',expr)
  if m:
   enum=(J/f'block/{m[2]}.java').read_text();constants=re.findall(r'^\s{4}([A-Z_]+)\(',enum,re.M)
+  if not constants:
+   declaration=re.search(r'\benum\s+\w+(?:\s+implements\s+[\w.,\s]+)?\s*\{([^;]+);',enum)
+   if declaration and re.fullmatch(r'\s*[A-Z_]+(?:\s*,\s*[A-Z_]+)*\s*',declaration[1]):
+    constants=re.findall(r'[A-Z_]+',declaration[1])
   if not constants:raise ValueError(f'Unrecognized enum: {m[2]}')
   return m[1],len(constants)
  if expr.startswith('BlockStateProperties.'):

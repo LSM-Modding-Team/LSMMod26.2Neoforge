@@ -6,6 +6,71 @@ from create_school_glass_stair_assets import QUARTERS
 
 def read(p):return json.loads(p.read_text())
 
+def check_projecting_windows():
+    """Compare cell fragments against whole rigid panes, including their actual textured renders."""
+    import copy
+    import numpy as np
+    from create_school_projecting_window_assets import ID, parts
+    from render_school_projecting_window import scene
+    from render_texture_review import add, load, render
+    source=ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolProjectingWindowBlock.java'
+    text=source.read_text()
+    assert 'extends SchoolGlassBlock' not in text and 'SchoolCurtains.CURTAIN' not in text
+    assert 'SimpleBlockOutline.forState' not in text  # Pane selection depends on the world.
+    for phase in range(9):
+        rectangles=parts(phase)
+        assert sum((x1-x0)*(y1-y0) for x0,x1,y0,y1,_,_ in rectangles)==256
+        wrapper=read(A/f'models/block/{ID}/phase_{phase}.json')
+        for group in wrapper['models']:
+            assert sorted(entry['condition']['pose'] for entry in group)==list(range(5))
+            for entry in group:
+                model=read(A/f"models/{entry['model'].split(':')[1]}.json")
+                assert model['elements']
+                for e in model['elements']:
+                    assert all(0<=e['from'][axis]<e['to'][axis]<=16 for axis in range(3))
+                    assert e['from'][2]==7 and e['to'][2]==9
+                    rotation=e.get('rotation')
+                    assert bool(rotation)==bool(entry['condition']['pose'])
+                    if rotation: assert abs(rotation['angle'])==45 and not rotation['rescale']
+                    for face in e['faces'].values():assert all(0<=v<=16 for v in face['uv'])
+    reference=Image.open(ROOT/'newresources/projecting_window_tinted_reference.png').convert('RGBA')
+    glass=Image.open(A/f'textures/block/{ID}_glass.png').convert('RGBA')
+    assert reference.size==glass.size==(16,16)
+    for y in range(16):
+        for x in range(16):
+            a,b=reference.getpixel((x,y)),glass.getpixel((x,y))
+            assert b[:3]==tuple(max(0,v-4) for v in a[:3]) and b[3]==a[3]
+    item=load('lsmmod:item/'+ID)
+    # Reverse the inventory scale to obtain full panes without cell cuts.
+    whole=[]
+    for model in item:
+        model=copy.deepcopy(model)
+        for e in model['elements']:
+            for key in ('from','to'):
+                x,y,z=e[key];e[key]=[x*1.5,y*1.5,8+(z-8)*1.5]
+        add(whole,[model])
+    for poses in ({}, {(0,0):3}, {(0,0):2,(1,0):4,(0,1):3,(1,1):1}):
+        expected=[]
+        for ty in range(2):
+            for tx in range(2):
+                pose=poses.get((tx,ty),0)
+                for original in whole:
+                    e=copy.deepcopy(original)
+                    for key in ('from','to'):
+                        e[key][0]+=tx*24;e[key][1]+=ty*24
+                    if pose:e['rotation']={'origin':[tx*24+(24 if pose==4 else 0),ty*24+(24 if pose==1 else 0),7],
+                                          'axis':'x' if pose<=2 else 'y','angle':45 if pose in (1,3) else -45,'rescale':False}
+                    expected.append(e)
+        assembled=scene(poses)
+        for angle in (-65,115):
+            a=np.asarray(render(assembled,[24,24,3],5,size=(320,360),azimuth=angle,elevation=12)).astype(int)
+            b=np.asarray(render(expected,[24,24,3],5,size=(320,360),azimuth=angle,elevation=12)).astype(int)
+            # Triangle rasterization can differ by a pixel at cuts; geometry/materials must agree.
+            delta=np.max(np.abs(a-b),axis=2)
+            assert np.count_nonzero(delta>3)<100 and np.mean(delta)<.12,(poses,angle,np.mean(delta))
+    print('OK: nine lattice phases, four independent 24x24 panes, rigid 45-degree hinges; two-pixel thickness, preserved UVs/alpha and no curtains. Cell renders agree with whole-pane renders, front and back.')
+
+
 def main():
     names={'school_glass':16,'supported_school_glass':320,'mixed_school_glass':320,'supported_school_glass_reversed':320,'mixed_school_glass_reversed':320,'tall_classroom_entrance':384}
     for name,count in names.items():
@@ -98,7 +163,12 @@ def main():
     assert loot['pools'][0]['conditions'][1]['properties']=={'row':'0'}
     print('OK: edge-aligned 2-row door + moving third-row apron; centered handles; 13440 geometry selections plus curtain overlays; four vanilla stairs (corners/top/waterlogging), material layout, shared glazing and single door drop.')
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    import sys
+    if '--projecting-only' in sys.argv:
+        check_projecting_windows()
+        raise SystemExit(0)
+    main()
 
 # Regression: transparent panes must not remove the inner faces of opaque posts.
 for name in ('supported_school_glass','mixed_school_glass','supported_school_glass_reversed','mixed_school_glass_reversed'):

@@ -59,7 +59,7 @@ public final class ModCreativeTabs {
                 return Group.FUNCTIONAL_BLOCKS;
             if (id.contains("_slope_") || id.startsWith("school_entrance_pavement")
                     || id.contains("_wall") || id.endsWith("_floor") || id.equals("school_parquet")
-                    || id.contains("_glass") || id.equals("classroom_white_wall")
+                    || id.contains("_glass") || id.endsWith("_window") || id.equals("classroom_white_wall")
                     || id.startsWith("school_paintable_") || id.equals("school_foundation")
                     || id.equals("school_circular_column") || id.equals("school_synthetic_grass") || id.equals("yellow_school_block")) return Group.BLOCKS;
             return Group.FUNCTIONAL_BLOCKS;

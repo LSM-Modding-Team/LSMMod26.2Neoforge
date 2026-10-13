@@ -113,6 +113,7 @@
     "lsmmod:dining_room_counter",
     "lsmmod:school_refrigerator",
     "lsmmod:fire_alarm",
-    "lsmmod:school_shelving"
+    "lsmmod:school_shelving",
+    "lsmmod:school_projecting_window"
   ]
 }

@@ -360,5 +360,6 @@
   "block.lsmmod.dining_wall_cabinet": "Armario de pared del comedor",
   "block.lsmmod.school_shelving": "Estantería metálica con niveles blancos",
   "block.lsmmod.sofa": "Sillón granate",
-  "block.lsmmod.nido_storage_bucket": "nido_storage_bucket"
+  "block.lsmmod.nido_storage_bucket": "nido_storage_bucket",
+  "block.lsmmod.school_projecting_window": "Ventana proyectante del colegio"
 }
