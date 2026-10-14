@@ -14,7 +14,6 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.nicomar2009.lsmmod.block.SchoolPaint;
-import net.nicomar2009.lsmmod.block.SchoolBathroomColumnPaintEntity;
 import net.nicomar2009.lsmmod.block.SchoolPaintableBlockEntity;
 import net.nicomar2009.lsmmod.block.SchoolPaintableCustomBlockEntity;
 
@@ -74,14 +73,9 @@ public final class RectanglePaintTool {
         if(player==null || player.isSpectator() || !player.mayBuild())return InteractionResult.FAIL;
         if(level.isClientSide())return InteractionResult.SUCCESS;
         var current=level.getBlockEntity(context.getClickedPos());
-        int divisions=current instanceof net.nicomar2009.lsmmod.block.SchoolDoorFramePaintEntity frame?16/frame.miniSize():current instanceof SchoolPaintableCustomBlockEntity||current instanceof SchoolBathroomColumnPaintEntity?2:1;
+        int divisions=current instanceof net.nicomar2009.lsmmod.block.SchoolDoorFramePaintEntity frame?16/frame.miniSize():current instanceof SchoolPaintableCustomBlockEntity?2:1;
         End end=end(context,divisions);Direction face=context.getClickedFace();
         if(end==null)return fail(player,"target");
-        if(current instanceof SchoolBathroomColumnPaintEntity) {
-            // Half-block surface planes, but the ordinary palette edits a whole face per cell.
-            int a=Math.floorDiv(end.u0,4)*4,b=Math.floorDiv(end.v0,4)*4;
-            end=new End(end.plane,a,a+3,b,b+3);
-        }
         String dimension=level.dimension().identifier().toString();
         if(!pending) {
             CompoundTag anchor=new CompoundTag();anchor.putString("owner",player.getUUID().toString());anchor.putString("dimension",dimension);
@@ -144,17 +138,6 @@ public final class RectanglePaintTool {
                     int next=paint==null?0:paint.ordinal();if(colors[index]==next)continue;
                     if(paint==null)refunds[colors[index]]++;colors[index]=next;count++;
                 }
-            } else if(block instanceof SchoolBathroomColumnPaintEntity column) {
-                double[] bounds=SchoolBathroomColumnPaintEntity.bounds(block.getBlockState());
-                double[] point={pos.getX()+(bounds[0]+bounds[3])*.5,pos.getY()+(bounds[1]+bounds[4])*.5,pos.getZ()+(bounds[2]+bounds[5])*.5};
-                point[axis]=end.plane*.25;
-                if(!column.canPaintAt(face,new net.minecraft.world.phys.Vec3(point[0],point[1],point[2])))continue;
-                if(end.plane==normal*4+(step>0?4:0)) {
-                    BlockPos neighbor=pos.relative(face);
-                    if(!level.hasChunkAt(neighbor)||level.getBlockState(neighbor).isFaceSturdy(level,neighbor,face.getOpposite()))continue;
-                }
-                int index=face.ordinal(),next=paint==null?0:paint.ordinal();
-                if(colors[index]!=next) {if(paint==null)refunds[colors[index]]++;colors[index]=next;count++;}
             } else if(block instanceof SchoolPaintableCustomBlockEntity small) {
                 if(end.plane%2!=0)continue;
                 for(int qa=0;qa<2;qa++) for(int qb=0;qb<2;qb++) {

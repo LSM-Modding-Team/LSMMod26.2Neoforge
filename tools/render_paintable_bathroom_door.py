@@ -100,10 +100,16 @@ def column_scene(opened=False,right=False,paint=0,facing='north',ident=None):
         def predicate(condition):
             if condition['type']=='lsmmod:glazing_mask':
                 return (1 if column==0 else 2) in condition.get('masks',[condition.get('mask')])
-            face=condition['face']
-            if condition.get('local') and face in ('north','east','south','west'):
-                face=('north','east','south','west')[(('north','east','south','west').index(face)+turn)%4]
-            color=paint(row,face) if callable(paint) else paint
+            face=condition['face'];q=condition.get('quadrant',0)
+            x=0 if face in ('west','east') else q&1
+            y=0 if face in ('up','down') else (q>>1)&1
+            z=q&1 if face in ('west','east') else (q>>1)&1 if face in ('up','down') else 0
+            if condition.get('local'):
+                for _ in range(turn):
+                    if face in ('north','east','south','west'):face=('north','east','south','west')[(('north','east','south','west').index(face)+1)%4]
+                    x,z=1-z,x
+            q=z+2*y if face in ('west','east') else x+2*z if face in ('up','down') else x+2*y
+            color=paint(row,face,q) if callable(paint) else paint
             return condition['paint']==color
         for entry in entries:
             if not all(state[k] in v.split('|') for k,v in entry['when'].items()):continue
@@ -118,9 +124,9 @@ def column_scene(opened=False,right=False,paint=0,facing='north',ident=None):
 def review_column():
     from create_paintable_bathroom_door import COLUMN_ID
     colors={'down':3,'up':6,'north':9,'south':12,'west':1,'east':2}
-    paint=lambda row,face:colors[face] if row==0 else 4 if row==1 else 10
+    paint=lambda row,face,q:9 if (row+q)%2 else 4
     cases=[('Columna sin pintar / cristal original',column_scene()),('Abierta / columna fija',column_scene(True,paint=9)),
-           ('Pintura por cara y por bloque',column_scene(True,paint=paint)),('Bisagra derecha / columna pintable',column_scene(True,True,paint)),
+           ('Cuadrados independientes de 8x8 px',column_scene(True,paint=paint)),('Bisagra derecha / columna pintable',column_scene(True,True,paint)),
            ('Dorso / otra cara independiente',column_scene(True,paint=paint)),('Item / modelo real',item_scene(COLUMN_ID))]
     for facing in ('east','south','west'):cases.append(('Orientacion '+facing,column_scene(True,paint=paint,facing=facing)))
     canvas=Image.new('RGB',(1440,1860),(194,194,194));draw=ImageDraw.Draw(canvas)

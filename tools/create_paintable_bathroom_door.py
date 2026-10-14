@@ -157,7 +157,8 @@ COLUMN_ID='bathroom_door_wide_paintable_column'
 
 
 def generate_column():
-    """Keep original door/glass resources; replace only stationary masonry faces."""
+    """Keep original door/glass resources; replace only stationary masonry with 8px paint squares."""
+    for obsolete in (A/f'models/block/{COLUMN_ID}').glob('*.json'):obsolete.unlink()
     source=json.loads((A/'blockstates/bathroom_door_wide.json').read_text())['multipart']
     multipart=[];wall_parts={}
     for entry in source:
@@ -188,18 +189,26 @@ def generate_column():
             parts=wall_parts[hinge,row];assert set(parts)==set(SIDES)
             band='upper' if row==2 else 'full';name=f'{COLUMN_ID}/{hinge}_{band}'
             groups=[]
+            from create_bathroom_statue_assets import crop_face_uv
             for face in SIDES:
-                parent=name+'_'+face
-                write(A/f'models/block/{parent}.json',{'parent':'minecraft:block/block','render_type':'minecraft:solid',
-                    'textures':{'surface':PAINTS[0],'particle':'#surface'},'elements':[parts[face]]})
-                series=[]
-                for paint,texture in enumerate(PAINTS):
-                    model=parent
-                    if paint:
-                        model=parent+'_'+str(paint)
-                        write(A/f'models/block/{model}.json',{'parent':'lsmmod:block/'+parent,'textures':{'surface':texture}})
-                    series.append({'model':'lsmmod:block/'+model,'condition':{'type':'lsmmod:painted_face','face':face,'paint':paint,'local':True}})
-                groups.append(series)
+                original=parts[face];axes=(2,1) if face in ('west','east') else (0,2) if face in ('up','down') else (0,1)
+                for quadrant in range(4):
+                    lo=original['from'].copy();hi=original['to'].copy()
+                    for axis,index in zip(axes,(quadrant%2,quadrant//2)):
+                        lo[axis]=max(lo[axis],index*8);hi[axis]=min(hi[axis],(index+1)*8)
+                    if any(a>=b for a,b in zip(lo,hi)):continue
+                    parent=name+'_'+face+'_q'+str(quadrant)
+                    uv=crop_face_uv(original['faces'][face]['uv'],face,original['from'],original['to'],lo,hi)
+                    write(A/f'models/block/{parent}.json',{'parent':'minecraft:block/block','render_type':'minecraft:solid',
+                        'textures':{'surface':PAINTS[0],'particle':'#surface'},'elements':[{'from':lo,'to':hi,'faces':{face:{'texture':'#surface','uv':uv}}}]})
+                    series=[]
+                    for paint,texture in enumerate(PAINTS):
+                        model=parent
+                        if paint:
+                            model=parent+'_'+str(paint)
+                            write(A/f'models/block/{model}.json',{'parent':'lsmmod:block/'+parent,'textures':{'surface':texture}})
+                        series.append({'model':'lsmmod:block/'+model,'condition':{'type':'lsmmod:painted_face','face':face,'paint':paint,'local':True,'quadrant':quadrant}})
+                    groups.append(series)
             write(A/f'models/block/{name}.json',{'loader':'fusion:model','type':'composite','textures':{'particle':PAINTS[0]},'models':groups})
             for turn,facing in enumerate(('north','east','south','west')):
                 multipart.append({'when':{'facing':facing,'hinge':hinge,'column':'0' if hinge=='right' else '1','row':str(row),'depth':'0'},

@@ -156,7 +156,7 @@ def check_paintable_column():
             if not matches(entry['when'],state):continue
             def predicate(condition):
                 if condition['type']=='lsmmod:glazing_mask':return 3 in condition.get('masks',[condition.get('mask')])
-                assert condition['type']=='lsmmod:painted_face' and 'quadrant' not in condition
+                assert condition['type']=='lsmmod:painted_face' and 0<=condition['quadrant']<4
                 return condition['paint']==color
             for model in load(entry['apply']['model'],predicate=predicate):
                 for _ in range(3*(entry['apply'].get('y',0)//90)):model=rotated(model)
@@ -167,30 +167,50 @@ def check_paintable_column():
         state=dict(facing=facing,open=opened,hinge=hinge,column=str(column),row=str(row),depth=str(depth))
         old=selected(original,state);new=selected(parts,state)
         is_wall=lambda surface:surface['texture'] in ('lsmmod:block/classroom_white_wall','lsmmod:block/light_school_wall')
-        expected=[]
+        unchanged=lambda elements:[dict(e,faces={f:v for f,v in e['faces'].items() if not is_wall(v)}) for e in elements if any(not is_wall(v) for v in e['faces'].values())]
+        assert canonical(unchanged(old))==canonical([e for e in new if not any(v['texture']==PAINTS[0] for v in e['faces'].values())]),(state,'leaf or transom changed')
+        # Each old column face is tiled completely without overlaps, with continuous original UVs.
+        from create_bathroom_statue_assets import crop_face_uv
         for element in old:
-            element=dict(element,faces={face:dict(surface) for face,surface in element['faces'].items()})
-            for surface in element['faces'].values():
-                if is_wall(surface):surface['texture']=PAINTS[0];surface.pop('cullface',None)
-            expected.append(element)
-        assert canonical(new)==canonical(expected),(state,'geometry, leaf or fixed transom changed')
+            for face,surface in element['faces'].items():
+                if not is_wall(surface):continue
+                axis=0 if face in ('west','east') else 1 if face in ('up','down') else 2
+                positive=face in ('east','up','south');plane=element['to' if positive else 'from'][axis]
+                tiles=[e for e in new if e['faces'].get(face,{}).get('texture')==PAINTS[0] and e['to' if positive else 'from'][axis]==plane]
+                tangents=[i for i in range(3) if i!=axis]
+                area=lambda e:(e['to'][tangents[0]]-e['from'][tangents[0]])*(e['to'][tangents[1]]-e['from'][tangents[1]])
+                assert sum(area(tile) for tile in tiles)==area(element)
+                for tile in tiles:
+                    assert all(element['from'][i]<=tile['from'][i]<tile['to'][i]<=element['to'][i] for i in range(3))
+                    assert all(tile['to'][i]-tile['from'][i]==8 for i in tangents)
+                    if facing=='north':assert tile['faces'][face]['uv']==crop_face_uv(surface['uv'],face,element['from'],element['to'],tile['from'],tile['to'])
+                for first,second in itertools.combinations(tiles,2):
+                    assert not all(max(first['from'][i],second['from'][i])<min(first['to'][i],second['to'][i]) for i in tangents)
         wall=[e for e in new if any(f['texture']==PAINTS[0] for f in e['faces'].values())]
         column_cell=depth==0 and column==(0 if hinge=='right' else 1)
         assert bool(wall)==column_cell,(state,'paintable cell does not match physical column')
         if wall:
-            assert len(wall)==6 and {f for e in wall for f in e['faces']}==set(SIDES)
-            assert all(e['to'][1]-e['from'][1]==(8 if row==2 else 16) for e in wall)
+            assert len(wall)==(10 if row==2 else 16) and {f for e in wall for f in e['faces']}==set(SIDES)
             for color in range(13):
                 painted=selected(parts,state,color)
-                assert sum(any(f['texture']==PAINTS[color] for f in e['faces'].values()) for e in painted)==6
+                assert sum(any(f['texture']==PAINTS[color] for f in e['faces'].values()) for e in painted)==len(wall)
     # Distinct paints on each world direction and row survive all four rotations and hinges.
     colors={'down':1,'up':2,'north':3,'south':5,'west':6,'east':9}
     for facing,right in itertools.product(('north','east','south','west'),(False,True)):
-        painted=column_scene(True,right,paint=lambda row,face:colors[face],facing=facing)
+        painted=column_scene(True,right,paint=lambda row,face,q:colors[face],facing=facing)
         column_faces=[e for e in painted if any(f['texture'] in {PAINTS[c] for c in colors.values()} for f in e['faces'].values())]
-        assert len(column_faces)==18
+        assert len(column_faces)==42
         for element in column_faces:
             face,surface=next(iter(element['faces'].items()));assert surface['texture']==PAINTS[colors[face]],(facing,right,face)
+    for facing,right in itertools.product(('north','east','south','west'),(False,True)):
+        checker=column_scene(True,right,paint=lambda row,face,q:1+q+4*row,facing=facing)
+        for element in checker:
+            if not any(v['texture'] in PAINTS[1:] for v in element['faces'].values()):continue
+            face,surface=next(iter(element['faces'].items()))
+            x,y,z=[int((a+b)//16)%2 for a,b in zip(element['from'],element['to'])]
+            q=z+2*y if face in ('west','east') else x+2*z if face in ('up','down') else x+2*y
+            row=int(element['from'][1]//16)
+            assert surface['texture']==PAINTS[1+q+4*row],(facing,right,face,q)
     item=item_scene(COLUMN_ID)
     assert any(e['render_type']=='minecraft:translucent' for e in item) and any(f['texture']==PAINTS[0] for e in item for f in e['faces'].values())
     assert all(0<=v<=16 for e in item for key in ('from','to') for v in e[key])
@@ -200,13 +220,13 @@ def check_paintable_column():
     java=ROOT/'src/main/java/net/nicomar2009/lsmmod'
     entity=(java/'block/SchoolBathroomColumnPaintEntity.java').read_text()
     block=(java/'block/SchoolPaintableBathroomColumnDoorBlock.java').read_text()
-    assert 'extends SchoolPaintableBlockEntity' in entity and 'saveAdditional' not in entity and 'loadAdditional' not in entity
+    assert 'extends SchoolPaintableCustomBlockEntity' in entity and 'loadWholeFaces(input)' in entity and 'else super.loadAdditional(input)' in entity
     assert 'extends SchoolFramedDiningDoorBlock implements EntityBlock' in block and 'hasTransomGlazing' not in block
     assert 'columnCell(state)?new SchoolBathroomColumnPaintEntity(pos,state):null' in block
     rectangle=(java/'item/RectanglePaintTool.java').read_text()
-    assert 'block instanceof SchoolBathroomColumnPaintEntity column' in rectangle and 'column.canPaintAt' in rectangle
-    assert 'end=new End(end.plane,a,a+3,b,b+3)' in rectangle
-    print('OK: 192 states preserve original geometry, leaf/UV and glass; six independent whole-face paints per column cell, 13 materials, both hinges/all orientations, complete item and single drop. Java/Minecraft remain uncompiled.')
+    assert 'block instanceof SchoolPaintableCustomBlockEntity small' in rectangle
+    assert 'end=new End(end.plane,a,a+3,b,b+3)' not in rectangle
+    print('OK: 192 states preserve original geometry, leaf/UV and glass; 8x8px independent paint squares, continuous UVs and six-face legacy migration, 13 materials, both hinges/all orientations, complete item and single drop. Java/Minecraft remain uncompiled.')
 
 
 def main():

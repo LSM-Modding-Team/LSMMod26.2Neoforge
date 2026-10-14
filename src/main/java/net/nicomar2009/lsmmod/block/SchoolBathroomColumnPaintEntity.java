@@ -7,10 +7,24 @@ import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.phys.Vec3;
 import net.nicomar2009.lsmmod.registry.ModBlockEntities;
 
-/** The ordinary six-face palette, constrained to the original 8x40x16px side column. */
-public class SchoolBathroomColumnPaintEntity extends SchoolPaintableBlockEntity {
+/** Twenty-four 8px paint squares, constrained to the original 8x40x16px side column. */
+public class SchoolBathroomColumnPaintEntity extends SchoolPaintableCustomBlockEntity {
     public SchoolBathroomColumnPaintEntity(BlockPos pos,BlockState state) {
         super(ModBlockEntities.SCHOOL_BATHROOM_COLUMN_PAINT.get(),pos,state);
+    }
+    @Override public int occupied() {
+        double[] b=bounds(getBlockState());int mask=0;
+        for(int cube=0;cube<8;cube++) {
+            double x=(cube&1)*.5+.25,y=((cube>>1)&1)*.5+.25,z=((cube>>2)&1)*.5+.25;
+            if(x>=b[0]&&x<b[3]&&y>=b[1]&&y<b[4]&&z>=b[2]&&z<b[5])mask|=1<<cube;
+        }
+        return mask;
+    }
+    @Override public boolean hasCube(int cube) {return cube>=0&&cube<8&&(occupied()&(1<<cube))!=0;}
+    @Override public boolean removeCube(Direction face,Vec3 hit) {return false;}
+    @Override protected void loadAdditional(net.minecraft.world.level.storage.ValueInput input) {
+        if(input.getIntOr("paint_bits",0)==0) {loadWholeFaces(input);invalidateClientGeometry();}
+        else super.loadAdditional(input);
     }
     /** World-space bounds within this cell; rotation changes geometry, never saved face indices. */
     public static double[] bounds(BlockState state) {
