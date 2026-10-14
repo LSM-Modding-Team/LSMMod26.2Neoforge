@@ -12,8 +12,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModList;
-import net.nicomar2009.lsmmod.block.ComputerDeskBlock;
-import net.nicomar2009.lsmmod.registry.ModBlocks;
+import net.nicomar2009.lsmmod.media.SchoolMediaDevices;
+import net.nicomar2009.lsmmod.rules.SchoolMediaRules;
 
 /** Shell and missing-library screen; loading this class requires no Rinku or CEF classes. */
 public class SchoolPcScreen extends Screen {
@@ -32,12 +32,12 @@ public class SchoolPcScreen extends Screen {
     }
 
     public static boolean hasPc(BlockState state) {
-        return state.is(ModBlocks.PC.get())
-                || state.getBlock() instanceof ComputerDeskBlock && state.getValue(ComputerDeskBlock.HAS_PC);
+        return SchoolMediaRules.source(SchoolMediaDevices.role(state));
     }
 
     public static void open(BlockPos pos) {
         Minecraft minecraft = Minecraft.getInstance();
+        pos = SchoolMediaDevices.anchor(minecraft.level, pos);
         // The optional implementation is resolved only after the loader has found its library.
         minecraft.setScreenAndShow(ModList.get().isLoaded("rinku")
                 ? new RinkuSchoolPcScreen(pos) : new SchoolPcScreen(pos));
@@ -45,6 +45,7 @@ public class SchoolPcScreen extends Screen {
 
     protected int viewWidth() { return Math.max(1, width - MARGIN * 2); }
     protected int viewHeight() { return Math.max(1, height - VIEW_Y - 22); }
+    protected BlockPos sourcePos() { return pcPos; }
 
     @Override
     protected void init() {

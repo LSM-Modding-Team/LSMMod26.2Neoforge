@@ -19,19 +19,20 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.nicomar2009.lsmmod.LSMMod;
+import net.nicomar2009.lsmmod.client.media.SchoolBrowserSessions;
 import org.cef.misc.CefCursorType;
 import org.lwjgl.glfw.GLFW;
 
-/** One local Chromium view, owned by this screen and released on every removal path. */
+/** Interactive view of the device session also used by projectors and speakers. */
 final class RinkuSchoolPcScreen extends SchoolPcScreen {
     private static final String HOME = "https://www.google.com/";
     private final Map<Integer, KeyEvent> heldKeys = new HashMap<>();
     private RinkuBrowser browser;
+    private SchoolBrowserSessions.Session session;
     private EditBox address;
     private Button back, forward, reload, home, go;
     private boolean failed, browserFocused, addressDirty;
     private int heldMouseButtons;
-    private double pixelScale = 1;
     private Component addressError;
 
     RinkuSchoolPcScreen(BlockPos pos) { super(pos); }
@@ -55,7 +56,6 @@ final class RinkuSchoolPcScreen extends SchoolPcScreen {
         address.setHint(Component.translatable("screen.lsmmod.pc.address"));
         go = navigation(">", "go", width - MARGIN - 24, () -> navigate(address.getValue()));
         tryCreateBrowser();
-        resizeBrowser();
         refreshNavigation();
     }
 
@@ -76,21 +76,12 @@ final class RinkuSchoolPcScreen extends SchoolPcScreen {
     private void tryCreateBrowser() {
         if (browser != null || failed || !Rinku.isInitialized()) return;
         try {
-            browser = Rinku.createBrowser(HOME, false);
-            resizeBrowser();
+            session = SchoolBrowserSessions.acquire(sourcePos());
+            browser = session.browser;
         } catch (RuntimeException | LinkageError failure) {
             failed = true;
             LSMMod.LOGGER.error("Could not open the school PC browser", failure);
         }
-    }
-
-    private void resizeBrowser() {
-        if (browser == null) return;
-        // Bound the native surface even on a 4K window; input uses the same scale as the texture.
-        pixelScale = Math.min(minecraft.getWindow().getGuiScale(),
-                Math.min(1920.0 / viewWidth(), 1080.0 / viewHeight()));
-        browser.resize(Math.max(1, (int) (viewWidth() * pixelScale)),
-                Math.max(1, (int) (viewHeight() * pixelScale)));
     }
 
     @Override
@@ -166,8 +157,8 @@ final class RinkuSchoolPcScreen extends SchoolPcScreen {
     private boolean inView(double x, double y) {
         return x >= MARGIN && x < MARGIN + viewWidth() && y >= VIEW_Y && y < VIEW_Y + viewHeight();
     }
-    private int browserX(double x) { return (int) ((x - MARGIN) * pixelScale); }
-    private int browserY(double y) { return (int) ((y - VIEW_Y) * pixelScale); }
+    private int browserX(double x) { return (int) ((x - MARGIN) * SchoolBrowserSessions.WIDTH / viewWidth()); }
+    private int browserY(double y) { return (int) ((y - VIEW_Y) * SchoolBrowserSessions.HEIGHT / viewHeight()); }
 
     private void focusBrowser() {
         setFocused(null);
@@ -181,6 +172,10 @@ final class RinkuSchoolPcScreen extends SchoolPcScreen {
         if (!ready()) return;
         for (KeyEvent key : heldKeys.values()) browser.sendKeyRelease(key.key(), key.scancode(), 0);
         heldKeys.clear();
+        browser.cancelDrag();
+        for (int button = 0; button < 8; button++)
+            if ((heldMouseButtons & 1 << button) != 0) browser.sendMouseRelease(-1, -1, button);
+        heldMouseButtons = 0;
         browser.setFocus(false);
         browser.setCursor(CefCursorType.POINTER);
     }
@@ -290,18 +285,14 @@ final class RinkuSchoolPcScreen extends SchoolPcScreen {
 
     @Override
     public void removed() {
-        // removed() also runs for disconnects, death screens, and replacement by another GUI.
+        // The device, not this GUI, owns Chromium while a projector or speaker still needs it.
         if (browser != null) {
-            RinkuBrowser closing = browser;
+            unfocusBrowser();
+            SchoolBrowserSessions.release(session);
+            session = null;
             browser = null;
             heldKeys.clear();
             heldMouseButtons = 0;
-            try {
-                if (Rinku.isInitialized() && closing.isValid()) closing.setFocus(false);
-                closing.close();
-            } catch (RuntimeException | LinkageError failure) {
-                LSMMod.LOGGER.warn("Could not finish closing the school PC browser", failure);
-            }
         }
         super.removed();
     }

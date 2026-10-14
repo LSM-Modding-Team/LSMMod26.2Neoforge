@@ -15,7 +15,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-/** Open decorative laptop. No inventory, sound or interaction behavior yet. */
+/** Open laptop; the client media controller supplies its browser and external outputs. */
 public class LaptopBlock extends Block {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     private static final VoxelShape[] SHAPES = new VoxelShape[4];

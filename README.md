@@ -4,7 +4,7 @@ Mod de NeoForge ambientado en el colegio Libertador San Martín, con mobiliario,
 
 Minecraft **26.2** · NeoForge **26.2.0.88** · Java **25**. Fusion **1.3.16** es obligatorio en el cliente; Jade es opcional.
 
-Navegador opcional para la PC: instala [Rinku 3.0.4 para NeoForge 26.2](https://modrinth.com/mod/rinku/version/uQ2Zmf4D) en el cliente. Clic derecho con ambas manos vacías sobre una PC o una mesa con PC instalada abre Chromium dentro de Minecraft; Shift conserva la retirada de la PC. Rinku descarga su runtime nativo al iniciar por primera vez. Esta primera versión usa una interfaz local; el monitor del mundo mantiene su textura estática. Compilación y prueba en juego pendientes. [Contrato y límites](docs/BLOCK_SPECS.md#pc-navegador-opcional).
+Navegador opcional para PC/laptops: instala [Rinku 3.0.4 para NeoForge 26.2](https://modrinth.com/mod/rinku/version/uQ2Zmf4D) en el cliente. Admite proyección en pantallas y audio en parlantes mediante conexiones con Ctrl + clic derecho. Rinku descarga su runtime nativo al iniciar por primera vez. Las sesiones web son locales a cada cliente. Compilación y prueba en juego pendientes. [Uso y límites](docs/BLOCK_SPECS.md#pc-navegador-opcional).
 
 Para continuar con Codex: [START_HERE.md](START_HERE.md). Para crear modelos y texturas: [docs/ASSETS.md](docs/ASSETS.md). Estado y pendientes: [docs/ROADMAP.md](docs/ROADMAP.md).
 
