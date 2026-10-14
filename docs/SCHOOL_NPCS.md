@@ -17,6 +17,23 @@ Cadencia base 20 ticks; AttackSpeed produce 27/23/20/18/16 ticks. Percepción ba
 
 Student testigo solo responde a una agresión visible a otro Student de su mismo nivel/grado; ambos deben ser visibles. Teacher puede presenciar agresiones de cualquier salón. Set exacto fake_school_haircut/uniform_polo/uniform_pants/uniform_shoes lo vuelve neutral salvo agresión presenciada; observa cambios de ropa solo con visión y mantiene memoria individual. No atacan creativo/espectador; notInPeaceful impide spawn y elimina entidades al pasar a pacífico. Sin aparición natural ni límites de zona todavía.
 
+## Atracción al parlante
+
+Teacher investiga la fuente activa más cercana en un cilindro de **20 bloques
+horizontales y ±6 verticales**, independiente de Percepción y sin exigir visión
+directa. `InvestigateSpeakerGoal` tiene prioridad sobre melee/paseo; flotar conserva
+prioridad. Usa navegación vanilla, recalculando la ruta cada diez ticks o cuando
+la fuente se desplaza más de un bloque. Se detiene cerca y espera mientras suena.
+Sigue al item tirado o guardado en contenedor y conserva las memorias de agresividad;
+al terminar la música o salir de rango vuelve al comportamiento habitual.
+
+Si un jugador sostiene el parlante en la mano principal/secundaria, conserva el
+combate habitual. Atacar directamente al profesor durante el clip también cancela
+la distracción hasta terminar ese fragmento: responde al atacante. Incluye cuerpo
+a cuerpo y proyectiles, pero no solo presenciar ataques contra otros NPC. La
+excepción pertenece al clip actual y no pasa a la siguiente reproducción del mismo
+parlante. Student conserva sus objetivos. Pendiente de prueba en Minecraft.
+
 ## Tamaño y arte
 
 Width/Height: enteros independientes 1–16, ausencia=14, guardados/sincronizados; no se sortean ni son stats. Escala visual de 0.5 en 1, 0.9375 en 14 y 1 en 16, por tramos. Width modifica X/Z y Height Y, con pies en el suelo y equipo incluido. Colisión: 0.3×0.975, 0.6×1.8 y 0.64×2.0 en esos niveles. `getDefaultDimensions` conserva SCALE vanilla; cambios refrescan caja/ojos y navegación. Escala el mesh, no dupliques PNG/modelos por tamaño.

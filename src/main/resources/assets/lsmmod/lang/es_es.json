@@ -367,5 +367,6 @@
   "block.lsmmod.auditorium_stage": "Estrado del auditorio",
   "item.lsmmod.school_laboratory_tile_paint": "Pintura de baldosas del laboratorio",
   "item.lsmmod.laboratory_table_tile_paint": "Pintura de baldosas de mesa del laboratorio",
-  "item.lsmmod.auditorium_parquet_paint": "Pintura de parquet del auditorio"
+  "item.lsmmod.auditorium_parquet_paint": "Pintura de parquet del auditorio",
+  "item.lsmmod.portable_speaker": "Parlante portátil"
 }

@@ -16,6 +16,7 @@ import net.nicomar2009.lsmmod.item.RulerItem;
 import net.nicomar2009.lsmmod.item.SchoolUniformItem;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.nicomar2009.lsmmod.item.InstrumentItem;
+import net.nicomar2009.lsmmod.item.PortableSpeakerItem;
 
 /** Item registry for the school blocks; standalone items are planned. */
 public final class ModItems {
@@ -419,6 +420,9 @@ public final class ModItems {
 
     public static final DeferredItem<BlockItem> TALL_SPEAKER =
             ITEMS.registerSimpleBlockItem(ModBlocks.TALL_SPEAKER);
+
+    public static final DeferredItem<Item> PORTABLE_SPEAKER =
+            ITEMS.registerItem("portable_speaker", PortableSpeakerItem::new);
 
     public static final DeferredItem<BlockItem> DRINKING_FOUNTAIN =
             ITEMS.registerSimpleBlockItem(ModBlocks.DRINKING_FOUNTAIN);
