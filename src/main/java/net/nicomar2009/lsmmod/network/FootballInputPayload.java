@@ -8,7 +8,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.nicomar2009.lsmmod.LSMMod;
-import net.nicomar2009.lsmmod.ball.BallEntity;
+import net.nicomar2009.lsmmod.ball.FootballActions;
 
 /** Inputs only: the server owns reach, possession, charge duration and shot physics. */
 public record FootballInputPayload(int ballId, int action, int keys, float yaw, float pitch) implements CustomPacketPayload {
@@ -29,8 +29,8 @@ public record FootballInputPayload(int ballId, int action, int keys, float yaw, 
             if (!(context.player() instanceof ServerPlayer player) || !player.isAlive() || player.isSpectator()
                     || input.keys < 0 || input.keys > 15 || input.action < START || input.action > FOLLOW + 2
                     || !Float.isFinite(input.yaw) || !Float.isFinite(input.pitch) || Math.abs(input.pitch) > 90) return;
-            if (player.level().getEntity(input.ballId) instanceof BallEntity ball)
-                ball.footballInput(player, input.action, input.keys, input.yaw, input.pitch);
+            // Keep the existing wire field, but select the ball on the server at release time.
+            FootballActions.input(player, input.action, input.keys, input.yaw, input.pitch);
         });
     }
 }

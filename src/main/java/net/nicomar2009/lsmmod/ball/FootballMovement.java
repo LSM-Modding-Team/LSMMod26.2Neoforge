@@ -15,7 +15,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.nicomar2009.lsmmod.LSMMod;
 import net.nicomar2009.lsmmod.rules.FootballRules;
 
-/** Temporary movement modifier; expires even when its ball unloads or is picked up. */
+/** Temporary movement modifier, refreshed by the player's preparation and never saved. */
 @EventBusSubscriber(modid = LSMMod.MOD_ID)
 public final class FootballMovement {
     private static final Identifier MODIFIER = Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "football_charge");

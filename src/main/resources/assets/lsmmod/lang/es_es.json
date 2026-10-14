@@ -403,5 +403,8 @@
   "message.lsmmod.football_side_none": "Sin curva lateral",
   "message.lsmmod.football_top_front": "Caída ↓",
   "message.lsmmod.football_top_back": "Sustentación ↑",
-  "message.lsmmod.football_top_none": "Sin giro vertical"
+  "message.lsmmod.football_top_none": "Sin giro vertical",
+  "message.lsmmod.football_volley": "Volea: %s%% de potencia",
+  "message.lsmmod.football_header": "Cabeceo: %s%% de potencia",
+  "message.lsmmod.football_chest": "Control de pecho"
 }

@@ -1,6 +1,5 @@
 package net.nicomar2009.lsmmod.client;
 
-import java.util.Comparator;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
@@ -13,7 +12,6 @@ import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.nicomar2009.lsmmod.LSMMod;
-import net.nicomar2009.lsmmod.ball.BallEntity;
 import net.nicomar2009.lsmmod.network.FootballInputPayload;
 import net.nicomar2009.lsmmod.rules.FootballRules;
 import org.lwjgl.glfw.GLFW;
@@ -22,9 +20,8 @@ import org.lwjgl.glfw.GLFW;
 public final class FootballInput {
     private static final KeyMapping.Category CATEGORY = new KeyMapping.Category(Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "football"));
     private static final KeyMapping SHOOT = new KeyMapping("key.lsmmod.football_shoot", KeyConflictContext.IN_GAME,
-            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_K, CATEGORY);
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_X, CATEGORY);
     private static boolean wasDown, charging;
-    private static BallEntity target;
     private static int followSample;
 
     @SubscribeEvent public static void register(RegisterKeyMappingsEvent event) {
@@ -36,24 +33,17 @@ public final class FootballInput {
         if (minecraft.player == null || minecraft.level == null) { reset(); return; }
         if (minecraft.gui.screen() != null || !minecraft.player.isAlive() || minecraft.player.isSpectator()
                 || !minecraft.isWindowActive() || minecraft.isPaused()) {
-            if (charging && target != null) send(minecraft, FootballInputPayload.CANCEL);
+            if (charging || followSample > 0) send(minecraft, FootballInputPayload.CANCEL);
             reset(); wasDown = SHOOT.isDown(); return;
         }
         boolean down = SHOOT.isDown();
-        if (target != null && (target.isRemoved() || target.level() != minecraft.level)) {
-            if (charging) send(minecraft, FootballInputPayload.CANCEL);
-            target = null; charging = false; followSample = 0;
-        }
         // Complete the previous strike before accepting another charge.
-        if (followSample > 0 && target != null) {
+        if (followSample > 0) {
             send(minecraft, FootballInputPayload.FOLLOW + followSample - 1);
-            if (++followSample > FootballRules.FOLLOW_TICKS) { followSample = 0; target = null; }
+            if (++followSample > FootballRules.FOLLOW_TICKS) followSample = 0;
         } else if (down && !wasDown) {
-            target = minecraft.level.getEntitiesOfClass(BallEntity.class, minecraft.player.getBoundingBox().inflate(1.8),
-                    ball -> ball.kind() == net.nicomar2009.lsmmod.ball.BallKind.FOOTBALL && ball.isAtFeet(minecraft.player))
-                    .stream().min(Comparator.comparingDouble(ball -> ball.distanceToSqr(minecraft.player))).orElse(null);
-            if (target != null) { charging = true; send(minecraft, FootballInputPayload.START); }
-        } else if (charging && target != null) {
+            charging = true; send(minecraft, FootballInputPayload.START);
+        } else if (charging) {
             if (down) {
                 send(minecraft, FootballInputPayload.HOLD);
             } else {
@@ -68,8 +58,8 @@ public final class FootballInput {
                 | (minecraft.options.keyDown.isDown() ? FootballRules.BACKWARD : 0)
                 | (minecraft.options.keyLeft.isDown() ? FootballRules.LEFT : 0)
                 | (minecraft.options.keyRight.isDown() ? FootballRules.RIGHT : 0);
-        ClientPacketDistributor.sendToServer(new FootballInputPayload(target.getId(), action, keys,
+        ClientPacketDistributor.sendToServer(new FootballInputPayload(-1, action, keys,
                 minecraft.player.getYRot(), minecraft.player.getXRot()));
     }
-    private static void reset() { wasDown = false; charging = false; target = null; followSample = 0; }
+    private static void reset() { wasDown = false; charging = false; followSample = 0; }
 }

@@ -409,5 +409,8 @@
   "message.lsmmod.football_side_none": "No side spin",
   "message.lsmmod.football_top_front": "Dip ↓",
   "message.lsmmod.football_top_back": "Lift ↑",
-  "message.lsmmod.football_top_none": "No vertical spin"
+  "message.lsmmod.football_top_none": "No vertical spin",
+  "message.lsmmod.football_volley": "Volley: %s%% power",
+  "message.lsmmod.football_header": "Header: %s%% power",
+  "message.lsmmod.football_chest": "Chest control"
 }

@@ -38,7 +38,7 @@ public final class ModEntities {
     public static final Supplier<EntityType<net.nicomar2009.lsmmod.ball.BallEntity>> VOLLEYBALL_BALL = ball("volleyball_ball");
     private static Supplier<EntityType<net.nicomar2009.lsmmod.ball.BallEntity>> ball(String name) {
         return ENTITIES.registerEntityType(name, net.nicomar2009.lsmmod.ball.BallEntity::new,
-                MobCategory.MISC, builder -> builder.sized(0.5F, 0.5F).clientTrackingRange(8).updateInterval(1));
+                MobCategory.MISC, builder -> builder.sized(0.5F, 0.5F).clientTrackingRange(name.equals("football_ball") ? 16 : 8).updateInterval(1));
     }
 
     private ModEntities() {

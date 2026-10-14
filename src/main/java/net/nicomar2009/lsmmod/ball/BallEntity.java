@@ -26,7 +26,6 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.nicomar2009.lsmmod.registry.ModEntities;
 import net.nicomar2009.lsmmod.block.SportsGoalBlock;
-import net.nicomar2009.lsmmod.network.FootballInputPayload;
 import net.nicomar2009.lsmmod.rules.FootballRules;
 
 /** One persistent ball has two modes, so an impact never duplicates the inventory item. */
@@ -40,13 +39,11 @@ public final class BallEntity extends Entity implements ItemSupplier {
     private double travelledDistance;
     private UUID owner;
     private int flightTicks, hitCooldown, pushCooldown;
-    private UUID dribbler, chargingPlayer;
-    private long chargeStart, lastChargeInput, shotTime;
-    private long lastSpinTick;
-    private int chargeKeys, lastFollowSample, shotCooldown;
+    private UUID dribbler;
+    private long shotTime;
+    private int lastFollowSample, shotCooldown;
     private double shotCharge;
     private FootballRules.Spin spin = new FootballRules.Spin(0, 0);
-    private FootballRules.Spin preparedSpin = new FootballRules.Spin(0, 0);
     public BallEntity(EntityType<? extends BallEntity> type, Level level) { super(type, level); }
     public BallKind kind() {
         if (getType() == ModEntities.FOOTBALL_BALL.get()) return BallKind.FOOTBALL;
@@ -60,8 +57,11 @@ public final class BallEntity extends Entity implements ItemSupplier {
     @Override public ItemStack getItem() { return new ItemStack(kind().item()); }
     @Override public boolean isPickable() { return true; }
     @Override public boolean isPushable() { return kind() != BallKind.FOOTBALL && !entityData.get(PROJECTILE); }
+    @Override public boolean shouldRenderAtSqrDistance(double distance) {
+        return super.shouldRenderAtSqrDistance(kind() == BallKind.FOOTBALL ? distance / 4.0 : distance);
+    }
     public void launch(Player player, Vec3 direction) {
-        cancelCharge(); dribbler = null; clearFootballShot();
+        dribbler = null; clearFootballShot();
         owner = player.getUUID(); flightTicks = 0; travelledDistance = 0; entityData.set(PROJECTILE, true);
         setDeltaMovement(direction.normalize().scale(kind().projectileSpeed / 20.0));
     }
@@ -75,7 +75,7 @@ public final class BallEntity extends Entity implements ItemSupplier {
     @Override public InterpolationHandler getInterpolation() { return interpolation; }
     public float heading() { return entityData.get(HEADING); }
 
-    /** Feet-level reach is shared with client target selection, never general attack reach. */
+    /** Slow-ball reach for dribbling, separate from aerial strikes and general attack reach. */
     public boolean isAtFeet(Player player) {
         double height = getY() - player.getY();
         return kind() == BallKind.FOOTBALL && !isRemoved() && !entityData.get(PROJECTILE)
@@ -94,77 +94,69 @@ public final class BallEntity extends Entity implements ItemSupplier {
         return true;
     }
 
-    private boolean canCharge(Player player) {
-        return isAtFeet(player) && shotCooldown == 0 && clearFeetPath(player)
-                && (dribbler == null || dribbler.equals(player.getUUID()));
+    public FootballRules.Strike strikeKind(Player player) {
+        if (kind() != BallKind.FOOTBALL || isRemoved() || !player.isAlive() || player.isSpectator()
+                || player.isPassenger() || player.getAbilities().flying
+                || (shotCooldown > 0 && player.getUUID().equals(owner)) || !clearFeetPath(player)) return FootballRules.Strike.NONE;
+        Vec3 offset = getBoundingBox().getCenter().subtract(player.position());
+        double bodyHeight = Math.max(0.5, player.getBoundingBox().maxY - player.getBoundingBox().minY);
+        var kind = FootballRules.strike(offset.horizontalDistance(), offset.y / bodyHeight, onGround());
+        if (kind == FootballRules.Strike.GROUND && dribbler != null && !player.getUUID().equals(dribbler)
+                && offset.horizontalDistanceSqr() > 0.65 * 0.65) return FootballRules.Strike.NONE;
+        if (kind != FootballRules.Strike.GROUND && offset.horizontalDistanceSqr() > 0.55 * 0.55
+                && player.getLookAngle().multiply(1, 0, 1).normalize().dot(offset.multiply(1, 0, 1).normalize()) < -0.20)
+            return FootballRules.Strike.NONE;
+        return kind;
     }
 
-    public void footballInput(ServerPlayer player, int action, int keys, float yaw, float pitch) {
-        if (kind() != BallKind.FOOTBALL || isRemoved()) return;
-        long now = level().getGameTime();
-        if (action >= FootballInputPayload.FOLLOW) {
-            int sample = action - FootballInputPayload.FOLLOW + 1;
-            if (!entityData.get(FOOTBALL_SHOT) || !player.getUUID().equals(owner) || sample != lastFollowSample + 1
-                    || now - shotTime > FootballRules.FOLLOW_TICKS || now < shotTime) return;
-            spin = spin.add(FootballRules.spin(keys, sample)).bounded(); lastFollowSample = sample;
-            return;
-        }
-        if (action == FootballInputPayload.START) {
-            if (chargingPlayer != null || !canCharge(player)) return;
-            clearFootballShot(); chargingPlayer = player.getUUID(); chargeStart = now; lastChargeInput = now;
-            preparedSpin = new FootballRules.Spin(0, 0); lastSpinTick = now;
-            chargeKeys = keys; dribbler = player.getUUID(); FootballMovement.charging(player, 0); showCharge(player, now); return;
-        }
-        if (!player.getUUID().equals(chargingPlayer)) return;
-        if (action == FootballInputPayload.CANCEL) { cancelCharge(); return; }
-        if (!canCharge(player) || now - lastChargeInput > 10) { cancelCharge(); return; }
-        accumulateSpin(now);
-        if (action == FootballInputPayload.HOLD) { lastChargeInput = now; chargeKeys = keys; return; }
-        if (action != FootballInputPayload.RELEASE) return;
-        long held = now - chargeStart;
-        chargingPlayer = null; dribbler = null; owner = player.getUUID(); shotTime = now; lastFollowSample = 0;
-        shotCooldown = 8; pushCooldown = 8; spin = FootballRules.releaseSpin(preparedSpin, keys);
-        shotCharge = FootballRules.charge(held); entityData.set(FOOTBALL_SHOT, true); FootballMovement.released(player, held);
+    public void strike(ServerPlayer player, long held, FootballRules.Spin prepared, float yaw, float pitch) {
+        var kind = strikeKind(player);
+        if (kind == FootballRules.Strike.NONE) return;
+        toy(); dribbler = null; owner = player.getUUID(); shotTime = level().getGameTime(); lastFollowSample = 0;
+        shotCooldown = 8; pushCooldown = 8; hitCooldown = 0; spin = prepared;
+        shotCharge = FootballRules.charge(held); entityData.set(FOOTBALL_SHOT, true);
         double yawRadians = Math.toRadians(yaw), pitchRadians = Math.toRadians(pitch);
         Vec3 look = new Vec3(-Math.sin(yawRadians) * Math.cos(pitchRadians), -Math.sin(pitchRadians),
                 Math.cos(yawRadians) * Math.cos(pitchRadians));
         Vec3 eye = player.getEyePosition(), end = eye.add(look.scale(64));
         Vec3 target = level().clip(new ClipContext(eye, end, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, player)).getLocation();
         Vec3 center = getBoundingBox().getCenter();
-        var direction = FootballRules.aimDirection(center.x, center.y, center.z, target.x, target.y, target.z);
+        var direction = FootballRules.aimDirection(center.x, center.y, center.z, target.x, target.y, target.z, kind == FootballRules.Strike.GROUND);
         Vec3 aim = new Vec3(direction.x(), direction.y(), direction.z());
         if (aim.lengthSqr() < 0.000001) aim = new Vec3(-Math.sin(yawRadians), 0, Math.cos(yawRadians));
-        setDeltaMovement(aim.scale(FootballRules.shotSpeed(held))); hurtMarked = true;
-        player.sendOverlayMessage(Component.translatable("message.lsmmod.football_shot", (int) Math.round(FootballRules.charge(held) * 100)));
+        setDeltaMovement(aim.scale(FootballRules.shotSpeed(held) * FootballRules.strikePower(kind))); hurtMarked = true;
+        String message = kind == FootballRules.Strike.HEADER ? "football_header" : kind == FootballRules.Strike.VOLLEY ? "football_volley" : "football_shot";
+        player.sendOverlayMessage(Component.translatable("message.lsmmod." + message, (int) Math.round(shotCharge * 100)));
+    }
+
+    public void followThrough(ServerPlayer player, int sample, int keys) {
+        long now = level().getGameTime();
+        if (!entityData.get(FOOTBALL_SHOT) || !player.getUUID().equals(owner) || sample != lastFollowSample + 1
+                || now - shotTime > FootballRules.FOLLOW_TICKS || now < shotTime) return;
+        spin = spin.add(FootballRules.spin(keys, sample)).bounded(); lastFollowSample = sample;
     }
 
     private void clearFootballShot() {
         entityData.set(FOOTBALL_SHOT, false); spin = new FootballRules.Spin(0, 0);
     }
 
-    private void accumulateSpin(long now) {
-        // Server ticks, not packet count, determine how long a direction was held.
-        for (long tick = lastSpinTick + 1; tick <= now; tick++)
-            preparedSpin = FootballRules.buildSpin(preparedSpin, chargeKeys, tick - chargeStart);
-        lastSpinTick = now;
-    }
-
-    private void cancelCharge() {
-        if (chargingPlayer != null && level() instanceof ServerLevel server
-                && server.getEntity(chargingPlayer) instanceof ServerPlayer player) {
-            FootballMovement.cancel(player);
-            player.sendOverlayMessage(Component.translatable("message.lsmmod.football_cancelled"));
-        }
-        chargingPlayer = null;
-    }
-
-    private void showCharge(ServerPlayer player, long now) {
-        int percent = (int) Math.round(FootballRules.charge(now - chargeStart) * 100), filled = percent / 10;
-        FootballRules.Spin preview = FootballRules.releaseSpin(preparedSpin, chargeKeys);
-        player.sendOverlayMessage(Component.translatable("message.lsmmod.football_charge",
-                "▰".repeat(filled) + "▱".repeat(10 - filled), percent,
-                Component.translatable("message.lsmmod.football_side_" + (preview.side() < 0 ? "left" : preview.side() > 0 ? "right" : "none")),
-                Component.translatable("message.lsmmod.football_top_" + (preview.top() < 0 ? "back" : preview.top() > 0 ? "front" : "none"))));
+    private boolean chestControl(Player player, Vec3 motion) {
+        if (!player.isAlive() || player.isSpectator() || player.isPassenger() || player.getAbilities().flying
+                || hitCooldown > 0
+                || (shotCooldown > 0 && player.getUUID().equals(owner))) return false;
+        Vec3 center = getBoundingBox().getCenter(), offset = center.subtract(player.position()).multiply(1, 0, 1);
+        double bodyHeight = Math.max(0.5, player.getBoundingBox().maxY - player.getBoundingBox().minY);
+        double yaw = Math.toRadians(player.getYRot());
+        Vec3 facing = new Vec3(-Math.sin(yaw), 0, Math.cos(yaw));
+        Vec3 relative = motion.subtract(player.getKnownMovement());
+        double front = offset.lengthSqr() <= 0.0001 ? 1 : facing.dot(offset.normalize());
+        if (!FootballRules.canChest((center.y - player.getY()) / bodyHeight, offset.length(), front,
+                relative.dot(offset.normalize()), relative.y)) return false;
+        toy(); clearFootballShot(); owner = player.getUUID(); dribbler = player.getUUID(); hitCooldown = 10; pushCooldown = 4;
+        hurtMarked = true;
+        if (player instanceof ServerPlayer serverPlayer && !FootballActions.isCharging(player))
+            serverPlayer.sendOverlayMessage(Component.translatable("message.lsmmod.football_chest"));
+        return true;
     }
 
     private boolean canDribble(Player player) {
@@ -180,15 +172,6 @@ public final class BallEntity extends Entity implements ItemSupplier {
 
     private void updateFootball(ServerLevel server) {
         if (shotCooldown > 0) shotCooldown--;
-        long now = level().getGameTime();
-        if (chargingPlayer != null) {
-            if (!(server.getEntity(chargingPlayer) instanceof ServerPlayer player) || !canCharge(player)
-                    || now - lastChargeInput > 10) cancelCharge();
-            else {
-                accumulateSpin(now); FootballMovement.charging(player, now - chargeStart);
-                if (now % 4 == 0) showCharge(player, now);
-            }
-        }
         if (entityData.get(PROJECTILE) || shotCooldown > 0 || !onGround()
                 || getDeltaMovement().lengthSqr() > FootballRules.CONTROL_SPEED * FootballRules.CONTROL_SPEED) {
             dribbler = null; return;
@@ -196,7 +179,6 @@ public final class BallEntity extends Entity implements ItemSupplier {
         Player player = server.getEntitiesOfClass(Player.class, getBoundingBox().inflate(1.4, 0.4, 1.4), this::canDribble)
                 .stream().min(Comparator.comparingDouble(p -> distanceToSqr(p) - (p.getUUID().equals(dribbler) ? 0.12 : 0))).orElse(null);
         if (player == null) { dribbler = null; return; }
-        if (chargingPlayer != null && !player.getUUID().equals(chargingPlayer)) cancelCharge();
         dribbler = player.getUUID(); clearFootballShot();
         if (pushCooldown > 0) return;
         Vec3 movement = player.getKnownMovement().multiply(1, 0, 1);
@@ -256,7 +238,7 @@ public final class BallEntity extends Entity implements ItemSupplier {
                         : new Vec3(blockedX ? -motion.x * kind.wallBounce : motion.x,
                         blockedY ? (motion.y < -0.10 ? -motion.y * kind.bounce : motion.y > 0 ? -motion.y * kind.wallBounce : 0) : motion.y,
                         blockedZ ? -motion.z * kind.wallBounce : motion.z);
-                if (net) { clearFootballShot(); cancelCharge(); dribbler = null; hurtMarked = true; }
+                if (net) { clearFootballShot(); dribbler = null; hurtMarked = true; }
                 else if (entityData.get(FOOTBALL_SHOT) && (blockedX || blockedZ || requested.y > 0)) spin = spin.decay(0.45);
                 if (projectile) { toy(); projectile = false; }
             }
@@ -264,6 +246,13 @@ public final class BallEntity extends Entity implements ItemSupplier {
             setOnGround(groundContact && motion.y <= 0);
             for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class, getBoundingBox().inflate(0.01),
                     e -> e.isAlive() && !e.isSpectator())) {
+                if (kind == BallKind.FOOTBALL && entity instanceof Player player && chestControl(player, motion)) {
+                    double yaw = Math.toRadians(player.getYRot());
+                    Vec3 horizontal = motion.multiply(0.04, 0, 0.04).add(-Math.sin(yaw) * 0.025, 0, Math.cos(yaw) * 0.025);
+                    if (horizontal.lengthSqr() > 0.05 * 0.05) horizontal = horizontal.normalize().scale(0.05);
+                    motion = new Vec3(horizontal.x, -0.06, horizontal.z); projectile = false; groundContact = false;
+                    break;
+                }
                 if (projectile && !entity.getUUID().equals(owner)) {
                     entity.hurtServer(server, damageSources().thrown(this, source(server)), kind.damage(level().getDifficulty(), travelledDistance));
                     motion = motion.scale(-0.35).add(0, kind.kickHeight * 0.5, 0);
@@ -339,7 +328,6 @@ public final class BallEntity extends Entity implements ItemSupplier {
         if (!level().isClientSide() && !isRemoved()) {
             ItemStack item = getItem();
             if (!player.getInventory().add(item)) return InteractionResult.FAIL;
-            cancelCharge();
             discard();
         }
         return InteractionResult.SUCCESS;
@@ -368,7 +356,7 @@ public final class BallEntity extends Entity implements ItemSupplier {
         double savedCharge = input.getDoubleOr("ShotCharge", 1);
         shotCharge = Double.isFinite(savedCharge) ? Math.clamp(savedCharge, 0, 1) : 0;
         // Possession and the input window never survive unloading/rejoining.
-        dribbler = null; chargingPlayer = null; shotTime = Long.MIN_VALUE; lastFollowSample = FootballRules.FOLLOW_TICKS;
+        dribbler = null; shotTime = Long.MIN_VALUE; lastFollowSample = FootballRules.FOLLOW_TICKS;
         try { owner = UUID.fromString(input.getStringOr("Owner", "")); } catch (IllegalArgumentException invalid) { owner = null; }
     }
 }

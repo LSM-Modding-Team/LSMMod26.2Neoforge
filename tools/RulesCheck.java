@@ -65,8 +65,8 @@ public class RulesCheck {
         // Looking south (+Z), rightward spin must bend toward west (-X).
         check("D bends toward the shooter's right", -speed * Math.sin(angle) < 0, true);
         check("curve preserves horizontal kinetic speed", Math.abs(Math.hypot(speed * Math.sin(angle), speed * Math.cos(angle)) - speed) < 0.000001, true);
-        check("W adds dip", FootballRules.lift(speed, FootballRules.spin(FootballRules.FORWARD, 0), 1) < 0, true);
-        check("S adds lift", FootballRules.lift(speed, FootballRules.spin(FootballRules.BACKWARD, 0), 1) > 0, true);
+        check("W now adds lift", FootballRules.lift(speed, FootballRules.spin(FootballRules.FORWARD, 0), 1) > 0, true);
+        check("S now adds dip", FootballRules.lift(speed, FootballRules.spin(FootballRules.BACKWARD, 0), 1) < 0, true);
         check("sprinting exposes the ball farther than walking", FootballRules.touchDistance(true, false) > FootballRules.touchDistance(false, false), true);
         check("crouching keeps the ball closer", FootballRules.touchDistance(false, true) < FootballRules.touchDistance(false, false), true);
         check("sprint touches stay below the controllable speed", FootballRules.touchSpeed(0.28, true, false) < FootballRules.CONTROL_SPEED, true);
@@ -89,6 +89,26 @@ public class RulesCheck {
         check("moving the ball changes direction toward the same crosshair target", !aim.equals(FootballRules.aimDirection(0,.25,1,10,1,0)), true);
         check("targeting ground creates a rolling pass", FootballRules.aimDirection(0,.25,0,10,0,0).y() == 0, true);
         check("a coincident target cannot produce NaN", FootballRules.aimDirection(1,1,1,1,1,1).equals(new FootballRules.Direction(0,0,0)), true);
+        check("an aerial header can aim downward", FootballRules.aimDirection(0,1.7,0,10,.3,0,false).y() < 0, true);
+        check("a low grounded ball uses a normal kick", FootballRules.strike(1.2,.15,true) == FootballRules.Strike.GROUND, true);
+        check("a knee-high incoming ball uses a volley", FootballRules.strike(.7,.35,false) == FootballRules.Strike.VOLLEY, true);
+        check("a chest-high ball can be volleyed when releasing a charge", FootballRules.strike(.7,.65,false) == FootballRules.Strike.VOLLEY, true);
+        check("a head-high ball uses a header", FootballRules.strike(.7,.95,false) == FootballRules.Strike.HEADER, true);
+        check("a ball above header reach cannot be struck", FootballRules.strike(.7,1.30,false) == FootballRules.Strike.NONE, true);
+        check("an airborne ball outside body reach cannot be struck", FootballRules.strike(1.2,.65,false) == FootballRules.Strike.NONE, true);
+        check("a ball below the player's feet cannot be struck", FootballRules.strike(.5,-.1,false) == FootballRules.Strike.NONE, true);
+        check("normal torso arrivals can be cushioned", FootballRules.chestHeight(.60), true);
+        check("head arrivals cannot be cushioned with the chest", FootballRules.chestHeight(.95), false);
+        check("ankle arrivals use dribbling rather than chest control", FootballRules.chestHeight(.15), false);
+        check("headers use less power than volleys", FootballRules.strikePower(FootballRules.Strike.HEADER)
+                < FootballRules.strikePower(FootballRules.Strike.VOLLEY), true);
+        check("a missed strike has no launch power", FootballRules.strikePower(FootballRules.Strike.NONE) == 0, true);
+        check("a frontal torso pass is cushioned", FootballRules.canChest(.60,.5,1,-.8,0), true);
+        check("a descending frontal ball is cushioned", FootballRules.canChest(.60,.5,1,0,-.3), true);
+        check("a departing ball is not pulled back", FootballRules.canChest(.60,.5,1,.8,.1), false);
+        check("a pass from behind is not a chest trap", FootballRules.canChest(.60,.5,-1,-.8,0), false);
+        check("a distant pass cannot be caught remotely", FootballRules.canChest(.60,1.5,1,-.8,0), false);
+        check("a head-high pass cannot be trapped with the chest", FootballRules.canChest(.95,.5,1,-.8,0), false);
 
         var rolling = new FootballRules.Bounds(4.25,0,2.375,4.75,.5,2.875);
         check("regression: the old full-ball probe overlaps the rear floor rail", material(new FootballRules.Bounds(4.25,0,2.376,4.75,.5,2.876),0) == -1, true);

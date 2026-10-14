@@ -19,6 +19,19 @@ public final class FootballRules {
     }
 
     public record Direction(double x, double y, double z) {}
+    public enum Strike { NONE, GROUND, VOLLEY, HEADER }
+
+    public static Strike strike(double distance, double heightRatio, boolean grounded) {
+        if (heightRatio < 0 || heightRatio > 1.25) return Strike.NONE;
+        if (grounded && heightRatio <= 0.45 && distance <= 1.60) return Strike.GROUND;
+        if (distance > 1.0) return Strike.NONE;
+        return heightRatio >= 0.80 ? Strike.HEADER : Strike.VOLLEY;
+    }
+    public static boolean chestHeight(double heightRatio) { return heightRatio >= 0.45 && heightRatio < 0.80; }
+    public static boolean canChest(double heightRatio, double distance, double facing, double approach, double vertical) {
+        return chestHeight(heightRatio) && distance <= 0.80 && facing >= 0.15 && (approach < -0.01 || vertical < -0.025);
+    }
+    public static double strikePower(Strike strike) { return strike == Strike.NONE ? 0 : strike == Strike.HEADER ? 0.70 : 1; }
     public record Bounds(double x0, double y0, double z0, double x1, double y1, double z1) {
         public boolean intersects(Bounds other) {
             return x1 > other.x0 && x0 < other.x1 && y1 > other.y0 && y0 < other.y1 && z1 > other.z0 && z0 < other.z1;
@@ -26,7 +39,11 @@ public final class FootballRules {
     }
 
     public static Direction aimDirection(double ballX, double ballY, double ballZ, double targetX, double targetY, double targetZ) {
-        double x = targetX - ballX, y = Math.max(0, targetY - ballY), z = targetZ - ballZ;
+        return aimDirection(ballX, ballY, ballZ, targetX, targetY, targetZ, true);
+    }
+    public static Direction aimDirection(double ballX, double ballY, double ballZ, double targetX, double targetY, double targetZ, boolean grounded) {
+        double x = targetX - ballX, y = targetY - ballY, z = targetZ - ballZ;
+        if (grounded) y = Math.max(0, y);
         double length = Math.sqrt(x*x + y*y + z*z);
         return length < 0.000001 ? new Direction(0, 0, 0) : new Direction(x/length, y/length, z/length);
     }
@@ -66,7 +83,7 @@ public final class FootballRules {
     public static Spin spin(int keys, int sample) {
         if (sample < 0 || sample > FOLLOW_TICKS) return new Spin(0, 0);
         double side = ((keys & RIGHT) != 0 ? 1 : 0) - ((keys & LEFT) != 0 ? 1 : 0);
-        double top = ((keys & FORWARD) != 0 ? 1 : 0) - ((keys & BACKWARD) != 0 ? 1 : 0);
+        double top = ((keys & BACKWARD) != 0 ? 1 : 0) - ((keys & FORWARD) != 0 ? 1 : 0);
         double divisor = Math.max(1, Math.hypot(side, top));
         return new Spin(side / divisor * FOLLOW_WEIGHTS[sample], top / divisor * FOLLOW_WEIGHTS[sample]);
     }
