@@ -54,8 +54,28 @@ def main():
     joined=[]
     for row,(half,mask) in enumerate((('bottom',11),(None,27),('top',19))):
         if half:add(joined,[{'elements':stair_scene(half=half,paint=9,mask=mask)}],(0,row*16,0))
-        else:add(joined,load(json.loads((A/'blockstates/school_glass.json').read_text())['multipart'][-4]['apply']['model'],mask=27),(0,row*16,0))
+        else:
+            panes=load(json.loads((A/'blockstates/school_glass.json').read_text())['multipart'][-4]['apply']['model'],mask=27)
+            for model in panes:
+                for element in model.get('elements',[]):
+                    for face in ('up','down'):
+                        if element['faces'].get(face,{}).get('cullface')==face:element['faces'].pop(face)
+            add(joined,panes,(0,row*16,0))
     origin,scale=framing(joined,size=(480,700))
     render(joined,origin,scale,size=(480,700),azimuth=-65,elevation=12,minecraft_orientation=True).save(preview_path(ID+'_joins_review.png'))
+
+    from check_horizontal_glazing import layouts
+    panels=[]
+    for half in ('bottom','top'):
+        row=[]
+        for column,mask in enumerate(layouts(4)):
+            add(row,[{'elements':stair_scene(half=half,mask=mask,paint=4)}],(column*16,0,0))
+        panels.append(row)
+    review=Image.new('RGB',(1000,700),(194,194,194));labels=ImageDraw.Draw(review)
+    for index,elements in enumerate(panels):
+        origin,scale=framing(elements,size=(1000,320))
+        review.paste(render(elements,origin,scale,size=(1000,320),azimuth=-65,elevation=20,minecraft_orientation=True),(0,index*350+25))
+        labels.text((10,index*350+5),'Fila conectada / '+('normal' if index==0 else 'invertida'),fill=(25,25,25))
+    review.save(preview_path(ID+'_horizontal_review.png'))
 
 if __name__=='__main__':main()

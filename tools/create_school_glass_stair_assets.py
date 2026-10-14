@@ -16,7 +16,7 @@ QUARTERS={'straight':[(0,0),(1,0)],'outer_left':[(0,0)],'outer_right':[(1,0)],
 def glass_parts(half,shape,mask):
  low,high=(8,16) if half=='bottom' else (0,8)
  bottom,top=bool(mask&16),bool(mask&8)
- if shape=='straight':return glazing(mask&7,low,high,bottom,top,[])
+ if shape=='straight':return repair_glass_caps(glazing(mask&7,low,high,bottom,top,[]),mask)
  parts=[]
  for zrow in (0,1):
   xs=[x for x,z in QUARTERS[shape] if z==zrow]
@@ -34,7 +34,22 @@ def glass_parts(half,shape,mask):
    s['uv']={'north':[16-hi[0],16-hi[1],16-lo[0],16-lo[1]],'south':[lo[0],16-hi[1],hi[0],16-lo[1]],
     'east':[16-hi[2],16-hi[1],16-lo[2],16-lo[1]],'west':[lo[2],16-hi[1],hi[2],16-lo[1]],
     'up':[lo[0],lo[2],hi[0],hi[2]],'down':[16-hi[0],lo[2],16-lo[0],hi[2]]}[face]
- return opaque+transparent
+ return repair_glass_caps(opaque+transparent,mask)
+
+def repair_glass_caps(elements,mask):
+ # Whole-block side culling is disabled to keep carved slab faces visible. Remove
+ # only the transparent caps at real glazing joins, retaining opaque frame faces.
+ result=[]
+ for element in elements:
+  for face,surface in list(element['faces'].items()):
+   if surface['texture']!='#glass':continue
+   if (face=='west' and element['from'][0]==0 and not mask&1
+       or face=='east' and element['to'][0]==16 and not mask&2
+       or face=='up' and element['to'][1]==16 and mask&8
+       or face=='down' and element['from'][1]==0 and mask&16):
+    del element['faces'][face]
+  if element['faces']:result.append(element)
+ return result
 
 def retire():
  j=ROOT/'src/main/java/net/nicomar2009/lsmmod'
@@ -57,6 +72,8 @@ def retire():
  for path in (A/'textures/block').glob('school_stair_glass_*.png'):path.unlink()
 
 def main():
+ import shutil
+ shutil.rmtree(A/f'models/block/{ID}',ignore_errors=True)
  retire();multipart=[{'apply':{'model':'lsmmod:block/school_paintable_custom_block'}}];shared={}
  for half,shape in itertools.product(('bottom','top'),QUARTERS):
   selectors=[]

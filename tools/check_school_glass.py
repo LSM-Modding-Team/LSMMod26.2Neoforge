@@ -261,6 +261,14 @@ def check_paintable_stairs():
                 assert all(0<=e['from'][axis]<e['to'][axis]<=16 for axis in range(3))
                 assert (e['from'][1]>=8 if half=='bottom' else e['to'][1]<=8)
                 assert all(0<=uv<=16 for face in e['faces'].values() for uv in face['uv'])
+            if facing=='north':
+                for element in elements:
+                    for face,surface in element['faces'].items():
+                        if surface['texture']!='lsmmod:block/school_glass':continue
+                        assert not (face=='west' and element['from'][0]==0 and not glass_mask&1
+                            or face=='east' and element['to'][0]==16 and not glass_mask&2
+                            or face=='up' and element['to'][1]==16 and glass_mask&8
+                            or face=='down' and element['from'][1]==0 and glass_mask&16),(half,shape,glass_mask,face,'internal glass cap')
             # Frame inner faces remain visible through glass, with rails removed only at joins.
             if shape=='straight' and facing=='north':
                 for face,x in (('east',1),('west',15)):
