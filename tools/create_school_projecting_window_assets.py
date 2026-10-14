@@ -290,4 +290,62 @@ def main():
     layout_models()
 
 
-if __name__ == '__main__': main()
+SLAB_ID='school_paintable_projecting_window_slab'
+
+
+def slab_pane_models(opened=False):
+    parts=[([0,8,14,1,16,16],'frame'),([15,8,14,16,16,16],'frame'),
+           ([1,8,14,15,9,16],'frame'),([1,15,14,15,16,16],'frame'),([1,9,14,15,15,16],'glass')]
+    layers={}
+    for layer,material in (('solid','frame'),('translucent','glass')):
+        source=solid_model([p for p in parts if p[1]=='frame'] if material=='frame' else parts)
+        elements=[e for e in source['elements'] if next(iter(e['faces'].values()))['texture']=='#'+material]
+        for element in elements:
+            lo,hi=element['from'],element['to']
+            for face,surface in element['faces'].items():
+                surface['uv']={'north':[16-hi[0],16-hi[1],16-lo[0],16-lo[1]],'south':[lo[0],16-hi[1],hi[0],16-lo[1]],
+                    'west':[lo[2],16-hi[1],hi[2],16-lo[1]],'east':[16-hi[2],16-hi[1],16-lo[2],16-lo[1]],
+                    'up':[lo[0],lo[2],hi[0],hi[2]],'down':[16-hi[0],lo[2],16-lo[0],hi[2]]}[face]
+            if opened:element['rotation']={'origin':[8,16,16],'axis':'x','angle':-45,'rescale':False}
+        layers[layer]={'parent':'minecraft:block/block','render_type':'minecraft:'+layer,'textures':TEXTURES,'elements':elements}
+    return layers
+
+
+def slab_models():
+    multipart=[{'apply':{'model':'lsmmod:block/school_paintable_custom_block'}}]
+    for opened in (False,True):
+        groups=[]
+        for layer,value in slab_pane_models(opened).items():
+            name=f'{SLAB_ID}_pane_{int(opened)}_{layer}'
+            write(A/f'models/block/{name}.json',value);groups.append(['lsmmod:block/'+name])
+        name=f'{SLAB_ID}_pane_{int(opened)}'
+        write(A/f'models/block/{name}.json',{'loader':'fusion:model','type':'composite','textures':TEXTURES,'models':groups})
+        for turn,facing in enumerate(('north','east','south','west')):
+            multipart.append({'when':{'facing':facing,'open':str(opened).lower()},'apply':{'model':'lsmmod:block/'+name,'y':turn*90}})
+    write(A/f'blockstates/{SLAB_ID}.json',{'multipart':multipart})
+    write(A/f'models/item/{SLAB_ID}_slab.json',{'parent':'minecraft:block/block','render_type':'minecraft:solid',
+        'textures':{'surface':PAINTS[0],'particle':'#surface'},'elements':[{'from':[0,0,0],'to':[16,8,16],
+        'faces':{face:{'texture':'#surface','uv':[0,0,16,16]} for face in SIDES}}]})
+    write(A/f'models/item/{SLAB_ID}.json',{'loader':'fusion:model','type':'composite','textures':{'particle':PAINTS[0]},
+        'models':[['lsmmod:item/'+SLAB_ID+'_slab'],['lsmmod:block/'+SLAB_ID+'_pane_0']]})
+    basic(SLAB_ID)
+    for filename,entry in (
+        ('ModBlocks.java',f'    public static final DeferredBlock<SchoolSlabProjectingWindowBlock> SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB = BLOCKS.registerBlock("{SLAB_ID}", SchoolSlabProjectingWindowBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).noOcclusion());'),
+        ('ModItems.java','    public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB);')):
+        path=J/'registry'/filename;text=path.read_text()
+        if ' SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB =' not in text:path.write_text(text.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
+    path=J/'registry/ModBlockEntities.java';text=path.read_text()
+    if ' SCHOOL_SLAB_PROJECTING_WINDOW_PAINT =' not in text:
+        entry='    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolSlabProjectingWindowPaintEntity>> SCHOOL_SLAB_PROJECTING_WINDOW_PAINT = BLOCK_ENTITIES.register("school_slab_projecting_window_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolSlabProjectingWindowPaintEntity::new, ModBlocks.SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB.get()));\n\n'
+        path.write_text(text.replace('    // Only the LEFT half',entry+'    // Only the LEFT half',1))
+    for locale,label in (('es_es','Losa pintable con ventana proyectante'),('en_us','Paintable Slab with Projecting Window')):
+        path=A/f'lang/{locale}.json';data=json.loads(path.read_text());data['block.lsmmod.'+SLAB_ID]=label;write(path,data)
+    path=D/'minecraft/tags/block/mineable/pickaxe.json';data=json.loads(path.read_text())
+    if 'lsmmod:'+SLAB_ID not in data['values']:data['values'].append('lsmmod:'+SLAB_ID)
+    write(path,data)
+
+
+if __name__ == '__main__':
+    import sys
+    if '--slab-only' in sys.argv:slab_models()
+    else:main()

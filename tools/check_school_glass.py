@@ -160,6 +160,58 @@ def check_projecting_layouts():
         assert first=={'type':'lsmmod:projecting_window_layout','key':'fallback','refresh':True}
     print(f'OK: {len(rules)} listed layouts, uniform full coverage, independent controllers, shared half panes; whole-pane renders match all cell fragments closed, open and independently opened, front/back.')
 
+def check_slab_window():
+    import itertools,math
+    from create_school_projecting_window_assets import SLAB_ID,slab_pane_models
+    from render_school_projecting_window import slab_scene,slab_item
+    from create_paintable_school_block import PAINTS
+    from check_custom_paintable_blocks import visible
+    from audit_block_states import audit
+    assert {entry['id']:entry['states'] for entry in audit()}[SLAB_ID]==8
+    for facing,opened in itertools.product(('north','east','south','west'),(False,True)):
+        elements=slab_scene(opened,facing,paint=15)
+        slab=[e for e in elements if any(s['texture']==PAINTS[15] for s in e['faces'].values())]
+        expected={(cube,face) for cube in range(8) for face in ('down','up','north','south','west','east') if visible(0x33,cube,face)}
+        actual={(int(e['from'][0]/8)+2*int(e['from'][1]/8)+4*int(e['from'][2]/8),next(iter(e['faces']))) for e in slab}
+        assert actual==expected and all(e['to'][1]<=8 for e in slab)
+        pane=[e for e in elements if not any(s['texture']==PAINTS[15] for s in e['faces'].values())]
+        assert pane and all(bool(e.get('rotation'))==opened for e in pane)
+        assert {e['render_type'] for e in pane}=={'minecraft:solid','minecraft:translucent'}
+        if opened:
+            origin,axis,angle={'north':([8,16,16],'x',-45),'east':([0,16,8],'z',-45),'south':([8,16,0],'x',45),'west':([16,16,8],'z',45)}[facing]
+            assert all(e['rotation']['origin']==origin and e['rotation']['axis']==axis and e['rotation']['angle']==angle for e in pane)
+
+    closed=slab_pane_models(False);opened=slab_pane_models(True)
+    for layer in closed:
+        assert len(closed[layer]['elements'])==len(opened[layer]['elements'])
+        for original,rotated in zip(closed[layer]['elements'],opened[layer]['elements']):
+            assert {k:v for k,v in rotated.items() if k!='rotation'}==original
+            assert rotated['rotation']=={'origin':[8,16,16],'axis':'x','angle':-45,'rescale':False}
+            assert original['from'][1]>=8 and original['from'][2]==14 and original['to'][2]==16
+            assert all(0<=v<=16 for surface in original['faces'].values() for v in surface['uv'])
+    # Independent rotated corners must all be covered by the quarter-pixel physical boxes.
+    c=math.sqrt(.5);boxes=[]
+    for iy,iz in itertools.product(range(32),range(8)):
+        points=[(16+(y+z)*c,16+(-y+z)*c) for y,z in itertools.product((8+iy*.25-16,8+(iy+1)*.25-16),(14+iz*.25-16,14+(iz+1)*.25-16))]
+        boxes.append((min(p[0] for p in points),min(p[1] for p in points),max(p[0] for p in points),max(p[1] for p in points)))
+    for y,z in itertools.product(range(33),range(9)):
+        dy=8+y*.25-16;dz=14+z*.25-16;py=16+(dy+dz)*c;pz=16+(-dy+dz)*c
+        assert any(b[0]-1e-9<=py<=b[2]+1e-9 and b[1]-1e-9<=pz<=b[3]+1e-9 for b in boxes)
+    assert min(b[0] for b in boxes)>8 and max(b[3] for b in boxes)>16
+    icon=slab_item();assert icon and any(e['to']==[16,8,16] for e in icon)
+    assert any(e['render_type']=='minecraft:translucent' for e in icon)
+    loot=read(D/f'lsmmod/loot_table/blocks/{SLAB_ID}.json')
+    assert loot['pools'][0]['entries'][0]['name']=='lsmmod:'+SLAB_ID
+    java=ROOT/'src/main/java/net/nicomar2009/lsmmod/block'
+    entity=(java/'SchoolSlabProjectingWindowPaintEntity.java').read_text()
+    block=(java/'SchoolSlabProjectingWindowBlock.java').read_text()
+    assert 'extends SchoolPaintableCustomBlockEntity' in entity and 'return 0x33;' in entity
+    assert 'return false;' in entity and 'p[1]' not in entity
+    for contract in ('level.hasChunkAt','level.mayInteract','level.isUnobstructed','Shapes.joinIsNotEmpty','state.cycle(OPEN)','slab.canPaintAt','GEOMETRY.computeIfAbsent'):
+        assert contract in block,contract
+    print('OK: fixed 16x8x16 slab/8px paints, upper 16x8x2 pane and rigid top hinge; eight poses/orientations, original pane materials/UV, quarter-pixel collision coverage and swing preflight, complete item/drop. Static/offline only.')
+
+
 def main():
     names={'school_glass':16,'tall_classroom_entrance':384}
     for name,count in names.items():
@@ -284,6 +336,9 @@ def check_paintable_stairs():
 
 if __name__=='__main__':
     import sys
+    if '--slab-window-only' in sys.argv:
+        check_slab_window()
+        raise SystemExit(0)
     if '--paintable-stairs-only' in sys.argv:
         check_paintable_stairs()
         raise SystemExit(0)
