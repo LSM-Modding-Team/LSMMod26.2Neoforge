@@ -1,4 +1,5 @@
 import net.nicomar2009.lsmmod.rules.FootballRules;
+import net.nicomar2009.lsmmod.block.SportsGoalShapes;
 
 /** Pure gameplay checks; no Minecraft classes, mod compilation or game launch. */
 public class RulesCheck {
@@ -13,6 +14,32 @@ public class RulesCheck {
         }
     }
 
+    static FootballRules.Bounds rotate(FootballRules.Bounds box, int turns) {
+        for (int i = 0; i < turns; i++) box = new FootballRules.Bounds(1-box.z1(),box.y0(),box.x0(),1-box.z0(),box.y1(),box.x1());
+        return box;
+    }
+
+    static int material(FootballRules.Bounds patch, int turns) {
+        boolean net = false;
+        for (int i = 0; i < 162; i++) {
+            int c = i < 144 ? i%8 : 8, r = i < 144 ? i/8%6 : (i-144)%6, d = i < 144 ? i/48 : (i-144)/6;
+            for (double[] box : SportsGoalShapes.RIGID_CELLS[i]) {
+                if (patch.intersects(rotate(new FootballRules.Bounds(c+box[0]/16,r+box[1]/16,d+box[2]/16,
+                        c+box[3]/16,r+box[4]/16,d+box[5]/16),turns))) return -1;
+            }
+            for (double[] box : SportsGoalShapes.NET_CELLS[i]) {
+                net |= patch.intersects(rotate(new FootballRules.Bounds(c+box[0]/16,r+box[1]/16,d+box[2]/16,
+                        c+box[3]/16,r+box[4]/16,d+box[5]/16),turns));
+            }
+        }
+        return net ? 1 : 0;
+    }
+
+    static int contact(FootballRules.Bounds ball, int axis, double incoming, int turns) {
+        int result = material(FootballRules.contactPatch(ball,axis,incoming),turns);
+        return result == 0 ? material(FootballRules.contactFace(ball,axis,incoming),turns) : result;
+    }
+
     public static void main(String[] args) {
         // Football acceptance checks: power limits, foot follow-through and flight direction.
         check("tap is weaker than a charged pass", FootballRules.shotSpeed(0) < FootballRules.shotSpeed(12), true);
@@ -20,29 +47,69 @@ public class RulesCheck {
         check("holding beyond full charge does not add power", FootballRules.shotSpeed(24) == FootballRules.shotSpeed(2400), true);
         check("negative charge cannot lower the tap speed", FootballRules.shotSpeed(-1) == FootballRules.shotSpeed(0), true);
         var right = new FootballRules.Spin(0, 0);
-        for (int sample = 0; sample <= FootballRules.FOLLOW_TICKS; sample++) right = right.add(FootballRules.spin(FootballRules.RIGHT, sample));
+        for (int tick = 1; tick <= 24; tick++) right = FootballRules.buildSpin(right, FootballRules.RIGHT, tick);
+        right = FootballRules.releaseSpin(right, FootballRules.RIGHT);
+        for (int sample = 1; sample <= FootballRules.FOLLOW_TICKS; sample++) right = right.add(FootballRules.spin(FootballRules.RIGHT, sample));
         check("a completed right-foot sweep stays within the spin cap", Math.abs(right.side() - 1) < 0.000001, true);
-        check("the release has more influence than the remaining follow-through", FootballRules.spin(FootballRules.RIGHT, 0).side() > 0.5, true);
+        check("holding movement through the charge contributes most of the spin", right.side() > 0.9, true);
         check("later input cannot steer the shot", FootballRules.spin(15, 4).equals(new FootballRules.Spin(0, 0)), true);
         check("opposing movement keys cancel spin", FootballRules.spin(15, 0).equals(new FootballRules.Spin(0, 0)), true);
         for (int keys = 0; keys < 16; keys++) {
             var sum = new FootballRules.Spin(0, 0);
-            for (int sample = 0; sample <= FootballRules.FOLLOW_TICKS; sample++) sum = sum.add(FootballRules.spin(keys, sample));
+            for (int tick = 1; tick <= 200; tick++) sum = FootballRules.buildSpin(sum, keys, tick);
+            sum = FootballRules.releaseSpin(sum, keys);
+            for (int sample = 1; sample <= FootballRules.FOLLOW_TICKS; sample++) sum = sum.add(FootballRules.spin(keys, sample));
             check("spin cap for keys " + keys, Math.hypot(sum.side(), sum.top()) <= 1.000001, true);
         }
-        double speed = FootballRules.shotSpeed(24), angle = FootballRules.curveAngle(speed, right);
+        double speed = FootballRules.shotSpeed(24), angle = FootballRules.curveAngle(speed, right, 1);
         // Looking south (+Z), rightward spin must bend toward west (-X).
         check("D bends toward the shooter's right", -speed * Math.sin(angle) < 0, true);
         check("curve preserves horizontal kinetic speed", Math.abs(Math.hypot(speed * Math.sin(angle), speed * Math.cos(angle)) - speed) < 0.000001, true);
-        check("W adds dip", FootballRules.lift(speed, FootballRules.spin(FootballRules.FORWARD, 0)) < 0, true);
-        check("S adds lift", FootballRules.lift(speed, FootballRules.spin(FootballRules.BACKWARD, 0)) > 0, true);
+        check("W adds dip", FootballRules.lift(speed, FootballRules.spin(FootballRules.FORWARD, 0), 1) < 0, true);
+        check("S adds lift", FootballRules.lift(speed, FootballRules.spin(FootballRules.BACKWARD, 0), 1) > 0, true);
         check("sprinting exposes the ball farther than walking", FootballRules.touchDistance(true, false) > FootballRules.touchDistance(false, false), true);
         check("crouching keeps the ball closer", FootballRules.touchDistance(false, true) < FootballRules.touchDistance(false, false), true);
         check("sprint touches stay below the controllable speed", FootballRules.touchSpeed(0.28, true, false) < FootballRules.CONTROL_SPEED, true);
         check("the net removes over 90 percent of normal impact energy", FootballRules.NET_REBOUND * FootballRules.NET_REBOUND < 0.1, true);
         check("the net also damps tangential motion", FootballRules.NET_DRAG < 0.25, true);
+        var shortHold = FootballRules.buildSpin(new FootballRules.Spin(0,0), FootballRules.RIGHT, 24);
+        var longHold = shortHold;
+        for (int tick = 25; tick <= 28; tick++) longHold = FootballRules.buildSpin(longHold, FootballRules.RIGHT, tick);
+        check("longer directional hold at high charge creates more spin", longHold.side() > shortHold.side() * 3, true);
+        check("high charge amplifies directional duration more strongly", FootballRules.spinGain(24) > FootballRules.spinGain(12) * 3, true);
+        check("full-charge curl exceeds half-charge curl", FootballRules.curveAngle(speed,right,1) > FootballRules.curveAngle(speed,right,.5) * 3, true);
+        check("charge slowdown increases monotonically", FootballRules.movementScale(24) < FootballRules.movementScale(12)
+                && FootballRules.movementScale(12) < FootballRules.movementScale(0), true);
+        check("full charge leaves about 12 percent movement", Math.abs(FootballRules.movementScale(24)-.12) < .000001, true);
+        check("high charge recovers longer than a tap", FootballRules.recoveryTicks(24) > FootballRules.recoveryTicks(0), true);
+        check("release preserves the slowdown initially", FootballRules.recoveryScale(24,0) == FootballRules.movementScale(24), true);
+        check("movement returns fully at the recovery deadline", FootballRules.recoveryScale(24,FootballRules.recoveryTicks(24)) == 1, true);
+        var aim = FootballRules.aimDirection(0,.25,0,10,1,0);
+        check("a target below the eyes but above the ball requires upward launch", aim.y() > 0, true);
+        check("moving the ball changes direction toward the same crosshair target", !aim.equals(FootballRules.aimDirection(0,.25,1,10,1,0)), true);
+        check("targeting ground creates a rolling pass", FootballRules.aimDirection(0,.25,0,10,0,0).y() == 0, true);
+        check("a coincident target cannot produce NaN", FootballRules.aimDirection(1,1,1,1,1,1).equals(new FootballRules.Direction(0,0,0)), true);
 
-
+        var rolling = new FootballRules.Bounds(4.25,0,2.375,4.75,.5,2.875);
+        check("regression: the old full-ball probe overlaps the rear floor rail", material(new FootballRules.Bounds(4.25,0,2.376,4.75,.5,2.876),0) == -1, true);
+        for (int turns = 0; turns < 4; turns++) {
+            int axis = turns%2 == 0 ? 2 : 0;
+            double incoming = turns == 0 || turns == 3 ? .18 : -.18;
+            check("rolling rear net stops the ball, orientation " + turns,
+                    contact(rotate(rolling,turns),axis,incoming,turns) == 1, true);
+            var post = new FootballRules.Bounds(.3125,0,.375,.8125,.5,.875);
+            check("a direct post hit stays rigid, orientation " + turns,
+                    contact(rotate(post,turns),axis,incoming,turns) == -1, true);
+            var roof = new FootballRules.Bounds(4.25,2.875,1.125,4.75,3.375,1.625);
+            check("the roof net stops a descending ball, orientation " + turns,
+                    contact(rotate(roof,turns),1,-.18,turns) == 1, true);
+            var slope = new FootballRules.Bounds(4.25,2,35.66666666666667/16-.5,4.75,2.5,35.66666666666667/16);
+            check("a corner-first sloped-net impact is soft, orientation " + turns,
+                    contact(rotate(slope,turns),axis,incoming,turns) == 1, true);
+            var side = new FootballRules.Bounds(.625,0,1.5,1.125,.5,2);
+            check("a rolling side-net impact is soft, orientation " + turns,
+                    contact(rotate(side,turns),turns%2 == 0 ? 0 : 2,turns < 2 ? -.18 : .18,turns) == 1, true);
+        }
         System.out.println(total - failures + "/" + total + " checks passed");
         System.exit(failures == 0 ? 0 : 1);
     }

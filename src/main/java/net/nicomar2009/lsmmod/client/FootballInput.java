@@ -25,7 +25,7 @@ public final class FootballInput {
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_K, CATEGORY);
     private static boolean wasDown, charging;
     private static BallEntity target;
-    private static int heldTicks, followSample;
+    private static int followSample;
 
     @SubscribeEvent public static void register(RegisterKeyMappingsEvent event) {
         event.registerCategory(CATEGORY); event.register(SHOOT);
@@ -52,10 +52,10 @@ public final class FootballInput {
             target = minecraft.level.getEntitiesOfClass(BallEntity.class, minecraft.player.getBoundingBox().inflate(1.8),
                     ball -> ball.kind() == net.nicomar2009.lsmmod.ball.BallKind.FOOTBALL && ball.isAtFeet(minecraft.player))
                     .stream().min(Comparator.comparingDouble(ball -> ball.distanceToSqr(minecraft.player))).orElse(null);
-            if (target != null) { charging = true; heldTicks = 0; send(minecraft, FootballInputPayload.START); }
+            if (target != null) { charging = true; send(minecraft, FootballInputPayload.START); }
         } else if (charging && target != null) {
             if (down) {
-                if (++heldTicks % 4 == 0) send(minecraft, FootballInputPayload.HOLD);
+                send(minecraft, FootballInputPayload.HOLD);
             } else {
                 send(minecraft, FootballInputPayload.RELEASE); charging = false; followSample = 1;
             }
@@ -71,5 +71,5 @@ public final class FootballInput {
         ClientPacketDistributor.sendToServer(new FootballInputPayload(target.getId(), action, keys,
                 minecraft.player.getYRot(), minecraft.player.getXRot()));
     }
-    private static void reset() { wasDown = false; charging = false; target = null; heldTicks = 0; followSample = 0; }
+    private static void reset() { wasDown = false; charging = false; target = null; followSample = 0; }
 }

@@ -25,22 +25,27 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.nicomar2009.lsmmod.rules.FootballRules;
 
 /** One item places an 8-wide, 6-high, 3-deep goal and basketball hoop. */
 public class SportsGoalBlock extends Block {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final IntegerProperty CELL = IntegerProperty.create("cell", 0, 161);
-    private static final VoxelShape[][] COLLISION = buildShapes();
+    private static final VoxelShape[][] COLLISION = buildShapes(SportsGoalShapes.CELLS);
+    private static final VoxelShape[][] NET_COLLISION = buildShapes(SportsGoalShapes.NET_CELLS);
+    private static final VoxelShape[][] RIGID_COLLISION = buildShapes(SportsGoalShapes.RIGID_CELLS);
 
     public SportsGoalBlock(Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(CELL, 0));
     }
 
-    private static VoxelShape[][] buildShapes() {
+    private static VoxelShape[][] buildShapes(double[][][] cells) {
         VoxelShape[][] result = new VoxelShape[162][4];
         for (int i = 0; i < 162; i++) {
-            result[i] = SharedChairRotations.horizontal(ExactVoxelShapes.pixels(SportsGoalShapes.CELLS[i]));
+            result[i] = SharedChairRotations.horizontal(ExactVoxelShapes.pixels(cells[i]));
         }
         return result;
     }
@@ -159,7 +164,27 @@ public class SportsGoalBlock extends Block {
     }
 
     /** Tests the actual material at an impact, rather than treating an entire goal cell as net. */
-    public static boolean touchesFootballNet(Level level, AABB impact) {
+    public static boolean touchesFootballNet(Level level, AABB ball, Vec3 requested, boolean blockedX, boolean blockedY, boolean blockedZ) {
+        FootballRules.Bounds bounds = new FootballRules.Bounds(ball.minX, ball.minY, ball.minZ, ball.maxX, ball.maxY, ball.maxZ);
+        double[] motion = {requested.x, requested.y, requested.z};
+        boolean[] blocked = {blockedX, blockedY, blockedZ};
+        boolean net = false;
+        for (int axis = 0; axis < 3; axis++) {
+            if (!blocked[axis] || Math.abs(motion[axis]) < 0.000001) continue;
+            var patch = FootballRules.contactPatch(bounds, axis, motion[axis]);
+            int material = contactMaterial(level, new AABB(patch.x0(), patch.y0(), patch.z0(), patch.x1(), patch.y1(), patch.z1()));
+            if (material == 0) {
+                // A stepped/sloped net may first touch a corner, outside the central patch.
+                var face = FootballRules.contactFace(bounds, axis, motion[axis]);
+                material = contactMaterial(level, new AABB(face.x0(), face.y0(), face.z0(), face.x1(), face.y1(), face.z1()));
+            }
+            if (material < 0) return false;
+            net |= material > 0;
+        }
+        return net;
+    }
+
+    private static int contactMaterial(Level level, AABB impact) {
         boolean net = false;
         // Native boxes span -16..32 pixels: their owning block may be one cell away.
         for (int x = (int) Math.floor(impact.minX) - 1; x <= Math.floor(impact.maxX) + 1; x++)
@@ -170,29 +195,12 @@ public class SportsGoalBlock extends Block {
                     BlockState state = level.getBlockState(pos);
                     if (!(state.getBlock() instanceof SportsGoalBlock)) continue;
                     int index = state.getValue(CELL);
-                    AABB local = nativeBox(impact.move(-x, -y, -z), state.getValue(FACING));
-                    if (intersects(local, SportsGoalShapes.RIGID_CELLS[index])) return false;
-                    net |= intersects(local, SportsGoalShapes.NET_CELLS[index]);
+                    int turn = switch (state.getValue(FACING)) { case EAST -> 1; case SOUTH -> 2; case WEST -> 3; default -> 0; };
+                    VoxelShape contact = Shapes.create(impact.move(-x, -y, -z));
+                    if (Shapes.joinIsNotEmpty(contact, RIGID_COLLISION[index][turn], BooleanOp.AND)) return -1;
+                    net |= Shapes.joinIsNotEmpty(contact, NET_COLLISION[index][turn], BooleanOp.AND);
                 }
-        return net;
-    }
-
-    private static AABB nativeBox(AABB box, Direction facing) {
-        return switch (facing) {
-            case EAST -> new AABB(box.minZ, box.minY, 1 - box.maxX, box.maxZ, box.maxY, 1 - box.minX);
-            case SOUTH -> new AABB(1 - box.maxX, box.minY, 1 - box.maxZ, 1 - box.minX, box.maxY, 1 - box.minZ);
-            case WEST -> new AABB(1 - box.maxZ, box.minY, box.minX, 1 - box.minZ, box.maxY, box.maxX);
-            default -> box;
-        };
-    }
-
-    private static boolean intersects(AABB box, double[][] parts) {
-        for (double[] part : parts) {
-            if (box.maxX > part[0] / 16 && box.minX < part[3] / 16
-                    && box.maxY > part[1] / 16 && box.minY < part[4] / 16
-                    && box.maxZ > part[2] / 16 && box.minZ < part[5] / 16) return true;
-        }
-        return false;
+        return net ? 1 : 0;
     }
 
     @Override

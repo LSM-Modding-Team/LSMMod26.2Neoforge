@@ -20,6 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
@@ -41,8 +42,11 @@ public final class BallEntity extends Entity implements ItemSupplier {
     private int flightTicks, hitCooldown, pushCooldown;
     private UUID dribbler, chargingPlayer;
     private long chargeStart, lastChargeInput, shotTime;
+    private long lastSpinTick;
     private int chargeKeys, lastFollowSample, shotCooldown;
+    private double shotCharge;
     private FootballRules.Spin spin = new FootballRules.Spin(0, 0);
+    private FootballRules.Spin preparedSpin = new FootballRules.Spin(0, 0);
     public BallEntity(EntityType<? extends BallEntity> type, Level level) { super(type, level); }
     public BallKind kind() {
         if (getType() == ModEntities.FOOTBALL_BALL.get()) return BallKind.FOOTBALL;
@@ -102,28 +106,35 @@ public final class BallEntity extends Entity implements ItemSupplier {
             int sample = action - FootballInputPayload.FOLLOW + 1;
             if (!entityData.get(FOOTBALL_SHOT) || !player.getUUID().equals(owner) || sample != lastFollowSample + 1
                     || now - shotTime > FootballRules.FOLLOW_TICKS || now < shotTime) return;
-            spin = spin.add(FootballRules.spin(keys, sample)); lastFollowSample = sample;
+            spin = spin.add(FootballRules.spin(keys, sample)).bounded(); lastFollowSample = sample;
             return;
         }
         if (action == FootballInputPayload.START) {
             if (chargingPlayer != null || !canCharge(player)) return;
             clearFootballShot(); chargingPlayer = player.getUUID(); chargeStart = now; lastChargeInput = now;
-            chargeKeys = keys; dribbler = player.getUUID(); showCharge(player, now); return;
+            preparedSpin = new FootballRules.Spin(0, 0); lastSpinTick = now;
+            chargeKeys = keys; dribbler = player.getUUID(); FootballMovement.charging(player, 0); showCharge(player, now); return;
         }
         if (!player.getUUID().equals(chargingPlayer)) return;
         if (action == FootballInputPayload.CANCEL) { cancelCharge(); return; }
         if (!canCharge(player) || now - lastChargeInput > 10) { cancelCharge(); return; }
+        accumulateSpin(now);
         if (action == FootballInputPayload.HOLD) { lastChargeInput = now; chargeKeys = keys; return; }
         if (action != FootballInputPayload.RELEASE) return;
         long held = now - chargeStart;
         chargingPlayer = null; dribbler = null; owner = player.getUUID(); shotTime = now; lastFollowSample = 0;
-        shotCooldown = 8; pushCooldown = 8; spin = FootballRules.spin(keys, 0); entityData.set(FOOTBALL_SHOT, true);
+        shotCooldown = 8; pushCooldown = 8; spin = FootballRules.releaseSpin(preparedSpin, keys);
+        shotCharge = FootballRules.charge(held); entityData.set(FOOTBALL_SHOT, true); FootballMovement.released(player, held);
         double yawRadians = Math.toRadians(yaw), pitchRadians = Math.toRadians(pitch);
-        // Downward aim becomes a ground pass; upward aim sets the launch elevation.
-        Vec3 aim = new Vec3(-Math.sin(yawRadians) * Math.cos(pitchRadians), Math.max(0, -Math.sin(pitchRadians)),
+        Vec3 look = new Vec3(-Math.sin(yawRadians) * Math.cos(pitchRadians), -Math.sin(pitchRadians),
                 Math.cos(yawRadians) * Math.cos(pitchRadians));
+        Vec3 eye = player.getEyePosition(), end = eye.add(look.scale(64));
+        Vec3 target = level().clip(new ClipContext(eye, end, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, player)).getLocation();
+        Vec3 center = getBoundingBox().getCenter();
+        var direction = FootballRules.aimDirection(center.x, center.y, center.z, target.x, target.y, target.z);
+        Vec3 aim = new Vec3(direction.x(), direction.y(), direction.z());
         if (aim.lengthSqr() < 0.000001) aim = new Vec3(-Math.sin(yawRadians), 0, Math.cos(yawRadians));
-        setDeltaMovement(aim.normalize().scale(FootballRules.shotSpeed(held))); hurtMarked = true;
+        setDeltaMovement(aim.scale(FootballRules.shotSpeed(held))); hurtMarked = true;
         player.sendOverlayMessage(Component.translatable("message.lsmmod.football_shot", (int) Math.round(FootballRules.charge(held) * 100)));
     }
 
@@ -131,16 +142,25 @@ public final class BallEntity extends Entity implements ItemSupplier {
         entityData.set(FOOTBALL_SHOT, false); spin = new FootballRules.Spin(0, 0);
     }
 
+    private void accumulateSpin(long now) {
+        // Server ticks, not packet count, determine how long a direction was held.
+        for (long tick = lastSpinTick + 1; tick <= now; tick++)
+            preparedSpin = FootballRules.buildSpin(preparedSpin, chargeKeys, tick - chargeStart);
+        lastSpinTick = now;
+    }
+
     private void cancelCharge() {
         if (chargingPlayer != null && level() instanceof ServerLevel server
-                && server.getEntity(chargingPlayer) instanceof ServerPlayer player)
+                && server.getEntity(chargingPlayer) instanceof ServerPlayer player) {
+            FootballMovement.cancel(player);
             player.sendOverlayMessage(Component.translatable("message.lsmmod.football_cancelled"));
+        }
         chargingPlayer = null;
     }
 
     private void showCharge(ServerPlayer player, long now) {
         int percent = (int) Math.round(FootballRules.charge(now - chargeStart) * 100), filled = percent / 10;
-        FootballRules.Spin preview = FootballRules.spin(chargeKeys, 0);
+        FootballRules.Spin preview = FootballRules.releaseSpin(preparedSpin, chargeKeys);
         player.sendOverlayMessage(Component.translatable("message.lsmmod.football_charge",
                 "▰".repeat(filled) + "▱".repeat(10 - filled), percent,
                 Component.translatable("message.lsmmod.football_side_" + (preview.side() < 0 ? "left" : preview.side() > 0 ? "right" : "none")),
@@ -164,7 +184,10 @@ public final class BallEntity extends Entity implements ItemSupplier {
         if (chargingPlayer != null) {
             if (!(server.getEntity(chargingPlayer) instanceof ServerPlayer player) || !canCharge(player)
                     || now - lastChargeInput > 10) cancelCharge();
-            else if (now % 4 == 0) showCharge(player, now);
+            else {
+                accumulateSpin(now); FootballMovement.charging(player, now - chargeStart);
+                if (now % 4 == 0) showCharge(player, now);
+            }
         }
         if (entityData.get(PROJECTILE) || shotCooldown > 0 || !onGround()
                 || getDeltaMovement().lengthSqr() > FootballRules.CONTROL_SPEED * FootballRules.CONTROL_SPEED) {
@@ -204,9 +227,9 @@ public final class BallEntity extends Entity implements ItemSupplier {
         Vec3 start = position();
         Vec3 motion = getDeltaMovement();
         if (entityData.get(FOOTBALL_SHOT)) {
-            double angle = FootballRules.curveAngle(motion.horizontalDistance(), spin) * (onGround() ? 0.25 : 1);
+            double angle = FootballRules.curveAngle(motion.horizontalDistance(), spin, shotCharge) * (onGround() ? 0.25 : 1);
             motion = new Vec3(motion.x * Math.cos(angle) - motion.z * Math.sin(angle),
-                    motion.y + (onGround() ? 0 : FootballRules.lift(motion.horizontalDistance(), spin)),
+                    motion.y + (onGround() ? 0 : FootballRules.lift(motion.horizontalDistance(), spin, shotCharge)),
                     motion.x * Math.sin(angle) + motion.z * Math.cos(angle));
             spin = spin.decay(onGround() ? 0.90 : 0.985);
         }
@@ -226,15 +249,14 @@ public final class BallEntity extends Entity implements ItemSupplier {
             boolean blockedZ = Math.abs(requested.z - moved.z) > 0.000001;
             if (blockedY && requested.y < 0) groundContact = true;
             if (blockedX || blockedY || blockedZ) {
-                boolean net = SportsGoalBlock.touchesFootballNet(server, getBoundingBox().move(
-                        blockedX ? requested.x : 0, blockedY ? requested.y : 0, blockedZ ? requested.z : 0));
+                boolean net = SportsGoalBlock.touchesFootballNet(server, getBoundingBox(), requested, blockedX, blockedY, blockedZ);
                 motion = net ? new Vec3(blockedX ? -motion.x * FootballRules.NET_REBOUND : motion.x * FootballRules.NET_DRAG,
                         blockedY ? -motion.y * FootballRules.NET_REBOUND : motion.y * FootballRules.NET_DRAG,
                         blockedZ ? -motion.z * FootballRules.NET_REBOUND : motion.z * FootballRules.NET_DRAG)
                         : new Vec3(blockedX ? -motion.x * kind.wallBounce : motion.x,
                         blockedY ? (motion.y < -0.10 ? -motion.y * kind.bounce : motion.y > 0 ? -motion.y * kind.wallBounce : 0) : motion.y,
                         blockedZ ? -motion.z * kind.wallBounce : motion.z);
-                if (net) { clearFootballShot(); cancelCharge(); dribbler = null; }
+                if (net) { clearFootballShot(); cancelCharge(); dribbler = null; hurtMarked = true; }
                 else if (entityData.get(FOOTBALL_SHOT) && (blockedX || blockedZ || requested.y > 0)) spin = spin.decay(0.45);
                 if (projectile) { toy(); projectile = false; }
             }
@@ -317,6 +339,7 @@ public final class BallEntity extends Entity implements ItemSupplier {
         if (!level().isClientSide() && !isRemoved()) {
             ItemStack item = getItem();
             if (!player.getInventory().add(item)) return InteractionResult.FAIL;
+            cancelCharge();
             discard();
         }
         return InteractionResult.SUCCESS;
@@ -328,6 +351,7 @@ public final class BallEntity extends Entity implements ItemSupplier {
         if (kind() == BallKind.FOOTBALL) {
             output.putBoolean("FootballShot", entityData.get(FOOTBALL_SHOT));
             output.putDouble("SideSpin", spin.side()); output.putDouble("TopSpin", spin.top());
+            output.putDouble("ShotCharge", shotCharge);
         }
         if (owner != null) output.putString("Owner", owner.toString());
     }
@@ -341,6 +365,8 @@ public final class BallEntity extends Entity implements ItemSupplier {
         entityData.set(FOOTBALL_SHOT, kind() == BallKind.FOOTBALL && !entityData.get(PROJECTILE) && input.getBooleanOr("FootballShot", false));
         double side = input.getDoubleOr("SideSpin", 0), top = input.getDoubleOr("TopSpin", 0);
         spin = new FootballRules.Spin(Double.isFinite(side) ? Math.clamp(side, -1, 1) : 0, Double.isFinite(top) ? Math.clamp(top, -1, 1) : 0);
+        double savedCharge = input.getDoubleOr("ShotCharge", 1);
+        shotCharge = Double.isFinite(savedCharge) ? Math.clamp(savedCharge, 0, 1) : 0;
         // Possession and the input window never survive unloading/rejoining.
         dribbler = null; chargingPlayer = null; shotTime = Long.MIN_VALUE; lastFollowSample = FootballRules.FOLLOW_TICKS;
         try { owner = UUID.fromString(input.getStringOr("Owner", "")); } catch (IllegalArgumentException invalid) { owner = null; }
