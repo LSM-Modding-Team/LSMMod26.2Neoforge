@@ -11,7 +11,7 @@ bash tools/build/compile.sh runClient      # necesita pantalla
 
 El script reutiliza Java 25 de JAVA_HOME, del entorno cloud o PATH. Si falta, instala el JDK oficial verificado por SHA-256 en Linux x86_64 (curl, Python 3, tar). En Windows usa JDK 25 y `gradlew.bat`.
 
-La API de Jade usada por `compat/jade` requiere el JAR oficial `libs/Jade-mc26.2-NeoForge-26.2.10.jar` para compilar. Fusion se descarga por Gradle. Los JARs externos quedan fuera de Git; instala mods opcionales de juego en `run/mods/` cuando los necesites.
+Gradle descarga automáticamente la API oficial de Jade 26.2.10 desde Modrinth para compilar `compat/jade`, con la versión fijada en `jade_version_id`. Es una dependencia `compileOnly`: Jade sigue siendo opcional en juego y su JAR no se incorpora al de LSM. Fusion también se descarga por Gradle. La primera compilación requiere conexión; después puede usarse `--offline` con las dependencias en caché. Instala mods opcionales de juego en `run/mods/` cuando los necesites.
 
 **`.build-tools/` es exclusivamente para compilar; Codex debe omitirla en tareas normales.** El harness la prepara automáticamente con `jdk25`, `gradle`, `project-cache`, `libs` y `output`: reutiliza mediante enlaces el JDK, la caché compartida de Gradle, `.gradle`, las dependencias locales y `build` ya existentes. Se conservan las ubicaciones reales para mantener las claves de las cachés; no es una carpeta portable. También genera un `AGENTS.md` local con la indicación de no explorar. Todo queda ignorado por Git y por las búsquedas normales de `rg`; no usar búsqueda recursiva que siga estos enlaces.
 

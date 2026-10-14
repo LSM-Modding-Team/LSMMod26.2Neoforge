@@ -30,6 +30,10 @@ sourceSets.main.resources {
 
 repositories {
     exclusiveContent {
+        forRepository { maven { name = 'Modrinth'; url = 'https://api.modrinth.com/maven' } }
+        filter { includeGroup 'maven.modrinth' }
+    }
+    exclusiveContent {
         forRepository { maven { name = 'Rinku'; url = 'https://keksuccino.github.io/maven/' } }
         filter { includeGroup 'de.keksuccino' }
     }
@@ -165,7 +169,8 @@ dependencies {
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-    compileOnly files('libs/Jade-mc26.2-NeoForge-26.2.10.jar')
+    // Optional Jade integration: resolve the official API without a local JAR.
+    compileOnly "maven.modrinth:jade:${jade_version_id}"
 }
 
 // Optimize the resource graph before packaging or development runs. Source assets stay editable.
