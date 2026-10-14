@@ -51,21 +51,21 @@ for y in range(2,46,2):
     GOAL.extend([([1.875,y,16,2,y+2,back], "net"),
                  ([126,y,16,126.125,y+2,back], "net")])
 # The basketball support is separate from the football net. Each side has a
-# vertical lower section, an inclined shoulder and a short vertical upper stem.
+# vertical lower section, an inclined shoulder and a horizontal top rail.
 TOWER = []
 for x in (46,80):
     TOWER.extend([
         ([x,48,14,x+2,92,16], "frame"),
         ([x,48,30,x+2,78,32], "frame"),
-        ([x,90,22,x+2,96,24], "frame"),
+        ([x,90,22,x+2,92,24], "frame"),
+        ([x,90,16,x+2,92,22], "frame"),
         ([x,48,16,x+2,50,30], "frame"),
         ([x,76,16,x+2,78,30], "frame"),
     ])
     TOWER.extend(brace((x+1,77,31), (x+1,91,23)))
-    TOWER.extend(brace((x+1,91,15), (x+1,95,23)))
 TOWER.extend([
     ([48,76,30,80,78,32], "frame"),
-    ([48,94,22,80,96,24], "frame"),
+    ([48,90,22,80,92,24], "frame"),
     ([48,90,14,80,92,16], "frame"),
 ])
 PARTS = GOAL + TOWER + [
