@@ -13,20 +13,49 @@ DATA = ROOT / "src/main/resources/data"
 ID = "football_basketball_goal"
 WIDTH, HEIGHT, DEPTH = 9, 6, 3
 SHIFT_X = 8
-# North-facing mouth; the rear shoulders slope from z30 at the top to z46 below.
-PARTS = [
+# The Paint trace defines a raised rear rail and triangular side/board supports.
+# The existing front mouth, cell IDs and +8px placement offset remain intact.
+GOAL = [
     ([0, 0, 14, 2, 64, 16], "frame"), ([126, 0, 14, 128, 64, 16], "frame"),
     ([0, 62, 14, 128, 64, 16], "frame"),
-    ([0, 0, 46, 2, 32, 48], "frame"), ([126, 0, 46, 128, 32, 48], "frame"),
-    ([0, 62, 30, 128, 64, 32], "frame"),
-    ([0, 62, 16, 2, 64, 30], "frame"), ([126, 62, 16, 128, 64, 30], "frame"),
+    ([0, 0, 46, 2, 80, 48], "frame"), ([126, 0, 46, 128, 80, 48], "frame"),
+    ([2, 78, 46, 126, 80, 48], "frame"),
     ([0, 0, 16, 2, 2, 46], "frame"), ([126, 0, 16, 128, 2, 46], "frame"),
     ([2, 0, 46, 126, 2, 48], "frame"),
-    ([2, 2, 46, 126, 32, 46.125], "net"),
-    ([2, 61.875, 16, 126, 62, 30], "net"),
-    ([46, 64, 14, 48, 78, 16], "frame"), ([80, 64, 14, 82, 78, 16], "frame"),
-    ([48, 76, 14, 80, 78, 16], "frame"),
-    ([48, 64, 14, 80, 72, 14.125], "net"),
+    ([2, 2, 46, 126, 78, 46.125], "net"),
+]
+
+
+def brace(start, end, thickness=1.5):
+    """Continuous subpixel stair tubes, clipped using the same geometry as collision."""
+    count = int(max(abs(end[a]-start[a]) for a in range(3))*2)
+    result = []
+    for step in range(count):
+        a = [start[i]+(end[i]-start[i])*step/count for i in range(3)]
+        b = [start[i]+(end[i]-start[i])*(step+1)/count for i in range(3)]
+        result.append(([min(a[i],b[i])-thickness/2 for i in range(3)]
+                       + [max(a[i],b[i])+thickness/2 for i in range(3)], "frame"))
+    return result
+
+
+# Both side trusses rise backwards from the front posts to the elevated rear rail.
+for x in (1, 127):
+    GOAL.extend(brace((x,63,16), (x,79,46), 2))
+    GOAL.extend(brace((x,42,16), (x,78,46), 1.5))
+# Two inclined arms carry the basketball assembly forward from that rear rail.
+for x in (47, 81):
+    GOAL.extend(brace((x,79,46), (x,77,16), 1.5))
+# Football mesh follows the inclined roof, with a full-height rear and side walls.
+for z in range(16, 46):
+    roof = 62+(z-16)*16/30
+    next_roof = 62+(z+1-16)*16/30
+    GOAL.append(([2,roof-0.125,z,126,next_roof,z+1], "net"))
+    GOAL.extend([([1.875,2,z,2,roof,z+1], "net"),
+                 ([126,2,z,126.125,roof,z+1], "net")])
+PARTS = GOAL + [
+    # Solid board mounting rails; no net in the basketball support tower.
+    ([46, 64, 14, 48, 92, 16], "frame"), ([80, 64, 14, 82, 92, 16], "frame"),
+    ([48, 90, 14, 80, 92, 16], "frame"),
     ([40, 72, 12, 88, 96, 14], "board", {"north": "board_front"}),
     ([59, 72, 0, 69, 73.5, 1.5], "rim"), ([59, 72, 10.5, 69, 73.5, 12], "rim"),
     ([56, 72, 3, 57.5, 73.5, 9], "rim"), ([70.5, 72, 3, 72, 73.5, 9], "rim"),
@@ -34,18 +63,6 @@ PARTS = [
     ([57.5, 72, 9, 59, 73.5, 10.5], "rim"), ([69, 72, 9, 70.5, 73.5, 10.5], "rim"),
     ([62, 72, 12, 66, 73.5, 14], "rim"),
 ]
-# Pixel steps produce the sloped rear without rotating elements across block boundaries.
-for y in range(32, 64, 2):
-    z = 46 - (y - 32) / 2
-    for x in (0, 126):
-        PARTS.append(([x, y, z-1, x+2, y+2, z+2], "frame"))
-    if y < 62:
-        PARTS.append(([2, y, z, 126, y+2, z+0.125], "net"))
-        PARTS.append(([2, y+1.875, z-1, 126, y+2, z+0.125], "net"))
-for y in range(2, 62, 2):
-    back = 46 if y < 32 else 46 - (y-32)/2
-    PARTS.extend([([1.875, y, 16, 2, y+2, back], "net"),
-                  ([126, y, 16, 126.125, y+2, back], "net")])
 # A tapered hanging basket, open below; its own diamond-weave texture follows the height.
 for y in range(64, 72):
     inset = (71-y)*0.375
@@ -76,16 +93,23 @@ def coordinates(cell):
     return (cell%8,cell//8%6,cell//48) if cell<144 else (8,(cell-144)%6,(cell-144)//6)
 
 
-def clips(bounds, column, row, depth):
+def clips(bounds, column, row, depth, raised=False):
+    # An <=1-block upward overhang stays owned by the existing top goal cell.
+    # Native models permit coordinates up to 32px; saved goals keep all 72 cells.
+    if raised and row >= 4:
+        return None
     origin = [16*column, 16*row, 16*depth]
     low = [max(bounds[a], origin[a]) for a in range(3)]
-    high = [min(bounds[a+3], origin[a]+16) for a in range(3)]
+    limits = [16,32 if raised and row == 3 else 16,16]
+    high = [min(bounds[a+3], origin[a]+limits[a]) for a in range(3)]
     return (low, high, origin) if all(a < b for a, b in zip(low, high)) else None
 
 
 def uv_for(direction, low, high, origin, material):
-    local_low = [low[a]-origin[a] for a in range(3)]
-    local_high = [high[a]-origin[a] for a in range(3)]
+    uv_origin = list(origin)
+    uv_origin[1] = int(low[1]//16)*16
+    local_low = [low[a]-uv_origin[a] for a in range(3)]
+    local_high = [high[a]-uv_origin[a] for a in range(3)]
     if material == "board_front":
         return [(high[0]-40-SHIFT_X)/3, (96-high[1])*2/3, (low[0]-40-SHIFT_X)/3, (96-low[1])*2/3]
     if material == "basket_net":
@@ -129,9 +153,46 @@ def textures():
 
 
 
+def write_shapes(all_cells, occupied):
+    # Separate per-cell factories keep the detailed trusses out of one large
+    # class initializer while preserving the shared CELLS/OCCUPIED contract.
+    java = ["package net.nicomar2009.lsmmod.block;", "",
+            "/** Generated by tools/create_sports_goal_assets.py. */",
+            "public final class SportsGoalShapes {", "    private SportsGoalShapes() {}",
+            "    public static final int[] OCCUPIED = {"+", ".join(map(str,occupied))+"};",
+            "    public static final double[][][] CELLS = {"]
+    java += ["        cell"+str(cell)+"()," for cell in range(WIDTH*HEIGHT*DEPTH)]
+    java.append("    };")
+    for cell in range(WIDTH*HEIGHT*DEPTH):
+        boxes = ", ".join("{"+", ".join(map(str,b))+"}" for b in all_cells[cell]['collision'])
+        java += ["    private static double[][] cell"+str(cell)+"() {",
+                 "        return new double[][] {"+boxes+"};", "    }"]
+    java.append("}")
+    (ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SportsGoalShapes.java').write_text("\n".join(java)+"\n")
+
+
 def main():
     textures()
     exterior = solid_model(PARTS)
+    tiled = []
+    for element in exterior["elements"]:
+        low,high = element["from"],element["to"]
+        cuts = [low[1]]+[y for y in range(16,96,16) if low[1] < y < high[1]]+[high[1]]
+        for y0,y1 in zip(cuts,cuts[1:]):
+            e = json.loads(json.dumps(element))
+            e["from"][1],e["to"][1] = y0,y1
+            if y0 != low[1]: e["faces"].pop("down",None)
+            if y1 != high[1]: e["faces"].pop("up",None)
+            if e["faces"]: tiled.append(e)
+    # Classify ownership once, rather than repeating containment for all 162 cells.
+    exterior["elements"] = []
+    for element in tiled:
+        bounds = element['from']+element['to']
+        material = next(iter(element['faces'].values()))['texture'][1:]
+        raised = material in ('frame','net') and any(
+            all(p[0][a] <= bounds[a] and bounds[a+3] <= p[0][a+3] for a in range(3))
+            for p in GOAL)
+        exterior['elements'].append((element,raised))
     mappings = {m: f"lsmmod:block/sports_goal_{m}" for m in ("frame", "board", "board_front", "rim", "net", "basket_net")}
     mappings["particle"] = mappings["frame"]
     all_cells, occupied = {}, []
@@ -142,14 +203,14 @@ def main():
                 cell = index(column, row, depth)
                 collision = []
                 for part in PARTS:
-                    clipped = clips(part[0], column, row, depth)
+                    clipped = clips(part[0], column, row, depth, raised=part in GOAL)
                     if clipped:
                         low, high, origin = clipped
                         collision.append([low[a]-origin[a] for a in range(3)]+[high[a]-origin[a] for a in range(3)])
                 elements = []
-                for source in exterior["elements"]:
+                for source, raised in exterior["elements"]:
                     bounds = source["from"]+source["to"]
-                    clipped = clips(bounds, column, row, depth)
+                    clipped = clips(bounds, column, row, depth, raised=raised)
                     if not clipped: continue
                     low, high, origin = clipped
                     faces = {}
@@ -184,12 +245,7 @@ def main():
     write_json(DATA / f"lsmmod/loot_table/blocks/{ID}.json", {"type": "minecraft:block", "pools": [{"rolls": 1,
         "conditions": [{"condition": "minecraft:survives_explosion"}, {"condition": "minecraft:block_state_property", "block": f"lsmmod:{ID}", "properties": {"cell": "0"}}],
         "entries": [{"type": "minecraft:item", "name": f"lsmmod:{ID}"}]}]})
-    java = ["package net.nicomar2009.lsmmod.block;", "", "/** Generated by tools/create_sports_goal_assets.py. */", "public final class SportsGoalShapes {", "    private SportsGoalShapes() {}",
-            "    public static final int[] OCCUPIED = {"+", ".join(map(str, occupied))+"};", "    public static final double[][][] CELLS = {"]
-    for cell in range(WIDTH*HEIGHT*DEPTH):
-        java.append("        {"+", ".join("{"+", ".join(map(str, b))+"}" for b in all_cells[cell]["collision"])+"},")
-    java += ["    };", "}"]
-    (ROOT / "src/main/java/net/nicomar2009/lsmmod/block/SportsGoalShapes.java").write_text("\n".join(java)+"\n")
+    write_shapes(all_cells, occupied)
     # Collision manifest permits static model/collision tests and external previews.
     write_json(ROOT / "tools/sports_goal_geometry.json", {"occupied": occupied, "cells": all_cells})
     for locale, name in (("es_es", "Arco de fútbol con canasta de básquet"), ("en_us", "Football Goal with Basketball Hoop")):
