@@ -366,5 +366,17 @@
   "block.lsmmod.school_paintable_glass_stairs": "Glass Stairs with Paintable Base",
   "block.lsmmod.bathroom_door_wide_paintable_column": "Wide Bathroom Door with Paintable Column",
   "block.lsmmod.double_school_entrance_paintable_slab": "Double School Entrance with Paintable Slab",
-  "block.lsmmod.bathroom_door_wide_2x4": "Wide Bathroom Door 2×4"
+  "block.lsmmod.bathroom_door_wide_2x4": "Wide Bathroom Door 2×4",
+  "screen.lsmmod.pc.title": "School PC",
+  "screen.lsmmod.pc.address": "Address or Google search",
+  "screen.lsmmod.pc.back": "Back",
+  "screen.lsmmod.pc.forward": "Forward",
+  "screen.lsmmod.pc.reload": "Reload",
+  "screen.lsmmod.pc.home": "Google",
+  "screen.lsmmod.pc.go": "Go",
+  "screen.lsmmod.pc.help": "Esc: close   |   Ctrl+L: address",
+  "screen.lsmmod.pc.missing": "Install Rinku 3.0.4 for NeoForge 26.2 on this client to use the PC browser. The rest of LSM Mod works without it.",
+  "screen.lsmmod.pc.loading": "Preparing Chromium… The first Rinku startup needs to download its native runtime.",
+  "screen.lsmmod.pc.failed": "Chromium could not start. Check the Rinku installation and latest.log, then reopen the PC.",
+  "screen.lsmmod.pc.invalid_address": "Enter an HTTP(S) address or a search."
 }

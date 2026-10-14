@@ -86,6 +86,14 @@ config="${mod_id}.mixins.json"
 #[features.${mod_id}]
 #openGLVersion="[3.2,)"
 
+# Optional client Chromium integration; the rest of LSM works without Rinku.
+[[dependencies.${mod_id}]]
+    modId="rinku"
+    type="optional"
+    versionRange="[3.0.4,4.0.0)"
+    ordering="AFTER"
+    side="CLIENT"
+
 # Optional tooltip integration; Student/Teacher work without Jade installed.
 [[dependencies.${mod_id}]]
     modId="jade"
