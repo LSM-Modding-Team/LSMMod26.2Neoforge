@@ -398,5 +398,16 @@
   "message.lsmmod.media.too_far": "Devices must be within 64 blocks of each other.",
   "message.lsmmod.media.rectangle_required": "Join complete screens into a rectangle up to 16 × 12 blocks.",
   "message.lsmmod.media.limit": "Connection limit reached (8 speakers per source, 1024 links per dimension).",
-  "block.lsmmod.school_paintable_projecting_window_slab": "Paintable Slab with Projecting Window"
+  "block.lsmmod.school_paintable_projecting_window_slab": "Paintable Slab with Projecting Window",
+  "key.category.lsmmod.football": "LSM Football",
+  "key.lsmmod.football_shoot": "Charge / shoot the football",
+  "message.lsmmod.football_charge": "Shot %s %s%% · %s · %s",
+  "message.lsmmod.football_shot": "Shot: %s%% power",
+  "message.lsmmod.football_cancelled": "Shot cancelled",
+  "message.lsmmod.football_side_left": "Curl ←",
+  "message.lsmmod.football_side_right": "Curl →",
+  "message.lsmmod.football_side_none": "No side spin",
+  "message.lsmmod.football_top_front": "Dip ↓",
+  "message.lsmmod.football_top_back": "Lift ↑",
+  "message.lsmmod.football_top_none": "No vertical spin"
 }

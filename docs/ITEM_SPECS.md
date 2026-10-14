@@ -34,13 +34,25 @@ Gravedad, aire, rodadura, rebotes y giro visible propios de cada tipo. Clic dere
 | Pelota / ID | Daño cercano fácil / normal / difícil | Daño máximo fácil / normal / difícil | Velocidad inicial proyectil (bloques/s) | Impulso juguete (bloques/s) | Movimiento |
 |---|---|---|---:|---:|---|
 | Plástico / `plastic_ball` | 9 / 13.5 / 18 | 18 / 27 / 36 | 16 | 5 | Ligera; saltos pequeños, mayor frenado y rebotes cortos. |
-| Fútbol / `football_ball` | 15 / 22.5 / 30 | 30 / 45 / 60 | 24 | 8 | Rodadura larga, salto inicial bajo y rebotes intermedios. |
+| Fútbol / `football_ball` | 15 / 22.5 / 30 | 30 / 45 / 60 | 24 | Regate; K: 4–30 | Conducción con toques; tiros cargados, efecto y rebotes intermedios. |
 | Básquet / `basketball_ball` | 20 / 30 / 40 | 40 / 60 / 80 | 14 | 4 | Mayor gravedad, saltos altos y rebotes que conservan el 88 % de la velocidad vertical. |
 | Vóley / `volleyball_ball` | 13 / 19.5 / 26 | 26 / 39 / 52 | 28 | 10 | Arcos altos y largos; golpe en el aire orientado por la mirada, incluso en vertical. |
 
 Daño = daño cercano × (1 + min(distancia recorrida / 32, 1)). La distancia sigue la trayectoria real del proyectil antes del primer impacto, no la separación actual respecto al lanzador; se guarda al cerrar el mundo. El máximo se alcanza a los 32 bloques recorridos. Son valores de daño bruto antes de armadura y otras reducciones. Pacífico: proyectiles 0. Los juguetes de vóley mantienen 2 de daño por choque en el aire en todas las dificultades.
 
 Las velocidades de la tabla son iniciales: la gravedad curva la trayectoria y el aire y el suelo frenan la pelota. Los impactos transforman el proyectil en juguete conservando impulso y rebote; sin impacto, cambia a juguete tras 20 segundos. Física exagerada para que los tipos se distingan, basada en rodadura y rebotes con pérdida de energía. Modelos y texturas conservados.
+
+### Fútbol: conducción y tiros
+
+En el suelo, acercarse permite controlar una pelota lenta con toques suaves en la dirección del movimiento; el contacto y el ataque normal ya no aplican un puntapié fijo. Caminar mantiene el balón cerca, esprintar lo adelanta y agacharse da control fino. Detenerse amortigua la pelota; giros bruscos, obstáculos y otro jugador mejor colocado pueden hacer perder el control. La pelota sigue siendo una entidad física libre, sin teletransportarse ni atravesar paredes. Un balón rápido no se captura automáticamente.
+
+**K** (reasignable en Controles → Fútbol LSM) carga el disparo con el balón al alcance del pie. La potencia aumenta hasta **24 ticks / 1,2 s** y queda limitada al máximo sin disparar automáticamente: un toque breve sirve de pase; soltar dispara hacia el rumbo y altura de la mira en ese instante. Mirar hacia el suelo produce un pase raso. La gravedad afecta la trayectoria. Puede conducirse mientras se carga; perder el balón, saltar, abrir una pantalla o perder el foco cancela la carga. Una barra en el mensaje sobre la barra rápida indica potencia y efecto. Los tiros con K no hacen daño; lanzar el ítem desde el inventario conserva el daño de la tabla.
+
+Las teclas de movimiento asignadas aportan efecto al soltar K y durante los **3 ticks / 150 ms** posteriores: A curva a la izquierda, D a la derecha, W añade caída y S sustentación suave. Las referencias son las del disparo, aunque después se gire la cámara. Pesos por muestra: **55 %, 25 %, 15 %, 5 %**; entradas opuestas se cancelan y las diagonales normalizan el giro total. Terminado el golpeo, las teclas dejan de afectar la pelota. El giro pierde intensidad con el aire, la rodadura y los impactos, y se guarda junto con el balón; la posesión, la carga y la ventana de entrada son transitorias.
+
+La **red del arco** amortigua las pelotas con su geometría real (laterales, espalda inclinada y techo): conserva **8 %** de la velocidad normal y **22 %** de la tangencial, eliminando gran parte de la energía del impacto. Los postes, travesaño y soporte de básquet conservan el rebote rígido. Se aplica a todos los tipos de pelota al golpear la red de fútbol y respeta las cuatro orientaciones del arco.
+
+Revisión estática y comprobaciones de reglas/geometría; compilación del mod y prueba en Minecraft pendientes.
 
 ## Pacificar y enojar
 

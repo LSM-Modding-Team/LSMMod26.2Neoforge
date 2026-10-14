@@ -186,10 +186,34 @@ def write_shapes(all_cells, occupied):
             "    public static final double[][][] CELLS = {"]
     java += ["        cell"+str(cell)+"()," for cell in range(WIDTH*HEIGHT*DEPTH)]
     java.append("    };")
+    # Material-specific physics uses the exact same clipped/owned geometry,
+    # including net fragments that overhang into an adjacent saved cell.
+    materials = {name: {cell: [] for cell in range(WIDTH*HEIGHT*DEPTH)} for name in ('net', 'rigid')}
+    for d in range(DEPTH):
+        for r in range(HEIGHT):
+            for c in range(WIDTH):
+                owner = OWNERS[index(c,r,d)]
+                oc,orr,od = coordinates(owner)
+                origin = [16*oc,16*orr,16*od]
+                for bounds,material,*_ in PARTS:
+                    clipped = clips(bounds,c,r,d)
+                    if clipped:
+                        low,high,_ = clipped
+                        box = [low[a]-origin[a] for a in range(3)]+[high[a]-origin[a] for a in range(3)]
+                        materials['net' if material == 'net' else 'rigid'][owner].append(box)
+    for name in materials:
+        java.append('    public static final double[][][] '+name.upper()+'_CELLS = {')
+        java += ['        '+name+str(cell)+'(),' for cell in range(WIDTH*HEIGHT*DEPTH)]
+        java.append('    };')
     for cell in range(WIDTH*HEIGHT*DEPTH):
         boxes = ", ".join("{"+", ".join(map(str,b))+"}" for b in all_cells[cell]['collision'])
         java += ["    private static double[][] cell"+str(cell)+"() {",
                  "        return new double[][] {"+boxes+"};", "    }"]
+    for name,cells in materials.items():
+        for cell,values in cells.items():
+            boxes = ', '.join('{'+', '.join(map(str,b))+'}' for b in values)
+            java += ['    private static double[][] '+name+str(cell)+'() {',
+                     '        return new double[][] {'+boxes+'};', '    }']
     java.append("}")
     (ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SportsGoalShapes.java').write_text("\n".join(java)+"\n")
 

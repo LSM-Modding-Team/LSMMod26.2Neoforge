@@ -392,5 +392,16 @@
   "message.lsmmod.media.too_far": "Los dispositivos deben estar a un máximo de 64 bloques.",
   "message.lsmmod.media.rectangle_required": "Une pantallas completas en un rectángulo de hasta 16 × 12 bloques.",
   "message.lsmmod.media.limit": "Límite de conexiones alcanzado (8 parlantes por origen, 1024 enlaces por dimensión).",
-  "block.lsmmod.school_paintable_projecting_window_slab": "Losa pintable con ventana proyectante"
+  "block.lsmmod.school_paintable_projecting_window_slab": "Losa pintable con ventana proyectante",
+  "key.category.lsmmod.football": "Fútbol LSM",
+  "key.lsmmod.football_shoot": "Cargar / disparar el balón de fútbol",
+  "message.lsmmod.football_charge": "Tiro %s %s%% · %s · %s",
+  "message.lsmmod.football_shot": "Disparo: %s%% de potencia",
+  "message.lsmmod.football_cancelled": "Tiro cancelado",
+  "message.lsmmod.football_side_left": "Curva ←",
+  "message.lsmmod.football_side_right": "Curva →",
+  "message.lsmmod.football_side_none": "Sin curva lateral",
+  "message.lsmmod.football_top_front": "Caída ↓",
+  "message.lsmmod.football_top_back": "Sustentación ↑",
+  "message.lsmmod.football_top_none": "Sin giro vertical"
 }

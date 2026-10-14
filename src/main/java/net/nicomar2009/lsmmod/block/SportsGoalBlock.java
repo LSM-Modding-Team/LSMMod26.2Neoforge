@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.AABB;
 
 /** One item places an 8-wide, 6-high, 3-deep goal and basketball hoop. */
 public class SportsGoalBlock extends Block {
@@ -155,6 +156,43 @@ public class SportsGoalBlock extends Block {
     protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         int turn = switch (state.getValue(FACING)) { case EAST -> 1; case SOUTH -> 2; case WEST -> 3; default -> 0; };
         return COLLISION[state.getValue(CELL)][turn];
+    }
+
+    /** Tests the actual material at an impact, rather than treating an entire goal cell as net. */
+    public static boolean touchesFootballNet(Level level, AABB impact) {
+        boolean net = false;
+        // Native boxes span -16..32 pixels: their owning block may be one cell away.
+        for (int x = (int) Math.floor(impact.minX) - 1; x <= Math.floor(impact.maxX) + 1; x++)
+            for (int y = (int) Math.floor(impact.minY) - 1; y <= Math.floor(impact.maxY) + 1; y++)
+                for (int z = (int) Math.floor(impact.minZ) - 1; z <= Math.floor(impact.maxZ) + 1; z++) {
+                    BlockPos pos = new BlockPos(x, y, z);
+                    if (!level.hasChunkAt(pos)) continue;
+                    BlockState state = level.getBlockState(pos);
+                    if (!(state.getBlock() instanceof SportsGoalBlock)) continue;
+                    int index = state.getValue(CELL);
+                    AABB local = nativeBox(impact.move(-x, -y, -z), state.getValue(FACING));
+                    if (intersects(local, SportsGoalShapes.RIGID_CELLS[index])) return false;
+                    net |= intersects(local, SportsGoalShapes.NET_CELLS[index]);
+                }
+        return net;
+    }
+
+    private static AABB nativeBox(AABB box, Direction facing) {
+        return switch (facing) {
+            case EAST -> new AABB(box.minZ, box.minY, 1 - box.maxX, box.maxZ, box.maxY, 1 - box.minX);
+            case SOUTH -> new AABB(1 - box.maxX, box.minY, 1 - box.maxZ, 1 - box.minX, box.maxY, 1 - box.minZ);
+            case WEST -> new AABB(1 - box.maxZ, box.minY, box.minX, 1 - box.minZ, box.maxY, box.maxX);
+            default -> box;
+        };
+    }
+
+    private static boolean intersects(AABB box, double[][] parts) {
+        for (double[] part : parts) {
+            if (box.maxX > part[0] / 16 && box.minX < part[3] / 16
+                    && box.maxY > part[1] / 16 && box.minY < part[4] / 16
+                    && box.maxZ > part[2] / 16 && box.minZ < part[5] / 16) return true;
+        }
+        return false;
     }
 
     @Override

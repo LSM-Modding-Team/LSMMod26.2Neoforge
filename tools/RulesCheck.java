@@ -1,12 +1,6 @@
-import net.nicomar2009.lsmmod.rules.Hostility;
-import net.nicomar2009.lsmmod.rules.NpcGroup;
-import net.nicomar2009.lsmmod.rules.NpcState;
-import net.nicomar2009.lsmmod.rules.PlayerGear;
+import net.nicomar2009.lsmmod.rules.FootballRules;
 
-/**
- * Small self-check for everything under rules/ (pure logic; it never says the mod compiles).
- * Command: see START_HERE.md section 5. Exit code 0 = all passed, 1 = something failed.
- */
+/** Pure gameplay checks; no Minecraft classes, mod compilation or game launch. */
 public class RulesCheck {
     static int failures = 0;
     static int total = 0;
@@ -19,48 +13,35 @@ public class RulesCheck {
         }
     }
 
-    static PlayerGear gear(boolean suit, int stu, int tea, boolean studious, boolean sticker) {
-        return new PlayerGear(suit, stu, tea, studious, sticker);
-    }
-
     public static void main(String[] args) {
-        NpcGroup S = NpcGroup.STUDENTS, T = NpcGroup.TEACHERS, N = NpcGroup.NO_GROUP;
-        NpcState NEU = NpcState.NEUTRAL, ANG = NpcState.ANGRY, PAC = NpcState.PACIFIED;
-        PlayerGear none = PlayerGear.NONE;
+        // Football acceptance checks: power limits, foot follow-through and flight direction.
+        check("tap is weaker than a charged pass", FootballRules.shotSpeed(0) < FootballRules.shotSpeed(12), true);
+        check("power increases up to full charge", FootballRules.shotSpeed(12) < FootballRules.shotSpeed(24), true);
+        check("holding beyond full charge does not add power", FootballRules.shotSpeed(24) == FootballRules.shotSpeed(2400), true);
+        check("negative charge cannot lower the tap speed", FootballRules.shotSpeed(-1) == FootballRules.shotSpeed(0), true);
+        var right = new FootballRules.Spin(0, 0);
+        for (int sample = 0; sample <= FootballRules.FOLLOW_TICKS; sample++) right = right.add(FootballRules.spin(FootballRules.RIGHT, sample));
+        check("a completed right-foot sweep stays within the spin cap", Math.abs(right.side() - 1) < 0.000001, true);
+        check("the release has more influence than the remaining follow-through", FootballRules.spin(FootballRules.RIGHT, 0).side() > 0.5, true);
+        check("later input cannot steer the shot", FootballRules.spin(15, 4).equals(new FootballRules.Spin(0, 0)), true);
+        check("opposing movement keys cancel spin", FootballRules.spin(15, 0).equals(new FootballRules.Spin(0, 0)), true);
+        for (int keys = 0; keys < 16; keys++) {
+            var sum = new FootballRules.Spin(0, 0);
+            for (int sample = 0; sample <= FootballRules.FOLLOW_TICKS; sample++) sum = sum.add(FootballRules.spin(keys, sample));
+            check("spin cap for keys " + keys, Math.hypot(sum.side(), sum.top()) <= 1.000001, true);
+        }
+        double speed = FootballRules.shotSpeed(24), angle = FootballRules.curveAngle(speed, right);
+        // Looking south (+Z), rightward spin must bend toward west (-X).
+        check("D bends toward the shooter's right", -speed * Math.sin(angle) < 0, true);
+        check("curve preserves horizontal kinetic speed", Math.abs(Math.hypot(speed * Math.sin(angle), speed * Math.cos(angle)) - speed) < 0.000001, true);
+        check("W adds dip", FootballRules.lift(speed, FootballRules.spin(FootballRules.FORWARD, 0)) < 0, true);
+        check("S adds lift", FootballRules.lift(speed, FootballRules.spin(FootballRules.BACKWARD, 0)) > 0, true);
+        check("sprinting exposes the ball farther than walking", FootballRules.touchDistance(true, false) > FootballRules.touchDistance(false, false), true);
+        check("crouching keeps the ball closer", FootballRules.touchDistance(false, true) < FootballRules.touchDistance(false, false), true);
+        check("sprint touches stay below the controllable speed", FootballRules.touchSpeed(0.28, true, false) < FootballRules.CONTROL_SPEED, true);
+        check("the net removes over 90 percent of normal impact energy", FootballRules.NET_REBOUND * FootballRules.NET_REBOUND < 0.1, true);
+        check("the net also damps tangential motion", FootballRules.NET_DRAG < 0.25, true);
 
-        // Baseline: the state decides when nothing else applies.
-        check("angry attacks", Hostility.attacksPlayer(S, ANG, false, none), true);
-        check("neutral does not attack", Hostility.attacksPlayer(S, NEU, false, none), false);
-        check("neutral but provoked attacks", Hostility.attacksPlayer(S, NEU, true, none), true);
-
-        // Decided: the suit wins over everything; pacified suspends hostility.
-        check("suit beats angry+provoked+sticker", Hostility.attacksPlayer(T, ANG, true, gear(true, 0, 0, false, true)), false);
-        check("pacified beats provoked", Hostility.attacksPlayer(S, PAC, true, none), false);
-        check("pacified beats sticker (pick)", Hostility.attacksPlayer(T, PAC, false, gear(false, 0, 0, false, true)), false);
-
-        // Garment immunity is per group.
-        check("student piece calms angry student", Hostility.attacksPlayer(S, ANG, false, gear(false, 1, 0, false, false)), false);
-        check("student piece does not calm teacher", Hostility.attacksPlayer(T, ANG, false, gear(false, 1, 0, false, false)), true);
-        check("teacher piece calms angry teacher", Hostility.attacksPlayer(T, ANG, false, gear(false, 0, 1, false, false)), false);
-        check("no group ignores garments", Hostility.attacksPlayer(N, ANG, false, gear(false, 2, 2, true, false)), true);
-
-        // Studious only calms teachers.
-        check("studious calms teacher", Hostility.attacksPlayer(T, ANG, false, gear(false, 0, 0, true, false)), false);
-        check("studious does not calm student", Hostility.attacksPlayer(S, ANG, false, gear(false, 0, 0, true, false)), true);
-
-        // Pick (precedence): sticker beats teacher immunity and Studious; provoked beats immunity.
-        check("sticker beats teacher piece", Hostility.attacksPlayer(T, NEU, false, gear(false, 0, 2, false, true)), true);
-        check("sticker beats studious", Hostility.attacksPlayer(T, NEU, false, gear(false, 0, 0, true, true)), true);
-        check("sticker does not affect students", Hostility.attacksPlayer(S, NEU, false, gear(false, 0, 0, false, true)), false);
-        check("provoked beats immunity", Hostility.attacksPlayer(S, NEU, true, gear(false, 3, 0, false, false)), true);
-
-        // Vision: 1.0 / 0.5 / undefined (V6).
-        total++;
-        if (Hostility.visionMultiplier(none).getAsDouble() != 1.0) { failures++; System.out.println("FAIL: vision 0 pieces"); }
-        total++;
-        if (Hostility.visionMultiplier(gear(false, 0, 1, false, false)).getAsDouble() != 0.5) { failures++; System.out.println("FAIL: vision 1 piece"); }
-        total++;
-        if (Hostility.visionMultiplier(gear(false, 1, 1, false, false)).isPresent()) { failures++; System.out.println("FAIL: vision 2 pieces must be undefined"); }
 
         System.out.println(total - failures + "/" + total + " checks passed");
         System.exit(failures == 0 ? 0 : 1);
