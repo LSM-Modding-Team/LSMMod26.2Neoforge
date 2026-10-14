@@ -1,4 +1,4 @@
-"""Generate a 8x6x3 school football goal with basketball board, hoop and real cutout nets."""
+"""Generate the reference school's white combined goal, board and cutout nets."""
 from resource_json import resource_json
 import json
 from pathlib import Path
@@ -13,44 +13,45 @@ DATA = ROOT / "src/main/resources/data"
 ID = "football_basketball_goal"
 WIDTH, HEIGHT, DEPTH = 9, 6, 3
 SHIFT_X = 8
-# North-facing mouth; the rear shoulders slope from z30 at the top to z46 below.
+# Keep the 8-block frame and saved 9x6x3 cell grid, including its +8px offset.
+# The photo has a rectangular tubular goal and a tall board directly above its
+# crossbar, without a second mesh-filled frame between the goal and the board.
+BOARD = [40, 64, 12, 88, 96, 14]
+RIM_Y = 70
 PARTS = [
     ([0, 0, 14, 2, 64, 16], "frame"), ([126, 0, 14, 128, 64, 16], "frame"),
     ([0, 62, 14, 128, 64, 16], "frame"),
-    ([0, 0, 46, 2, 32, 48], "frame"), ([126, 0, 46, 128, 32, 48], "frame"),
-    ([0, 62, 30, 128, 64, 32], "frame"),
-    ([0, 62, 16, 2, 64, 30], "frame"), ([126, 62, 16, 128, 64, 30], "frame"),
+    ([0, 0, 46, 2, 64, 48], "frame"), ([126, 0, 46, 128, 64, 48], "frame"),
+    ([2, 62, 46, 126, 64, 48], "frame"),
+    ([0, 62, 16, 2, 64, 46], "frame"), ([126, 62, 16, 128, 64, 46], "frame"),
     ([0, 0, 16, 2, 2, 46], "frame"), ([126, 0, 16, 128, 2, 46], "frame"),
     ([2, 0, 46, 126, 2, 48], "frame"),
-    ([2, 2, 46, 126, 32, 46.125], "net"),
-    ([2, 61.875, 16, 126, 62, 30], "net"),
-    ([46, 64, 14, 48, 78, 16], "frame"), ([80, 64, 14, 82, 78, 16], "frame"),
-    ([48, 76, 14, 80, 78, 16], "frame"),
-    ([48, 64, 14, 80, 72, 14.125], "net"),
-    ([40, 72, 12, 88, 96, 14], "board", {"north": "board_front"}),
-    ([59, 72, 0, 69, 73.5, 1.5], "rim"), ([59, 72, 10.5, 69, 73.5, 12], "rim"),
-    ([56, 72, 3, 57.5, 73.5, 9], "rim"), ([70.5, 72, 3, 72, 73.5, 9], "rim"),
-    ([57.5, 72, 1.5, 59, 73.5, 3], "rim"), ([69, 72, 1.5, 70.5, 73.5, 3], "rim"),
-    ([57.5, 72, 9, 59, 73.5, 10.5], "rim"), ([69, 72, 9, 70.5, 73.5, 10.5], "rim"),
-    ([62, 72, 12, 66, 73.5, 14], "rim"),
+    ([2, 2, 46, 126, 62, 46.125], "net"),
+    ([2, 61.875, 16, 126, 62, 46], "net"),
+    ([1.875, 2, 16, 2, 62, 46], "net"),
+    ([126, 2, 16, 126.125, 62, 46], "net"),
+    # White mounting rails sit behind the board, joined to the goal crossbar.
+    ([46, 64, 14, 48, 94, 16], "frame"), ([80, 64, 14, 82, 94, 16], "frame"),
+    ([48, 92, 14, 80, 94, 16], "frame"),
+    (BOARD.copy(), "board", {"north": "board_front"}),
+    # Equal width/depth octagonal hoop, rather than the previous elongated rim.
+    ([61, RIM_Y, 0, 67, RIM_Y+1, 1], "rim"),
+    ([61, RIM_Y, 11, 67, RIM_Y+1, 12], "rim"),
+    ([58, RIM_Y, 3, 59, RIM_Y+1, 9], "rim"),
+    ([69, RIM_Y, 3, 70, RIM_Y+1, 9], "rim"),
+    ([62, RIM_Y, 12, 66, RIM_Y+1, 14], "rim"),
 ]
-# Pixel steps produce the sloped rear without rotating elements across block boundaries.
-for y in range(32, 64, 2):
-    z = 46 - (y - 32) / 2
-    for x in (0, 126):
-        PARTS.append(([x, y, z-1, x+2, y+2, z+2], "frame"))
-    if y < 62:
-        PARTS.append(([2, y, z, 126, y+2, z+0.125], "net"))
-        PARTS.append(([2, y+1.875, z-1, 126, y+2, z+0.125], "net"))
-for y in range(2, 62, 2):
-    back = 46 if y < 32 else 46 - (y-32)/2
-    PARTS.extend([([1.875, y, 16, 2, y+2, back], "net"),
-                  ([126, y, 16, 126.125, y+2, back], "net")])
-# A tapered hanging basket, open below; its own diamond-weave texture follows the height.
-for y in range(64, 72):
-    inset = (71-y)*0.375
-    left, right = 57.5+inset, 70.5-inset
-    front, back = 1.5+inset*0.75, 10.5-inset*0.75
+# Pixel stairs close all four round-hoop corners without rotated cell fragments.
+for step in range(3):
+    left, right = 58+step, 69-step
+    for x in (left, right):
+        for z in (2-step, 9+step):
+            PARTS.append(([x, RIM_Y, z, x+1, RIM_Y+1, z+1], "rim"))
+# A tapered, open-bottom basket hangs just above the goal's crossbar.
+for y in range(RIM_Y-6, RIM_Y):
+    inset = (RIM_Y-1-y)*0.375
+    left, right = 59+inset, 69-inset
+    front, back = 1+inset, 11-inset
     PARTS.extend([([left,y,front,right,y+1,front+0.125], "basket_net"),
                   ([left,y,back-0.125,right,y+1,back], "basket_net"),
                   ([left,y,front+0.125,left+0.125,y+1,back-0.125], "basket_net"),
@@ -87,12 +88,15 @@ def uv_for(direction, low, high, origin, material):
     local_low = [low[a]-origin[a] for a in range(3)]
     local_high = [high[a]-origin[a] for a in range(3)]
     if material == "board_front":
-        return [(high[0]-40-SHIFT_X)/3, (96-high[1])*2/3, (low[0]-40-SHIFT_X)/3, (96-low[1])*2/3]
+        return [(high[0]-BOARD[0]-SHIFT_X)/3, (BOARD[4]-high[1])/2,
+                (low[0]-BOARD[0]-SHIFT_X)/3, (BOARD[4]-low[1])/2]
     if material == "basket_net":
         if direction in ("north", "south"):
-            return [(high[0]-57.5-SHIFT_X)*16/13, (72-high[1])*2, (low[0]-57.5-SHIFT_X)*16/13, (72-low[1])*2]
+            return [(high[0]-59-SHIFT_X)*16/10, (RIM_Y-high[1])*16/6,
+                    (low[0]-59-SHIFT_X)*16/10, (RIM_Y-low[1])*16/6]
         if direction in ("east", "west"):
-            return [(high[2]-1.5)*16/9, (72-high[1])*2, (low[2]-1.5)*16/9, (72-low[1])*2]
+            return [(high[2]-1)*16/10, (RIM_Y-high[1])*16/6,
+                    (low[2]-1)*16/10, (RIM_Y-low[1])*16/6]
     if direction == "north": return [local_high[0], 16-local_high[1], local_low[0], 16-local_low[1]]
     if direction == "south": return [local_low[0], 16-local_high[1], local_high[0], 16-local_low[1]]
     if direction == "east": return [local_high[2], 16-local_high[1], local_low[2], 16-local_low[1]]
@@ -104,9 +108,9 @@ def textures():
     p = ASSETS / "textures/block"; p.mkdir(parents=True, exist_ok=True)
     for name, color in (("frame", (242, 242, 235)), ("board", (248, 248, 242)), ("rim", (178, 57, 27))):
         Image.new("RGB", (16, 16), color).save(p/f"sports_goal_{name}.png")
-    board = Image.new("RGB", (48, 24), (248, 248, 242)); draw = ImageDraw.Draw(board)
-    draw.rectangle((0, 0, 47, 23), outline=(35, 37, 35), width=1)
-    draw.rectangle((15, 11, 32, 21), outline=(35, 37, 35), width=1)
+    board = Image.new("RGB", (48, 32), (248, 248, 242)); draw = ImageDraw.Draw(board)
+    draw.rectangle((0, 0, 47, 31), outline=(65, 68, 64), width=1)
+    draw.rectangle((15, 15, 32, 25), outline=(65, 68, 64), width=1)
     board.save(p/"sports_goal_board_front.png")
     net = Image.new("RGBA", (16, 16)); draw = ImageDraw.Draw(net)
     for i in (0, 8):
