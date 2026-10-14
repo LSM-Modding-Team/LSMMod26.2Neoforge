@@ -51,6 +51,10 @@ public final class ModItems {
 
     public static final DeferredItem<BlockItem> BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN = ITEMS.registerSimpleBlockItem(ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN);
 
+    public static final DeferredItem<BlockItem> DOUBLE_SCHOOL_ENTRANCE_PAINTABLE_SLAB = ITEMS.registerSimpleBlockItem(ModBlocks.DOUBLE_SCHOOL_ENTRANCE_PAINTABLE_SLAB);
+
+    public static final DeferredItem<BlockItem> BATHROOM_DOOR_WIDE_2X4 = ITEMS.registerSimpleBlockItem(ModBlocks.BATHROOM_DOOR_WIDE_2X4);
+
     // BEGIN FACILITY EXPANSIONS
     public static final DeferredItem<BlockItem> DINING_DOOR_WIDE = ITEMS.registerSimpleBlockItem(ModBlocks.DINING_DOOR_WIDE);
     public static final DeferredItem<BlockItem> BATHROOM_DOOR_WIDE = ITEMS.registerSimpleBlockItem(ModBlocks.BATHROOM_DOOR_WIDE);

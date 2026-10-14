@@ -18,7 +18,8 @@ public class SchoolHammerItem extends Item {
         }
         if(!(level.getBlockEntity(pos) instanceof SchoolPaintableCustomBlockEntity block)) return InteractionResult.PASS;
         if(block instanceof net.nicomar2009.lsmmod.block.SchoolProjectingWindowPaintEntity
-                ||block instanceof net.nicomar2009.lsmmod.block.SchoolBathroomColumnPaintEntity)return InteractionResult.PASS;
+                ||block instanceof net.nicomar2009.lsmmod.block.SchoolBathroomColumnPaintEntity
+                ||block instanceof net.nicomar2009.lsmmod.block.SchoolEntranceSlabPaintEntity)return InteractionResult.PASS;
         if(player==null||player.isSpectator()||!level.mayInteract(player,pos)
                 ||!player.mayUseItemAt(pos,context.getClickedFace(),context.getItemInHand())) return InteractionResult.FAIL;
         if(!level.isClientSide()) block.removeCube(context.getClickedFace(),context.getClickLocation());

@@ -229,6 +229,71 @@ def check_paintable_column():
     print('OK: 192 states preserve original geometry, leaf/UV and glass; 8x8px independent paint squares, continuous UVs and six-face legacy migration, 13 materials, both hinges/all orientations, complete item and single drop. Java/Minecraft remain uncompiled.')
 
 
+def check_extended_doors():
+    from create_extended_school_doors import DOUBLE,BATHROOM,bathroom_parts
+    from render_extended_school_doors import scene,item
+    from create_paintable_school_block import PAINTS
+    from create_double_school_entrance import wood,model
+    from render_texture_review import add,load,render
+    from render_block_review import framing
+    import numpy as np
+    counts={entry['id']:entry['states'] for entry in audit()}
+    assert counts[DOUBLE]==288 and counts[BATHROOM]==256
+    assert counts['bathroom_door_wide']==192 and counts['double_school_entrance']==288
+    for ident in (DOUBLE,BATHROOM):
+        definition=read(A/f'blockstates/{ident}.json')['multipart']
+        for entry in definition:
+            path=A/f"models/{entry['apply']['model'].split(':')[1]}.json"
+            assert path.is_file()
+            for m in load(entry['apply']['model']):
+                for e in m.get('elements',[]):
+                    assert all(0<=e['from'][axis]<e['to'][axis]<=16 for axis in range(3)),(ident,e)
+                    assert e['faces']
+        loot=read(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ident}.json')['pools'][0]
+        assert loot['conditions'][1]['properties']=={'column':'1' if ident==DOUBLE else '0','row':'0','depth':'0'}
+        assert loot['entries'][0]['name']=='lsmmod:'+ident
+        icon=item(ident);assert icon and all(0<=v<=16 for e in icon for key in ('from','to') for v in e[key])
+    for opened in (False,True):
+        actual=scene(DOUBLE,opened);leaves=[e for e in actual if not any(v['texture']==PAINTS[0] for v in e['faces'].values())]
+        expected=[];add(expected,[model(wood(opened))])
+        center,scale=framing(expected,size=(320,320))
+        for angle in (-65,120):
+            a=np.asarray(render(leaves,center,scale,size=(320,320),azimuth=angle,elevation=12)).astype(int)
+            b=np.asarray(render(expected,center,scale,size=(320,320),azimuth=angle,elevation=12)).astype(int)
+            assert np.mean(np.abs(a-b))<.15,(opened,angle,'double leaf UV or geometry changed')
+        slab=[e for e in actual if any(v['texture']==PAINTS[0] for v in e['faces'].values())]
+        assert len(slab)==40 and all(e['from'][1]>=40 and e['to'][1]<=48 for e in slab)
+        for facing in ('north','east','south','west'):
+            painted=scene(DOUBLE,opened,facing=facing,paint=lambda column,face,q:1+q)
+            squares=[e for e in painted if any(v['texture'] in PAINTS[1:5] for v in e['faces'].values())]
+            assert len(squares)==40
+            for e in squares:
+                face,surface=next(iter(e['faces'].items()));x,y,z=[int((lo+hi)//16)%2 for lo,hi in zip(e['from'],e['to'])]
+                q=z+2*y if face in ('west','east') else x+2*z if face in ('up','down') else x+2*y
+                assert surface['texture']==PAINTS[1+q],(facing,face,q)
+    for opened,right in itertools.product((False,True),repeat=2):
+        actual=scene(BATHROOM,opened,right)
+        assert max(e['to'][1] for e in actual)==64 and min(e['from'][1] for e in actual)==0
+        expected=bathroom_parts(opened,right)
+        for column in range(2):add(expected,load('lsmmod:block/framed_door_transom',mask=1 if column==0 else 2),(column*16,48,0))
+        center,scale=framing(expected,size=(320,440))
+        for angle in (-65,120):
+            a=np.asarray(render(actual,center,scale,size=(320,440),azimuth=angle,elevation=12)).astype(int)
+            b=np.asarray(render(expected,center,scale,size=(320,440),azimuth=angle,elevation=12)).astype(int)
+            assert np.mean(np.abs(a-b))<.15,(opened,right,angle,'tall bathroom fragments differ from whole door')
+        for facing,right_vector in (((0,-1),(1,0)),((1,0),(0,1)),((0,1),(-1,0)),((-1,0),(0,-1))):
+            cells=[(right_vector[0]*column-facing[0]*depth,row,right_vector[1]*column-facing[1]*depth) for column,row,depth in itertools.product(range(2),range(4),range(2)) if depth==0 or opened and column==int(right)]
+            assert len(cells)==len(set(cells))==(12 if opened else 8)
+    java=ROOT/'src/main/java/net/nicomar2009/lsmmod/block'
+    base=(java/'SchoolFramedDiningDoorBlock.java').read_text()
+    assert 'row < 3' not in base and '.setValue(ROW,' not in base and 'state.getValue(ROW)' not in base
+    assert 'rows()==4?128:0' in base and 'b[a]>=40?b[a]+16:b[a]*1.4' in base
+    assert 'rows()-1,0' in base and 'public int rows() {return 3;}' in base
+    assert 'return false;' in (java/'SchoolPaintableDoubleEntranceBlock.java').read_text()
+    assert 'extends SchoolPaintableCustomBlockEntity' in (java/'SchoolEntranceSlabPaintEntity.java').read_text()
+    print('OK: double leaves match original renders, 40 exposed independent slab squares and full-depth header; 2x4 bathroom fragments match complete door in both hinges/openings, unique 8/12 cells, old state domains and single drops preserved. Static/offline only.')
+
+
 def main():
     wrapper = read(A/'models/block/framed_door_transom.json')
     entries = wrapper['models'][0]
@@ -306,14 +371,15 @@ def main():
     assert shared.count('length-1)),level.getBlockState(start.relative(right,length)),facing)') == 2
     assert 'SchoolGlazing.isFramedTransom(neighbor)' in (java/'SchoolGlassBlock.java').read_text()
     door = (java/'SchoolFramedDiningDoorBlock.java').read_text()
-    assert 'SchoolGlazing.refreshHorizontal(level, cell(origin,facing,column,2,0))' in door
+    assert 'SchoolGlazing.refreshHorizontal(level, cell(origin,facing,column,rows()-1,0))' in door
     assert 'SimpleBlockOutline.forState' in door and 'COLLISIONS.computeIfAbsent' in door
     print(f'OK: 32 dynamic glazing masks; 8px transom matches school-glass footprint, connected caps/top frame removed; {count} facing/open/hinge assemblies have a single dining pane or a solid bathroom leaf; native textures, restored white front, shared caches and single drops.')
 
 
 if __name__ == '__main__':
     import sys
-    if '--column-only' in sys.argv:check_paintable_column()
+    if '--extended-only' in sys.argv:check_extended_doors()
+    elif '--column-only' in sys.argv:check_paintable_column()
     elif '--paintable-bathroom-only' in sys.argv:check_paintable_bathroom()
     elif '--entrance-only' in sys.argv:check_paintable_entrance()
     else:main()

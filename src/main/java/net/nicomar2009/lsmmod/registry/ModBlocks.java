@@ -56,6 +56,10 @@ public final class ModBlocks {
 
     public static final DeferredBlock<SchoolPaintableBathroomColumnDoorBlock> BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN = BLOCKS.registerBlock("bathroom_door_wide_paintable_column", SchoolPaintableBathroomColumnDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
 
+    public static final DeferredBlock<SchoolPaintableDoubleEntranceBlock> DOUBLE_SCHOOL_ENTRANCE_PAINTABLE_SLAB = BLOCKS.registerBlock("double_school_entrance_paintable_slab", SchoolPaintableDoubleEntranceBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<SchoolBathroomDoor2x4Block> BATHROOM_DOOR_WIDE_2X4 = BLOCKS.registerBlock("bathroom_door_wide_2x4", SchoolBathroomDoor2x4Block::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+
     // BEGIN FACILITY EXPANSIONS
     public static final DeferredBlock<SchoolFramedDiningDoorBlock> DINING_DOOR_WIDE = BLOCKS.registerBlock("dining_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
     public static final DeferredBlock<SchoolFramedDiningDoorBlock> BATHROOM_DOOR_WIDE = BLOCKS.registerBlock("bathroom_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));

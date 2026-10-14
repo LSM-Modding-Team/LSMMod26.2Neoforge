@@ -47,6 +47,8 @@ public class DoubleSchoolEntranceBlock extends Block {
                 .setValue(OPEN, false).setValue(POWERED,false).setValue(COLUMN, 1).setValue(ROW, 0).setValue(DEPTH, 0));
     }
 
+    public boolean hasTransomGlazing() {return true;}
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, OPEN, POWERED, COLUMN, ROW, DEPTH);

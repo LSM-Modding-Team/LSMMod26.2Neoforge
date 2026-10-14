@@ -30,7 +30,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-/** Shared 2x3 dining/bathroom doors with one visual window and a connected fixed transom. */
+/** Shared three/four-row dining/bathroom doors with one visual window and a connected fixed transom. */
 public class SchoolFramedDiningDoorBlock extends Block {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
@@ -48,8 +48,12 @@ public class SchoolFramedDiningDoorBlock extends Block {
         super(properties);
         this.sideGlazing = sideGlazing;
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH)
-                .setValue(HINGE,net.minecraft.world.level.block.state.properties.DoorHingeSide.LEFT).setValue(OPEN, false).setValue(COLUMN, 0).setValue(ROW, 0).setValue(DEPTH, 0));
+                .setValue(HINGE,net.minecraft.world.level.block.state.properties.DoorHingeSide.LEFT).setValue(OPEN, false).setValue(COLUMN, 0).setValue(rowProperty(), 0).setValue(DEPTH, 0));
     }
+
+    public int rows() {return 3;}
+    protected IntegerProperty rowProperty() {return ROW;}
+    public int row(BlockState state) {return state.getValue(rowProperty());}
 
     public boolean hasSideGlazing() { return sideGlazing; }
 
@@ -65,15 +69,15 @@ public class SchoolFramedDiningDoorBlock extends Block {
                 .relative(facing.getOpposite(), depth);
     }
 
-    private static BlockPos origin(BlockPos pos, BlockState state) {
+    private BlockPos origin(BlockPos pos, BlockState state) {
         Direction facing = state.getValue(FACING);
         return pos.relative(facing.getClockWise(), -state.getValue(COLUMN))
-                .below(state.getValue(ROW)).relative(facing, state.getValue(DEPTH));
+                .below(state.getValue(rowProperty())).relative(facing, state.getValue(DEPTH));
     }
 
     private boolean matches(BlockState state, Direction facing, int column, int row, int depth) {
         return state.is(this) && state.getValue(FACING) == facing && state.getValue(COLUMN) == column
-                && state.getValue(ROW) == row && state.getValue(DEPTH) == depth;
+                && state.getValue(rowProperty()) == row && state.getValue(DEPTH) == depth;
     }
 
     private static boolean occupied(int column, int depth, boolean open, boolean right) {
@@ -89,7 +93,7 @@ public class SchoolFramedDiningDoorBlock extends Block {
         Player player = context.getPlayer();
         Direction right = facing.getClockWise();
         int leftSolid = 0, rightSolid = 0;
-        for (int row = 0; row < 3; row++) {
+        for (int row = 0; row < rows(); row++) {
             BlockPos leftPos = origin.relative(right.getOpposite()).above(row);
             BlockPos rightPos = origin.relative(right, 2).above(row);
             if (level.getBlockState(leftPos).isCollisionShapeFullBlock(level, leftPos)) leftSolid++;
@@ -102,10 +106,10 @@ public class SchoolFramedDiningDoorBlock extends Block {
         BlockState base = defaultBlockState().setValue(FACING, facing).setValue(HINGE, rightHinge
                 ? net.minecraft.world.level.block.state.properties.DoorHingeSide.RIGHT
                 : net.minecraft.world.level.block.state.properties.DoorHingeSide.LEFT);
-        for (int row = 0; row < 3; row++) {
+        for (int row = 0; row < rows(); row++) {
             for (int column = 0; column < 2; column++) {
                 BlockPos target = cell(origin, facing, column, row, 0);
-                BlockState part = base.setValue(COLUMN, column).setValue(ROW, row);
+                BlockState part = base.setValue(COLUMN, column).setValue(rowProperty(), row);
                 if (!level.hasChunkAt(target) || level.isOutsideBuildHeight(target)
                         || !level.getWorldBorder().isWithinBounds(target)
                         || !level.getBlockState(target).canBeReplaced(context)
@@ -128,11 +132,11 @@ public class SchoolFramedDiningDoorBlock extends Block {
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
         if (level.isClientSide()) return;
-        for (int row = 0; row < 3; row++) {
+        for (int row = 0; row < rows(); row++) {
             for (int column = 0; column < 2; column++) {
                 if (column == 0 && row == 0) continue;
                 level.setBlock(cell(pos, state.getValue(FACING), column, row, 0),
-                        state.setValue(COLUMN, column).setValue(ROW, row), Block.UPDATE_CLIENTS);
+                        state.setValue(COLUMN, column).setValue(rowProperty(), row), Block.UPDATE_CLIENTS);
             }
         }
         notifyCells(level, pos, state.getValue(FACING));
@@ -150,7 +154,7 @@ public class SchoolFramedDiningDoorBlock extends Block {
         boolean open = !controller.getValue(OPEN);
         // Validate the entire operation before moving either leaf. A blocked swing changes nothing.
         for (int depth = 0; depth < 2; depth++) {
-            for (int row = 0; row < 3; row++) {
+            for (int row = 0; row < rows(); row++) {
                 for (int column = 0; column < 2; column++) {
                     if (!occupied(column, depth, open || controller.getValue(OPEN),right(controller))) continue;
                     BlockPos target = cell(origin, facing, column, row, depth);
@@ -164,18 +168,18 @@ public class SchoolFramedDiningDoorBlock extends Block {
                     } else if (!existing.isAir()) return InteractionResult.PASS;
                     if (occupied(column, depth, open,right(controller))) {
                         BlockState next = controller.setValue(OPEN, open).setValue(COLUMN, column)
-                                .setValue(ROW, row).setValue(DEPTH, depth);
+                                .setValue(rowProperty(), row).setValue(DEPTH, depth);
                         if (!level.isUnobstructed(next, target, CollisionContext.empty())) return InteractionResult.PASS;
                     }
                 }
             }
         }
         for (int depth = 0; depth < 2; depth++) {
-            for (int row = 0; row < 3; row++) {
+            for (int row = 0; row < rows(); row++) {
                 for (int column = 0; column < 2; column++) {
                     if (!occupied(column, depth, open || controller.getValue(OPEN),right(controller))) continue;
                     BlockState next = occupied(column, depth, open,right(controller))
-                            ? controller.setValue(OPEN, open).setValue(COLUMN, column).setValue(ROW, row).setValue(DEPTH, depth)
+                            ? controller.setValue(OPEN, open).setValue(COLUMN, column).setValue(rowProperty(), row).setValue(DEPTH, depth)
                             : Blocks.AIR.defaultBlockState();
                     level.setBlock(cell(origin, facing, column, row, depth), next,
                             Block.UPDATE_CLIENTS | Block.UPDATE_SUPPRESS_DROPS);
@@ -190,7 +194,7 @@ public class SchoolFramedDiningDoorBlock extends Block {
 
     private void notifyCells(Level level, BlockPos origin, Direction facing) {
         for (int depth = 0; depth < 2; depth++) {
-            for (int row = 0; row < 3; row++) {
+            for (int row = 0; row < rows(); row++) {
                 for (int column = 0; column < 2; column++) {
                     
                     BlockPos target = cell(origin, facing, column, row, depth);
@@ -216,7 +220,9 @@ public class SchoolFramedDiningDoorBlock extends Block {
                 ? (open?SchoolFacilityShapes.INFIRMARY_OPEN:SchoolFacilityShapes.INFIRMARY_CLOSED)
                 : (open?SchoolFacilityShapes.DINING_OPEN:SchoolFacilityShapes.DINING_CLOSED);
         for(double[] source:geometry) {
-            double[] b=source.clone();if(right){b[0]=32-source[3];b[3]=32-source[0];}
+            double[] b=source.clone();
+            if((key&128)!=0)for(int a:new int[]{1,4})b[a]=b[a]>=40?b[a]+16:b[a]*1.4;
+            if(right){b[0]=32-source[3];b[3]=32-source[0];}
             double x0=Math.max(b[0],col*16),x1=Math.min(b[3],col*16+16),y0=Math.max(b[1],row*16),y1=Math.min(b[4],row*16+16),z0=Math.max(b[2],depth*16),z1=Math.min(b[5],depth*16+16);
             if(x0<x1&&y0<y1&&z0<z1) boxes.add(new double[]{x0-col*16,y0-row*16,z0-depth*16,x1-col*16,y1-row*16,z1-depth*16});
         }
@@ -226,7 +232,7 @@ public class SchoolFramedDiningDoorBlock extends Block {
     }
     @Override
     protected VoxelShape getCollisionShape(BlockState state,BlockGetter level,BlockPos pos,CollisionContext context) {
-        int key=(state.getValue(OPEN)?1:0)|(right(state)?2:0)|(state.getValue(COLUMN)<<2)|(state.getValue(ROW)<<3)|(state.getValue(DEPTH)<<5)|(sideGlazing?64:0);
+        int key=(state.getValue(OPEN)?1:0)|(right(state)?2:0)|(state.getValue(COLUMN)<<2)|(state.getValue(rowProperty())<<3)|(state.getValue(DEPTH)<<5)|(sideGlazing?64:0)|(rows()==4?128:0);
         int turn=switch(state.getValue(FACING)){case EAST->1;case SOUTH->2;case WEST->3;default->0;};
         return COLLISIONS.computeIfAbsent(key,SchoolFramedDiningDoorBlock::physical)[turn];
     }
@@ -244,7 +250,7 @@ public class SchoolFramedDiningDoorBlock extends Block {
         Direction facing = state.getValue(FACING);
         boolean complete = true;
         for (int depth = 0; depth < 2; depth++) {
-            for (int row = 0; row < 3; row++) {
+            for (int row = 0; row < rows(); row++) {
                 for (int column = 0; column < 2; column++) {
                     if (!occupied(column, depth, state.getValue(OPEN),right(state))) continue;
                     BlockPos target = cell(origin, facing, column, row, depth);
@@ -262,8 +268,8 @@ public class SchoolFramedDiningDoorBlock extends Block {
             dismantle(level, origin, facing, true, null);
         } else {
             for (int column=0; column<2; column++)
-                SchoolGlazing.refreshHorizontal(level, cell(origin,facing,column,2,0));
-            if(sideGlazing) for(int row=1;row<3;row++)
+                SchoolGlazing.refreshHorizontal(level, cell(origin,facing,column,rows()-1,0));
+            if(sideGlazing) for(int row=1;row<rows();row++)
                 SchoolGlazing.refreshHorizontal(level,cell(origin,facing,right(state)?0:1,row,0),true);
         }
     }
@@ -273,7 +279,7 @@ public class SchoolFramedDiningDoorBlock extends Block {
             level.destroyBlock(origin, drop);
         }
         for (int depth = 0; depth < 2; depth++) {
-            for (int row = 0; row < 3; row++) {
+            for (int row = 0; row < rows(); row++) {
                 for (int column = 0; column < 2; column++) {
                     BlockPos target = cell(origin, facing, column, row, depth);
                     if (target.equals(mined)) continue;

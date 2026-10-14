@@ -364,5 +364,7 @@
   "block.lsmmod.school_paintable_mini_cube_block": "Paintable 4px Mini Cube Block",
   "block.lsmmod.school_entrance_door_paintable": "School Entrance Door with Paintable Frame",
   "block.lsmmod.school_paintable_glass_stairs": "Glass Stairs with Paintable Base",
-  "block.lsmmod.bathroom_door_wide_paintable_column": "Wide Bathroom Door with Paintable Column"
+  "block.lsmmod.bathroom_door_wide_paintable_column": "Wide Bathroom Door with Paintable Column",
+  "block.lsmmod.double_school_entrance_paintable_slab": "Double School Entrance with Paintable Slab",
+  "block.lsmmod.bathroom_door_wide_2x4": "Wide Bathroom Door 2×4"
 }

@@ -17,18 +17,18 @@ public final class SchoolGlazing {
     private SchoolGlazing() {}
     public static boolean isFramedTransom(BlockState state) {
         return state.getBlock() instanceof SchoolFramedDiningDoorBlock door && door.hasTransomGlazing()
-                && state.getValue(SchoolFramedDiningDoorBlock.ROW)==2
+                && door.row(state)==door.rows()-1
                 && state.getValue(SchoolFramedDiningDoorBlock.DEPTH)==0;
     }
     public static boolean isGlass(BlockState state) {
         return hasSidePane(state) || isFramedTransom(state) || state.getBlock() instanceof SchoolGlassBlock || state.getBlock() instanceof SchoolGlassStairBlock
                 || (state.getBlock() instanceof TallClassroomEntranceBlock && state.getValue(TallClassroomEntranceBlock.ROW)==2)
-                || (state.getBlock() instanceof DoubleSchoolEntranceBlock && state.getValue(DoubleSchoolEntranceBlock.ROW)==2 && state.getValue(DoubleSchoolEntranceBlock.DEPTH)==0);
+                || (state.getBlock() instanceof DoubleSchoolEntranceBlock door && door.hasTransomGlazing() && state.getValue(DoubleSchoolEntranceBlock.ROW)==2 && state.getValue(DoubleSchoolEntranceBlock.DEPTH)==0);
     }
     public static boolean hasSidePane(BlockState state) {
         return state.getBlock() instanceof SchoolFramedDiningDoorBlock door && door.hasSideGlazing()
                 && state.getValue(SchoolFramedDiningDoorBlock.DEPTH)==0
-                && state.getValue(SchoolFramedDiningDoorBlock.ROW)>=1
+                && door.row(state)>=1
                 && state.getValue(SchoolFramedDiningDoorBlock.COLUMN)==(rightHinge(state)?0:1);
     }
     private static boolean rightHinge(BlockState state) {
