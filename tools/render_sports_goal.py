@@ -27,14 +27,15 @@ def main():
              ("Dorso y lateral", scene, center, scale, 120),
              ("Dorso", scene, center, scale, 90),
              ("Item / modelo real", item, item_center, item_scale, -55)]
-    canvas = Image.new("RGB", (1800, 1140), (194, 194, 194))
+    canvas = Image.new("RGB", (1800, 1140), (52, 66, 72))
     draw = ImageDraw.Draw(canvas)
     for index, (label, geometry, origin, zoom, azimuth) in enumerate(views):
         x, y = index % 3 * 600, index // 3 * 565
-        canvas.paste(renderer.render(geometry, origin, zoom, size=size,
-                                    azimuth=azimuth, elevation=10), (x, y + 25))
-        draw.text((x + 12, y + 8), label, fill=(30, 30, 30))
-    draw.text((12, 1128), "Render externo; no es una captura de Minecraft.", fill=(30, 30, 30))
+        rendered = renderer.render(geometry, origin, zoom*2, size=(size[0]*2,size[1]*2),
+                                   azimuth=azimuth, elevation=10, background=(52,66,72))
+        canvas.paste(rendered.resize(size, Image.Resampling.LANCZOS), (x, y + 25))
+        draw.text((x + 12, y + 8), label, fill=(232, 236, 239))
+    draw.text((12, 1128), "Render externo; no es una captura de Minecraft.", fill=(232, 236, 239))
     output = preview_path(f"{ID}_review.png")
     canvas.save(output)
     print(output)

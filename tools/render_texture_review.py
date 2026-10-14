@@ -117,7 +117,8 @@ def texture(ident):
     return np.array(Image.open(path).convert('RGBA'))
 
 
-def render(scene, center, scale, size=(420,560), azimuth=-70, elevation=15, minecraft_orientation=False):
+def render(scene, center, scale, size=(420,560), azimuth=-70, elevation=15, minecraft_orientation=False,
+           background=(186,186,186)):
     width,height = size
     az,el = np.radians([azimuth,elevation])
     eye = np.array([math.cos(az)*math.cos(el),math.sin(el),math.sin(az)*math.cos(el)])
@@ -127,8 +128,8 @@ def render(scene, center, scale, size=(420,560), azimuth=-70, elevation=15, mine
     if minecraft_orientation:right=-right
     # Neutral checker backdrop makes transparency and dark surfaces visible.
     yy,xx = np.indices((height,width))
-    checker = ((xx//24+yy//24)%2)*8+186
-    rgb = np.repeat(checker[:,:,None],3,axis=2).astype(float)
+    checker = ((xx//24+yy//24)%2)*8
+    rgb = (checker[:,:,None]+np.array(background)).astype(float)
     depth = np.full((height,width),-np.inf)
     normals = {'north':(0,0,-1),'south':(0,0,1),'east':(1,0,0),'west':(-1,0,0),'up':(0,1,0),'down':(0,-1,0)}
     lighting = {'north':.8,'south':.8,'east':.6,'west':.6,'up':1.,'down':.5}
