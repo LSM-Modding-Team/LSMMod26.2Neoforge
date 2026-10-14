@@ -44,6 +44,24 @@ Las velocidades de la tabla son iniciales: la gravedad curva la trayectoria y el
 
 ## Pacificar y enojar
 
+`portable_speaker`: item 3D cilíndrico rojo, no apilable. Clic derecho reproduce
+uno de once fragmentos finales Ogg Vorbis mono, con volumen de discos. Cada
+parlante conserva en `CUSTOM_DATA` su identidad y un orden aleatorio completo;
+al terminar el ciclo se sortea otro, sin repetición inmediata entre ciclos.
+Cortes/duraciones: `tools/portable_speaker_tracks.json`. Generador de modelo/texturas:
+`tools/create_portable_speaker_assets.py`.
+
+El audio sigue al stack real en inventario/cursor, suelo, inventarios de entidades,
+contenedores de bloques cargados y contenedores portátiles anidados (componentes
+container/bundle o capacidades NeoForge). Trasladarlo actualiza la posición sin
+reiniciar el stream. Cooldown por duración y bloqueo por identidad evitan reproducir
+dos canciones desde el mismo parlante, incluso al transferirlo. No hay autoplay.
+No carga chunks por música; desaparecido o descargado el stack, detiene el sonido
+tras cinco ticks de tolerancia. Profesores investigan la fuente: [SCHOOL_NPCS](SCHOOL_NPCS.md).
+Apaciguar alumnos, canciones externas y receta siguen pendientes. La versión de
+esta conversación compiló antes de integrar master; integración actual revisada
+estáticamente, pendiente de compilación y prueba en Minecraft.
+
 **Arte implementado:** folder oficio de tapa dura sin liga, inspirado en ARTESCO; cuaderno college de tapa flexible fina, color sólido, lomo encolado y sin espiral, inspirado en Bakan/Stanford. Dos modelos padre (`folder`, `notebook`), 16 variantes por tipo (`<color>_folder`, `<color>_notebook`) y atlas de tapas compartidos entre ambos. Hojas y etiquetas usan un atlas independiente para conservar su color. Items decorativos registrados en la pestaña LSM Mod; recetas, consumo y Estudioso siguen pendientes. Regenerar con `python tools/create_stationery_assets.py`; preview con `blender -b --python tools/render_stationery_assets.py`.
 
 Dirección de cada uno y quién queda afectado: [MECHANICS_SPECS](MECHANICS_SPECS.md). Aquí los valores.

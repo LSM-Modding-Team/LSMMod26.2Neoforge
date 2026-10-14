@@ -138,7 +138,7 @@ def check_paintable_bathroom():
     assert 'removed|=1L<<cube' in entity and 'level.removeBlock' not in entity
     assert 'miniSize() {return 8;}' in entity and 'squareGroup(index)' in entity
     assert 'invalidateClientGeometry()' in entity and 'getLongOr("removed",0)' in entity
-    print('OK: original leaf in all 192 states; 2x3 frame, 8px edit groups, all 13 materials, hidden seams, item/drop and unchanged fine storage for legacy paint/cuts. Java interactions remain uncompiled and untested in Minecraft.')
+    print('OK: original leaf in all 192 states; 2x3 frame, 8px edit groups, all current materials, hidden seams, item/drop and unchanged fine storage for legacy paint/cuts. Java interactions remain uncompiled and untested in Minecraft.')
 
 
 def check_paintable_column():
@@ -191,7 +191,7 @@ def check_paintable_column():
         assert bool(wall)==column_cell,(state,'paintable cell does not match physical column')
         if wall:
             assert len(wall)==(10 if row==2 else 16) and {f for e in wall for f in e['faces']}==set(SIDES)
-            for color in range(13):
+            for color in range(len(PAINTS)):
                 painted=selected(parts,state,color)
                 assert sum(any(f['texture']==PAINTS[color] for f in e['faces'].values()) for e in painted)==len(wall)
     # Distinct paints on each world direction and row survive all four rotations and hinges.
@@ -226,7 +226,7 @@ def check_paintable_column():
     rectangle=(java/'item/RectanglePaintTool.java').read_text()
     assert 'block instanceof SchoolPaintableCustomBlockEntity small' in rectangle
     assert 'end=new End(end.plane,a,a+3,b,b+3)' not in rectangle
-    print('OK: 192 states preserve original geometry, leaf/UV and glass; 8x8px independent paint squares, continuous UVs and six-face legacy migration, 13 materials, both hinges/all orientations, complete item and single drop. Java/Minecraft remain uncompiled.')
+    print('OK: 192 states preserve original geometry, leaf/UV and glass; 8x8px independent paint squares, continuous UVs and six-face legacy migration, all materials, both hinges/all orientations, complete item and single drop. Java/Minecraft remain uncompiled.')
 
 
 def check_extended_doors():
@@ -275,7 +275,6 @@ def check_extended_doors():
         actual=scene(BATHROOM,opened,right)
         assert max(e['to'][1] for e in actual)==64 and min(e['from'][1] for e in actual)==0
         expected=bathroom_parts(opened,right)
-        for column in range(2):add(expected,load('lsmmod:block/framed_door_transom',mask=1 if column==0 else 2),(column*16,48,0))
         center,scale=framing(expected,size=(320,440))
         for angle in (-65,120):
             a=np.asarray(render(actual,center,scale,size=(320,440),azimuth=angle,elevation=12)).astype(int)
@@ -287,6 +286,8 @@ def check_extended_doors():
     java=ROOT/'src/main/java/net/nicomar2009/lsmmod/block'
     base=(java/'SchoolFramedDiningDoorBlock.java').read_text()
     assert 'row < 3' not in base and '.setValue(ROW,' not in base and 'state.getValue(ROW)' not in base
+    assert 'hasTransomGlazing() {return false;}' in (java/'SchoolBathroomDoor2x4Block.java').read_text()
+    assert 'new double[]{0,0,0,32,64,4}' in (java/'SchoolBathroomDoor2x4Block.java').read_text()
     assert 'rows()==4?128:0' in base and 'b[a]>=40?b[a]+16:b[a]*1.4' in base
     assert 'rows()-1,0' in base and 'public int rows() {return 3;}' in base
     assert 'return false;' in (java/'SchoolPaintableDoubleEntranceBlock.java').read_text()

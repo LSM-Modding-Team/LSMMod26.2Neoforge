@@ -31,6 +31,10 @@ public class LSMMod {
         ModCreativeTabs.register(modEventBus);
         ModSounds.SOUNDS.register(modEventBus);
         modEventBus.addListener(net.nicomar2009.lsmmod.network.PaintCopyPayload::register);
+        modEventBus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent event) ->
+                event.registrar("1").playToClient(
+                        net.nicomar2009.lsmmod.network.SpeakerSoundPayload.TYPE,
+                        net.nicomar2009.lsmmod.network.SpeakerSoundPayload.CODEC));
         modEventBus.addListener((net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent event) -> {
             event.put(ModEntities.STUDENT.get(), net.nicomar2009.lsmmod.entity.StudentEntity.createAttributes().build());
             event.put(ModEntities.TEACHER.get(), net.nicomar2009.lsmmod.entity.TeacherEntity.createAttributes().build());

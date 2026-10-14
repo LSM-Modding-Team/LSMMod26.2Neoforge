@@ -98,6 +98,43 @@ def check_projecting_half():
             assert {face for model in painted for element in model['elements'] for face in element['faces']}==set(SIDES), 'Fusion drops painted wall faces from the item'
     print(f'OK: {len(PAINTS)} paints on 8x8 squares across all six fixed half-block faces; both wall sides, four orientations and five pane poses, whole-face legacy import and item layers; glass/frame geometry remains isolated from painting.')
 
+def check_laboratory_auditorium():
+    from PIL import Image
+    from create_laboratory_auditorium_materials import MATERIALS
+    from render_texture_review import load
+    for ident in MATERIALS:
+        image=Image.open(A/f'textures/block/{ident}.png');assert image.mode=='RGB' and image.size==(32,32)
+        models=load('lsmmod:block/'+ident);assert len(models)==1
+        box,=models[0]['elements'];assert box['from']==[0,0,0] and box['to']==[16,16,16] and set(box['faces'])==set(SIDES)
+        assert read(A/f'blockstates/{ident}.json')['variants']=={'':{'model':'lsmmod:block/'+ident}}
+        assert read(A/f'items/{ident}.json')['model']['model']=='lsmmod:item/'+ident
+        loot=read(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ident}.json')
+        assert loot['pools'][0]['entries'][0]['name']=='lsmmod:'+ident
+    for ident,joint,target in (('school_laboratory_tile',(86,78,64),(183,173,151)),('laboratory_table_tile',(112,111,101),(220,220,211))):
+        image=Image.open(A/f'textures/block/{ident}.png')
+        for y in range(32):
+            for x in range(32):assert (image.getpixel((x,y))==joint)==(x%16==0 or y%16==0)
+        pixels=[image.getpixel((x,y)) for x in range(32) for y in range(32) if x%16 and y%16]
+        assert all(abs(sum(p[c] for p in pixels)/len(pixels)-target[c])<3 for c in range(3))
+    top=Image.open(A/'textures/block/auditorium_stage_top.png');assert top.mode=='RGB' and top.size==(32,32)
+    assert 28<sum(sum(top.getpixel((x,y)))/3 for x in range(32) for y in range(32))/1024<42
+    model=load('lsmmod:block/auditorium_stage')[0]
+    assert model['elements'][0]['faces']['up']['texture']=='#top' and model['textures']['top']=='lsmmod:block/auditorium_stage_top'
+    parquet=Image.open(A/'textures/block/auditorium_parquet.png')
+    means=[sum(parquet.getpixel((x,y))[0] for x in range(i*4,(i+1)*4) for y in range(32))/128 for i in range(8)]
+    assert max(means)-min(means)>50
+    assert PAINTS[13:]==tuple('lsmmod:block/'+name for name in MATERIALS[:3]) and len(PAINTS)==16
+    for path in (A/'models/block').rglob('*.json'):
+        model=read(path)
+        for group in model.get('models',[]):
+            colors={e['condition']['paint'] for e in group if isinstance(e,dict) and isinstance(e.get('condition',{}).get('paint'),int) and e['condition']['paint']>=0}
+            if colors and max(colors)>0:assert {13,14,15}<=colors,(path,'new paints missing')
+    registry=(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModItems.java').read_text()
+    for ident in MATERIALS[:3]:assert ident+'_paint' in registry
+    assert 'auditorium_stage_paint' not in registry
+    print('OK: four opaque block/item/drop sets; two tile rows/columns and reference colors, narrow parquet grain, dark wool only on stage top; stable paint IDs 13–15 fit four-bit storage and every active paint library includes them.')
+
+
 def main():
     for texture in PAINTS:
         namespace, path = texture.split(':')
@@ -114,7 +151,7 @@ def main():
     assert border==(255,211,0) and {yellow.getpixel((x,y)) for x in range(16) for y in range(16)}=={border}
     enum=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolPaint.java').read_text()
     import re
-    assert re.findall(r'^    ([A-Z_]+)\(',enum,re.M)==['UNPAINTED','LIGHT','DARK','STREET','WHITE','FLOOR','YELLOW','PLAYGROUND_WHITE','PLAYGROUND_GRAY','PLAYGROUND_GREEN','PLAYGROUND_ORANGE','DARK_TILED','RED_STREET']
+    assert re.findall(r'^    ([A-Z_]+)\(',enum,re.M)==['UNPAINTED','LIGHT','DARK','STREET','WHITE','FLOOR','YELLOW','PLAYGROUND_WHITE','PLAYGROUND_GRAY','PLAYGROUND_GREEN','PLAYGROUND_ORANGE','DARK_TILED','RED_STREET','LABORATORY_TILE','LABORATORY_TABLE_TILE','AUDITORIUM_PARQUET']
     assert read(A/'blockstates/yellow_school_block.json')['variants']=={'':{'model':'lsmmod:block/yellow_school_block'}}
     assert read(A/'models/block/yellow_school_block.json')['parent']=='minecraft:block/cube_all'
     assert 'case YELLOW -> ModItems.YELLOW_SCHOOL_PAINT.get();' in (ROOT/'src/main/java/net/nicomar2009/lsmmod/item/SchoolSandpaperItem.java').read_text()
@@ -173,5 +210,6 @@ leaves = {f'lsmmod:block/paintable_faces/{face}_{paint}': read(A/f'models/block/
           for face in SIDES for paint in range(len(PAINTS))}
 if __name__ == '__main__':
     import sys
-    if '--projecting-half-only' in sys.argv:check_projecting_half()
+    if '--materials-only' in sys.argv:check_laboratory_auditorium()
+    elif '--projecting-half-only' in sys.argv:check_projecting_half()
     else:main()

@@ -49,5 +49,93 @@
     "sounds": [
       "lsmmod:ruler_hit"
     ]
+  },
+  "portable_speaker.bby_wow": {
+    "sounds": [
+      {
+        "name": "lsmmod:portable_speaker/bby_wow",
+        "stream": true
+      }
+    ]
+  },
+  "portable_speaker.delincuente": {
+    "sounds": [
+      {
+        "name": "lsmmod:portable_speaker/delincuente",
+        "stream": true
+      }
+    ]
+  },
+  "portable_speaker.bailan_rochas_y_chetas": {
+    "sounds": [
+      {
+        "name": "lsmmod:portable_speaker/bailan_rochas_y_chetas",
+        "stream": true
+      }
+    ]
+  },
+  "portable_speaker.4k": {
+    "sounds": [
+      {
+        "name": "lsmmod:portable_speaker/4k",
+        "stream": true
+      }
+    ]
+  },
+  "portable_speaker.el_efecto": {
+    "sounds": [
+      {
+        "name": "lsmmod:portable_speaker/el_efecto",
+        "stream": true
+      }
+    ]
+  },
+  "portable_speaker.pa_que_retozen": {
+    "sounds": [
+      {
+        "name": "lsmmod:portable_speaker/pa_que_retozen",
+        "stream": true
+      }
+    ]
+  },
+  "portable_speaker.equis": {
+    "sounds": [
+      {
+        "name": "lsmmod:portable_speaker/equis",
+        "stream": true
+      }
+    ]
+  },
+  "portable_speaker.si_te_dejas_llevar": {
+    "sounds": [
+      {
+        "name": "lsmmod:portable_speaker/si_te_dejas_llevar",
+        "stream": true
+      }
+    ]
+  },
+  "portable_speaker.cuatro_babys": {
+    "sounds": [
+      {
+        "name": "lsmmod:portable_speaker/cuatro_babys",
+        "stream": true
+      }
+    ]
+  },
+  "portable_speaker.dile_que_tu_me_quieres": {
+    "sounds": [
+      {
+        "name": "lsmmod:portable_speaker/dile_que_tu_me_quieres",
+        "stream": true
+      }
+    ]
+  },
+  "portable_speaker.se_preparo": {
+    "sounds": [
+      {
+        "name": "lsmmod:portable_speaker/se_preparo",
+        "stream": true
+      }
+    ]
   }
 }

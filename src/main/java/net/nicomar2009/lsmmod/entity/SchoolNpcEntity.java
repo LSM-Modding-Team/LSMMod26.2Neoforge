@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
+import net.nicomar2009.lsmmod.event.PortableSpeakerPlayback;
+import net.nicomar2009.lsmmod.entity.goal.InvestigateSpeakerGoal;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -188,6 +191,26 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
     }
 
     public abstract boolean isTeacher();
+    private final Set<UUID> interruptedSpeakerClips = new HashSet<>();
+
+    public PortableSpeakerPlayback.AudibleSource speakerToInvestigate() {
+        if (!isTeacher() || !(level() instanceof ServerLevel serverLevel)) return null;
+        interruptedSpeakerClips.removeIf(id -> !PortableSpeakerPlayback.isClipPlaying(id));
+        if (!interruptedSpeakerClips.isEmpty()) return null;
+        var source = PortableSpeakerPlayback.nearestSource(serverLevel, position());
+        return source == null || source.heldByPlayer() ? null : source;
+    }
+
+    /** A direct player attack wins over audio distraction until this clip ends. */
+    public void interruptSpeakerAttraction(Player attacker) {
+        if (!isTeacher() || attacker.isCreative() || attacker.isSpectator()
+                || !(level() instanceof ServerLevel serverLevel)) return;
+        var source = PortableSpeakerPlayback.nearestSource(serverLevel, position());
+        if (source == null) return;
+        interruptedSpeakerClips.add(source.clipId());
+        witnessedAttackers.add(attacker.getUUID().toString());
+        setTarget(attacker);
+    }
     public final boolean isStudent() { return !isTeacher(); }
 
     @Override
@@ -374,8 +397,9 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(0, new FloatGoal(this));
-        goalSelector.addGoal(1, new RoleMeleeGoal());
-        goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        goalSelector.addGoal(1, new InvestigateSpeakerGoal(this));
+        goalSelector.addGoal(2, new RoleMeleeGoal());
+        goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0));
         targetSelector.addGoal(1, new HurtByTargetGoal(this) {
             @Override
             public boolean canUse() { return isStudent() && super.canUse(); }
@@ -384,7 +408,7 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
         });
         targetSelector.addGoal(2, new NearestAttackableTargetGoal<Player>(this, Player.class, true) {
             @Override
-            public boolean canUse() { return isTeacher() && super.canUse(); }
+            public boolean canUse() { return isTeacher() && speakerToInvestigate() == null && super.canUse(); }
             {
                 // Selection and continuation both consult per-player uniform/violence memory.
                 targetConditions.selector((candidate, serverLevel) ->
@@ -392,7 +416,7 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
             }
             @Override
             public boolean canContinueToUse() {
-                return isTeacher() && getTarget() instanceof Player player
+                return isTeacher() && speakerToInvestigate() == null && getTarget() instanceof Player player
                         && shouldAttackPlayer(player) && super.canContinueToUse();
             }
         });
@@ -403,10 +427,10 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
         RoleMeleeGoal() { super(SchoolNpcEntity.this, 1.0, true); }
 
         @Override
-        public boolean canUse() { return (isTeacher() || isStudent()) && super.canUse(); }
+        public boolean canUse() { return (isTeacher() || isStudent()) && speakerToInvestigate() == null && super.canUse(); }
 
         @Override
-        public boolean canContinueToUse() { return (isTeacher() || isStudent()) && super.canContinueToUse(); }
+        public boolean canContinueToUse() { return (isTeacher() || isStudent()) && speakerToInvestigate() == null && super.canContinueToUse(); }
 
         @Override
         protected void checkAndPerformAttack(LivingEntity target) {

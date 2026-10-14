@@ -29,6 +29,7 @@ public final class SchoolNpcCombatEvents {
 
     private static void observe(Player player, SchoolNpcEntity victim) {
         if (!(victim.level() instanceof ServerLevel level) || (!victim.isTeacher() && !victim.isStudent())) return;
+        victim.interruptSpeakerAttraction(player);
         for (SchoolNpcEntity witness : level.getEntitiesOfClass(SchoolNpcEntity.class,
                 player.getBoundingBox().inflate(SchoolNpcEntity.MAX_PERCEPTION_RANGE), npc -> npc.isTeacher() || npc.isStudent())) {
             witness.witnessSchoolAttack(player, victim);

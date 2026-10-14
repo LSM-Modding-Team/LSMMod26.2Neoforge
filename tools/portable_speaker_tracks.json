@@ -1,0 +1,68 @@
+[
+  {
+    "id": "bby_wow",
+    "start_seconds": 31,
+    "end_seconds": 48,
+    "duration_ticks": 340
+  },
+  {
+    "id": "delincuente",
+    "start_seconds": 175,
+    "end_seconds": 185,
+    "duration_ticks": 200
+  },
+  {
+    "id": "bailan_rochas_y_chetas",
+    "start_seconds": 12,
+    "end_seconds": 25,
+    "duration_ticks": 260
+  },
+  {
+    "id": "4k",
+    "start_seconds": 11,
+    "end_seconds": 23,
+    "duration_ticks": 240
+  },
+  {
+    "id": "el_efecto",
+    "start_seconds": 23,
+    "end_seconds": 45.5,
+    "duration_ticks": 450
+  },
+  {
+    "id": "pa_que_retozen",
+    "start_seconds": 52,
+    "end_seconds": 62,
+    "duration_ticks": 200
+  },
+  {
+    "id": "equis",
+    "start_seconds": 24.8,
+    "end_seconds": 37.55,
+    "duration_ticks": 255
+  },
+  {
+    "id": "si_te_dejas_llevar",
+    "start_seconds": 2.8,
+    "end_seconds": 20.1,
+    "duration_ticks": 346
+  },
+  {
+    "id": "cuatro_babys",
+    "start_seconds": 28,
+    "end_seconds": 43.4,
+    "duration_ticks": 308
+  },
+  {
+    "id": "dile_que_tu_me_quieres",
+    "start_seconds": 41,
+    "end_seconds": 60,
+    "duration_ticks": 380
+  },
+  {
+    "id": "se_preparo",
+    "start_seconds": 61.8,
+    "end_seconds": 72.8,
+    "duration_ticks": 220
+  }
+]
