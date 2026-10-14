@@ -391,5 +391,6 @@
   "message.lsmmod.media.moises_only": "Sólo la laptop de Moisés puede usar el parlante general.",
   "message.lsmmod.media.too_far": "Los dispositivos deben estar a un máximo de 64 bloques.",
   "message.lsmmod.media.rectangle_required": "Une pantallas completas en un rectángulo de hasta 16 × 12 bloques.",
-  "message.lsmmod.media.limit": "Límite de conexiones alcanzado (8 parlantes por origen, 1024 enlaces por dimensión)."
+  "message.lsmmod.media.limit": "Límite de conexiones alcanzado (8 parlantes por origen, 1024 enlaces por dimensión).",
+  "block.lsmmod.school_paintable_projecting_window_slab": "Losa pintable con ventana proyectante"
 }

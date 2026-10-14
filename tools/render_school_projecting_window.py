@@ -131,11 +131,61 @@ def review_squares():
     canvas.save(preview_path('school_paintable_projecting_window_squares_review.png'))
 
 
+def slab_scene(opened=False,facing='north',paint=0):
+    from create_school_projecting_window_assets import SLAB_ID
+    from create_custom_paintable_blocks import STEPS
+    from create_kiosk_entrance_assets import rotated
+    state=dict(facing=facing,open=str(opened).lower());elements=[]
+    def predicate(condition):
+        cube=condition['cube'];xyz=(cube&1,(cube>>1)&1,(cube>>2)&1)
+        neighbor=tuple(a+b for a,b in zip(xyz,STEPS[condition['face']]))
+        covered=all(0<=a<2 for a in neighbor) and (0x33&(1<<(neighbor[0]+2*neighbor[1]+4*neighbor[2])))
+        color=paint(xyz,condition['face']) if callable(paint) else paint
+        return bool(0x33&(1<<cube)) and not covered and condition['paint']==color
+    for entry in json.loads((A/f'blockstates/{SLAB_ID}.json').read_text())['multipart']:
+        if not all(state[k] in value.split('|') for k,value in entry.get('when',{}).items()):continue
+        apply=entry['apply']
+        for model in load(apply['model'],predicate=predicate):
+            for _ in range(3*(apply.get('y',0)//90)):
+                model=rotated(model)
+                for element in model.get('elements',[]):
+                    rotation=element.get('rotation')
+                    if not rotation:continue
+                    x,y,z=rotation['origin'];rotation['origin']=[z,y,16-x]
+                    if rotation['axis']=='x':rotation['axis']='z';rotation['angle']=-rotation['angle']
+                    elif rotation['axis']=='z':rotation['axis']='x'
+            add(elements,[model])
+    return elements
+
+
+def slab_item():
+    from create_school_projecting_window_assets import SLAB_ID
+    elements=[];add(elements,load('lsmmod:item/'+SLAB_ID));return elements
+
+
+def review_slab():
+    from create_school_projecting_window_assets import SLAB_ID
+    from render_block_review import framing
+    paint=lambda xyz,face:13 if (xyz[0]+xyz[2])%2 else 14
+    cases=[('Cerrada / losa inferior fija',slab_scene()),('Abierta 45 grados / bisagra superior',slab_scene(True)),
+           ('Cuadrados pintables de 8x8 px',slab_scene(True,paint=paint)),('Dorso / cristal y marco originales',slab_scene(True,paint=paint)),
+           ('Item / losa y ventana',slab_item())]
+    for facing in ('east','south','west'):cases.append(('Orientacion '+facing,slab_scene(True,facing,paint)))
+    canvas=Image.new('RGB',(1440,1560),(194,194,194));draw=ImageDraw.Draw(canvas)
+    for i,(label,elements) in enumerate(cases):
+        center,scale=framing(elements,size=(480,490));offset=(i%3*480,i//3*520+25)
+        canvas.paste(render(elements,center,scale*.85,size=(480,490),azimuth=120 if i==3 else -65,elevation=20,minecraft_orientation=True),offset)
+        draw.text((offset[0]+8,offset[1]-18),label,fill=(25,25,25))
+    canvas.save(preview_path(SLAB_ID+'_review.png'))
+
+
 if __name__ == '__main__':
     import argparse
     from pathlib import Path
     import render_texture_review as renderer
     parser=argparse.ArgumentParser()
     parser.add_argument('--vanilla-dir',type=Path,default=renderer.VANILLA)
-    renderer.VANILLA=parser.parse_args().vanilla_dir
-    main()
+    parser.add_argument('--slab-only',action='store_true')
+    args=parser.parse_args();renderer.VANILLA=args.vanilla_dir
+    if args.slab_only:review_slab()
+    else:main()

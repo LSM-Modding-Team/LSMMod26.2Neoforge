@@ -1,0 +1,1 @@
+{"loader":"fusion:model","type":"composite","textures":{"frame":"lsmmod:block/school_projecting_window_frame","glass":"lsmmod:block/school_projecting_window_glass","particle":"#frame"},"models":[["lsmmod:block/school_paintable_projecting_window_slab_pane_1_solid"],["lsmmod:block/school_paintable_projecting_window_slab_pane_1_translucent"]]}

@@ -397,5 +397,6 @@
   "message.lsmmod.media.moises_only": "Only Moisés’s laptop can use the general speaker.",
   "message.lsmmod.media.too_far": "Devices must be within 64 blocks of each other.",
   "message.lsmmod.media.rectangle_required": "Join complete screens into a rectangle up to 16 × 12 blocks.",
-  "message.lsmmod.media.limit": "Connection limit reached (8 speakers per source, 1024 links per dimension)."
+  "message.lsmmod.media.limit": "Connection limit reached (8 speakers per source, 1024 links per dimension).",
+  "block.lsmmod.school_paintable_projecting_window_slab": "Paintable Slab with Projecting Window"
 }
