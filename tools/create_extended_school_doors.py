@@ -25,6 +25,7 @@ def clipped(elements,column,row,depth):
 
 
 def item(ident,elements,width,height):
+    for obsolete in (A/'models/item').glob(ident+'_*.json'):obsolete.unlink()
     groups=[];scale=max(width,height)/16
     for layer in sorted({e.get('render_type','minecraft:solid') for e in elements}):
         parts=[]
@@ -89,9 +90,15 @@ def bathroom_parts(opened=False,right=False):
         if 'framed_door_transom' in entry['apply']['model']:continue
         if when.get('facing')!='north' or when.get('open')!=str(opened).lower() or when.get('hinge')!=('right' if right else 'left'):continue
         offset=(int(when['column'])*16,int(when['row'])*16,int(when['depth'])*16)
-        add(elements,load(entry['apply']['model']),offset)
+        parts=[];add(parts,load(entry['apply']['model']),offset)
+        for element in parts:
+            element['faces']={face:surface for face,surface in element['faces'].items() if surface['texture'] in ('lsmmod:block/bathroom_door_bottom','lsmmod:block/bathroom_door_top')}
+            if element['faces']:elements.append(element)
     for element in elements:
-        for key in ('from','to'):element[key][1]*=1.4
+        for key in ('from','to'):
+            element[key][1]*=64/40
+            if opened:element[key][2]*=32/24
+            else:element[key][0]=(element[key][0]-(8 if right else 0))*32/24
     return elements
 
 
@@ -113,11 +120,8 @@ def bathroom():
             for turn,facing in enumerate(('north','east','south','west')):
                 multipart.append({'when':dict(facing=facing,open=str(opened).lower(),hinge='right' if right else 'left',column=str(column),row=str(row),depth=str(depth)),
                     'apply':{'model':'lsmmod:block/'+name,'y':turn*90}})
-    for turn,facing in enumerate(('north','east','south','west')):
-        multipart.append({'when':dict(facing=facing,row='3',depth='0'),'apply':{'model':'lsmmod:block/framed_door_transom','y':turn*90}})
     write(A/f'blockstates/{BATHROOM}.json',{'multipart':multipart})
     elements=bathroom_parts()
-    for column in range(2):add(elements,load('lsmmod:block/framed_door_transom',mask=1 if column==0 else 2),(column*16,48,0))
     item(BATHROOM,elements,32,64);basic(BATHROOM,controller={'column':'0','row':'0','depth':'0'})
 
 

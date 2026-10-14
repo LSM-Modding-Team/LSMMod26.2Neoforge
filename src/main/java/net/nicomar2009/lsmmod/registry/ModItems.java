@@ -55,6 +55,14 @@ public final class ModItems {
 
     public static final DeferredItem<BlockItem> BATHROOM_DOOR_WIDE_2X4 = ITEMS.registerSimpleBlockItem(ModBlocks.BATHROOM_DOOR_WIDE_2X4);
 
+    public static final DeferredItem<BlockItem> SCHOOL_LABORATORY_TILE = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_LABORATORY_TILE);
+
+    public static final DeferredItem<BlockItem> LABORATORY_TABLE_TILE = ITEMS.registerSimpleBlockItem(ModBlocks.LABORATORY_TABLE_TILE);
+
+    public static final DeferredItem<BlockItem> AUDITORIUM_PARQUET = ITEMS.registerSimpleBlockItem(ModBlocks.AUDITORIUM_PARQUET);
+
+    public static final DeferredItem<BlockItem> AUDITORIUM_STAGE = ITEMS.registerSimpleBlockItem(ModBlocks.AUDITORIUM_STAGE);
+
     // BEGIN FACILITY EXPANSIONS
     public static final DeferredItem<BlockItem> DINING_DOOR_WIDE = ITEMS.registerSimpleBlockItem(ModBlocks.DINING_DOOR_WIDE);
     public static final DeferredItem<BlockItem> BATHROOM_DOOR_WIDE = ITEMS.registerSimpleBlockItem(ModBlocks.BATHROOM_DOOR_WIDE);
@@ -110,6 +118,9 @@ public final class ModItems {
     public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> ORANGE_PLAYGROUND_FLOOR_PAINT = ITEMS.registerItem("orange_playground_floor_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.PLAYGROUND_ORANGE, props));
     public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> DARK_TILED_FLOOR_PAINT = ITEMS.registerItem("dark_tiled_floor_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.DARK_TILED, props));
     public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> RED_STREET_WALL_PAINT = ITEMS.registerItem("red_street_wall_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.RED_STREET, props));
+    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> SCHOOL_LABORATORY_TILE_PAINT = ITEMS.registerItem("school_laboratory_tile_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.LABORATORY_TILE, props));
+    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> LABORATORY_TABLE_TILE_PAINT = ITEMS.registerItem("laboratory_table_tile_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.LABORATORY_TABLE_TILE, props));
+    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> AUDITORIUM_PARQUET_PAINT = ITEMS.registerItem("auditorium_parquet_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.AUDITORIUM_PARQUET, props));
     public static final DeferredItem<net.nicomar2009.lsmmod.item.PaintCleanerItem> PAINT_CLEANER = ITEMS.registerItem("paint_cleaner", net.nicomar2009.lsmmod.item.PaintCleanerItem::new);
     // END PAINTABLE SCHOOL BLOCK
 

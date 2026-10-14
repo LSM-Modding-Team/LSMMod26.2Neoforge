@@ -60,6 +60,14 @@ public final class ModBlocks {
 
     public static final DeferredBlock<SchoolBathroomDoor2x4Block> BATHROOM_DOOR_WIDE_2X4 = BLOCKS.registerBlock("bathroom_door_wide_2x4", SchoolBathroomDoor2x4Block::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
 
+    public static final DeferredBlock<Block> SCHOOL_LABORATORY_TILE = BLOCKS.registerBlock("school_laboratory_tile", Block::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE));
+
+    public static final DeferredBlock<Block> LABORATORY_TABLE_TILE = BLOCKS.registerBlock("laboratory_table_tile", Block::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE));
+
+    public static final DeferredBlock<Block> AUDITORIUM_PARQUET = BLOCKS.registerBlock("auditorium_parquet", Block::new, props -> props.strength(1.8F,6F).sound(SoundType.WOOD));
+
+    public static final DeferredBlock<Block> AUDITORIUM_STAGE = BLOCKS.registerBlock("auditorium_stage", Block::new, props -> props.strength(1.8F,6F).sound(SoundType.WOOD));
+
     // BEGIN FACILITY EXPANSIONS
     public static final DeferredBlock<SchoolFramedDiningDoorBlock> DINING_DOOR_WIDE = BLOCKS.registerBlock("dining_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
     public static final DeferredBlock<SchoolFramedDiningDoorBlock> BATHROOM_DOOR_WIDE = BLOCKS.registerBlock("bathroom_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));

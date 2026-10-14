@@ -14,7 +14,10 @@ public enum SchoolPaint {
     PLAYGROUND_GREEN("green_playground_floor", "lsmmod:block/green_playground_floor"),
     PLAYGROUND_ORANGE("orange_playground_floor", "lsmmod:block/orange_playground_floor"),
     DARK_TILED("dark_tiled_floor", "lsmmod:block/dark_tiled_floor"),
-    RED_STREET("red_street_wall", "lsmmod:block/red_street_wall");
+    RED_STREET("red_street_wall", "lsmmod:block/red_street_wall"),
+    LABORATORY_TILE("school_laboratory_tile", "lsmmod:block/school_laboratory_tile"),
+    LABORATORY_TABLE_TILE("laboratory_table_tile", "lsmmod:block/laboratory_table_tile"),
+    AUDITORIUM_PARQUET("auditorium_parquet", "lsmmod:block/auditorium_parquet");
 
     private static final SchoolPaint[] COLORS = values();
     public static boolean validId(int id) { return id >= 0 && id < COLORS.length; }

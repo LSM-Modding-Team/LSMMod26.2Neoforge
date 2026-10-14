@@ -1,0 +1,1 @@
+{"parent":"minecraft:block/block","render_type":"minecraft:solid","textures":{"surface":"lsmmod:block/school_laboratory_tile","particle":"#surface"},"elements":[{"from":[8,0,8],"to":[16,8,16],"faces":{"west":{"texture":"#surface","uv":[8,8,16,16]}}}]}

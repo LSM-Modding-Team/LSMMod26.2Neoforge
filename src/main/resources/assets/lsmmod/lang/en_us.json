@@ -366,5 +366,12 @@
   "block.lsmmod.school_paintable_glass_stairs": "Glass Stairs with Paintable Base",
   "block.lsmmod.bathroom_door_wide_paintable_column": "Wide Bathroom Door with Paintable Column",
   "block.lsmmod.double_school_entrance_paintable_slab": "Double School Entrance with Paintable Slab",
-  "block.lsmmod.bathroom_door_wide_2x4": "Wide Bathroom Door 2×4"
+  "block.lsmmod.bathroom_door_wide_2x4": "Wide Bathroom Door 2×4",
+  "block.lsmmod.school_laboratory_tile": "Laboratory Tiles",
+  "block.lsmmod.laboratory_table_tile": "Laboratory Table Tiles",
+  "block.lsmmod.auditorium_parquet": "Auditorium Parquet",
+  "block.lsmmod.auditorium_stage": "Auditorium Stage",
+  "item.lsmmod.school_laboratory_tile_paint": "Laboratory Tile Paint",
+  "item.lsmmod.laboratory_table_tile_paint": "Laboratory Table Tile Paint",
+  "item.lsmmod.auditorium_parquet_paint": "Auditorium Parquet Paint"
 }

@@ -111,6 +111,8 @@
     "lsmmod:school_entrance_door_paintable",
     "lsmmod:school_paintable_glass_stairs",
     "lsmmod:bathroom_door_wide_paintable_column",
-    "lsmmod:double_school_entrance_paintable_slab"
+    "lsmmod:double_school_entrance_paintable_slab",
+    "lsmmod:school_laboratory_tile",
+    "lsmmod:laboratory_table_tile"
   ]
 }
