@@ -1,6 +1,11 @@
 # Harness Java 25 / NeoForge 26.2
 
-Codex no compila mientras siga la instrucción en [AGENTS](../../AGENTS.md). Estos comandos quedan disponibles para el desarrollador:
+Codex no compila localmente mientras siga la instrucción en [AGENTS](../../AGENTS.md).
+El usuario sí autoriza el workflow `.github/workflows/build.yml` para compilar y
+comprobar en GitHub Actions; los JARs se descargan desde **Artifacts** de una
+ejecución exitosa. El workflow usa JDK 25, Python y Gradle sin el harness local,
+y conserva `build`/`checkFurnitureOutlines`. No inicia Minecraft. Estos comandos
+quedan disponibles para el desarrollador:
 
 ```sh
 bash tools/build/compile.sh               # JAR en build/libs/

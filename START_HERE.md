@@ -4,6 +4,11 @@ Mod `lsmmod` del colegio Libertador San Martín. Minecraft **26.2**, NeoForge **
 
 ## Estado
 
+Entrega: [GitHub Actions → Build](https://github.com/LSM-Modding-Team/LSMMod26.2Neoforge/actions/workflows/build.yml)
+compila con Java 25, prepara recursos con Python y ejecuta las comprobaciones
+de `build`. Descarga el JAR desde **Artifacts → lsmmod-<sha>** de una ejecución
+exitosa. Codex verifica la ejecución del commit publicado; no ejecuta Minecraft.
+
 Hay mobiliario y materiales escolares, puertas y conjuntos de varias celdas, cristales/cortinas conectables, pintura y herramientas, instrumentos, pelotas, uniforme y las entidades `student`/`teacher` con estadísticas, apariencia y asistente de invocación. El catálogo de espacios del mundo suministrado es editable; **no genera el colegio**.
 
 Faltan generación jigsaw y mapas, NPC concretos y sus zonas/llamados, efectos escolares completos, loot de progresión, integración con bunnidogs, patrullas/raids y jefes/ritual. [ROADMAP](docs/ROADMAP.md) separa lo implementado de lo pendiente. La existencia de código no garantiza compilación ni prueba en juego; estas últimas modificaciones se han revisado estáticamente y con renders externos.
