@@ -429,5 +429,6 @@
   "item.lsmmod.formacion": "Disco: Marcha de las Banderas",
   "jukebox_song.lsmmod.formacion": "Formación: Marcha de las Banderas",
   "item.lsmmod.himnoperu": "Disco: Himno Nacional del Perú",
-  "jukebox_song.lsmmod.himnoperu": "Formación: Himno Nacional del Perú"
+  "jukebox_song.lsmmod.himnoperu": "Formación: Himno Nacional del Perú",
+  "block.lsmmod.general_speaker": "Parlante general"
 }

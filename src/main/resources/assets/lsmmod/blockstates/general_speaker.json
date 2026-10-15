@@ -1,0 +1,1 @@
+{"variants":{"facing=north":{"model":"lsmmod:block/general_speaker","y":0},"facing=east":{"model":"lsmmod:block/general_speaker","y":90},"facing=south":{"model":"lsmmod:block/general_speaker","y":180},"facing=west":{"model":"lsmmod:block/general_speaker","y":270}}}

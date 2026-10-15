@@ -1,6 +1,6 @@
 package net.nicomar2009.lsmmod.rules;
 
-/** Connection policy also covers the planned general speaker without registering a block. */
+/** Shared connection policy; general speakers accept only Moises' laptop. */
 public final class SchoolMediaRules {
     public enum Role { NONE, PC, LAPTOP, MOISES_LAPTOP, PROJECTOR, SCREEN, SPEAKER, GENERAL_SPEAKER }
     private SchoolMediaRules() { }

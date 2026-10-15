@@ -497,6 +497,9 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> SPEAKER =
             ITEMS.registerSimpleBlockItem(ModBlocks.SPEAKER);
 
+    public static final DeferredItem<BlockItem> GENERAL_SPEAKER =
+            ITEMS.registerSimpleBlockItem(ModBlocks.GENERAL_SPEAKER);
+
     public static final DeferredItem<BlockItem> TALL_SPEAKER =
             ITEMS.registerSimpleBlockItem(ModBlocks.TALL_SPEAKER);
 

@@ -70,7 +70,7 @@ Con ambas manos vacías:
 1. **Ctrl + clic derecho** en la PC/laptop selecciona el origen.
 2. **Ctrl + clic derecho** en `wall_projector` o `ceiling_projector` lo conecta a ese origen y selecciona el proyector.
 3. **Ctrl + clic derecho** en `projector_screen` conecta la pantalla al proyector seleccionado. Se dibuja la textura viva del navegador, con UV completas: escala horizontal y vertical independientes para llenar la pantalla, aunque se comprima o estire la imagen.
-4. **Ctrl + clic derecho** en `speaker` o `tall_speaker` conecta el audio al origen seleccionado. Se permiten hasta ocho parlantes por origen.
+4. **Ctrl + clic derecho** en `speaker` o `tall_speaker` conecta el audio al origen seleccionado; `general_speaker` solo admite la laptop de Moisés. Se permiten hasta ocho parlantes por origen.
 5. **Ctrl + Shift + clic derecho** desconecta el dispositivo señalado y cancela la selección. En una pantalla compuesta sirve cualquier celda.
 
 Cada pantalla original sigue siendo 4×3. Varias pantallas completas contiguas, coplanares y con la misma orientación forman un rectángulo de hasta 16×12; por ejemplo 8×3 o 4×6. Se proyecta una sola imagen en el rectángulo entero. No se recorta ni se añaden barras. Las agrupaciones incompletas, no rectangulares o excesivas no proyectan. Se mantienen todos los estados, modelos, apoyos y drops originales; el monitor de la PC y la laptop conserva su textura estática.
@@ -81,7 +81,7 @@ El audio se captura como PCM mono y se reproduce mediante fuentes posicionales d
 
 **Alcance multijugador:** se comparten los enlaces físicos; imagen, navegación, reproducción y audio pertenecen a la sesión local de cada cliente que haya abierto el dispositivo. No se retransmiten vídeo/PCM, páginas, pulsaciones, cookies ni cuentas entre jugadores ni al servidor. Los espectadores remotos no reciben la sesión de otro jugador. No hay pestañas, descargas/ventanas emergentes integradas, perfil/extensiones del Chrome del sistema ni compatibilidad garantizada con DRM o todos los inicios de sesión.
 
-El **parlante general sigue planeado, sin bloque registrado ni modelo**. La política reserva `lsmmod:general_speaker` y permite únicamente `moises_laptop` como entrada; PC, laptop normal y proyectores se rechazan. Su ubicación, cobertura general y comportamiento físico quedan pendientes del bloque futuro.
+El **parlante general** (`general_speaker`) es un cubo completo de 16×16×16 px con cuatro orientaciones, colisión completa, ítem y drop propio. Reutiliza el gabinete y el frente del parlante alto adaptado a una sola cara completa: conserva la abertura superior, sin pieza gris/verde central ni insignia gris. Solo permite `moises_laptop` como entrada; PC, laptop normal y proyectores se rechazan en el servidor. Usa el mismo audio posicional de 32 bloques, límite de ocho salidas, guardado y desconexión de los parlantes normales. Generador: `tools/create_general_speaker_assets.py`; render: `python tools/render_block_review.py general_speaker --state facing=north`.
 
 Se inspeccionaron los binarios y fuentes oficiales de Rinku 3.0.4 y Minecraft 26.2, además de los eventos de NeoForge 26.2.0.88. APIs de proyección: `ExtractLevelRenderStateEvent` → estado inmutable → `SubmitCustomGeometryEvent`; audio: `CefAudioHandler` → PCM → `SoundBufferLibrary.getStream` para los identificadores registrados de navegador, sin alterar los sonidos ordinarios. **Compilación y prueba en juego pendientes por la prohibición vigente.** Verificar en juego PC/laptops/mesas y cuatro orientaciones, 4×3/8×3/4×6, cambio de página con interfaz cerrada, permisos y conexiones inválidas, guardar/recargar, retirada/descarga de extremos, sonidos/volumen/pausa/recarga de recursos y cliente/servidor sin Rinku.
 
@@ -104,7 +104,7 @@ Que exista el modelo no significa que exista su mecánica.
 | Escudo | Al pisarlo: Bad Omen LSM, Trackeo 5 min/+25 % daño, llamado de 6–10 profesores y 10–20 alumnos por 60 s *(propuesta)* |
 | San Martín de Porres | Curación pasiva de NPC, mayor para profesores. Radio/cantidad/minado sin definir; dos para ritual. Regeneración al jugador implementada arriba |
 | PC | 20 % de llamado agresivo *(propuesta)*. Vicioso usa PC y persigue a quien la rompa; Estudioso y cooldown implementados arriba |
-| Laptop/Moisés | Navegador, proyección y parlantes normales implementados en código. Discos/himno/marcha y parlante general pendientes; este último admite exclusivamente la laptop de Moisés |
+| Laptop/Moisés | Navegador, proyección y parlantes normales/general implementados en código; el general admite exclusivamente la laptop de Moisés. Integración de discos/himno/marcha con la laptop pendiente |
 | Campana | Salida al patio 90 s; cooldown 15 min *(propuesta)*. Excepciones de alumnos pendientes |
 | Kiosko/objetos perdidos | Trueque de mamá sin definir; integrar la caja y su tabla de ropa garantizada en la futura estructura del colegio |
 | Casilleros | Loot bajo: ropa, stickers y otros; huevo podrido como trampa. Ardilla PUCP garantizada en 4to/5to: alcance de «una» pendiente V22 |

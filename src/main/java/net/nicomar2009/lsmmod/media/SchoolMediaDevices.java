@@ -1,7 +1,6 @@
 package net.nicomar2009.lsmmod.media;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -13,8 +12,8 @@ import net.nicomar2009.lsmmod.rules.SchoolMediaRules.Role;
 public final class SchoolMediaDevices {
     private SchoolMediaDevices() { }
     public static Role role(BlockState state) {
-        // Check before the regular speaker classes so the future block can subclass one safely.
-        if (BuiltInRegistries.BLOCK.getKey(state.getBlock()).toString().equals("lsmmod:general_speaker")) return Role.GENERAL_SPEAKER;
+        // Check the restricted speaker before its regular SpeakerBlock superclass.
+        if (state.is(ModBlocks.GENERAL_SPEAKER.get())) return Role.GENERAL_SPEAKER;
         if (state.is(ModBlocks.MOISES_LAPTOP.get())) return Role.MOISES_LAPTOP;
         if (state.getBlock() instanceof LaptopBlock) return Role.LAPTOP;
         if (state.is(ModBlocks.PC.get()) || state.getBlock() instanceof ComputerDeskBlock

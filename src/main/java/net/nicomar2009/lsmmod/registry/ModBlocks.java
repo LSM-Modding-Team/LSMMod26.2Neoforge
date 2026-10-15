@@ -563,6 +563,10 @@ public final class ModBlocks {
             "speaker", SpeakerBlock::new,
             props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion());
 
+    public static final DeferredBlock<GeneralSpeakerBlock> GENERAL_SPEAKER = BLOCKS.registerBlock(
+            "general_speaker", GeneralSpeakerBlock::new,
+            props -> props.strength(2.5F).sound(SoundType.WOOD));
+
     public static final DeferredBlock<TallSpeakerBlock> TALL_SPEAKER = BLOCKS.registerBlock(
             "tall_speaker", TallSpeakerBlock::new,
             props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
