@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.nicomar2009.lsmmod.media.SchoolMediaDevices;
 import net.nicomar2009.lsmmod.registry.ModEffects;
 import net.nicomar2009.lsmmod.rules.SchoolMediaRules;
@@ -25,11 +26,13 @@ public final class SchoolStudyInteraction {
         if (!level.hasChunkAt(clicked) || !player.isWithinBlockInteractionRange(clicked, 0)
                 || !level.mayInteract(player, clicked)) return;
         var picked = player.pick(player.blockInteractionRange(), 1, false);
-        if (!(picked instanceof BlockHitResult hit) || !hit.getBlockPos().equals(clicked)
+        if (!(picked instanceof BlockHitResult hit) || hit.getType() != HitResult.Type.BLOCK
+                || !hit.getBlockPos().equals(clicked)
                 || !player.mayUseItemAt(clicked, hit.getDirection(), player.getMainHandItem())) return;
-        if (SchoolMediaDevices.role(level.getBlockState(clicked)) != SchoolMediaRules.Role.PC) return;
+        BlockState clickedState = level.getBlockState(clicked);
+        if (SchoolMediaDevices.role(clickedState) != SchoolMediaRules.Role.PC) return;
         BlockPos pc = SchoolMediaDevices.anchor(level, clicked);
-        if (!completeAndAccessible(level, pc, player, hit)) return;
+        if (!completeAndAccessible(level, pc, clickedState, player, hit)) return;
         SchoolStudyCooldowns cooldowns = SchoolStudyCooldowns.get(level);
         long now = level.getGameTime();
         if (!cooldowns.tryUse(pc, now)) {
@@ -41,12 +44,14 @@ public final class SchoolStudyInteraction {
         player.sendOverlayMessage(Component.translatable("message.lsmmod.pc.studied"));
     }
 
-    private static boolean completeAndAccessible(ServerLevel level, BlockPos root, ServerPlayer player, BlockHitResult hit) {
+    private static boolean completeAndAccessible(ServerLevel level, BlockPos root, BlockState clickedState,
+                                                 ServerPlayer player, BlockHitResult hit) {
         if (!level.hasChunkAt(root)) return false;
         BlockState state = level.getBlockState(root);
-        if (SchoolMediaDevices.role(state) != SchoolMediaRules.Role.PC) return false;
+        if (!state.is(clickedState.getBlock()) || SchoolMediaDevices.role(state) != SchoolMediaRules.Role.PC) return false;
         boolean desk = state.getBlock() instanceof ComputerDeskBlock;
         boolean wide = state.getBlock() instanceof GrayComputerDeskBlock;
+        if (desk && state.getValue(ComputerDeskBlock.FACING) != clickedState.getValue(ComputerDeskBlock.FACING)) return false;
         for (int column = 0; column < (wide ? 2 : 1); column++) {
             for (int half = 0; half < (desk ? 2 : 1); half++) {
                 BlockPos cell = root.above(half);

@@ -10,6 +10,8 @@ Inventario real: `registry/ModBlocks.java` y `ModItems.java`. Para generar model
 | Sillas | Orientación y asiento mediante SeatEntity; geometría física separada del contorno sencillo |
 | Sillón | `sofa`: módulo sin brazos de 1×1 en `#390b12`, respaldo acolchado de 15,75 px y asiento de 7 px. `facing` apunta hacia el frente; `shape` adopta recta/esquinas interiores y exteriores a izquierda/derecha según vecinos del mismo bloque, con guardas de escaleras para filas y cruces. Los módulos se conectan sin huecos; colocar/retirar vecinos actualiza la esquina. Clic con mano vacía para sentarse usando ChairBlock/SeatEntity; al retirar el módulo se elimina su asiento. Rotación/espejo conservan la geometría, contorno sencillo y colisión del modelo generada con ExactVoxelShapes/SharedChairRotations. Ítem, drop por módulo, idiomas y hacha integrados; disponible en School Functional Blocks o `/give @s lsmmod:sofa`. Generador `tools/create_sofa_assets.py`. Compilación y prueba en Minecraft pendientes. |
 | Pupitres/casillero | Pupitres students/teachers: dos mitades y 27 slots; elementary_desk: una celda y 9 slots; locker: 54 slots. No confundir con accesorios decorativos |
+| Objetos perdidos | `lost_and_found_box`: inventario persistente de 27 slots, menú vanilla, tolvas y comparador. Conserva ID, cuatro orientaciones, modelo, contorno y colisión del accesorio anterior; las colocaciones normales empiezan vacías. La tabla opcional `lsmmod:chests/lost_and_found_box` garantiza una prenda entre polo, pantalón y zapatos de uniforme cuando se asigna mediante datos del contenedor; abrir o romper resuelve el loot una sola vez. Retirada y explosiones dejan caer el contenido mediante `BlockEntity.preRemoveSideEffects`, sin duplicarlo con un segundo drop manual. Compilación y prueba en Minecraft pendientes. |
+| San Martín de Porres | Clic derecho concede Regeneración I durante 30 s, solo desde el servidor y sin cooldown añadido. Requiere estatua completa y permiso de interacción en todas sus celdas; rechaza espectadores. Compatible con las estatuas antiguas de dos mitades (`HALF`) y con la vitrina actual de seis celdas (`ROW`/`COLUMN`), incluidos sus apoyos. Conserva estados guardados, modelos y drops. Curación pasiva de NPC y ritual pendientes. Compilación y prueba en Minecraft pendientes. |
 | Mesas de computación | `has_pc` representa una PC instalada; insertar con PC y retirar con Shift+mano vacía; sincronización de celdas y drop de PC único. Ambas manos vacías, sin Shift: navegador local opcional, igual que la PC suelta; véase el contrato de PC inferior |
 | Kiosko | Mesa actual 3×1, con lectura de pares antiguos; decorativa |
 | nido_storage_bucket | ID y nombre visible exactos `nido_storage_bucket`. Balde rojo con tapa blanca y dos asas; hitbox de 1×1 en planta y 1,5 de alto (parte inferior 16 px, superior 8 px). Un ítem coloca las dos celdas sobre suelo firme; retirada conjunta y drop único de half=lower. School Functional Blocks, sin inventario, apertura ni interacción. Generador `tools/create_nido_storage_bucket_assets.py`; render externo `tools/render_nido_storage_bucket.py`. Compilación y prueba en juego pendientes. |
@@ -44,6 +46,14 @@ Inventario real: `registry/ModBlocks.java` y `ModItems.java`. Para generar model
 Paredes mixtas `light_dark_school_wall_1..5`, `light_street_school_wall_1..5`, `dark_street_school_wall_1..5` retiradas por petición del usuario. No las reintroduzcas al regenerar. También se retiró awning base/colores; quedan playground_awning, elementary_playground_awning y awning_support. school_wood es RGB150/108/62 con grano 16×16; school_wood_panel es otro material.
 
 Si cambias dimensiones o rejilla de un conjunto, conserva estados antiguos o explica su migración/recolocación. Los datos y recursos actuales, junto con sus generadores, son las fuentes editables.
+
+## PC: estudiar
+
+Clic derecho con ambas manos vacías, sin Shift ni Ctrl, en una PC suelta o instalada en una mesa concede **Estudioso durante 3 min**. Las laptops no conceden este efecto. Funciona con el navegador opcional instalado o sin él; Ctrl conserva las conexiones y Shift conserva la retirada de la PC. El efecto y sus mensajes tienen nombres ES/EN; el icono reutiliza el libro vanilla en el atlas de interfaz.
+
+Cada PC tiene un cooldown de **5 min compartido entre jugadores y entre todas las celdas de la mesa**. Se guarda por posición y dimensión en `lsmmod:pc_study_cooldowns`; descargar, guardar/recargar o retirar y reponer una PC en el mismo sitio no lo reinicia. Durante el cooldown el navegador sigue disponible. El servidor valida alcance, impacto real del clic, manos vacías, permisos, carga y todas las celdas de la mesa antes de aplicar el efecto o gastar el uso.
+
+Estudioso vuelve neutrales a los profesores actuales como el uniforme completo, pero no borra ni anula agresiones que hayan presenciado; al caducar vuelve a evaluarse el uniforme observado. No cambia la conducta de alumnos. El llamado agresivo del 20 % y el alumno vicioso siguen pendientes. Comprobación de neutralidad y cooldowns en `tools/RulesCheck.java`; revisión de firmas con binarios oficiales 26.2 y fuentes NeoForge 26.2.0.88, sin compilación ni prueba en Minecraft.
 
 ## PC: navegador opcional
 
@@ -92,11 +102,11 @@ Que exista el modelo no significa que exista su mecánica.
 | Bloque | Diseño futuro |
 |---|---|
 | Escudo | Al pisarlo: Bad Omen LSM, Trackeo 5 min/+25 % daño, llamado de 6–10 profesores y 10–20 alumnos por 60 s *(propuesta)* |
-| San Martín de Porres | Clic: regeneración ~30 s; pasivo cura NPC, más a profesores. Radio/cantidad/minado sin definir; dos para ritual |
-| PC | Estudioso 3 min; 20 % de llamado agresivo; cooldown 5 min *(propuesta)*. Vicioso usa PC y persigue a quien la rompa |
+| San Martín de Porres | Curación pasiva de NPC, mayor para profesores. Radio/cantidad/minado sin definir; dos para ritual. Regeneración al jugador implementada arriba |
+| PC | 20 % de llamado agresivo *(propuesta)*. Vicioso usa PC y persigue a quien la rompa; Estudioso y cooldown implementados arriba |
 | Laptop/Moisés | Navegador, proyección y parlantes normales implementados en código. Discos/himno/marcha y parlante general pendientes; este último admite exclusivamente la laptop de Moisés |
 | Campana | Salida al patio 90 s; cooldown 15 min *(propuesta)*. Excepciones de alumnos pendientes |
-| Kiosko/objetos perdidos | Trueque de mamá sin definir; objetos perdidos deben contener ropa segura (caja actual decorativa) |
+| Kiosko/objetos perdidos | Trueque de mamá sin definir; integrar la caja y su tabla de ropa garantizada en la futura estructura del colegio |
 | Casilleros | Loot bajo: ropa, stickers y otros; huevo podrido como trampa. Ardilla PUCP garantizada en 4to/5to: alcance de «una» pendiente V22 |
 | Ataúd | Tesoro y ritual de [BOSS_SPECS](BOSS_SPECS.md) |
 

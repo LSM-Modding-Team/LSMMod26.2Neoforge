@@ -1,4 +1,5 @@
 import net.nicomar2009.lsmmod.rules.FootballRules;
+import net.nicomar2009.lsmmod.rules.SchoolStudyRules;
 import net.nicomar2009.lsmmod.block.SportsGoalShapes;
 
 /** Pure gameplay checks; no Minecraft classes, mod compilation or game launch. */
@@ -41,6 +42,7 @@ public class RulesCheck {
     }
 
     public static void main(String[] args) {
+        study();
         // Football acceptance checks: power limits, foot follow-through and flight direction.
         check("tap is weaker than a charged pass", FootballRules.shotSpeed(0) < FootballRules.shotSpeed(12), true);
         check("power increases up to full charge", FootballRules.shotSpeed(12) < FootballRules.shotSpeed(24), true);
@@ -205,5 +207,43 @@ public class RulesCheck {
         }
         System.out.println(total - failures + "/" + total + " checks passed");
         System.exit(failures == 0 ? 0 : 1);
+    }
+
+    static void study() {
+        // Study has the same neutrality as the full uniform, without forgiving witnessed attacks.
+        check("an unprotected player remains a teacher target", SchoolStudyRules.teacherHostile(false, false, false), true);
+        check("study makes an ununiformed player neutral", SchoolStudyRules.teacherHostile(false, false, true), false);
+        check("the complete uniform retains its neutrality", SchoolStudyRules.teacherHostile(false, true, false), false);
+        check("study and uniform can coexist", SchoolStudyRules.teacherHostile(false, true, true), false);
+        for (boolean uniform : new boolean[]{false, true}) {
+            for (boolean studious : new boolean[]{false, true}) {
+                check("witnessed attacks override study=" + studious + " and uniform=" + uniform,
+                        SchoolStudyRules.teacherHostile(true, uniform, studious), true);
+            }
+        }
+        var clocks = new SchoolStudyRules.Cooldowns<String>(java.util.Map.of());
+        check("the first player can study at a PC", clocks.tryUse("desk", 100), true);
+        check("a second player cannot reuse that PC immediately", clocks.tryUse("desk", 100), false);
+        check("another physical PC remains available", clocks.tryUse("other", 100), true);
+        check("study cannot be refreshed after its three-minute effect expires",
+                clocks.tryUse("desk", 100 + SchoolStudyRules.STUDY_TICKS), false);
+        var saved = clocks.snapshot();
+        var restored = new SchoolStudyRules.Cooldowns<>(saved);
+        check("saving and reloading preserves the remaining cooldown",
+                restored.remainingTicks("desk", 101) == SchoolStudyRules.PC_COOLDOWN_TICKS - 1, true);
+        check("replacing or unloading a PC does not reset its saved position",
+                restored.tryUse("desk", 101), false);
+        long ready = 100L + SchoolStudyRules.PC_COOLDOWN_TICKS;
+        check("the last cooldown tick still blocks study", restored.tryUse("desk", ready - 1), false);
+        check("study is available on the exact deadline", restored.tryUse("desk", ready), true);
+        check("using a PC prunes other expired positions", !restored.snapshot().containsKey("other"), true);
+        check("saved snapshots do not change when the live clock changes", saved.get("desk") == ready, true);
+        var resetClock = new SchoolStudyRules.Cooldowns<>(java.util.Map.of("desk", ready + 50_000));
+        check("a world clock rollback cannot lock a PC indefinitely", resetClock.tryUse("desk", 0), true);
+        var invalidClock = new SchoolStudyRules.Cooldowns<>(java.util.Map.of("desk", -1L));
+        check("negative saved deadlines do not block use", invalidClock.tryUse("desk", 0), true);
+        var nearLimit = new SchoolStudyRules.Cooldowns<String>(java.util.Map.of());
+        check("a large world clock still accepts first use", nearLimit.tryUse("desk", Long.MAX_VALUE - 10), true);
+        check("deadline overflow cannot allow immediate repeated use", nearLimit.tryUse("desk", Long.MAX_VALUE - 9), false);
     }
 }

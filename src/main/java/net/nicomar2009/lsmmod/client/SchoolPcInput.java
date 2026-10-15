@@ -13,6 +13,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.nicomar2009.lsmmod.media.SchoolMediaDevices;
 import net.nicomar2009.lsmmod.network.SchoolMediaPayloads;
+import net.nicomar2009.lsmmod.network.SchoolStudyPayload;
 import net.nicomar2009.lsmmod.rules.SchoolMediaRules;
 import org.lwjgl.glfw.GLFW;
 
@@ -49,7 +50,7 @@ public final class SchoolPcInput {
         event.setSwingHand(false);
         if (event.getHand() == InteractionHand.MAIN_HAND) {
             if (SchoolMediaDevices.role(minecraft.level.getBlockState(hit.getBlockPos())) == SchoolMediaRules.Role.PC)
-                ClientPacketDistributor.sendToServer(new net.nicomar2009.lsmmod.network.SchoolStudyPayload(hit.getBlockPos()));
+                ClientPacketDistributor.sendToServer(new SchoolStudyPayload(hit.getBlockPos()));
             SchoolPcScreen.open(hit.getBlockPos());
         }
     }

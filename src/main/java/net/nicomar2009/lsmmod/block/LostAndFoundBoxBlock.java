@@ -83,6 +83,7 @@ public final class LostAndFoundBoxBlock extends Block implements EntityBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (!player.isAlive() || !level.mayInteract(player, pos)) return InteractionResult.PASS;
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof LostAndFoundBoxBlockEntity box) {
             player.openMenu(box);
         }

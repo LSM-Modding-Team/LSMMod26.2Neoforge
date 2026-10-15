@@ -421,5 +421,9 @@
   "item.lsmmod.carnaval_huanupampa": "Disco: Carnaval de Huanupampa",
   "jukebox_song.lsmmod.carnaval_huanupampa": "2do - Carnaval de Huanupampa",
   "item.lsmmod.carnaval_macari": "Disco: Carnaval de Macari",
-  "jukebox_song.lsmmod.carnaval_macari": "1ro - Carnaval de Macari"
+  "jukebox_song.lsmmod.carnaval_macari": "1ro - Carnaval de Macari",
+  "container.lsmmod.lost_and_found_box": "Objetos perdidos",
+  "effect.lsmmod.studious": "Estudioso",
+  "message.lsmmod.pc.studied": "Estudioso: 3 min. Las agresiones presenciadas no se perdonan.",
+  "message.lsmmod.pc.study_cooldown": "Podrás estudiar aquí en %s s. El navegador sigue disponible."
 }
