@@ -1,4 +1,13 @@
 {
+  "school_bell": {
+    "subtitle": "subtitles.lsmmod.school_bell",
+    "sounds": [
+      {
+        "name": "lsmmod:school_bell",
+        "stream": true
+      }
+    ]
+  },
   "music_disc.lsm_anthem": {
     "sounds": [
       {

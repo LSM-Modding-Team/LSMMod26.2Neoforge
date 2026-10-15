@@ -15,6 +15,11 @@ public class ModSounds {
 
     public record SpeakerTrack(DeferredHolder<SoundEvent, SoundEvent> sound, int durationTicks) {}
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> SCHOOL_BELL =
+            SOUNDS.register("school_bell", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "school_bell")));
+
     public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_KICK = footballSound("kick");
     public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_WALL = footballSound("wall");
     public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_NET = footballSound("net");
