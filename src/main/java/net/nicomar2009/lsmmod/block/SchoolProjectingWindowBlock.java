@@ -73,20 +73,39 @@ public class SchoolProjectingWindowBlock extends Block {
     public static int phase(BlockState state) {return state.hasProperty(GRID_PHASE)&&state.getValue(GRID_PHASE)<9?state.getValue(GRID_PHASE):0;}
     public static boolean halfWindow(BlockState state) {return state.hasProperty(WALL_LEFT);}
     public static List<Part> parts(int phase) {return PARTS.get(phase);}
+    public static int glassLowY(BlockState state) {
+        return state.hasProperty(SchoolSlabProjectingWindowBlock.TYPE)
+                &&state.getValue(SchoolSlabProjectingWindowBlock.TYPE)==net.minecraft.world.level.block.state.properties.SlabType.BOTTOM?8:0;
+    }
+    public static int glassHighY(BlockState state) {
+        if(!state.hasProperty(SchoolSlabProjectingWindowBlock.TYPE))return 16;
+        return switch(state.getValue(SchoolSlabProjectingWindowBlock.TYPE)){case TOP->8;case DOUBLE->0;default->16;};
+    }
+    private static VoxelShape slabShape(BlockState state) {
+        if(!state.hasProperty(SchoolSlabProjectingWindowBlock.TYPE))return Shapes.empty();
+        return switch(state.getValue(SchoolSlabProjectingWindowBlock.TYPE)) {
+            case BOTTOM->Block.box(0,0,0,16,8,16);case TOP->Block.box(0,8,0,16,16,16);case DOUBLE->Shapes.block();
+        };
+    }
+    private static Part verticalClip(Part part,int low,int high) {
+        return new Part(part.x0,part.x1,Math.max(low,part.y0),Math.min(high,part.y1),part.ox,part.oy);
+    }
     private static List<Part> parts(BlockState state) {
-        if(!halfWindow(state))return parts(phase(state));
-        return parts(phase(state)).stream().map(part->clip(part,state.getValue(WALL_LEFT)?1:2)).toList();
+        int profile=halfWindow(state)?state.getValue(WALL_LEFT)?1:2:0;
+        return parts(phase(state)).stream().map(part->verticalClip(clip(part,profile),glassLowY(state),glassHighY(state))).toList();
     }
     private static Part clip(Part part,int profile) {
         int low=profile==1?8:0,high=profile==2?8:16;
         return new Part(Math.max(low,part.x0),Math.min(high,part.x1),part.y0,part.y1,part.ox,part.oy);
     }
-    private static boolean visible(Part part) {return part.x0<part.x1;}
+    private static boolean visible(Part part) {return part.x0<part.x1&&part.y0<part.y1;}
     private static boolean touches(BlockState a,BlockState b,Direction direction) {
         if(!same(a,b))return false;
         int al=halfWindow(a)&&a.getValue(WALL_LEFT)?8:0,ah=halfWindow(a)&&!a.getValue(WALL_LEFT)?8:16;
         int bl=halfWindow(b)&&b.getValue(WALL_LEFT)?8:0,bh=halfWindow(b)&&!b.getValue(WALL_LEFT)?8:16;
-        if(direction.getAxis()==Direction.Axis.Y)return Math.max(al,bl)<Math.min(ah,bh);
+        if(direction.getAxis()==Direction.Axis.Y)return Math.max(al,bl)<Math.min(ah,bh)
+                &&(direction==Direction.UP?glassHighY(a)==16&&glassLowY(b)==0:glassLowY(a)==0&&glassHighY(b)==16);
+        if(Math.max(glassLowY(a),glassLowY(b))>=Math.min(glassHighY(a),glassHighY(b)))return false;
         Direction right=a.getValue(FACING).getClockWise();
         return direction==right?ah==16&&bl==0:direction==right.getOpposite()&&al==0&&bh==16;
     }
@@ -103,19 +122,20 @@ public class SchoolProjectingWindowBlock extends Block {
                 &&value.getBlock() instanceof SchoolProjectingWindowBlock
                 &&state.getBlock() instanceof SchoolProjectingWindowBlock
                 &&value.hasProperty(FACING)&&state.hasProperty(FACING)
-                &&value.getValue(FACING)==state.getValue(FACING);
+                &&value.getValue(FACING)==state.getValue(FACING)&&glassLowY(value)<glassHighY(value)&&glassLowY(state)<glassHighY(state);
     }
     private static boolean complete(BlockGetter level,BlockPos origin,BlockState state) {
         Direction right=state.getValue(FACING).getClockWise();BlockState base=read(level,origin);
         if(!same(base,state))return false;
-        int basePhase=phase(base),ox=basePhase%3==1?8:0;
+        int basePhase=phase(base),ox=basePhase%3==1?8:0,oy=basePhase/3==1?8:0;
         for(int y=0;y<2;y++)for(int x=0;x<2;x++) {
             BlockState value=read(level,origin.relative(right,x).above(y));
             int expected=Math.floorMod(basePhase%3+x,3)+3*Math.floorMod(basePhase/3+y,3);
             if(!same(value,state)||phase(value)!=expected)return false;
             int low=halfWindow(value)&&value.getValue(WALL_LEFT)?8:0;
             int high=halfWindow(value)&&!value.getValue(WALL_LEFT)?8:16;
-            if(low>Math.max(0,ox-x*16)||high<Math.min(16,ox+24-x*16))return false;
+            if(low>Math.max(0,ox-x*16)||high<Math.min(16,ox+24-x*16)
+                    ||glassLowY(value)>Math.max(0,oy-y*16)||glassHighY(value)<Math.min(16,oy+24-y*16))return false;
         }
         return true;
     }
@@ -140,10 +160,10 @@ public class SchoolProjectingWindowBlock extends Block {
         if(pose<=2)return new double[]{x+origin[0],c*y-s*z+origin[1],s*y+c*z+origin[2]};
         return new double[]{c*x+s*z+origin[0],y+origin[1],-s*x+c*z+origin[2]};
     }
-    private static VoxelShape fragment(int phase,int index,int pose,int facing,int profile) {
-        int key=(((profile*9+phase)*4+index)*5+pose)*4+facing;
+    private static VoxelShape fragment(int phase,int index,int pose,int facing,int profile,int lowY,int highY) {
+        int key=(((((profile*3+lowY/8)*3+highY/8)*9+phase)*4+index)*5+pose)*4+facing;
         return FRAGMENTS.computeIfAbsent(key,ignored->{
-            Part p=clip(parts(phase).get(index),profile);
+            Part p=verticalClip(clip(parts(phase).get(index),profile),lowY,highY);
             if(!visible(p))return Shapes.empty();
             List<AABB> boxes=new ArrayList<>();
             if(pose==0)boxes.add(ExactVoxelShapes.box(p.x0,p.y0,14,p.x1,p.y1,16));
@@ -181,9 +201,9 @@ public class SchoolProjectingWindowBlock extends Block {
     }
     private Geometry layoutGeometry(BlockState state,BlockGetter level,SchoolProjectingWindowLayout.View view) {
         Direction facing=state.getValue(FACING);int profile=halfWindow(state)?state.getValue(WALL_LEFT)?1:2:0;
-        List<SchoolProjectingWindowLayout.Part> parts=view.parts();
+        List<SchoolProjectingWindowLayout.Part> parts=view.parts(state);
         List<Integer> poses=parts.stream().map(part->view.pose(level,facing,part)).toList();
-        return LAYOUT_GEOMETRY.computeIfAbsent(new LayoutGeometryKey(view.key(),profile,facing,poses),ignored->{
+        return LAYOUT_GEOMETRY.computeIfAbsent(new LayoutGeometryKey(view.key(),profile*9+glassLowY(state)/8*3+glassHighY(state)/8,facing,poses),ignored->{
             VoxelShape collision=Shapes.empty(),outline=Shapes.empty();
             for(int i=0;i<parts.size();i++) {
                 var part=parts.get(i);List<AABB> boxes=new ArrayList<>();boolean open=poses.get(i)==1;
@@ -204,7 +224,7 @@ public class SchoolProjectingWindowBlock extends Block {
                 VoxelShape wall=Shapes.rotateHorizontal(Block.box(profile==1?0:8,0,0,profile==1?8:16,16,16)).get(facing);
                 collision=Shapes.or(collision,wall);outline=Shapes.or(outline,wall);
             }
-            return new Geometry(collision,outline);
+            return new Geometry(Shapes.or(collision,slabShape(state)),Shapes.or(outline,slabShape(state)));
         });
     }
     private Geometry geometry(BlockState state,BlockGetter level,BlockPos pos) {
@@ -214,11 +234,11 @@ public class SchoolProjectingWindowBlock extends Block {
         int profile=halfWindow(state)?state.getValue(WALL_LEFT)?1:2:0;
         List<Part> parts=parts(state);int code=0;int[] poses=new int[parts.size()];
         for(int i=0;i<parts.size();i++){poses[i]=pose(level,pos,state,i);code=code*5+poses[i];}
-        int key=((profile*9+phase)*625+code)*4+facing;
+        int key=(((profile*9+phase)*625+code)*4+facing)*9+glassLowY(state)/8*3+glassHighY(state)/8;
         return GEOMETRY.computeIfAbsent(key,ignored->{
             VoxelShape collision=Shapes.empty(),outline=Shapes.empty();
             for(int i=0;i<parts.size();i++) {
-                VoxelShape part=fragment(phase,i,poses[i],facing,profile);
+                VoxelShape part=fragment(phase,i,poses[i],facing,profile,glassLowY(state),glassHighY(state));
                 collision=Shapes.or(collision,part);outline=Shapes.or(outline,SimpleBlockOutline.boundingBox(part));
             }
             if(profile!=0) {
@@ -227,20 +247,21 @@ public class SchoolProjectingWindowBlock extends Block {
                 Direction direction=switch(facing){case 1->Direction.EAST;case 2->Direction.SOUTH;case 3->Direction.WEST;default->Direction.NORTH;};
                 collision=Shapes.or(collision,walls.get(direction));outline=Shapes.or(outline,walls.get(direction));
             }
-            return new Geometry(collision,outline);
+            return new Geometry(Shapes.or(collision,slabShape(state)),Shapes.or(outline,slabShape(state)));
         });
     }
     @Override protected VoxelShape getCollisionShape(BlockState state,BlockGetter level,BlockPos pos,CollisionContext context) {return geometry(state,level,pos).collision;}
     @Override protected VoxelShape getShape(BlockState state,BlockGetter level,BlockPos pos,CollisionContext context) {return geometry(state,level,pos).outline;}
+    protected BlockState placementState(BlockPlaceContext context) {return defaultBlockState();}
     @Override public BlockState getStateForPlacement(BlockPlaceContext context) {
         Direction side=context.getClickedFace(),facing=context.getHorizontalDirection().getOpposite(),right=facing.getClockWise();
-        BlockState placed=defaultBlockState().setValue(FACING,facing);
+        BlockState placed=placementState(context).setValue(FACING,facing);
         if(halfWindow(placed)) {
             double x=context.getClickLocation().x-context.getClickedPos().getX()-.5;
             double z=context.getClickLocation().z-context.getClickedPos().getZ()-.5;
             placed=placed.setValue(WALL_LEFT,x*right.getStepX()+z*right.getStepZ()<=0);
         }
-        placed=placed.setValue(GRID_PHASE,halfWindow(placed)?1:0);
+        placed=placed.setValue(GRID_PHASE,(halfWindow(placed)?1:0)+(glassLowY(placed)==8?3:0));
         Direction[] order={side.getOpposite(),Direction.DOWN,right.getOpposite(),Direction.UP,right};
         for(Direction direction:order) {
             BlockPos target=context.getClickedPos().relative(direction);
@@ -280,8 +301,9 @@ public class SchoolProjectingWindowBlock extends Block {
             }
         }
         if(anchor==null) {
-            for(BlockPos pos:cells)if(pos.getX()*right.getStepX()+pos.getZ()*right.getStepZ()==minU) {
+            for(BlockPos pos:cells)if(pos.getY()==minY&&pos.getX()*right.getStepX()+pos.getZ()*right.getStepZ()==minU) {
                 if(halfWindow(level.getBlockState(pos)))anchorPhase=1;
+                if(glassLowY(level.getBlockState(pos))==8)anchorPhase+=3;
                 break;
             }
         }
@@ -309,10 +331,10 @@ public class SchoolProjectingWindowBlock extends Block {
         }
         return best;
     }
-    private static void refresh(Level level,BlockPos origin,Direction facing) {
+    protected static void refresh(Level level,BlockPos origin,Direction facing) {
         Direction right=facing.getClockWise();
         int width=SchoolProjectingWindowLayout.RULES.stream().mapToInt(rule->rule.cells(8)).max().orElse(2);
-        int height=SchoolProjectingWindowLayout.RULES.stream().mapToInt(rule->rule.height()/16).max().orElse(2);
+        int height=SchoolProjectingWindowLayout.RULES.stream().mapToInt(rule->(rule.height()+23)/16).max().orElse(2);
         for(int y=-height;y<=height;y++)for(int x=-width;x<=width;x++) {
             BlockPos target=origin.relative(right,x).above(y);
             if(level.hasChunkAt(target)) {
@@ -325,6 +347,9 @@ public class SchoolProjectingWindowBlock extends Block {
         if(!player.mayBuild())return InteractionResult.PASS;
         if(level.getBlockEntity(pos) instanceof SchoolProjectingWindowPaintEntity wall
                 &&wall.canPaintAt(hit.getDirection(),hit.getLocation()))return InteractionResult.PASS;
+        if(level.getBlockEntity(pos) instanceof SchoolSlabProjectingWindowPaintEntity slab
+                &&slab.canPaintAt(hit.getDirection(),hit.getLocation()))return InteractionResult.PASS;
+        if(glassLowY(state)>=glassHighY(state))return InteractionResult.PASS;
         var layout=SchoolProjectingWindowLayout.find(level,pos,state);
         if(layout!=null)return useLayout(state,level,pos,player,hit,layout);
         if(state.getValue(GRID_PHASE)==9) {
@@ -353,7 +378,7 @@ public class SchoolProjectingWindowBlock extends Block {
         double x=8+16*(dx*right.getStepX()+dz*right.getStepZ()),y=16*(hit.getLocation().y-pos.getY());
         double z=8+16*(dx*back.getStepX()+dz*back.getStepZ());
         SchoolProjectingWindowLayout.Part chosen=null;double distance=Double.POSITIVE_INFINITY;
-        for(var part:view.parts()) {
+        for(var part:view.parts(state)) {
             double[] local=transform(part,x,y,z,view.pose(level,facing,part)==1,true);
             double a=Math.max(part.x0()-local[0],Math.max(0,local[0]-part.x1()));
             double b=Math.max(part.y0()-local[1],Math.max(0,local[1]-part.y1()));

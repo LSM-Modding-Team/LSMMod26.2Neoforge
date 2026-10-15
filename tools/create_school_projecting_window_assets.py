@@ -141,22 +141,22 @@ def layout_rules():
     seen=set()
     for rule in rules:
         w,h=rule['width']*16,rule['height']*16;c,r=rule['columns'],rule['rows']
-        assert w==int(w) and h==int(h) and w%8==0 and h%16==0
+        assert w==int(w) and h==int(h) and w%8==0 and h%8==0
         assert isinstance(c,int) and isinstance(r,int) and c>0 and r>0 and w/c>=16 and h/r>=16 and w<=1024 and h<=1024
         assert (w,h) not in seen;seen.add((w,h))
     return rules
 
 
-def layout_key(rule,start,x,y):
-    return f"w{int(rule['width']*16)}h{int(rule['height']*16)}_{start}_{x}_{y}"
+def layout_key(rule,start,x,y,start_y=0):
+    return f"w{int(rule['width']*16)}h{int(rule['height']*16)}_{start}_{x}_{y}"+(f'_v{start_y}' if start_y else '')
 
 
-def layout_parts(rule,start,x,y):
+def layout_parts(rule,start,x,y,start_y=0):
     w,h=rule['width']*16,rule['height']*16;pw,ph=w/rule['columns'],h/rule['rows']
     result=[]
     for row in range(rule['rows']):
         for column in range(rule['columns']):
-            ox,oy=start+column*pw-x*16,row*ph-y*16
+            ox,oy=start+column*pw-x*16,start_y+row*ph-y*16
             lo,hi=max(0,start-x*16,ox),min(16,start+w-x*16,ox+pw)
             bottom,top=max(0,oy),min(16,oy+ph)
             if lo<hi-1e-8 and bottom<top-1e-8:result.append((lo,hi,bottom,top,ox,oy,pw,ph,column,row))
@@ -182,12 +182,13 @@ def layout_fragment(model,part,pose):
 
 
 def layout_models():
-    # Rebuild this generated family so deleted table entries leave no obsolete adaptive models.
+    """Generate table-driven variants in the selected resource tree, idempotently."""
     import shutil,math
-    for ident in (ID,PAINTABLE_ID):
+    slab_id='school_paintable_projecting_window_slab'
+    for ident in (ID,PAINTABLE_ID,slab_id):
         directory=A/f'models/block/{ident}/layouts'
         if directory.exists():shutil.rmtree(directory)
-    rules=layout_rules();choices=[];half_choices={'left':[],'right':[]}
+    rules=layout_rules();choices=[];half_choices={'left':[],'right':[]};slab_choices={'bottom':[],'top':[]}
     for side in half_choices:
         groups=json.loads((A/f'models/block/{PAINTABLE_ID}/phase_0_{side}.json').read_text())['models'][:6]
         write(A/f'models/block/{PAINTABLE_ID}/wall_{side}.json',{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]),'models':groups})
@@ -196,37 +197,74 @@ def layout_models():
         base=sized_pane_models(width/rule['columns'],height/rule['rows'])
         for start in (0,8):
             cells=math.ceil((start+width)/16)
-            for y in range(int(height)//16):
-                for x in range(cells):
-                    key=layout_key(rule,start,x,y);groups=[]
-                    for index,part in enumerate(layout_parts(rule,start,x,y)):
-                        for layer,model in base.items():
-                            series=[]
-                            for pose in range(2):
-                                value=layout_fragment(model,part,pose)
-                                if not value['elements']:continue
-                                name=f'{ID}/layouts/{key}_part_{index}_{layer}_{pose}'
-                                write(A/f'models/block/{name}.json',value)
-                                series.append({'model':'lsmmod:block/'+name,'condition':{'type':'lsmmod:projecting_window_layout','key':key,'part':index,'pose':pose}})
-                            if series:groups.append(series)
-                    name=f'{ID}/layouts/{key}'
-                    write(A/f'models/block/{name}.json',{'loader':'fusion:model','type':'composite','textures':TEXTURES,'models':groups})
-                    condition={'type':'lsmmod:projecting_window_layout','key':key}
-                    choices.append({'model':'lsmmod:block/'+name,'condition':condition})
-                    for side in half_choices:
-                        if side=='left' and not (start==8 and x==0):continue
-                        if side=='right' and not ((start+width)%16==8 and x==cells-1):continue
-                        half_name=f'{PAINTABLE_ID}/layouts/{key}_{side}'
-                        write(A/f'models/block/{half_name}.json',{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]),
-                              'models':[[f'lsmmod:block/{PAINTABLE_ID}/wall_{side}'],['lsmmod:block/'+name]]})
-                        half_choices[side].append({'model':'lsmmod:block/'+half_name,'condition':condition})
-    # The first predicate scans the supplied snapshot once, including whenever a neighboring cell changes.
-    for ident,side,entries in ((ID,None,choices),*( (PAINTABLE_ID,side,entries) for side,entries in half_choices.items())):
+            for sy in (0,8):
+                for y in range(math.ceil((sy+height)/16)):
+                    for x in range(cells):
+                        key=layout_key(rule,start,x,y,sy)
+                        raw=layout_parts(rule,start,x,y,sy)
+                        for profile in ('full','bottom','top'):
+                            # Slabs can only bound the glass rectangle, not fill an
+                            # interior cell. Avoid generating unreachable profiles.
+                            if profile=='bottom' and not (sy==8 and y==0):continue
+                            if profile=='top' and not ((sy+height)%16==8 and y==math.ceil((sy+height)/16)-1):continue
+                            if profile=='full':selected=raw
+                            else:
+                                low,high=(8,16) if profile=='bottom' else (0,8)
+                                selected=[(p[0],p[1],max(low,p[2]),min(high,p[3]),*p[4:]) for p in raw
+                                          if max(low,p[2])<min(high,p[3])]
+                            if not selected:continue
+                            prefix=ID if profile=='full' else slab_id
+                            suffix='' if profile=='full' else '_'+profile
+                            groups=[]
+                            for index,part in enumerate(selected):
+                                for layer,model in base.items():
+                                    series=[]
+                                    for pose in range(2):
+                                        value=layout_fragment(model,part,pose)
+                                        if not value['elements']:continue
+                                        name=f'{prefix}/layouts/{key}{suffix}_part_{index}_{layer}_{pose}'
+                                        write(A/f'models/block/{name}.json',value)
+                                        series.append({'model':'lsmmod:block/'+name,'condition':{'type':'lsmmod:projecting_window_layout','key':key,'part':index,'pose':pose}})
+                                    if series:groups.append(series)
+                            name=f'{prefix}/layouts/{key}{suffix}'
+                            write(A/f'models/block/{name}.json',{'loader':'fusion:model','type':'composite','textures':TEXTURES,'models':groups})
+                            condition={'type':'lsmmod:projecting_window_layout','key':key}
+                            if profile!='full':
+                                slab_choices[profile].append({'model':'lsmmod:block/'+name,'condition':condition});continue
+                            choices.append({'model':'lsmmod:block/'+name,'condition':condition})
+                            for side in half_choices:
+                                if side=='left' and not (start==8 and x==0):continue
+                                if side=='right' and not ((start+width)%16==8 and x==cells-1):continue
+                                half_name=f'{PAINTABLE_ID}/layouts/{key}_{side}'
+                                write(A/f'models/block/{half_name}.json',{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]),
+                                      'models':[[f'lsmmod:block/{PAINTABLE_ID}/wall_{side}'],['lsmmod:block/'+name]]})
+                                half_choices[side].append({'model':'lsmmod:block/'+half_name,'condition':condition})
+    roots=[(ID,None,choices),*((PAINTABLE_ID,side,entries) for side,entries in half_choices.items()),
+           *((slab_id,side,entries) for side,entries in slab_choices.items())]
+    for ident,side,entries in roots:
         source=A/f'models/block/{ident}{("/"+side) if side else ""}.json'
         legacy=f'{ident}/legacy{("_"+side) if side else ""}'
-        write(A/f'models/block/{legacy}.json',json.loads(source.read_text()))
+        # A build may re-run only this step on already generated resources.
+        # Never replace the legacy model with a wrapper referencing itself.
+        value=json.loads(source.read_text())
+        first=value.get('models',[[]])[0]
+        wrapped=bool(first and isinstance(first[0],dict) and first[0].get('condition',{}).get('key')=='fallback')
+        if not wrapped:write(A/f'models/block/{legacy}.json',value)
         first={'model':'lsmmod:block/'+legacy,'condition':{'type':'lsmmod:projecting_window_layout','key':'fallback','refresh':True}}
         write(source,{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]) if side else TEXTURES,'models':[[first]+entries]})
+    write(A/'projecting_window_baked_layouts.json',rules)
+
+
+def prepare_layouts(assets):
+    """Refresh table-derived models in an isolated build tree, never source files."""
+    global A
+    previous=A
+    try:
+        A=assets
+        layout_models()
+    finally:
+        A=previous
+
 
 def main():
     Image.new('RGB', (16, 16), (17, 18, 19)).save(A/f'textures/block/{ID}_frame.png')
@@ -287,6 +325,7 @@ def main():
     if 'lsmmod:'+PAINTABLE_ID not in data['values']: data['values'].append('lsmmod:'+PAINTABLE_ID)
     write(path, data)
     paintable_models()
+    slab_models(adaptive=False)
     layout_models()
 
 
@@ -311,26 +350,52 @@ def slab_pane_models(opened=False):
     return layers
 
 
-def slab_models():
+def slab_models(adaptive=True):
     multipart=[{'apply':{'model':'lsmmod:block/school_paintable_custom_block'}}]
-    for opened in (False,True):
-        groups=[]
-        for layer,value in slab_pane_models(opened).items():
-            name=f'{SLAB_ID}_pane_{int(opened)}_{layer}'
-            write(A/f'models/block/{name}.json',value);groups.append(['lsmmod:block/'+name])
-        name=f'{SLAB_ID}_pane_{int(opened)}'
-        write(A/f'models/block/{name}.json',{'loader':'fusion:model','type':'composite','textures':TEXTURES,'models':groups})
+    for kind in ('bottom','top'):
+        phases=[];low,high=(8,16) if kind=='bottom' else (0,8)
+        for phase in range(9):
+            groups=[]
+            for index,part in enumerate(parts(phase)):
+                part=(part[0],part[1],max(low,part[2]),min(high,part[3]),*part[4:])
+                if part[2]>=part[3]:continue
+                for layer,boxes in PANES.items():
+                    series=[]
+                    for pose in range(5):
+                        value=fragment(solid_model(boxes),part,pose)
+                        if not value['elements']:continue
+                        value.update(textures=TEXTURES,render_type='minecraft:'+layer)
+                        name=f'{SLAB_ID}/phase_{phase}_{kind}_part_{index}_{layer}_{pose}'
+                        write(A/f'models/block/{name}.json',value)
+                        series.append({'model':'lsmmod:block/'+name,'condition':{'type':'lsmmod:projecting_window','phase':phase,'part':index,'pose':pose}})
+                    if series:groups.append(series)
+            name=f'{SLAB_ID}/phase_{phase}_{kind}'
+            write(A/f'models/block/{name}.json',{'loader':'fusion:model','type':'composite','textures':TEXTURES,'models':groups})
+            phases.append({'model':'lsmmod:block/'+name,'condition':{'type':'lsmmod:projecting_window','phase':phase}})
+        write(A/f'models/block/{SLAB_ID}/{kind}.json',{'loader':'fusion:model','type':'composite','textures':TEXTURES,'models':[phases]})
         for turn,facing in enumerate(('north','east','south','west')):
-            multipart.append({'when':{'facing':facing,'open':str(opened).lower()},'apply':{'model':'lsmmod:block/'+name,'y':turn*90}})
+            multipart.append({'when':{'facing':facing,'type':kind},'apply':{'model':f'lsmmod:block/{SLAB_ID}/{kind}','y':turn*90}})
     write(A/f'blockstates/{SLAB_ID}.json',{'multipart':multipart})
+    # Standalone inventory example keeps a complete small sash above its slab.
+    groups=[]
+    for layer,value in slab_pane_models(False).items():
+        name=f'{SLAB_ID}_pane_0_{layer}'
+        write(A/f'models/block/{name}.json',value);groups.append(['lsmmod:block/'+name])
+    write(A/f'models/block/{SLAB_ID}_pane_0.json',{'loader':'fusion:model','type':'composite','textures':TEXTURES,'models':groups})
+    for suffix in ('','_solid','_translucent'):
+        (A/f'models/block/{SLAB_ID}_pane_1{suffix}.json').unlink(missing_ok=True)
     write(A/f'models/item/{SLAB_ID}_slab.json',{'parent':'minecraft:block/block','render_type':'minecraft:solid',
         'textures':{'surface':PAINTS[0],'particle':'#surface'},'elements':[{'from':[0,0,0],'to':[16,8,16],
         'faces':{face:{'texture':'#surface','uv':[0,0,16,16]} for face in SIDES}}]})
     write(A/f'models/item/{SLAB_ID}.json',{'loader':'fusion:model','type':'composite','textures':{'particle':PAINTS[0]},
         'models':[['lsmmod:item/'+SLAB_ID+'_slab'],['lsmmod:block/'+SLAB_ID+'_pane_0']]})
     basic(SLAB_ID)
+    path=D/f'lsmmod/loot_table/blocks/{SLAB_ID}.json';loot=json.loads(path.read_text())
+    loot['pools'][0]['entries'][0]['functions']=[{'function':'minecraft:set_count','count':2,
+        'conditions':[{'condition':'minecraft:block_state_property','block':'lsmmod:'+SLAB_ID,'properties':{'type':'double'}}]}]
+    write(path,loot)
     for filename,entry in (
-        ('ModBlocks.java',f'    public static final DeferredBlock<SchoolSlabProjectingWindowBlock> SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB = BLOCKS.registerBlock("{SLAB_ID}", SchoolSlabProjectingWindowBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).noOcclusion());'),
+        ('ModBlocks.java',f'    public static final DeferredBlock<SchoolSlabProjectingWindowBlock> SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB = BLOCKS.registerBlock("{SLAB_ID}", SchoolSlabProjectingWindowBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).noOcclusion().dynamicShape());'),
         ('ModItems.java','    public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB);')):
         path=J/'registry'/filename;text=path.read_text()
         if ' SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB =' not in text:path.write_text(text.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
@@ -343,6 +408,13 @@ def slab_models():
     path=D/'minecraft/tags/block/mineable/pickaxe.json';data=json.loads(path.read_text())
     if 'lsmmod:'+SLAB_ID not in data['values']:data['values'].append('lsmmod:'+SLAB_ID)
     write(path,data)
+    for registry in ('block','item'):
+        tag=D/f'minecraft/tags/{registry}/slabs.json'
+        tag.parent.mkdir(parents=True,exist_ok=True)
+        data=json.loads(tag.read_text()) if tag.exists() else {'values':[]}
+        if 'lsmmod:'+SLAB_ID not in data['values']:data['values'].append('lsmmod:'+SLAB_ID)
+        write(tag,data)
+    if adaptive:layout_models()
 
 
 if __name__ == '__main__':

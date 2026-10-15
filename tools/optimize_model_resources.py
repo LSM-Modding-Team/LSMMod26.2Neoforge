@@ -38,7 +38,10 @@ def prepare(output):
   for p in base.rglob('*'):
    if p.is_file() and p.suffix!='.bbmodel' and p.name!='.gitkeep' and '.cache' not in p.parts:
     dest=output/p.relative_to(base);dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dest)
- assets=output/'assets/lsmmod';models=assets/'models';before=list(models.rglob('*.json'));raw_bytes=sum(p.stat().st_size for p in before)
+ assets=output/'assets/lsmmod'
+ from create_school_projecting_window_assets import prepare_layouts
+ prepare_layouts(assets)
+ models=assets/'models';before=list(models.rglob('*.json'));raw_bytes=sum(p.stat().st_size for p in before)
  from repair_door_glazing_faces import prepare as repair_door_faces
  door_faces=repair_door_faces(assets)
  # Reuse parsed models through deduplication, reference repair and parent sharing.

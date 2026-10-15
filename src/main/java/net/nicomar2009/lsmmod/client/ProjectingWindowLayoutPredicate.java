@@ -43,7 +43,7 @@ public record ProjectingWindowLayoutPredicate(String key,int part,int pose,boole
         var view=selection.view;
         if(key.equals("fallback"))return view==null;
         if(view==null||!view.key().equals(key))return false;
-        return part<0||(part<view.parts().size()&&view.pose(level,state.getValue(SchoolProjectingWindowBlock.FACING),view.parts().get(part))==pose);
+        return part<0||(part<view.parts(state).size()&&view.pose(level,state.getValue(SchoolProjectingWindowBlock.FACING),view.parts(state).get(part))==pose);
     }
     @Override public boolean testForItem(ItemStack stack) {return key.equals("fallback")&&part<0;}
     @Override public Serializer<? extends ModelPredicate> getSerializer() {return SERIALIZER;}

@@ -131,17 +131,22 @@ def review_squares():
     canvas.save(preview_path('school_paintable_projecting_window_squares_review.png'))
 
 
-def slab_scene(opened=False,facing='north',paint=0):
+def slab_scene(opened=False,facing='north',paint=0,kind='bottom',phase=None):
     from create_school_projecting_window_assets import SLAB_ID
     from create_custom_paintable_blocks import STEPS
     from create_kiosk_entrance_assets import rotated
-    state=dict(facing=facing,open=str(opened).lower());elements=[]
+    phase=(3 if kind=='bottom' else 0) if phase is None else phase
+    mask={'bottom':0x33,'top':0xcc,'double':0xff}[kind]
+    state=dict(facing=facing,open=str(opened).lower(),type=kind);elements=[]
     def predicate(condition):
+        if condition['type']=='lsmmod:projecting_window_layout':return condition['key']=='fallback'
+        if condition['type']=='lsmmod:projecting_window':
+            return condition['phase']==phase and ('pose' not in condition or condition['pose']==int(opened))
         cube=condition['cube'];xyz=(cube&1,(cube>>1)&1,(cube>>2)&1)
         neighbor=tuple(a+b for a,b in zip(xyz,STEPS[condition['face']]))
-        covered=all(0<=a<2 for a in neighbor) and (0x33&(1<<(neighbor[0]+2*neighbor[1]+4*neighbor[2])))
+        covered=all(0<=a<2 for a in neighbor) and (mask&(1<<(neighbor[0]+2*neighbor[1]+4*neighbor[2])))
         color=paint(xyz,condition['face']) if callable(paint) else paint
-        return bool(0x33&(1<<cube)) and not covered and condition['paint']==color
+        return bool(mask&(1<<cube)) and not covered and condition['paint']==color
     for entry in json.loads((A/f'blockstates/{SLAB_ID}.json').read_text())['multipart']:
         if not all(state[k] in value.split('|') for k,value in entry.get('when',{}).items()):continue
         apply=entry['apply']
@@ -163,14 +168,36 @@ def slab_item():
     elements=[];add(elements,load('lsmmod:item/'+SLAB_ID));return elements
 
 
+def slab_assembly(opened=False,kind='bottom',paint=0):
+    """Two complete 24px sashes: one slab boundary row and one full glass row."""
+    from create_school_projecting_window_assets import ID
+    elements=[]
+    for y in range(2):
+        for x in range(3):
+            is_slab=y==(0 if kind=='bottom' else 1)
+            phase=x+3*(y+(1 if kind=='bottom' else 0))
+            if is_slab:
+                chunk=slab_scene(opened,paint=paint,kind=kind,phase=phase)
+                for e in chunk:
+                    for key in ('from','to'):
+                        e[key][0]+=16*x;e[key][1]+=16*y
+                    if 'rotation' in e:
+                        e['rotation']['origin'][0]+=16*x;e['rotation']['origin'][1]+=16*y
+                elements.extend(chunk)
+            else:
+                predicate=lambda c:c.get('pose')==int(opened)
+                add(elements,load(f'lsmmod:block/{ID}/phase_{phase}',predicate=predicate),(16*x,16*y,0))
+    return elements
+
+
 def review_slab():
     from create_school_projecting_window_assets import SLAB_ID
     from render_block_review import framing
     paint=lambda xyz,face:13 if (xyz[0]+xyz[2])%2 else 14
-    cases=[('Cerrada / losa inferior fija',slab_scene()),('Abierta 45 grados / bisagra superior',slab_scene(True)),
-           ('Cuadrados pintables de 8x8 px',slab_scene(True,paint=paint)),('Dorso / cristal y marco originales',slab_scene(True,paint=paint)),
+    cases=[('Inferior / hoja compartida',slab_scene()),('Dos hojas completas / abiertas 45 grados',slab_assembly(True,paint=paint)),
+           ('Superior / hoja inferior cerrada',slab_scene(paint=paint,kind='top')),('Doble / bloque completo',slab_scene(kind='double',paint=paint)),
            ('Item / losa y ventana',slab_item())]
-    for facing in ('east','south','west'):cases.append(('Orientacion '+facing,slab_scene(True,facing,paint)))
+    for facing in ('east','south','west'):cases.append(('Orientacion '+facing,slab_scene(False,facing,paint)))
     canvas=Image.new('RGB',(1440,1560),(194,194,194));draw=ImageDraw.Draw(canvas)
     for i,(label,elements) in enumerate(cases):
         center,scale=framing(elements,size=(480,490));offset=(i%3*480,i//3*520+25)
