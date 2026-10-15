@@ -445,5 +445,6 @@
   "screen.lsmmod.audio.linked": "Connected to Moises laptop",
   "screen.lsmmod.audio.saved": "Settings saved",
   "screen.lsmmod.audio.help": "Click the middle value to reset it.",
-  "message.lsmmod.media.controller_connected": "Audio control connected."
+  "message.lsmmod.media.controller_connected": "Audio control connected.",
+  "block.lsmmod.school_paintable_projecting_window_stairs": "Paintable Stair with Projecting Window"
 }

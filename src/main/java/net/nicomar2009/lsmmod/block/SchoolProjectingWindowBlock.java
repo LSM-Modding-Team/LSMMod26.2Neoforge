@@ -74,14 +74,21 @@ public class SchoolProjectingWindowBlock extends Block {
     public static boolean halfWindow(BlockState state) {return state.hasProperty(WALL_LEFT);}
     public static List<Part> parts(int phase) {return PARTS.get(phase);}
     public static int glassLowY(BlockState state) {
+        if(state.hasProperty(SchoolStairProjectingWindowBlock.HALF))
+            return state.getValue(SchoolStairProjectingWindowBlock.HALF)==net.minecraft.world.level.block.state.properties.Half.BOTTOM?8:0;
         return state.hasProperty(SchoolSlabProjectingWindowBlock.TYPE)
                 &&state.getValue(SchoolSlabProjectingWindowBlock.TYPE)==net.minecraft.world.level.block.state.properties.SlabType.BOTTOM?8:0;
     }
     public static int glassHighY(BlockState state) {
+        if(state.hasProperty(SchoolStairProjectingWindowBlock.HALF))
+            return state.getValue(SchoolStairProjectingWindowBlock.HALF)==net.minecraft.world.level.block.state.properties.Half.TOP?8:16;
         if(!state.hasProperty(SchoolSlabProjectingWindowBlock.TYPE))return 16;
         return switch(state.getValue(SchoolSlabProjectingWindowBlock.TYPE)){case TOP->8;case DOUBLE->0;default->16;};
     }
     private static VoxelShape slabShape(BlockState state) {
+        if(state.hasProperty(SchoolStairProjectingWindowBlock.HALF))
+            return state.getValue(SchoolStairProjectingWindowBlock.HALF)==net.minecraft.world.level.block.state.properties.Half.BOTTOM
+                    ?Block.box(0,0,0,16,8,16):Block.box(0,8,0,16,16,16);
         if(!state.hasProperty(SchoolSlabProjectingWindowBlock.TYPE))return Shapes.empty();
         return switch(state.getValue(SchoolSlabProjectingWindowBlock.TYPE)) {
             case BOTTOM->Block.box(0,0,0,16,8,16);case TOP->Block.box(0,8,0,16,16,16);case DOUBLE->Shapes.block();
@@ -349,6 +356,8 @@ public class SchoolProjectingWindowBlock extends Block {
                 &&wall.canPaintAt(hit.getDirection(),hit.getLocation()))return InteractionResult.PASS;
         if(level.getBlockEntity(pos) instanceof SchoolSlabProjectingWindowPaintEntity slab
                 &&slab.canPaintAt(hit.getDirection(),hit.getLocation()))return InteractionResult.PASS;
+        if(level.getBlockEntity(pos) instanceof SchoolStairProjectingWindowPaintEntity stair
+                &&stair.canPaintAt(hit.getDirection(),hit.getLocation()))return InteractionResult.PASS;
         if(glassLowY(state)>=glassHighY(state))return InteractionResult.PASS;
         var layout=SchoolProjectingWindowLayout.find(level,pos,state);
         if(layout!=null)return useLayout(state,level,pos,player,hit,layout);

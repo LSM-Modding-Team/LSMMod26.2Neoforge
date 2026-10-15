@@ -114,6 +114,7 @@
     "lsmmod:double_school_entrance_paintable_slab",
     "lsmmod:school_laboratory_tile",
     "lsmmod:laboratory_table_tile",
-    "lsmmod:school_paintable_projecting_window_slab"
+    "lsmmod:school_paintable_projecting_window_slab",
+    "lsmmod:school_paintable_projecting_window_stairs"
   ]
 }

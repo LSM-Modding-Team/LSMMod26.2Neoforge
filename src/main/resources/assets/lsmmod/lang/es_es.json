@@ -439,5 +439,6 @@
   "screen.lsmmod.audio.linked": "Conectado a la laptop de Moisés",
   "screen.lsmmod.audio.saved": "Ajustes guardados",
   "screen.lsmmod.audio.help": "Pulsa el valor central para restablecerlo.",
-  "message.lsmmod.media.controller_connected": "Control de audio conectado."
+  "message.lsmmod.media.controller_connected": "Control de audio conectado.",
+  "block.lsmmod.school_paintable_projecting_window_stairs": "Escalera pintable con ventana proyectante"
 }

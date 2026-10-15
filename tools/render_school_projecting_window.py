@@ -131,13 +131,10 @@ def review_squares():
     canvas.save(preview_path('school_paintable_projecting_window_squares_review.png'))
 
 
-def slab_scene(opened=False,facing='north',paint=0,kind='bottom',phase=None):
-    from create_school_projecting_window_assets import SLAB_ID
+def painted_window_scene(ident,state,mask,phase,opened,paint):
     from create_custom_paintable_blocks import STEPS
     from create_kiosk_entrance_assets import rotated
-    phase=(3 if kind=='bottom' else 0) if phase is None else phase
-    mask={'bottom':0x33,'top':0xcc,'double':0xff}[kind]
-    state=dict(facing=facing,open=str(opened).lower(),type=kind);elements=[]
+    elements=[]
     def predicate(condition):
         if condition['type']=='lsmmod:projecting_window_layout':return condition['key']=='fallback'
         if condition['type']=='lsmmod:projecting_window':
@@ -147,7 +144,7 @@ def slab_scene(opened=False,facing='north',paint=0,kind='bottom',phase=None):
         covered=all(0<=a<2 for a in neighbor) and (mask&(1<<(neighbor[0]+2*neighbor[1]+4*neighbor[2])))
         color=paint(xyz,condition['face']) if callable(paint) else paint
         return bool(mask&(1<<cube)) and not covered and condition['paint']==color
-    for entry in json.loads((A/f'blockstates/{SLAB_ID}.json').read_text())['multipart']:
+    for entry in json.loads((A/f'blockstates/{ident}.json').read_text())['multipart']:
         if not all(state[k] in value.split('|') for k,value in entry.get('when',{}).items()):continue
         apply=entry['apply']
         for model in load(apply['model'],predicate=predicate):
@@ -161,6 +158,31 @@ def slab_scene(opened=False,facing='north',paint=0,kind='bottom',phase=None):
                     elif rotation['axis']=='z':rotation['axis']='x'
             add(elements,[model])
     return elements
+
+
+def slab_scene(opened=False,facing='north',paint=0,kind='bottom',phase=None):
+    from create_school_projecting_window_assets import SLAB_ID
+    phase=(3 if kind=='bottom' else 0) if phase is None else phase
+    mask={'bottom':0x33,'top':0xcc,'double':0xff}[kind]
+    state=dict(facing=facing,open=str(opened).lower(),type=kind)
+    return painted_window_scene(SLAB_ID,state,mask,phase,opened,paint)
+
+
+def stair_mask(facing,half,left):
+    mask=0;turns=('north','east','south','west').index(facing)
+    for cube in range(8):
+        x,y,z=cube&1,(cube>>1)&1,(cube>>2)&1
+        if x!=(0 if left else 1) and y!=(0 if half=='bottom' else 1):continue
+        for turn in range(turns):x,z=1-z,x
+        mask|=1<<(x+2*y+4*z)
+    return mask
+
+
+def stair_scene(opened=False,facing='north',paint=0,half='bottom',left=True,phase=None):
+    from create_school_projecting_window_assets import STAIR_ID
+    phase=(1 if left else 0)+(3 if half=='bottom' else 0) if phase is None else phase
+    state=dict(facing=facing,open=str(opened).lower(),half=half,wall_left=str(left).lower())
+    return painted_window_scene(STAIR_ID,state,stair_mask(facing,half,left),phase,opened,paint)
 
 
 def slab_item():
@@ -206,6 +228,51 @@ def review_slab():
     canvas.save(preview_path(SLAB_ID+'_review.png'))
 
 
+def stair_assembly(opened=False,half='bottom',left=True,paint=0):
+    from create_school_projecting_window_assets import ID,PAINTABLE_ID
+    elements=[]
+    for y in range(2):
+        for x in range(2):
+            edge_x=x==(0 if left else 1);edge_y=y==(0 if half=='bottom' else 1)
+            phase=x+(1 if left else 0)+3*(y+(1 if half=='bottom' else 0))
+            if edge_x and edge_y:chunk=stair_scene(opened,paint=paint,half=half,left=left,phase=phase)
+            elif edge_y:chunk=slab_scene(opened,paint=paint,kind=half,phase=phase)
+            else:
+                side='left' if left else 'right'
+                name=f'{PAINTABLE_ID}/phase_{phase}_{side}' if edge_x else f'{ID}/phase_{phase}'
+                color=paint((0,0,0),'north') if callable(paint) else paint
+                def selected(c):
+                    return c['paint']==color if c['type']=='lsmmod:painted_face' else c.get('pose')==int(opened)
+                chunk=[];add(chunk,load('lsmmod:block/'+name,predicate=selected))
+            for e in chunk:
+                for key in ('from','to'):e[key][0]+=x*16;e[key][1]+=y*16
+                if 'rotation' in e:e['rotation']['origin'][0]+=x*16;e['rotation']['origin'][1]+=y*16
+            elements.extend(chunk)
+    return elements
+
+
+def review_stair():
+    from create_school_projecting_window_assets import STAIR_ID
+    from render_block_review import framing
+    checker=lambda xyz,face:13 if sum(xyz)%2 else 14
+    item=[];add(item,load('lsmmod:item/'+STAIR_ID))
+    cases=[('Perfil L / cuadrados 8x8 px',stair_scene(paint=checker),-65),
+           ('Invertida / hueco inferior',stair_scene(half='top',paint=checker),-65),
+           ('De canto / hueco a la izquierda',stair_scene(left=False,paint=checker),-65),
+           ('Escalera + losa + mitad + ventana normal',stair_assembly(paint=14),-65),
+           ('Misma hoja completa / abierta 45 grados',stair_assembly(True,paint=14),-65),
+           ('Dorso / hoja compartida abierta',stair_assembly(True,paint=14),115),
+           ('Item / definicion real',item,-65),
+           ('Orientacion este',stair_scene(facing='east',paint=checker),-65),
+           ('Orientacion sur',stair_scene(facing='south',paint=checker),115)]
+    canvas=Image.new('RGB',(1440,1440),(194,194,194));draw=ImageDraw.Draw(canvas)
+    for i,(label,elements,angle) in enumerate(cases):
+        center,scale=framing(elements,size=(480,450));offset=(i%3*480,i//3*480+25)
+        canvas.paste(render(elements,center,scale*.75,size=(480,450),azimuth=angle,elevation=18,minecraft_orientation=True),offset)
+        draw.text((offset[0]+8,offset[1]-18),label,fill=(25,25,25))
+    target=preview_path(STAIR_ID+'_review.png');canvas.save(target);print(target)
+
+
 if __name__ == '__main__':
     import argparse
     from pathlib import Path
@@ -213,6 +280,8 @@ if __name__ == '__main__':
     parser=argparse.ArgumentParser()
     parser.add_argument('--vanilla-dir',type=Path,default=renderer.VANILLA)
     parser.add_argument('--slab-only',action='store_true')
+    parser.add_argument('--stairs-only',action='store_true')
     args=parser.parse_args();renderer.VANILLA=args.vanilla_dir
-    if args.slab_only:review_slab()
+    if args.stairs_only:review_stair()
+    elif args.slab_only:review_slab()
     else:main()

@@ -185,10 +185,11 @@ def layout_models():
     """Generate table-driven variants in the selected resource tree, idempotently."""
     import shutil,math
     slab_id='school_paintable_projecting_window_slab'
-    for ident in (ID,PAINTABLE_ID,slab_id):
+    stair_id='school_paintable_projecting_window_stairs'
+    for ident in (ID,PAINTABLE_ID,slab_id,stair_id):
         directory=A/f'models/block/{ident}/layouts'
         if directory.exists():shutil.rmtree(directory)
-    rules=layout_rules();choices=[];half_choices={'left':[],'right':[]};slab_choices={'bottom':[],'top':[]}
+    rules=layout_rules();choices=[];half_choices={'left':[],'right':[]};slab_choices={'bottom':[],'top':[]};stair_choices={kind+'_'+side:[] for kind in ('bottom','top') for side in ('left','right')}
     for side in half_choices:
         groups=json.loads((A/f'models/block/{PAINTABLE_ID}/phase_0_{side}.json').read_text())['models'][:6]
         write(A/f'models/block/{PAINTABLE_ID}/wall_{side}.json',{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]),'models':groups})
@@ -202,18 +203,26 @@ def layout_models():
                     for x in range(cells):
                         key=layout_key(rule,start,x,y,sy)
                         raw=layout_parts(rule,start,x,y,sy)
-                        for profile in ('full','bottom','top'):
+                        for profile in ('full','bottom','top',*stair_choices):
                             # Slabs can only bound the glass rectangle, not fill an
                             # interior cell. Avoid generating unreachable profiles.
-                            if profile=='bottom' and not (sy==8 and y==0):continue
-                            if profile=='top' and not ((sy+height)%16==8 and y==math.ceil((sy+height)/16)-1):continue
+                            kind=profile.split('_')[0]
+                            if kind=='bottom' and not (sy==8 and y==0):continue
+                            if kind=='top' and not ((sy+height)%16==8 and y==math.ceil((sy+height)/16)-1):continue
+                            if profile in stair_choices:
+                                side=profile.split('_')[1]
+                                if side=='left' and not (start==8 and x==0):continue
+                                if side=='right' and not ((start+width)%16==8 and x==cells-1):continue
                             if profile=='full':selected=raw
                             else:
-                                low,high=(8,16) if profile=='bottom' else (0,8)
+                                low,high=(8,16) if kind=='bottom' else (0,8)
                                 selected=[(p[0],p[1],max(low,p[2]),min(high,p[3]),*p[4:]) for p in raw
                                           if max(low,p[2])<min(high,p[3])]
+                            if profile in stair_choices:
+                                lx,hx=(8,16) if side=='left' else (0,8)
+                                selected=[(max(lx,p[0]),min(hx,p[1]),*p[2:]) for p in selected if max(lx,p[0])<min(hx,p[1])]
                             if not selected:continue
-                            prefix=ID if profile=='full' else slab_id
+                            prefix=ID if profile=='full' else stair_id if profile in stair_choices else slab_id
                             suffix='' if profile=='full' else '_'+profile
                             groups=[]
                             for index,part in enumerate(selected):
@@ -230,7 +239,7 @@ def layout_models():
                             write(A/f'models/block/{name}.json',{'loader':'fusion:model','type':'composite','textures':TEXTURES,'models':groups})
                             condition={'type':'lsmmod:projecting_window_layout','key':key}
                             if profile!='full':
-                                slab_choices[profile].append({'model':'lsmmod:block/'+name,'condition':condition});continue
+                                (stair_choices if profile in stair_choices else slab_choices)[profile].append({'model':'lsmmod:block/'+name,'condition':condition});continue
                             choices.append({'model':'lsmmod:block/'+name,'condition':condition})
                             for side in half_choices:
                                 if side=='left' and not (start==8 and x==0):continue
@@ -240,7 +249,8 @@ def layout_models():
                                       'models':[[f'lsmmod:block/{PAINTABLE_ID}/wall_{side}'],['lsmmod:block/'+name]]})
                                 half_choices[side].append({'model':'lsmmod:block/'+half_name,'condition':condition})
     roots=[(ID,None,choices),*((PAINTABLE_ID,side,entries) for side,entries in half_choices.items()),
-           *((slab_id,side,entries) for side,entries in slab_choices.items())]
+           *((slab_id,side,entries) for side,entries in slab_choices.items()),
+           *((stair_id,side,entries) for side,entries in stair_choices.items())]
     for ident,side,entries in roots:
         source=A/f'models/block/{ident}{("/"+side) if side else ""}.json'
         legacy=f'{ident}/legacy{("_"+side) if side else ""}'
@@ -326,6 +336,7 @@ def main():
     write(path, data)
     paintable_models()
     slab_models(adaptive=False)
+    stair_models(adaptive=False)
     layout_models()
 
 
@@ -417,7 +428,64 @@ def slab_models(adaptive=True):
     if adaptive:layout_models()
 
 
+STAIR_ID='school_paintable_projecting_window_stairs'
+
+
+def stair_models(adaptive=True):
+    multipart=[{'apply':{'model':'lsmmod:block/school_paintable_custom_block'}}]
+    for kind in ('bottom','top'):
+        for side in ('left','right'):
+            profile=kind+'_'+side;phases=[]
+            lx,hx=(8,16) if side=='left' else (0,8)
+            ly,hy=(8,16) if kind=='bottom' else (0,8)
+            for phase in range(9):
+                groups=[]
+                for index,p in enumerate(parts(phase)):
+                    part=(max(lx,p[0]),min(hx,p[1]),max(ly,p[2]),min(hy,p[3]),*p[4:])
+                    if part[0]>=part[1] or part[2]>=part[3]:continue
+                    for layer,model in pane_models().items():
+                        series=[]
+                        for pose in range(5):
+                            value=fragment(model,part,pose)
+                            if not value['elements']:continue
+                            name=f'{STAIR_ID}/phase_{phase}_{profile}_part_{index}_{layer}_{pose}'
+                            write(A/f'models/block/{name}.json',value)
+                            series.append({'model':'lsmmod:block/'+name,'condition':{'type':'lsmmod:projecting_window','phase':phase,'part':index,'pose':pose}})
+                        if series:groups.append(series)
+                name=f'{STAIR_ID}/phase_{phase}_{profile}'
+                write(A/f'models/block/{name}.json',{'loader':'fusion:model','type':'composite','textures':TEXTURES,'models':groups})
+                phases.append({'model':'lsmmod:block/'+name,'condition':{'type':'lsmmod:projecting_window','phase':phase}})
+            write(A/f'models/block/{STAIR_ID}/{profile}.json',{'loader':'fusion:model','type':'composite','textures':TEXTURES,'models':[phases]})
+            for turn,facing in enumerate(('north','east','south','west')):
+                multipart.append({'when':{'facing':facing,'half':kind,'wall_left':str(side=='left').lower()},
+                                  'apply':{'model':f'lsmmod:block/{STAIR_ID}/{profile}','y':turn*90}})
+    write(A/f'blockstates/{STAIR_ID}.json',{'multipart':multipart})
+    # Fixed representative item: the same six solid cubes and an 8px framed sash.
+    from create_bathroom_statue_assets import solid_model
+    boxes=[([0,0,0,16,8,16],'surface'),([0,8,0,8,16,16],'surface')]
+    item=solid_model(boxes);item.update(textures={'surface':PAINTS[0],'particle':PAINTS[0]},render_type='minecraft:solid')
+    write(A/f'models/item/{STAIR_ID}_solid.json',item)
+    source=solid_model([([8,8,14,9,16,16],'frame'),([15,8,14,16,16,16],'frame'),
+                        ([9,8,14,15,9,16],'frame'),([9,15,14,15,16,16],'frame'),([9,9,14,15,15,16],'glass')])
+    layers=[]
+    for layer,material in [('solid','frame'),('translucent','glass')]:
+        value=copy.deepcopy(source);value['elements']=[e for e in value['elements'] if next(iter(e['faces'].values()))['texture']=='#'+material]
+        value.update(textures=TEXTURES,render_type='minecraft:'+layer)
+        name=f'{STAIR_ID}_pane_{layer}';write(A/f'models/item/{name}.json',value);layers.append(['lsmmod:item/'+name])
+    write(A/f'models/item/{STAIR_ID}.json',{'loader':'fusion:model','type':'composite','textures':{'particle':PAINTS[0]},
+          'models':[['lsmmod:item/'+STAIR_ID+'_solid'],*layers]})
+    basic(STAIR_ID)
+    for locale,label in [('es_es','Escalera pintable con ventana proyectante'),('en_us','Paintable Stair with Projecting Window')]:
+        path=A/f'lang/{locale}.json';data=json.loads(path.read_text());data['block.lsmmod.'+STAIR_ID]=label;write(path,data)
+    path=D/'minecraft/tags/block/mineable/pickaxe.json'
+    data=json.loads(path.read_text())
+    if 'lsmmod:'+STAIR_ID not in data['values']:data['values'].append('lsmmod:'+STAIR_ID)
+    write(path,data)
+    if adaptive:layout_models()
+
+
 if __name__ == '__main__':
     import sys
-    if '--slab-only' in sys.argv:slab_models()
+    if '--stairs-only' in sys.argv:stair_models()
+    elif '--slab-only' in sys.argv:slab_models()
     else:main()

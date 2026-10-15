@@ -1,0 +1,1 @@
+{"loader":"fusion:model","type":"composite","textures":{"particle":"minecraft:block/light_gray_concrete"},"models":[["lsmmod:item/school_paintable_projecting_window_stairs_solid"],["lsmmod:item/school_paintable_projecting_window_stairs_pane_solid"],["lsmmod:item/school_paintable_projecting_window_stairs_pane_translucent"]]}

@@ -107,6 +107,8 @@ public final class SchoolProjectingWindowLayout {
         Direction facing=state.getValue(SchoolProjectingWindowBlock.FACING),right=facing.getClockWise();
         BlockState current=read(level,pos);
         if(!window(current,facing)||current.getBlock()!=state.getBlock()
+                ||SchoolProjectingWindowBlock.glassLowY(current)!=SchoolProjectingWindowBlock.glassLowY(state)
+                ||SchoolProjectingWindowBlock.glassHighY(current)!=SchoolProjectingWindowBlock.glassHighY(state)
                 ||(SchoolProjectingWindowBlock.halfWindow(state)&&current.getValue(SchoolProjectingWindowBlock.WALL_LEFT)!=state.getValue(SchoolProjectingWindowBlock.WALL_LEFT)))return null;
         int maxX=RULES.stream().mapToInt(rule->rule.cells(8)).max().orElse(0),maxY=RULES.stream().mapToInt(rule->rule.rows(8)).max().orElse(0);
         int left=extent(level,pos,right.getOpposite(),facing,maxX),east=extent(level,pos,right,facing,maxX);

@@ -227,7 +227,7 @@ def check_layout_regeneration():
     with tempfile.TemporaryDirectory() as directory:
         assets=Path(directory)/'lsmmod';assets.mkdir()
         # Copy only the generator inputs: legacy roots, wall roots and the table.
-        for ident in (ID,'school_paintable_projecting_window','school_paintable_projecting_window_slab'):
+        for ident in (ID,'school_paintable_projecting_window','school_paintable_projecting_window_slab','school_paintable_projecting_window_stairs'):
             for p in (A/'models/block'/ident).glob('*.json'):
                 target=assets/p.relative_to(A);target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,target)
         shutil.copyfile(A/f'models/block/{ID}.json',assets/f'models/block/{ID}.json')
@@ -263,6 +263,70 @@ def check_layout_regeneration():
         rules.pop();table.write_text(json.dumps(rules));prepare_layouts(assets)
         assert not (assets/f'models/block/{ID}/layouts/{key}.json').exists()
     assert (A/'projecting_window_layouts.json').read_bytes()==original
+
+
+def check_stair_window():
+    import itertools,math
+    import numpy as np
+    from create_school_projecting_window_assets import STAIR_ID,PANES,parts,rotation,layout_rules,layout_key
+    from create_bathroom_statue_assets import solid_model
+    from render_school_projecting_window import stair_scene,stair_mask,stair_assembly
+    from render_texture_review import add,load,render
+    from create_paintable_school_block import PAINTS
+    from check_custom_paintable_blocks import visible
+    for half,left,facing in itertools.product(('bottom','top'),(False,True),('north','east','south','west')):
+        mask=stair_mask(facing,half,left);assert mask.bit_count()==6
+        scene=stair_scene(facing=facing,paint=15,half=half,left=left)
+        solids=[e for e in scene if any(f['texture']==PAINTS[15] for f in e['faces'].values())]
+        expected={(cube,face) for cube in range(8) for face in ('down','up','north','south','west','east') if visible(mask,cube,face)}
+        actual={(int(e['from'][0]/8)+2*int(e['from'][1]/8)+4*int(e['from'][2]/8),next(iter(e['faces']))) for e in solids}
+        assert actual==expected,(half,left,facing)
+    for half,left in itertools.product(('bottom','top'),(False,True)):
+        lx,hx=(8,16) if left else (0,8);ly,hy=(8,16) if half=='bottom' else (0,8)
+        profile=half+'_'+('left' if left else 'right')
+        for phase in range(9):
+            covered=set()
+            for index,_ in enumerate(parts(phase)):
+                for layer in ('solid','translucent'):
+                    path=A/f'models/block/{STAIR_ID}/phase_{phase}_{profile}_part_{index}_{layer}_0.json'
+                    if not path.exists():continue
+                    for e in read(path)['elements']:
+                        assert lx<=e['from'][0]<e['to'][0]<=hx and ly<=e['from'][1]<e['to'][1]<=hy
+                        assert e['from'][2]==14 and e['to'][2]==16
+                        for px,py in itertools.product(range(16),repeat=2):
+                            if e['from'][0]<=px+.5<e['to'][0] and e['from'][1]<=py+.5<e['to'][1]:covered.add((px,py))
+                        for surface in e['faces'].values():assert all(0<=uv<=16 for uv in surface['uv'])
+            assert covered==set(itertools.product(range(lx,hx),range(ly,hy))),(profile,phase,covered)
+        for opened in (False,True):
+            assembled=stair_assembly(opened,half,left,paint=15)
+            assembled=[e for e in assembled if all(f['texture']!=PAINTS[15] for f in e['faces'].values())]
+            expected=[]
+            for layer,boxes in PANES.items():
+                model=solid_model(boxes);model.update(render_type='minecraft:'+layer,
+                    textures={'frame':'lsmmod:block/school_projecting_window_frame','glass':'lsmmod:block/school_projecting_window_glass'})
+                for e in model['elements']:
+                    if opened:e['rotation']=rotation((0,24,0,24,0,0),1)
+                add(expected,[model],(lx,ly,0))
+            for angle in (-65,115):
+                one=np.array(render(assembled,[lx+12,ly+12,16],8,size=(320,360),azimuth=angle)).astype(int)
+                two=np.array(render(expected,[lx+12,ly+12,16],8,size=(320,360),azimuth=angle)).astype(int)
+                assert np.mean(np.abs(one-two))<.2,(profile,opened,angle,np.mean(np.abs(one-two)))
+    # Every adaptive corner points to real, clipped models, including layouts
+    # with fractional block width and the top/bottom offsets introduced by slabs.
+    for half,side in itertools.product(('bottom','top'),('left','right')):
+        root=read(A/f'models/block/{STAIR_ID}/{half}_{side}.json')
+        entries=root['models'][0];assert entries[0]['condition']['key']=='fallback'
+        assert len(entries)>1
+        for entry in entries[1:]:
+            groups=read(A/('models/'+entry['model'].split(':')[1]+'.json'))['models'];assert groups
+            for group in groups:
+                for leaf in group:
+                    for e in read(A/('models/'+leaf['model'].split(':')[1]+'.json'))['elements']:
+                        lx,hx=(8,16) if side=='left' else (0,8);ly,hy=(8,16) if half=='bottom' else (0,8)
+                        assert lx<=e['from'][0]<e['to'][0]<=hx and ly<=e['from'][1]<e['to'][1]<=hy
+    icon=[];add(icon,load('lsmmod:item/'+STAIR_ID));assert icon and any(e['render_type']=='minecraft:translucent' for e in icon)
+    assert read(D/f'lsmmod/loot_table/blocks/{STAIR_ID}.json')['pools'][0]['entries'][0]['name']=='lsmmod:'+STAIR_ID
+    print('OK: sixteen L-profile orientations, six solid cubes with exposed 8px paints, all nine shared grid phases, adaptive corner models, whole-sash render equivalence closed/open front/back, item and drop.')
 
 
 def main():
@@ -389,6 +453,9 @@ def check_paintable_stairs():
 
 if __name__=='__main__':
     import sys
+    if '--stair-window-only' in sys.argv:
+        check_stair_window()
+        raise SystemExit(0)
     if '--slab-window-only' in sys.argv:
         check_slab_window()
         raise SystemExit(0)
