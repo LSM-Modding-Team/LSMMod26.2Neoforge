@@ -46,6 +46,15 @@ public class RulesCheck {
         check("power increases up to full charge", FootballRules.shotSpeed(12) < FootballRules.shotSpeed(24), true);
         check("holding beyond full charge does not add power", FootballRules.shotSpeed(24) == FootballRules.shotSpeed(2400), true);
         check("negative charge cannot lower the tap speed", FootballRules.shotSpeed(-1) == FootballRules.shotSpeed(0), true);
+        double carried = FootballRules.shotSpeed(8, Math.abs(.28 - .27));
+        double runUp = FootballRules.shotSpeed(8, .28);
+        double oncoming = FootballRules.shotSpeed(8, Math.abs(.28 - (-.28)));
+        check("dribbling at the same speed adds little shot power", carried - FootballRules.shotSpeed(8) < .01, true);
+        check("running into a stationary ball adds more power than dribbling", runUp > carried, true);
+        check("an oncoming ball adds more power than a stationary ball", oncoming > runUp, true);
+        check("no relative motion preserves charge-only power", FootballRules.shotSpeed(8, 0) == FootballRules.shotSpeed(8), true);
+        check("extreme impact speed cannot exceed the original cap", FootballRules.shotSpeed(0, 100) == FootballRules.MAX_SHOT_SPEED, true);
+        check("full charge plus a run-up stays at the same cap", FootballRules.shotSpeed(2400, .8) == FootballRules.shotSpeed(24), true);
         var right = new FootballRules.Spin(0, 0);
         for (int tick = 1; tick <= 24; tick++) right = FootballRules.buildSpin(right, FootballRules.RIGHT, tick);
         right = FootballRules.releaseSpin(right, FootballRules.RIGHT);
@@ -61,12 +70,19 @@ public class RulesCheck {
             for (int sample = 1; sample <= FootballRules.FOLLOW_TICKS; sample++) sum = sum.add(FootballRules.spin(keys, sample));
             check("spin cap for keys " + keys, Math.hypot(sum.side(), sum.top()) <= 1.000001, true);
         }
-        double speed = FootballRules.shotSpeed(24), angle = FootballRules.curveAngle(speed, right, 1);
+        double speed = FootballRules.shotSpeed(24), angle = FootballRules.curveAngle(speed, right, 1, 1);
         // Looking south (+Z), rightward spin must bend toward west (-X).
         check("D bends toward the shooter's right", -speed * Math.sin(angle) < 0, true);
         check("curve preserves horizontal kinetic speed", Math.abs(Math.hypot(speed * Math.sin(angle), speed * Math.cos(angle)) - speed) < 0.000001, true);
-        check("W now adds lift", FootballRules.lift(speed, FootballRules.spin(FootballRules.FORWARD, 0), 1) > 0, true);
-        check("S now adds dip", FootballRules.lift(speed, FootballRules.spin(FootballRules.BACKWARD, 0), 1) < 0, true);
+        check("W now adds lift", FootballRules.lift(speed, FootballRules.spin(FootballRules.FORWARD, 0), 1, 1) > 0, true);
+        check("S now adds dip", FootballRules.lift(speed, FootballRules.spin(FootballRules.BACKWARD, 0), 1, 1) < 0, true);
+        check("stronger strikes have more curl at the same speed and charge", FootballRules.curveAngle(speed,right,.5,1)
+                > FootballRules.curveAngle(speed,right,.5,.3), true);
+        var backspin = new FootballRules.Spin(0,-1);
+        check("stronger strikes also amplify lift", FootballRules.lift(speed,backspin,.5,1) > FootballRules.lift(speed,backspin,.5,.3), true);
+        check("strength scaling stays modest", FootballRules.strengthScale(1) / FootballRules.strengthScale(0) < 1.34, true);
+        check("power alone cannot create spin", FootballRules.curveAngle(speed,new FootballRules.Spin(0,0),1,1) == 0
+                && FootballRules.lift(speed,new FootballRules.Spin(0,0),1,1) == 0, true);
         check("sprinting exposes the ball farther than walking", FootballRules.touchDistance(true, false) > FootballRules.touchDistance(false, false), true);
         check("crouching keeps the ball closer", FootballRules.touchDistance(false, true) < FootballRules.touchDistance(false, false), true);
         check("sprint touches stay below the controllable speed", FootballRules.touchSpeed(0.28, true, false) < FootballRules.CONTROL_SPEED, true);
@@ -77,7 +93,7 @@ public class RulesCheck {
         for (int tick = 25; tick <= 28; tick++) longHold = FootballRules.buildSpin(longHold, FootballRules.RIGHT, tick);
         check("longer directional hold at high charge creates more spin", longHold.side() > shortHold.side() * 3, true);
         check("high charge amplifies directional duration more strongly", FootballRules.spinGain(24) > FootballRules.spinGain(12) * 3, true);
-        check("full-charge curl exceeds half-charge curl", FootballRules.curveAngle(speed,right,1) > FootballRules.curveAngle(speed,right,.5) * 3, true);
+        check("full-charge curl exceeds half-charge curl", FootballRules.curveAngle(speed,right,1,1) > FootballRules.curveAngle(speed,right,.5,1) * 3, true);
         check("charge slowdown increases monotonically", FootballRules.movementScale(24) < FootballRules.movementScale(12)
                 && FootballRules.movementScale(12) < FootballRules.movementScale(0), true);
         check("full charge leaves about 12 percent movement", Math.abs(FootballRules.movementScale(24)-.12) < .000001, true);
@@ -90,6 +106,16 @@ public class RulesCheck {
         check("targeting ground creates a rolling pass", FootballRules.aimDirection(0,.25,0,10,0,0).y() == 0, true);
         check("a coincident target cannot produce NaN", FootballRules.aimDirection(1,1,1,1,1,1).equals(new FootballRules.Direction(0,0,0)), true);
         check("an aerial header can aim downward", FootballRules.aimDirection(0,1.7,0,10,.3,0,false).y() < 0, true);
+        var lofted = FootballRules.loft(aim,true);
+        check("normal grounded shots launch higher", lofted.y() > aim.y(), true);
+        check("loft does not exceed the speed cap by lengthening direction", Math.abs(Math.sqrt(lofted.x()*lofted.x()
+                + lofted.y()*lofted.y() + lofted.z()*lofted.z()) - 1) < .000001, true);
+        var lowAim = FootballRules.aimDirection(0,.25,0,10,0,0);
+        check("loft preserves a deliberately low shot", FootballRules.loft(lowAim,true).equals(lowAim), true);
+        check("loft preserves aerial aim", FootballRules.loft(aim,false).equals(aim), true);
+        check("straight upward aim remains valid", FootballRules.loft(new FootballRules.Direction(0,1,0),true)
+                .equals(new FootballRules.Direction(0,1,0)), true);
+        check("loft fades smoothly near a low shot", FootballRules.loft(new FootballRules.Direction(1,1e-8,0),true).y() < 1e-6, true);
         check("a low grounded ball uses a normal kick", FootballRules.strike(1.2,.15,true) == FootballRules.Strike.GROUND, true);
         check("a knee-high incoming ball uses a volley", FootballRules.strike(.7,.35,false) == FootballRules.Strike.VOLLEY, true);
         check("a chest-high ball can be volleyed when releasing a charge", FootballRules.strike(.7,.65,false) == FootballRules.Strike.VOLLEY, true);

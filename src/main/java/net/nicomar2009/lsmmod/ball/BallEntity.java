@@ -8,6 +8,8 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -25,6 +27,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.nicomar2009.lsmmod.registry.ModEntities;
+import net.nicomar2009.lsmmod.registry.ModSounds;
 import net.nicomar2009.lsmmod.block.SportsGoalBlock;
 import net.nicomar2009.lsmmod.rules.FootballRules;
 
@@ -42,7 +45,8 @@ public final class BallEntity extends Entity implements ItemSupplier {
     private UUID dribbler;
     private long shotTime;
     private int lastFollowSample, shotCooldown;
-    private double shotCharge;
+    private double shotCharge, shotStrength;
+    private final int[] impactSoundCooldown = new int[SportsGoalBlock.FootballContact.values().length];
     private FootballRules.Spin spin = new FootballRules.Spin(0, 0);
     public BallEntity(EntityType<? extends BallEntity> type, Level level) { super(type, level); }
     public BallKind kind() {
@@ -112,9 +116,12 @@ public final class BallEntity extends Entity implements ItemSupplier {
     public void strike(ServerPlayer player, long held, FootballRules.Spin prepared, float yaw, float pitch) {
         var kind = strikeKind(player);
         if (kind == FootballRules.Strike.NONE) return;
+        double relativeSpeed = player.getKnownMovement().subtract(getDeltaMovement()).length();
+        double speed = FootballRules.shotSpeed(held, relativeSpeed) * FootballRules.strikePower(kind);
         toy(); dribbler = null; owner = player.getUUID(); shotTime = level().getGameTime(); lastFollowSample = 0;
         shotCooldown = 8; pushCooldown = 8; hitCooldown = 0; spin = prepared;
         shotCharge = FootballRules.charge(held); entityData.set(FOOTBALL_SHOT, true);
+        shotStrength = speed / FootballRules.MAX_SHOT_SPEED;
         double yawRadians = Math.toRadians(yaw), pitchRadians = Math.toRadians(pitch);
         Vec3 look = new Vec3(-Math.sin(yawRadians) * Math.cos(pitchRadians), -Math.sin(pitchRadians),
                 Math.cos(yawRadians) * Math.cos(pitchRadians));
@@ -122,11 +129,13 @@ public final class BallEntity extends Entity implements ItemSupplier {
         Vec3 target = level().clip(new ClipContext(eye, end, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, player)).getLocation();
         Vec3 center = getBoundingBox().getCenter();
         var direction = FootballRules.aimDirection(center.x, center.y, center.z, target.x, target.y, target.z, kind == FootballRules.Strike.GROUND);
+        direction = FootballRules.loft(direction, kind == FootballRules.Strike.GROUND);
         Vec3 aim = new Vec3(direction.x(), direction.y(), direction.z());
         if (aim.lengthSqr() < 0.000001) aim = new Vec3(-Math.sin(yawRadians), 0, Math.cos(yawRadians));
-        setDeltaMovement(aim.scale(FootballRules.shotSpeed(held) * FootballRules.strikePower(kind))); hurtMarked = true;
+        setDeltaMovement(aim.scale(speed)); hurtMarked = true;
+        playFootballSound(ModSounds.FOOTBALL_KICK.get(), speed);
         String message = kind == FootballRules.Strike.HEADER ? "football_header" : kind == FootballRules.Strike.VOLLEY ? "football_volley" : "football_shot";
-        player.sendOverlayMessage(Component.translatable("message.lsmmod." + message, (int) Math.round(shotCharge * 100)));
+        player.sendOverlayMessage(Component.translatable("message.lsmmod." + message, (int) Math.round(shotStrength * 100)));
     }
 
     public void followThrough(ServerPlayer player, int sample, int keys) {
@@ -138,6 +147,26 @@ public final class BallEntity extends Entity implements ItemSupplier {
 
     private void clearFootballShot() {
         entityData.set(FOOTBALL_SHOT, false); spin = new FootballRules.Spin(0, 0);
+    }
+
+    private void playFootballSound(SoundEvent sound, double speed) {
+        if (!(level() instanceof ServerLevel)) return;
+        float volume = (float) (0.20 + 0.80 * Math.min(1, speed / FootballRules.MAX_SHOT_SPEED));
+        level().playSound(null, getX(), getY(), getZ(), sound, SoundSource.PLAYERS, volume, 0.94F + random.nextFloat() * 0.12F);
+    }
+
+    private void footballImpactSound(SportsGoalBlock.FootballContact contact, Vec3 motion, boolean x, boolean y, boolean z) {
+        if (kind() != BallKind.FOOTBALL) return;
+        // Normal impact velocity excludes tangential rolling and ignores tiny resting contacts.
+        double speed = Math.sqrt((x ? motion.x * motion.x : 0) + (y ? motion.y * motion.y : 0) + (z ? motion.z * motion.z : 0));
+        int index = contact.ordinal();
+        if (speed < 0.12 || impactSoundCooldown[index] > 0) return;
+        SoundEvent sound = switch (contact) {
+            case NET -> ModSounds.FOOTBALL_NET.get();
+            case FRAME -> ModSounds.FOOTBALL_FRAME.get();
+            case NONE -> ModSounds.FOOTBALL_WALL.get();
+        };
+        playFootballSound(sound, speed); impactSoundCooldown[index] = 3;
     }
 
     private boolean chestControl(Player player, Vec3 motion) {
@@ -203,15 +232,16 @@ public final class BallEntity extends Entity implements ItemSupplier {
         if (!(level() instanceof ServerLevel server)) { interpolation.interpolate(); return; }
         if (hitCooldown > 0) hitCooldown--;
         if (pushCooldown > 0) pushCooldown--;
+        for (int i = 0; i < impactSoundCooldown.length; i++) if (impactSoundCooldown[i] > 0) impactSoundCooldown[i]--;
         BallKind kind = kind();
         if (kind == BallKind.FOOTBALL) updateFootball(server);
         boolean projectile = entityData.get(PROJECTILE);
         Vec3 start = position();
         Vec3 motion = getDeltaMovement();
         if (entityData.get(FOOTBALL_SHOT)) {
-            double angle = FootballRules.curveAngle(motion.horizontalDistance(), spin, shotCharge) * (onGround() ? 0.25 : 1);
+            double angle = FootballRules.curveAngle(motion.horizontalDistance(), spin, shotCharge, shotStrength) * (onGround() ? 0.25 : 1);
             motion = new Vec3(motion.x * Math.cos(angle) - motion.z * Math.sin(angle),
-                    motion.y + (onGround() ? 0 : FootballRules.lift(motion.horizontalDistance(), spin, shotCharge)),
+                    motion.y + (onGround() ? 0 : FootballRules.lift(motion.horizontalDistance(), spin, shotCharge, shotStrength)),
                     motion.x * Math.sin(angle) + motion.z * Math.cos(angle));
             spin = spin.decay(onGround() ? 0.90 : 0.985);
         }
@@ -231,7 +261,9 @@ public final class BallEntity extends Entity implements ItemSupplier {
             boolean blockedZ = Math.abs(requested.z - moved.z) > 0.000001;
             if (blockedY && requested.y < 0) groundContact = true;
             if (blockedX || blockedY || blockedZ) {
-                boolean net = SportsGoalBlock.touchesFootballNet(server, getBoundingBox(), requested, blockedX, blockedY, blockedZ);
+                var contact = SportsGoalBlock.footballContact(server, getBoundingBox(), requested, blockedX, blockedY, blockedZ);
+                boolean net = contact == SportsGoalBlock.FootballContact.NET;
+                footballImpactSound(contact, motion, blockedX, blockedY, blockedZ);
                 motion = net ? new Vec3(blockedX ? -motion.x * FootballRules.NET_REBOUND : motion.x * FootballRules.NET_DRAG,
                         blockedY ? -motion.y * FootballRules.NET_REBOUND : motion.y * FootballRules.NET_DRAG,
                         blockedZ ? -motion.z * FootballRules.NET_REBOUND : motion.z * FootballRules.NET_DRAG)
@@ -340,6 +372,7 @@ public final class BallEntity extends Entity implements ItemSupplier {
             output.putBoolean("FootballShot", entityData.get(FOOTBALL_SHOT));
             output.putDouble("SideSpin", spin.side()); output.putDouble("TopSpin", spin.top());
             output.putDouble("ShotCharge", shotCharge);
+            output.putDouble("ShotStrength", shotStrength);
         }
         if (owner != null) output.putString("Owner", owner.toString());
     }
@@ -355,6 +388,8 @@ public final class BallEntity extends Entity implements ItemSupplier {
         spin = new FootballRules.Spin(Double.isFinite(side) ? Math.clamp(side, -1, 1) : 0, Double.isFinite(top) ? Math.clamp(top, -1, 1) : 0);
         double savedCharge = input.getDoubleOr("ShotCharge", 1);
         shotCharge = Double.isFinite(savedCharge) ? Math.clamp(savedCharge, 0, 1) : 0;
+        double savedStrength = input.getDoubleOr("ShotStrength", (0.20 + 1.30 * shotCharge) / FootballRules.MAX_SHOT_SPEED);
+        shotStrength = Double.isFinite(savedStrength) ? Math.clamp(savedStrength, 0, 1) : 0;
         // Possession and the input window never survive unloading/rejoining.
         dribbler = null; shotTime = Long.MIN_VALUE; lastFollowSample = FootballRules.FOLLOW_TICKS;
         try { owner = UUID.fromString(input.getStringOr("Owner", "")); } catch (IllegalArgumentException invalid) { owner = null; }

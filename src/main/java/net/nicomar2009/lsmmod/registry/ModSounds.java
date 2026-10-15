@@ -15,6 +15,16 @@ public class ModSounds {
 
     public record SpeakerTrack(DeferredHolder<SoundEvent, SoundEvent> sound, int durationTicks) {}
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_KICK = footballSound("kick");
+    public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_WALL = footballSound("wall");
+    public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_NET = footballSound("net");
+    public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_FRAME = footballSound("frame");
+
+    private static DeferredHolder<SoundEvent, SoundEvent> footballSound(String name) {
+        String id = "football." + name;
+        return SOUNDS.register(id, () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, id)));
+    }
+
     public static final List<SpeakerTrack> PORTABLE_SPEAKER_TRACKS = List.of(
             speakerTrack("bby_wow", 340),
             speakerTrack("delincuente", 200),

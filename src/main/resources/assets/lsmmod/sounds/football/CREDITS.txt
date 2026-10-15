@@ -1,0 +1,16 @@
+Football audio sources and adaptations
+
+Kenney — Impact Sounds (1.0), https://kenney.nl/assets/impact-sounds
+License: CC0 1.0, https://creativecommons.org/publicdomain/zero/1.0/
+kick.ogg: impactPunch_medium_000.ogg (mono conversion, filtering, level adjustment, Vorbis encoding).
+wall.ogg: impactSoft_heavy_000.ogg (mono conversion, filtering, level adjustment, Vorbis encoding).
+frame.ogg: impactMetal_medium_000.ogg (mono conversion, filtering, level adjustment, Vorbis encoding).
+net.ogg also includes impactSoft_medium_000.ogg at reduced volume.
+
+Vinrax — Cloth swing sounds, https://opengameart.org/content/cloth-swing-sounds
+Creator: https://opengameart.org/users/vinrax
+License: CC BY 3.0, https://creativecommons.org/licenses/by/3.0/
+net.ogg: cloth_sounds.wav, excerpt 0.20–0.72 s, filtered and mixed with
+Kenney's soft impact, converted to mono, faded and encoded as Ogg Vorbis.
+This attribution covers the adapted recording; the original creator does
+not endorse this mod.

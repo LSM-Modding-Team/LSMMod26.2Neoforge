@@ -163,8 +163,14 @@ public class SportsGoalBlock extends Block {
         return COLLISION[state.getValue(CELL)][turn];
     }
 
-    /** Tests the actual material at an impact, rather than treating an entire goal cell as net. */
+    public enum FootballContact { NONE, FRAME, NET }
+
     public static boolean touchesFootballNet(Level level, AABB ball, Vec3 requested, boolean blockedX, boolean blockedY, boolean blockedZ) {
+        return footballContact(level, ball, requested, blockedX, blockedY, blockedZ) == FootballContact.NET;
+    }
+
+    /** Shares the real contact geometry between rebound physics and impact audio. */
+    public static FootballContact footballContact(Level level, AABB ball, Vec3 requested, boolean blockedX, boolean blockedY, boolean blockedZ) {
         FootballRules.Bounds bounds = new FootballRules.Bounds(ball.minX, ball.minY, ball.minZ, ball.maxX, ball.maxY, ball.maxZ);
         double[] motion = {requested.x, requested.y, requested.z};
         boolean[] blocked = {blockedX, blockedY, blockedZ};
@@ -178,10 +184,10 @@ public class SportsGoalBlock extends Block {
                 var face = FootballRules.contactFace(bounds, axis, motion[axis]);
                 material = contactMaterial(level, new AABB(face.x0(), face.y0(), face.z0(), face.x1(), face.y1(), face.z1()));
             }
-            if (material < 0) return false;
+            if (material < 0) return FootballContact.FRAME;
             net |= material > 0;
         }
-        return net;
+        return net ? FootballContact.NET : FootballContact.NONE;
     }
 
     private static int contactMaterial(Level level, AABB impact) {

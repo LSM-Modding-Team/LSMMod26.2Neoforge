@@ -412,5 +412,9 @@
   "message.lsmmod.football_top_none": "No vertical spin",
   "message.lsmmod.football_volley": "Volley: %s%% power",
   "message.lsmmod.football_header": "Header: %s%% power",
-  "message.lsmmod.football_chest": "Chest control"
+  "message.lsmmod.football_chest": "Chest control",
+  "subtitles.lsmmod.football_kick": "Football struck",
+  "subtitles.lsmmod.football_wall": "Football hits a wall",
+  "subtitles.lsmmod.football_net": "Football rustles the net",
+  "subtitles.lsmmod.football_frame": "Football rings against the goal frame"
 }

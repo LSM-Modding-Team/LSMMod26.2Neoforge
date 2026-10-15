@@ -8,6 +8,7 @@ public final class FootballRules {
     public static final double CONTROL_SPEED = 0.50;
     public static final double NET_REBOUND = 0.02;
     public static final double NET_DRAG = 0.10;
+    public static final double MAX_SHOT_SPEED = 1.50;
     private static final double[] FOLLOW_WEIGHTS = {0.10, 0.08, 0.07, 0.05};
 
     private FootballRules() {}
@@ -48,6 +49,16 @@ public final class FootballRules {
         return length < 0.000001 ? new Direction(0, 0, 0) : new Direction(x/length, y/length, z/length);
     }
 
+    /** Small launch loft fades out near a ground target; aerial strikes retain their aimed direction. */
+    public static Direction loft(Direction aim, boolean grounded) {
+        double horizontal = Math.hypot(aim.x, aim.z);
+        if (!grounded || aim.y <= 0 || horizontal < 0.000001) return aim;
+        double angle = Math.min(Math.PI / 2, Math.atan2(aim.y, horizontal)
+                + Math.toRadians(6) * Math.min(1, aim.y / 0.02));
+        double scale = Math.cos(angle) / horizontal;
+        return new Direction(aim.x * scale, Math.sin(angle), aim.z * scale);
+    }
+
     /** Central contact area excludes a floor rail merely overlapping a rolling ball's lower edge. */
     public static Bounds contactPatch(Bounds ball, int axis, double movement) {
         return contactPatch(ball, axis, movement, 0.30);
@@ -68,6 +79,10 @@ public final class FootballRules {
 
     public static double charge(long ticks) { return Math.max(0, Math.min(1, ticks / (double) CHARGE_TICKS)); }
     public static double shotSpeed(long ticks) { return 0.20 + 1.30 * charge(ticks); }
+    /** Relative impact speed adds power only to an explicit strike, under the original cap. */
+    public static double shotSpeed(long ticks, double relativeSpeed) {
+        return Math.min(MAX_SHOT_SPEED, shotSpeed(ticks) + 0.65 * Math.max(0, relativeSpeed));
+    }
     public static double movementScale(long ticks) { double q = charge(ticks); return 0.65 - 0.53 * q*q; }
     public static int recoveryTicks(long held) { return 2 + (int) Math.round(5 * charge(held)); }
     public static double recoveryScale(long held, long elapsed) {
@@ -88,14 +103,15 @@ public final class FootballRules {
         return new Spin(side / divisor * FOLLOW_WEIGHTS[sample], top / divisor * FOLLOW_WEIGHTS[sample]);
     }
 
+    public static double strengthScale(double strength) { return 0.75 + 0.25 * Math.max(0, Math.min(1, strength)); }
     /** A perpendicular acceleration bends flight without increasing horizontal speed. */
-    public static double curveAngle(double speed, Spin spin, double charge) {
+    public static double curveAngle(double speed, Spin spin, double charge, double strength) {
         double q = Math.max(0, Math.min(1, charge));
-        return Math.min(speed, 1.2) * (0.008 + 0.040 * q*q*q) * spin.side;
+        return Math.min(speed, 1.2) * (0.008 + 0.040 * q*q*q) * spin.side * strengthScale(strength);
     }
-    public static double lift(double speed, Spin spin, double charge) {
+    public static double lift(double speed, Spin spin, double charge, double strength) {
         double q = Math.max(0, Math.min(1, charge));
-        return -Math.min(0.024, speed * (0.003 + 0.020 * q*q)) * spin.top;
+        return -Math.min(0.024, speed * (0.003 + 0.020 * q*q)) * spin.top * strengthScale(strength);
     }
 
     public static double touchDistance(boolean sprint, boolean sneak) { return sneak ? 0.55 : sprint ? 1.10 : 0.78; }
