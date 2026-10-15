@@ -1,16 +1,33 @@
-Football audio sources and adaptations
+Football field/contact recordings and adaptations
 
-Kenney — Impact Sounds (1.0), https://kenney.nl/assets/impact-sounds
+kick.ogg — Joseph SARDIN / BigSoundBank, "Ball Kicked" (#1044).
+Five foot kicks in a soccer ball, recorded outdoors.
+Source: https://bigsoundbank.com/ball-kicked-s1044.html
+Audio: https://bigsoundbank.com/UPLOAD/mp3/1044.mp3
 License: CC0 1.0, https://creativecommons.org/publicdomain/zero/1.0/
-kick.ogg: impactPunch_medium_000.ogg (mono conversion, filtering, level adjustment, Vorbis encoding).
-wall.ogg: impactSoft_heavy_000.ogg (mono conversion, filtering, level adjustment, Vorbis encoding).
-frame.ogg: impactMetal_medium_000.ogg (mono conversion, filtering, level adjustment, Vorbis encoding).
-net.ogg also includes impactSoft_medium_000.ogg at reduced volume.
+Adaptation: isolated kick at 0.26–0.76 s.
 
-Vinrax — Cloth swing sounds, https://opengameart.org/content/cloth-swing-sounds
-Creator: https://opengameart.org/users/vinrax
-License: CC BY 3.0, https://creativecommons.org/licenses/by/3.0/
-net.ogg: cloth_sounds.wav, excerpt 0.20–0.72 s, filtered and mixed with
-Kenney's soft impact, converted to mono, faded and encoded as Ogg Vorbis.
-This attribution covers the adapted recording; the original creator does
-not endorse this mod.
+wall.ogg — 1skyland, "kicking a ball against a wall OWI.wav" (#543167).
+Recording of a soccer ball kicked against a nearby wall.
+Source: https://freesound.org/people/1skyland/sounds/543167/
+Audio: https://cdn.freesound.org/previews/543/543167_9915489-hq.ogg
+License: CC0 1.0, https://creativecommons.org/publicdomain/zero/1.0/
+Adaptation: isolated wall impact at 0.84–1.39 s.
+
+frame.ogg — 14GPanskaValaChristoffer, "07 Football - Goalpost.wav" (#420164).
+Recording of a football kicked into a goalpost.
+Source: https://freesound.org/people/14GPanskaValaChristoffer/sounds/420164/
+Audio: https://cdn.freesound.org/previews/420/420164_8375229-hq.ogg
+License: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
+Adaptation: isolated goalpost impact at 4.58–5.42 s.
+
+net.ogg — Luisa_Sanchez, "soccer net" (#816989).
+Soccer net recorded with a piezoelectric microphone.
+Source: https://freesound.org/people/Luisa_Sanchez/sounds/816989/
+Audio: https://cdn.freesound.org/previews/816/816989_17552599-hq.ogg
+License: CC0 1.0, https://creativecommons.org/publicdomain/zero/1.0/
+Adaptation: isolated net contact at 0.11–0.70 s.
+
+All excerpts converted to mono/44.1 kHz, high-pass filtered at 35 Hz,
+level-adjusted with headroom, lightly faded and encoded as Ogg Vorbis.
+The original creators do not endorse this mod.

@@ -9,6 +9,8 @@ public final class FootballRules {
     public static final double NET_REBOUND = 0.02;
     public static final double NET_DRAG = 0.10;
     public static final double MAX_SHOT_SPEED = 1.50;
+    public static final int CONTACT_HISTORY_TICKS = 7;
+    public static final double RUN_UP_SPEED = 0.28;
     private static final double[] FOLLOW_WEIGHTS = {0.10, 0.08, 0.07, 0.05};
 
     private FootballRules() {}
@@ -19,7 +21,44 @@ public final class FootballRules {
         public Spin bounded() { return decay(1 / Math.max(1, Math.hypot(side, top))); }
     }
 
-    public record Direction(double x, double y, double z) {}
+    public record Direction(double x, double y, double z) {
+        public double relativeSpeed(Direction other) {
+            return Math.sqrt((x-other.x)*(x-other.x) + (y-other.y)*(y-other.y) + (z-other.z)*(z-other.z));
+        }
+    }
+
+    /** Short, transient velocity history shared by the ball and the player's approach. */
+    public static final class MotionHistory {
+        private final long[] ticks = new long[CONTACT_HISTORY_TICKS + 1];
+        private final Direction[] motion = new Direction[ticks.length];
+        private long latest = Long.MIN_VALUE;
+
+        public void record(long tick, Direction velocity) {
+            if (tick == latest) return; // Keep the first, pre-contact sample when packets share a tick.
+            if (latest != Long.MIN_VALUE && (tick < latest || tick - latest > CONTACT_HISTORY_TICKS))
+                java.util.Arrays.fill(motion, null);
+            int index = Math.floorMod(tick, motion.length);
+            ticks[index] = tick; motion[index] = velocity; latest = tick;
+        }
+        private boolean valid(int index, long now) {
+            return motion[index] != null && ticks[index] <= now && now - ticks[index] <= CONTACT_HISTORY_TICKS;
+        }
+        /** About a third of a second ago, or the oldest fresh sample for a newly spawned ball. */
+        public Direction priorVelocity(long now, Direction fallback) {
+            long oldest = Long.MAX_VALUE;
+            Direction result = fallback;
+            for (int i = 0; i < ticks.length; i++) {
+                if (valid(i, now) && ticks[i] < oldest) { oldest = ticks[i]; result = motion[i]; }
+            }
+            return result;
+        }
+        /** Preserve recent approach speed while charging decelerates the player. */
+        public double peakRelativeSpeed(long now, Direction ball, Direction current) {
+            double speed = current.relativeSpeed(ball);
+            for (int i = 0; i < ticks.length; i++) if (valid(i, now)) speed = Math.max(speed, motion[i].relativeSpeed(ball));
+            return speed;
+        }
+    }
     public enum Strike { NONE, GROUND, VOLLEY, HEADER }
 
     public static Strike strike(double distance, double heightRatio, boolean grounded) {
@@ -79,9 +118,10 @@ public final class FootballRules {
 
     public static double charge(long ticks) { return Math.max(0, Math.min(1, ticks / (double) CHARGE_TICKS)); }
     public static double shotSpeed(long ticks) { return 0.20 + 1.30 * charge(ticks); }
-    /** Relative impact speed adds power only to an explicit strike, under the original cap. */
+    /** Normal sprint approach gives +50%; an opposing ball can give up to +100%, under the same cap. */
     public static double shotSpeed(long ticks, double relativeSpeed) {
-        return Math.min(MAX_SHOT_SPEED, shotSpeed(ticks) + 0.65 * Math.max(0, relativeSpeed));
+        double bonus = Math.min(1, 0.50 * Math.max(0, relativeSpeed) / RUN_UP_SPEED);
+        return Math.min(MAX_SHOT_SPEED, shotSpeed(ticks) * (1 + bonus));
     }
     public static double movementScale(long ticks) { double q = charge(ticks); return 0.65 - 0.53 * q*q; }
     public static int recoveryTicks(long held) { return 2 + (int) Math.round(5 * charge(held)); }
@@ -103,7 +143,7 @@ public final class FootballRules {
         return new Spin(side / divisor * FOLLOW_WEIGHTS[sample], top / divisor * FOLLOW_WEIGHTS[sample]);
     }
 
-    public static double strengthScale(double strength) { return 0.75 + 0.25 * Math.max(0, Math.min(1, strength)); }
+    public static double strengthScale(double strength) { return 0.60 + 1.60 * Math.max(0, Math.min(1, strength)); }
     /** A perpendicular acceleration bends flight without increasing horizontal speed. */
     public static double curveAngle(double speed, Spin spin, double charge, double strength) {
         double q = Math.max(0, Math.min(1, charge));
@@ -111,7 +151,8 @@ public final class FootballRules {
     }
     public static double lift(double speed, Spin spin, double charge, double strength) {
         double q = Math.max(0, Math.min(1, charge));
-        return -Math.min(0.024, speed * (0.003 + 0.020 * q*q)) * spin.top * strengthScale(strength);
+        // Strong backspin must still lose upward velocity under football gravity (0.05/tick).
+        return -Math.min(0.035, speed * (0.003 + 0.020 * q*q) * strengthScale(strength)) * spin.top;
     }
 
     public static double touchDistance(boolean sprint, boolean sneak) { return sneak ? 0.55 : sprint ? 1.10 : 0.78; }

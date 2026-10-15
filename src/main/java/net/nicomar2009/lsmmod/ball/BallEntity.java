@@ -46,6 +46,7 @@ public final class BallEntity extends Entity implements ItemSupplier {
     private long shotTime;
     private int lastFollowSample, shotCooldown;
     private double shotCharge, shotStrength;
+    private final FootballRules.MotionHistory contactMotion = new FootballRules.MotionHistory();
     private final int[] impactSoundCooldown = new int[SportsGoalBlock.FootballContact.values().length];
     private FootballRules.Spin spin = new FootballRules.Spin(0, 0);
     public BallEntity(EntityType<? extends BallEntity> type, Level level) { super(type, level); }
@@ -116,7 +117,9 @@ public final class BallEntity extends Entity implements ItemSupplier {
     public void strike(ServerPlayer player, long held, FootballRules.Spin prepared, float yaw, float pitch) {
         var kind = strikeKind(player);
         if (kind == FootballRules.Strike.NONE) return;
-        double relativeSpeed = player.getKnownMovement().subtract(getDeltaMovement()).length();
+        Vec3 motion = getDeltaMovement();
+        var priorVelocity = contactMotion.priorVelocity(level().getGameTime(), new FootballRules.Direction(motion.x, motion.y, motion.z));
+        double relativeSpeed = FootballActions.relativeImpactSpeed(player, priorVelocity);
         double speed = FootballRules.shotSpeed(held, relativeSpeed) * FootballRules.strikePower(kind);
         toy(); dribbler = null; owner = player.getUUID(); shotTime = level().getGameTime(); lastFollowSample = 0;
         shotCooldown = 8; pushCooldown = 8; hitCooldown = 0; spin = prepared;
@@ -152,7 +155,7 @@ public final class BallEntity extends Entity implements ItemSupplier {
     private void playFootballSound(SoundEvent sound, double speed) {
         if (!(level() instanceof ServerLevel)) return;
         float volume = (float) (0.20 + 0.80 * Math.min(1, speed / FootballRules.MAX_SHOT_SPEED));
-        level().playSound(null, getX(), getY(), getZ(), sound, SoundSource.PLAYERS, volume, 0.94F + random.nextFloat() * 0.12F);
+        level().playSound(null, getX(), getY(), getZ(), sound, SoundSource.PLAYERS, volume, 0.98F + random.nextFloat() * 0.04F);
     }
 
     private void footballImpactSound(SportsGoalBlock.FootballContact contact, Vec3 motion, boolean x, boolean y, boolean z) {
@@ -234,7 +237,12 @@ public final class BallEntity extends Entity implements ItemSupplier {
         if (pushCooldown > 0) pushCooldown--;
         for (int i = 0; i < impactSoundCooldown.length; i++) if (impactSoundCooldown[i] > 0) impactSoundCooldown[i]--;
         BallKind kind = kind();
-        if (kind == BallKind.FOOTBALL) updateFootball(server);
+        if (kind == BallKind.FOOTBALL) {
+            // Sample before dribbling overwrites the ball's incoming velocity.
+            Vec3 incoming = getDeltaMovement();
+            contactMotion.record(server.getGameTime(), new FootballRules.Direction(incoming.x, incoming.y, incoming.z));
+            updateFootball(server);
+        }
         boolean projectile = entityData.get(PROJECTILE);
         Vec3 start = position();
         Vec3 motion = getDeltaMovement();

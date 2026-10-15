@@ -49,12 +49,49 @@ public class RulesCheck {
         double carried = FootballRules.shotSpeed(8, Math.abs(.28 - .27));
         double runUp = FootballRules.shotSpeed(8, .28);
         double oncoming = FootballRules.shotSpeed(8, Math.abs(.28 - (-.28)));
-        check("dribbling at the same speed adds little shot power", carried - FootballRules.shotSpeed(8) < .01, true);
+        check("dribbling at the same speed adds little shot power", carried / FootballRules.shotSpeed(8) < 1.02, true);
         check("running into a stationary ball adds more power than dribbling", runUp > carried, true);
         check("an oncoming ball adds more power than a stationary ball", oncoming > runUp, true);
         check("no relative motion preserves charge-only power", FootballRules.shotSpeed(8, 0) == FootballRules.shotSpeed(8), true);
-        check("extreme impact speed cannot exceed the original cap", FootballRules.shotSpeed(0, 100) == FootballRules.MAX_SHOT_SPEED, true);
+        check("extreme impact speed cannot exceed the original cap", FootballRules.shotSpeed(0, 100) <= FootballRules.MAX_SHOT_SPEED
+                && FootballRules.shotSpeed(12, 100) == FootballRules.MAX_SHOT_SPEED, true);
         check("full charge plus a run-up stays at the same cap", FootballRules.shotSpeed(2400, .8) == FootballRules.shotSpeed(24), true);
+        check("a normal run-up gives fifty percent extra speed below the cap", Math.abs(runUp / FootballRules.shotSpeed(8) - 1.5) < .000001, true);
+        check("an oncoming ball can double a light strike", Math.abs(oncoming / FootballRules.shotSpeed(8) - 2) < .000001, true);
+        var still = new FootballRules.Direction(0,0,0);
+        var sprint = new FootballRules.Direction(0,0,.28);
+        var controlled = new FootballRules.Direction(0,0,.27);
+        var slowed = new FootballRules.Direction(0,0,.05);
+        var ballMotion = new FootballRules.MotionHistory();
+        var approach = new FootballRules.MotionHistory();
+        for (int tick = 0; tick <= 7; tick++) {
+            ballMotion.record(tick, tick < 7 ? still : controlled);
+            approach.record(tick, tick == 0 ? sprint : slowed);
+        }
+        var beforeTouch = ballMotion.priorVelocity(7,controlled);
+        double approachSpeed = approach.peakRelativeSpeed(7,beforeTouch,slowed);
+        check("regression: a last-moment dribble cannot erase the stationary-ball sample", beforeTouch.equals(still), true);
+        check("recent running survives charge deceleration", Math.abs(approachSpeed-.28) < .000001, true);
+        check("a run-up still gives fifty percent after an automatic dribble", Math.abs(FootballRules.shotSpeed(8,approachSpeed)
+                / FootballRules.shotSpeed(8) - 1.5) < .000001, true);
+        approach.record(8,slowed);
+        check("old sprint motion expires after the contact window", Math.abs(approach.peakRelativeSpeed(8,still,slowed)-.05) < .000001, true);
+        for (int tick = 8; tick <= 16; tick++) {
+            ballMotion.record(tick,controlled); approach.record(tick,sprint);
+        }
+        check("sustained dribbling gets almost no run-up bonus", FootballRules.shotSpeed(8,
+                approach.peakRelativeSpeed(16,ballMotion.priorVelocity(16,controlled),sprint)) / FootballRules.shotSpeed(8) < 1.02, true);
+        check("expired history uses the current ball instead of a stale stationary sample", ballMotion.priorVelocity(100,controlled).equals(controlled), true);
+        ballMotion.record(100,slowed);
+        check("a newly resumed history starts from its fresh sample", ballMotion.priorVelocity(100,controlled).equals(slowed), true);
+        ballMotion.record(0,still);
+        check("clock rewind clears old motion", ballMotion.priorVelocity(0,controlled).equals(still), true);
+        check("a new ball safely uses its actual velocity", new FootballRules.MotionHistory().priorVelocity(0,controlled).equals(controlled), true);
+        var sameTick = new FootballRules.MotionHistory();
+        sameTick.record(0,sprint); sameTick.record(0,slowed);
+        check("same-tick charge updates preserve the approach before slowdown", sameTick.peakRelativeSpeed(0,still,slowed) == .28, true);
+        check("relative speed includes all three vector components", Math.abs(new FootballRules.Direction(.2,.2,.2)
+                .relativeSpeed(still) - Math.sqrt(.12)) < .000001, true);
         var right = new FootballRules.Spin(0, 0);
         for (int tick = 1; tick <= 24; tick++) right = FootballRules.buildSpin(right, FootballRules.RIGHT, tick);
         right = FootballRules.releaseSpin(right, FootballRules.RIGHT);
@@ -80,7 +117,10 @@ public class RulesCheck {
                 > FootballRules.curveAngle(speed,right,.5,.3), true);
         var backspin = new FootballRules.Spin(0,-1);
         check("stronger strikes also amplify lift", FootballRules.lift(speed,backspin,.5,1) > FootballRules.lift(speed,backspin,.5,.3), true);
-        check("strength scaling stays modest", FootballRules.strengthScale(1) / FootballRules.strengthScale(0) < 1.34, true);
+        check("full-strength curl is visibly stronger than weaker strikes", FootballRules.curveAngle(speed,right,.5,1)
+                > FootballRules.curveAngle(speed,right,.5,.3) * 2, true);
+        check("a strong full-spin shot has a substantial flight bend", angle > .10, true);
+        check("even strong backspin cannot overcome football gravity", FootballRules.lift(speed,backspin,1,1) < .05, true);
         check("power alone cannot create spin", FootballRules.curveAngle(speed,new FootballRules.Spin(0,0),1,1) == 0
                 && FootballRules.lift(speed,new FootballRules.Spin(0,0),1,1) == 0, true);
         check("sprinting exposes the ball farther than walking", FootballRules.touchDistance(true, false) > FootballRules.touchDistance(false, false), true);

@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
@@ -29,13 +30,20 @@ public final class FootballActions {
         boolean released;
         BallEntity struck;
         FootballRules.Spin spin = new FootballRules.Spin(0, 0);
+        final FootballRules.MotionHistory approach = new FootballRules.MotionHistory();
         Charge(ServerPlayer player, int keys) {
             this.player = player; level = player.level(); start = level.getGameTime();
             sampled = lastInput = start; this.keys = keys;
+            recordApproach(start);
         }
         void accumulate(long now) {
             for (long tick = sampled + 1; tick <= now; tick++) spin = FootballRules.buildSpin(spin, keys, tick - start);
             sampled = now;
+            recordApproach(now);
+        }
+        void recordApproach(long now) {
+            Vec3 movement = player.getKnownMovement();
+            approach.record(now, new FootballRules.Direction(movement.x, movement.y, movement.z));
         }
     }
     private FootballActions() {}
@@ -45,6 +53,14 @@ public final class FootballActions {
     public static boolean isCharging(Player player) {
         Charge charge = ACTIVE.get(player.getUUID());
         return charge != null && charge.player == player && !charge.released;
+    }
+
+    public static double relativeImpactSpeed(Player player, FootballRules.Direction priorBallVelocity) {
+        Vec3 movement = player.getKnownMovement();
+        var current = new FootballRules.Direction(movement.x, movement.y, movement.z);
+        Charge charge = ACTIVE.get(player.getUUID());
+        if (charge == null || charge.player != player || charge.level != player.level()) return current.relativeSpeed(priorBallVelocity);
+        return charge.approach.peakRelativeSpeed(player.level().getGameTime(), priorBallVelocity, current);
     }
 
     public static void input(ServerPlayer player, int action, int keys, float yaw, float pitch) {
