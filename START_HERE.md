@@ -11,7 +11,7 @@ exitosa. Codex verifica la ejecución del commit publicado; no ejecuta Minecraft
 
 Hay mobiliario y materiales escolares, puertas y conjuntos de varias celdas, cristales/cortinas conectables, pintura y herramientas, instrumentos, pelotas, uniforme y las entidades `student`/`teacher` con estadísticas, apariencia y asistente de invocación. El catálogo de espacios del mundo suministrado es editable; **no genera el colegio**.
 
-Faltan generación jigsaw y mapas, NPC concretos y sus zonas/llamados, efectos escolares completos, loot de progresión, integración con bunnidogs, patrullas/raids y jefes/ritual. [ROADMAP](docs/ROADMAP.md) separa lo implementado de lo pendiente. La existencia de código no garantiza compilación ni prueba en juego; estas últimas modificaciones se han revisado estáticamente y con renders externos.
+Faltan generación jigsaw y mapas, NPC concretos y sus zonas/llamados, efectos escolares completos, loot de progresión, integración con bunnidogs, patrullas/raids y jefes/ritual. [ROADMAP](docs/ROADMAP.md) separa lo implementado de lo pendiente. La compilación y `checkFurnitureOutlines` pasan en GitHub Actions. Las revisiones estáticas, los renders externos y la compilación CI no sustituyen las pruebas en juego.
 
 ## Lee según la petición
 
