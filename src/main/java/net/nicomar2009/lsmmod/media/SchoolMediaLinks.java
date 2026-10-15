@@ -24,16 +24,22 @@ public final class SchoolMediaLinks extends SavedData {
     private SchoolMediaLinks(List<SchoolMediaRoute> saved) {
         for (SchoolMediaRoute route : saved) {
             if (routes.size() >= MAX_ROUTES) break;
-            routes.removeIf(r -> r.output().equals(route.output()));
+            routes.removeIf(r -> r.output().equals(route.output())
+                    || route.kind() == SchoolMediaRoute.AUDIO_CONTROLLER && r.kind() == SchoolMediaRoute.AUDIO_CONTROLLER
+                    && r.input().equals(route.input()));
             routes.add(route);
         }
     }
     public static SchoolMediaLinks get(ServerLevel level) { return level.getDataStorage().computeIfAbsent(TYPE); }
     public List<SchoolMediaRoute> routes() { return List.copyOf(routes); }
     public void put(SchoolMediaRoute route) {
-        if (routes.size() >= MAX_ROUTES && routes.stream().noneMatch(r -> r.output().equals(route.output())))
+        if (routes.size() >= MAX_ROUTES && routes.stream().noneMatch(r -> r.output().equals(route.output())
+                || route.kind() == SchoolMediaRoute.AUDIO_CONTROLLER && r.kind() == SchoolMediaRoute.AUDIO_CONTROLLER
+                && r.input().equals(route.input())))
             throw new IllegalArgumentException("limit");
-        routes.removeIf(r -> r.output().equals(route.output()));
+        routes.removeIf(r -> r.output().equals(route.output())
+                    || route.kind() == SchoolMediaRoute.AUDIO_CONTROLLER && r.kind() == SchoolMediaRoute.AUDIO_CONTROLLER
+                    && r.input().equals(route.input()));
         routes.add(route);
         setDirty();
     }
@@ -57,6 +63,7 @@ public final class SchoolMediaLinks extends SavedData {
             case PROJECTOR -> SchoolMediaRoute.PROJECTOR;
             case SCREEN -> SchoolMediaRoute.SCREEN;
             case SPEAKER, GENERAL_SPEAKER -> SchoolMediaRoute.SPEAKER;
+            case AUDIO_CONTROLLER -> SchoolMediaRoute.AUDIO_CONTROLLER;
             default -> -1;
         };
     }

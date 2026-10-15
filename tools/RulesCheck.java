@@ -1,4 +1,5 @@
 import net.nicomar2009.lsmmod.rules.FootballRules;
+import net.nicomar2009.lsmmod.rules.SchoolMediaRules;
 import net.nicomar2009.lsmmod.rules.SchoolStudyRules;
 import net.nicomar2009.lsmmod.block.SportsGoalShapes;
 
@@ -42,6 +43,26 @@ public class RulesCheck {
     }
 
     public static void main(String[] args) {
+        for (var input : SchoolMediaRules.Role.values()) {
+            boolean moises = input == SchoolMediaRules.Role.MOISES_LAPTOP;
+            check("general speaker rejects other input " + input,
+                    SchoolMediaRules.canConnect(input, SchoolMediaRules.Role.GENERAL_SPEAKER), moises);
+            check("cabinet rejects other input " + input,
+                    SchoolMediaRules.canConnect(input, SchoolMediaRules.Role.AUDIO_CONTROLLER), moises);
+        }
+        check("volume zero and minimum speed accepted", SchoolMediaRules.validAudioSettings(0, 25), true);
+        check("double volume and maximum speed accepted", SchoolMediaRules.validAudioSettings(200, 200), true);
+        check("default settings accepted", SchoolMediaRules.validAudioSettings(100, 100), true);
+        for (int[] invalid : new int[][]{{-1,100},{201,100},{100,24},{100,201},{Integer.MAX_VALUE,Integer.MIN_VALUE}})
+            check("invalid settings rejected", SchoolMediaRules.validAudioSettings(invalid[0], invalid[1]), false);
+        check("general speaker radius is 64", SchoolMediaRules.speakerRadius(SchoolMediaRules.Role.GENERAL_SPEAKER) == 64, true);
+        check("regular speaker radius stays 32", SchoolMediaRules.speakerRadius(SchoolMediaRules.Role.SPEAKER) == 32, true);
+        check("zero volume mutes PCM", SchoolMediaRules.pcmSample(.5f, 0) == 0, true);
+        check("200 percent doubles quiet PCM", SchoolMediaRules.pcmSample(.25f, 2) == SchoolMediaRules.pcmSample(.5f, 1), true);
+        check("positive boost clips without wrapping", SchoolMediaRules.pcmSample(1, 2) == 32767, true);
+        check("negative boost clips without wrapping", SchoolMediaRules.pcmSample(-1, 2) == -32767, true);
+        check("invalid PCM becomes silence", SchoolMediaRules.pcmSample(Float.NaN, 1) == 0, true);
+
         study();
         // Football acceptance checks: power limits, foot follow-through and flight direction.
         check("tap is weaker than a charged pass", FootballRules.shotSpeed(0) < FootballRules.shotSpeed(12), true);

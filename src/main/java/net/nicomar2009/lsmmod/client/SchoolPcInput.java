@@ -9,6 +9,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.nicomar2009.lsmmod.LSMMod;
 import net.nicomar2009.lsmmod.client.screen.SchoolPcScreen;
+import net.nicomar2009.lsmmod.client.screen.SchoolAudioControlScreen;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.nicomar2009.lsmmod.media.SchoolMediaDevices;
@@ -27,7 +28,7 @@ public final class SchoolPcInput {
         Minecraft minecraft = Minecraft.getInstance();
         if (!event.isUseItem() || minecraft.player == null || minecraft.level == null) return;
         // NeoForge still emits the off-hand event after a cancelled main-hand event.
-        if (minecraft.gui.screen() instanceof SchoolPcScreen) {
+        if (minecraft.gui.screen() instanceof SchoolPcScreen || minecraft.gui.screen() instanceof SchoolAudioControlScreen) {
             event.setCanceled(true);
             event.setSwingHand(false);
             return;
@@ -43,6 +44,12 @@ public final class SchoolPcInput {
             event.setCanceled(true); event.setSwingHand(false);
             if (event.getHand() == InteractionHand.MAIN_HAND)
                 ClientPacketDistributor.sendToServer(new SchoolMediaPayloads.Request(hit.getBlockPos(), minecraft.player.isShiftKeyDown() ? 2 : 1));
+            return;
+        }
+        if (!minecraft.player.isShiftKeyDown()
+                && SchoolMediaDevices.role(minecraft.level.getBlockState(hit.getBlockPos())) == SchoolMediaRules.Role.AUDIO_CONTROLLER) {
+            event.setCanceled(true); event.setSwingHand(false);
+            if (event.getHand() == InteractionHand.MAIN_HAND) SchoolAudioControlScreen.open(hit.getBlockPos());
             return;
         }
         if (minecraft.player.isShiftKeyDown() || !SchoolPcScreen.hasPc(minecraft.level.getBlockState(hit.getBlockPos()))) return;

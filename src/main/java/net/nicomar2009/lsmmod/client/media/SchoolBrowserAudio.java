@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.nicomar2009.lsmmod.LSMMod;
+import net.nicomar2009.lsmmod.rules.SchoolMediaRules;
 import org.cef.browser.CefBrowser;
 import org.cef.handler.CefAudioHandlerAdapter;
 import org.cef.misc.CefAudioParameters;
@@ -24,6 +25,7 @@ final class SchoolBrowserAudio {
     private final BlockPos source;
     private volatile List<Sink> sinks = List.of();
     private volatile boolean started, closed;
+    private volatile float gain = 1;
     private volatile int sampleRate = 48000, channels = 1, generation;
     private int playingGeneration = -1, ticks;
     private SchoolBrowserAudio(CefBrowser browser, BlockPos source) { this.browser = browser; this.source = source; }
@@ -57,8 +59,7 @@ final class SchoolBrowserAudio {
                 for (int frame = 0; frame < frames; frame++) {
                     float value = 0;
                     for (int c = 0; c < audio.channels; c++) value += data.getData(c).getFloat(frame) / audio.channels;
-                    if (!Float.isFinite(value)) value = 0;
-                    int sample = Math.round(Math.clamp(value, -1, 1) * 32767);
+                    int sample = SchoolMediaRules.pcmSample(value, audio.gain);
                     pcm[frame * 2] = (byte) sample; pcm[frame * 2 + 1] = (byte) (sample >> 8);
                 }
                 for (Sink sink : targets) sink.stream().offer(pcm);
@@ -73,8 +74,9 @@ final class SchoolBrowserAudio {
             }
         });
     }
-    void tick(List<BlockPos> speakers) {
+    void tick(List<BlockPos> speakers, float gain) {
         if (closed) return;
+        this.gain = gain;
         ticks++;
         List<BlockPos> outputs = speakers.isEmpty() ? List.of(source) : speakers;
         if (!started || playingGeneration != generation) {
@@ -89,7 +91,7 @@ final class SchoolBrowserAudio {
         for (BlockPos pos : outputs) {
             if (next.stream().anyMatch(s -> s.pos().equals(pos))) continue;
             SchoolPcmStream stream = new SchoolPcmStream(sampleRate);
-            SchoolBrowserSound sound = new SchoolBrowserSound(pos, stream, speakers.isEmpty() ? 8 : 32);
+            SchoolBrowserSound sound = new SchoolBrowserSound(pos, stream, speakers.isEmpty() ? 8 : SchoolMediaClient.speakerRadius(pos));
             next.add(new Sink(pos, stream, sound));
             Minecraft.getInstance().getSoundManager().play(sound);
         }

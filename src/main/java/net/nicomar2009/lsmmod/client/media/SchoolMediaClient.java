@@ -47,8 +47,22 @@ public final class SchoolMediaClient {
         }
         return List.copyOf(result);
     }
+    public static SchoolMediaRoute controller(BlockPos cabinet) {
+        if (!loaded(cabinet) || SchoolMediaDevices.role(level.getBlockState(cabinet)) != SchoolMediaRules.Role.AUDIO_CONTROLLER) return null;
+        return routes.stream().filter(r -> r.kind() == SchoolMediaRoute.AUDIO_CONTROLLER && r.output().equals(cabinet)
+                && loaded(r.input()) && SchoolMediaDevices.role(level.getBlockState(r.input())) == SchoolMediaRules.Role.MOISES_LAPTOP)
+                .findFirst().orElse(null);
+    }
+    public static SchoolMediaRoute audioSettings(BlockPos source) {
+        return routes.stream().filter(r -> r.kind() == SchoolMediaRoute.AUDIO_CONTROLLER && r.input().equals(source)
+                && controller(r.output()) != null).findFirst().orElse(null);
+    }
+    public static int speakerRadius(BlockPos speaker) {
+        return SchoolMediaRules.speakerRadius(loaded(speaker) ? SchoolMediaDevices.role(level.getBlockState(speaker)) : SchoolMediaRules.Role.NONE);
+    }
     public static boolean hasOutputs(BlockPos source) {
-        return projections.stream().anyMatch(p -> p.source().equals(source)) || !speakers(source).isEmpty();
+        return projections.stream().anyMatch(p -> p.source().equals(source)) || !speakers(source).isEmpty()
+                || audioSettings(source) != null;
     }
     private static void resolve() {
         var result = new ArrayList<Projection>();

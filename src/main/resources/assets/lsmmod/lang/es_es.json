@@ -389,7 +389,7 @@
   "message.lsmmod.media.disconnected": "Conexiones retiradas. Selección cancelada.",
   "message.lsmmod.media.select_source": "Selecciona una PC/laptop con Ctrl + clic; para la pantalla, conecta primero un proyector.",
   "message.lsmmod.media.invalid_connection": "Estos dispositivos no admiten esa conexión.",
-  "message.lsmmod.media.moises_only": "Sólo la laptop de Moisés puede usar el parlante general.",
+  "message.lsmmod.media.moises_only": "Solo la laptop de Moisés puede conectarse al parlante general o al control de audio.",
   "message.lsmmod.media.too_far": "Los dispositivos deben estar a un máximo de 64 bloques.",
   "message.lsmmod.media.rectangle_required": "Une pantallas completas en un rectángulo de hasta 16 × 12 bloques.",
   "message.lsmmod.media.limit": "Límite de conexiones alcanzado (8 parlantes por origen, 1024 enlaces por dimensión).",
@@ -430,5 +430,14 @@
   "jukebox_song.lsmmod.formacion": "Formación: Marcha de las Banderas",
   "item.lsmmod.himnoperu": "Disco: Himno Nacional del Perú",
   "jukebox_song.lsmmod.himnoperu": "Formación: Himno Nacional del Perú",
-  "block.lsmmod.general_speaker": "Parlante general"
+  "block.lsmmod.general_speaker": "Parlante general",
+  "screen.lsmmod.audio.title": "Control de audio de Moisés",
+  "screen.lsmmod.audio.volume": "Volumen: 0–200 %",
+  "screen.lsmmod.audio.speed": "Velocidad: x0.25–x2",
+  "screen.lsmmod.audio.apply": "Aplicar",
+  "screen.lsmmod.audio.unlinked": "Sin conexión: usa Ctrl + clic derecho para enlazar la laptop de Moisés y este armario.",
+  "screen.lsmmod.audio.linked": "Conectado a la laptop de Moisés",
+  "screen.lsmmod.audio.saved": "Ajustes guardados",
+  "screen.lsmmod.audio.help": "Pulsa el valor central para restablecerlo.",
+  "message.lsmmod.media.controller_connected": "Control de audio conectado."
 }

@@ -23,6 +23,13 @@ public final class SchoolMediaPayloads {
                 BlockPos.STREAM_CODEC, Request::pos, ByteBufCodecs.VAR_INT, Request::action, Request::new);
         @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
     }
+    public record AudioSettings(BlockPos pos, int volumePercent, int speedPercent) implements CustomPacketPayload {
+        public static final Type<AudioSettings> TYPE = new Type<>(Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "media_audio_settings"));
+        public static final StreamCodec<RegistryFriendlyByteBuf, AudioSettings> CODEC = StreamCodec.composite(
+                BlockPos.STREAM_CODEC, AudioSettings::pos, ByteBufCodecs.VAR_INT, AudioSettings::volumePercent,
+                ByteBufCodecs.VAR_INT, AudioSettings::speedPercent, AudioSettings::new);
+        @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
+    }
     public record Snapshot(Identifier dimension, List<SchoolMediaRoute> routes) implements CustomPacketPayload {
         public static final Type<Snapshot> TYPE = new Type<>(Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "media_links"));
         public Snapshot { routes = List.copyOf(routes); }
@@ -31,6 +38,7 @@ public final class SchoolMediaPayloads {
             buf.writeVarInt(value.routes().size());
             for (SchoolMediaRoute route : value.routes()) {
                 buf.writeVarInt(route.kind()); buf.writeBlockPos(route.output()); buf.writeBlockPos(route.input());
+                buf.writeVarInt(route.volumePercent()); buf.writeVarInt(route.speedPercent());
             }
         }, buf -> {
             Identifier dimension = Identifier.STREAM_CODEC.decode(buf);
@@ -39,15 +47,17 @@ public final class SchoolMediaPayloads {
             List<SchoolMediaRoute> routes = new ArrayList<>(count);
             for (int i = 0; i < count; i++) {
                 int kind = buf.readVarInt();
-                if (kind < 0 || kind > 2) throw new IllegalArgumentException("Invalid media link");
-                routes.add(new SchoolMediaRoute(kind, buf.readBlockPos(), buf.readBlockPos()));
+                if (kind < 0 || kind > 3) throw new IllegalArgumentException("Invalid media link");
+                routes.add(new SchoolMediaRoute(kind, buf.readBlockPos(), buf.readBlockPos(), buf.readVarInt(), buf.readVarInt()));
             }
             return new Snapshot(dimension, routes);
         });
         @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
     }
     public static void register(RegisterPayloadHandlersEvent event) {
-        var registrar = event.registrar("1");
+        var registrar = event.registrar("2");
+        registrar.playToServer(AudioSettings.TYPE, AudioSettings.CODEC, (request, context) ->
+                context.enqueueWork(() -> SchoolMediaServer.settings(request, context.player())));
         registrar.playToServer(Request.TYPE, Request.CODEC, (request, context) ->
                 context.enqueueWork(() -> SchoolMediaServer.handle(request, context.player())));
         registrar.playToClient(Snapshot.TYPE, Snapshot.CODEC, (snapshot, context) ->

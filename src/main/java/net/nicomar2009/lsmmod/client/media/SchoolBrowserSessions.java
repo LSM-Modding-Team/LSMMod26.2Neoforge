@@ -21,7 +21,8 @@ public final class SchoolBrowserSessions {
         private final BlockPos source;
         private final Block block;
         private final SchoolBrowserAudio audio;
-        private int users, idleTicks;
+        private int users, idleTicks, settingsTicks;
+        private boolean audioControlled;
         private Session(BlockPos source) {
             this.source = source.immutable();
             block = Minecraft.getInstance().level.getBlockState(source).getBlock();
@@ -81,7 +82,21 @@ public final class SchoolBrowserSessions {
                 session.close(); iterator.remove(); continue;
             }
             if (keep) session.idleTicks = 0;
-            session.audio.tick(SchoolMediaClient.speakers(session.source));
+            var settings = SchoolMediaClient.audioSettings(session.source);
+            float gain = settings == null ? 1 : settings.volumePercent() / 100f;
+            session.audio.tick(SchoolMediaClient.speakers(session.source), gain);
+            // Change the actual media playback rate, not the OpenAL pitch of a live
+            // PCM queue (which would underflow/overflow instead of changing tempo).
+            if (++session.settingsTicks % 10 == 0 && (settings != null || session.audioControlled) && session.browser.isValid()
+                    && SchoolMediaDevices.role(minecraft.level.getBlockState(session.source)) == SchoolMediaRules.Role.MOISES_LAPTOP) {
+                double rate = settings == null ? 1 : settings.speedPercent() / 100.0;
+                session.browser.executeJavaScript("(() => {const rate=" + rate + ";"
+                        + "function apply(w){try{w.document.querySelectorAll('audio,video').forEach(m=>{"
+                        + "if(m.playbackRate!==rate)m.playbackRate=rate;m.preservesPitch=true;});"
+                        + "for(let i=0;i<w.frames.length;i++)apply(w.frames[i]);}catch(e){}}apply(window);})()",
+                        session.browser.getURL(), 0);
+                session.audioControlled = settings != null;
+            }
         }
     }
     public static void closeAll() {

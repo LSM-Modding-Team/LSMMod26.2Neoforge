@@ -75,7 +75,7 @@ public final class SchoolMediaServer {
         }
         Role inputRole = SchoolMediaDevices.role(level.getBlockState(input));
         if (!SchoolMediaRules.canConnect(inputRole, role)) {
-            message(player, role == Role.GENERAL_SPEAKER ? "moises_only" : "invalid_connection"); return;
+            message(player, (role == Role.GENERAL_SPEAKER || role == Role.AUDIO_CONTROLLER) ? "moises_only" : "invalid_connection"); return;
         }
         if (target.distSqr(input) > 64 * 64) { message(player, "too_far"); return; }
         if (role == Role.SPEAKER || role == Role.GENERAL_SPEAKER) {
@@ -97,7 +97,36 @@ public final class SchoolMediaServer {
         if (role == Role.PROJECTOR)
             SELECTED.put(player.getUUID(), new Selection(level.dimension(), old.source(), target));
         broadcast(level);
-        message(player, role == Role.PROJECTOR ? "projector_connected" : role == Role.SCREEN ? "screen_connected" : "speaker_connected");
+        message(player, role == Role.PROJECTOR ? "projector_connected" : role == Role.SCREEN ? "screen_connected" : role == Role.AUDIO_CONTROLLER ? "controller_connected" : "speaker_connected");
+    }
+    public static void settings(SchoolMediaPayloads.AudioSettings request, Player actor) {
+        if (!(actor instanceof ServerPlayer player) || player.isSpectator() || !player.mayBuild()
+                || !player.getMainHandItem().isEmpty() || !player.getOffhandItem().isEmpty()
+                || !SchoolMediaRules.validAudioSettings(request.volumePercent(), request.speedPercent())) return;
+        ServerLevel level = (ServerLevel) player.level();
+        BlockPos clicked = request.pos();
+        if (!level.hasChunkAt(clicked) || !level.mayInteract(player, clicked)
+                || !player.isWithinBlockInteractionRange(clicked, 0)
+                || SchoolMediaDevices.role(level.getBlockState(clicked)) != Role.AUDIO_CONTROLLER) return;
+        var hit = player.pick(player.blockInteractionRange(), 1, false);
+        if (!(hit instanceof BlockHitResult block) || !block.getBlockPos().equals(clicked)
+                || !player.mayUseItemAt(clicked, block.getDirection(), player.getMainHandItem())) return;
+        BlockPos pos = SchoolMediaDevices.anchor(level, clicked);
+        if (!level.hasChunkAt(pos) || !level.mayInteract(player, pos)
+                || SchoolMediaDevices.role(level.getBlockState(pos)) != Role.AUDIO_CONTROLLER) return;
+        long tick = level.getGameTime();
+        if (LAST_REQUEST.getOrDefault(player.getUUID(), Long.MIN_VALUE) == tick) return;
+        LAST_REQUEST.put(player.getUUID(), tick);
+        var links = SchoolMediaLinks.get(level);
+        for (SchoolMediaRoute route : links.routes()) {
+            if (route.kind() != SchoolMediaRoute.AUDIO_CONTROLLER || !route.output().equals(pos)) continue;
+            if (!level.hasChunkAt(route.input()) || !level.mayInteract(player, route.input())
+                    || SchoolMediaDevices.role(level.getBlockState(route.input())) != Role.MOISES_LAPTOP
+                    || pos.distSqr(route.input()) > 64 * 64) return;
+            links.put(new SchoolMediaRoute(route.kind(), pos, route.input(), request.volumePercent(), request.speedPercent()));
+            broadcast(level);
+            return;
+        }
     }
     private static void message(ServerPlayer player, String key) {
         player.sendOverlayMessage(Component.translatable("message.lsmmod.media." + key));

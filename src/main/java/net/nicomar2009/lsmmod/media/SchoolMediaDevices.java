@@ -14,6 +14,7 @@ public final class SchoolMediaDevices {
     public static Role role(BlockState state) {
         // Check the restricted speaker before its regular SpeakerBlock superclass.
         if (state.is(ModBlocks.GENERAL_SPEAKER.get())) return Role.GENERAL_SPEAKER;
+        if (state.getBlock() instanceof SchoolCabinetBlock) return Role.AUDIO_CONTROLLER;
         if (state.is(ModBlocks.MOISES_LAPTOP.get())) return Role.MOISES_LAPTOP;
         if (state.getBlock() instanceof LaptopBlock) return Role.LAPTOP;
         if (state.is(ModBlocks.PC.get()) || state.getBlock() instanceof ComputerDeskBlock
@@ -25,6 +26,9 @@ public final class SchoolMediaDevices {
     }
     public static BlockPos anchor(Level level, BlockPos pos) {
         BlockState s = level.getBlockState(pos);
+        if (s.getBlock() instanceof SchoolCabinetBlock)
+            return pos.below(s.getValue(SchoolCabinetBlock.HALF) == DoubleBlockHalf.UPPER ? 1 : 0)
+                    .relative(s.getValue(SchoolCabinetBlock.FACING).getClockWise(), -s.getValue(SchoolCabinetBlock.COLUMN));
         if (s.getBlock() instanceof GrayComputerDeskBlock)
             return pos.relative(s.getValue(ComputerDeskBlock.FACING).getCounterClockWise(), -s.getValue(GrayComputerDeskBlock.COLUMN))
                     .below(s.getValue(ComputerDeskBlock.HALF) == DoubleBlockHalf.UPPER ? 1 : 0);

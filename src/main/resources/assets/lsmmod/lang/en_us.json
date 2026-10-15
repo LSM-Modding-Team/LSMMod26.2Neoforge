@@ -395,7 +395,7 @@
   "message.lsmmod.media.disconnected": "Connections removed. Selection cleared.",
   "message.lsmmod.media.select_source": "Ctrl + click a PC/laptop first; connect a projector before selecting its screen.",
   "message.lsmmod.media.invalid_connection": "These devices cannot be connected this way.",
-  "message.lsmmod.media.moises_only": "Only Moisés’s laptop can use the general speaker.",
+  "message.lsmmod.media.moises_only": "Only Moises laptop can connect to the general speaker or audio control.",
   "message.lsmmod.media.too_far": "Devices must be within 64 blocks of each other.",
   "message.lsmmod.media.rectangle_required": "Join complete screens into a rectangle up to 16 × 12 blocks.",
   "message.lsmmod.media.limit": "Connection limit reached (8 speakers per source, 1024 links per dimension).",
@@ -436,5 +436,14 @@
   "jukebox_song.lsmmod.formacion": "Formacion: Marcha de las Banderas",
   "item.lsmmod.himnoperu": "Music Disc: National Anthem of Peru",
   "jukebox_song.lsmmod.himnoperu": "Formacion: National Anthem of Peru",
-  "block.lsmmod.general_speaker": "General Speaker"
+  "block.lsmmod.general_speaker": "General Speaker",
+  "screen.lsmmod.audio.title": "Moises Audio Control",
+  "screen.lsmmod.audio.volume": "Volume: 0–200%",
+  "screen.lsmmod.audio.speed": "Speed: x0.25–x2",
+  "screen.lsmmod.audio.apply": "Apply",
+  "screen.lsmmod.audio.unlinked": "Not connected: Ctrl + right-click Moises laptop, then this cabinet.",
+  "screen.lsmmod.audio.linked": "Connected to Moises laptop",
+  "screen.lsmmod.audio.saved": "Settings saved",
+  "screen.lsmmod.audio.help": "Click the middle value to reset it.",
+  "message.lsmmod.media.controller_connected": "Audio control connected."
 }
