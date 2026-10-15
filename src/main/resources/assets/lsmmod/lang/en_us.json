@@ -417,5 +417,15 @@
   "subtitles.lsmmod.football_kick": "Football struck",
   "subtitles.lsmmod.football_wall": "Football hits a wall",
   "subtitles.lsmmod.football_net": "Football rustles the net",
-  "subtitles.lsmmod.football_frame": "Football rings against the goal frame"
+  "subtitles.lsmmod.football_frame": "Football rings against the goal frame",
+  "item.lsmmod.qapackachampa": "Music Disc: Qapac Kachampa",
+  "jukebox_song.lsmmod.qapackachampa": "5to - Qapac Kachampa",
+  "item.lsmmod.cofradia_san_miguel": "Music Disc: Cofradia de San Miguel",
+  "jukebox_song.lsmmod.cofradia_san_miguel": "4to -Cofradia de San Miguel",
+  "item.lsmmod.carnaval_huaccana": "Music Disc: Carnaval de Huaccana",
+  "jukebox_song.lsmmod.carnaval_huaccana": "3ro - Carnaval de Huaccana",
+  "item.lsmmod.carnaval_huanupampa": "Music Disc: Carnaval de Huanupampa",
+  "jukebox_song.lsmmod.carnaval_huanupampa": "2do - Carnaval de Huanupampa",
+  "item.lsmmod.carnaval_macari": "Music Disc: Carnaval de Macari",
+  "jukebox_song.lsmmod.carnaval_macari": "1ro - Carnaval de Macari"
 }

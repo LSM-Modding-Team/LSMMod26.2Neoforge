@@ -411,5 +411,15 @@
   "subtitles.lsmmod.football_kick": "Golpeo de balón",
   "subtitles.lsmmod.football_wall": "Balón contra pared",
   "subtitles.lsmmod.football_net": "Balón roza la red",
-  "subtitles.lsmmod.football_frame": "Balón contra poste o travesaño"
+  "subtitles.lsmmod.football_frame": "Balón contra poste o travesaño",
+  "item.lsmmod.qapackachampa": "Disco: Qapac Kachampa",
+  "jukebox_song.lsmmod.qapackachampa": "5to - Qapac Kachampa",
+  "item.lsmmod.cofradia_san_miguel": "Disco: Cofradia de San Miguel",
+  "jukebox_song.lsmmod.cofradia_san_miguel": "4to -Cofradia de San Miguel",
+  "item.lsmmod.carnaval_huaccana": "Disco: Carnaval de Huaccana",
+  "jukebox_song.lsmmod.carnaval_huaccana": "3ro - Carnaval de Huaccana",
+  "item.lsmmod.carnaval_huanupampa": "Disco: Carnaval de Huanupampa",
+  "jukebox_song.lsmmod.carnaval_huanupampa": "2do - Carnaval de Huanupampa",
+  "item.lsmmod.carnaval_macari": "Disco: Carnaval de Macari",
+  "jukebox_song.lsmmod.carnaval_macari": "1ro - Carnaval de Macari"
 }

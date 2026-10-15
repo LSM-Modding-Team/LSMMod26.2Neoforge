@@ -170,5 +170,45 @@
     "sounds": [
       "lsmmod:football/frame"
     ]
+  },
+  "music_disc.qapackachampa": {
+    "sounds": [
+      {
+        "name": "lsmmod:records/qapackachampa",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.cofradia_san_miguel": {
+    "sounds": [
+      {
+        "name": "lsmmod:records/cofradia_san_miguel",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.carnaval_huaccana": {
+    "sounds": [
+      {
+        "name": "lsmmod:records/carnaval_huaccana",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.carnaval_huanupampa": {
+    "sounds": [
+      {
+        "name": "lsmmod:records/carnaval_huanupampa",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.carnaval_macari": {
+    "sounds": [
+      {
+        "name": "lsmmod:records/carnaval_macari",
+        "stream": true
+      }
+    ]
   }
 }
