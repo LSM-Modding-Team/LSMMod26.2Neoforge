@@ -6,6 +6,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.nicomar2009.lsmmod.LSMMod;
 import net.nicomar2009.lsmmod.entity.SeatEntity;
+import net.nicomar2009.lsmmod.entity.CotRestEntity;
 
 import java.util.function.Supplier;
 
@@ -23,6 +24,10 @@ public final class ModEntities {
                     // Passengers attach at the entity's feet (y = 0), so the entity's Y is the seat height
                     .passengerAttachments(0.0F)
                     .noSummon());
+
+    public static final Supplier<EntityType<CotRestEntity>> COT_REST = ENTITIES.registerEntityType(
+            "cot_rest", CotRestEntity::new, MobCategory.MISC,
+            builder -> builder.sized(0.001F, 0.001F).passengerAttachments(0.0F).noSummon());
 
     public static final Supplier<EntityType<net.nicomar2009.lsmmod.entity.StudentEntity>> STUDENT = ENTITIES.registerEntityType(
             "student", net.nicomar2009.lsmmod.entity.StudentEntity::new, MobCategory.CREATURE,

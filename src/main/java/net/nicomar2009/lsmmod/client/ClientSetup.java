@@ -82,5 +82,6 @@ public class ClientSetup {
         event.registerEntityRenderer(ModEntities.VOLLEYBALL_BALL.get(), net.nicomar2009.lsmmod.client.renderer.BallRenderer::new);
         // Assign NoopRenderer to ensure the seat entity remains invisible
         event.registerEntityRenderer(ModEntities.SEAT.get(), NoopRenderer::new);
+        event.registerEntityRenderer(ModEntities.COT_REST.get(), NoopRenderer::new);
     }
 }

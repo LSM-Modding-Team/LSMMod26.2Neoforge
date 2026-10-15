@@ -2,9 +2,12 @@ package net.nicomar2009.lsmmod.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -19,11 +22,15 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.nicomar2009.lsmmod.entity.CotRestEntity;
+import net.nicomar2009.lsmmod.registry.ModEntities;
 
 /** Three-cell cot; old two-cell pairs retain their original shapes and serialized segments. */
 public class InfirmaryCotBlock extends Block {
@@ -36,6 +43,43 @@ public class InfirmaryCotBlock extends Block {
     private static BlockPos cell(BlockPos root,BlockState state,int segment) {return root.relative(state.getValue(FACING),segment);}
     private static BlockPos anchor(BlockPos pos,BlockState state) {return cell(pos,state,-state.getValue(SEGMENT));}
     private boolean matches(BlockState other,BlockState state,int segment) {return other.is(this)&&other.getValue(SEGMENT)==segment&&other.getValue(FACING)==state.getValue(FACING)&&other.getValue(EXTENDED)==state.getValue(EXTENDED);}
+    public boolean isComplete(Level level,BlockPos root,BlockState state) {
+        for(int segment=0;segment<length(state);segment++) {
+            BlockPos pos=cell(root,state,segment);
+            if(!level.hasChunkAt(pos)||!matches(level.getBlockState(pos),state,segment))return false;
+        }
+        return true;
+    }
+    @Override protected InteractionResult useWithoutItem(BlockState state,Level level,BlockPos pos,Player player,BlockHitResult hit) {
+        if(level.isClientSide())return InteractionResult.SUCCESS;
+        if(!player.isAlive()||player.isSpectator()||player.isSleeping()||player.isPassenger())return InteractionResult.CONSUME;
+        BlockPos root=anchor(pos,state);
+        if(!isComplete(level,root,state))return InteractionResult.CONSUME;
+        for(CotRestEntity rest:level.getEntitiesOfClass(CotRestEntity.class,new AABB(root))) {
+            if(rest.isVehicle()) {
+                player.displayClientMessage(Component.translatable("block.minecraft.bed.occupied"),true);
+                return InteractionResult.CONSUME;
+            }
+            rest.discard();
+        }
+        for(int segment=0;segment<length(state);segment++) {
+            BlockPos above=cell(root,state,segment).above();
+            if(!level.getBlockState(above).getCollisionShape(level,above).isEmpty()) {
+                player.displayClientMessage(Component.translatable("block.minecraft.bed.obstructed"),true);
+                return InteractionResult.CONSUME;
+            }
+        }
+        CotRestEntity rest=new CotRestEntity(ModEntities.COT_REST.get(),level);
+        rest.setPos(root.getX()+0.5D,root.getY()+13.0D/16.0D,root.getZ()+0.5D);
+        rest.setYRot(state.getValue(FACING).toYRot());
+        if(!level.addFreshEntity(rest))return InteractionResult.CONSUME;
+        if(player.startRiding(rest)) {
+            // Only the pose is shared with beds: no sleeping position, timer or respawn change.
+            player.setPose(Pose.SLEEPING);
+            rest.positionRider(player);
+        } else rest.discard();
+        return InteractionResult.SUCCESS;
+    }
     @Override public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState state=defaultBlockState().setValue(FACING,context.getHorizontalDirection().getOpposite()).setValue(EXTENDED,true);Level level=context.getLevel();Player player=context.getPlayer();
         if(context.getClickedFace()!=Direction.UP)return null;
