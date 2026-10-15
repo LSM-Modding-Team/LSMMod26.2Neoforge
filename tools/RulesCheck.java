@@ -49,15 +49,22 @@ public class RulesCheck {
         double carried = FootballRules.shotSpeed(8, Math.abs(.28 - .27));
         double runUp = FootballRules.shotSpeed(8, .28);
         double oncoming = FootballRules.shotSpeed(8, Math.abs(.28 - (-.28)));
-        check("dribbling at the same speed adds little shot power", carried / FootballRules.shotSpeed(8) < 1.02, true);
+        check("dribbling at the same speed adds less than two bar points", FootballRules.charge(8,.01) - FootballRules.charge(8) < .02, true);
         check("running into a stationary ball adds more power than dribbling", runUp > carried, true);
         check("an oncoming ball adds more power than a stationary ball", oncoming > runUp, true);
         check("no relative motion preserves charge-only power", FootballRules.shotSpeed(8, 0) == FootballRules.shotSpeed(8), true);
         check("extreme impact speed cannot exceed the original cap", FootballRules.shotSpeed(0, 100) <= FootballRules.MAX_SHOT_SPEED
                 && FootballRules.shotSpeed(12, 100) == FootballRules.MAX_SHOT_SPEED, true);
         check("full charge plus a run-up stays at the same cap", FootballRules.shotSpeed(2400, .8) == FootballRules.shotSpeed(24), true);
-        check("a normal run-up gives fifty percent extra speed below the cap", Math.abs(runUp / FootballRules.shotSpeed(8) - 1.5) < .000001, true);
-        check("an oncoming ball can double a light strike", Math.abs(oncoming / FootballRules.shotSpeed(8) - 2) < .000001, true);
+        check("a normal run-up adds fifty points to the total bar", Math.abs(FootballRules.charge(8,.28)
+                - FootballRules.charge(8) - .5) < .000001, true);
+        check("an oncoming ball can add more than fifty bar points", FootballRules.charge(0,.42) > .5, true);
+        check("a head-on arrival can fill the bar without precharge", FootballRules.charge(0,.56) == 1, true);
+        check("run-up bonus is independent of prepared charge", Math.abs((FootballRules.charge(4,.28)-FootballRules.charge(4))
+                - (FootballRules.charge(8,.28)-FootballRules.charge(8))) < .000001, true);
+        check("quarter charge plus a run-up becomes three-quarter charge", FootballRules.shotSpeed(6,.28) == FootballRules.shotSpeed(18), true);
+        check("three-quarter charge plus a run-up caps at the full bar", FootballRules.charge(18,.28) == 1, true);
+        check("negative relative speed cannot remove charge", FootballRules.charge(8,-1) == FootballRules.charge(8), true);
         var still = new FootballRules.Direction(0,0,0);
         var sprint = new FootballRules.Direction(0,0,.28);
         var controlled = new FootballRules.Direction(0,0,.27);
@@ -72,15 +79,15 @@ public class RulesCheck {
         double approachSpeed = approach.peakRelativeSpeed(7,beforeTouch,slowed);
         check("regression: a last-moment dribble cannot erase the stationary-ball sample", beforeTouch.equals(still), true);
         check("recent running survives charge deceleration", Math.abs(approachSpeed-.28) < .000001, true);
-        check("a run-up still gives fifty percent after an automatic dribble", Math.abs(FootballRules.shotSpeed(8,approachSpeed)
-                / FootballRules.shotSpeed(8) - 1.5) < .000001, true);
+        check("a run-up still adds fifty bar points after an automatic dribble", Math.abs(FootballRules.charge(8,approachSpeed)
+                - FootballRules.charge(8) - .5) < .000001, true);
         approach.record(8,slowed);
         check("old sprint motion expires after the contact window", Math.abs(approach.peakRelativeSpeed(8,still,slowed)-.05) < .000001, true);
         for (int tick = 8; tick <= 16; tick++) {
             ballMotion.record(tick,controlled); approach.record(tick,sprint);
         }
-        check("sustained dribbling gets almost no run-up bonus", FootballRules.shotSpeed(8,
-                approach.peakRelativeSpeed(16,ballMotion.priorVelocity(16,controlled),sprint)) / FootballRules.shotSpeed(8) < 1.02, true);
+        check("sustained dribbling adds less than two bar points", FootballRules.charge(8,
+                approach.peakRelativeSpeed(16,ballMotion.priorVelocity(16,controlled),sprint)) - FootballRules.charge(8) < .02, true);
         check("expired history uses the current ball instead of a stale stationary sample", ballMotion.priorVelocity(100,controlled).equals(controlled), true);
         ballMotion.record(100,slowed);
         check("a newly resumed history starts from its fresh sample", ballMotion.priorVelocity(100,controlled).equals(slowed), true);

@@ -118,10 +118,12 @@ public final class FootballRules {
 
     public static double charge(long ticks) { return Math.max(0, Math.min(1, ticks / (double) CHARGE_TICKS)); }
     public static double shotSpeed(long ticks) { return 0.20 + 1.30 * charge(ticks); }
-    /** Normal sprint approach gives +50%; an opposing ball can give up to +100%, under the same cap. */
+    /** Add bar percentage points: normal sprint into a stationary ball adds 0.50; incoming balls add more. */
+    public static double charge(long ticks, double relativeSpeed) {
+        return Math.min(1, charge(ticks) + 0.50 * Math.max(0, relativeSpeed) / RUN_UP_SPEED);
+    }
     public static double shotSpeed(long ticks, double relativeSpeed) {
-        double bonus = Math.min(1, 0.50 * Math.max(0, relativeSpeed) / RUN_UP_SPEED);
-        return Math.min(MAX_SHOT_SPEED, shotSpeed(ticks) * (1 + bonus));
+        return 0.20 + 1.30 * charge(ticks, relativeSpeed);
     }
     public static double movementScale(long ticks) { double q = charge(ticks); return 0.65 - 0.53 * q*q; }
     public static int recoveryTicks(long held) { return 2 + (int) Math.round(5 * charge(held)); }

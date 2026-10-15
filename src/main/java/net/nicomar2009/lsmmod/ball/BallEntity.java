@@ -138,7 +138,8 @@ public final class BallEntity extends Entity implements ItemSupplier {
         setDeltaMovement(aim.scale(speed)); hurtMarked = true;
         playFootballSound(ModSounds.FOOTBALL_KICK.get(), speed);
         String message = kind == FootballRules.Strike.HEADER ? "football_header" : kind == FootballRules.Strike.VOLLEY ? "football_volley" : "football_shot";
-        player.sendOverlayMessage(Component.translatable("message.lsmmod." + message, (int) Math.round(shotStrength * 100)));
+        double finalBar = FootballRules.charge(held, relativeSpeed) * FootballRules.strikePower(kind);
+        player.sendOverlayMessage(Component.translatable("message.lsmmod." + message, (int) Math.round(finalBar * 100)));
     }
 
     public void followThrough(ServerPlayer player, int sample, int keys) {
