@@ -3,10 +3,10 @@ package net.nicomar2009.lsmmod.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -38,20 +38,19 @@ public class SchoolSanMartinBlock extends TwoTallBlock {
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     public static final IntegerProperty ROW = IntegerProperty.create("row", 0, 2);
     public static final IntegerProperty COLUMN = IntegerProperty.create("column", 0, 1);
+    private static final int REGENERATION_TICKS = 30 * 20;
     private final boolean wallMounted;
     private final int height;
-    private final boolean operable;
     private final VoxelShape[][][][] collisions;
 
     public static final BooleanProperty EXPANDED=BooleanProperty.create("expanded");
     public SchoolSanMartinBlock(Properties properties) {
-        this(properties,SchoolFacilityShapes.STATUE,false,3,false);
+        this(properties,SchoolFacilityShapes.STATUE,false,3);
     }
-    private SchoolSanMartinBlock(Properties properties,double[][] closed,boolean wallMounted,int height,boolean operable) {
+    private SchoolSanMartinBlock(Properties properties,double[][] closed,boolean wallMounted,int height) {
         super(properties);
         this.wallMounted = wallMounted;
         this.height = height;
-        this.operable = operable;
         collisions = new VoxelShape[2][height][2][4];
         var sharedRotations = new java.util.HashMap<java.util.List<net.minecraft.world.phys.AABB>, java.util.Map<Direction,VoxelShape>>();
         for (int open = 0; open < 2; open++) {
@@ -152,30 +151,35 @@ public class SchoolSanMartinBlock extends TwoTallBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
-        if (!operable || !player.mayBuild()) return InteractionResult.PASS;
+        if (!player.isAlive() || player.isSpectator() || !level.mayInteract(player, pos)) return InteractionResult.PASS;
         if (level.isClientSide()) return InteractionResult.SUCCESS;
-        BlockPos lower = base(pos, state);
-        Direction facing = state.getValue(FACING);
-        BlockState bottom = level.getBlockState(lower);
-        if (!matches(bottom, facing, 0, 0)) return InteractionResult.PASS;
-        boolean open = !opened(bottom);
-        for (int half = 0; half < height; half++) for (int column = 0; column < 2; column++) {
-            BlockPos target = cell(lower, facing, half, column);
-            BlockState current = level.getBlockState(target);
-            if (!matches(current, facing, half, column) || opened(current) != opened(bottom)
-                    || !level.mayInteract(player, target)
-                    || !player.mayUseItemAt(target, hit.getDirection(), player.getMainHandItem())
-                    || !level.isUnobstructed(current.setValue(OPEN, open), target, CollisionContext.empty()))
-                return InteractionResult.PASS;
-        }
-        for (int half = 0; half < height; half++) for (int column = 0; column < 2; column++) {
-            BlockPos target = cell(lower, facing, half, column);
-            level.setBlock(target, level.getBlockState(target).setValue(OPEN, open), Block.UPDATE_CLIENTS);
-        }
-        for (int half = 0; half < height; half++) for (int column = 0; column < 2; column++)
-            level.updateNeighborsAt(cell(lower, facing, half, column), this);
-        level.playSound(null, lower, open ? SoundEvents.IRON_DOOR_OPEN : SoundEvents.IRON_DOOR_CLOSE, SoundSource.BLOCKS, 0.6F, 1.0F);
+        if (!canReceiveBlessing(state, level, pos, player)) return InteractionResult.PASS;
+        player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, REGENERATION_TICKS, 0));
         return InteractionResult.SUCCESS;
+    }
+
+    private boolean canReceiveBlessing(BlockState state, Level level, BlockPos pos, Player player) {
+        boolean expanded = state.getValue(EXPANDED);
+        // Legacy statues use HALF, while expanded displays use ROW and COLUMN.
+        BlockPos lower = expanded ? base(pos, state)
+                : state.getValue(HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos;
+        Direction facing = state.getValue(FACING);
+        int rows = expanded ? height : 2;
+        int columns = expanded ? 2 : 1;
+        for (int half = 0; half < rows; half++) for (int column = 0; column < columns; column++) {
+            BlockPos target = cell(lower, facing, half, column);
+            if (!level.hasChunkAt(target) || !level.mayInteract(player, target)) return false;
+            BlockState current = level.getBlockState(target);
+            if (expanded) {
+                if (!matches(current, facing, half, column)
+                        || ((wallMounted || half == 0) && !supported(level, target, facing))) return false;
+            } else if (!current.is(this) || current.getValue(EXPANDED)
+                    || current.getValue(FACING) != facing
+                    || current.getValue(HALF) != (half == 0 ? DoubleBlockHalf.LOWER : DoubleBlockHalf.UPPER)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

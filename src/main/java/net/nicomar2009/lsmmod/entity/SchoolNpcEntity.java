@@ -323,7 +323,9 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
         if (!isTeacher() || player.isCreative() || player.isSpectator()) return false;
         String id = player.getUUID().toString();
         if (seesPlayer(player)) observedUniforms.put(id, hasCompleteSchoolUniform(player));
-        return witnessedAttackers.contains(id) || !observedUniforms.getOrDefault(id, false);
+        return net.nicomar2009.lsmmod.rules.SchoolStudyRules.teacherHostile(
+                witnessedAttackers.contains(id), observedUniforms.getOrDefault(id, false),
+                player.hasEffect(net.nicomar2009.lsmmod.registry.ModEffects.STUDIOUS));
     }
 
     /** Combat observers call this only for attacks against a teacher/student NPC. */

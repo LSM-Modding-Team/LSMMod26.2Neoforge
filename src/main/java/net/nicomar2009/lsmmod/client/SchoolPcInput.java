@@ -47,6 +47,10 @@ public final class SchoolPcInput {
         if (minecraft.player.isShiftKeyDown() || !SchoolPcScreen.hasPc(minecraft.level.getBlockState(hit.getBlockPos()))) return;
         event.setCanceled(true);
         event.setSwingHand(false);
-        if (event.getHand() == InteractionHand.MAIN_HAND) SchoolPcScreen.open(hit.getBlockPos());
+        if (event.getHand() == InteractionHand.MAIN_HAND) {
+            if (SchoolMediaDevices.role(minecraft.level.getBlockState(hit.getBlockPos())) == SchoolMediaRules.Role.PC)
+                ClientPacketDistributor.sendToServer(new net.nicomar2009.lsmmod.network.SchoolStudyPayload(hit.getBlockPos()));
+            SchoolPcScreen.open(hit.getBlockPos());
+        }
     }
 }

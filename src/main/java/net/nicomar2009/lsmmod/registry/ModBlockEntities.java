@@ -3,12 +3,16 @@ package net.nicomar2009.lsmmod.registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.transfer.item.VanillaContainerWrapper;
 import net.nicomar2009.lsmmod.LSMMod;
 import net.nicomar2009.lsmmod.block.AwningBlockEntity;
 import net.nicomar2009.lsmmod.block.DeskBlockEntity;
 import net.nicomar2009.lsmmod.block.ElementaryDeskBlockEntity;
 import net.nicomar2009.lsmmod.block.LockerBlockEntity;
+import net.nicomar2009.lsmmod.block.LostAndFoundBoxBlockEntity;
 
 import java.util.function.Supplier;
 
@@ -60,6 +64,10 @@ public final class ModBlockEntities {
             "elementary_desk",
             () -> new BlockEntityType<>(ElementaryDeskBlockEntity::new, ModBlocks.ELEMENTARY_DESK.get()));
 
+    public static final Supplier<BlockEntityType<LostAndFoundBoxBlockEntity>> LOST_AND_FOUND_BOX = BLOCK_ENTITIES.register(
+            "lost_and_found_box",
+            () -> new BlockEntityType<>(LostAndFoundBoxBlockEntity::new, ModBlocks.LOST_AND_FOUND_BOX.get()));
+
     public static final Supplier<BlockEntityType<AwningBlockEntity>> AWNING = BLOCK_ENTITIES.register(
             "awning", () -> new BlockEntityType<>(AwningBlockEntity::new,
                     ModBlocks.awningEntityBlocks()));
@@ -69,5 +77,11 @@ public final class ModBlockEntities {
 
     public static void register(IEventBus modEventBus) {
         BLOCK_ENTITIES.register(modEventBus);
+        modEventBus.addListener(ModBlockEntities::registerCapabilities);
+    }
+
+    private static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(Capabilities.Item.BLOCK, LOST_AND_FOUND_BOX.get(),
+                (box, side) -> VanillaContainerWrapper.of(box));
     }
 }

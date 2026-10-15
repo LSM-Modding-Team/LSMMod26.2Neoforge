@@ -30,6 +30,8 @@ public class LSMMod {
         ModEntities.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
         ModSounds.SOUNDS.register(modEventBus);
+        net.nicomar2009.lsmmod.registry.ModEffects.EFFECTS.register(modEventBus);
+        modEventBus.addListener(net.nicomar2009.lsmmod.network.SchoolStudyPayload::register);
         modEventBus.addListener(net.nicomar2009.lsmmod.network.PaintCopyPayload::register);
         modEventBus.addListener(net.nicomar2009.lsmmod.network.FootballInputPayload::register);
         modEventBus.addListener(net.nicomar2009.lsmmod.network.SchoolMediaPayloads::register);

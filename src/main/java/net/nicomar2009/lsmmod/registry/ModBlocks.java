@@ -84,7 +84,7 @@ public final class ModBlocks {
     public static final DeferredBlock<FullBathroomDoorBlock> SCHOOL_WOOD_DOOR = BLOCKS.registerBlock("school_wood_door", props -> new FullBathroomDoorBlock(3,props), props -> props.strength(2F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
     public static final DeferredBlock<SchoolSlidingEntranceBlock> SCHOOL_SLIDING_ENTRANCE = BLOCKS.registerBlock("school_sliding_entrance", SchoolSlidingEntranceBlock::new, props -> props.strength(3F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
     public static final DeferredBlock<RaisedDrinkingFountainBlock> DRINKING_FOUNTAIN_RAISED = BLOCKS.registerBlock("drinking_fountain_raised", RaisedDrinkingFountainBlock::new, props -> props.strength(2.5F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
-    public static final DeferredBlock<SchoolPassiveAccessoryBlock> LOST_AND_FOUND_BOX = BLOCKS.registerBlock("lost_and_found_box", props -> new SchoolPassiveAccessoryBlock(props,SchoolEntranceAccessoryShapes.LOST_BOX), props -> props.strength(1.5F).sound(SoundType.WOOD).noOcclusion());
+    public static final DeferredBlock<LostAndFoundBoxBlock> LOST_AND_FOUND_BOX = BLOCKS.registerBlock("lost_and_found_box", LostAndFoundBoxBlock::new, props -> props.strength(1.5F).sound(SoundType.WOOD).noOcclusion());
     // END KIOSK ENTRANCE ACCESSORIES
 
     // BEGIN SCHOOL CRUCIFIX
