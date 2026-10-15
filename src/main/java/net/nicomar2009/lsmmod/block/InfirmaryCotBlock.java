@@ -57,7 +57,7 @@ public class InfirmaryCotBlock extends Block {
         if(!isComplete(level,root,state))return InteractionResult.CONSUME;
         for(CotRestEntity rest:level.getEntitiesOfClass(CotRestEntity.class,new AABB(root))) {
             if(rest.isVehicle()) {
-                player.displayClientMessage(Component.translatable("block.minecraft.bed.occupied"),true);
+                player.sendOverlayMessage(Component.translatable("block.minecraft.bed.occupied"));
                 return InteractionResult.CONSUME;
             }
             rest.discard();
@@ -65,7 +65,7 @@ public class InfirmaryCotBlock extends Block {
         for(int segment=0;segment<length(state);segment++) {
             BlockPos above=cell(root,state,segment).above();
             if(!level.getBlockState(above).getCollisionShape(level,above).isEmpty()) {
-                player.displayClientMessage(Component.translatable("block.minecraft.bed.obstructed"),true);
+                player.sendOverlayMessage(Component.translatable("block.minecraft.bed.obstructed"));
                 return InteractionResult.CONSUME;
             }
         }
