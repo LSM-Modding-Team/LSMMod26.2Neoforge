@@ -210,5 +210,21 @@
         "stream": true
       }
     ]
+  },
+  "music_disc.formacion": {
+    "sounds": [
+      {
+        "name": "lsmmod:records/formacion",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.himnoperu": {
+    "sounds": [
+      {
+        "name": "lsmmod:records/himnoperu",
+        "stream": true
+      }
+    ]
   }
 }

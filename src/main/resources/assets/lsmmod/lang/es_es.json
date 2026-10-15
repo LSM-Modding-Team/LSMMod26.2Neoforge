@@ -425,5 +425,9 @@
   "container.lsmmod.lost_and_found_box": "Objetos perdidos",
   "effect.lsmmod.studious": "Estudioso",
   "message.lsmmod.pc.studied": "Estudioso: 3 min. Las agresiones presenciadas no se perdonan.",
-  "message.lsmmod.pc.study_cooldown": "Podrás estudiar aquí en %s s. El navegador sigue disponible."
+  "message.lsmmod.pc.study_cooldown": "Podrás estudiar aquí en %s s. El navegador sigue disponible.",
+  "item.lsmmod.formacion": "Disco: Formación",
+  "jukebox_song.lsmmod.formacion": "Formación",
+  "item.lsmmod.himnoperu": "Disco: Himno Nacional del Perú",
+  "jukebox_song.lsmmod.himnoperu": "Himno Nacional del Perú"
 }

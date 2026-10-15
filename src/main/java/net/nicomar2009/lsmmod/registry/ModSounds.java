@@ -84,6 +84,16 @@ public class ModSounds {
                     SoundEvent.createVariableRangeEvent(
                             Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "music_disc.carnaval_macari")));
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> FORMACION =
+            SOUNDS.register("music_disc.formacion", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "music_disc.formacion")));
+
+    public static final DeferredHolder<SoundEvent, SoundEvent> HIMNOPERU =
+            SOUNDS.register("music_disc.himnoperu", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "music_disc.himnoperu")));
+
     public static final DeferredHolder<SoundEvent, SoundEvent> RULER_HIT =
             SOUNDS.register("ruler_hit", () ->
                     SoundEvent.createVariableRangeEvent(

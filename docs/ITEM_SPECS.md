@@ -161,7 +161,7 @@ Los otros dos legendarios del diseño son **bloques**: el ataúd de Manuel Tirad
 
 ## Discos y música
 
-Implementado: los discos escolares se reproducen en la gramola y aparecen en la pestaña de objetos, después del himno y la marcha, en orden de 5to a 1ro de Secundaria. Usan el modelo del disco del himno, pila máxima de uno y rareza rara. Los cinco Ogg originales se conservan completos; la duración de la canción sigue el archivo, sin recortes, silencios ni cambios de tempo.
+Implementado: los discos escolares se reproducen en la gramola y aparecen en la pestaña de objetos, después del himno y la marcha, en orden de 5to a 1ro de Secundaria. Los siete discos de esta colección tienen etiquetas de vinilo únicas de 16×16 px, pila máxima de uno y rareza rara; el himno y la marcha del colegio conservan sus texturas. Generador: `tools/create_music_disc_assets.py`; revisión externa del ítem generado: `tools/render_music_discs.py`. Los cinco Ogg originales se conservan completos; la duración de la canción sigue el archivo, sin recortes, silencios ni cambios de tempo.
 
 | Salón | Disco (ID) | Duración (s) |
 |---|---|---|
@@ -170,6 +170,8 @@ Implementado: los discos escolares se reproducen en la gramola y aparecen en la 
 | 3ro | `carnaval_huaccana` | 573.393560 |
 | 2do | `carnaval_huanupampa` | 594.012880 |
 | 1ro | `carnaval_macari` | 540.467664 |
+
+También están implementados `formacion` (129.985306 s) e `himnoperu` (159.497868 s), después de los cinco discos de Secundaria. Se convirtieron íntegros desde los MP3 suministrados a Ogg Vorbis mono, sin recortes ni cambios de tempo.
 
 Diseño pendiente para laptops y loot:
 

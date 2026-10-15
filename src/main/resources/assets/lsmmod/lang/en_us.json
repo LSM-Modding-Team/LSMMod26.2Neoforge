@@ -431,5 +431,9 @@
   "container.lsmmod.lost_and_found_box": "Lost and Found",
   "effect.lsmmod.studious": "Studious",
   "message.lsmmod.pc.studied": "Studious: 3 min. Witnessed attacks are not forgiven.",
-  "message.lsmmod.pc.study_cooldown": "You can study here in %s s. The browser remains available."
+  "message.lsmmod.pc.study_cooldown": "You can study here in %s s. The browser remains available.",
+  "item.lsmmod.formacion": "Music Disc: Formation",
+  "jukebox_song.lsmmod.formacion": "Formation",
+  "item.lsmmod.himnoperu": "Music Disc: National Anthem of Peru",
+  "jukebox_song.lsmmod.himnoperu": "National Anthem of Peru"
 }

@@ -463,6 +463,28 @@ public final class ModItems {
                     .rarity(Rarity.RARE)
                     .jukeboxPlayable(CARNAVAL_MACARI_SONG));
 
+    public static final ResourceKey<JukeboxSong> FORMACION_SONG = ResourceKey.create(
+            Registries.JUKEBOX_SONG,
+            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "formacion"));
+
+    public static final DeferredItem<Item> FORMACION = ITEMS.registerItem(
+            "formacion",
+            Item::new, props -> props
+                    .stacksTo(1)
+                    .rarity(Rarity.RARE)
+                    .jukeboxPlayable(FORMACION_SONG));
+
+    public static final ResourceKey<JukeboxSong> HIMNOPERU_SONG = ResourceKey.create(
+            Registries.JUKEBOX_SONG,
+            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "himnoperu"));
+
+    public static final DeferredItem<Item> HIMNOPERU = ITEMS.registerItem(
+            "himnoperu",
+            Item::new, props -> props
+                    .stacksTo(1)
+                    .rarity(Rarity.RARE)
+                    .jukeboxPlayable(HIMNOPERU_SONG));
+
     public static final DeferredItem<BlockItem> DINING_TABLE =
             ITEMS.registerSimpleBlockItem(ModBlocks.DINING_TABLE);
 
