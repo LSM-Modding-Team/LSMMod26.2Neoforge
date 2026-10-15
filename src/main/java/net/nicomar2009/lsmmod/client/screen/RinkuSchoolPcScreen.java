@@ -25,7 +25,7 @@ import org.lwjgl.glfw.GLFW;
 
 /** Interactive view of the device session also used by projectors and speakers. */
 final class RinkuSchoolPcScreen extends SchoolPcScreen {
-    private static final String HOME = "https://www.google.com/";
+    private static final String SEARCH_URL = "https://www.google.com/search?q=";
     private final Map<Integer, KeyEvent> heldKeys = new HashMap<>();
     private RinkuBrowser browser;
     private SchoolBrowserSessions.Session session;
@@ -41,11 +41,11 @@ final class RinkuSchoolPcScreen extends SchoolPcScreen {
     protected void init() {
         unfocusBrowser();
         super.init();
-        String draft = address == null ? HOME : address.getValue();
+        String draft = address == null ? SchoolBrowserSessions.homePage(sourcePos()) : address.getValue();
         back = navigation("<", "back", MARGIN, () -> browser.goBack());
         forward = navigation(">", "forward", MARGIN + 24, () -> browser.goForward());
         reload = navigation("R", "reload", MARGIN + 48, () -> browser.reload());
-        home = navigation("H", "home", MARGIN + 72, () -> navigate(HOME));
+        home = navigation("H", "home", MARGIN + 72, () -> navigate(SchoolBrowserSessions.homePage(sourcePos())));
         int addressX = MARGIN + 96;
         address = addRenderableWidget(new EditBox(font, addressX, NAV_Y,
                 Math.max(1, width - MARGIN - 28 - addressX), 20,
@@ -117,7 +117,7 @@ final class RinkuSchoolPcScreen extends SchoolPcScreen {
             } else if (!value.contains(" ") && (value.contains(".") || value.startsWith("localhost"))) {
                 url = "https://" + value;
             } else {
-                url = HOME + "search?q=" + URLEncoder.encode(value, StandardCharsets.UTF_8);
+                url = SEARCH_URL + URLEncoder.encode(value, StandardCharsets.UTF_8);
             }
             URI uri = URI.create(url);
             if (!("https".equalsIgnoreCase(uri.getScheme()) || "http".equalsIgnoreCase(uri.getScheme()))

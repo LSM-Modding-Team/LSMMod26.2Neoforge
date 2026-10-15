@@ -27,7 +27,7 @@ public final class SchoolBrowserSessions {
             block = Minecraft.getInstance().level.getBlockState(source).getBlock();
             SchoolBrowserAudio.install();
             // Register capture before native creation, including the first page's audio setup.
-            browser = new RinkuBrowser(Rinku.getClient(), "https://www.google.com/", false);
+            browser = new RinkuBrowser(Rinku.getClient(), homePage(source), false);
             audio = SchoolBrowserAudio.attach(browser, source);
             try {
                 browser.setCloseAllowed();
@@ -44,6 +44,12 @@ public final class SchoolBrowserSessions {
         }
     }
     private SchoolBrowserSessions() { }
+    public static String homePage(BlockPos source) {
+        var level = Minecraft.getInstance().level;
+        return level != null && SchoolMediaDevices.role(level.getBlockState(source)) == SchoolMediaRules.Role.MOISES_LAPTOP
+                ? "https://lsm-modding-team.github.io/lsm-music/"
+                : "https://www.google.com/";
+    }
     public static Session acquire(BlockPos source) {
         SchoolMediaClient.prepareLevel();
         Session session = SESSIONS.get(source);

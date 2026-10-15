@@ -49,6 +49,8 @@ Si cambias dimensiones o rejilla de un conjunto, conserva estados antiguos o exp
 
 PC suelta, ambas mesas con `has_pc=true`, `laptop` y `moises_laptop`: clic derecho con ambas manos vacías, sin Shift, abre Chromium. Las mesas vacías no abren navegador. Conserva colocación, retirada con Shift, estados y drops existentes. Hay direcciones HTTP(S), búsqueda en Google, navegación, teclado/ratón/arrastre y Ctrl+L; Esc/X cierra la interfaz. Cada dispositivo mantiene una sesión local de 1280×720: PC/laptop, proyector y parlantes comparten esa misma sesión. Cerrar la interfaz mantiene la reproducción mientras haya salidas cargadas conectadas; sin salidas se libera tras cinco segundos. Retirar el origen, descargar su chunk, cambiar de mundo/dimensión o desconectarse libera navegador y audio. Máximo 16 navegadores activos por cliente.
 
+La laptop de Moisés inicia sus sesiones en [LSM Música](https://lsm-modding-team.github.io/lsm-music/); su botón de inicio `H` vuelve al reproductor. Las demás PC y laptops inician en Google. Las búsquedas de texto siguen usando Google en todos los dispositivos; volver a abrir una sesión activa conserva su navegación y reproducción.
+
 Dependencia **opcional del cliente**: [Rinku 3.0.4 para NeoForge 26.2](https://modrinth.com/mod/rinku/version/uQ2Zmf4D), Maven `de.keksuccino:rinku-neoforge:3.0.4-26.2`. Gradle lo incluye en desarrollo mediante `localRuntime`, sin empaquetarlo en LSM; en una instalación normal se instala en `mods/` del cliente. No es necesario en el servidor. El primer inicio de Rinku descarga Chromium. Sin Rinku se muestra cómo habilitarlo; sus perfiles/cookies pertenecen a Rinku y no se borran al cerrar la interfaz.
 
 ### Conectar proyector y parlantes
