@@ -159,7 +159,19 @@ El impacto reproduce `minecraft:item.mace.smash_ground`. Cada golpe aceptado sob
 
 Los otros dos legendarios del diseño son **bloques**: el ataúd de Manuel Tirado y San Martín de Porres ([BLOCK_SPECS](BLOCK_SPECS.md)).
 
-## Discos y música (diseño)
+## Discos y música
+
+Implementado: los discos escolares se reproducen en la gramola y aparecen en la pestaña de objetos, después del himno y la marcha, en orden de 5to a 1ro de Secundaria. Usan el modelo del disco del himno, pila máxima de uno y rareza rara. Los cinco Ogg originales se conservan completos; la duración de la canción sigue el archivo, sin recortes, silencios ni cambios de tempo.
+
+| Salón | Disco (ID) | Duración (s) |
+|---|---|---|
+| 5to | `qapackachampa` | 584.771338 |
+| 4to | `cofradia_san_miguel` | 503.571156 |
+| 3ro | `carnaval_huaccana` | 573.393560 |
+| 2do | `carnaval_huanupampa` | 594.012880 |
+| 1ro | `carnaval_macari` | 540.467664 |
+
+Diseño pendiente para laptops y loot:
 
 * Las **laptops reproducen discos** (música custom, p. ej. "nene malo", "bby wow"); los discos se obtienen como **loot**.
 * Laptop común: radio de 6 bloques *(propuesta)*. Laptop de Moisés: toda la estructura, click derecho alterna himno y marcha del colegio. Detalle del bloque: [BLOCK_SPECS](BLOCK_SPECS.md).
