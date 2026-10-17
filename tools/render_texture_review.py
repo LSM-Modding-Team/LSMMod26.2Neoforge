@@ -7,7 +7,9 @@ import math
 from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw
-from create_school_glass_assets import ROOT, A
+from create_school_glass_assets import ROOT
+from resource_modules import source_assets
+A = source_assets()
 
 VANILLA = Path('/tmp/lsm-render-assets')
 

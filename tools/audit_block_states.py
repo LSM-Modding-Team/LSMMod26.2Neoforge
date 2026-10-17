@@ -12,6 +12,7 @@ STANDARD={'HORIZONTAL_FACING':('facing',4),'DOUBLE_BLOCK_HALF':('half',2),'HALF'
  'DOOR_HINGE':('hinge',2),'SLAB_TYPE':('type',3),'STAIRS_SHAPE':('shape',5)}
 def source(cls):
  p=J/f'block/{cls}.java'
+ if not p.exists() and cls.startswith('SportsGoal'):p=J/f'modules/balls/block/{cls}.java'
  if not p.exists():raise ValueError(f'Unknown source class: {cls}')
  return p.read_text(encoding='utf-8')
 def parent(cls):return re.search(r'class\s+\w+\s+extends\s+(\w+)',source(cls))[1]
@@ -60,7 +61,7 @@ def domains(cls):
    out[key]=count
  return out
 def audit():
- reg=(J/'registry/ModBlocks.java').read_text(encoding='utf-8')
+ reg=(J/'registry/ModBlocks.java').read_text(encoding='utf-8') + (J/'modules/balls/registry/ModuleBlocks.java').read_text(encoding='utf-8')
  entries=re.findall(r'DeferredBlock<(\w+)>\s+\w+\s*=\s*BLOCKS.registerBlock\(\s*"([^"]+)"',reg)
  if len(entries)!=len(re.findall(r'=\s*BLOCKS.registerBlock\(',reg)):raise ValueError('Unrecognized block registration')
  result=[]

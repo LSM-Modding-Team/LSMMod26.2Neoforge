@@ -3,7 +3,7 @@ from pathlib import Path
 import json
 from PIL import Image, ImageDraw, ImageChops
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'src/main/resources/assets/lsmmod/textures/entity/student_appearance'
+OUT=ROOT/'src/main/resources/npcs/assets/lsmmod/textures/entity/student_appearance'
 OUT.mkdir(parents=True,exist_ok=True)
 DATA=json.loads((ROOT/'tools/student_appearance_palette.json').read_text())
 DARK,MID='#2e2117','#493526'

@@ -1,0 +1,20 @@
+{
+  "item.lsmmod.lsm_anthem": "Disco: Himno del Colegio Libertador San Martín",
+  "jukebox_song.lsmmod.lsm_anthem": "Tobías Vílchez Pinedo - Himno LSM",
+  "item.lsmmod.lsm_march": "Music Disc: Marcha del Colegio Libertador San Martin",
+  "jukebox_song.lsmmod.lsm_march": "Tobias Vílchez Pinedo - Marcha LSM",
+  "item.lsmmod.qapackachampa": "Disco: Qapac Kachampa",
+  "jukebox_song.lsmmod.qapackachampa": "5to - Qapac Kachampa",
+  "item.lsmmod.cofradia_san_miguel": "Disco: Cofradia de San Miguel",
+  "jukebox_song.lsmmod.cofradia_san_miguel": "4to -Cofradia de San Miguel",
+  "item.lsmmod.carnaval_huaccana": "Disco: Carnaval de Huaccana",
+  "jukebox_song.lsmmod.carnaval_huaccana": "3ro - Carnaval de Huaccana",
+  "item.lsmmod.carnaval_huanupampa": "Disco: Carnaval de Huanupampa",
+  "jukebox_song.lsmmod.carnaval_huanupampa": "2do - Carnaval de Huanupampa",
+  "item.lsmmod.carnaval_macari": "Disco: Carnaval de Macari",
+  "jukebox_song.lsmmod.carnaval_macari": "1ro - Carnaval de Macari",
+  "item.lsmmod.formacion": "Disco: Marcha de las Banderas",
+  "jukebox_song.lsmmod.formacion": "Formación: Marcha de las Banderas",
+  "item.lsmmod.himnoperu": "Disco: Himno Nacional del Perú",
+  "jukebox_song.lsmmod.himnoperu": "Formación: Himno Nacional del Perú"
+}

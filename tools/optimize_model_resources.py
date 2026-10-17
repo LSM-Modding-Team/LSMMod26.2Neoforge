@@ -33,11 +33,8 @@ def prepare(output):
   if not (owned or expected or empty):raise ValueError('Refusing to clear an unowned output directory')
   shutil.rmtree(output)
  output.mkdir(parents=True);(output/'.lsmmod-optimized-resources').touch()
- for base in (ROOT/'src/main/resources',ROOT/'src/generated/resources'):
-  if not base.exists():continue
-  for p in base.rglob('*'):
-   if p.is_file() and p.suffix!='.bbmodel' and p.name!='.gitkeep' and '.cache' not in p.parts:
-    dest=output/p.relative_to(base);dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dest)
+ from resource_modules import compose
+ compose(output)
  assets=output/'assets/lsmmod'
  from create_school_projecting_window_assets import prepare_layouts
  prepare_layouts(assets)

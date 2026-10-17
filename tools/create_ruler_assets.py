@@ -4,7 +4,7 @@ from pathlib import Path
 import json
 from PIL import Image,ImageDraw,ImageFont
 ROOT=Path(__file__).resolve().parents[1]
-ASSETS=ROOT/'src/main/resources/assets/lsmmod'
+ASSETS=ROOT/'src/main/resources/school_supplies/assets/lsmmod'
 TIERS=json.loads((ROOT/'tools/ruler_tiers.json').read_text())
 PALETTES={'wooden':((191,145,77),(41,31,22)), 'stone':((142,145,147),(30,32,34)), 'golden':((232,188,61),(67,46,16)), 'iron':((206,214,219),(36,44,52)), 'diamond':((66,205,193),(15,56,67)), 'netherite':((73,65,70),(218,207,180))}
 MATERIALS={'wooden':'#minecraft:planks','stone':'#minecraft:stone_tool_materials','golden':'minecraft:gold_ingot','iron':'minecraft:iron_ingot','diamond':'minecraft:diamond'}
@@ -48,10 +48,10 @@ for name,material,durability,damage,enchantability in TIERS:
  elements=[board,cube([7,4,6.25],[9,5,7.5],[8,4,12,8]),cube([7,11,6.25],[9,12,7.5],[8,4,12,8]),cube([7,4,5.75],[9,12,6.25],[8,4,12,8])]
  write(ASSETS/f'models/item/{name}_ruler.json',{'textures':{'atlas':f'lsmmod:item/{name}_ruler','particle':f'lsmmod:item/{name}_ruler'},'elements':elements,'display':DISPLAY})
  write(ASSETS/f'items/{name}_ruler.json',{'model':{'type':'minecraft:model','model':f'lsmmod:item/{name}_ruler'}})
- recipe=ROOT/f'src/main/resources/data/lsmmod/recipe/{name}_ruler.json'
+ recipe=ROOT/f'src/main/resources/school_supplies/data/lsmmod/recipe/{name}_ruler.json'
  if name=='netherite':
   write(recipe,{'type':'minecraft:smithing_transform','template':'minecraft:netherite_upgrade_smithing_template','base':'lsmmod:diamond_ruler','addition':'#minecraft:netherite_tool_materials','result':{'id':'lsmmod:netherite_ruler'}})
  else:
   write(recipe,{'type':'minecraft:crafting_shaped','category':'equipment','pattern':['M','M','S'],'key':{'M':MATERIALS[name],'S':'minecraft:stick'},'result':{'id':f'lsmmod:{name}_ruler','count':1}})
-write(ROOT/'src/main/resources/data/minecraft/tags/item/swords.json',{'replace':False,'values':[f'lsmmod:{tier[0]}_ruler' for tier in TIERS]})
+write(ROOT/'src/main/resources/school_supplies/data/minecraft/tags/item/swords.json',{'replace':False,'values':[f'lsmmod:{tier[0]}_ruler' for tier in TIERS]})
 print('Generated six ruler models, 128x128 pixel textures, definitions, recipes and sword tag.')

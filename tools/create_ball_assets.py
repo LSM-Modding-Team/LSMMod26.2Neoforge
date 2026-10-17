@@ -3,7 +3,7 @@ from pathlib import Path
 import json, math
 from PIL import Image,ImageDraw
 ROOT=Path(__file__).resolve().parents[1]
-A=ROOT/'src/main/resources/assets/lsmmod'
+A=ROOT/'src/main/resources/balls/assets/lsmmod'
 for p in ['textures/item','models/item','items']:(A/p).mkdir(parents=True,exist_ok=True)
 for name in ['plastic_ball','football_ball','basketball_ball','volleyball_ball']:
  im=Image.new('RGBA',(16,16));d=ImageDraw.Draw(im)

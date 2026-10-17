@@ -1,5 +1,6 @@
 """One painted cube state, reusable face models, and texture-only tools."""
 from resource_json import resource_json
+from resource_modules import output_path, write_resource
 import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmod'
@@ -7,7 +8,7 @@ SIDES=('down','up','north','south','west','east')
 PAINTS=('minecraft:block/light_gray_concrete','lsmmod:block/light_school_wall',
         'lsmmod:block/dark_school_wall','lsmmod:block/street_school_wall','lsmmod:block/classroom_white_wall','lsmmod:block/classroom_floor','lsmmod:block/yellow_school_block','lsmmod:block/white_playground_floor','lsmmod:block/gray_playground_floor','lsmmod:block/green_playground_floor','lsmmod:block/orange_playground_floor','lsmmod:block/dark_tiled_floor','lsmmod:block/red_street_wall','lsmmod:block/school_laboratory_tile','lsmmod:block/laboratory_table_tile','lsmmod:block/auditorium_parquet')
 TOOLS=('light_school','dark_school','street_school','classroom_white','classroom_floor_paint','yellow_school_paint','white_playground_floor_paint','gray_playground_floor_paint','green_playground_floor_paint','orange_playground_floor_paint','dark_tiled_floor_paint','red_street_wall_paint','school_laboratory_tile_paint','laboratory_table_tile_paint','auditorium_parquet_paint','paint_cleaner')
-def write(p,d):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, d, ensure_ascii=False)+'\n',encoding='utf-8')
+def write(p,d):write_resource(p,d)
 def main():
  series=[]
  for face in SIDES:
@@ -33,8 +34,8 @@ def main():
  block='    public static final DeferredBlock<SchoolPaintableBlock> SCHOOL_PAINTABLE_BLOCK = BLOCKS.registerBlock(\n            "school_paintable_block", SchoolPaintableBlock::new,\n            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());'
  items=['    public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_BLOCK);']
  for name,color in zip(TOOLS[:-1],('LIGHT','DARK','STREET','WHITE','FLOOR','YELLOW','PLAYGROUND_WHITE','PLAYGROUND_GRAY','PLAYGROUND_GREEN','PLAYGROUND_ORANGE','DARK_TILED','RED_STREET','LABORATORY_TILE','LABORATORY_TABLE_TILE','AUDITORIUM_PARQUET')):
-  items.append(f'    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> {name.upper()} = ITEMS.registerItem("{name}", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.{color}, props));')
- items.append('    public static final DeferredItem<net.nicomar2009.lsmmod.item.PaintCleanerItem> PAINT_CLEANER = ITEMS.registerItem("paint_cleaner", net.nicomar2009.lsmmod.item.PaintCleanerItem::new);')
+  items.append(f'    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> {name.upper()} = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.{name.upper()};')
+ items.append('    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.PaintCleanerItem> PAINT_CLEANER = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.PAINT_CLEANER;')
  for filename,body in [('ModBlocks.java',block),('ModItems.java','\n'.join(items))]:
   p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=p.read_text();start='    // BEGIN PAINTABLE SCHOOL BLOCK';end='    // END PAINTABLE SCHOOL BLOCK';section=start+'\n'+body+'\n'+end+'\n\n'
   if start in s:a=s.index(start);b=s.index(end)+len(end);s=s[:a]+section.rstrip()+s[b:]

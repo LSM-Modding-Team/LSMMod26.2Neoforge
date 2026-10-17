@@ -32,17 +32,13 @@ public class LSMMod {
         ModSounds.SOUNDS.register(modEventBus);
         net.nicomar2009.lsmmod.registry.ModEffects.EFFECTS.register(modEventBus);
         modEventBus.addListener(net.nicomar2009.lsmmod.network.SchoolStudyPayload::register);
-        modEventBus.addListener(net.nicomar2009.lsmmod.network.PaintCopyPayload::register);
-        modEventBus.addListener(net.nicomar2009.lsmmod.network.FootballInputPayload::register);
+        modEventBus.addListener(net.nicomar2009.lsmmod.modules.school_supplies.network.PaintCopyPayload::register);
+        modEventBus.addListener(net.nicomar2009.lsmmod.modules.balls.network.FootballInputPayload::register);
         modEventBus.addListener(net.nicomar2009.lsmmod.network.SchoolMediaPayloads::register);
         modEventBus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent event) ->
                 event.registrar("1").playToClient(
                         net.nicomar2009.lsmmod.network.SpeakerSoundPayload.TYPE,
                         net.nicomar2009.lsmmod.network.SpeakerSoundPayload.CODEC));
-        modEventBus.addListener((net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent event) -> {
-            event.put(ModEntities.STUDENT.get(), net.nicomar2009.lsmmod.entity.StudentEntity.createAttributes().build());
-            event.put(ModEntities.TEACHER.get(), net.nicomar2009.lsmmod.entity.TeacherEntity.createAttributes().build());
-        });
         LOGGER.info("LSM Mod loaded");
     }
 }

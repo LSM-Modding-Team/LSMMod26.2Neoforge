@@ -1,9 +1,5 @@
 package net.nicomar2009.lsmmod.registry;
 
-import net.minecraft.core.registries.Registries;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.*;
@@ -12,15 +8,13 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.nicomar2009.lsmmod.LSMMod;
 import net.nicomar2009.lsmmod.item.AwningItem;
-import net.nicomar2009.lsmmod.item.RulerItem;
-import net.nicomar2009.lsmmod.item.SchoolUniformItem;
-import net.minecraft.world.item.equipment.ArmorType;
-import net.nicomar2009.lsmmod.item.InstrumentItem;
+import net.nicomar2009.lsmmod.modules.school_supplies.item.RulerItem;
+import net.nicomar2009.lsmmod.modules.uniforms.item.SchoolUniformItem;
 import net.nicomar2009.lsmmod.item.PortableSpeakerItem;
 
 /** Item registry for the school blocks; standalone items are planned. */
 public final class ModItems {
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LSMMod.MOD_ID);
+    public static final DeferredRegister.Items ITEMS = ModRegistries.ITEMS;
 
     // BEGIN DINING COUNTER
     public static final DeferredItem<BlockItem> DINING_ROOM_COUNTER = ITEMS.registerSimpleBlockItem(ModBlocks.DINING_ROOM_COUNTER);
@@ -105,28 +99,28 @@ public final class ModItems {
     // BEGIN CUSTOM PAINTABLE BLOCKS
     public static final DeferredItem<BlockItem> SCHOOL_FOUNDATION = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_FOUNDATION);
     public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_CUSTOM_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_CUSTOM_BLOCK);
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolSandpaperItem> SCHOOL_SANDPAPER = ITEMS.registerItem("school_sandpaper", net.nicomar2009.lsmmod.item.SchoolSandpaperItem::new);
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolHammerItem> SCHOOL_HAMMER = ITEMS.registerItem("school_hammer", net.nicomar2009.lsmmod.item.SchoolHammerItem::new);
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolSandpaperItem> SCHOOL_SANDPAPER = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.SCHOOL_SANDPAPER;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolHammerItem> SCHOOL_HAMMER = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.SCHOOL_HAMMER;
     // END CUSTOM PAINTABLE BLOCKS
 
     // BEGIN PAINTABLE SCHOOL BLOCK
     public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_BLOCK);
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> LIGHT_SCHOOL = ITEMS.registerItem("light_school", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.LIGHT, props));
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> DARK_SCHOOL = ITEMS.registerItem("dark_school", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.DARK, props));
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> STREET_SCHOOL = ITEMS.registerItem("street_school", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.STREET, props));
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> CLASSROOM_WHITE = ITEMS.registerItem("classroom_white", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.WHITE, props));
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> CLASSROOM_FLOOR_PAINT = ITEMS.registerItem("classroom_floor_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.FLOOR, props));
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> YELLOW_SCHOOL_PAINT = ITEMS.registerItem("yellow_school_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.YELLOW, props));
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> WHITE_PLAYGROUND_FLOOR_PAINT = ITEMS.registerItem("white_playground_floor_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.PLAYGROUND_WHITE, props));
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> GRAY_PLAYGROUND_FLOOR_PAINT = ITEMS.registerItem("gray_playground_floor_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.PLAYGROUND_GRAY, props));
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> GREEN_PLAYGROUND_FLOOR_PAINT = ITEMS.registerItem("green_playground_floor_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.PLAYGROUND_GREEN, props));
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> ORANGE_PLAYGROUND_FLOOR_PAINT = ITEMS.registerItem("orange_playground_floor_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.PLAYGROUND_ORANGE, props));
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> DARK_TILED_FLOOR_PAINT = ITEMS.registerItem("dark_tiled_floor_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.DARK_TILED, props));
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> RED_STREET_WALL_PAINT = ITEMS.registerItem("red_street_wall_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.RED_STREET, props));
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> SCHOOL_LABORATORY_TILE_PAINT = ITEMS.registerItem("school_laboratory_tile_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.LABORATORY_TILE, props));
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> LABORATORY_TABLE_TILE_PAINT = ITEMS.registerItem("laboratory_table_tile_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.LABORATORY_TABLE_TILE, props));
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolPaintItem> AUDITORIUM_PARQUET_PAINT = ITEMS.registerItem("auditorium_parquet_paint", props -> new net.nicomar2009.lsmmod.item.SchoolPaintItem(net.nicomar2009.lsmmod.block.SchoolPaint.AUDITORIUM_PARQUET, props));
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.PaintCleanerItem> PAINT_CLEANER = ITEMS.registerItem("paint_cleaner", net.nicomar2009.lsmmod.item.PaintCleanerItem::new);
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> LIGHT_SCHOOL = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.LIGHT_SCHOOL;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> DARK_SCHOOL = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.DARK_SCHOOL;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> STREET_SCHOOL = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.STREET_SCHOOL;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> CLASSROOM_WHITE = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.CLASSROOM_WHITE;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> CLASSROOM_FLOOR_PAINT = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.CLASSROOM_FLOOR_PAINT;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> YELLOW_SCHOOL_PAINT = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.YELLOW_SCHOOL_PAINT;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> WHITE_PLAYGROUND_FLOOR_PAINT = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.WHITE_PLAYGROUND_FLOOR_PAINT;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> GRAY_PLAYGROUND_FLOOR_PAINT = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.GRAY_PLAYGROUND_FLOOR_PAINT;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> GREEN_PLAYGROUND_FLOOR_PAINT = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.GREEN_PLAYGROUND_FLOOR_PAINT;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> ORANGE_PLAYGROUND_FLOOR_PAINT = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.ORANGE_PLAYGROUND_FLOOR_PAINT;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> DARK_TILED_FLOOR_PAINT = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.DARK_TILED_FLOOR_PAINT;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> RED_STREET_WALL_PAINT = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.RED_STREET_WALL_PAINT;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> SCHOOL_LABORATORY_TILE_PAINT = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.SCHOOL_LABORATORY_TILE_PAINT;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> LABORATORY_TABLE_TILE_PAINT = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.LABORATORY_TABLE_TILE_PAINT;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> AUDITORIUM_PARQUET_PAINT = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.AUDITORIUM_PARQUET_PAINT;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.PaintCleanerItem> PAINT_CLEANER = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.PAINT_CLEANER;
     // END PAINTABLE SCHOOL BLOCK
 
     // BEGIN YELLOW SCHOOL BLOCK
@@ -256,8 +250,7 @@ public final class ModItems {
 
     public static final DeferredItem<BlockItem> TALL_DINING_DOOR = ITEMS.registerSimpleBlockItem(ModBlocks.TALL_DINING_DOOR);
 
-    public static final DeferredItem<BlockItem> FOOTBALL_BASKETBALL_GOAL =
-            ITEMS.registerSimpleBlockItem(ModBlocks.FOOTBALL_BASKETBALL_GOAL);
+    public static final DeferredItem<BlockItem> FOOTBALL_BASKETBALL_GOAL = net.nicomar2009.lsmmod.modules.balls.registry.ModuleItems.FOOTBALL_BASKETBALL_GOAL;
 
     public static final DeferredItem<BlockItem> TOILET =
             ITEMS.registerSimpleBlockItem(ModBlocks.TOILET);
@@ -303,17 +296,10 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> SCHOOL_GATE =
             ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_GATE);
 
-    public static final java.util.List<DeferredItem<Item>> FOLDERS = registerStationery("folder");
-    public static final java.util.List<DeferredItem<Item>> NOTEBOOKS = registerStationery("notebook");
+    public static final java.util.List<DeferredItem<Item>> FOLDERS = net.nicomar2009.lsmmod.modules.books_notebooks_and_folders.registry.ModuleItems.FOLDERS;
+    public static final java.util.List<DeferredItem<Item>> NOTEBOOKS = net.nicomar2009.lsmmod.modules.books_notebooks_and_folders.registry.ModuleItems.NOTEBOOKS;
 
-    private static java.util.List<DeferredItem<Item>> registerStationery(String kind) {
-        var variants = new java.util.ArrayList<DeferredItem<Item>>();
-        for (String color : new String[]{"white", "orange", "magenta", "light_blue", "yellow", "lime",
-                "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"}) {
-            variants.add(ITEMS.registerItem(color + "_" + kind, Item::new));
-        }
-        return java.util.List.copyOf(variants);
-    }
+
 
     // Block item for the elementary chair (registry name taken from the block: "lsmmod:elementary_chair")
     public static final DeferredItem<BlockItem> ELEMENTARY_CHAIR =
@@ -388,104 +374,41 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> SCHOOL_BELL =
             ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_BELL);
 
-    public static final ResourceKey<JukeboxSong> LSM_ANTHEM_SONG = ResourceKey.create(
-            Registries.JUKEBOX_SONG,
-            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "lsm_anthem"));
+    public static final ResourceKey<JukeboxSong> LSM_ANTHEM_SONG = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.LSM_ANTHEM_SONG;
 
-    public static final DeferredItem<Item> LSM_ANTHEM = ITEMS.registerItem(
-            "lsm_anthem",
-            Item::new, props -> props
-                    .stacksTo(1)
-                    .rarity(Rarity.RARE)
-                    .jukeboxPlayable(LSM_ANTHEM_SONG));
+    public static final DeferredItem<Item> LSM_ANTHEM = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.LSM_ANTHEM;
 
-    public static final ResourceKey<JukeboxSong> LSM_MARCH_SONG = ResourceKey.create(
-            Registries.JUKEBOX_SONG,
-            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "lsm_march"));
+    public static final ResourceKey<JukeboxSong> LSM_MARCH_SONG = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.LSM_MARCH_SONG;
 
-    public static final DeferredItem<Item> LSM_MARCH = ITEMS.registerItem(
-            "lsm_march",
-            Item::new, props -> props
-                    .stacksTo(1)
-                    .rarity(Rarity.RARE)
-                    .jukeboxPlayable(LSM_MARCH_SONG));
+    public static final DeferredItem<Item> LSM_MARCH = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.LSM_MARCH;
 
-    public static final ResourceKey<JukeboxSong> QAPACKACHAMPA_SONG = ResourceKey.create(
-            Registries.JUKEBOX_SONG,
-            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "qapackachampa"));
+    public static final ResourceKey<JukeboxSong> QAPACKACHAMPA_SONG = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.QAPACKACHAMPA_SONG;
 
-    public static final DeferredItem<Item> QAPACKACHAMPA = ITEMS.registerItem(
-            "qapackachampa",
-            Item::new, props -> props
-                    .stacksTo(1)
-                    .rarity(Rarity.RARE)
-                    .jukeboxPlayable(QAPACKACHAMPA_SONG));
+    public static final DeferredItem<Item> QAPACKACHAMPA = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.QAPACKACHAMPA;
 
-    public static final ResourceKey<JukeboxSong> COFRADIA_SAN_MIGUEL_SONG = ResourceKey.create(
-            Registries.JUKEBOX_SONG,
-            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "cofradia_san_miguel"));
+    public static final ResourceKey<JukeboxSong> COFRADIA_SAN_MIGUEL_SONG = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.COFRADIA_SAN_MIGUEL_SONG;
 
-    public static final DeferredItem<Item> COFRADIA_SAN_MIGUEL = ITEMS.registerItem(
-            "cofradia_san_miguel",
-            Item::new, props -> props
-                    .stacksTo(1)
-                    .rarity(Rarity.RARE)
-                    .jukeboxPlayable(COFRADIA_SAN_MIGUEL_SONG));
+    public static final DeferredItem<Item> COFRADIA_SAN_MIGUEL = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.COFRADIA_SAN_MIGUEL;
 
-    public static final ResourceKey<JukeboxSong> CARNAVAL_HUACCANA_SONG = ResourceKey.create(
-            Registries.JUKEBOX_SONG,
-            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "carnaval_huaccana"));
+    public static final ResourceKey<JukeboxSong> CARNAVAL_HUACCANA_SONG = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.CARNAVAL_HUACCANA_SONG;
 
-    public static final DeferredItem<Item> CARNAVAL_HUACCANA = ITEMS.registerItem(
-            "carnaval_huaccana",
-            Item::new, props -> props
-                    .stacksTo(1)
-                    .rarity(Rarity.RARE)
-                    .jukeboxPlayable(CARNAVAL_HUACCANA_SONG));
+    public static final DeferredItem<Item> CARNAVAL_HUACCANA = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.CARNAVAL_HUACCANA;
 
-    public static final ResourceKey<JukeboxSong> CARNAVAL_HUANUPAMPA_SONG = ResourceKey.create(
-            Registries.JUKEBOX_SONG,
-            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "carnaval_huanupampa"));
+    public static final ResourceKey<JukeboxSong> CARNAVAL_HUANUPAMPA_SONG = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.CARNAVAL_HUANUPAMPA_SONG;
 
-    public static final DeferredItem<Item> CARNAVAL_HUANUPAMPA = ITEMS.registerItem(
-            "carnaval_huanupampa",
-            Item::new, props -> props
-                    .stacksTo(1)
-                    .rarity(Rarity.RARE)
-                    .jukeboxPlayable(CARNAVAL_HUANUPAMPA_SONG));
+    public static final DeferredItem<Item> CARNAVAL_HUANUPAMPA = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.CARNAVAL_HUANUPAMPA;
 
-    public static final ResourceKey<JukeboxSong> CARNAVAL_MACARI_SONG = ResourceKey.create(
-            Registries.JUKEBOX_SONG,
-            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "carnaval_macari"));
+    public static final ResourceKey<JukeboxSong> CARNAVAL_MACARI_SONG = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.CARNAVAL_MACARI_SONG;
 
-    public static final DeferredItem<Item> CARNAVAL_MACARI = ITEMS.registerItem(
-            "carnaval_macari",
-            Item::new, props -> props
-                    .stacksTo(1)
-                    .rarity(Rarity.RARE)
-                    .jukeboxPlayable(CARNAVAL_MACARI_SONG));
+    public static final DeferredItem<Item> CARNAVAL_MACARI = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.CARNAVAL_MACARI;
 
-    public static final ResourceKey<JukeboxSong> FORMACION_SONG = ResourceKey.create(
-            Registries.JUKEBOX_SONG,
-            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "formacion"));
+    public static final ResourceKey<JukeboxSong> FORMACION_SONG = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.FORMACION_SONG;
 
-    public static final DeferredItem<Item> FORMACION = ITEMS.registerItem(
-            "formacion",
-            Item::new, props -> props
-                    .stacksTo(1)
-                    .rarity(Rarity.RARE)
-                    .jukeboxPlayable(FORMACION_SONG));
+    public static final DeferredItem<Item> FORMACION = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.FORMACION;
 
-    public static final ResourceKey<JukeboxSong> HIMNOPERU_SONG = ResourceKey.create(
-            Registries.JUKEBOX_SONG,
-            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "himnoperu"));
+    public static final ResourceKey<JukeboxSong> HIMNOPERU_SONG = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.HIMNOPERU_SONG;
 
-    public static final DeferredItem<Item> HIMNOPERU = ITEMS.registerItem(
-            "himnoperu",
-            Item::new, props -> props
-                    .stacksTo(1)
-                    .rarity(Rarity.RARE)
-                    .jukeboxPlayable(HIMNOPERU_SONG));
+    public static final DeferredItem<Item> HIMNOPERU = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleItems.HIMNOPERU;
 
     public static final DeferredItem<BlockItem> DINING_TABLE =
             ITEMS.registerSimpleBlockItem(ModBlocks.DINING_TABLE);
@@ -541,29 +464,17 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> INFIRMARY_COT =
             ITEMS.registerSimpleBlockItem(ModBlocks.INFIRMARY_COT);
 
-    public static final DeferredItem<Item> GUITAR =
-            ITEMS.registerItem("guitar",
-                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.GUITAR, 10.0F, 8, 320));
+    public static final DeferredItem<Item> GUITAR = net.nicomar2009.lsmmod.modules.musical_instruments.registry.ModuleItems.GUITAR;
 
-    public static final DeferredItem<Item> MANDOLIN =
-            ITEMS.registerItem("mandolin",
-                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.MANDOLIN, 10.0F, 8, 320));
+    public static final DeferredItem<Item> MANDOLIN = net.nicomar2009.lsmmod.modules.musical_instruments.registry.ModuleItems.MANDOLIN;
 
-    public static final DeferredItem<Item> FLUTE =
-            ITEMS.registerItem("flute",
-                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.FLUTE, 2.0F, 16, 160));
+    public static final DeferredItem<Item> FLUTE = net.nicomar2009.lsmmod.modules.musical_instruments.registry.ModuleItems.FLUTE;
 
-    public static final DeferredItem<Item> TAMBOURINE =
-            ITEMS.registerItem("tambourine",
-                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.TAMBOURINE, 2.0F, 16, 160));
+    public static final DeferredItem<Item> TAMBOURINE = net.nicomar2009.lsmmod.modules.musical_instruments.registry.ModuleItems.TAMBOURINE;
 
-    public static final DeferredItem<Item> VIOLIN =
-            ITEMS.registerItem("violin",
-                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.VIOLIN, 10.0F, 8, 320));
+    public static final DeferredItem<Item> VIOLIN = net.nicomar2009.lsmmod.modules.musical_instruments.registry.ModuleItems.VIOLIN;
 
-    public static final DeferredItem<Item> MELODICA =
-            ITEMS.registerItem("melodica",
-                    props -> new InstrumentItem(props.stacksTo(1), ModSounds.MELODICA, 2.0F, 16, 160));
+    public static final DeferredItem<Item> MELODICA = net.nicomar2009.lsmmod.modules.musical_instruments.registry.ModuleItems.MELODICA;
 
     public static final DeferredItem<BlockItem> AWNING_SUPPORT =
             ITEMS.registerItem("awning_support", props -> new net.nicomar2009.lsmmod.item.AwningSupportItem(ModBlocks.AWNING_SUPPORT.get(), props));
@@ -582,97 +493,61 @@ public final class ModItems {
         };
     }
 
-    public static final DeferredItem<SpawnEggItem> STUDENT_SPAWN_EGG =
-            ITEMS.registerItem("student_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(ModEntities.STUDENT.get())));
+    public static final DeferredItem<SpawnEggItem> STUDENT_SPAWN_EGG = net.nicomar2009.lsmmod.modules.npcs.registry.ModuleItems.STUDENT_SPAWN_EGG;
 
-    public static final DeferredItem<SpawnEggItem> TEACHER_SPAWN_EGG =
-            ITEMS.registerItem("teacher_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(ModEntities.TEACHER.get())));
+    public static final DeferredItem<SpawnEggItem> TEACHER_SPAWN_EGG = net.nicomar2009.lsmmod.modules.npcs.registry.ModuleItems.TEACHER_SPAWN_EGG;
 
-    public static final DeferredItem<RulerItem> WOODEN_RULER =
-            ITEMS.registerItem("wooden_ruler", props -> new RulerItem(props, ToolMaterial.WOOD));
+    public static final DeferredItem<RulerItem> WOODEN_RULER = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.WOODEN_RULER;
 
-    public static final DeferredItem<RulerItem> STONE_RULER =
-            ITEMS.registerItem("stone_ruler", props -> new RulerItem(props, ToolMaterial.STONE));
+    public static final DeferredItem<RulerItem> STONE_RULER = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.STONE_RULER;
 
-    public static final DeferredItem<RulerItem> GOLDEN_RULER =
-            ITEMS.registerItem("golden_ruler", props -> new RulerItem(props, ToolMaterial.GOLD));
+    public static final DeferredItem<RulerItem> GOLDEN_RULER = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.GOLDEN_RULER;
 
-    public static final DeferredItem<RulerItem> IRON_RULER =
-            ITEMS.registerItem("iron_ruler", props -> new RulerItem(props, ToolMaterial.IRON));
+    public static final DeferredItem<RulerItem> IRON_RULER = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.IRON_RULER;
 
-    public static final DeferredItem<RulerItem> DIAMOND_RULER =
-            ITEMS.registerItem("diamond_ruler", props -> new RulerItem(props, ToolMaterial.DIAMOND));
+    public static final DeferredItem<RulerItem> DIAMOND_RULER = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.DIAMOND_RULER;
 
-    public static final DeferredItem<RulerItem> NETHERITE_RULER =
-            ITEMS.registerItem("netherite_ruler", props -> new RulerItem(props.fireResistant(), ToolMaterial.NETHERITE));
+    public static final DeferredItem<RulerItem> NETHERITE_RULER = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.NETHERITE_RULER;
 
-    public static final DeferredItem<SchoolUniformItem> FAKE_SCHOOL_HAIRCUT =
-            ITEMS.registerItem("fake_school_haircut", props -> new SchoolUniformItem(props, ArmorType.HELMET, "fake_school_haircut"));
+    public static final DeferredItem<SchoolUniformItem> FAKE_SCHOOL_HAIRCUT = net.nicomar2009.lsmmod.modules.uniforms.registry.ModuleItems.FAKE_SCHOOL_HAIRCUT;
 
-    public static final DeferredItem<SchoolUniformItem> UNIFORM_POLO =
-            ITEMS.registerItem("uniform_polo", props -> new SchoolUniformItem(props, ArmorType.CHESTPLATE, "uniform_polo"));
+    public static final DeferredItem<SchoolUniformItem> UNIFORM_POLO = net.nicomar2009.lsmmod.modules.uniforms.registry.ModuleItems.UNIFORM_POLO;
 
-    public static final DeferredItem<SchoolUniformItem> UNIFORM_PANTS =
-            ITEMS.registerItem("uniform_pants", props -> new SchoolUniformItem(props, ArmorType.LEGGINGS, "uniform_pants"));
+    public static final DeferredItem<SchoolUniformItem> UNIFORM_PANTS = net.nicomar2009.lsmmod.modules.uniforms.registry.ModuleItems.UNIFORM_PANTS;
 
-    public static final DeferredItem<SchoolUniformItem> UNIFORM_SHOES =
-            ITEMS.registerItem("uniform_shoes", props -> new SchoolUniformItem(props, ArmorType.BOOTS, "uniform_shoes"));
+    public static final DeferredItem<SchoolUniformItem> UNIFORM_SHOES = net.nicomar2009.lsmmod.modules.uniforms.registry.ModuleItems.UNIFORM_SHOES;
 
-    public static final DeferredItem<SpawnEggItem> STUDENT_1P_SPAWN_EGG =
-            registerClassroomEgg("student_1p_spawn_egg", "primary", 1);
+    public static final DeferredItem<SpawnEggItem> STUDENT_1P_SPAWN_EGG = net.nicomar2009.lsmmod.modules.npcs.registry.ModuleItems.STUDENT_1P_SPAWN_EGG;
 
-    public static final DeferredItem<SpawnEggItem> STUDENT_2P_SPAWN_EGG =
-            registerClassroomEgg("student_2p_spawn_egg", "primary", 2);
+    public static final DeferredItem<SpawnEggItem> STUDENT_2P_SPAWN_EGG = net.nicomar2009.lsmmod.modules.npcs.registry.ModuleItems.STUDENT_2P_SPAWN_EGG;
 
-    public static final DeferredItem<SpawnEggItem> STUDENT_3P_SPAWN_EGG =
-            registerClassroomEgg("student_3p_spawn_egg", "primary", 3);
+    public static final DeferredItem<SpawnEggItem> STUDENT_3P_SPAWN_EGG = net.nicomar2009.lsmmod.modules.npcs.registry.ModuleItems.STUDENT_3P_SPAWN_EGG;
 
-    public static final DeferredItem<SpawnEggItem> STUDENT_4P_SPAWN_EGG =
-            registerClassroomEgg("student_4p_spawn_egg", "primary", 4);
+    public static final DeferredItem<SpawnEggItem> STUDENT_4P_SPAWN_EGG = net.nicomar2009.lsmmod.modules.npcs.registry.ModuleItems.STUDENT_4P_SPAWN_EGG;
 
-    public static final DeferredItem<SpawnEggItem> STUDENT_5P_SPAWN_EGG =
-            registerClassroomEgg("student_5p_spawn_egg", "primary", 5);
+    public static final DeferredItem<SpawnEggItem> STUDENT_5P_SPAWN_EGG = net.nicomar2009.lsmmod.modules.npcs.registry.ModuleItems.STUDENT_5P_SPAWN_EGG;
 
-    public static final DeferredItem<SpawnEggItem> STUDENT_6P_SPAWN_EGG =
-            registerClassroomEgg("student_6p_spawn_egg", "primary", 6);
+    public static final DeferredItem<SpawnEggItem> STUDENT_6P_SPAWN_EGG = net.nicomar2009.lsmmod.modules.npcs.registry.ModuleItems.STUDENT_6P_SPAWN_EGG;
 
-    public static final DeferredItem<SpawnEggItem> STUDENT_1S_SPAWN_EGG =
-            registerClassroomEgg("student_1s_spawn_egg", "secondary", 1);
+    public static final DeferredItem<SpawnEggItem> STUDENT_1S_SPAWN_EGG = net.nicomar2009.lsmmod.modules.npcs.registry.ModuleItems.STUDENT_1S_SPAWN_EGG;
 
-    public static final DeferredItem<SpawnEggItem> STUDENT_2S_SPAWN_EGG =
-            registerClassroomEgg("student_2s_spawn_egg", "secondary", 2);
+    public static final DeferredItem<SpawnEggItem> STUDENT_2S_SPAWN_EGG = net.nicomar2009.lsmmod.modules.npcs.registry.ModuleItems.STUDENT_2S_SPAWN_EGG;
 
-    public static final DeferredItem<SpawnEggItem> STUDENT_3S_SPAWN_EGG =
-            registerClassroomEgg("student_3s_spawn_egg", "secondary", 3);
+    public static final DeferredItem<SpawnEggItem> STUDENT_3S_SPAWN_EGG = net.nicomar2009.lsmmod.modules.npcs.registry.ModuleItems.STUDENT_3S_SPAWN_EGG;
 
-    public static final DeferredItem<SpawnEggItem> STUDENT_4S_SPAWN_EGG =
-            registerClassroomEgg("student_4s_spawn_egg", "secondary", 4);
+    public static final DeferredItem<SpawnEggItem> STUDENT_4S_SPAWN_EGG = net.nicomar2009.lsmmod.modules.npcs.registry.ModuleItems.STUDENT_4S_SPAWN_EGG;
 
-    public static final DeferredItem<SpawnEggItem> STUDENT_5S_SPAWN_EGG =
-            registerClassroomEgg("student_5s_spawn_egg", "secondary", 5);
+    public static final DeferredItem<SpawnEggItem> STUDENT_5S_SPAWN_EGG = net.nicomar2009.lsmmod.modules.npcs.registry.ModuleItems.STUDENT_5S_SPAWN_EGG;
 
-    private static DeferredItem<SpawnEggItem> registerClassroomEgg(String id, String level, int grade) {
-        return ITEMS.registerItem(id, props -> {
-            CompoundTag classroom = new CompoundTag();
-            classroom.putString("Level", level);
-            classroom.putInt("Grade", grade);
-            CompoundTag entityData = new CompoundTag();
-            entityData.put("StudentData", classroom);
-            return new SpawnEggItem(props.spawnEgg(ModEntities.STUDENT.get())
-                    .component(DataComponents.ENTITY_DATA, TypedEntityData.of(ModEntities.STUDENT.get(), entityData)));
-        });
-    }
 
-    public static final DeferredItem<Item> NPC_SUMMON_HELPER =
-            ITEMS.registerItem("npc_summon_helper", props -> new Item(props.stacksTo(1)));
 
-    public static final DeferredItem<Item> PLASTIC_BALL = ball("plastic_ball", net.nicomar2009.lsmmod.ball.BallKind.PLASTIC);
-    public static final DeferredItem<Item> FOOTBALL_BALL = ball("football_ball", net.nicomar2009.lsmmod.ball.BallKind.FOOTBALL);
-    public static final DeferredItem<Item> BASKETBALL_BALL = ball("basketball_ball", net.nicomar2009.lsmmod.ball.BallKind.BASKETBALL);
-    public static final DeferredItem<Item> VOLLEYBALL_BALL = ball("volleyball_ball", net.nicomar2009.lsmmod.ball.BallKind.VOLLEYBALL);
-    private static DeferredItem<Item> ball(String id, net.nicomar2009.lsmmod.ball.BallKind kind) {
-        return ITEMS.registerItem(id, props -> new net.nicomar2009.lsmmod.ball.BallItem(props.stacksTo(16), kind));
-    }
+    public static final DeferredItem<Item> NPC_SUMMON_HELPER = net.nicomar2009.lsmmod.modules.npcs.registry.ModuleItems.NPC_SUMMON_HELPER;
+
+    public static final DeferredItem<Item> PLASTIC_BALL = net.nicomar2009.lsmmod.modules.balls.registry.ModuleItems.PLASTIC_BALL;
+    public static final DeferredItem<Item> FOOTBALL_BALL = net.nicomar2009.lsmmod.modules.balls.registry.ModuleItems.FOOTBALL_BALL;
+    public static final DeferredItem<Item> BASKETBALL_BALL = net.nicomar2009.lsmmod.modules.balls.registry.ModuleItems.BASKETBALL_BALL;
+    public static final DeferredItem<Item> VOLLEYBALL_BALL = net.nicomar2009.lsmmod.modules.balls.registry.ModuleItems.VOLLEYBALL_BALL;
+
 
     private ModItems() {
     }

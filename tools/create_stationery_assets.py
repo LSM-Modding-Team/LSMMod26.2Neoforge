@@ -5,7 +5,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
-ASSETS = ROOT / 'src/main/resources/assets/lsmmod'
+ASSETS = ROOT / 'src/main/resources/books_notebooks_and_folders/assets/lsmmod'
 COLORS = {
     'white': ('#deded6', 'blanco', 'White'), 'orange': ('#e7862c', 'naranja', 'Orange'),
     'magenta': ('#bb4caf', 'magenta', 'Magenta'), 'light_blue': ('#55a8d5', 'celeste', 'Light Blue'),

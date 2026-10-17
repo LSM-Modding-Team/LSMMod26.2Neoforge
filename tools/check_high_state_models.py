@@ -1,10 +1,11 @@
 """Exhaustive prepared-model equivalence for the >=256-state families, without Java."""
+from resource_modules import source_assets
 import itertools,json,math
 from collections import Counter,defaultdict
 from pathlib import Path
 from prepare_high_state_models import TARGETS,PAVEMENT,BORDER
 from audit_block_states import audit
-ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmod'
+ROOT=Path(__file__).resolve().parents[1];A=source_assets()
 DOMAINS={'facing':['north','east','south','west'],'half':['bottom','top'],'shape':['straight','inner_left','inner_right','outer_left','outer_right'],
  'curtain':['none']+[a+'_'+b for a,b in itertools.product(('single','left','middle','right'),repeat=2)],'type':['bottom','top','double']}
 def read(path):return json.loads(path.read_text(encoding='utf-8-sig'))
@@ -101,7 +102,8 @@ def verify(output,aliases):
  for cls,fields in {'AwningBlock':('START','END','UPPER'),'AwningSupportBlock':('COLUMN','WIDTH'),
                    'SchoolGateBlock':('COLUMN','ROW','DEPTH','OPEN'),'SportsGoalBlock':('CELL',),
                    'SchoolWallRailingBlock':('POST','FACING')}.items():
-  java=(J/f'block/{cls}.java').read_text();assert all(f in java for f in fields)
+  from audit_block_states import source
+  java=source(cls);assert all(f in java for f in fields)
  helper=(J/'block/EntrancePavementConnections.java').read_text()
  assert 'dy=-2;dy<=2' in helper and 'Math.abs(edge(state,side,0)' in helper
  assert 'if(join)mask|=1<<i' in helper and 'hasChunkAt' in helper

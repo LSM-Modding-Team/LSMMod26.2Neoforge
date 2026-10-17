@@ -2,7 +2,6 @@ package net.nicomar2009.lsmmod.registry;
 
 import java.util.List;
 
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -10,8 +9,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.nicomar2009.lsmmod.LSMMod;
 
 public class ModSounds {
-    public static final DeferredRegister<SoundEvent> SOUNDS =
-            DeferredRegister.create(Registries.SOUND_EVENT, LSMMod.MOD_ID);
+    public static final DeferredRegister<SoundEvent> SOUNDS = ModRegistries.SOUNDS;
 
     public record SpeakerTrack(DeferredHolder<SoundEvent, SoundEvent> sound, int durationTicks) {}
 
@@ -20,15 +18,12 @@ public class ModSounds {
                     SoundEvent.createVariableRangeEvent(
                             Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "school_bell")));
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_KICK = footballSound("kick");
-    public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_WALL = footballSound("wall");
-    public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_NET = footballSound("net");
-    public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_FRAME = footballSound("frame");
+    public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_KICK = net.nicomar2009.lsmmod.modules.balls.registry.ModuleSounds.FOOTBALL_KICK;
+    public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_WALL = net.nicomar2009.lsmmod.modules.balls.registry.ModuleSounds.FOOTBALL_WALL;
+    public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_NET = net.nicomar2009.lsmmod.modules.balls.registry.ModuleSounds.FOOTBALL_NET;
+    public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_FRAME = net.nicomar2009.lsmmod.modules.balls.registry.ModuleSounds.FOOTBALL_FRAME;
 
-    private static DeferredHolder<SoundEvent, SoundEvent> footballSound(String name) {
-        String id = "football." + name;
-        return SOUNDS.register(id, () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, id)));
-    }
+
 
     public static final List<SpeakerTrack> PORTABLE_SPEAKER_TRACKS = List.of(
             speakerTrack("bby_wow", 340),
@@ -49,83 +44,35 @@ public class ModSounds {
                 Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, id))), durationTicks);
     }
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> MY_DISC =
-            SOUNDS.register("music_disc.lsm_anthem", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "music_disc.lsm_anthem")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> MY_DISC = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleSounds.MY_DISC;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> MY_MARCH =
-            SOUNDS.register("music_disc.lsm_march", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "music_disc.lsm_march")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> MY_MARCH = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleSounds.MY_MARCH;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> QAPACKACHAMPA =
-            SOUNDS.register("music_disc.qapackachampa", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "music_disc.qapackachampa")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> QAPACKACHAMPA = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleSounds.QAPACKACHAMPA;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> COFRADIA_SAN_MIGUEL =
-            SOUNDS.register("music_disc.cofradia_san_miguel", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "music_disc.cofradia_san_miguel")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> COFRADIA_SAN_MIGUEL = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleSounds.COFRADIA_SAN_MIGUEL;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> CARNAVAL_HUACCANA =
-            SOUNDS.register("music_disc.carnaval_huaccana", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "music_disc.carnaval_huaccana")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> CARNAVAL_HUACCANA = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleSounds.CARNAVAL_HUACCANA;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> CARNAVAL_HUANUPAMPA =
-            SOUNDS.register("music_disc.carnaval_huanupampa", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "music_disc.carnaval_huanupampa")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> CARNAVAL_HUANUPAMPA = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleSounds.CARNAVAL_HUANUPAMPA;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> CARNAVAL_MACARI =
-            SOUNDS.register("music_disc.carnaval_macari", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "music_disc.carnaval_macari")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> CARNAVAL_MACARI = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleSounds.CARNAVAL_MACARI;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> FORMACION =
-            SOUNDS.register("music_disc.formacion", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "music_disc.formacion")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> FORMACION = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleSounds.FORMACION;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> HIMNOPERU =
-            SOUNDS.register("music_disc.himnoperu", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "music_disc.himnoperu")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> HIMNOPERU = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleSounds.HIMNOPERU;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> RULER_HIT =
-            SOUNDS.register("ruler_hit", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "ruler_hit")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> RULER_HIT = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleSounds.RULER_HIT;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> GUITAR =
-            SOUNDS.register("guitar", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "guitar")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> GUITAR = net.nicomar2009.lsmmod.modules.musical_instruments.registry.ModuleSounds.GUITAR;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> MANDOLIN =
-            SOUNDS.register("mandolin", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "mandolin")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> MANDOLIN = net.nicomar2009.lsmmod.modules.musical_instruments.registry.ModuleSounds.MANDOLIN;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> FLUTE =
-            SOUNDS.register("flute", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "flute")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> FLUTE = net.nicomar2009.lsmmod.modules.musical_instruments.registry.ModuleSounds.FLUTE;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> TAMBOURINE =
-            SOUNDS.register("tambourine", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "tambourine")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> TAMBOURINE = net.nicomar2009.lsmmod.modules.musical_instruments.registry.ModuleSounds.TAMBOURINE;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> VIOLIN =
-            SOUNDS.register("violin", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "violin")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> VIOLIN = net.nicomar2009.lsmmod.modules.musical_instruments.registry.ModuleSounds.VIOLIN;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> MELODICA =
-            SOUNDS.register("melodica", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "melodica")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> MELODICA = net.nicomar2009.lsmmod.modules.musical_instruments.registry.ModuleSounds.MELODICA;
 }

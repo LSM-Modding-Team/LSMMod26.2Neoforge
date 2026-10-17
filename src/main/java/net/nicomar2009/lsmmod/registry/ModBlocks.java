@@ -10,11 +10,12 @@ import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.PushReaction;
 import net.nicomar2009.lsmmod.block.*;
+import net.nicomar2009.lsmmod.modules.balls.block.SportsGoalBlock;
 
 /** Registers the school furniture, statue and shield. */
 public final class ModBlocks {
     // Specialized register: it sets the block's resource key (required since 1.21.2) automatically
-    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(LSMMod.MOD_ID);
+    public static final DeferredRegister.Blocks BLOCKS = ModRegistries.BLOCKS;
 
     // BEGIN SCHOOL RAILING SLOPES
     // BEGIN SHORT RAISED SLOPES
@@ -360,9 +361,7 @@ public final class ModBlocks {
             "tall_dining_door", TallClassroomEntranceBlock::new,
             props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
 
-    public static final DeferredBlock<SportsGoalBlock> FOOTBALL_BASKETBALL_GOAL = BLOCKS.registerBlock(
-            "football_basketball_goal", SportsGoalBlock::new,
-            props -> props.strength(3.0F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SportsGoalBlock> FOOTBALL_BASKETBALL_GOAL = net.nicomar2009.lsmmod.modules.balls.registry.ModuleBlocks.FOOTBALL_BASKETBALL_GOAL;
 
     public static final DeferredBlock<ToiletBlock> TOILET = BLOCKS.registerBlock(
             "toilet", ToiletBlock::new,

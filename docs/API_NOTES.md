@@ -7,11 +7,11 @@ Busca primero un uso actual en el proyecto con `rg`. Si falta, consulta fuentes/
 | Registro de bloque/ítem y ResourceKey | `registry/ModBlocks.java`, `registry/ModItems.java` |
 | Colocación, interacción, soporte y drop | Bloque equivalente en `block/`; `useItemOn`, `useWithoutItem`, `updateShape` |
 | Formas/rotaciones/contornos | `block/ExactVoxelShapes.java`, `SimpleBlockOutline.java` |
-| Entidad, atributos, daño y guardado | `entity/SchoolNpcEntity.java`, `StudentEntity.java`, `TeacherEntity.java`; ValueInput/ValueOutput |
-| Tamaño de NPC | `entity/SchoolNpcSize.java`; `getDefaultDimensions` (`getDimensions` es final) |
+| Entidad, atributos, daño y guardado | `modules/npcs/entity/{SchoolNpcEntity,StudentEntity,TeacherEntity}.java`; ValueInput/ValueOutput |
+| Tamaño de NPC | `modules/npcs/entity/SchoolNpcSize.java`; `getDefaultDimensions` (`getDimensions` es final) |
 | Renderer/modelo de entidad | `client/renderer/SchoolNpcRenderer.java`, `client/model/PlaceholderSchoolNpcModel.java` |
-| Equipment de jugador | `item/SchoolUniformItem.java`, `client/ClientSetup.java`; ruta de pantalón explícita |
-| Pantalla/entrada de GUI 26.2 | `client/screen/NpcSummonScreen.java`; `GuiGraphicsExtractor`, `MouseButtonEvent`, `KeyEvent` |
+| Equipment de jugador | `modules/uniforms/item/SchoolUniformItem.java`, `modules/uniforms/client/ClientSetup.java`; ruta de pantalón explícita |
+| Pantalla/entrada de GUI 26.2 | `modules/npcs/client/screen/NpcSummonScreen.java`; `GuiGraphicsExtractor`, `MouseButtonEvent`, `KeyEvent` |
 | Navegador y salidas de PC/laptop | `client/SchoolPcInput.java`, `client/screen/RinkuSchoolPcScreen.java`, `client/media/` y `media/`. Rinku `3.0.4-26.2`: navegador compartido por dispositivo; `Screen.removed()` libera la referencia de GUI, `SchoolBrowserSessions` conserva sesiones con salidas y las cierra al descargar el origen/mundo. `CefAudioHandler` entrega PCM planar válido solo durante el callback y silencia su reproducción nativa; copiar a colas limitadas. `SchoolBrowserStreamMixin` resuelve únicamente streams registrados en `SoundBufferLibrary.getStream(Identifier, boolean)`. Extraer proyecciones con `ExtractLevelRenderStateEvent` y enviar geometría inmutable con `SubmitCustomGeometryEvent`, usando `LevelRenderState.set/getRenderData`. Enlaces con `SavedDataType`/codec y snapshots validados en servidor. Firmas vistas en binarios/fuentes oficiales, sin compilación ni prueba en juego. |
 | Red y separación cliente/servidor | `network/PaintCopyPayload.java`, `client/PaintCopyInput.java` |
 | Predicados de modelo Fusion | `client/GlazingFusionRegistration.java`, `SchoolGlazingPredicate.java`, `ModelSelectionPredicate.java`. Fusion 1.3.16 rechaza tanto IDs como instancias de Serializer repetidas; cada tipo necesita su propio serializador y debe devolverlo desde `getSerializer()`. `PaintedMiniCubePredicate` delega la lógica del marco con un serializador propio; comprobación estática: `tools/check_custom_paintable_blocks.py --fine-only`. |

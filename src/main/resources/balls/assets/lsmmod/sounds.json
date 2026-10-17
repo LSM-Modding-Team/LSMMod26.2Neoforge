@@ -1,0 +1,26 @@
+{
+  "football.kick": {
+    "subtitle": "subtitles.lsmmod.football_kick",
+    "sounds": [
+      "lsmmod:football/kick"
+    ]
+  },
+  "football.wall": {
+    "subtitle": "subtitles.lsmmod.football_wall",
+    "sounds": [
+      "lsmmod:football/wall"
+    ]
+  },
+  "football.net": {
+    "subtitle": "subtitles.lsmmod.football_net",
+    "sounds": [
+      "lsmmod:football/net"
+    ]
+  },
+  "football.frame": {
+    "subtitle": "subtitles.lsmmod.football_frame",
+    "sounds": [
+      "lsmmod:football/frame"
+    ]
+  }
+}

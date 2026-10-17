@@ -17,7 +17,7 @@ Los retratos sustituyen cabeza completa/números/M-F y piel de manos, conservand
 
 ## Fuentes de paleta y catálogo
 
-`src/main/java/net/nicomar2009/lsmmod/util/NpcAppearanceCatalog.java` y los generadores de apariencia en `tools/` contienen colores/nombres/índices exactos. Edita esos datos junto con sus assets; no mantengas otra copia de la paleta en documentación.
+`src/main/java/net/nicomar2009/lsmmod/modules/npcs/util/NpcAppearanceCatalog.java` y los generadores de apariencia en `tools/` contienen colores/nombres/índices exactos. Edita esos datos junto con sus assets; no mantengas otra copia de la paleta en documentación.
 
 32 cortes por género: 16 lisos, 8 ondulados y 8 rulosos. Se conservan los primeros seis índices femeninos. freeHair alterna 32 atlas recogidos/sueltos; no cambia el índice. Ocho ojos sin azul; ocho lentes de blanco a negro más ausencia. En total 176 capas. Reutiliza los UV y evita inferir freeHair desde haircutFemale.
 

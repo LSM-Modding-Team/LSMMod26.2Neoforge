@@ -5,7 +5,9 @@ Does not compile Java or substitute for a client/server interaction test.
 import itertools
 import json
 from pathlib import Path
-from create_paintable_school_block import ROOT, A, SIDES, PAINTS, TOOLS
+from create_paintable_school_block import ROOT, SIDES, PAINTS, TOOLS
+from resource_modules import source_assets
+A = source_assets()
 
 def read(path):
     return json.loads(path.read_text(encoding='utf-8'))
@@ -154,7 +156,7 @@ def main():
     assert re.findall(r'^    ([A-Z_]+)\(',enum,re.M)==['UNPAINTED','LIGHT','DARK','STREET','WHITE','FLOOR','YELLOW','PLAYGROUND_WHITE','PLAYGROUND_GRAY','PLAYGROUND_GREEN','PLAYGROUND_ORANGE','DARK_TILED','RED_STREET','LABORATORY_TILE','LABORATORY_TABLE_TILE','AUDITORIUM_PARQUET']
     assert read(A/'blockstates/yellow_school_block.json')['variants']=={'':{'model':'lsmmod:block/yellow_school_block'}}
     assert read(A/'models/block/yellow_school_block.json')['parent']=='minecraft:block/cube_all'
-    assert 'case YELLOW -> ModItems.YELLOW_SCHOOL_PAINT.get();' in (ROOT/'src/main/java/net/nicomar2009/lsmmod/item/SchoolSandpaperItem.java').read_text()
+    assert 'case YELLOW -> ModItems.YELLOW_SCHOOL_PAINT.get();' in (ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/school_supplies/item/SchoolSandpaperItem.java').read_text()
     assert 'case YELLOW -> ModBlocks.YELLOW_SCHOOL_BLOCK.get();' in (ROOT/'src/main/java/net/nicomar2009/lsmmod/compat/jade/PaintedWallNameProvider.java').read_text()
     assert 'id.equals("yellow_school_block")' in (ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModCreativeTabs.java').read_text()
     grass=Image.open(A/'textures/block/school_synthetic_grass.png')

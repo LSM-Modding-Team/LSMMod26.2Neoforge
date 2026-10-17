@@ -2,7 +2,7 @@
 from PIL import Image, ImageColor
 from resource_json import ROOT, resource_json
 
-ASSETS = ROOT / 'src/main/resources/assets/lsmmod'
+ASSETS = ROOT / 'src/main/resources/music_discs/assets/lsmmod'
 # Label pixels are deliberately restricted to the existing printed center.
 LABEL = ((6, 6), (7, 6), (8, 6), (5, 7), (6, 7), (8, 7), (9, 7), (6, 8), (7, 8), (8, 8))
 # Each label has both its own palette and a different motif, not only a tint.

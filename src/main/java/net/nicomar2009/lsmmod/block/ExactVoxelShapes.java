@@ -13,14 +13,14 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /** Builds the union of axis-aligned volumes directly, preserving all supplied boundaries. */
-final class ExactVoxelShapes {
+public final class ExactVoxelShapes {
     private ExactVoxelShapes() {}
 
     static AABB box(double x0,double y0,double z0,double x1,double y1,double z1) {
         return new AABB(x0/16,y0/16,z0/16,x1/16,y1/16,z1/16);
     }
 
-    static VoxelShape pixels(double[][] input) {
+    public static VoxelShape pixels(double[][] input) {
         return union(Arrays.stream(input).map(b -> box(b[0],b[1],b[2],b[3],b[4],b[5])).toList());
     }
 

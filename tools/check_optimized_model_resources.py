@@ -1,8 +1,9 @@
 """Validate every migrated model and blockstate against original resources, without Java."""
+from resource_modules import source_assets
 import json,tempfile
 from pathlib import Path
 from optimize_model_resources import ROOT,prepare,replace,model_identifier
-A=ROOT/'src/main/resources/assets/lsmmod'
+A=source_assets()
 def read(p):return json.loads(p.read_text(encoding='utf-8-sig'))
 def resolve(base,ident,aliases,trail=()):
  ident=aliases.get(ident,ident)

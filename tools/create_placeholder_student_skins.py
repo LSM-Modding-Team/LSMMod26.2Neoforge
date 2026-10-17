@@ -1,7 +1,7 @@
 """Generate new 256x256 wide-player placeholder atlases with numbered heads and school uniforms."""
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont
-ROOT=Path(__file__).resolve().parents[1];ASSETS=ROOT/'src/main/resources/assets/lsmmod/textures/entity'
+ROOT=Path(__file__).resolve().parents[1];ASSETS=ROOT/'src/main/resources/npcs/assets/lsmmod/textures/entity'
 S=4
 import argparse
 parser=argparse.ArgumentParser(description=__doc__)

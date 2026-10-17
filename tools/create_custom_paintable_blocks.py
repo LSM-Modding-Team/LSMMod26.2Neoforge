@@ -1,5 +1,6 @@
 """Bounded Fusion face models for an editable eight-cell cube, tools and foundation."""
 from resource_json import resource_json
+from resource_modules import output_path, write_resource
 import json
 import random
 from pathlib import Path
@@ -9,9 +10,9 @@ from create_paintable_school_block import ROOT, A, SIDES, PAINTS
 STEPS={'down':(0,-1,0),'up':(0,1,0),'north':(0,0,-1),'south':(0,0,1),'west':(-1,0,0),'east':(1,0,0)}
 GENERATED=[]
 def write(p,value):
-    p.parent.mkdir(parents=True,exist_ok=True)
-    p.write_text(resource_json(p, value, ensure_ascii=False)+'\n',encoding='utf-8')
-    GENERATED.append(str(p.relative_to(ROOT)))
+    destination=output_path(p)
+    write_resource(p,value)
+    GENERATED.append(str(destination.relative_to(ROOT)))
 
 def uv(face,x,y,z):
     # Each square is a quarter of the existing texture, without repeating or stretching it.
@@ -81,8 +82,8 @@ def main():
             props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().dynamicShape().noOcclusion());'''
     items='''    public static final DeferredItem<BlockItem> SCHOOL_FOUNDATION = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_FOUNDATION);
     public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_CUSTOM_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_CUSTOM_BLOCK);
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolSandpaperItem> SCHOOL_SANDPAPER = ITEMS.registerItem("school_sandpaper", net.nicomar2009.lsmmod.item.SchoolSandpaperItem::new);
-    public static final DeferredItem<net.nicomar2009.lsmmod.item.SchoolHammerItem> SCHOOL_HAMMER = ITEMS.registerItem("school_hammer", net.nicomar2009.lsmmod.item.SchoolHammerItem::new);'''
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolSandpaperItem> SCHOOL_SANDPAPER = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.SCHOOL_SANDPAPER;
+    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolHammerItem> SCHOOL_HAMMER = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.SCHOOL_HAMMER;'''
     for filename,body in [('ModBlocks.java',blocks),('ModItems.java',items)]:
         p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=p.read_text()
         start='    // BEGIN CUSTOM PAINTABLE BLOCKS';end='    // END CUSTOM PAINTABLE BLOCKS';section=start+'\n'+body+'\n'+end+'\n\n'
@@ -101,7 +102,7 @@ def main():
     data['values']=list(dict.fromkeys(data['values']+['lsmmod:school_foundation','lsmmod:school_paintable_custom_block']));write(p,data)
 
 def save_texture(image,p):
-    p.parent.mkdir(parents=True,exist_ok=True);image.save(p);GENERATED.append(str(p.relative_to(ROOT)))
+    p.parent.mkdir(parents=True,exist_ok=True);p=output_path(p);p.parent.mkdir(parents=True,exist_ok=True);image.save(p);GENERATED.append(str(p.relative_to(ROOT)))
 
 FINE_ID='school_paintable_mini_cube_block'
 

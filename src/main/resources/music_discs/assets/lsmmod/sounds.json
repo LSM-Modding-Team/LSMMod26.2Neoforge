@@ -1,0 +1,74 @@
+{
+  "music_disc.lsm_anthem": {
+    "sounds": [
+      {
+        "name": "lsmmod:records/lsm_anthem",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.lsm_march": {
+    "sounds": [
+      {
+        "name": "lsmmod:records/lsm_march",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.qapackachampa": {
+    "sounds": [
+      {
+        "name": "lsmmod:records/qapackachampa",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.cofradia_san_miguel": {
+    "sounds": [
+      {
+        "name": "lsmmod:records/cofradia_san_miguel",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.carnaval_huaccana": {
+    "sounds": [
+      {
+        "name": "lsmmod:records/carnaval_huaccana",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.carnaval_huanupampa": {
+    "sounds": [
+      {
+        "name": "lsmmod:records/carnaval_huanupampa",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.carnaval_macari": {
+    "sounds": [
+      {
+        "name": "lsmmod:records/carnaval_macari",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.formacion": {
+    "sounds": [
+      {
+        "name": "lsmmod:records/formacion",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.himnoperu": {
+    "sounds": [
+      {
+        "name": "lsmmod:records/himnoperu",
+        "stream": true
+      }
+    ]
+  }
+}

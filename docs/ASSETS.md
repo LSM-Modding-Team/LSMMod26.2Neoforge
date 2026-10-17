@@ -19,6 +19,8 @@ Entrada única para crear bloques/modelos/texturas: sigue el flujo y abre solo l
 
 Un bloque nuevo necesita registro, ítem, estado, modelo, definición de ítem, materiales existentes o PNG nuevos, traducciones y drop; etiqueta de herramienta si corresponde. Añade recetas solo si se solicitan. ModCreativeTabs distribuye automáticamente los ítems; revisa sus reglas para elegir la pestaña correcta. Los modelos de entidades viven en Java, no en `models/block`.
 
+Los módulos migrados guardan estas mismas rutas bajo `src/main/resources/<module>/`; consulta [MODULES.md](../MODULES.md) para su propietario y composición. El JAR conserva las rutas e identificadores lógicos de Minecraft.
+
 ## Flujo rápido
 
 1. Elige el patrón en la tabla inferior y abre sus enlaces; para un ID existente usa `rg '<id>' src/main/java tools`. Lee el generador: puede escribir Java/registros/idiomas/tags. Consulta [BLOCK_SPECS](BLOCK_SPECS.md) solo al cambiar comportamiento o compatibilidad.

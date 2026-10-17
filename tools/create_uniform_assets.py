@@ -4,7 +4,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 import json
 ROOT=Path(__file__).resolve().parents[1]
-A=ROOT/'src/main/resources/assets/lsmmod'
+A=ROOT/'src/main/resources/uniforms/assets/lsmmod'
 S=4
 NAMES=['fake_school_haircut','uniform_polo','uniform_pants','uniform_shoes']
 COLORS=[(23,22,24),(135,39,49),(92,100,106),(25,27,29)]
@@ -92,6 +92,6 @@ for name,c in zip(NAMES,COLORS):
     if f=='up':v['uv']=leg['down']
  write(A/f'models/item/{name}.json',{'textures':{'atlas':f'lsmmod:item/{name}','particle':f'lsmmod:item/{name}'},'elements':elements,'display':{'gui':{'rotation':[15,-25,0],'scale':[.85,.85,.85]},'ground':{'scale':[.5,.5,.5]},'thirdperson_righthand':{'rotation':[0,90,0],'scale':[.65,.65,.65]},'firstperson_righthand':{'rotation':[0,-70,0],'scale':[.7,.7,.7]}}})
  write(A/f'items/{name}.json',{'model':{'type':'minecraft:model','model':f'lsmmod:item/{name}'}})
-write(ROOT/'src/main/resources/data/lsmmod/recipe/fake_school_haircut.json',{'type':'minecraft:crafting_shaped','category':'equipment','pattern':['WWW','W W'],'key':{'W':'minecraft:black_wool'},'result':{'id':'lsmmod:fake_school_haircut','count':1}})
-for tag,name in [('head_armor',NAMES[0]),('chest_armor',NAMES[1]),('leg_armor',NAMES[2]),('foot_armor',NAMES[3])]:write(ROOT/f'src/main/resources/data/minecraft/tags/item/{tag}.json',{'replace':False,'values':[f'lsmmod:{name}']})
+write(ROOT/'src/main/resources/uniforms/data/lsmmod/recipe/fake_school_haircut.json',{'type':'minecraft:crafting_shaped','category':'equipment','pattern':['WWW','W W'],'key':{'W':'minecraft:black_wool'},'result':{'id':'lsmmod:fake_school_haircut','count':1}})
+for tag,name in [('head_armor',NAMES[0]),('chest_armor',NAMES[1]),('leg_armor',NAMES[2]),('foot_armor',NAMES[3])]:write(ROOT/f'src/main/resources/uniforms/data/minecraft/tags/item/{tag}.json',{'replace':False,'values':[f'lsmmod:{name}']})
 print('Generated four player equipment atlases, equipment definitions, 3-D item models, tags and one wool recipe.')

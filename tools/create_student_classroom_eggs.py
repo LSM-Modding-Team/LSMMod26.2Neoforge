@@ -15,6 +15,6 @@ for entry in json.loads((ROOT/'tools/student_classroom_eggs.json').read_text()):
  for x,y in [(22,13),(42,15),(16,38),(46,46)]:d.rectangle((x,y,x+2,y+2),fill=entry['numeral'])
  label=str(entry['grade']);b=font.getbbox(label)
  d.text(((64-(b[2]-b[0]))//2-b[0],(64-(b[3]-b[1]))//2-b[1]+2),label,font=font,fill=entry['numeral'])
- path=ROOT/'src/main/resources/assets/lsmmod/textures/item'/f'{entry["id"]}.png'
+ path=ROOT/'src/main/resources/npcs/assets/lsmmod/textures/item'/f'{entry["id"]}.png'
  im.save(path)
 print('Generated 11 classroom egg icons, 64x64 RGBA.')

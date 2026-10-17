@@ -2,11 +2,11 @@ package net.nicomar2009.lsmmod.registry;
 
 import java.util.function.Supplier;
 import net.nicomar2009.lsmmod.LSMMod;
-import net.nicomar2009.lsmmod.ball.BallItem;
+import net.nicomar2009.lsmmod.modules.balls.ball.BallItem;
 import net.nicomar2009.lsmmod.item.AwningItem;
-import net.nicomar2009.lsmmod.item.RulerItem;
+import net.nicomar2009.lsmmod.modules.school_supplies.item.RulerItem;
 import net.nicomar2009.lsmmod.item.SchoolCurtainItem;
-import net.nicomar2009.lsmmod.item.SchoolUniformItem;
+import net.nicomar2009.lsmmod.modules.uniforms.item.SchoolUniformItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;

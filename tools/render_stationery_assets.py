@@ -1,7 +1,7 @@
 import bpy, json, math, sys
 from pathlib import Path
 from mathutils import Vector
-root=Path(__file__).resolve().parents[1]; assets=root/'src/main/resources/assets/lsmmod'
+root=Path(__file__).resolve().parents[1]; assets=root/'src/main/resources/books_notebooks_and_folders/assets/lsmmod'
 sys.path.insert(0, str(root/'tools'))
 from resource_json import preview_path
 bpy.ops.object.select_all(action='SELECT'); bpy.ops.object.delete(use_global=False)

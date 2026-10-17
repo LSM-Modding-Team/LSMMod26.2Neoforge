@@ -8,7 +8,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
-TEXTURES = ROOT / 'src/main/resources/assets/lsmmod/textures/entity'
+TEXTURES = ROOT / 'src/main/resources/npcs/assets/lsmmod/textures/entity'
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--font', default='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf')
 parser.add_argument('--female-only', action='store_true', help='Only update the eleven classroom female skins')

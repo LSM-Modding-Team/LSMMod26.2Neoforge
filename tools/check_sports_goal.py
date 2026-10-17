@@ -15,7 +15,7 @@ def main():
               if d == 2 or r == 3 or c in (0,8)}
     legacy |= {encode(c,r,0) for r in (4,5) for c in (3,4,5)}
     assert set(occupied) == legacy
-    java = (ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SportsGoalShapes.java').read_text()
+    java = (ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/balls/block/SportsGoalShapes.java').read_text()
     saved = java.split('OCCUPIED = ',1)[1].split(';',1)[0]
     assert literal_eval(saved.replace('{','[').replace('}',']')) == occupied
     calls = java.split('CELLS = ',1)[1].split(';',1)[0]
@@ -137,7 +137,7 @@ def main():
     assert texture.getpixel((4,4))[3] == 255 and texture.getpixel((4,3))[3] == 0
     # Mirroring preserves the occupied-cell layout and the single controller.
     assert {encode(8-coordinates(i)[0],coordinates(i)[1],coordinates(i)[2]) for i in occupied} == set(occupied)
-    loot=json.loads((ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ID}.json').read_text())
+    loot=json.loads((ROOT/f'src/main/resources/balls/data/lsmmod/loot_table/blocks/{ID}.json').read_text())
     assert loot['pools'][0]['conditions'][1]['properties']=={'cell':'0'}
     print(f'OK: five-sided net, rigid frame and open-mouth material probes in 4 orientations; {len(occupied)} saved logical cells; 648 variants; collision, native bounds, rotations, UVs, cutout nets and single drop.')
 

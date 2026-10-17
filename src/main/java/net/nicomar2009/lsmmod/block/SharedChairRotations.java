@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /** Shared physical chair rotations; no world, state or texture dependencies. */
-final class SharedChairRotations {
+public final class SharedChairRotations {
     private static final Map<VoxelShape, VoxelShape[]> BY_IDENTITY = new IdentityHashMap<>();
     private static final Map<List<AABB>, VoxelShape[]> BY_BOXES = new HashMap<>();
     private static final Comparator<AABB> BOX_ORDER = Comparator.comparingDouble((AABB b) -> b.minX)
@@ -22,7 +22,7 @@ final class SharedChairRotations {
     private SharedChairRotations() {}
 
     /** SOUTH, WEST, NORTH, EAST, matching get2DDataValue and native model rotations. */
-    static synchronized VoxelShape[] horizontal(VoxelShape nativeShape) {
+    public static synchronized VoxelShape[] horizontal(VoxelShape nativeShape) {
         VoxelShape[] cached = BY_IDENTITY.get(nativeShape);
         if (cached == null) {
             // Usually the same static native shape is reused by differently textured chairs.
