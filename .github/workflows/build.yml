@@ -37,6 +37,9 @@ jobs:
       - name: Build and check mod
         run: bash gradlew build --no-daemon --max-workers=4
 
+      - name: Verify packaged Mixin configurations
+        run: python tools/check_mixin_configs.py --jar build/libs/lsmmod-*.jar
+
       - name: Upload mod JAR
         uses: actions/upload-artifact@v4
         with:

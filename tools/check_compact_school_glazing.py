@@ -35,9 +35,10 @@ def main():
   source=module_read_text(J/f'block/{name}.java');builder=source.split('protected void createBlockStateDefinition')[1].split('\n    }')[0]
   assert not any(c in builder for c in ('FRAME_LAYOUT','TOP_CONNECTED','BOTTOM_CONNECTED','VERTICAL'))
   assert 'SchoolCurtains.CURTAIN' in builder
- config=read(R/'src/main/resources/lsmmod.mixins.json')
- assert {name.rsplit('.',1)[-1] for name in config['mixins']}=={'CotRestPoseMixin','CurtainPaletteMigrationMixin','CurtainChunkMigrationMixin'}
- assert {name.rsplit('.',1)[-1] for name in config['client']}=={'CotRestRendererMixin','GlazingClientUpdatesMixin','SchoolBrowserStreamMixin'}
+ config=read(R/'src/main/resources/windows_and_enclosures/lsmmod.windows_and_enclosures.mixins.json')
+ assert config['package']=='net.nicomar2009.lsmmod.modules.windows_and_enclosures.mixin'
+ assert set(config['mixins'])=={'CurtainPaletteMigrationMixin','CurtainChunkMigrationMixin'}
+ assert config['client']==['GlazingClientUpdatesMixin']
  for name in config['mixins']+config['client']:
   assert module_is_file(R/'src/main/java'/((config['package']+'.'+name).replace('.','/')+'.java'))
  migration=module_read_text(J/'modules/windows_and_enclosures/block/LegacyCurtainStates.java')
