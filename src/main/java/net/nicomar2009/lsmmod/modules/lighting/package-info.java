@@ -1,0 +1,2 @@
+/** Lighting module. */
+package net.nicomar2009.lsmmod.modules.lighting;

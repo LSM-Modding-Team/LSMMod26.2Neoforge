@@ -1,6 +1,7 @@
 # LSM Mod — instrucciones para Codex
 
 - Responde en español. La petición actual del usuario tiene prioridad. Código, IDs y comentarios en inglés.
+- **Módulos:** sigue [MODULES.md](MODULES.md). Solo revisa los módulos cuando el usuario lo pida; de lo contrario, no los revises.
 - **Solo compilación:** `.build-tools/` reúne o enlaza JDK, dependencias, cachés (`.gradle`, Gradle compartido) y salidas (`build`). No entrar, enumerar, leer ni buscar recursivamente ahí durante tareas normales; tampoco explorar esas cachés a través de sus rutas originales. Si la tarea autoriza compilar, comando rápido: `bash tools/build/compile.sh jar --offline`; `build` también ejecuta las comprobaciones completas. Consultar `tools/build/README.md` solo si hace falta compilar o diagnosticar su entorno. No limpiar cachés ni usar `clean` en una compilación normal.
 - Para crear bloques/modelos/texturas, entra directamente en [ASSETS: flujo](docs/ASSETS.md#flujo-rápido) y su tabla de generador/check/render. Para otros trabajos, usa [START_HERE](START_HERE.md).
 - **No compiles localmente ni ejecutes Minecraft**, por instrucción vigente del usuario. La petición actual autoriza la compilación y las comprobaciones en GitHub Actions para entregar el JAR; esta excepción no autoriza ejecutar Minecraft ni reanudar compilaciones locales. Distingue revisión estática, render externo, compilación CI y prueba en juego.
