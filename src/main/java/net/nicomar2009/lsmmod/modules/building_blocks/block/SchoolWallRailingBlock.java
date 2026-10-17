@@ -1,0 +1,148 @@
+package net.nicomar2009.lsmmod.modules.building_blocks.block;
+import net.nicomar2009.lsmmod.block.SimpleBlockOutline;
+import net.nicomar2009.lsmmod.modules.slopes.block.SchoolRailingSlopeBlock;
+import net.nicomar2009.lsmmod.block.ExactVoxelShapes;
+
+import java.util.ArrayDeque;
+import java.util.HashSet;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+
+/** Twelve-pixel school wall with connected metal handrail and alternating posts. */
+public class SchoolWallRailingBlock extends FenceBlock {
+    public static final BooleanProperty POST=BooleanProperty.create("post");
+    public static final EnumProperty<Direction> FACING=BlockStateProperties.HORIZONTAL_FACING;
+    private static final VoxelShape BASE=Block.box(0,0,0,16,12,16);
+    public SchoolWallRailingBlock(Properties properties) {
+        super(properties);
+        registerDefaultState(defaultBlockState().setValue(POST,true).setValue(FACING,Direction.NORTH));
+    }
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {
+        super.createBlockStateDefinition(builder);builder.add(POST,FACING);
+    }
+    @Override
+    public boolean connectsTo(BlockState state,boolean solid,Direction direction) {
+        return state.getBlock() instanceof SchoolWallRailingBlock || super.connectsTo(state,solid,direction);
+    }
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return slopeConnections(super.getStateForPlacement(context).setValue(FACING,context.getHorizontalDirection()).setValue(POST,true),context.getLevel(),context.getClickedPos());
+    }
+    @Override
+    protected BlockState updateShape(BlockState state,LevelReader level,ScheduledTickAccess ticks,BlockPos pos,
+            Direction side,BlockPos neighborPos,BlockState neighbor,RandomSource random) {
+        ticks.scheduleTick(pos,this,1);
+        return slopeConnections(super.updateShape(state,level,ticks,pos,side,neighborPos,neighbor,random),level,pos);
+    }
+    @Override
+    protected void onPlace(BlockState state,Level level,BlockPos pos,BlockState oldState,boolean moved) {
+        super.onPlace(state,level,pos,oldState,moved);
+        if(!level.isClientSide())level.scheduleTick(pos,this,1);
+    }
+    private BlockState slopeConnections(BlockState state,LevelReader level,BlockPos pos) {
+        for(Direction side:Direction.Plane.HORIZONTAL) {
+            BlockPos adjacent=pos.relative(side);
+            if(!level.hasChunkAt(adjacent))continue;
+            BlockState neighbor=level.getBlockState(adjacent);
+            boolean normal=!(neighbor.getBlock() instanceof SchoolRailingSlopeBlock) && connectsTo(neighbor,neighbor.isFaceSturdy(level,adjacent,side.getOpposite()),side.getOpposite());
+            state=state.setValue(PROPERTY_BY_DIRECTION.get(side),normal||SchoolRailingSlopeBlock.connectsFlat(level,pos,side));
+        }
+        return state;
+    }
+    private static boolean linked(BlockState state,Direction direction) {
+        return state.getValue(PROPERTY_BY_DIRECTION.get(direction));
+    }
+    private boolean post(BlockState state,ServerLevel level,BlockPos pos) {
+        boolean x=linked(state,Direction.EAST)||linked(state,Direction.WEST);
+        boolean z=linked(state,Direction.NORTH)||linked(state,Direction.SOUTH);
+        // Isolated blocks, corners and junctions need their own support.
+        if(x==z)return true;
+        Direction backward=x?Direction.WEST:Direction.NORTH;
+        BlockPos start=pos;
+        while(true) {
+            BlockPos next=start.relative(backward);
+            if(!level.hasChunkAt(next))break;
+            BlockState neighbor=level.getBlockState(next);
+            if(neighbor.getBlock()!=this)break;
+            boolean nx=linked(neighbor,Direction.EAST)||linked(neighbor,Direction.WEST);
+            boolean nz=linked(neighbor,Direction.NORTH)||linked(neighbor,Direction.SOUTH);
+            start=next;
+            if(nx&&nz)break;
+        }
+        int distance=x?pos.getX()-start.getX():pos.getZ()-start.getZ();
+        return (distance&1)==0;
+    }
+    @Override
+    protected void tick(BlockState state,ServerLevel level,BlockPos pos,RandomSource random) {
+        // Recalculate the loaded connected component after insertion/removal.
+        // Missing chunks are never loaded; boundary pieces retry when neighbors update.
+        ArrayDeque<BlockPos> pending=new ArrayDeque<>();HashSet<BlockPos> visited=new HashSet<>();pending.add(pos);
+        while(!pending.isEmpty()) {
+            BlockPos current=pending.removeFirst();
+            if(!visited.add(current)||!level.hasChunkAt(current))continue;
+            BlockState member=level.getBlockState(current);
+            if(member.getBlock()!=this)continue;
+            BlockState connected=slopeConnections(member,level,current);
+            boolean support=post(connected,level,current);
+            connected=connected.setValue(POST,support);
+            if(member!=connected)level.setBlock(current,connected,Block.UPDATE_CLIENTS);
+            for(Direction side:Direction.Plane.HORIZONTAL)pending.add(current.relative(side));
+        }
+    }
+    private static final java.util.Map<Integer,VoxelShape> PHYSICAL=new java.util.concurrent.ConcurrentHashMap<>();
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state,BlockGetter level,BlockPos pos,CollisionContext context) {
+        int mask=0;
+        Direction[] sides={Direction.NORTH,Direction.SOUTH,Direction.WEST,Direction.EAST};
+        for(int i=0;i<4;i++)if(linked(state,sides[i]))mask|=1<<i;
+        int key=mask|(state.getValue(POST)?16:0)|(mask==0&&state.getValue(FACING).getAxis()==Direction.Axis.X?32:0);
+        return PHYSICAL.computeIfAbsent(key,SchoolWallRailingBlock::physical);
+    }
+    private static VoxelShape physical(int key) {
+        java.util.List<net.minecraft.world.phys.AABB> boxes=new java.util.ArrayList<>(6);
+        boxes.add(ExactVoxelShapes.box(0,0,0,16,12,16));
+        if((key&16)!=0)boxes.add(ExactVoxelShapes.box(7,12,7,9,18,9));
+        if((key&1)!=0)boxes.add(ExactVoxelShapes.box(7,18,0,9,20,9));
+        if((key&2)!=0)boxes.add(ExactVoxelShapes.box(7,18,7,9,20,16));
+        if((key&4)!=0)boxes.add(ExactVoxelShapes.box(0,18,7,9,20,9));
+        if((key&8)!=0)boxes.add(ExactVoxelShapes.box(7,18,7,16,20,9));
+        if((key&15)==0)boxes.add((key&32)!=0?ExactVoxelShapes.box(0,18,7,16,20,9):ExactVoxelShapes.box(7,18,0,9,20,16));
+        return ExactVoxelShapes.union(boxes);
+    }
+    @Override
+    protected VoxelShape getShape(BlockState state,BlockGetter level,BlockPos pos,CollisionContext context) {
+        return SimpleBlockOutline.forState(state,()->getCollisionShape(state,level,pos,context));
+    }
+    @Override
+    protected VoxelShape getBlockSupportShape(BlockState state,BlockGetter level,BlockPos pos) {return Shapes.block();}
+    @Override
+    protected VoxelShape getOcclusionShape(BlockState state) {return BASE;}
+    @Override
+    protected BlockState rotate(BlockState state,Rotation rotation) {
+        return super.rotate(state,rotation).setValue(FACING,rotation.rotate(state.getValue(FACING)));
+    }
+    @Override
+    protected BlockState mirror(BlockState state,Mirror mirror) {
+        return super.mirror(state,mirror).setValue(FACING,mirror.mirror(state.getValue(FACING)));
+    }
+}

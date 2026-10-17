@@ -1,4 +1,5 @@
 """Generate a 8x6x3 school football goal with basketball board, hoop and real cutout nets."""
+from resource_modules import module_exists, module_path, module_read_text, module_write_text, output_path
 from resource_json import resource_json
 import json
 from pathlib import Path
@@ -95,7 +96,7 @@ for part in PARTS:
 
 def write_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(resource_json(path, value, ensure_ascii=False)+"\n", encoding="utf-8")
+    module_write_text(path, resource_json(path, value, ensure_ascii=False)+"\n", encoding="utf-8")
 
 
 def index(column, row, depth):
@@ -150,29 +151,29 @@ def uv_for(direction, low, high, origin, material):
 def textures():
     p = ASSETS / "textures/block"; p.mkdir(parents=True, exist_ok=True)
     for name, color in (("frame", (242, 242, 235)), ("board", (248, 248, 242)), ("rim", (178, 57, 27))):
-        Image.new("RGB", (16, 16), color).save(p/f"sports_goal_{name}.png")
+        Image.new("RGB", (16, 16), color).save(output_path(p/f"sports_goal_{name}.png"))
     board = Image.new("RGB", (64, 32), (248, 248, 242)); draw = ImageDraw.Draw(board)
     draw.rectangle((0, 0, 63, 31), outline=(35, 37, 35), width=1)
     draw.rectangle((22, 12, 41, 24), outline=(35, 37, 35), width=1)
-    board.save(p/"sports_goal_board_front.png")
+    board.save(output_path(p/"sports_goal_board_front.png"))
     # Half-pixel rope on an 8px mesh, lighter and thinner than the metal tubing.
     net = Image.new("RGBA", (32, 32)); draw = ImageDraw.Draw(net)
     for i in (0, 16):
         draw.line((i, 0, i, 31), fill=(239, 240, 231, 255))
         draw.line((0, i, 31, i), fill=(239, 240, 231, 255))
-    net.save(p/"sports_goal_net.png")
+    net.save(output_path(p/"sports_goal_net.png"))
     basket = Image.new("RGBA", (16,16)); draw = ImageDraw.Draw(basket)
     for offset in range(-24,32,8):
         draw.line((offset,0,offset+16,16), fill=(246,244,229,255))
         draw.line((offset,0,offset-16,16), fill=(214,215,203,255))
     for y in (0,15): draw.line((0,y,15,y), fill=(246,244,229,255))
-    basket.save(p/"sports_goal_basket_net.png")
+    basket.save(output_path(p/"sports_goal_basket_net.png"))
     # Restrained paint wear, leaving large clean regions as in vanilla textures.
     for name,base in (("frame",(242,242,235)), ("rim",(178,57,27))):
-        image=Image.open(p/f"sports_goal_{name}.png"); draw=ImageDraw.Draw(image)
+        image=Image.open(module_path(p/f"sports_goal_{name}.png")); draw=ImageDraw.Draw(image)
         for x,y in ((2,3),(10,7),(6,12)):
             draw.line((x,y,x+1,y), fill=tuple(v-9 for v in base))
-        image.save(p/f"sports_goal_{name}.png")
+        image.save(output_path(p/f"sports_goal_{name}.png"))
 
 
 
@@ -215,7 +216,7 @@ def write_shapes(all_cells, occupied):
             java += ['    private static double[][] '+name+str(cell)+'() {',
                      '        return new double[][] {'+boxes+'};', '    }']
     java.append("}")
-    (ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/balls/block/SportsGoalShapes.java').write_text("\n".join(java)+"\n")
+    module_write_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/balls/block/SportsGoalShapes.java', "\n".join(java)+"\n")
 
 
 def main():
@@ -294,8 +295,8 @@ def main():
     # Collision manifest permits static model/collision tests and external previews.
     write_json(ROOT / "tools/sports_goal_geometry.json", {"occupied": occupied, "cells": all_cells})
     for locale, name in (("es_es", "Arco de fútbol con canasta de básquet"), ("en_us", "Football Goal with Basketball Hoop")):
-        p = ASSETS / f"lang/{locale}.json"; value = json.loads(p.read_text()) if p.exists() else {'replace': False, 'values': []}; value[f"block.lsmmod.{ID}"] = name; write_json(p, value)
-    p = DATA / "minecraft/tags/block/mineable/pickaxe.json"; value = json.loads(p.read_text()) if p.exists() else {'replace': False, 'values': []}
+        p = ASSETS / f"lang/{locale}.json"; value = json.loads(module_read_text(p)) if module_exists(p) else {'replace': False, 'values': []}; value[f"block.lsmmod.{ID}"] = name; write_json(p, value)
+    p = DATA / "minecraft/tags/block/mineable/pickaxe.json"; value = json.loads(module_read_text(p)) if module_exists(p) else {'replace': False, 'values': []}
     if f"lsmmod:{ID}" not in value["values"]: value["values"].append(f"lsmmod:{ID}")
     write_json(p, value)
 

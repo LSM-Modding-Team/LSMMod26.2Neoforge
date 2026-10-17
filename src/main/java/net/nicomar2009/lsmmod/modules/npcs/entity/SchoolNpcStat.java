@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.npcs.entity;
 
-
-
 /** Persistent universal stat levels; level three leaves the role's base value unchanged. */
 public enum SchoolNpcStat {
     VITALITY("Vitality", "Vitalidad", "vitality"),

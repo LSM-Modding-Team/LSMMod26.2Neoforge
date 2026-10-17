@@ -1,4 +1,5 @@
 """Inspect actual pane fragments, rigid 45-degree hinges, shared seams and the inventory item."""
+from resource_modules import module_exists, module_read_text, output_path
 from resource_json import preview_path
 import json
 from PIL import Image, ImageDraw
@@ -17,7 +18,7 @@ def scene(poses, width=3, height=3):
                 pose = poses.get(tile, 0)
                 for layer in ('solid', 'translucent'):
                     path = A/f'models/block/{ID}/phase_{phase}_part_{index}_{layer}_{pose}.json'
-                    if path.exists(): add(result, [json.loads(path.read_text())], (16*x, 16*y, 0))
+                    if module_exists(path): add(result, [json.loads(module_read_text(path))], (16*x, 16*y, 0))
     return result
 
 
@@ -61,7 +62,7 @@ def review_layouts():
             canvas.paste(image,(column*600,row*375))
             label=f"{rule['width']}x{rule['height']} bloques -> {rule['columns']}x{rule['rows']} paneles / {'abierto, dorso' if opened else 'cerrado, frente'}"
             ImageDraw.Draw(canvas).text((column*600+10,row*375+10),label,fill=(25,25,25))
-    canvas.save(preview_path('school_projecting_window_layouts_review.png'))
+    canvas.save(output_path(preview_path('school_projecting_window_layouts_review.png')))
 
 def main():
     closed = scene({})
@@ -77,12 +78,12 @@ def main():
     for index, (label, elements, center, scale, azimuth) in enumerate(cases):
         canvas.paste(render(elements, center, scale, size=(420, 640), azimuth=azimuth, elevation=12), (420*index, 0))
         ImageDraw.Draw(canvas).text((420*index+10, 15), label, fill=(25, 25, 25))
-    canvas.save(preview_path('school_projecting_window_review.png'))
+    canvas.save(output_path(preview_path('school_projecting_window_review.png')))
     reverse = Image.new('RGB', (840, 640))
     for index, (elements, label) in enumerate(((closed, 'Dorso cerrado'), (all_edges, 'Dorso abierto / bisagras independientes'))):
         reverse.paste(render(elements, [24, 24, 18], 8, size=(420, 640), azimuth=115, elevation=12), (420*index, 0))
         ImageDraw.Draw(reverse).text((420*index+10, 15), label, fill=(25, 25, 25))
-    reverse.save(preview_path('school_projecting_window_reverse_review.png'))
+    reverse.save(output_path(preview_path('school_projecting_window_reverse_review.png')))
     half = Image.new('RGB',(1680,640))
     cases=(('left',0,0,'Panel compartido / cerrado'),('left',1,4,'Panel compartido / abierto'),
            ('right',1,2,'Mitad derecha / panel compartido'),('item',0,0,'Item / mitad fija'))
@@ -102,10 +103,10 @@ def main():
                         for part_index,part in enumerate(parts(phase)):
                             for layer in ('solid','translucent'):
                                 path=A/f'models/block/{ID}/phase_{phase}_part_{part_index}_{layer}_{pose}.json'
-                                if path.exists():add(geometry,[json.loads(path.read_text())],(16*x,16*y,0))
+                                if module_exists(path):add(geometry,[json.loads(module_read_text(path))],(16*x,16*y,0))
         half.paste(render(geometry,[8,8,14] if side=='item' else [16,24,18],25 if side=='item' else 9,size=(420,640),azimuth=-65,elevation=18),(420*index,0))
         ImageDraw.Draw(half).text((420*index+10,15),label,fill=(25,25,25))
-    half.save(preview_path('school_paintable_projecting_window_review.png'))
+    half.save(output_path(preview_path('school_paintable_projecting_window_review.png')))
     review_layouts()
     review_squares()
 
@@ -128,7 +129,7 @@ def review_squares():
     item=[];add(item,load('lsmmod:item/'+PAINTABLE_ID))
     canvas.paste(render(item,[8,8,8],20,size=(600,420),azimuth=-65,elevation=18,minecraft_orientation=True),(1200,475))
     draw.text((1210,457),'Item / modelo real',fill=(25,25,25))
-    canvas.save(preview_path('school_paintable_projecting_window_squares_review.png'))
+    canvas.save(output_path(preview_path('school_paintable_projecting_window_squares_review.png')))
 
 
 def painted_window_scene(ident,state,mask,phase,opened,paint):
@@ -144,7 +145,7 @@ def painted_window_scene(ident,state,mask,phase,opened,paint):
         covered=all(0<=a<2 for a in neighbor) and (mask&(1<<(neighbor[0]+2*neighbor[1]+4*neighbor[2])))
         color=paint(xyz,condition['face']) if callable(paint) else paint
         return bool(mask&(1<<cube)) and not covered and condition['paint']==color
-    for entry in json.loads((A/f'blockstates/{ident}.json').read_text())['multipart']:
+    for entry in json.loads(module_read_text(A/f'blockstates/{ident}.json'))['multipart']:
         if not all(state[k] in value.split('|') for k,value in entry.get('when',{}).items()):continue
         apply=entry['apply']
         for model in load(apply['model'],predicate=predicate):
@@ -225,7 +226,7 @@ def review_slab():
         center,scale=framing(elements,size=(480,490));offset=(i%3*480,i//3*520+25)
         canvas.paste(render(elements,center,scale*.85,size=(480,490),azimuth=120 if i==3 else -65,elevation=20,minecraft_orientation=True),offset)
         draw.text((offset[0]+8,offset[1]-18),label,fill=(25,25,25))
-    canvas.save(preview_path(SLAB_ID+'_review.png'))
+    canvas.save(output_path(preview_path(SLAB_ID+'_review.png')))
 
 
 def stair_assembly(opened=False,half='bottom',left=True,paint=0):
@@ -270,7 +271,7 @@ def review_stair():
         center,scale=framing(elements,size=(480,450));offset=(i%3*480,i//3*480+25)
         canvas.paste(render(elements,center,scale*.75,size=(480,450),azimuth=angle,elevation=18,minecraft_orientation=True),offset)
         draw.text((offset[0]+8,offset[1]-18),label,fill=(25,25,25))
-    target=preview_path(STAIR_ID+'_review.png');canvas.save(target);print(target)
+    target=preview_path(STAIR_ID+'_review.png');canvas.save(output_path(target));print(target)
 
 
 if __name__ == '__main__':

@@ -16,8 +16,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
-import net.nicomar2009.lsmmod.block.EntrancePavementConnections;
-import net.nicomar2009.lsmmod.block.StreetSchoolBarsBlock;
+import net.nicomar2009.lsmmod.modules.building_blocks.block.EntrancePavementConnections;
+import net.nicomar2009.lsmmod.modules.building_blocks.block.StreetSchoolBarsBlock;
 
 /** Balanced decisions with one baked leaf per distinct native model. */
 public record ModelSelectionPredicate(Layout layout,int min,int max,boolean refresh,List<Range> ranges) implements ModelPredicate {

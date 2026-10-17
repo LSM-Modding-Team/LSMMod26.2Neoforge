@@ -1,4 +1,5 @@
 """Generate shared Minecraft stationery geometry and interchangeable pixel atlases."""
+from resource_modules import module_read_text, module_write_text, output_path
 from resource_json import resource_json
 import json
 from pathlib import Path
@@ -19,7 +20,7 @@ COLORS = {
 
 def write(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(resource_json(path, data, ensure_ascii=False) + '\n', encoding='utf-8')
+    module_write_text(path, resource_json(path, data, ensure_ascii=False) + '\n', encoding='utf-8')
 
 
 def box(start, end, texture='cover', uv=(0, 0, 8, 12), overrides=None):
@@ -69,7 +70,7 @@ for name, (hexcolor, _, _) in COLORS.items():
     d.line((65, 65, 65, 126), fill=dark)
     path = ASSETS / f'textures/item/stationery/cover_{name}.png'
     path.parent.mkdir(parents=True, exist_ok=True)
-    image.save(path)
+    image.save(output_path(path))
 
 image = Image.new('RGBA', (128, 128), '#edeadf')
 draw = ImageDraw.Draw(image)
@@ -106,7 +107,7 @@ draw.rectangle((66, 66, 125, 93), fill='#f2f2e6')
 for y in [72, 79, 86]:
     draw.line((69, y-1, 75, y-1), fill='#919990')
     draw.line((77, y, 121, y), fill='#b0b7ad')
-image.save(ASSETS / 'textures/item/stationery/details.png')
+image.save(output_path(ASSETS / 'textures/item/stationery/details.png'))
 
 # Reference silhouette: width/height 10/14; compact closed rigid folder.
 folder = [
@@ -164,7 +165,7 @@ for kind, elements in [('folder', folder), ('notebook', notebook)]:
 
 for lang in ['es_es', 'en_us']:
     path = ASSETS / f'lang/{lang}.json'
-    data = json.loads(path.read_text(encoding='utf-8'))
+    data = json.loads(module_read_text(path, encoding='utf-8'))
     for color, (_, spanish, english) in COLORS.items():
         for kind in ['folder', 'notebook']:
             data[f'item.lsmmod.{color}_{kind}'] = (

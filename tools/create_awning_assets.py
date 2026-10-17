@@ -1,4 +1,5 @@
 """Generate bounded block-state cloth models, metal supports and woven blue textures."""
+from resource_modules import module_read_text, module_write_text, output_path
 from resource_json import resource_json
 import json
 from pathlib import Path
@@ -8,7 +9,7 @@ ASSETS=ROOT/'src/main/resources/assets/lsmmod'
 
 def write(path,value):
     path.parent.mkdir(parents=True,exist_ok=True)
-    path.write_text(resource_json(path, value, ensure_ascii=True)+'\n')
+    module_write_text(path, resource_json(path, value, ensure_ascii=True)+'\n')
 
 def cube(a,b,texture,uv=(0,0,16,16)):
     return {'from':a,'to':b,'faces':{f:{'uv':list(uv),'texture':texture} for f in ('up','down','north','south','east','west')}}
@@ -21,13 +22,13 @@ for y in range(16):
         delta=0 if (x+y)%4 else 5
         if x in (0,15):delta=-10
         cloth.putpixel((x,y),tuple(max(0,min(255,c+delta)) for c in (0,162,232)))
-cloth.save(ASSETS/'textures/block/playground_awning.png')
+cloth.save(output_path(ASSETS/'textures/block/playground_awning.png'))
 metal=Image.new('RGB',(16,16))
 for y in range(16):
     for x in range(16):
         shade=(x*3+y//3)%5-2
         metal.putpixel((x,y),tuple(c+shade for c in (82,93,112)))
-metal.save(ASSETS/'textures/block/awning_support.png')
+metal.save(output_path(ASSETS/'textures/block/awning_support.png'))
 
 variants={}
 rotations={'south':0,'west':90,'north':180,'east':270}
@@ -74,7 +75,7 @@ for name in ('playground_awning','awning_support'):
 print('Generated awning resources: cloth profiles, support models, item definitions, textures and empty per-cell loot tables.')
 
 # Geometry is inherited from the original awning; only textures vary.
-for variant, hex_color, spanish_name, english_name in json.loads((ROOT/'tools/awning_variants.json').read_text()):
+for variant, hex_color, spanish_name, english_name in json.loads(module_read_text(ROOT/'tools/awning_variants.json')):
     base=tuple(int(hex_color[i:i+2],16) for i in (0,2,4))
     texture=Image.new('RGB',(16,16))
     for y in range(16):
@@ -82,7 +83,7 @@ for variant, hex_color, spanish_name, english_name in json.loads((ROOT/'tools/aw
             delta=0 if (x+y)%4 else 5
             if x in (0,15):delta=-10
             texture.putpixel((x,y),tuple(max(0,min(255,c+delta)) for c in base))
-    texture.save(ASSETS/f'textures/block/{variant}.png')
+    texture.save(output_path(ASSETS/f'textures/block/{variant}.png'))
     textures={'cloth':f'lsmmod:block/{variant}','particle':f'lsmmod:block/{variant}'}
     colored_variants={}
     for key,value in variants.items():

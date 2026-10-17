@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.npcs.event;
 
-
-
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.EventPriority;

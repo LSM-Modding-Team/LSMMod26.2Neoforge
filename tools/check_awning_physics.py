@@ -1,4 +1,5 @@
 """Check exact coordinate-grid occupancy against the previous eight-box cloth formula."""
+from resource_modules import module_read_text
 import bisect,itertools
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
@@ -36,11 +37,11 @@ def main():
   expected=sum((b[3]-b[0])*(b[4]-b[1])*(b[5]-b[2]) for b in boxes)
   assert abs(volume-expected)<1e-12
   max_cells=max(max_cells,(len(coords[0])-1)*(len(coords[1])-1)*(len(coords[2])-1));checked+=1
- java=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/AwningShapes.java').read_text()
+ java=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/awnings/block/AwningShapes.java')
  assert 'Shapes.or' not in java and '.optimize()' not in java
  assert 'grid.fill(ix, iy, iz)' in java and 'DoubleLists.unmodifiable' in java
  assert 'COLLISIONS.computeIfAbsent' in java and 'OUTLINES.computeIfAbsent' in java
- block=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/AwningBlock.java').read_text()
+ block=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/awnings/block/AwningBlock.java')
  assert 'AwningShapes.outline' in block and block.count('AwningShapes.collision')==2
  assert 'getCollisionShape' in block and 'getOcclusionShape' in block
  print(f'OK: {checked} physical profiles; exact occupancy, volume and rotations; grid at most {max_cells} cells, no union/optimize; shared collision and separate outline.')

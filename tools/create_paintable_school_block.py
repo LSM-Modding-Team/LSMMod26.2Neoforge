@@ -1,4 +1,5 @@
 """One painted cube state, reusable face models, and texture-only tools."""
+from resource_modules import module_read_text, module_write_text
 from resource_json import resource_json
 from resource_modules import output_path, write_resource
 import json
@@ -37,16 +38,16 @@ def main():
   items.append(f'    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem> {name.upper()} = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.{name.upper()};')
  items.append('    public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.PaintCleanerItem> PAINT_CLEANER = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.PAINT_CLEANER;')
  for filename,body in [('ModBlocks.java',block),('ModItems.java','\n'.join(items))]:
-  p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=p.read_text();start='    // BEGIN PAINTABLE SCHOOL BLOCK';end='    // END PAINTABLE SCHOOL BLOCK';section=start+'\n'+body+'\n'+end+'\n\n'
+  p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=module_read_text(p);start='    // BEGIN PAINTABLE SCHOOL BLOCK';end='    // END PAINTABLE SCHOOL BLOCK';section=start+'\n'+body+'\n'+end+'\n\n'
   if start in s:a=s.index(start);b=s.index(end)+len(end);s=s[:a]+section.rstrip()+s[b:]
   else:a=s.index('    // BEGIN CLASSROOM SURFACES');s=s[:a]+section+s[a:]
-  p.write_text(s)
+  module_write_text(p, s)
  for locale in ['en_us','es_es']:
-  p=A/f'lang/{locale}.json';d=json.loads(p.read_text());d['block.lsmmod.school_paintable_block']='School Paintable Block' if locale=='en_us' else 'Bloque pintable del colegio'
+  p=A/f'lang/{locale}.json';d=json.loads(module_read_text(p));d['block.lsmmod.school_paintable_block']='School Paintable Block' if locale=='en_us' else 'Bloque pintable del colegio'
   labels=('Light School Paint','Dark School Paint','Street School Paint','Classroom White Paint','Classroom Floor Paint','Yellow School Paint','White Playground Floor Paint','Gray Playground Floor Paint','Green Playground Floor Paint','Orange Playground Floor Paint','Dark Tiled Floor Paint','Red Street Wall Paint','Laboratory Tile Paint','Laboratory Table Tile Paint','Auditorium Parquet Paint','Paint Cleaner') if locale=='en_us' else ('Pintura clara del colegio','Pintura oscura del colegio','Pintura de pared de calle','Pintura blanca de aula','Pintura de suelo de aula','Pintura amarilla del colegio','Pintura de suelo claro del patio','Pintura de suelo gris del patio','Pintura de suelo verde del patio','Pintura de suelo naranja del patio','Pintura de baldosas oscuras','Pintura roja de pared de calle','Pintura de baldosas del laboratorio','Pintura de baldosas de mesa del laboratorio','Pintura de parquet del auditorio','Limpiador de pintura')
   for item,label in zip(TOOLS,labels):d['item.lsmmod.'+item]=label
   d['config.jade.plugin_lsmmod.painted_wall_name']='Painted block face: name and icon' if locale=='en_us' else 'Cara del bloque pintado: nombre e icono'
   d['message.lsmmod.paint_copied']='Six faces copied. Click another paintable block to apply once.' if locale=='en_us' else 'Se copiaron las seis caras. Haz clic en otro bloque pintable para aplicarlas una vez.'
   write(p,d)
- p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';d=json.loads(p.read_text());d['values']=list(dict.fromkeys(d['values']+['lsmmod:school_paintable_block']));write(p,d)
+ p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';d=json.loads(module_read_text(p));d['values']=list(dict.fromkeys(d['values']+['lsmmod:school_paintable_block']));write(p,d)
 if __name__=='__main__':main()

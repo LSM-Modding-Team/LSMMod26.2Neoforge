@@ -87,7 +87,7 @@ neoForge {
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
-            ['npcs', 'balls', 'school_supplies', 'uniforms', 'music_discs', 'musical_instruments', 'books_notebooks_and_folders'].each { module ->
+            ['awnings', 'backpacks', 'balls', 'books_notebooks_and_folders', 'building_blocks', 'chairs', 'facilities', 'lighting', 'lockers_and_storage', 'music_discs', 'musical_instruments', 'npcs', 'painting_and_editable_blocks', 'school_supplies', 'shelving', 'slopes', 'special_blocks', 'tables_and_desks', 'technology', 'uniforms', 'wall_blocks', 'windows_and_enclosures'].each { module ->
                 programArguments.addAll '--existing', file("src/main/resources/${module}").getAbsolutePath()
             }
         }
@@ -180,6 +180,7 @@ dependencies {
 var optimizeModelResources = tasks.register('optimizeModelResources', Exec) {
     inputs.dir('src/main/resources')
     inputs.file('tools/resource_modules.py')
+    inputs.file('tools/module_layout.json')
     // An optional directory still fails validation when its configured path is missing.
     // A file tree is empty before datagen and tracks generated files when they exist.
     inputs.files(fileTree('src/generated/resources')).withPropertyName('generatedModelResources')

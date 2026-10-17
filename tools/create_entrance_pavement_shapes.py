@@ -1,4 +1,5 @@
 """Smooth 6-piece entrance ramp and vanilla slabs with geometric 3px perimeter."""
+from resource_modules import module_read_text, module_write_text
 import itertools,json,math
 from create_school_yellow_border_assets import ROOT,A,D,SIDES,write
 
@@ -51,7 +52,7 @@ def model(name):return {'loader':'neoforge:obj','model':f'lsmmod:models/block/{n
 def main():
  # Plain slot names work in vanilla TextureSlots and Fusion 1.3.16's adapter.
  # Its getMaterial override does not strip the optional leading #.
- (A/'models/block/school_entrance_pavement_shapes.mtl').write_text('newmtl gray\nKd 1 1 1\nd 1\nmap_Kd gray\nnewmtl yellow\nKd 1 1 1\nd 1\nmap_Kd yellow\n')
+ module_write_text(A/'models/block/school_entrance_pavement_shapes.mtl', 'newmtl gray\nKd 1 1 1\nd 1\nmap_Kd gray\nnewmtl yellow\nKd 1 1 1\nd 1\nmap_Kd yellow\n')
  blocks='    // BEGIN ENTRANCE PAVEMENT SHAPES\n';items=blocks
  families=[(f'school_entrance_pavement_slope_{i+1}',low,.25,0) for i,low in enumerate((.5,.75,0,.25,.5,.75))]+[('school_entrance_pavement_slab',.5,0,0)]
  for ident,low,rise,base in families:
@@ -63,7 +64,7 @@ def main():
     if kind=='double':ref=f'school_entrance_pavement_{mask}'
     else:
      ref=name;lo=low if slope or kind=='bottom' else 1;bottom=0 if slope or kind=='bottom' else .5
-     (A/f'models/block/{name}.obj').write_text(obj(lo,rise,bottom,linked));write(A/f'models/block/{name}.json',model(name))
+     module_write_text(A/f'models/block/{name}.obj', obj(lo,rise,bottom,linked));write(A/f'models/block/{name}.json',model(name))
     if slope:
      # Flags in models are local; rotate both model and connection key into world space.
      horizontal=['north','east','south','west']
@@ -82,14 +83,14 @@ def main():
   blocks+=f'    public static final DeferredBlock<{cls}> {ident.upper()} = BLOCKS.registerBlock("{ident}", {factory}, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());\n'
   items+=f'    public static final DeferredItem<BlockItem> {ident.upper()} = ITEMS.registerSimpleBlockItem(ModBlocks.{ident.upper()});\n'
  for name,section in [('ModBlocks.java',blocks),('ModItems.java',items)]:
-  p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/name;s=p.read_text();begin='    // BEGIN ENTRANCE PAVEMENT SHAPES';end='    // END ENTRANCE PAVEMENT SHAPES';section+=end+'\n'
+  p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/name;s=module_read_text(p);begin='    // BEGIN ENTRANCE PAVEMENT SHAPES';end='    // END ENTRANCE PAVEMENT SHAPES';section+=end+'\n'
   if begin in s:a=s.index(begin);b=s.index(end)+len(end)+1;s=s[:a]+section+s[b:]
   else:a=s.index('    public static final DeferredBlock<' if name=='ModBlocks.java' else '    public static final DeferredItem<');s=s[:a]+section+'\n'+s[a:]
-  p.write_text(s)
+  module_write_text(p, s)
  for locale in ('es_es','en_us'):
-  p=A/f'lang/{locale}.json';v=json.loads(p.read_text())
+  p=A/f'lang/{locale}.json';v=json.loads(module_read_text(p))
   for ident,*_ in families:v['block.lsmmod.'+ident]=('Losa del pavimento de entrada' if '_slab' in ident else 'Pendiente del pavimento de entrada '+ident[-1]) if locale=='es_es' else ('Entrance Pavement Slab' if '_slab' in ident else 'Entrance Pavement Slope '+ident[-1])
   write(p,v)
- p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+x[0] for x in families]));write(p,v)
+ p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(module_read_text(p));v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+x[0] for x in families]));write(p,v)
  write(ROOT/'tools/entrance_pavement_slope_layout.json',{'length':6,'width':6,'start_y_pixels':8,'end_y_pixels':32,'rise_pixels':24,'pieces':[{'id':ident,'column':i,'row':row,'lower_y':low,'rise':.25} for i,(ident,low,row) in enumerate([(f'school_entrance_pavement_slope_{i+1}',lo,row) for i,(lo,row) in enumerate(zip((.5,.75,0,.25,.5,.75),(0,0,1,1,1,1)))])]})
 if __name__=='__main__':main()

@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.school_supplies.network;
 
-
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -14,7 +12,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.nicomar2009.lsmmod.LSMMod;
-import net.nicomar2009.lsmmod.block.SchoolPaintableBlockEntity;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableBlockEntity;
 import net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem;
 
 /** The client sends a target, never trusted colors; the server copies its own block data. */

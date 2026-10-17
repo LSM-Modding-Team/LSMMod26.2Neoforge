@@ -1,4 +1,5 @@
 """Shared connected transoms and a single unsplit vanilla-glass window per leaf."""
+from resource_modules import module_read_text, module_unlink
 import copy
 import json
 from create_school_glass_assets import A, cube
@@ -76,18 +77,18 @@ def bathroom_variant(multipart, textures, write):
         write(A/f'models/item/{name}.json', {'loader':'fusion:model','type':'base',
               'parent':f'lsmmod:item/dining_door_wide_item_{layer}','textures':overrides})
         layers.append('lsmmod:item/'+name)
-    (A/'models/item/bathroom_door_wide_item_cutout.json').unlink(missing_ok=True)
+    module_unlink(A/'models/item/bathroom_door_wide_item_cutout.json', missing_ok=True)
     write(A/'models/item/bathroom_door_wide.json', {'loader':'fusion:model',
           'type':'composite','textures':dict(textures,**overrides),'models':[layers]})
 
 
 def item_transom(write):
     path = A/'models/item/dining_door_wide_item_translucent.json'
-    model = json.loads(path.read_text())
+    model = json.loads(module_read_text(path))
     model['textures']['frame'] = 'lsmmod:block/school_glass_frame'
     model['elements'] = []
     for column, mask in enumerate((1,2)):
-        parts = json.loads((A/f'models/block/framed_door_transom_{mask}.json').read_text())['elements']
+        parts = json.loads(module_read_text(A/f'models/block/framed_door_transom_{mask}.json'))['elements']
         for part in copy.deepcopy(parts):
             for key in ('from','to'):
                 x,y,z = part[key]

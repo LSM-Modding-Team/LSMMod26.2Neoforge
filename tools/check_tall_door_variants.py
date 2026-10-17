@@ -1,13 +1,14 @@
 """Static resource and registration regression for the three tall door variants."""
+from resource_modules import module_is_file, module_read_text
 import json
 from create_tall_door_variants import A,ROOT,VARIANTS
 
-def read(p):return json.loads(p.read_text())
+def read(p):return json.loads(module_read_text(p))
 def main():
     from compact_school_door_assets import expand_variants
     source=expand_variants(read(A/'blockstates/tall_classroom_entrance.json'))
-    registrations=(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java').read_text()
-    items=(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModItems.java').read_text()
+    registrations=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java')
+    items=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModItems.java')
     checked=0
     for base in VARIANTS:
         name='tall_'+base;states=expand_variants(read(A/f'blockstates/{name}.json'))
@@ -22,7 +23,7 @@ def main():
             assert alias['parent']==source[key]['model'] and 'elements' not in alias
             for part in ('bottom','top'):
                 assert alias['textures'][part]==f'lsmmod:block/{base}_{part}'
-                assert (A/f'textures/block/{base}_{part}.png').is_file()
+                assert module_is_file(A/f'textures/block/{base}_{part}.png')
             parent=read(A/f"models/{alias['parent'].split(':')[1]}.json")
             assert parent['elements'] and alias['render_type']==parent['render_type']
             checked+=1

@@ -1,10 +1,11 @@
 """Six-cell placement/geometry, continuous texture UVs and one-drop contract."""
+from resource_modules import module_exists, module_read_bytes, module_read_text
 import json,hashlib,math
 from pathlib import Path
 from create_school_crucifix import ROOT,A,PARTS,GENERATED,mesh,main as generate
 from audit_block_states import audit
 
-def read(p):return json.loads(p.read_text())
+def read(p):return json.loads(module_read_text(p))
 def area(e,f):
  axes={'north':(0,1),'south':(0,1),'west':(2,1),'east':(2,1),'up':(0,2),'down':(0,2)}[f]
  return math.prod(e['to'][i]-e['from'][i] for i in axes)
@@ -41,10 +42,10 @@ def main():
     dx,dz={'north':(1,0),'east':(0,1),'south':(-1,0),'west':(0,-1)}[facing]
     x,y,z=(10+column*dx,20+row,30+column*dz);assert (x-column*dx,y-row,z-column*dz)==(10,20,30)
  loot=read(ROOT/'src/main/resources/data/lsmmod/loot_table/blocks/school_crucifix.json');assert loot['pools'][0]['conditions'][1]['properties']=={'row':'0','column':'0'}
- java=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolCrucifixBlock.java').read_text();assert 'true,3,false' in java and 'builder.add(ROW)' in java
- parent=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/WideBathroomBlock.java').read_text();assert 'if (state.hasProperty(ROW)) return state.getValue(ROW);' in parent and 'sharedRotations.computeIfAbsent' in parent and 'SimpleBlockOutline.forState' in parent
- for filename in source['textures'].values():assert (A/'textures'/Path(filename.split(':')[1]+'.png')).exists()
+ java=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/wall_blocks/block/SchoolCrucifixBlock.java');assert 'true,3,false' in java and 'builder.add(ROW)' in java
+ parent=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/facilities/block/WideBathroomBlock.java');assert 'if (state.hasProperty(ROW)) return state.getValue(ROW);' in parent and 'sharedRotations.computeIfAbsent' in parent and 'SimpleBlockOutline.forState' in parent
+ for filename in source['textures'].values():assert module_exists(A/'textures'/Path(filename.split(':')[1]+'.png'))
  item=read(A/'models/item/school_crucifix.json');assert all(all(0<=e['from'][i]<e['to'][i]<=16 for i in range(3)) for e in item['elements'])
- generate();before={p:hashlib.sha256((ROOT/p).read_bytes()).digest() for p in GENERATED};generate();assert all(hashlib.sha256((ROOT/p).read_bytes()).digest()==h for p,h in before.items())
+ generate();before={p:hashlib.sha256(module_read_bytes(ROOT/p)).digest() for p in GENERATED};generate();assert all(hashlib.sha256(module_read_bytes(ROOT/p)).digest()==h for p,h in before.items())
  print('OK: proportion 22x40 within 32x40, six cells/four orientations, 24 states, continuous sculpted-face/INRI UV areas, wall placement, exact cached physical shapes, simple outlines and one controller drop; generator idempotent.')
 if __name__=='__main__':main()

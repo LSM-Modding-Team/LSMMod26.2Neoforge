@@ -1,0 +1,16 @@
+{
+  "block.lsmmod.drinking_fountain": "Drinking Fountain",
+  "block.lsmmod.infirmary_cot": "Infirmary Examination Cot",
+  "block.lsmmod.green_trash_bin": "Green Trash Bin",
+  "block.lsmmod.black_trash_bin": "Black Trash Bin",
+  "block.lsmmod.toilet": "Toilet Cubicle",
+  "block.lsmmod.men_urinal": "Children's Urinal",
+  "block.lsmmod.adult_men_urinal": "Adult Men's Urinal",
+  "block.lsmmod.standalone_toilet": "Standalone Toilet",
+  "block.lsmmod.school_sink": "School Pedestal Sink",
+  "block.lsmmod.school_connected_sink": "School Connected Trough Sink",
+  "block.lsmmod.school_drain": "School Drain",
+  "block.lsmmod.drinking_fountain_raised": "Raised Drinking Fountain",
+  "block.lsmmod.school_microwave": "School Microwave",
+  "block.lsmmod.school_refrigerator": "Dining Room Refrigerator"
+}

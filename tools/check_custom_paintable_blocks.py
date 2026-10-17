@@ -3,13 +3,14 @@
 Uses the generated models and independently compares their surfaces to a 2x2x2 grid.
 Java interaction and multiplayer behavior still require an in-game test.
 """
+from resource_modules import module_read_text
 import itertools
 import json
 import random
 from pathlib import Path
 from create_custom_paintable_blocks import ROOT, A, SIDES, PAINTS, STEPS
 
-def read(p): return json.loads(p.read_text())
+def read(p): return json.loads(module_read_text(p))
 def quadrant(face,x,y,z):
     return z+2*y if face in ('west','east') else x+2*z if face in ('down','up') else x+2*y
 def coords(cube): return cube&1,(cube>>1)&1,(cube>>2)&1
@@ -74,7 +75,7 @@ def main():
         low=sum(c<<(i*3) for i,c in enumerate(old[:16]))
         high=sum(c<<(i*3) for i,c in enumerate(old[16:]))
         assert [((low if i<16 else high)>>((i if i<16 else i-16)*3))&7 for i in range(24)]==old
-    entity=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolPaintableCustomBlockEntity.java').read_text()
+    entity=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/painting_and_editable_blocks/block/SchoolPaintableCustomBlockEntity.java')
     assert 'output.putInt("paint_bits",4)' in entity and 'getIntOr("paint_bits",3)==4 ? 4 : 3' in entity
     assert list(read(A/'blockstates/school_paintable_custom_block.json')['variants'])==['']
     assert list(read(A/'blockstates/school_foundation.json')['variants'])==['']
@@ -112,7 +113,7 @@ def check_fine():
             for face,surface in element['faces'].items():assert surface['texture']==PAINTS[9 if sum(xyz)%2 else 4]
     assert len(scene())==96 and not scene(0)
     java=ROOT/'src/main/java/net/nicomar2009/lsmmod'
-    registration=(java/'client/GlazingFusionRegistration.java').read_text()
+    registration=module_read_text(java/'client/GlazingFusionRegistration.java')
     entries=re.findall(r'LSMMod\.MOD_ID,\s*"([^"]+)"\),\s*(\w+\.SERIALIZER)',registration)
     assert len(entries)==registration.count('registerModelPredicate('),'Unrecognized predicate registration'
     assert len({identifier for identifier,_ in entries})==len(entries),'Duplicate Fusion predicate ID'
@@ -120,10 +121,10 @@ def check_fine():
     assert dict(entries)['painted_mini_cube']=='PaintedMiniCubePredicate.SERIALIZER'
     assert dict(entries)['painted_door_frame']=='PaintedDoorFramePredicate.SERIALIZER'
     for _,serializer in entries:
-        owner=serializer.split('.')[0];source=(java/f'client/{owner}.java').read_text()
+        owner=serializer.split('.')[0];source=module_read_text(java/f'client/{owner}.java')
         assert re.search(r'SERIALIZER\s*=\s*new Serializer',source),f'{owner} aliases another serializer'
         assert re.search(r'getSerializer\(\)\s*\{\s*return SERIALIZER;',source),f'{owner} returns a different serializer'
-    entity=(java/'block/SchoolMiniCubePaintEntity.java').read_text();frame=(java/'block/SchoolDoorFramePaintEntity.java').read_text()
+    entity=module_read_text(java/'modules/painting_and_editable_blocks/block/SchoolMiniCubePaintEntity.java');frame=module_read_text(java/'modules/painting_and_editable_blocks/block/SchoolDoorFramePaintEntity.java')
     assert 'miniSize() {return 4;}' in entity and 'occupied()==0' in entity and 'level.removeBlock(worldPosition,false)' in entity
     assert 'miniSize() {return 8;}' in frame and 'return new int[]{start,start+1,start+4,start+5}' in frame
     assert 'getLongOr("removed",0)' in frame and 'private final int[] squares=new int[96]' in frame

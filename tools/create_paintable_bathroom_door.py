@@ -1,4 +1,5 @@
 """Reuse the bathroom leaf; edit its frame in 8px groups while preserving legacy fine storage."""
+from resource_modules import module_glob, module_read_text, module_unlink, module_write_text
 import copy
 import json
 from create_facility_expansion_assets import ROOT,A,J,D,write,basic,mesh,scaled_item
@@ -48,7 +49,7 @@ def main():
     write(A/f'models/block/{ID}_frame.json',{'loader':'fusion:model','type':'composite','textures':{'particle':PAINTS[0]},'models':series})
 
     multipart=[];shared={}
-    for entry in json.loads((A/'blockstates/bathroom_door_wide.json').read_text())['multipart']:
+    for entry in json.loads(module_read_text(A/'blockstates/bathroom_door_wide.json'))['multipart']:
         if 'framed_door_transom' in entry['apply']['model']:continue
         model=native_leaf(load(entry['apply']['model'])[0])
         if not model['elements']:continue
@@ -70,20 +71,20 @@ def main():
         ('ModItems.java','    public static final DeferredItem<BlockItem> BATHROOM_DOOR_WIDE_PAINTABLE = ITEMS.registerSimpleBlockItem(ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE);'),
     )
     for filename,entry in additions:
-        path=J/'registry'/filename;text=path.read_text()
-        if ' BATHROOM_DOOR_WIDE_PAINTABLE =' not in text:path.write_text(text.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
-    path=J/'registry/ModBlockEntities.java';text=path.read_text()
+        path=J/'registry'/filename;text=module_read_text(path)
+        if ' BATHROOM_DOOR_WIDE_PAINTABLE =' not in text:module_write_text(path, text.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
+    path=J/'registry/ModBlockEntities.java';text=module_read_text(path)
     if ' SCHOOL_DOOR_FRAME_PAINT =' not in text:
-        entry='''    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolDoorFramePaintEntity>> SCHOOL_DOOR_FRAME_PAINT = BLOCK_ENTITIES.register(
-            "school_door_frame_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolDoorFramePaintEntity::new,
+        entry='''    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolDoorFramePaintEntity>> SCHOOL_DOOR_FRAME_PAINT = BLOCK_ENTITIES.register(
+            "school_door_frame_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolDoorFramePaintEntity::new,
                     ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE.get()));
 
 '''
-        path.write_text(text.replace('    // Only the LEFT half',entry+'    // Only the LEFT half',1))
+        module_write_text(path, text.replace('    // Only the LEFT half',entry+'    // Only the LEFT half',1))
     for locale,label in (('es_es','Puerta ancha de baño con marco pintable'),('en_us','Wide Bathroom Door with Paintable Frame')):
-        path=A/f'lang/{locale}.json';data=json.loads(path.read_text());data['block.lsmmod.'+ID]=label;write(path,data)
+        path=A/f'lang/{locale}.json';data=json.loads(module_read_text(path));data['block.lsmmod.'+ID]=label;write(path,data)
     for tool in ('axe','pickaxe'):
-        path=D/f'minecraft/tags/block/mineable/{tool}.json';data=json.loads(path.read_text())
+        path=D/f'minecraft/tags/block/mineable/{tool}.json';data=json.loads(module_read_text(path))
         if 'lsmmod:'+ID not in data['values']:data['values'].append('lsmmod:'+ID)
         write(path,data)
 
@@ -133,7 +134,7 @@ def generate_entrance():
     write(A/f'models/item/{ENTRANCE_ID}_leaf.json',leaf)
     frame=scaled_item(FRAME,{'surface':PAINTS[0],'particle':PAINTS[0]},32,48)
     write(A/f'models/item/{ENTRANCE_ID}_frame.json',frame)
-    (A/f'models/item/{ENTRANCE_ID}_glass.json').unlink(missing_ok=True)
+    module_unlink(A/f'models/item/{ENTRANCE_ID}_glass.json', missing_ok=True)
     write(A/f'models/item/{ENTRANCE_ID}.json',{'loader':'fusion:model','type':'composite','textures':{'particle':PAINTS[0]},
         'models':[[f'lsmmod:item/{ENTRANCE_ID}_{part}'] for part in ('leaf','frame')]})
     basic(ENTRANCE_ID,controller={'column':'0','row':'0','depth':'0'})
@@ -141,15 +142,15 @@ def generate_entrance():
         ('ModBlocks.java','    public static final DeferredBlock<SchoolPaintableEntranceDoorBlock> SCHOOL_ENTRANCE_DOOR_PAINTABLE = BLOCKS.registerBlock("'+ENTRANCE_ID+'", SchoolPaintableEntranceDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));'),
         ('ModItems.java','    public static final DeferredItem<BlockItem> SCHOOL_ENTRANCE_DOOR_PAINTABLE = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ENTRANCE_DOOR_PAINTABLE);'),
     ):
-        path=J/'registry'/filename;text=path.read_text()
-        if ' SCHOOL_ENTRANCE_DOOR_PAINTABLE =' not in text:path.write_text(text.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
-    path=J/'registry/ModBlockEntities.java';text=path.read_text()
+        path=J/'registry'/filename;text=module_read_text(path)
+        if ' SCHOOL_ENTRANCE_DOOR_PAINTABLE =' not in text:module_write_text(path, text.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
+    path=J/'registry/ModBlockEntities.java';text=module_read_text(path)
     text=text.replace('ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE.get()));','ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE.get(),ModBlocks.SCHOOL_ENTRANCE_DOOR_PAINTABLE.get()));')
-    path.write_text(text)
+    module_write_text(path, text)
     for locale,label in (('es_es','Puerta del colegio con marco pintable'),('en_us','School Entrance Door with Paintable Frame')):
-        path=A/f'lang/{locale}.json';data=json.loads(path.read_text());data['block.lsmmod.'+ENTRANCE_ID]=label;write(path,data)
+        path=A/f'lang/{locale}.json';data=json.loads(module_read_text(path));data['block.lsmmod.'+ENTRANCE_ID]=label;write(path,data)
     for tool in ('axe','pickaxe'):
-        path=D/f'minecraft/tags/block/mineable/{tool}.json';data=json.loads(path.read_text())
+        path=D/f'minecraft/tags/block/mineable/{tool}.json';data=json.loads(module_read_text(path))
         if 'lsmmod:'+ENTRANCE_ID not in data['values']:data['values'].append('lsmmod:'+ENTRANCE_ID)
         write(path,data)
 
@@ -158,8 +159,8 @@ COLUMN_ID='bathroom_door_wide_paintable_column'
 
 def generate_column():
     """Keep original door/glass resources; replace only stationary masonry with 8px paint squares."""
-    for obsolete in (A/f'models/block/{COLUMN_ID}').glob('*.json'):obsolete.unlink()
-    source=json.loads((A/'blockstates/bathroom_door_wide.json').read_text())['multipart']
+    for obsolete in module_glob(A/f'models/block/{COLUMN_ID}', '*.json'):module_unlink(obsolete)
+    source=json.loads(module_read_text(A/'blockstates/bathroom_door_wide.json'))['multipart']
     multipart=[];wall_parts={}
     for entry in source:
         models=load(entry['apply']['model'])
@@ -223,16 +224,16 @@ def generate_column():
     for filename,entry in (
         ('ModBlocks.java',f'    public static final DeferredBlock<SchoolPaintableBathroomColumnDoorBlock> BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN = BLOCKS.registerBlock("{COLUMN_ID}", SchoolPaintableBathroomColumnDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));'),
         ('ModItems.java','    public static final DeferredItem<BlockItem> BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN = ITEMS.registerSimpleBlockItem(ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN);')):
-        path=J/'registry'/filename;text=path.read_text()
-        if ' BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN =' not in text:path.write_text(text.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
-    path=J/'registry/ModBlockEntities.java';text=path.read_text()
+        path=J/'registry'/filename;text=module_read_text(path)
+        if ' BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN =' not in text:module_write_text(path, text.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
+    path=J/'registry/ModBlockEntities.java';text=module_read_text(path)
     if ' SCHOOL_BATHROOM_COLUMN_PAINT =' not in text:
-        entry='    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolBathroomColumnPaintEntity>> SCHOOL_BATHROOM_COLUMN_PAINT = BLOCK_ENTITIES.register("school_bathroom_column_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolBathroomColumnPaintEntity::new, ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN.get()));\n\n'
-        path.write_text(text.replace('    // Only the LEFT half',entry+'    // Only the LEFT half',1))
+        entry='    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolBathroomColumnPaintEntity>> SCHOOL_BATHROOM_COLUMN_PAINT = BLOCK_ENTITIES.register("school_bathroom_column_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolBathroomColumnPaintEntity::new, ModBlocks.BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN.get()));\n\n'
+        module_write_text(path, text.replace('    // Only the LEFT half',entry+'    // Only the LEFT half',1))
     for locale,label in (('es_es','Puerta ancha de baño con columna pintable'),('en_us','Wide Bathroom Door with Paintable Column')):
-        path=A/f'lang/{locale}.json';data=json.loads(path.read_text());data['block.lsmmod.'+COLUMN_ID]=label;write(path,data)
+        path=A/f'lang/{locale}.json';data=json.loads(module_read_text(path));data['block.lsmmod.'+COLUMN_ID]=label;write(path,data)
     for tool in ('axe','pickaxe'):
-        path=D/f'minecraft/tags/block/mineable/{tool}.json';data=json.loads(path.read_text())
+        path=D/f'minecraft/tags/block/mineable/{tool}.json';data=json.loads(module_read_text(path))
         if 'lsmmod:'+COLUMN_ID not in data['values']:data['values'].append('lsmmod:'+COLUMN_ID)
         write(path,data)
 

@@ -1,15 +1,16 @@
 """Validate every migrated model and blockstate against original resources, without Java."""
+from resource_modules import module_exists, module_glob, module_read_text, module_rglob
 from resource_modules import source_assets
 import json,tempfile
 from pathlib import Path
 from optimize_model_resources import ROOT,prepare,replace,model_identifier
 A=source_assets()
-def read(p):return json.loads(p.read_text(encoding='utf-8-sig'))
+def read(p):return json.loads(module_read_text(p, encoding='utf-8-sig'))
 def resolve(base,ident,aliases,trail=()):
  ident=aliases.get(ident,ident)
  if not ident.startswith('lsmmod:'):return {'external_parent':ident}
  assert ident not in trail, ('cycle',ident)
- p=base/'models'/f'{ident.split(":",1)[1]}.json';assert p.exists(),p
+ p=base/'models'/f'{ident.split(":",1)[1]}.json';assert module_exists(p),p
  d=read(p)
  if base==A:
   from repair_door_glazing_faces import eligible,repair
@@ -26,14 +27,14 @@ def main():
  assert model_identifier(PureWindowsPath('C:/assets/models/block/nested/panel.json'),PureWindowsPath('C:/assets/models'))=='lsmmod:block/nested/panel'
  with tempfile.TemporaryDirectory() as t:
   output=Path(t)/'resources';output.mkdir();report,aliases=prepare(output);B=output/'assets/lsmmod'
-  for p in (A/'models').rglob('*.json'):
+  for p in module_rglob(A/'models', '*.json'):
    ident=model_identifier(p,A/'models')
    assert replace(resolve(A,ident,{}),aliases)==resolve(B,ident,aliases),ident
   from prepare_high_state_models import TARGETS,PAVEMENT
   from check_high_state_models import verify
   high_count=verify(output,aliases)
   count=0
-  for p in (A/'blockstates').glob('*.json'):
+  for p in module_glob(A/'blockstates', '*.json'):
    old=replace(read(p),aliases);new=read(B/'blockstates'/p.name)
    if p.stem in set(TARGETS)|set(PAVEMENT):continue
    if 'variants' in old:
@@ -45,11 +46,11 @@ def main():
      count+=1
    else:assert old==new,p
   for folder in ('items',):
-   for p in (A/folder).rglob('*.json'):assert replace(read(p),aliases)==read(B/folder/p.relative_to(A/folder)),p
+   for p in module_rglob(A/folder, '*.json'):assert replace(read(p),aliases)==read(B/folder/p.relative_to(A/folder)),p
   assert report['identical_models_shared']>0 and report['fusion_models']>0 and report['neoforge_obj_models']>0
   assert report['variants_after']<report['variants_before'] and report['state_properties_changed'] and len(report['high_state_models']['blocks'])==len(TARGETS)+1
   # Dedicated-server metadata never requires the client model library.
-  metadata=(ROOT/'src/main/templates/META-INF/neoforge.mods.toml').read_text(encoding='utf-8').split('modId="fusion"')[1]
+  metadata=module_read_text(ROOT/'src/main/templates/META-INF/neoforge.mods.toml', encoding='utf-8').split('modId="fusion"')[1]
   assert 'type="required"' in metadata and 'side="CLIENT"' in metadata and 'versionRange="[1.3.16]"' in metadata
   print('OK: every model preserves geometry, UV, textures and transforms except the explicit door glass-cap/cullface repair;',high_count,'high-state selections,',count,'other variant selectors and all item references preserved.')
   print(json.dumps(report))

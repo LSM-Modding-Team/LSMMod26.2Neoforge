@@ -1,4 +1,5 @@
 """Review the saved goal cells and actual inventory model; no Minecraft launch."""
+from resource_modules import module_read_text, output_path
 import json
 
 from PIL import Image, ImageDraw
@@ -15,7 +16,7 @@ def main():
         column, row, depth = coordinates(cell)
         renderer.add(scene, renderer.block(ID, {"facing": "north", "cell": cell}),
                      (16 * column, 16 * row, 16 * depth))
-    definition = json.loads((ASSETS / f"items/{ID}.json").read_text())["model"]
+    definition = json.loads(module_read_text(ASSETS / f"items/{ID}.json"))["model"]
     item = []
     renderer.add(item, renderer.load(definition["model"]))
     frame = [e for e in scene if not any(
@@ -40,7 +41,7 @@ def main():
         draw.text((x + 12, y + 8), label, fill=(232, 236, 239))
     draw.text((12, 1128), "Render externo; no es una captura de Minecraft.", fill=(232, 236, 239))
     output = preview_path(f"{ID}_review.png")
-    canvas.save(output)
+    canvas.save(output_path(output))
     print(output)
     # A larger pair exposes the tubes behind the mesh for reference comparison.
     size = (900, 780)
@@ -56,7 +57,7 @@ def main():
         draw.text((900*index+12,8), label, fill=(232,236,239))
     draw.text((12,808), 'Render del modelo real; sin generacion de imagenes por IA.', fill=(232,236,239))
     output = preview_path(f'{ID}_structure_review.png')
-    detail.save(output)
+    detail.save(output_path(output))
     print(output)
 
 

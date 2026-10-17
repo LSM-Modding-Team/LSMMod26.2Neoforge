@@ -1,4 +1,5 @@
 """Read the supplied Anvil world without modifying it; export school block evidence."""
+from resource_modules import module_write_text
 import argparse, collections, gzip, json, struct, zipfile, zlib
 from pathlib import Path
 
@@ -57,9 +58,9 @@ def read_world(path):
 if __name__ == '__main__':
     ap = argparse.ArgumentParser(); ap.add_argument('world'); ap.add_argument('--output', default='build/school-analysis'); args=ap.parse_args()
     blocks, entities = read_world(args.world); out=Path(args.output); out.mkdir(parents=True,exist_ok=True)
-    (out/'blocks.json').write_text(json.dumps([{'pos':p, **v} for p,v in blocks.items()]),encoding='utf-8')
+    module_write_text(out/'blocks.json', json.dumps([{'pos':p, **v} for p,v in blocks.items()]),encoding='utf-8')
     inside = [e for e in entities if -87<=e.get('x',0)<=-57 and -23<=e.get('z',0)<=56 and 133<=e.get('y',0)<=154]
-    (out/'entities.json').write_text(json.dumps(inside,indent=2,ensure_ascii=False),encoding='utf-8')
+    module_write_text(out/'entities.json', json.dumps(inside,indent=2,ensure_ascii=False),encoding='utf-8')
     counts=collections.Counter(v['Name'] for v in blocks.values()); print(counts)
     for y in range(134,154):
         lines=[f'Y={y} x=-87..-57; z=-23..56']
@@ -70,5 +71,5 @@ if __name__ == '__main__':
                 ch=' ' if n.endswith(':air') or n.endswith(':cave_air') else 'D' if 'door' in n else 'g' if 'glass' in n else 's' if 'sign' in n else '.' if n.startswith('lsmmod:') else '#'
                 line+=ch
             lines.append(f'{z:3} {line}')
-        (out/f'layer-{y}.txt').write_text('\n'.join(lines))
+        module_write_text(out/f'layer-{y}.txt', '\n'.join(lines))
     print('Block entities:',len(inside))

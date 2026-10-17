@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.uniforms.item;
 
-
-
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;

@@ -1,4 +1,5 @@
 """Review modular sofa corners, connected assemblies, four orientations and the real item."""
+from resource_modules import module_read_text, output_path
 from resource_json import preview_path
 import json
 
@@ -9,7 +10,7 @@ from render_texture_review import A, ROOT, add, load, render
 
 
 def module(scene, facing, shape='straight', x=0, z=0):
-    variants = json.loads((A/'blockstates/sofa.json').read_text())['variants']
+    variants = json.loads(module_read_text(A/'blockstates/sofa.json'))['variants']
     apply = variants[f'facing={facing},shape={shape}']
     for model in load(apply['model']):
         # Existing helper rotates by 270 degrees, including actual face UV orientation.
@@ -32,7 +33,7 @@ def main():
         module(row, 'south', x=x)
     panel(canvas, 0, 'Tres modulos conectados / frente', row)
     panel(canvas, 1, 'Tres modulos / dorso', row, azimuth=-120)
-    item_definition = json.loads((A/'items/sofa.json').read_text())['model']
+    item_definition = json.loads(module_read_text(A/'items/sofa.json'))['model']
     item = []
     add(item, load(item_definition['model']))
     panel(canvas, 2, 'Item / modelo y materiales reales', item)
@@ -53,10 +54,10 @@ def main():
         module(outside, 'east', z=offset)
     panel(canvas, 8, 'Conexion en L / esquina exterior', outside, azimuth=135)
     target = preview_path('sofa_connections_review.png')
-    canvas.save(target)
+    canvas.save(output_path(target))
     print(target)
     # Use the actual front of the SOUTH-native chair rather than the generic NORTH labels.
-    canvas.crop((0, 0, 1500, 380)).save(preview_path('sofa_review.png'))
+    canvas.crop((0, 0, 1500, 380)).save(output_path(preview_path('sofa_review.png')))
 
     orientations = Image.new('RGB', (1500, 5*320), (194, 194, 194))
     for row, shape in enumerate(('straight', 'inner_left', 'inner_right', 'outer_left', 'outer_right')):
@@ -66,7 +67,7 @@ def main():
             panel(orientations, row*4+column, shape+' / '+facing, scene,
                   columns=4, size=(375, 320), azimuth=60)
     target = preview_path('sofa_orientations_review.png')
-    orientations.save(target)
+    orientations.save(output_path(target))
     print(target)
 
 

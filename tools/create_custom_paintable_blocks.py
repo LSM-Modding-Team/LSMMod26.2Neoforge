@@ -1,4 +1,5 @@
 """Bounded Fusion face models for an editable eight-cell cube, tools and foundation."""
+from resource_modules import module_read_text, module_write_text, output_path
 from resource_json import resource_json
 from resource_modules import output_path, write_resource
 import json
@@ -10,7 +11,7 @@ from create_paintable_school_block import ROOT, A, SIDES, PAINTS
 STEPS={'down':(0,-1,0),'up':(0,1,0),'north':(0,0,-1),'south':(0,0,1),'west':(-1,0,0),'east':(1,0,0)}
 GENERATED=[]
 def write(p,value):
-    destination=output_path(p)
+    destination=p
     write_resource(p,value)
     GENERATED.append(str(destination.relative_to(ROOT)))
 
@@ -85,31 +86,31 @@ def main():
     public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolSandpaperItem> SCHOOL_SANDPAPER = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.SCHOOL_SANDPAPER;
     public static final DeferredItem<net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolHammerItem> SCHOOL_HAMMER = net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.SCHOOL_HAMMER;'''
     for filename,body in [('ModBlocks.java',blocks),('ModItems.java',items)]:
-        p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=p.read_text()
+        p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=module_read_text(p)
         start='    // BEGIN CUSTOM PAINTABLE BLOCKS';end='    // END CUSTOM PAINTABLE BLOCKS';section=start+'\n'+body+'\n'+end+'\n\n'
         if start in s:
             a=s.index(start);b=s.index(end)+len(end);s=s[:a]+section.rstrip()+s[b:]
         else:
             a=s.index('    // BEGIN PAINTABLE SCHOOL BLOCK');s=s[:a]+section+s[a:]
-        p.write_text(s)
+        module_write_text(p, s)
     for locale,labels in [('en_us',('School Foundation','Custom Paintable School Block','School Sandpaper','School Hammer')),
                           ('es_es',('Cimientos del colegio','Bloque pintable personalizado del colegio','Lija del colegio','Martillo del colegio'))]:
-        p=A/f'lang/{locale}.json';data=json.loads(p.read_text())
+        p=A/f'lang/{locale}.json';data=json.loads(module_read_text(p))
         for key,label in zip(('block.lsmmod.school_foundation','block.lsmmod.school_paintable_custom_block',
                               'item.lsmmod.school_sandpaper','item.lsmmod.school_hammer'),labels):data[key]=label
         write(p,data)
-    p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';data=json.loads(p.read_text())
+    p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';data=json.loads(module_read_text(p))
     data['values']=list(dict.fromkeys(data['values']+['lsmmod:school_foundation','lsmmod:school_paintable_custom_block']));write(p,data)
 
 def save_texture(image,p):
-    p.parent.mkdir(parents=True,exist_ok=True);p=output_path(p);p.parent.mkdir(parents=True,exist_ok=True);image.save(p);GENERATED.append(str(p.relative_to(ROOT)))
+    p.parent.mkdir(parents=True,exist_ok=True);p=output_path(p);p.parent.mkdir(parents=True,exist_ok=True);image.save(output_path(p));GENERATED.append(str(p.relative_to(ROOT)))
 
 FINE_ID='school_paintable_mini_cube_block'
 
 def generate_fine():
     import copy
     from create_facility_expansion_assets import J,D,basic
-    model=copy.deepcopy(json.loads((A/'models/block/bathroom_door_wide_paintable_frame.json').read_text()))
+    model=copy.deepcopy(json.loads(module_read_text(A/'models/block/bathroom_door_wide_paintable_frame.json')))
     for group in model['models']:
         for entry in group:
             if 'condition' in entry:entry['condition']['type']='lsmmod:painted_mini_cube'
@@ -122,19 +123,19 @@ def generate_fine():
         ('ModBlocks.java','    public static final DeferredBlock<SchoolMiniCubePaintableBlock> SCHOOL_PAINTABLE_MINI_CUBE_BLOCK = BLOCKS.registerBlock("'+FINE_ID+'", SchoolMiniCubePaintableBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).requiresCorrectToolForDrops().dynamicShape().noOcclusion());'),
         ('ModItems.java','    public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_MINI_CUBE_BLOCK = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_MINI_CUBE_BLOCK);'),
     ):
-        path=J/'registry'/filename;text=path.read_text()
-        if ' SCHOOL_PAINTABLE_MINI_CUBE_BLOCK =' not in text:path.write_text(text.replace('    // BEGIN CUSTOM PAINTABLE BLOCKS',entry+'\n\n    // BEGIN CUSTOM PAINTABLE BLOCKS',1))
-    path=J/'registry/ModBlockEntities.java';text=path.read_text()
+        path=J/'registry'/filename;text=module_read_text(path)
+        if ' SCHOOL_PAINTABLE_MINI_CUBE_BLOCK =' not in text:module_write_text(path, text.replace('    // BEGIN CUSTOM PAINTABLE BLOCKS',entry+'\n\n    // BEGIN CUSTOM PAINTABLE BLOCKS',1))
+    path=J/'registry/ModBlockEntities.java';text=module_read_text(path)
     if ' SCHOOL_MINI_CUBE_PAINT =' not in text:
-        entry='''    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolMiniCubePaintEntity>> SCHOOL_MINI_CUBE_PAINT = BLOCK_ENTITIES.register(
-            "school_mini_cube_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolMiniCubePaintEntity::new,
+        entry='''    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolMiniCubePaintEntity>> SCHOOL_MINI_CUBE_PAINT = BLOCK_ENTITIES.register(
+            "school_mini_cube_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolMiniCubePaintEntity::new,
                     ModBlocks.SCHOOL_PAINTABLE_MINI_CUBE_BLOCK.get()));
 
 '''
-        path.write_text(text.replace('    // Only the LEFT half',entry+'    // Only the LEFT half',1))
+        module_write_text(path, text.replace('    // Only the LEFT half',entry+'    // Only the LEFT half',1))
     for locale,label in (('es_es','Bloque pintable de minicubos de 4 px'),('en_us','Paintable 4px Mini Cube Block')):
-        path=A/f'lang/{locale}.json';data=json.loads(path.read_text());data['block.lsmmod.'+FINE_ID]=label;write(path,data)
-    path=D/'minecraft/tags/block/mineable/pickaxe.json';data=json.loads(path.read_text())
+        path=A/f'lang/{locale}.json';data=json.loads(module_read_text(path));data['block.lsmmod.'+FINE_ID]=label;write(path,data)
+    path=D/'minecraft/tags/block/mineable/pickaxe.json';data=json.loads(module_read_text(path))
     if 'lsmmod:'+FINE_ID not in data['values']:data['values'].append('lsmmod:'+FINE_ID)
     write(path,data)
 

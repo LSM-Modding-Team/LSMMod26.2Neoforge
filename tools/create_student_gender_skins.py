@@ -3,6 +3,7 @@
 Female atlases reserve UV (16,32) for the exact inclined bust in girl.java.
 All other uniform regions retain the existing player UV layout.
 """
+from resource_modules import module_path, output_path
 import argparse
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
@@ -55,17 +56,17 @@ def adapt_female_bust(image):
 for suffix, count in [('p', 6), ('s', 5)]:
     for grade in range(1, count + 1):
         male_path = TEXTURES / 'students' / f'placeholder_{grade}{suffix}.png'
-        with Image.open(male_path) as original:
+        with Image.open(module_path(male_path)) as original:
             for gender in (['female'] if ARGS.female_only else ['male', 'female']):
                 output = male_path if gender == 'male' else male_path.with_stem(male_path.stem + '_female')
                 variant = mark_gender(original, gender, suffix == 'p')
                 if gender == 'female':
                     variant = adapt_female_bust(variant)
-                variant.save(output)
+                variant.save(output_path(output))
 
 if not ARGS.female_only:
-    with Image.open(TEXTURES / 'placeholder_school_npc.png') as original:
+    with Image.open(module_path(TEXTURES / 'placeholder_school_npc.png')) as original:
         for gender in ['male', 'female']:
-            mark_gender(original, gender, True).save(TEXTURES / f'placeholder_student_{gender}.png')
+            mark_gender(original, gender, True).save(output_path(TEXTURES / f'placeholder_student_{gender}.png'))
 print('Generated 11 classroom female atlases for girl.java.' if ARGS.female_only else
       'Generated 11 female classroom variants, marked 11 male head tops, and 2 unassigned Student fallbacks.')

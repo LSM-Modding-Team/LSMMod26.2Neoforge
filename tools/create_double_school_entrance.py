@@ -1,4 +1,5 @@
 """Three-column tall school entrance, with two 24-pixel leaves and fixed school glazing."""
+from resource_modules import module_path, module_read_text, output_path
 import copy,itertools,json
 from pathlib import Path
 from PIL import Image,ImageDraw
@@ -38,8 +39,8 @@ def crop(e,box,caps=False):
 
 def art():
     # Original wood, circular glazing and handle palette; no photo decorations.
-    bottom=Image.open(A/'textures/block/classroom_door_bottom.png').convert('RGBA')
-    top=Image.open(A/'textures/block/classroom_door_top.png').convert('RGBA')
+    bottom=Image.open(module_path(A/'textures/block/classroom_door_bottom.png')).convert('RGBA')
+    top=Image.open(module_path(A/'textures/block/classroom_door_top.png')).convert('RGBA')
     for row in range(3):
         for col in range(3):
             image=(bottom if row==0 else top).copy()
@@ -68,13 +69,13 @@ def art():
                 if row==0:
                     draw.rectangle((5,0,6,5),fill=(180,180,163,255));draw.rectangle((9,0,10,5),fill=(180,180,163,255))
                     draw.point((6,0),fill=(220,216,192,255));draw.point((9,0),fill=(220,216,192,255))
-            image.save(A/f'textures/block/{NAME}_{col}_{row}.png')
+            image.save(output_path(A/f'textures/block/{NAME}_{col}_{row}.png'))
 
 def wood(opened):
     result=[]
     for row in range(3):
         for col in range(3):
-            source=json.loads((A/f'models/block/tall_classroom_entrance_0_{row}.json').read_text())
+            source=json.loads(module_read_text(A/f'models/block/tall_classroom_entrance_0_{row}.json'))
             for original in source['elements']:
                 if not any(f['texture'] in ('#bottom','#top') for f in original['faces'].values()):continue
                 e=copy.deepcopy(original)
@@ -148,8 +149,8 @@ def main():
     write(A/f'items/{NAME}.json',{'model':{'type':'minecraft:model','model':'lsmmod:item/'+NAME}})
     write(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{NAME}.json',{'type':'minecraft:block','pools':[{'rolls':1,'conditions':[{'condition':'minecraft:survives_explosion'},{'condition':'minecraft:block_state_property','block':'lsmmod:'+NAME,'properties':{'row':'0','column':'1','depth':'0'}}],'entries':[{'type':'minecraft:item','name':'lsmmod:'+NAME}]}]})
     for locale,label in (('es_es','Puerta doble grande del colegio'),('en_us','Large Double School Door')):
-        p=A/f'lang/{locale}.json';data=json.loads(p.read_text());data['block.lsmmod.'+NAME]=label;write(p,data)
-    p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/axe.json';data=json.loads(p.read_text());data['values']=list(dict.fromkeys(data['values']+['lsmmod:'+NAME]));write(p,data)
+        p=A/f'lang/{locale}.json';data=json.loads(module_read_text(p));data['block.lsmmod.'+NAME]=label;write(p,data)
+    p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/axe.json';data=json.loads(module_read_text(p));data['values']=list(dict.fromkeys(data['values']+['lsmmod:'+NAME]));write(p,data)
     from compact_school_door_assets import main as compact_doors
     compact_doors((NAME,))
 if __name__=='__main__':main()

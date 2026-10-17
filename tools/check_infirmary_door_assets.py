@@ -1,4 +1,5 @@
 """Static regression: both glazing channels, front-only materials, all cells and exact geometry."""
+from resource_modules import module_read_text
 import itertools
 import json
 import numpy as np
@@ -9,7 +10,7 @@ from create_infirmary_door_assets import INFIRMARY_CLOSED, INFIRMARY_OPEN
 from check_facility_expansion_assets import matches
 
 
-def read(path):return json.loads(path.read_text())
+def read(path):return json.loads(module_read_text(path))
 
 
 def occupied(elements):
@@ -99,14 +100,14 @@ def main():
             new=(1 if 16*i==0 or 16*i%spacing==0 else 0)|(2 if 16*i+16==16*length or (16*i+16)%spacing==0 else 0)|(4 if (16*i+8)%spacing==0 else 0)
             assert old==new
     java=ROOT/'src/main/java/net/nicomar2009/lsmmod'
-    shared=(java/'block/SchoolGlazing.java').read_text()
+    shared=module_read_text(java/'modules/windows_and_enclosures/block/SchoolGlazing.java')
     assert 'pane(left,facing).end()==16&&pane(right,facing).start()==0' in shared
     assert 'a.start()!=b.start()||a.end()!=b.end()' in shared
     assert 'new Pane(0,16,8,16,3,false)' in shared and 'new Pane(0,16,0,8,3,false)' in shared
-    assert 'SchoolGlazing.sideFacing(neighbor)' in (java/'block/SchoolGlassBlock.java').read_text()
-    predicate=(java/'client/SchoolGlazingPredicate.java').read_text()
+    assert 'SchoolGlazing.sideFacing(neighbor)' in module_read_text(java/'modules/windows_and_enclosures/block/SchoolGlassBlock.java')
+    predicate=module_read_text(java/'modules/windows_and_enclosures/client/SchoolGlazingPredicate.java')
     assert 'selection.side!=side' in predicate and 'visualMask(world,pos,state,side)' in predicate
-    source=(java/'block/SchoolFramedDiningDoorBlock.java').read_text()
+    source=module_read_text(java/'modules/windows_and_enclosures/block/SchoolFramedDiningDoorBlock.java')
     assert '(sideGlazing?64:0)' in source and 'SimpleBlockOutline.forState' in source
     assert 'row,0),true)' in source
     print(f'OK: 384 new states, {masks_checked} independent main/side mask selections; exact closed/open/right physical occupancy; bathroom wood without window; front-only light walls and single drops.')

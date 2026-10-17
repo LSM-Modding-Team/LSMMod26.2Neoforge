@@ -1,4 +1,5 @@
 """Build the two-block school computer workstation and matching collision shapes."""
+from resource_modules import module_read_text, module_write_text, output_path
 from resource_json import resource_json
 import copy
 import json
@@ -9,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 A = ROOT / 'src/main/resources/assets/lsmmod'
 def write(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(resource_json(path, data, ensure_ascii=False) + '\n', encoding='utf-8')
+    module_write_text(path, resource_json(path, data, ensure_ascii=False) + '\n', encoding='utf-8')
 
 im = Image.new('RGB', (64, 64), '#bc8858')
 d = ImageDraw.Draw(im)
@@ -34,7 +35,7 @@ d.rectangle((35, 44, 42, 47), fill='#101315')
 d.rectangle((54, 44, 57, 47), fill='#76b887')
 for x in range(36, 61, 3):
     d.line((x, 52, x, 59), fill='#121619')
-im.save(A / 'textures/block/computer_desk.png')
+im.save(output_path(A / 'textures/block/computer_desk.png'))
 
 def box(start, end, texture='wood', overrides=None):
     uv = {'wood': [0,0,8,8], 'paint': [8,0,16,8], 'keys': [0,8,8,16], 'cpu': [8,8,16,16]}[texture]
@@ -65,7 +66,7 @@ equipment = [box([2,13.2,10],[14,13.85,14.5],'keys'),
              box([7,17.25,9.3],[8.2,17.65,11.1],'paint'),
              box([7.48,17.65,9.65],[7.72,17.75,10.05],'keys')]
 # Reuse the existing PC monitor at a reduced size, preserving its texture UVs.
-pc = json.loads((A / 'models/block/pc.json').read_text(encoding='utf-8'))
+pc = json.loads(module_read_text(A / 'models/block/pc.json', encoding='utf-8'))
 for element in pc['elements']:
     part = copy.deepcopy(element)
     part['from'] = [1 + element['from'][0]*.62, 17 + element['from'][1]*.62, 1 + element['from'][2]*.62]
@@ -144,7 +145,7 @@ write(ROOT / 'src/main/resources/data/lsmmod/loot_table/blocks/computer_desk.jso
         {'rolls':1, 'conditions':[lower, occupied], 'entries':[{'type':'minecraft:item','name':'lsmmod:pc'}]}]})
 for lang, label in [('es_es','Mesa de computación'),('en_us','Computer desk')]:
     path = A / f'lang/{lang}.json'
-    data = json.loads(path.read_text(encoding='utf-8'))
+    data = json.loads(module_read_text(path, encoding='utf-8'))
     data['block.lsmmod.computer_desk'] = label
     write(path, data)
 
@@ -176,4 +177,4 @@ java += '''        for (int half = 0; half < 2; half++) {
     private ComputerDeskShapes() {}
 }
 '''
-(ROOT / 'src/main/java/net/nicomar2009/lsmmod/block/ComputerDeskShapes.java').write_text(java, encoding='utf-8')
+module_write_text(ROOT / 'src/main/java/net/nicomar2009/lsmmod/modules/tables_and_desks/block/ComputerDeskShapes.java', java, encoding='utf-8')

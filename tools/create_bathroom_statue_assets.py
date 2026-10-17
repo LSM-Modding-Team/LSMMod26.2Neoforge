@@ -1,4 +1,5 @@
 """Generate passive sanitary fixtures and a solid, non-overlapping San Martin statue."""
+from resource_modules import module_read_text, module_write_text, output_path
 from resource_json import resource_json
 import json
 import random
@@ -75,7 +76,7 @@ for z in (3.5, 12.125):
 
 def write_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(resource_json(path, value, ensure_ascii=False)+"\n", encoding="utf-8")
+    module_write_text(path, resource_json(path, value, ensure_ascii=False)+"\n", encoding="utf-8")
 
 
 def textures():
@@ -106,9 +107,9 @@ def textures():
             for x in (3, 6, 9, 12): draw.line((x, 2, x, 13), fill=(32, 41, 44))
         path = ASSETS / f"textures/block/school_{material}.png"
         path.parent.mkdir(parents=True, exist_ok=True)
-        im.save(path)
+        im.save(output_path(path))
         if material == "robe":
-            for half in ("up", "down"): im.save(ASSETS / f"textures/block/san_martin_de_porres_{half}.png")
+            for half in ("up", "down"): im.save(output_path(ASSETS / f"textures/block/san_martin_de_porres_{half}.png"))
 
 
 def crop_face_uv(uv, face, low, high, clipped_low, clipped_high):
@@ -220,10 +221,10 @@ def main():
         java += ["        {"+", ".join(str(v) for v in p[0])+"}," for p in parts]
         java.append("    };")
         for locale, text in (("es_es", es), ("en_us", en)):
-            path = ASSETS / f"lang/{locale}.json"; values = json.loads(path.read_text()); values[f"block.lsmmod.{block_id}"] = text; write_json(path, values)
+            path = ASSETS / f"lang/{locale}.json"; values = json.loads(module_read_text(path)); values[f"block.lsmmod.{block_id}"] = text; write_json(path, values)
     java.append("}")
-    (ROOT / "src/main/java/net/nicomar2009/lsmmod/block/BathroomShapes.java").write_text("\n".join(java)+"\n")
-    path = DATA / "minecraft/tags/block/mineable/pickaxe.json"; values = json.loads(path.read_text())
+    module_write_text(ROOT / "src/main/java/net/nicomar2009/lsmmod/modules/facilities/block/BathroomShapes.java", "\n".join(java)+"\n")
+    path = DATA / "minecraft/tags/block/mineable/pickaxe.json"; values = json.loads(module_read_text(path))
     for name in ("toilet", "men_urinal"):
         if f"lsmmod:{name}" not in values["values"]: values["values"].append(f"lsmmod:{name}")
     write_json(path, values)

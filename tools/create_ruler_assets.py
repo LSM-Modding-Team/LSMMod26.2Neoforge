@@ -1,15 +1,16 @@
 """Generate six metre-ruler item models, engraved pixel atlases and vanilla-tier recipes."""
+from resource_modules import module_read_text, module_write_text, output_path
 from resource_json import resource_json
 from pathlib import Path
 import json
 from PIL import Image,ImageDraw,ImageFont
 ROOT=Path(__file__).resolve().parents[1]
 ASSETS=ROOT/'src/main/resources/school_supplies/assets/lsmmod'
-TIERS=json.loads((ROOT/'tools/ruler_tiers.json').read_text())
+TIERS=json.loads(module_read_text(ROOT/'tools/ruler_tiers.json'))
 PALETTES={'wooden':((191,145,77),(41,31,22)), 'stone':((142,145,147),(30,32,34)), 'golden':((232,188,61),(67,46,16)), 'iron':((206,214,219),(36,44,52)), 'diamond':((66,205,193),(15,56,67)), 'netherite':((73,65,70),(218,207,180))}
 MATERIALS={'wooden':'#minecraft:planks','stone':'#minecraft:stone_tool_materials','golden':'minecraft:gold_ingot','iron':'minecraft:iron_ingot','diamond':'minecraft:diamond'}
 def write(path,value):
- path.parent.mkdir(parents=True,exist_ok=True);path.write_text(resource_json(path, value, ensure_ascii=True)+'\n')
+ path.parent.mkdir(parents=True,exist_ok=True);module_write_text(path, resource_json(path, value, ensure_ascii=True)+'\n')
 def cube(a,b,uv):
  return {'from':a,'to':b,'faces':{f:{'texture':'#atlas','uv':uv} for f in ['north','south','east','west','up','down']}}
 DISPLAY={
@@ -40,7 +41,7 @@ for name,material,durability,damage,enchantability in TIERS:
  # Unmarked material tiles for the central raised handle and slim sides.
  for y in range(32,64):
   for x in range(64,96):image.putpixel((x,y),base)
- path=ASSETS/f'textures/item/{name}_ruler.png';path.parent.mkdir(parents=True,exist_ok=True);image.save(path)
+ path=ASSETS/f'textures/item/{name}_ruler.png';path.parent.mkdir(parents=True,exist_ok=True);image.save(output_path(path))
  board=cube([6.5,-8,7.5],[9.5,24,8.25],[8,4,12,8])
  board['faces']['north']['uv']=[0,0,4,16]
  board['faces']['south']['uv']=[4,0,8,16]

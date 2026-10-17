@@ -1,0 +1,14 @@
+{
+  "values": [
+    "lsmmod:toilet",
+    "lsmmod:men_urinal",
+    "lsmmod:adult_men_urinal",
+    "lsmmod:standalone_toilet",
+    "lsmmod:school_sink",
+    "lsmmod:school_connected_sink",
+    "lsmmod:school_drain",
+    "lsmmod:drinking_fountain_raised",
+    "lsmmod:school_microwave",
+    "lsmmod:school_refrigerator"
+  ]
+}

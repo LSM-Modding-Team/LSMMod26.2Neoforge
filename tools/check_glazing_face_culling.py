@@ -1,4 +1,5 @@
 """Regression: joining glazing must not erase the stair's exposed support beside a door."""
+from resource_modules import module_read_text
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def side_profile(kind,opened=False):
@@ -14,13 +15,13 @@ def main():
         assert exposed
     assert side_profile('stair')==side_profile('stair')
     root=ROOT/'src/main/java/net/nicomar2009/lsmmod/block'
-    shared=(root/'SchoolGlazing.java').read_text()
+    shared=module_read_text(root/'SchoolGlazing.java')
     section=shared.split('public static boolean canCullHorizontalFace')[1].split('public static BlockState mirrorLayout')[0]
     assert 'if(!connectsHorizontal' in section
     assert 'instanceof SchoolGlassStairBlock && neighbor.getBlock() instanceof SchoolGlassStairBlock' in section
     assert 'StairBlock.HALF' in section and 'StairBlock.SHAPE' in section and 'return false;' in section
     for name in ('SchoolGlassBlock','SchoolGlassStairBlock','TallClassroomEntranceBlock','DoubleSchoolEntranceBlock'):
-        source=(root/f'{name}.java').read_text()
+        source=module_read_text(root/f'{name}.java')
         assert 'SchoolGlazing.canCullHorizontalFace(state,' in source
         assert 'SchoolGlazing.connectsHorizontal(state,' not in source
     print('OK: closed/open doors retain exposed stair support faces; shared glazing joins remain independent of complete-face culling.')

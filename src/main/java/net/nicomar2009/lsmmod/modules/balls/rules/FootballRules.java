@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.balls.rules;
 
-
-
 /** Football tuning in blocks/tick; independent of Minecraft and packet timing. */
 public final class FootballRules {
     public static final int CHARGE_TICKS = 24;

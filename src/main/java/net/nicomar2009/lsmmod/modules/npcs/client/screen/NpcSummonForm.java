@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.npcs.client.screen;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,5 @@
 """Review real sign cells, front/back/orientations/item and the newly painted red surface."""
+from resource_modules import module_read_text, output_path
 from resource_json import preview_path
 import json
 from PIL import Image,ImageDraw
@@ -31,8 +32,8 @@ def main():
     painted_cube=[];add(painted_cube,load('lsmmod:block/school_paintable_block',predicate=lambda condition:condition.get('paint')==12))
     canvas.paste(render(painted_cube,[8,8,8],8,size=(350,200),minecraft_orientation=True),(0,850))
     ImageDraw.Draw(canvas).text((360,900),'red_street_wall_paint / material real en el bloque pintable',fill=(25,25,25))
-    definition=json.loads((A/'items/red_street_wall_paint.json').read_text())['model']
-    tool=json.loads((A/f"models/{definition['model'].split(':')[1]}.json").read_text())
+    definition=json.loads(module_read_text(A/'items/red_street_wall_paint.json'))['model']
+    tool=json.loads(module_read_text(A/f"models/{definition['model'].split(':')[1]}.json"))
     assert tool['parent']=='minecraft:item/generated'
     # This fully opaque 16px sprite generates a flat square item; read its material from the real definition.
     paint_item=[]
@@ -41,12 +42,12 @@ def main():
     add(paint_item,[sprite])
     canvas.paste(render(paint_item,[8,8,8],8,size=(300,200),azimuth=-90,elevation=0,minecraft_orientation=True),(1150,850))
     ImageDraw.Draw(canvas).text((1460,900),'Item de pintura / sprite real',fill=(25,25,25))
-    canvas.save(preview_path('school_name_sign_review.png'))
+    canvas.save(output_path(preview_path('school_name_sign_review.png')))
     reverse=Image.new('RGB',(1800,520),(194,194,194))
     for index,angle in enumerate((90,0,180)):
         reverse.paste(render(letters,[80,24,15.5],3.4,size=(600,520),azimuth=angle,elevation=12,minecraft_orientation=True),(600*index,0))
         ImageDraw.Draw(reverse).text((600*index+12,10),('Dorso / letras sin panel','Orientacion lateral este','Orientacion lateral oeste')[index],fill=(25,25,25))
-    reverse.save(preview_path('school_name_sign_reverse_review.png'))
+    reverse.save(output_path(preview_path('school_name_sign_reverse_review.png')))
 
 
 if __name__=='__main__':main()

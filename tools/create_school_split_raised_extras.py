@@ -1,4 +1,5 @@
 """Fill split columns 2..4 with elevated inverted slopes only."""
+from resource_modules import module_read_text, module_write_text
 import json,math
 from create_school_inverted_slopes import ROOT,A,inverted_obj
 from create_school_raised_inverted_slopes import shift_obj,OFFSET
@@ -15,9 +16,9 @@ def main():
  blocks='    // BEGIN SCHOOL SPLIT RAISED EXTRAS\n';items=blocks
  template='school_inverted_slope_split_raised_1'
  for ident,col,row,lower,rise,top in pieces():
-  (A/f'models/block/{ident}.obj').write_text(shift_obj(inverted_obj(.75-lower,rise),top))
-  model=json.loads((A/f'models/block/{template}.json').read_text());model['model']=f'lsmmod:models/block/{ident}.obj';write(A/f'models/block/{ident}.json',model)
-  states=json.loads((A/f'blockstates/{template}.json').read_text())
+  module_write_text(A/f'models/block/{ident}.obj', shift_obj(inverted_obj(.75-lower,rise),top))
+  model=json.loads(module_read_text(A/f'models/block/{template}.json'));model['model']=f'lsmmod:models/block/{ident}.obj';write(A/f'models/block/{ident}.json',model)
+  states=json.loads(module_read_text(A/f'blockstates/{template}.json'))
   for value in states['variants'].values():value['model']='lsmmod:block/'+ident
   write(A/f'blockstates/{ident}.json',states)
   write(A/f'models/item/{ident}.json',{'parent':'lsmmod:block/'+ident})
@@ -26,15 +27,15 @@ def main():
   blocks+=f'    public static final DeferredBlock<SchoolInvertedSlopeBlock> {ident.upper()} = BLOCKS.registerBlock(\n            "{ident}", props -> new SchoolInvertedSlopeBlock({lower:.15g},{rise:.15g},0.5,{top:.1f},props),\n            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());\n'
   items+=f'    public static final DeferredItem<BlockItem> {ident.upper()} = ITEMS.registerSimpleBlockItem(ModBlocks.{ident.upper()});\n'
  for name,section in (('ModBlocks.java',blocks),('ModItems.java',items)):
-  p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/name;s=p.read_text();begin='    // BEGIN SCHOOL SPLIT RAISED EXTRAS';end='    // END SCHOOL SPLIT RAISED EXTRAS';section+=end+'\n'
+  p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/name;s=module_read_text(p);begin='    // BEGIN SCHOOL SPLIT RAISED EXTRAS';end='    // END SCHOOL SPLIT RAISED EXTRAS';section+=end+'\n'
   if begin in s:a=s.index(begin);b=s.index(end)+len(end)+1;s=s[:a]+section+s[b:]
   else:anchor=s.index('    // BEGIN SCHOOL RAISED INVERTED SLOPES');s=s[:anchor]+section+'\n'+s[anchor:]
-  p.write_text(s)
+  module_write_text(p, s)
  for locale in ('es_es','en_us'):
-  p=A/f'lang/{locale}.json';v=json.loads(p.read_text())
+  p=A/f'lang/{locale}.json';v=json.loads(module_read_text(p))
   for ident,*_ in pieces():
    number=ident.rsplit('_',1)[1];v['block.lsmmod.'+ident]=f'Pendiente invertida elevada: split extra {number}' if locale=='es_es' else f'Raised Inverted Split Slope: Extra {number}'
   write(p,v)
- p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+x[0] for x in pieces()]));write(p,v)
+ p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';v=json.loads(module_read_text(p));v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+x[0] for x in pieces()]));write(p,v)
  write(ROOT/'tools/school_split_raised_extra_layout.json',{'vertical_offset':OFFSET,'rise_per_column':5/7,'pieces':[{'id':ident,'column':col,'row':row,'lower_start':lower,'rise':rise,'flat_top_y':top} for ident,col,row,lower,rise,top in pieces()]})
 if __name__=='__main__':main()

@@ -1,0 +1,69 @@
+package net.nicomar2009.lsmmod.modules.tables_and_desks.block;
+import net.nicomar2009.lsmmod.block.ExactVoxelShapes;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+/** Generated from the gray desk model geometry. */
+public final class GrayComputerDeskShapes {
+    public static final VoxelShape[][][][] SHAPES = new VoxelShape[2][2][2][4];
+    static {
+        SHAPES[0][0][0][0] = ExactVoxelShapes.union(
+                ExactVoxelShapes.box(1, 0, 1, 3, 16, 15),
+                ExactVoxelShapes.box(3, 2, 1, 16, 6, 2),
+                ExactVoxelShapes.box(3, 13, 4, 4, 16, 14),
+                ExactVoxelShapes.box(3, 12, 4, 16, 13, 15));
+        SHAPES[0][0][1][0] = ExactVoxelShapes.union(
+                ExactVoxelShapes.box(1, 0, 1, 3, 16, 15),
+                ExactVoxelShapes.box(3, 2, 1, 16, 6, 2),
+                ExactVoxelShapes.box(3, 13, 4, 4, 16, 14),
+                ExactVoxelShapes.box(3, 12, 5, 16, 13, 16),
+                ExactVoxelShapes.box(5, 13, 9, 16, 13.7, 15));
+        SHAPES[0][1][0][0] = ExactVoxelShapes.union(
+                ExactVoxelShapes.box(0, 0, 0, 16, 2, 16));
+        SHAPES[0][1][1][0] = ExactVoxelShapes.union(
+                ExactVoxelShapes.box(0, 0, 0, 16, 2, 16),
+                ExactVoxelShapes.box(9.4, 2.0, 4.25, 16, 2.8500000000000014, 10.2),
+                ExactVoxelShapes.box(11.7375, 2.8500000000000014, 5.95, 13.8625, 6.25, 7.6499999999999995),
+                ExactVoxelShapes.box(6.85, 5.399999999999999, 5.1, 16, 13.899999999999999, 7.225),
+                ExactVoxelShapes.box(7.7, 6.25, 4.25, 16, 13.049999999999997, 5.1),
+                ExactVoxelShapes.box(9.4, 7.100000000000001, 3.8249999999999997, 16, 12.2, 4.25),
+                ExactVoxelShapes.box(7.785, 6.844999999999999, 7.225, 16, 12.965, 7.2675));
+        SHAPES[1][0][0][0] = ExactVoxelShapes.union(
+                ExactVoxelShapes.box(13, 0, 1, 15, 16, 15),
+                ExactVoxelShapes.box(0, 2, 1, 13, 6, 2),
+                ExactVoxelShapes.box(6, 13, 4, 7, 16, 14),
+                ExactVoxelShapes.box(8, 2, 3, 13, 3, 14),
+                ExactVoxelShapes.box(8, 3, 3, 9, 16, 4),
+                ExactVoxelShapes.box(8, 3, 13, 9, 16, 14),
+                ExactVoxelShapes.box(0, 12, 4, 7, 13, 15));
+        SHAPES[1][0][1][0] = ExactVoxelShapes.union(
+                ExactVoxelShapes.box(13, 0, 1, 15, 16, 15),
+                ExactVoxelShapes.box(0, 2, 1, 13, 6, 2),
+                ExactVoxelShapes.box(6, 13, 4, 7, 16, 14),
+                ExactVoxelShapes.box(8, 2, 3, 13, 3, 14),
+                ExactVoxelShapes.box(8, 3, 3, 9, 16, 4),
+                ExactVoxelShapes.box(8, 3, 13, 9, 16, 14),
+                ExactVoxelShapes.box(0, 12, 5, 7, 13, 16),
+                ExactVoxelShapes.box(0, 13, 9, 5, 13.7, 15),
+                ExactVoxelShapes.box(9, 3, 4, 12.5, 11, 12),
+                ExactVoxelShapes.box(9, 3, 12, 12.5, 11, 12.08));
+        SHAPES[1][1][0][0] = ExactVoxelShapes.union(
+                ExactVoxelShapes.box(0, 0, 0, 16, 2, 16));
+        SHAPES[1][1][1][0] = ExactVoxelShapes.union(
+                ExactVoxelShapes.box(0, 0, 0, 16, 2, 16),
+                ExactVoxelShapes.box(6, 2, 10, 8, 2.3000000000000007, 13),
+                ExactVoxelShapes.box(6.199999999999999, 2.3000000000000007, 10.2, 7.800000000000001, 2.8000000000000007, 12.8),
+                ExactVoxelShapes.box(6.850000000000001, 2.8000000000000007, 10.7, 7.149999999999999, 2.8999999999999986, 11.3),
+                ExactVoxelShapes.box(0, 2.0, 4.25, 0.1999999999999993, 2.8500000000000014, 10.2),
+                ExactVoxelShapes.box(0, 5.399999999999999, 5.1, 2.75, 13.899999999999999, 7.225),
+                ExactVoxelShapes.box(0, 6.25, 4.25, 1.8999999999999986, 13.049999999999997, 5.1),
+                ExactVoxelShapes.box(0, 7.100000000000001, 3.8249999999999997, 0.1999999999999993, 12.2, 4.25),
+                ExactVoxelShapes.box(0, 6.844999999999999, 7.225, 1.8149999999999977, 12.965, 7.2675));
+        for (int c=0; c<2; c++) for (int h=0; h<2; h++) for (int p=0; p<2; p++) {
+            for (int r=1; r<4; r++) {
+                SHAPES[c][h][p][r] = Shapes.rotate(SHAPES[c][h][p][r-1], com.mojang.math.OctahedralGroup.BLOCK_ROT_Y_90);
+            }
+        }
+    }
+    private GrayComputerDeskShapes() {}
+}

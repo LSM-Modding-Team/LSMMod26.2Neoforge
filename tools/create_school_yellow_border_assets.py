@@ -1,4 +1,5 @@
 """Six-direction connected pavement, 3px yellow perimeter on every exposed face."""
+from resource_modules import module_read_text, module_write_text, output_path
 from resource_json import resource_json
 import itertools,json,random
 from pathlib import Path
@@ -7,7 +8,7 @@ ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmo
 ID='school_entrance_pavement';SIDES=('north','east','south','west','up','down')
 # Face-local top/right/bottom/left following vanilla cube UV conventions.
 EDGES={'north':('up','west','down','east'),'south':('up','east','down','west'),'east':('up','north','down','south'),'west':('up','south','down','north'),'up':('north','east','south','west'),'down':('south','east','north','west')}
-def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, v, ensure_ascii=False)+'\n')
+def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);module_write_text(p, resource_json(p, v, ensure_ascii=False)+'\n')
 def main():
  rng=random.Random(3106);base=Image.new('RGB',(16,16))
  for y,x in itertools.product(range(16),repeat=2):
@@ -17,7 +18,7 @@ def main():
   for y,x in itertools.product(range(16),repeat=2):
    border=(not(mask&1) and y<3) or (not(mask&2) and x>=13) or (not(mask&4) and y>=13) or (not(mask&8) and x<3)
    if border:tile.putpixel((x,y),(255,211,0))
-  tile.save(A/f'textures/block/{ID}_{mask}.png')
+  tile.save(output_path(A/f'textures/block/{ID}_{mask}.png'))
  variants={}
  for flags in itertools.product((False,True),repeat=6):
   linked=dict(zip(SIDES,flags));index=sum(int(v)<<i for i,v in enumerate(flags));textures={};faces={}
@@ -32,6 +33,6 @@ def main():
  write(A/f'items/{ID}.json',{'model':{'type':'minecraft:model','model':'lsmmod:item/'+ID}})
  write(D/f'lsmmod/loot_table/blocks/{ID}.json',{'type':'minecraft:block','pools':[{'rolls':1,'conditions':[{'condition':'minecraft:survives_explosion'}],'entries':[{'type':'minecraft:item','name':'lsmmod:'+ID}]}]})
  for locale,name in [('es_es','Pavimento de la entrada del colegio'),('en_us','School Entrance Pavement')]:
-  p=A/f'lang/{locale}.json';v=json.loads(p.read_text());v['block.lsmmod.'+ID]=name;write(p,v)
- p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+ID]));write(p,v)
+  p=A/f'lang/{locale}.json';v=json.loads(module_read_text(p));v['block.lsmmod.'+ID]=name;write(p,v)
+ p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(module_read_text(p));v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+ID]));write(p,v)
 if __name__=='__main__':main()

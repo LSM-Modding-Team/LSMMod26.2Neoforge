@@ -1,4 +1,5 @@
 """Two tiles per axis, narrow auditorium parquet, and a wooden stage with dark wool top."""
+from resource_modules import module_read_text, module_write_text, output_path
 import json,math,random
 from PIL import Image
 from create_school_glass_assets import ROOT,A,D,write
@@ -54,8 +55,8 @@ def stage():
 
 def main():
     textures=[tiles(),tiles(True),parquet()];wood,top=stage();textures.append(wood)
-    for ident,image in zip(MATERIALS,textures):image.save(A/f'textures/block/{ident}.png')
-    top.save(A/'textures/block/auditorium_stage_top.png')
+    for ident,image in zip(MATERIALS,textures):image.save(output_path(A/f'textures/block/{ident}.png'))
+    top.save(output_path(A/'textures/block/auditorium_stage_top.png'))
     for ident,labels in zip(MATERIALS,LABELS):
         surface='lsmmod:block/'+ident
         model={'parent':'minecraft:block/block','render_type':'minecraft:solid','textures':{'surface':surface,'particle':surface},
@@ -68,11 +69,11 @@ def main():
         entry=f'    public static final DeferredBlock<Block> {symbol} = BLOCKS.registerBlock("{ident}", Block::new, props -> props.strength(1.8F,6F).sound(SoundType.{"WOOD" if wooden else "STONE"}));'
         item=f'    public static final DeferredItem<BlockItem> {symbol} = ITEMS.registerSimpleBlockItem(ModBlocks.{symbol});'
         for filename,line in (('ModBlocks.java',entry),('ModItems.java',item)):
-            p=J/'registry'/filename;s=p.read_text()
-            if ' '+symbol+' =' not in s:p.write_text(s.replace('    // BEGIN FACILITY EXPANSIONS',line+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
+            p=J/'registry'/filename;s=module_read_text(p)
+            if ' '+symbol+' =' not in s:module_write_text(p, s.replace('    // BEGIN FACILITY EXPANSIONS',line+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
         for locale,label in zip(('es_es','en_us'),labels):
-            p=A/f'lang/{locale}.json';data=json.loads(p.read_text());data['block.lsmmod.'+ident]=label;write(p,data)
-        p=D/f'minecraft/tags/block/mineable/{"axe" if wooden else "pickaxe"}.json';data=json.loads(p.read_text())
+            p=A/f'lang/{locale}.json';data=json.loads(module_read_text(p));data['block.lsmmod.'+ident]=label;write(p,data)
+        p=D/f'minecraft/tags/block/mineable/{"axe" if wooden else "pickaxe"}.json';data=json.loads(module_read_text(p))
         if 'lsmmod:'+ident not in data['values']:data['values'].append('lsmmod:'+ident)
         write(p,data)
 

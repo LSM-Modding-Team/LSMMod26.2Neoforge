@@ -1,4 +1,5 @@
 """Coplanar half-grid targeting across all axes, occupancy masks and negative coordinates."""
+from resource_modules import module_read_text
 import itertools
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
@@ -51,7 +52,7 @@ def main():
             # Legacy half-grid endpoints scale to the same occupied interval.
             old=origin*2+local//2
             assert (start,end)==(old*2,old*2+1)
-    source=(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/school_supplies/item/RectanglePaintTool.java').read_text()
+    source=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/school_supplies/item/RectanglePaintTool.java')
     assert 'MAX_BLOCKS=256' in source and 'Math.floorDiv' in source and 'Math.floorMod' in source
     assert 'Double.isFinite' in source and 'anchor.getStringOr("dimension"' in source and 'anchor.getStringOr("owner"' in source
     assert source.index('if(!level.hasChunkAt(pos))')<source.index('for(Change change:changes)')
@@ -59,7 +60,7 @@ def main():
     assert 'small.hasCube' not in source and 'block.hasCube(cube)' in source
     assert 'block.snapshot()' in source and 'change.block.apply(change.colors)' in source
     for name in ('SchoolPaintItem','SchoolSandpaperItem'):
-        item=(ROOT/f'src/main/java/net/nicomar2009/lsmmod/modules/school_supplies/item/{name}.java').read_text()
+        item=module_read_text(ROOT/f'src/main/java/net/nicomar2009/lsmmod/modules/school_supplies/item/{name}.java')
         assert 'RectanglePaintTool.use(context,' in item and 'RectanglePaintTool.cancel' in item
     print(f'OK: {checked} half-grid cases plus every quarter-grid hit plane over signed coordinates; 4px/8px/full-face endpoints and legacy anchors, permissions/loaded preflight and one batched palette per block; ordinary tool paths retained.')
 

@@ -1,4 +1,5 @@
 """Generate player school-uniform atlases and 3-D inventory models. Requires Pillow."""
+from resource_modules import module_write_text, output_path
 from resource_json import resource_json
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
@@ -9,7 +10,7 @@ S=4
 NAMES=['fake_school_haircut','uniform_polo','uniform_pants','uniform_shoes']
 COLORS=[(23,22,24),(135,39,49),(92,100,106),(25,27,29)]
 def write(path,obj):
- path.parent.mkdir(parents=True,exist_ok=True);path.write_text(resource_json(path, obj, ensure_ascii=True)+'\n')
+ path.parent.mkdir(parents=True,exist_ok=True);module_write_text(path, resource_json(path, obj, ensure_ascii=True)+'\n')
 def rect(box,color):
  x,y,X,Y=[round(v*S) for v in box];d.rectangle((x,y,max(x,X-1),max(y,Y-1)),fill=color)
 def line(points,color,width=1):d.line([(round(x*S),round(y*S)) for x,y in points],fill=color,width=width)
@@ -66,9 +67,9 @@ for name,c in zip(NAMES,COLORS):
    if aa:
     v=(x*3+y*5)%5-2;im.putpixel((x,y),(max(0,rr+v),max(0,gg+v),max(0,bb+v),aa))
  layer='humanoid_leggings' if name=='uniform_pants' else 'humanoid'
- p=A/f'textures/entity/equipment/{layer}/{name}.png';p.parent.mkdir(parents=True,exist_ok=True);im.save(p)
+ p=A/f'textures/entity/equipment/{layer}/{name}.png';p.parent.mkdir(parents=True,exist_ok=True);im.save(output_path(p))
  # Item textures must be stitched into the items atlas, not loaded as entity textures.
- item_path=A/f'textures/item/{name}.png';item_path.parent.mkdir(parents=True,exist_ok=True);im.save(item_path)
+ item_path=A/f'textures/item/{name}.png';item_path.parent.mkdir(parents=True,exist_ok=True);im.save(output_path(item_path))
  write(A/f'equipment/{name}.json',{'layers':{layer:[{'texture':f'lsmmod:{name}'}]}})
  # Individual 3-D item models, using the same atlas as the worn clothing.
  head=uvbox(0,0,8,8,8);body=uvbox(16,16,8,12,4);arm=uvbox(40,16,4,12,4);leg=uvbox(0,16,4,12,4)

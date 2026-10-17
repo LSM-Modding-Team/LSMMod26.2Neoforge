@@ -1,4 +1,5 @@
 """Review actual glass stairs, paint selections, corners and carved surfaces offline."""
+from resource_modules import module_read_text, output_path
 import itertools,json
 from PIL import Image,ImageDraw
 from resource_json import preview_path
@@ -21,7 +22,7 @@ def stair_scene(half='bottom',shape='straight',facing='north',occupied=None,pain
         covered=internal and occupied&(1<<(neighbor[0]+2*neighbor[1]+4*neighbor[2]))
         color=paint(xyz,condition['face']) if callable(paint) else paint
         return bool(occupied&(1<<cube)) and not covered and condition['paint']==color
-    definition=json.loads((A/f'blockstates/{ID}.json').read_text())
+    definition=json.loads(module_read_text(A/f'blockstates/{ID}.json'))
     for entry in definition['multipart']:
         if not all(state.get(k) in v.split('|') for k,v in entry.get('when',{}).items()):continue
         apply=entry['apply']
@@ -32,7 +33,7 @@ def stair_scene(half='bottom',shape='straight',facing='north',occupied=None,pain
 
 
 def item_scene():
-    result=[];definition=json.loads((A/f'items/{ID}.json').read_text())
+    result=[];definition=json.loads(module_read_text(A/f'items/{ID}.json'))
     add(result,load(definition['model']['model']));return result
 
 
@@ -49,20 +50,20 @@ def main():
         origin,scale=framing(elements,size=(400,370));offset=(i%3*400,i//3*400+25)
         canvas.paste(render(elements,origin,scale,size=(400,370),azimuth=-65,elevation=22,minecraft_orientation=True),offset)
         draw.text((offset[0]+8,offset[1]-20),label,fill=(25,25,25))
-    canvas.save(preview_path(ID+'_review.png'))
+    canvas.save(output_path(preview_path(ID+'_review.png')))
     # Actual joined glazing, with both normal and inverted stairs and standalone panes.
     joined=[]
     for row,(half,mask) in enumerate((('bottom',11),(None,27),('top',19))):
         if half:add(joined,[{'elements':stair_scene(half=half,paint=9,mask=mask)}],(0,row*16,0))
         else:
-            panes=load(json.loads((A/'blockstates/school_glass.json').read_text())['multipart'][-4]['apply']['model'],mask=27)
+            panes=load(json.loads(module_read_text(A/'blockstates/school_glass.json'))['multipart'][-4]['apply']['model'],mask=27)
             for model in panes:
                 for element in model.get('elements',[]):
                     for face in ('up','down'):
                         if element['faces'].get(face,{}).get('cullface')==face:element['faces'].pop(face)
             add(joined,panes,(0,row*16,0))
     origin,scale=framing(joined,size=(480,700))
-    render(joined,origin,scale,size=(480,700),azimuth=-65,elevation=12,minecraft_orientation=True).save(preview_path(ID+'_joins_review.png'))
+    render(joined,origin,scale,size=(480,700),azimuth=-65,elevation=12,minecraft_orientation=True).save(output_path(preview_path(ID+'_joins_review.png')))
 
     from check_horizontal_glazing import layouts
     panels=[]
@@ -76,6 +77,6 @@ def main():
         origin,scale=framing(elements,size=(1000,320))
         review.paste(render(elements,origin,scale,size=(1000,320),azimuth=-65,elevation=20,minecraft_orientation=True),(0,index*350+25))
         labels.text((10,index*350+5),'Fila conectada / '+('normal' if index==0 else 'invertida'),fill=(25,25,25))
-    review.save(preview_path(ID+'_horizontal_review.png'))
+    review.save(output_path(preview_path(ID+'_horizontal_review.png')))
 
 if __name__=='__main__':main()

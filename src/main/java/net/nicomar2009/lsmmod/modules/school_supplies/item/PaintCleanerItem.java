@@ -1,11 +1,9 @@
 package net.nicomar2009.lsmmod.modules.school_supplies.item;
 
-
-
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
-import net.nicomar2009.lsmmod.block.SchoolPaintableBlockEntity;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableBlockEntity;
 
 public class PaintCleanerItem extends Item {
     public PaintCleanerItem(Properties properties) { super(properties.stacksTo(1)); }

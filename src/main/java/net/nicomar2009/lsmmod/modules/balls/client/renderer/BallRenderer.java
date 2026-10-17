@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.balls.client.renderer;
 
-
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.SubmitNodeCollector;

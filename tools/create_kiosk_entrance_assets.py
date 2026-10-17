@@ -1,4 +1,5 @@
 """Three-cell kiosk, timber panel/door, telescopic 6x4 entrance, raised fountain and lost box."""
+from resource_modules import module_path, module_read_text, module_write_text, output_path
 from resource_json import resource_json
 import copy,json,random,re,hashlib
 from pathlib import Path
@@ -8,9 +9,9 @@ ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmo
 IDS=['school_wood_panel','school_wood_door','school_sliding_entrance','drinking_fountain_raised','lost_and_found_box']
 
 def write(p,v):
- p.parent.mkdir(parents=True,exist_ok=True);p.write_text(v if isinstance(v,str) else resource_json(p, v, ensure_ascii=False)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
+ p.parent.mkdir(parents=True,exist_ok=True);module_write_text(p, v if isinstance(v,str) else resource_json(p, v, ensure_ascii=False)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
 def save(im,name):
- p=A/f'textures/block/{name}.png';im.save(p);GENERATED.append(str(p.relative_to(ROOT)))
+ p=A/f'textures/block/{name}.png';im.save(output_path(p));GENERATED.append(str(p.relative_to(ROOT)))
 def basic(ident,model=None,controller=None):
  write(A/f'items/{ident}.json',{'model':{'type':'minecraft:model','model':'lsmmod:'+(model or 'block/'+ident)}})
  conditions=[{'condition':'minecraft:survives_explosion'}]
@@ -74,7 +75,7 @@ def rectangular(ident,closed,opened,width,height,textures):
  if ident=='school_sliding_entrance':
   icon=Image.new('RGBA',(96,96));draw=ImageDraw.Draw(icon)
   for b,material in sorted(closed,key=lambda p:p[1]!='glass'):draw.rectangle((int(b[0]),16+64-int(b[4]),int(b[3])-1,16+64-int(b[1])-1),fill=(47,52,56,255) if material=='glass' else (34,35,33,255))
-  path=A/'textures/item/school_sliding_entrance.png';path.parent.mkdir(parents=True,exist_ok=True);icon.save(path);GENERATED.append(str(path.relative_to(ROOT)))
+  path=A/'textures/item/school_sliding_entrance.png';path.parent.mkdir(parents=True,exist_ok=True);icon.save(output_path(path));GENERATED.append(str(path.relative_to(ROOT)))
   write(A/f'models/item/{ident}.json',{'parent':'minecraft:item/generated','textures':{'layer0':'lsmmod:item/school_sliding_entrance'}})
   basic(ident,'item/'+ident,{'column':'0','row':'0'});return
  item=solid_model(closed);item['textures']=textures
@@ -99,7 +100,7 @@ def main():
  write(A/'blockstates/school_wood_panel.json',{'variants':{f'facing={f}':{'model':'lsmmod:block/school_wood_panel','y':n*90} for n,f in enumerate(('north','east','south','west'))}});basic('school_wood_panel')
  # Three fully moving wooden rows, reusing existing synchronized door behavior.
  for row in range(3):
-  im=Image.open(A/'textures/block/school_wood_panel.png').copy();draw=ImageDraw.Draw(im);draw.line((1,0,1,15),fill=(78,47,30));draw.line((14,0,14,15),fill=(78,47,30))
+  im=Image.open(module_path(A/'textures/block/school_wood_panel.png')).copy();draw=ImageDraw.Draw(im);draw.line((1,0,1,15),fill=(78,47,30));draw.line((14,0,14,15),fill=(78,47,30))
   if row==0:draw.line((2,14,13,14),fill=(77,46,29))
   if row>=2:draw.line((2,1,13,1),fill=(77,46,29))
   if row==1:draw.rectangle((12,10,13,12),fill=(168,157,124));draw.point((12,12),fill=(50,45,34))
@@ -108,13 +109,13 @@ def main():
  for row in range(4):
   for hinge in ('left','right'):
    for op in (False,True):
-    source=json.loads((A/f'models/block/tall_bathroom_door_full_3_{row}_{hinge}_{str(op).lower()}.json').read_text());source['textures']={'panel':f'lsmmod:block/school_wood_door_{min(row,2)}','particle':'lsmmod:block/school_wood_panel'}
+    source=json.loads(module_read_text(A/f'models/block/tall_bathroom_door_full_3_{row}_{hinge}_{str(op).lower()}.json'));source['textures']={'panel':f'lsmmod:block/school_wood_door_{min(row,2)}','particle':'lsmmod:block/school_wood_panel'}
     name=f'school_wood_door_{row}_{hinge}_{str(op).lower()}';write(A/f'models/block/{name}.json',source)
     for n,f in enumerate(('north','east','south','west')):states[f'facing={f},hinge={hinge},row={row},open={str(op).lower()}']={'model':'lsmmod:block/'+name,'y':n*90}
  write(A/'blockstates/school_wood_door.json',{'variants':states});write(A/'models/item/school_wood_door.json',{'parent':'lsmmod:block/school_wood_door_0_left_false'});basic('school_wood_door','item/school_wood_door',{'row':'0'})
  rectangular('school_sliding_entrance',GATE_CLOSED,GATE_OPEN,6,4,{'metal':'lsmmod:block/school_entrance_black_metal','glass':'lsmmod:block/school_tinted_glass','particle':'lsmmod:block/school_entrance_black_metal'})
  # Raise the original fountain eight pixels and reserve both affected world cells.
- source=json.loads((A/'models/block/drinking_fountain.json').read_text());parts=[]
+ source=json.loads(module_read_text(A/'models/block/drinking_fountain.json'));parts=[]
  for e in source['elements']:
   a,b=e['from'],e['to'];parts.append(([16-b[0],a[1]+8,16-b[2],16-a[0],b[1]+8,16-a[2]],'atlas'))
  # Preserve the atlas UV of every original face, including the tap and basin.
@@ -147,7 +148,7 @@ def main():
    if s['texture']=='#label':s['uv']=[0,0,16,16]
  write(A/'models/block/lost_and_found_box.json',box);write(A/'blockstates/lost_and_found_box.json',{'variants':{f'facing={f}':{'model':'lsmmod:block/lost_and_found_box','y':n*90} for n,f in enumerate(('north','east','south','west'))}});basic('lost_and_found_box')
  # Retain the original kiosk supports and tablecloth; insert a support-free middle cell.
- models=[rotated(json.loads((A/f'models/block/kiosk_table_{part}.json').read_text())) for part in ('left','right')]
+ models=[rotated(json.loads(module_read_text(A/f'models/block/kiosk_table_{part}.json'))) for part in ('left','right')]
  center=copy.deepcopy(models[0]);center['elements']=[e for e in center['elements'] if e['from'][1]>=14 or e['from'][1]>=8 and e['from'][0]<e['to'][0] and e['to'][2]-e['from'][2]<=.5]
  kioskparts=[]
  for col,mesh in enumerate((models[0],center,models[1])):
@@ -155,7 +156,7 @@ def main():
    a,b=e['from'],e['to'];material=next(iter(e['faces'].values()))['texture'][1:];kioskparts.append(([a[0]+col*16,a[1],a[2],b[0]+col*16,b[1],b[2]],material))
  rectangular('kiosk_table',kioskparts,kioskparts,3,1,models[0]['textures'])
  # Preserve original orientation, textures and serialized left/right states.
- native=[json.loads((A/f'models/block/kiosk_table_{p}.json').read_text()) for p in ('left','right')]
+ native=[json.loads(module_read_text(A/f'models/block/kiosk_table_{p}.json')) for p in ('left','right')]
  native_center=copy.deepcopy(native[0]);native_center['elements']=[e for e in native_center['elements'] if e['from'][1]>=14 or e['from'][1]>=8 and e['to'][0]-e['from'][0]<=.5]
  meshes=(native[0],native_center,native[1]);states={}
  for col,(part,mesh) in enumerate(zip(('left','center','right'),meshes)):
@@ -172,20 +173,20 @@ def main():
  arrays={'KIOSK':[b for b,m in kioskparts],'GATE_CLOSED':[b for b,m in GATE_CLOSED],'GATE_OPEN':[b for b,m in GATE_OPEN],'FOUNTAIN':[b for b,m in parts],'LOST_BOX':[b for b,m in boxparts]}
  java='package net.nicomar2009.lsmmod.block;\n\n/** Generated physical grids shared with school accessory models. */\npublic final class SchoolEntranceAccessoryShapes {\n private SchoolEntranceAccessoryShapes() {}\n'
  for name,boxes in arrays.items():java+=' public static final double[][] '+name+' = '+json.dumps(boxes).replace('[','{').replace(']','}')+';\n'
- write(J/'block/SchoolEntranceAccessoryShapes.java',java+'}\n')
+ write(J/'modules/windows_and_enclosures/block/SchoolEntranceAccessoryShapes.java',java+'}\n')
  registrations='''    public static final DeferredBlock<SchoolPassiveAccessoryBlock> SCHOOL_WOOD_PANEL = BLOCKS.registerBlock("school_wood_panel", props -> new SchoolPassiveAccessoryBlock(props, new double[][]{{0,0,8,16,16,16}}), props -> props.strength(2F).sound(SoundType.WOOD).noOcclusion());
     public static final DeferredBlock<FullBathroomDoorBlock> SCHOOL_WOOD_DOOR = BLOCKS.registerBlock("school_wood_door", props -> new FullBathroomDoorBlock(3,props), props -> props.strength(2F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
     public static final DeferredBlock<SchoolSlidingEntranceBlock> SCHOOL_SLIDING_ENTRANCE = BLOCKS.registerBlock("school_sliding_entrance", SchoolSlidingEntranceBlock::new, props -> props.strength(3F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
     public static final DeferredBlock<RaisedDrinkingFountainBlock> DRINKING_FOUNTAIN_RAISED = BLOCKS.registerBlock("drinking_fountain_raised", RaisedDrinkingFountainBlock::new, props -> props.strength(2.5F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
     public static final DeferredBlock<LostAndFoundBoxBlock> LOST_AND_FOUND_BOX = BLOCKS.registerBlock("lost_and_found_box", LostAndFoundBoxBlock::new, props -> props.strength(1.5F).sound(SoundType.WOOD).noOcclusion());'''
  for filename,body in [('ModBlocks.java',registrations),('ModItems.java','\n'.join(f'    public static final DeferredItem<BlockItem> {i.upper()} = ITEMS.registerSimpleBlockItem(ModBlocks.{i.upper()});' for i in IDS))]:
-  p=J/'registry'/filename;s=p.read_text();begin='    // BEGIN KIOSK ENTRANCE ACCESSORIES';end='    // END KIOSK ENTRANCE ACCESSORIES';section=begin+'\n'+body+'\n'+end
+  p=J/'registry'/filename;s=module_read_text(p);begin='    // BEGIN KIOSK ENTRANCE ACCESSORIES';end='    // END KIOSK ENTRANCE ACCESSORIES';section=begin+'\n'+body+'\n'+end
   if begin in s:a=s.index(begin);b=s.index(end)+len(end);s=s[:a]+section+s[b:]
   else:s=s.replace('    // BEGIN SCHOOL CRUCIFIX',section+'\n\n    // BEGIN SCHOOL CRUCIFIX',1)
   write(p,s)
  for locale,names in [('es_es',['Panel de madera del colegio','Puerta de madera del colegio','Entrada deslizable del colegio','Bebedero elevado','Caja de objetos perdidos']),('en_us',['School Wood Panel','School Wood Door','School Sliding Entrance','Raised Drinking Fountain','Lost and Found Box'])]:
-  p=A/f'lang/{locale}.json';v=json.loads(p.read_text());v.update({'block.lsmmod.'+i:n for i,n in zip(IDS,names)});write(p,v)
+  p=A/f'lang/{locale}.json';v=json.loads(module_read_text(p));v.update({'block.lsmmod.'+i:n for i,n in zip(IDS,names)});write(p,v)
  for tool,ids in [('axe',['school_wood_panel','school_wood_door','lost_and_found_box']),('pickaxe',['school_sliding_entrance','drinking_fountain_raised'])]:
-  p=D/f'minecraft/tags/block/mineable/{tool}.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+i for i in ids]));write(p,v)
- Path('/tmp/kiosk-generated.json').write_text(json.dumps(GENERATED))
+  p=D/f'minecraft/tags/block/mineable/{tool}.json';v=json.loads(module_read_text(p));v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+i for i in ids]));write(p,v)
+ module_write_text(Path('/tmp/kiosk-generated.json'), json.dumps(GENERATED))
 if __name__=='__main__':main()

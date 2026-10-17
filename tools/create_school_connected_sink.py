@@ -1,4 +1,5 @@
 """Extendable dark-gray trough sink, eight mask/half meshes and no connection state properties."""
+from resource_modules import module_read_text, module_write_text
 from resource_json import resource_json
 import json
 from create_children_locker_and_projector import ROOT,A,D
@@ -8,7 +9,7 @@ GENERATED=[]
 BASE=[([0,0,14,16,24,16],'wall'),([0,6,3,16,10,14],'wall'),([0,10,3,16,11,4],'wall')]
 LEFT=([0,10,4,1,24,14],'wall');RIGHT=([15,10,4,16,24,14],'wall')
 def parts(mask):return BASE+([] if mask&1 else [LEFT])+([] if mask&2 else [RIGHT])
-def write(path,value):path.parent.mkdir(parents=True,exist_ok=True);path.write_text(resource_json(path, value, ensure_ascii=False)+'\n',encoding='utf-8');GENERATED.append(str(path.relative_to(ROOT)))
+def write(path,value):path.parent.mkdir(parents=True,exist_ok=True);module_write_text(path, resource_json(path, value, ensure_ascii=False)+'\n',encoding='utf-8');GENERATED.append(str(path.relative_to(ROOT)))
 def mesh(mask):
     value=solid_model(parts(mask));value['textures']={'wall':'lsmmod:block/dark_school_tiled_floor_side','particle':'lsmmod:block/dark_school_tiled_floor_side'};value['render_type']='minecraft:solid';return value
 
@@ -34,7 +35,7 @@ def main():
         java.append('        },')
         write(A/f'models/block/school_connected_sink_{h}.json',{'loader':'fusion:model','type':'composite','textures':{'particle':'lsmmod:block/dark_school_tiled_floor_side'},'models':[series[1:]+series[:1]]})
         for facing,angle in [('north',0),('east',90),('south',180),('west',270)]:states[f'facing={facing},half={h}']={'model':'lsmmod:block/school_connected_sink_'+h,'y':angle}
-    java+=['    };','}'];p=ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolConnectedSinkShapes.java';p.write_text('\n'.join(java)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
+    java+=['    };','}'];p=ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/facilities/block/SchoolConnectedSinkShapes.java';module_write_text(p, '\n'.join(java)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
     write(A/'blockstates/school_connected_sink.json',{'variants':states})
     item=mesh(0)
     for e in item['elements']:
@@ -47,11 +48,11 @@ def main():
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));'''
     item='    public static final DeferredItem<BlockItem> SCHOOL_CONNECTED_SINK = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_CONNECTED_SINK);'
     for filename,body in [('ModBlocks.java',block),('ModItems.java',item)]:
-        p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=p.read_text();start='    // BEGIN CONNECTED SCHOOL SINK';end='    // END CONNECTED SCHOOL SINK';section=start+'\n'+body+'\n'+end
+        p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=module_read_text(p);start='    // BEGIN CONNECTED SCHOOL SINK';end='    // END CONNECTED SCHOOL SINK';section=start+'\n'+body+'\n'+end
         if start in s:a=s.index(start);b=s.index(end)+len(end);s=s[:a]+section+s[b:]
         else:s=s.replace('    // BEGIN CLASSROOM SURFACES',section+'\n\n    // BEGIN CLASSROOM SURFACES',1)
-        p.write_text(s);GENERATED.append(str(p.relative_to(ROOT)))
+        module_write_text(p, s);GENERATED.append(str(p.relative_to(ROOT)))
     for locale,label in [('es_es','Lavadero continuo del colegio'),('en_us','School Connected Trough Sink')]:
-        p=A/f'lang/{locale}.json';v=json.loads(p.read_text());v['block.lsmmod.school_connected_sink']=label;write(p,v)
-    p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:school_connected_sink']));write(p,v)
+        p=A/f'lang/{locale}.json';v=json.loads(module_read_text(p));v['block.lsmmod.school_connected_sink']=label;write(p,v)
+    p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(module_read_text(p));v['values']=list(dict.fromkeys(v['values']+['lsmmod:school_connected_sink']));write(p,v)
 if __name__=='__main__':main()

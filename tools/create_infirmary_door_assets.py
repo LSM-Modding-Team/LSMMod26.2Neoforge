@@ -1,4 +1,5 @@
 """Material variants and perpendicular connected rear-half glazing; reuse normal door placement."""
+from resource_modules import module_read_text
 import copy
 import json
 from create_school_glass_assets import A, cube
@@ -54,7 +55,7 @@ def generate(multipart,textures,write,clipped,mesh,layered_item,basic):
     for entry in light:
         name=entry['apply']['model'].split(':')[1]
         if not name.startswith('block/dining_door_wide_part_'):continue
-        model=json.loads((A/f'models/{name}.json').read_text())
+        model=json.loads(module_read_text(A/f'models/{name}.json'))
         found=False
         for e in model.get('elements',[]):
             for material in e['faces'].values():
@@ -66,7 +67,7 @@ def generate(multipart,textures,write,clipped,mesh,layered_item,basic):
             if new not in changed:write(A/f'models/{new}.json',model);changed[new]=True
             entry['apply']['model']='lsmmod:'+new
     write(A/'blockstates/dining_door_wide_light.json',{'multipart':light})
-    solid=json.loads((A/'models/item/dining_door_wide_item_solid.json').read_text())
+    solid=json.loads(module_read_text(A/'models/item/dining_door_wide_item_solid.json'))
     solid['textures']['front']=fronttex['front']
     for e in solid['elements']:
         for material in e['faces'].values():
@@ -131,14 +132,14 @@ def generate(multipart,textures,write,clipped,mesh,layered_item,basic):
                           'apply':{'model':'lsmmod:block/'+name,'y':turn*90}})
     write(A/'blockstates/infirmary_door.json',{'multipart':state})
     layered_item('infirmary_door',[('solid',[p for p in INFIRMARY_CLOSED if p[1]=='white']),('cutout',LEAF)],tex,32,48)
-    path=A/'models/item/infirmary_door_item_cutout.json';item=json.loads(path.read_text())
+    path=A/'models/item/infirmary_door_item_cutout.json';item=json.loads(module_read_text(path))
     for e in item['elements']:
         original={k:[(e[k][0]-8)*3+16,e[k][1]*3,(e[k][2]-8)*3+8] for k in ('from','to')}
         for face,material in e['faces'].items():leaf_face(original,face,material)
     write(path,item)
     glazed=[]
     for col,mask in enumerate((1,2)):
-        elements=json.loads((A/f'models/block/framed_door_transom_{mask}.json').read_text())['elements']
+        elements=json.loads(module_read_text(A/f'models/block/framed_door_transom_{mask}.json'))['elements']
         glazed += [(e,(16*col,32,0)) for e in elements]
     for row,mask in ((1,11),(2,19)):
         glazed += [(e,(16,16*row,0)) for e in side_elements(mask,False)]
@@ -150,5 +151,5 @@ def generate(multipart,textures,write,clipped,mesh,layered_item,basic):
         for material in e['faces'].values():material.pop('cullface',None)
         elements.append(e)
     write(A/'models/item/infirmary_door_item_glass.json',{'loader':'fusion:model','type':'base','textures':tex,'render_type':'minecraft:solid','elements':elements})
-    item=json.loads((A/'models/item/infirmary_door.json').read_text());item['models'][0].append('lsmmod:item/infirmary_door_item_glass');write(A/'models/item/infirmary_door.json',item)
+    item=json.loads(module_read_text(A/'models/item/infirmary_door.json'));item['models'][0].append('lsmmod:item/infirmary_door_item_glass');write(A/'models/item/infirmary_door.json',item)
     basic('infirmary_door',controller={'column':'0','row':'0','depth':'0'})

@@ -1,0 +1,14 @@
+{
+  "block.lsmmod.school_paintable_block": "Bloque pintable del colegio",
+  "block.lsmmod.school_paintable_custom_block": "Bloque pintable personalizado del colegio",
+  "config.jade.plugin_lsmmod.painted_wall_name": "Cara del bloque pintado: nombre e icono",
+  "block.lsmmod.school_paintable_projecting_window": "Mitad pintable con ventana proyectante",
+  "block.lsmmod.bathroom_door_wide_paintable": "Puerta ancha de baño con marco pintable",
+  "block.lsmmod.school_paintable_mini_cube_block": "Bloque pintable de minicubos de 4 px",
+  "block.lsmmod.school_entrance_door_paintable": "Puerta del colegio con marco pintable",
+  "block.lsmmod.school_paintable_glass_stairs": "Escalera con cristal y base pintable",
+  "block.lsmmod.bathroom_door_wide_paintable_column": "Puerta ancha de baño con columna pintable",
+  "block.lsmmod.double_school_entrance_paintable_slab": "Puerta doble del colegio con losa pintable",
+  "block.lsmmod.school_paintable_projecting_window_slab": "Losa pintable con ventana proyectante",
+  "block.lsmmod.school_paintable_projecting_window_stairs": "Escalera pintable con ventana proyectante"
+}

@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.school_supplies.item;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolDoorFramePaintEntity;
 
 import net.nicomar2009.lsmmod.modules.school_supplies.item.RectanglePaintTool;
 
@@ -10,8 +11,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
-import net.nicomar2009.lsmmod.block.SchoolPaint;
-import net.nicomar2009.lsmmod.block.SchoolPaintableBlockEntity;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaint;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableBlockEntity;
 
 /** Reusable paint; a copied six-face palette is applied once, then normal painting resumes. */
 public class SchoolPaintItem extends Item {
@@ -62,7 +63,7 @@ public class SchoolPaintItem extends Item {
             int[] colors = copied(tag);
             if (colors == null) block.paintAt(context.getClickedFace(), context.getClickLocation(), paint);
             else {
-                if(colors.length==96&&block instanceof net.nicomar2009.lsmmod.block.SchoolDoorFramePaintEntity frame&&frame.miniSize()==8) {
+                if(colors.length==96&&block instanceof net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolDoorFramePaintEntity frame&&frame.miniSize()==8) {
                     int[] coarse=new int[24];
                     for(int face=0;face<6;face++)for(int q=0;q<4;q++)coarse[face*4+q]=colors[face*16+(q%2)*2+(q/2)*8];
                     colors=coarse;

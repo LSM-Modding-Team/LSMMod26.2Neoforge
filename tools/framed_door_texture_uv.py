@@ -1,4 +1,5 @@
 """Map the small door's two 16px texture halves onto one 24x40px leaf."""
+from resource_modules import module_read_text
 import json
 from create_school_glass_assets import A
 
@@ -32,7 +33,7 @@ def leaf_face(element, face, material, column=0, row=0, depth=0, opened=False, r
 
 def fix_item(write):
     path = A/'models/item/dining_door_wide_item_solid.json'
-    model = json.loads(path.read_text())
+    model = json.loads(module_read_text(path))
     model['render_type'] = 'minecraft:cutout'
     for element in model['elements']:
         original = {'from':[(element['from'][0]-8)*3+16,element['from'][1]*3,(element['from'][2]-8)*3+8],
@@ -43,7 +44,7 @@ def fix_item(write):
                 material['uv'] = [round(v,10) for v in material['uv']]
     write(path,model)
     path=A/'models/item/dining_door_wide_item_cutout.json'
-    model=json.loads(path.read_text())
+    model=json.loads(module_read_text(path))
     for element in model['elements']:
         for material in element['faces'].values():material['uv']=[1,1,15,15]
     write(path,model)

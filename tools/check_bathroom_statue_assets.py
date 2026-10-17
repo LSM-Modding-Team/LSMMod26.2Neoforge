@@ -1,4 +1,5 @@
 """Check statue z-fighting regressions and sanitary fixture resources without Java compilation."""
+from resource_modules import module_path, module_read_text
 import json
 import re
 from pathlib import Path
@@ -12,7 +13,7 @@ NORMALS = {"west": (0, False), "east": (0, True), "down": (1, False),
 
 
 def read(path):
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(module_read_text(path, encoding="utf-8"))
 
 
 def mesh(model, name):
@@ -32,7 +33,7 @@ def mesh(model, name):
                     assert overlap <= 1e-9 or overlap2 <= 1e-9, (name, "coplanar overlapping faces")
             faces.append((axis, plane, rectangle))
             texture = model["textures"][face["texture"][1:]].split(":")[1]
-            image = Image.open(ASSETS / f"textures/{texture}.png")
+            image = Image.open(module_path(ASSETS / f"textures/{texture}.png"))
             expected_size = (16, 32) if texture in (
                 'block/san_martin_de_porres_habit', 'block/san_martin_de_porres_cream') else (16, 16)
             assert image.size == expected_size

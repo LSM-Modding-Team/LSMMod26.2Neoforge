@@ -1,4 +1,5 @@
 """External geometry preview of assembled railing slopes, not a game screenshot."""
+from resource_modules import module_path
 from resource_json import preview_path
 import matplotlib
 matplotlib.use('Agg')
@@ -9,7 +10,7 @@ import numpy as np
 from create_school_railing_slopes import A,ROOT,pieces,FLIGHT_RISE
 from check_school_railing_slopes import mesh
 
-def color(name):return np.array(Image.open(A/f'textures/block/{name}.png').convert('RGB')).mean(axis=(0,1))/255
+def color(name):return np.array(Image.open(module_path(A/f'textures/block/{name}.png')).convert('RGB')).mean(axis=(0,1))/255
 wall=color('light_school_wall');metal=color('school_gate_edge');dark=color('dark_school_wall')
 def cube(x,y,z,height=1,width=1,depth=1):
  p=np.array([[x,y,z],[x+width,y,z],[x+width,y+depth,z],[x,y+depth,z],[x,y,z+height],[x+width,y,z+height],[x+width,y+depth,z+height],[x,y+depth,z+height]])

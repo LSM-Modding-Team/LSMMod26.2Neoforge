@@ -1,4 +1,5 @@
 """Closed 2x2x1 cabinet and independent decorative desktop router; bounded native models."""
+from resource_modules import module_read_text, module_write_text, output_path
 from resource_json import resource_json
 import json,random
 from PIL import Image,ImageDraw
@@ -7,10 +8,10 @@ from create_bathroom_statue_assets import solid_model
 GENERATED=[]
 
 def write(path,value):
-    path.parent.mkdir(parents=True,exist_ok=True);path.write_text(resource_json(path, value, ensure_ascii=False)+'\n',encoding='utf-8');GENERATED.append(str(path.relative_to(ROOT)))
+    path.parent.mkdir(parents=True,exist_ok=True);module_write_text(path, resource_json(path, value, ensure_ascii=False)+'\n',encoding='utf-8');GENERATED.append(str(path.relative_to(ROOT)))
 
 def save(image,name):
-    path=A/f'textures/block/{name}.png';image.save(path);GENERATED.append(str(path.relative_to(ROOT)))
+    path=A/f'textures/block/{name}.png';image.save(output_path(path));GENERATED.append(str(path.relative_to(ROOT)))
 
 
 def main():
@@ -74,13 +75,13 @@ def main():
     items='''    public static final DeferredItem<BlockItem> SCHOOL_CABINET = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_CABINET);
     public static final DeferredItem<BlockItem> SCHOOL_ROUTER = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_ROUTER);'''
     for filename,body in [('ModBlocks.java',blocks),('ModItems.java',items)]:
-        p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=p.read_text();start='    // BEGIN SCHOOL CABINET AND ROUTER';end='    // END SCHOOL CABINET AND ROUTER';section=start+'\n'+body+'\n'+end
+        p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=module_read_text(p);start='    // BEGIN SCHOOL CABINET AND ROUTER';end='    // END SCHOOL CABINET AND ROUTER';section=start+'\n'+body+'\n'+end
         if start in s:a=s.index(start);b=s.index(end)+len(end);s=s[:a]+section+s[b:]
         else:marker='    // BEGIN CLASSROOM SURFACES';s=s.replace(marker,section+'\n\n'+marker,1)
-        p.write_text(s);GENERATED.append(str(p.relative_to(ROOT)))
+        module_write_text(p, s);GENERATED.append(str(p.relative_to(ROOT)))
     for locale,names in [('es_es',{'school_cabinet':'Armario del colegio','school_router':'Router del colegio'}),('en_us',{'school_cabinet':'School Cabinet','school_router':'School Router'})]:
-        p=A/f'lang/{locale}.json';v=json.loads(p.read_text());v.update({'block.lsmmod.'+k:n for k,n in names.items()});write(p,v)
-    p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:school_cabinet','lsmmod:school_router']));write(p,v)
+        p=A/f'lang/{locale}.json';v=json.loads(module_read_text(p));v.update({'block.lsmmod.'+k:n for k,n in names.items()});write(p,v)
+    p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(module_read_text(p));v['values']=list(dict.fromkeys(v['values']+['lsmmod:school_cabinet','lsmmod:school_router']));write(p,v)
 
 
 if __name__=='__main__':main()

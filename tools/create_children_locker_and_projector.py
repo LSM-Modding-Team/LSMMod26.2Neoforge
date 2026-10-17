@@ -1,4 +1,5 @@
 """Two native wooden cubbies, a ceiling projector and bounded reusable resources."""
+from resource_modules import module_read_text, module_write_text, output_path
 from resource_json import resource_json
 import json,random
 from pathlib import Path
@@ -7,10 +8,10 @@ ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmo
 GENERATED=[]
 SIDES=('north','south','east','west','up','down')
 def write(path,data):
-    path.parent.mkdir(parents=True,exist_ok=True);path.write_text(resource_json(path, data, ensure_ascii=False)+'\n')
+    path.parent.mkdir(parents=True,exist_ok=True);module_write_text(path, resource_json(path, data, ensure_ascii=False)+'\n')
     GENERATED.append(str(path.relative_to(ROOT)))
 def save(image,name):
-    path=A/f'textures/block/{name}.png';path.parent.mkdir(parents=True,exist_ok=True);image.save(path);GENERATED.append(str(path.relative_to(ROOT)))
+    path=A/f'textures/block/{name}.png';path.parent.mkdir(parents=True,exist_ok=True);image.save(output_path(path));GENERATED.append(str(path.relative_to(ROOT)))
 def box(bounds,texture,overrides=None):
     faces={side:{'texture':'#'+texture,'uv':[0,0,16,16]} for side in SIDES}
     if overrides:faces.update(overrides)
@@ -69,14 +70,14 @@ def main():
     items='''    public static final DeferredItem<BlockItem> CHILDREN_LOCKER = ITEMS.registerSimpleBlockItem(ModBlocks.CHILDREN_LOCKER);
     public static final DeferredItem<BlockItem> CEILING_PROJECTOR = ITEMS.registerSimpleBlockItem(ModBlocks.CEILING_PROJECTOR);'''
     for filename,body in [('ModBlocks.java',block),('ModItems.java',items)]:
-        p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=p.read_text();start='    // BEGIN CHILDREN LOCKER AND CEILING PROJECTOR';end='    // END CHILDREN LOCKER AND CEILING PROJECTOR';section=start+'\n'+body+'\n'+end+'\n\n'
+        p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=module_read_text(p);start='    // BEGIN CHILDREN LOCKER AND CEILING PROJECTOR';end='    // END CHILDREN LOCKER AND CEILING PROJECTOR';section=start+'\n'+body+'\n'+end+'\n\n'
         if start in s:a=s.index(start);b=s.index(end)+len(end);s=s[:a]+section.rstrip()+s[b:]
         else:a=s.index('    // BEGIN CUSTOM PAINTABLE BLOCKS');s=s[:a]+section+s[a:]
-        p.write_text(s)
+        module_write_text(p, s)
     for locale,names in [('en_us',('Children Locker','Ceiling Projector')),('es_es',('Casillero infantil','Proyector de techo'))]:
-        p=A/f'lang/{locale}.json';d=json.loads(p.read_text())
+        p=A/f'lang/{locale}.json';d=json.loads(module_read_text(p))
         for ident,name in zip(('children_locker','ceiling_projector'),names):d['block.lsmmod.'+ident]=name
         write(p,d)
     for tool,ident in [('axe','children_locker'),('pickaxe','ceiling_projector')]:
-        p=D/f'minecraft/tags/block/mineable/{tool}.json';d=json.loads(p.read_text());d['values']=list(dict.fromkeys(d['values']+['lsmmod:'+ident]));write(p,d)
+        p=D/f'minecraft/tags/block/mineable/{tool}.json';d=json.loads(module_read_text(p));d['values']=list(dict.fromkeys(d['values']+['lsmmod:'+ident]));write(p,d)
 if __name__=='__main__':main()

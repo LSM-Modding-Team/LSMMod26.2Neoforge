@@ -1,4 +1,5 @@
 """Check mesh bounds, depth, centred rotor and light switching without compiling."""
+from resource_modules import module_path, module_read_text
 import json,math
 import numpy as np
 from PIL import Image
@@ -6,7 +7,7 @@ from create_school_decorations import ROOT,A,UV
 
 def mesh(name):
  vertices=[];uv=[];faces=[];material=None
- for line in (A/f'models/block/{name}.obj').read_text().splitlines():
+ for line in module_read_text(A/f'models/block/{name}.obj').splitlines():
   s=line.split()
   if not s:continue
   if s[0]=='v':vertices.append(tuple(map(float,s[1:])))
@@ -23,12 +24,12 @@ def check_name_sign():
  from audit_block_states import domains
  assert TEXT=='COLEGIO LIBERTADOR SAN MARTIN' and LINES==('COLEGIO','LIBERTADOR SAN MARTIN') and TEXT.isascii()
  assert domains('SchoolNameSignBlock')=={'facing':4,'column':10,'row':3}
- variants=json.loads((A/f'blockstates/{ID}.json').read_text())['variants'];assert len(variants)==120
+ variants=json.loads(module_read_text(A/f'blockstates/{ID}.json'))['variants'];assert len(variants)==120
  reference=lettering()
  coverage=np.zeros((HEIGHT*DENSITY,WIDTH*DENSITY),dtype=int)
  for row in range(3):
   for column in range(10):
-   path=A/f'models/block/{ID}_{row}_{column}.json';model=json.loads(path.read_text())
+   path=A/f'models/block/{ID}_{row}_{column}.json';model=json.loads(module_read_text(path))
    for element in model['elements']:
     lo,hi=element['from'],element['to']
     assert all(0<=lo[axis]<hi[axis]<=16 for axis in range(3)) and lo[2]==15 and hi[2]==16
@@ -52,12 +53,12 @@ def check_name_sign():
   for key in ('from','to'):
    x,y,z=leaf[key];assert np.allclose([x*10,24+(y-8)*10,15.5+(z-8)*10],original[key])
   assert leaf['faces']==original['faces']
- loot=json.loads((ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ID}.json').read_text())
+ loot=json.loads(module_read_text(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ID}.json'))
  assert loot['pools'][0]['conditions'][1]['properties']=={'column':'0','row':'0'}
  print('OK: exact ASCII wording, 30 cells and 4 orientations, glyph coverage/reading direction match the reference, 1px relief, seam-free front/back renders, undistorted item and single controller drop. Placement/client behavior still needs Minecraft.')
 
 def main():
- atlas=Image.open(A/'textures/block/school_decoration_surface.png')
+ atlas=Image.open(module_path(A/'textures/block/school_decoration_surface.png'))
  colors={'metal':(95,98,94),'blade':(144,147,143),'rim':(168,168,157),'body':(219,221,215),'hub':(67,71,69),'on':(240,242,237),'off':(155,160,155)}
  for material,(u,v) in UV.items():assert atlas.getpixel((int(u*16),int(v*16)))==colors[material]
  for name in ('school_clock','school_fan','ceiling_light_on','ceiling_light_off'):
@@ -73,11 +74,11 @@ def main():
    assert np.allclose(blades[:,:2].mean(axis=0),[.5,.5],atol=1e-10)
   if name.startswith('ceiling'):assert vertices[:,1].max()==1 and vertices[:,1].min()==13.5/16
  for name in ('school_clock','school_fan'):
-  states=json.loads((A/f'blockstates/{name}.json').read_text())['variants'];assert len(states)==4
- states=json.loads((A/'blockstates/ceiling_light.json').read_text())['variants'];assert set(states)=={'lit=true','lit=false'}
- java=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/CeilingLightBlock.java').read_text()
+  states=json.loads(module_read_text(A/f'blockstates/{name}.json'))['variants'];assert len(states)==4
+ states=json.loads(module_read_text(A/'blockstates/ceiling_light.json'))['variants'];assert set(states)=={'lit=true','lit=false'}
+ java=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/lighting/block/CeilingLightBlock.java')
  assert 'state.cycle(LIT)' in java and '!level.isClientSide()' in java and 'setValue(LIT,true)' in java
- registry=(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java').read_text();assert 'CeilingLightBlock.LIT) ? 15 : 0' in registry
+ registry=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java');assert 'CeilingLightBlock.LIT) ? 15 : 0' in registry
  print('OK: clock exact 2px depth, fan blades centred at (8,8), ceiling mount bounds, no degenerate triangles, correct palette UVs; four wall orientations, lit 15/off 0, server-only right-click toggle.')
 if __name__=='__main__':
  import sys

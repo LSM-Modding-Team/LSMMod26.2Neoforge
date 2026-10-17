@@ -1,4 +1,5 @@
 """Passive red plastic bucket with a white lid; exact 1x1x1.5 block hitbox."""
+from resource_modules import module_read_text, module_write_text, output_path
 import copy
 import json
 import math
@@ -49,7 +50,7 @@ def main():
         for x in range(16):
             delta = (x*13+y*7)%3-1
             image.putpixel((x, y), (224+delta, 15+delta, 23+delta))
-    image.save(A/f'textures/block/{ID}_red.png')
+    image.save(output_path(A/f'textures/block/{ID}_red.png'))
     full = solid_model(parts())
     full.update(textures=TEXTURES, render_type='minecraft:solid')
     variants = {}
@@ -66,7 +67,7 @@ def main():
             e[key] = [8+(x-8)*2/3, y*2/3, 8+(z-8)*2/3]
     write(A/f'models/item/{ID}.json', item)
     basic(ID, controller={'half': 'lower'})
-    (J/'block/NidoStorageBucketBlock.java').write_text('''package net.nicomar2009.lsmmod.block;
+    module_write_text(J/'modules/lockers_and_storage/block/NidoStorageBucketBlock.java', '''package net.nicomar2009.lsmmod.block;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -91,17 +92,17 @@ public class NidoStorageBucketBlock extends SchoolRectangularBlock {
         ('ModItems.java', '    public static final DeferredItem<BlockItem> NIDO_STORAGE_BUCKET = ITEMS.registerSimpleBlockItem(ModBlocks.NIDO_STORAGE_BUCKET);'),
     ):
         path = J/'registry'/filename
-        text = path.read_text()
+        text = module_read_text(path)
         if ' NIDO_STORAGE_BUCKET =' not in text:
-            path.write_text(text.replace('    // BEGIN FACILITY EXPANSIONS', entry+'\n\n    // BEGIN FACILITY EXPANSIONS', 1))
+            module_write_text(path, text.replace('    // BEGIN FACILITY EXPANSIONS', entry+'\n\n    // BEGIN FACILITY EXPANSIONS', 1))
     # Preserve the exact user-requested name, including in the inventory tooltip.
     for locale in ('es_es', 'en_us'):
         path = A/f'lang/{locale}.json'
-        data = json.loads(path.read_text())
+        data = json.loads(module_read_text(path))
         data['block.lsmmod.'+ID] = ID
         write(path, data)
     path = D/'minecraft/tags/block/mineable/axe.json'
-    data = json.loads(path.read_text())
+    data = json.loads(module_read_text(path))
     if 'lsmmod:'+ID not in data['values']:
         data['values'].append('lsmmod:'+ID)
         write(path, data)

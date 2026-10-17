@@ -1,12 +1,13 @@
 """Four smooth OBJ wedges, uniform existing yellow, no connection states or new textures."""
+from resource_modules import module_read_text, module_write_text
 from resource_json import resource_json
 import json
 from create_entrance_pavement_shapes import ROOT,A,D,SIDES,obj
 GENERATED=[]
 
 def write(path,value):
-    path.parent.mkdir(parents=True,exist_ok=True);path.write_text(resource_json(path, value, ensure_ascii=False)+'\n',encoding='utf-8');GENERATED.append(str(path.relative_to(ROOT)))
-def text(path,value):path.write_text(value);GENERATED.append(str(path.relative_to(ROOT)))
+    path.parent.mkdir(parents=True,exist_ok=True);module_write_text(path, resource_json(path, value, ensure_ascii=False)+'\n',encoding='utf-8');GENERATED.append(str(path.relative_to(ROOT)))
+def text(path,value):module_write_text(path, value);GENERATED.append(str(path.relative_to(ROOT)))
 
 def main():
     text(A/'models/block/school_yellow_slopes.mtl','newmtl yellow\nKd 1 1 1\nd 1\nmap_Kd yellow\n')
@@ -26,12 +27,12 @@ def main():
         items.append(f'    public static final DeferredItem<BlockItem> {name.upper()} = ITEMS.registerSimpleBlockItem(ModBlocks.{name.upper()});')
         layout.append({'id':name,'high_pixels':high*16,'low_pixels':(high-.125)*16})
         for locale,label in [('es_es',f'Pendiente amarilla del colegio {i}'),('en_us',f'Yellow School Slope {i}')]:
-            p=A/f'lang/{locale}.json';v=json.loads(p.read_text());v['block.lsmmod.'+name]=label;write(p,v)
+            p=A/f'lang/{locale}.json';v=json.loads(module_read_text(p));v['block.lsmmod.'+name]=label;write(p,v)
     for filename,body in [('ModBlocks.java','\n\n'.join(blocks)),('ModItems.java','\n'.join(items))]:
-        p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=p.read_text();start='    // BEGIN YELLOW SCHOOL SLOPES';end='    // END YELLOW SCHOOL SLOPES';section=start+'\n'+body+'\n'+end
+        p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=module_read_text(p);start='    // BEGIN YELLOW SCHOOL SLOPES';end='    // END YELLOW SCHOOL SLOPES';section=start+'\n'+body+'\n'+end
         if start in s:a=s.index(start);b=s.index(end)+len(end);s=s[:a]+section+s[b:]
         else:s=s.replace('    // BEGIN CLASSROOM SURFACES',section+'\n\n    // BEGIN CLASSROOM SURFACES',1)
-        p.write_text(s);GENERATED.append(str(p.relative_to(ROOT)))
-    p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+e['id'] for e in layout]));write(p,v)
+        module_write_text(p, s);GENERATED.append(str(p.relative_to(ROOT)))
+    p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(module_read_text(p));v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+e['id'] for e in layout]));write(p,v)
     write(ROOT/'tools/yellow_school_slope_layout.json',{'length':4,'drop_pixels':8,'descending_toward':'facing','pieces':layout})
 if __name__=='__main__':main()

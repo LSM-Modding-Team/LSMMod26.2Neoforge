@@ -1,4 +1,5 @@
 """Validate the three missing columns and continuity of the complete 7x5 profile."""
+from resource_modules import module_read_text
 import json,math
 import numpy as np
 from create_school_split_raised_extras import ROOT,A,pieces
@@ -8,8 +9,8 @@ from check_school_railing_slopes import mesh
 def main():
  extras=list(pieces());assert len(extras)==3
  assert [(p[1],p[2],p[5]) for p in extras]==[(2,-2,2),(3,-3,2),(4,-3,1)]
- blocks=(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java').read_text()
- items=(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModItems.java').read_text()
+ blocks=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java')
+ items=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModItems.java')
  complete=[(ident,col,row,low,rise) for ident,source,col,row,low,rise in existing() if '_split_' in ident]
  for ident,col,row,low,rise,top in extras:
   complete.append((ident,col,row,low,rise))
@@ -20,12 +21,12 @@ def main():
   assert np.all(np.isclose(v[:,1],top)|np.isclose(v[:,1],floor))
   assert f'new SchoolInvertedSlopeBlock({low:.15g},{rise:.15g},0.5,{top:.1f},props)' in blocks
   assert f'ModBlocks.{ident.upper()}' in items
-  model=json.loads((A/f'models/block/{ident}.json').read_text());assert model['textures']['wall']=='lsmmod:block/light_school_wall'
+  model=json.loads(module_read_text(A/f'models/block/{ident}.json'));assert model['textures']['wall']=='lsmmod:block/light_school_wall'
   assert model['model']==f'lsmmod:models/block/{ident}.obj'
-  states=json.loads((A/f'blockstates/{ident}.json').read_text())['variants'];assert len(states)==4
+  states=json.loads(module_read_text(A/f'blockstates/{ident}.json'))['variants'];assert len(states)==4
   assert all(s['model']=='lsmmod:block/'+ident for s in states.values())
-  assert json.loads((A/f'items/{ident}.json').read_text())['model']['model']=='lsmmod:item/'+ident
-  assert json.loads((ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ident}.json').read_text())['pools'][0]['entries'][0]['name']=='lsmmod:'+ident
+  assert json.loads(module_read_text(A/f'items/{ident}.json'))['model']['model']=='lsmmod:item/'+ident
+  assert json.loads(module_read_text(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ident}.json'))['pools'][0]['entries'][0]['name']=='lsmmod:'+ident
   for turn in range(4):
    assert math.isclose(v[:,1].max(),top)
    v=np.column_stack((1-v[:,2],v[:,1],v[:,0]))

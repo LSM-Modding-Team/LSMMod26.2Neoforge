@@ -1,4 +1,5 @@
 """Generate reference-based dining furniture models and matching collision shapes."""
+from resource_modules import module_read_text, module_write_text
 import json, math, re
 from pathlib import Path
 root=Path(__file__).resolve().parents[1]
@@ -9,7 +10,7 @@ def box(lo,hi,material='metal',rotation=None):
  if rotation:e['rotation']=rotation
  return e
 def rot(origin,axis,angle):return {'origin':origin,'axis':axis,'angle':angle,'rescale':False}
-t=json.loads((a/'dining_table.json').read_text())
+t=json.loads(module_read_text(a/'dining_table.json'))
 t['textures']['feet']='minecraft:block/black_concrete'
 t['elements']=t['elements'][:2]
 # Four disjoint arms and a central hub, all in one rotated coordinate system.
@@ -26,8 +27,8 @@ for lo,hi in [([1,base_bottom,7.5],[7.5,base_top,8.5]),
 for lo,hi in [([1,0,7.5],[2,.5,8.5]),([14,0,7.5],[15,.5,8.5]),
               ([7.5,0,1],[8.5,.5,2]),([7.5,0,14],[8.5,.5,15])]:
  t['elements'].append(box(lo,hi,'black',base_rotation))
-(a/'dining_table.json').write_text(json.dumps(t,separators=(',',':'),ensure_ascii=False)+'\n')
-c=json.loads((a/'dining_chair.json').read_text()); es=[]
+module_write_text(a/'dining_table.json', json.dumps(t,separators=(',',':'),ensure_ascii=False)+'\n')
+c=json.loads(module_read_text(a/'dining_chair.json')); es=[]
 # All side-frame connections share the same seat-height pivots.
 # Minecraft permits 22.5 degree rotations; derive endpoints from that angle.
 seat_y = 6.2
@@ -77,7 +78,7 @@ assert abs(frame_y + (leg_bottom-frame_y)*cosine - foot_y) < 1e-9
 assert abs(rear_z-(frame_y-rack_y)*slope-rack_rear) < 1e-9
 assert abs(front_z+(frame_y-rack_y)*slope-rack_front) < 1e-9
 c['elements']=es
-(a/'dining_chair.json').write_text(json.dumps(c,separators=(',',':'),ensure_ascii=False)+'\n')
+module_write_text(a/'dining_chair.json', json.dumps(c,separators=(',',':'),ensure_ascii=False)+'\n')
 # Rotation-aware collision approximation split into narrow horizontal slices.
 def bounds(e):
  lo,hi=e['from'],e['to'];r=e.get('rotation')
@@ -99,6 +100,6 @@ def bounds(e):
  return out
 def shape(es):
  return ',\n'.join('            Block.box('+', '.join(f'{v:.4f}'.rstrip('0').rstrip('.') if v else '0' for v in lo+hi)+')' for e in es for lo,hi in bounds(e))
-p=root/'src/main/java/net/nicomar2009/lsmmod/block/DiningTableBlock.java';s=p.read_text();s=re.sub(r'private static final VoxelShape SHAPE = (?:Shapes.or|ExactVoxelShapes.union)\(.*?\);','private static final VoxelShape SHAPE = ExactVoxelShapes.union(\n'+shape(t['elements']).replace('Block.box(', 'ExactVoxelShapes.box(')+');',s,flags=re.S);p.write_text(s)
-p=root/'src/main/java/net/nicomar2009/lsmmod/block/NewChairShapes.java';s=p.read_text();s=re.sub(r'public static final VoxelShape DINING_CHAIR = (?:Shapes.or|ExactVoxelShapes.union)\(.*?\);','public static final VoxelShape DINING_CHAIR = ExactVoxelShapes.union(\n'+shape(es).replace('Block.box(', 'ExactVoxelShapes.box(')+');',s,flags=re.S);p.write_text(s)
+p=root/'src/main/java/net/nicomar2009/lsmmod/modules/tables_and_desks/block/DiningTableBlock.java';s=module_read_text(p);s=re.sub(r'private static final VoxelShape SHAPE = (?:Shapes.or|ExactVoxelShapes.union)\(.*?\);','private static final VoxelShape SHAPE = ExactVoxelShapes.union(\n'+shape(t['elements']).replace('Block.box(', 'ExactVoxelShapes.box(')+');',s,flags=re.S);module_write_text(p, s)
+p=root/'src/main/java/net/nicomar2009/lsmmod/modules/chairs/block/NewChairShapes.java';s=module_read_text(p);s=re.sub(r'public static final VoxelShape DINING_CHAIR = (?:Shapes.or|ExactVoxelShapes.union)\(.*?\);','public static final VoxelShape DINING_CHAIR = ExactVoxelShapes.union(\n'+shape(es).replace('Block.box(', 'ExactVoxelShapes.box(')+');',s,flags=re.S);module_write_text(p, s)
 print('Updated table and chair geometry and collision shapes')

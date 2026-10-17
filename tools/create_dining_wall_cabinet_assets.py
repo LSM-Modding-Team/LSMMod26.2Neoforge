@@ -1,4 +1,5 @@
 """One-wide two-door wall cabinet: remove a lateral module without stretching its materials."""
+from resource_modules import module_read_text, module_write_text
 import copy
 import json
 from create_school_refrigerator_assets import A, J, D, clip, write
@@ -68,7 +69,7 @@ def main():
     write(A/f'models/item/{ID}.json', item)
     basic(ID, controller={'column': '0', 'half': 'lower'})
     boxes = json.dumps([box for box, *_ in parts()]).replace('[', '{').replace(']', '}')
-    (J/'block/DiningWallCabinetBlock.java').write_text('''package net.nicomar2009.lsmmod.block;
+    module_write_text(J/'modules/lockers_and_storage/block/DiningWallCabinetBlock.java', '''package net.nicomar2009.lsmmod.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -135,16 +136,16 @@ public class DiningWallCabinetBlock extends SchoolRectangularBlock {
         ('ModItems.java', '    public static final DeferredItem<BlockItem> DINING_WALL_CABINET = ITEMS.registerSimpleBlockItem(ModBlocks.DINING_WALL_CABINET);'),
     ):
         path = J/'registry'/filename
-        text = path.read_text()
+        text = module_read_text(path)
         if ' DINING_WALL_CABINET =' not in text:
-            path.write_text(text.replace('    // BEGIN FACILITY EXPANSIONS', entry+'\n\n    // BEGIN FACILITY EXPANSIONS', 1))
+            module_write_text(path, text.replace('    // BEGIN FACILITY EXPANSIONS', entry+'\n\n    // BEGIN FACILITY EXPANSIONS', 1))
     for locale, name in (('es_es', 'Armario de pared del comedor'), ('en_us', 'Dining Wall Cabinet')):
         path = A/f'lang/{locale}.json'
-        data = json.loads(path.read_text())
+        data = json.loads(module_read_text(path))
         data['block.lsmmod.'+ID] = name
         write(path, data)
     path = D/'minecraft/tags/block/mineable/axe.json'
-    data = json.loads(path.read_text())
+    data = json.loads(module_read_text(path))
     if 'lsmmod:'+ID not in data['values']:
         data['values'].append('lsmmod:'+ID)
         write(path, data)

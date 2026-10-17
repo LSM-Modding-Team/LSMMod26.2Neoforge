@@ -1,4 +1,7 @@
 package net.nicomar2009.lsmmod;
+import net.nicomar2009.lsmmod.modules.technology.network.SchoolStudyPayload;
+import net.nicomar2009.lsmmod.modules.technology.network.SpeakerSoundPayload;
+import net.nicomar2009.lsmmod.modules.technology.network.SchoolMediaPayloads;
 
 import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
@@ -31,14 +34,14 @@ public class LSMMod {
         ModCreativeTabs.register(modEventBus);
         ModSounds.SOUNDS.register(modEventBus);
         net.nicomar2009.lsmmod.registry.ModEffects.EFFECTS.register(modEventBus);
-        modEventBus.addListener(net.nicomar2009.lsmmod.network.SchoolStudyPayload::register);
+        modEventBus.addListener(net.nicomar2009.lsmmod.modules.technology.network.SchoolStudyPayload::register);
         modEventBus.addListener(net.nicomar2009.lsmmod.modules.school_supplies.network.PaintCopyPayload::register);
         modEventBus.addListener(net.nicomar2009.lsmmod.modules.balls.network.FootballInputPayload::register);
-        modEventBus.addListener(net.nicomar2009.lsmmod.network.SchoolMediaPayloads::register);
+        modEventBus.addListener(net.nicomar2009.lsmmod.modules.technology.network.SchoolMediaPayloads::register);
         modEventBus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent event) ->
                 event.registrar("1").playToClient(
-                        net.nicomar2009.lsmmod.network.SpeakerSoundPayload.TYPE,
-                        net.nicomar2009.lsmmod.network.SpeakerSoundPayload.CODEC));
+                        net.nicomar2009.lsmmod.modules.technology.network.SpeakerSoundPayload.TYPE,
+                        net.nicomar2009.lsmmod.modules.technology.network.SpeakerSoundPayload.CODEC));
         LOGGER.info("LSM Mod loaded");
     }
 }

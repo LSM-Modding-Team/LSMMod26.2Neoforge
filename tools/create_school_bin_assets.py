@@ -1,4 +1,5 @@
 """Generate two passive plastic swing-lid bins and matching collision geometry."""
+from resource_modules import module_read_text, module_write_text, output_path
 from resource_json import resource_json
 import json
 import random
@@ -42,7 +43,7 @@ VARIANTS = {
 
 def write_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(resource_json(path, value, ensure_ascii=False)+"\n", encoding="utf-8")
+    module_write_text(path, resource_json(path, value, ensure_ascii=False)+"\n", encoding="utf-8")
 
 
 def texture(block_id, material, base):
@@ -59,7 +60,7 @@ def texture(block_id, material, base):
             image.putpixel((x, y), color)
     path = ASSETS / f"textures/block/{block_id}_{material}.png"
     path.parent.mkdir(parents=True, exist_ok=True)
-    image.save(path)
+    image.save(output_path(path))
 
 
 def main():
@@ -91,10 +92,10 @@ def main():
         java += ["        {"+", ".join(str(v) for v in bounds)+"}," for bounds, _ in parts]
         java.append("    };")
     java.append("}")
-    (ROOT / "src/main/java/net/nicomar2009/lsmmod/block/TrashBinShapes.java").write_text("\n".join(java)+"\n")
+    module_write_text(ROOT / "src/main/java/net/nicomar2009/lsmmod/modules/facilities/block/TrashBinShapes.java", "\n".join(java)+"\n")
     for locale, index in (("es_es", 2), ("en_us", 3)):
         path = ASSETS / f"lang/{locale}.json"
-        values = json.loads(path.read_text())
+        values = json.loads(module_read_text(path))
         for block_id, variant in VARIANTS.items(): values[f"block.lsmmod.{block_id}"] = variant[index]
         write_json(path, values)
 

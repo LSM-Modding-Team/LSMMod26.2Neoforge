@@ -1,4 +1,5 @@
 """External curtain preview; not a Minecraft screenshot."""
+from resource_modules import module_path, module_read_text, output_path
 from resource_json import preview_path
 import json,math,zipfile,io
 from pathlib import Path
@@ -24,8 +25,8 @@ def render(model,center,scale):
             texture=model['textures'][face['texture'][1:]];namespace,name=texture.split(':')
             if namespace=='minecraft':
                 with zipfile.ZipFile(ROOT/'.build-tools/gradle/caches/neoformruntime/artifacts/minecraft_26.2_client.jar') as jar:
-                    tex=np.array(Image.open(io.BytesIO(jar.read('assets/minecraft/textures/'+name+'.png'))).convert('RGBA'))
-            else:tex=np.array(Image.open(A/f'textures/{name}.png').convert('RGBA'))
+                    tex=np.array(Image.open(module_path(io.BytesIO(jar.read('assets/minecraft/textures/'+name+'.png')))).convert('RGBA'))
+            else:tex=np.array(Image.open(module_path(A/f'textures/{name}.png')).convert('RGBA'))
             surfaces.append((p[:,2].mean(),p,uv,tex))
     for _,poly,uv,tex in sorted(surfaces,key=lambda x:x[0]):
         for tri in [(0,1,2),(0,2,3)]:
@@ -57,9 +58,9 @@ def main():
             for index,layout in enumerate(layouts(width)):
                 name=f'school_glass_{int(row<height-1)}_{int(row>0)}'
                 if layout!=3:name+=f'_horizontal_{layout}'
-                glass=json.loads((A/f'models/block/{name}.json').read_text())
+                glass=json.loads(module_read_text(A/f'models/block/{name}.json'))
                 part='single' if width==1 else 'left' if index==0 else 'right' if index==width-1 else 'middle'
-                cloth=json.loads((A/f'models/block/school_curtain_full_{part}{suffix}.json').read_text())
+                cloth=json.loads(module_read_text(A/f'models/block/school_curtain_full_{part}{suffix}.json'))
                 for m in (glass,cloth):
                     textures.update(m['textures'])
                     for e in m['elements']:
@@ -69,6 +70,6 @@ def main():
         scale=min(400/(width*16),490/(height*16))
         canvas.paste(render({'elements':pieces,'textures':textures},[width*8,height*8,8],scale),(480*panel,0))
         labels.text((20+480*panel,25),label,fill='white')
-    canvas.save(preview_path('school_curtain_vertical.png'))
+    canvas.save(output_path(preview_path('school_curtain_vertical.png')))
 
 if __name__=='__main__':main()

@@ -1,4 +1,5 @@
 """Review actual material blocks, tile repetition, paint libraries and stage faces offline."""
+from resource_modules import output_path
 import json
 from PIL import Image,ImageDraw
 from create_laboratory_auditorium_materials import MATERIALS,A
@@ -25,7 +26,7 @@ def main():
         origin,scale=framing(elements,size=(480,400));offset=(i%3*480,i//3*440+25)
         canvas.paste(render(elements,origin,scale,size=(480,400),azimuth=-65,elevation=30,minecraft_orientation=True),offset)
         draw.text((offset[0]+8,offset[1]-18),label,fill=(25,25,25))
-    canvas.save(preview_path('laboratory_auditorium_materials_review.png'))
+    canvas.save(output_path(preview_path('laboratory_auditorium_materials_review.png')))
     from render_paintable_bathroom_door import column_scene
     from render_extended_school_doors import scene,DOUBLE
     from render_school_glass import stair_scene
@@ -34,6 +35,6 @@ def main():
     canvas=Image.new('RGB',(1440,620),(194,194,194));draw=ImageDraw.Draw(canvas)
     for i,(label,elements) in enumerate(cases):
         origin,scale=framing(elements,size=(480,580));canvas.paste(render(elements,origin,scale,size=(480,580),azimuth=-65,elevation=20,minecraft_orientation=True),(i*480,25));draw.text((i*480+8,5),label,fill=(25,25,25))
-    canvas.save(preview_path('laboratory_auditorium_paints_review.png'))
+    canvas.save(output_path(preview_path('laboratory_auditorium_paints_review.png')))
 
 if __name__=='__main__':main()

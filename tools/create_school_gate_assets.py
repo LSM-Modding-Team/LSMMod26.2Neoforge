@@ -1,4 +1,5 @@
 """Generate the 6x4 double metal gate; every block texture is 16x16 pixels."""
+from resource_modules import module_read_text, module_write_text, output_path
 from resource_json import preview_path
 from resource_json import resource_json
 import json
@@ -16,7 +17,7 @@ MODELS = ASSETS / "models/block"
 
 def write_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(resource_json(path, value, ensure_ascii=False) + "\n", encoding="utf-8")
+    module_write_text(path, resource_json(path, value, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 def gate_art():
@@ -79,17 +80,17 @@ def main():
     TEXTURES.mkdir(parents=True, exist_ok=True)
     image = gate_art()
     (ROOT/"previews").mkdir(exist_ok=True)
-    image.resize((576,384),Image.Resampling.NEAREST).save(preview_path('school_gate_6x4.png'))
+    image.resize((576,384),Image.Resampling.NEAREST).save(output_path(preview_path('school_gate_6x4.png')))
     edge = Image.new("RGB", (16, 16), (57, 45, 39))
     draw = ImageDraw.Draw(edge)
     for x in range(0, 16, 4):
         draw.line((x, 0, x, 15), fill=(66, 52, 44))
-    edge.save(TEXTURES / "school_gate_edge.png")
+    edge.save(output_path(TEXTURES / "school_gate_edge.png"))
     write_json(MODELS / "school_gate_empty.json", {"textures": {"particle": "lsmmod:block/school_gate_edge"}, "elements": []})
     for row in range(4):
         for column in range(6):
             name = f"school_gate_closed_{column}_{row}"
-            image.crop((column * 16, (3-row)*16, (column+1)*16, (4-row)*16)).save(TEXTURES / f"{name}.png")
+            image.crop((column * 16, (3-row)*16, (column+1)*16, (4-row)*16)).save(output_path(TEXTURES / f"{name}.png"))
             if column == 2:
                 elements = [element([0,0,7,15.875,16,9],[0,0,15.875,16],("north","south"))]
             elif column == 3:
@@ -107,7 +108,7 @@ def main():
                     source_x = u if column == 0 else 95-u
                     for y in range(16):
                         panel.putpixel((z, y), image.getpixel((source_x, (3-row)*16+y)))
-                panel.save(TEXTURES / f"{name}.png")
+                panel.save(output_path(TEXTURES / f"{name}.png"))
                 x1 = 0 if column == 0 else 14
                 write_json(MODELS / f"{name}.json", model(name,
                     [element([x1, 0, z1, x1+2, 16, z1+length], [z1, 0, z1+length, 16], ("east", "west"))]))
@@ -148,11 +149,11 @@ def main():
             "entries": [{"type": "minecraft:item", "name": "lsmmod:school_gate"}]}]})
     for locale, name in (("es_es", "Portón doble del colegio"), ("en_us", "School Double Gate")):
         path = ASSETS / "lang" / f"{locale}.json"
-        values = json.loads(path.read_text(encoding="utf-8"))
+        values = json.loads(module_read_text(path, encoding="utf-8"))
         values["block.lsmmod.school_gate"] = name
         write_json(path, values)
     path = DATA / "minecraft/tags/block/mineable/pickaxe.json"
-    values = json.loads(path.read_text(encoding="utf-8"))
+    values = json.loads(module_read_text(path, encoding="utf-8"))
     if "lsmmod:school_gate" not in values["values"]:
         values["values"].append("lsmmod:school_gate")
     write_json(path, values)

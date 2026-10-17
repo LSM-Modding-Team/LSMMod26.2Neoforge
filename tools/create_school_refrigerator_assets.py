@@ -1,4 +1,5 @@
 """Reference-based closed display refrigerator; shared furniture lifecycle and render layers."""
+from resource_modules import module_read_text, module_write_text, output_path
 from resource_json import resource_json
 import copy
 import json
@@ -63,7 +64,7 @@ def parts():
 
 def write(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(resource_json(path, value, ensure_ascii=False)+'\n', encoding='utf-8')
+    module_write_text(path, resource_json(path, value, ensure_ascii=False)+'\n', encoding='utf-8')
 
 
 def mesh(parts, layer):
@@ -129,7 +130,7 @@ def main():
     draw = ImageDraw.Draw(glass)
     for start, end in (((1, 4), (8, 25)), ((2, 4), (9, 25)), ((10, 27), (15, 43))):
         draw.line((start, end), fill=(228, 241, 238, 50), width=1)
-    glass.save(A/f'textures/block/{ID}_glass.png')
+    glass.save(output_path(A/f'textures/block/{ID}_glass.png'))
     opaque, transparent = parts()
     models = {'solid': mesh(opaque, 'solid'), 'translucent': mesh(transparent, 'translucent')}
     multipart = []
@@ -171,17 +172,17 @@ def main():
         ('ModItems.java', '    public static final DeferredItem<BlockItem> SCHOOL_REFRIGERATOR = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_REFRIGERATOR);'),
     ):
         path = J/'registry'/file
-        text = path.read_text()
+        text = module_read_text(path)
         if ' SCHOOL_REFRIGERATOR =' not in text:
             text = text.replace('    // BEGIN FACILITY EXPANSIONS', entry+'\n\n    // BEGIN FACILITY EXPANSIONS', 1)
-            path.write_text(text)
+            module_write_text(path, text)
     for locale, name in (('es_es', 'Refrigeradora del comedor'), ('en_us', 'Dining Room Refrigerator')):
         path = A/f'lang/{locale}.json'
-        data = json.loads(path.read_text())
+        data = json.loads(module_read_text(path))
         data['block.lsmmod.'+ID] = name
         write(path, data)
     path = D/'minecraft/tags/block/mineable/pickaxe.json'
-    data = json.loads(path.read_text())
+    data = json.loads(module_read_text(path))
     if 'lsmmod:'+ID not in data['values']:
         data['values'].append('lsmmod:'+ID)
         write(path, data)

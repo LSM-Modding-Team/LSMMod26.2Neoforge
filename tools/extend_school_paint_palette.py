@@ -1,4 +1,5 @@
 """Append missing stable paint IDs to existing native Fusion face libraries without regenerating geometry."""
+from resource_modules import module_read_text, module_rglob
 import copy,json,re
 from create_school_glass_assets import A,write
 from create_paintable_school_block import PAINTS
@@ -17,7 +18,7 @@ def main():
         key=(ident,old,new)
         if key in cached:return cached[key]
         target=colored_name(ident,old,new);cached[key]=target
-        path=A/f'models/{ident.split(":")[1]}.json';data=copy.deepcopy(json.loads(path.read_text()))
+        path=A/f'models/{ident.split(":")[1]}.json';data=copy.deepcopy(json.loads(module_read_text(path)))
         old_texture,new_texture=PAINTS[old],PAINTS[new]
         old_alias='#column_'+old_texture.replace(':','_').replace('/','_')
         for name,value in list(data.get('textures',{}).items()):
@@ -27,8 +28,8 @@ def main():
         if parent and parent.startswith('lsmmod:') and re.search(r'_'+str(old)+r'(?=_|$)',parent):data['parent']=clone(parent,old,new)
         write(A/f'models/{target.split(":")[1]}.json',data)
         return target
-    for path in list((A/'models/block').rglob('*.json')):
-        data=json.loads(path.read_text());changed=False
+    for path in list(module_rglob(A/'models/block', '*.json')):
+        data=json.loads(module_read_text(path));changed=False
         for group in data.get('models',[]):
             entries=[e for e in group if isinstance(e,dict) and isinstance(e.get('condition',{}).get('paint'),int) and e['condition']['paint']>=0]
             if not entries:continue

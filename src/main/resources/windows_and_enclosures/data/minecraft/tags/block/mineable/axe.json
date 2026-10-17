@@ -1,0 +1,21 @@
+{
+  "values": [
+    "lsmmod:classroom_door",
+    "lsmmod:dining_door",
+    "lsmmod:teachers_office_door",
+    "lsmmod:bathroom_door",
+    "lsmmod:tall_classroom_entrance",
+    "lsmmod:tall_bathroom_door",
+    "lsmmod:tall_teachers_office_door",
+    "lsmmod:tall_dining_door",
+    "lsmmod:double_school_entrance",
+    "lsmmod:tall_bathroom_door_full_3",
+    "lsmmod:tall_bathroom_door_full_4",
+    "lsmmod:school_wood_door",
+    "lsmmod:dining_door_wide",
+    "lsmmod:bathroom_door_wide",
+    "lsmmod:infirmary_door",
+    "lsmmod:dining_door_wide_light",
+    "lsmmod:bathroom_door_wide_2x4"
+  ]
+}

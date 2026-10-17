@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.npcs.compat.jade;
 
-
-
 import java.util.Locale;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

@@ -1,4 +1,5 @@
 """Original double entrance with an 8px paintable slab, and a four-row bathroom door."""
+from resource_modules import module_glob, module_read_text, module_unlink, module_write_text
 import copy,itertools,json,shutil
 from create_school_glass_assets import ROOT,A,D,write
 from create_facility_expansion_assets import J,basic
@@ -25,7 +26,7 @@ def clipped(elements,column,row,depth):
 
 
 def item(ident,elements,width,height):
-    for obsolete in (A/'models/item').glob(ident+'_*.json'):obsolete.unlink()
+    for obsolete in module_glob(A/'models/item', ident+'_*.json'):module_unlink(obsolete)
     groups=[];scale=max(width,height)/16
     for layer in sorted({e.get('render_type','minecraft:solid') for e in elements}):
         parts=[]
@@ -84,7 +85,7 @@ def double():
 
 
 def bathroom_parts(opened=False,right=False):
-    entries=json.loads((A/'blockstates/bathroom_door_wide.json').read_text())['multipart'];elements=[]
+    entries=json.loads(module_read_text(A/'blockstates/bathroom_door_wide.json'))['multipart'];elements=[]
     for entry in entries:
         when=entry['when']
         if 'framed_door_transom' in entry['apply']['model']:continue
@@ -135,17 +136,17 @@ def main():
         for filename,entry in (
             ('ModBlocks.java',f'    public static final DeferredBlock<{cls}> {symbol} = BLOCKS.registerBlock("{ident}", {cls}::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));'),
             ('ModItems.java',f'    public static final DeferredItem<BlockItem> {symbol} = ITEMS.registerSimpleBlockItem(ModBlocks.{symbol});')):
-            p=J/'registry'/filename;s=p.read_text()
-            if ' '+symbol+' =' not in s:p.write_text(s.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
+            p=J/'registry'/filename;s=module_read_text(p)
+            if ' '+symbol+' =' not in s:module_write_text(p, s.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
         for locale,label in (('es_es',label_es),('en_us',label_en)):
-            p=A/f'lang/{locale}.json';data=json.loads(p.read_text());data['block.lsmmod.'+ident]=label;write(p,data)
+            p=A/f'lang/{locale}.json';data=json.loads(module_read_text(p));data['block.lsmmod.'+ident]=label;write(p,data)
         for tool in (('axe','pickaxe') if ident==DOUBLE else ('axe',)):
-            p=D/f'minecraft/tags/block/mineable/{tool}.json';data=json.loads(p.read_text())
+            p=D/f'minecraft/tags/block/mineable/{tool}.json';data=json.loads(module_read_text(p))
             if 'lsmmod:'+ident not in data['values']:data['values'].append('lsmmod:'+ident)
             write(p,data)
-    p=J/'registry/ModBlockEntities.java';s=p.read_text()
+    p=J/'registry/ModBlockEntities.java';s=module_read_text(p)
     if ' SCHOOL_ENTRANCE_SLAB_PAINT =' not in s:
-        entry='    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolEntranceSlabPaintEntity>> SCHOOL_ENTRANCE_SLAB_PAINT = BLOCK_ENTITIES.register("school_entrance_slab_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolEntranceSlabPaintEntity::new, ModBlocks.DOUBLE_SCHOOL_ENTRANCE_PAINTABLE_SLAB.get()));\n\n'
-        p.write_text(s.replace('    // Only the LEFT half',entry+'    // Only the LEFT half',1))
+        entry='    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolEntranceSlabPaintEntity>> SCHOOL_ENTRANCE_SLAB_PAINT = BLOCK_ENTITIES.register("school_entrance_slab_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolEntranceSlabPaintEntity::new, ModBlocks.DOUBLE_SCHOOL_ENTRANCE_PAINTABLE_SLAB.get()));\n\n'
+        module_write_text(p, s.replace('    // Only the LEFT half',entry+'    // Only the LEFT half',1))
 
 if __name__=='__main__':main()

@@ -1,4 +1,5 @@
 """Low-state dark tiles, open drain, and shared per-quadrant circular-column connections."""
+from resource_modules import module_path, module_read_text, module_write_text, output_path
 from resource_json import resource_json
 import json, math, random, copy
 from pathlib import Path
@@ -35,7 +36,7 @@ def outer_boxes(q,height,base=False):
  return [[b[0],max(b[1],height),b[2],b[3],b[4],b[5]] for b in connectors(q,base) if b[4]>height]
 def vertical(boxes,low,high):
  return [[b[0],max(b[1],low),b[2],b[3],min(b[4],high),b[5]] for b in boxes if max(b[1],low)<min(b[4],high)]
-def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, v, ensure_ascii=False)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
+def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);module_write_text(p, resource_json(p, v, ensure_ascii=False)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
 def model(parts,textures):
  v=solid_model(parts);v['textures']=textures;v['render_type']='minecraft:solid'
  for e in v['elements']:
@@ -72,9 +73,9 @@ def basic(id,root):
  write(A/f'items/{id}.json',{'model':{'type':'minecraft:model','model':'lsmmod:block/'+root}})
  write(D/f'lsmmod/loot_table/blocks/{id}.json',{'type':'minecraft:block','pools':[{'rolls':1,'conditions':[{'condition':'minecraft:survives_explosion'}],'entries':[{'type':'minecraft:item','name':'lsmmod:'+id}]}]})
 def main():
- im=Image.open(A/'textures/block/classroom_floor.png').convert('RGB'); vals=[sum(c)/3 for c in im.getdata()]; average=sum(vals)/len(vals)
- im.putdata([tuple(max(0,min(255,round(101+(v-average)*.7)+offset)) for offset in (0,1,2)) for v in vals]);p=A/'textures/block/dark_tiled_floor.png';im.save(p);GENERATED.append(str(p.relative_to(ROOT)))
- rng=random.Random(239);im=Image.new('RGB',(16,16));im.putdata([tuple(c+rng.choice((-2,-1,0,1,2)) for c in (43,46,49)) for _ in range(256)]);p=A/'textures/block/school_drain_metal.png';im.save(p);GENERATED.append(str(p.relative_to(ROOT)))
+ im=Image.open(module_path(A/'textures/block/classroom_floor.png')).convert('RGB'); vals=[sum(c)/3 for c in im.getdata()]; average=sum(vals)/len(vals)
+ im.putdata([tuple(max(0,min(255,round(101+(v-average)*.7)+offset)) for offset in (0,1,2)) for v in vals]);p=A/'textures/block/dark_tiled_floor.png';im.save(output_path(p));GENERATED.append(str(p.relative_to(ROOT)))
+ rng=random.Random(239);im=Image.new('RGB',(16,16));im.putdata([tuple(c+rng.choice((-2,-1,0,1,2)) for c in (43,46,49)) for _ in range(256)]);p=A/'textures/block/school_drain_metal.png';im.save(output_path(p));GENERATED.append(str(p.relative_to(ROOT)))
  write(A/'models/block/dark_tiled_floor.json',{'parent':'minecraft:block/cube_all','textures':{'all':'lsmmod:block/dark_tiled_floor'}});write(A/'blockstates/dark_tiled_floor.json',{'variants':{'':{'model':'lsmmod:block/dark_tiled_floor'}}});basic('dark_tiled_floor','dark_tiled_floor')
  write(A/'models/block/school_drain.json',model(DRAIN,{'gray':'lsmmod:block/dark_school_tiled_floor_side','tile':'lsmmod:block/dark_tiled_floor','metal':'lsmmod:block/school_drain_metal','particle':'lsmmod:block/dark_tiled_floor'}));write(A/'blockstates/school_drain.json',{'variants':{f'facing={f}':{'model':'lsmmod:block/school_drain','y':i*90} for i,f in enumerate(('north','east','south','west'))}});basic('school_drain','school_drain')
  models=[]
@@ -151,17 +152,17 @@ def main():
  java='package net.nicomar2009.lsmmod.block;\n\n/** Generated mesh-identical physical boxes. */\npublic final class SchoolDrainColumnShapes {\n private SchoolDrainColumnShapes() {}\n'
  for name,boxes in [('DRAIN',[b[0] for b in DRAIN]),('SHAFT',CIRCLE),('FIXED',FIXED),('BASE_FIXED',BASE_FIXED)]:java+=' public static final double[][] '+name+' = '+json.dumps(boxes).replace('[','{').replace(']','}')+';\n'
  java+=' public static final double[][][][] BASE_OUTER = '+json.dumps([[outer_boxes(q,height,True) for height in (0,12,16)] for q in range(4)]).replace('[','{').replace(']','}')+';\n'
- java+=' public static final double[][][][] OUTER = '+json.dumps([[outer_boxes(q,height) for height in (0,12,16)] for q in range(4)]).replace('[','{').replace(']','}')+';\n}\n';p=J/'block/SchoolDrainColumnShapes.java';p.write_text(java);GENERATED.append(str(p.relative_to(ROOT)))
+ java+=' public static final double[][][][] OUTER = '+json.dumps([[outer_boxes(q,height) for height in (0,12,16)] for q in range(4)]).replace('[','{').replace(']','}')+';\n}\n';p=J/'modules/facilities/block/SchoolDrainColumnShapes.java';module_write_text(p, java);GENERATED.append(str(p.relative_to(ROOT)))
  registrations='''    public static final DeferredBlock<Block> DARK_TILED_FLOOR = BLOCKS.registerBlock("dark_tiled_floor", Block::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).requiresCorrectToolForDrops());
     public static final DeferredBlock<SchoolDrainBlock> SCHOOL_DRAIN = BLOCKS.registerBlock("school_drain", SchoolDrainBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
     public static final DeferredBlock<SchoolCircularColumnBlock> SCHOOL_CIRCULAR_COLUMN = BLOCKS.registerBlock("school_circular_column", SchoolCircularColumnBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).noOcclusion().dynamicShape().requiresCorrectToolForDrops());'''
  for filename,body in [('ModBlocks.java',registrations),('ModItems.java','\n'.join(f'    public static final DeferredItem<BlockItem> {id.upper()} = ITEMS.registerSimpleBlockItem(ModBlocks.{id.upper()});' for id in ('dark_tiled_floor','school_drain','school_circular_column')))]:
-  p=J/'registry'/filename;s=p.read_text();a='    // BEGIN DARK TILE DRAIN COLUMN';z='    // END DARK TILE DRAIN COLUMN';section=a+'\n'+body+'\n'+z
+  p=J/'registry'/filename;s=module_read_text(p);a='    // BEGIN DARK TILE DRAIN COLUMN';z='    // END DARK TILE DRAIN COLUMN';section=a+'\n'+body+'\n'+z
   if a in s:start=s.index(a);end=s.index(z)+len(z);s=s[:start]+section+s[end:]
   else:s=s.replace('    // BEGIN CHILDREN LOCKER AND CEILING PROJECTOR',section+'\n\n    // BEGIN CHILDREN LOCKER AND CEILING PROJECTOR',1)
-  p.write_text(s);GENERATED.append(str(p.relative_to(ROOT)))
+  module_write_text(p, s);GENERATED.append(str(p.relative_to(ROOT)))
  for locale,names in [('es_es',('Baldosas oscuras','Desagüe del colegio','Columna circular del colegio')),('en_us',('Dark Tiled Floor','School Drain','School Circular Column'))]:
-  p=A/f'lang/{locale}.json';v=json.loads(p.read_text());v.update({f'block.lsmmod.{id}':n for id,n in zip(('dark_tiled_floor','school_drain','school_circular_column'),names)});write(p,v)
- p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+id for id in ('dark_tiled_floor','school_drain','school_circular_column')]));write(p,v)
- Path('/tmp/drain-generated.json').write_text(json.dumps(GENERATED))
+  p=A/f'lang/{locale}.json';v=json.loads(module_read_text(p));v.update({f'block.lsmmod.{id}':n for id,n in zip(('dark_tiled_floor','school_drain','school_circular_column'),names)});write(p,v)
+ p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(module_read_text(p));v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+id for id in ('dark_tiled_floor','school_drain','school_circular_column')]));write(p,v)
+ module_write_text(Path('/tmp/drain-generated.json'), json.dumps(GENERATED))
 if __name__=='__main__':main()

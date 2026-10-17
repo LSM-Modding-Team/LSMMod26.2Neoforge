@@ -4,6 +4,7 @@ Minecraft's item/generated parent extrudes layer0 by one model unit. Resolve the
 real item definition and model, then expose its front, back and alpha boundary
 through the shared software renderer. This is not a Minecraft screenshot.
 """
+from resource_modules import module_path, module_read_text, output_path
 import json
 from PIL import Image, ImageDraw
 from create_music_disc_assets import ASSETS, DESIGNS
@@ -12,12 +13,12 @@ import render_texture_review as renderer
 
 
 def generated_item(ident):
-    definition = json.loads((ASSETS / f'items/{ident}.json').read_text())['model']
+    definition = json.loads(module_read_text(ASSETS / f'items/{ident}.json'))['model']
     assert definition['type'] == 'minecraft:model'
-    model = json.loads((ASSETS / ('models/' + definition['model'].split(':')[1] + '.json')).read_text())
+    model = json.loads(module_read_text(ASSETS / ('models/' + definition['model'].split(':')[1] + '.json')))
     assert model['parent'] == 'minecraft:item/generated'
     texture = model['textures']['layer0']
-    image = Image.open(ASSETS / ('textures/' + texture.split(':')[1] + '.png')).convert('RGBA')
+    image = Image.open(module_path(ASSETS / ('textures/' + texture.split(':')[1] + '.png'))).convert('RGBA')
     assert image.size == (16, 16)
     scene = []
     def opaque(x, y):
@@ -63,7 +64,7 @@ def main():
         draw.text((10, top+3), ident, fill='black')
     draw.text((10, sheet.height-20), 'Render externo del item/generated, UV y alfa; no es una captura de Minecraft.', fill='black')
     target = preview_path('music_discs_review.png')
-    sheet.save(target)
+    sheet.save(output_path(target))
     print(target)
 
 

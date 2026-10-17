@@ -1,6 +1,5 @@
 package net.nicomar2009.lsmmod.modules.school_supplies.client;
-
-
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableBlockEntity;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
@@ -22,7 +21,7 @@ public final class PaintCopyInput {
         Minecraft minecraft = Minecraft.getInstance();
         if (!event.isUseItem() || minecraft.player == null || minecraft.level == null
                 || !(minecraft.hitResult instanceof BlockHitResult hit)
-                || !(minecraft.level.getBlockEntity(hit.getBlockPos()) instanceof net.nicomar2009.lsmmod.block.SchoolPaintableBlockEntity block)
+                || !(minecraft.level.getBlockEntity(hit.getBlockPos()) instanceof net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableBlockEntity block)
                 || !block.canPaintAt(hit.getDirection(),hit.getLocation())) return;
         var window = minecraft.getWindow();
         if (!InputConstants.isKeyDown(window, GLFW.GLFW_KEY_LEFT_CONTROL)

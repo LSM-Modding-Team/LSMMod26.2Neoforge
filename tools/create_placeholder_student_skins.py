@@ -1,4 +1,5 @@
 """Generate new 256x256 wide-player placeholder atlases with numbered heads and school uniforms."""
+from resource_modules import output_path
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont
 ROOT=Path(__file__).resolve().parents[1];ASSETS=ROOT/'src/main/resources/npcs/assets/lsmmod/textures/entity'
@@ -105,7 +106,7 @@ def generate(level,grade):
   for off in [1.6,1.25,.9]:line([(x+.7,Y-off),(X-.7,Y-off)],(67,70,75,255))
  if (level=='primary' and grade==6) or (level=='secondary' and grade==5):varsity(level,skin)
  name=f'placeholder_{grade}{"p" if level=="primary" else "s"}.png' if grade else 'placeholder_school_npc.png'
- path=ASSETS/('students' if grade else '')/name;path.parent.mkdir(parents=True,exist_ok=True);im.save(path)
+ path=ASSETS/('students' if grade else '')/name;path.parent.mkdir(parents=True,exist_ok=True);im.save(output_path(path))
 for level,count in [('primary',6),('secondary',5)]:
  for grade in range(1,count+1):generate(level,grade)
 generate('primary',0)

@@ -1,4 +1,5 @@
 """Y-inverted copies of both wall slope families, with no metal and a Y=0 start."""
+from resource_modules import module_read_text, module_write_text
 import json
 from create_school_railing_slopes import ROOT,A,pieces as originals,obj,write
 
@@ -23,10 +24,10 @@ def inverted_obj(original_low,rise):
  return '\n'.join(out)+'\n'
 
 def main():
- (A/'models/block/school_inverted_slopes.mtl').write_text('newmtl wall\nKd 1 1 1\nd 1\nmap_Kd #wall\n')
+ module_write_text(A/'models/block/school_inverted_slopes.mtl', 'newmtl wall\nKd 1 1 1\nd 1\nmap_Kd #wall\n')
  blocks='    // BEGIN SCHOOL INVERTED SLOPES\n';items=blocks
  for ident,col,row,low,rise in pieces():
-  (A/f'models/block/{ident}.obj').write_text(inverted_obj(.75-low,rise))
+  module_write_text(A/f'models/block/{ident}.obj', inverted_obj(.75-low,rise))
   write(A/f'models/block/{ident}.json',{'loader':'neoforge:obj','model':f'lsmmod:models/block/{ident}.obj','automatic_culling':False,'flip_v':True,'shade_quads':True,'textures':{'wall':'lsmmod:block/light_school_wall','particle':'lsmmod:block/light_school_wall'}})
   write(A/f'blockstates/{ident}.json',{'variants':{f'facing={face}':{'model':'lsmmod:block/'+ident,'y':turn} for face,turn in (('north',0),('east',90),('south',180),('west',270))}})
   write(A/f'models/item/{ident}.json',{'parent':'lsmmod:block/'+ident})
@@ -35,16 +36,16 @@ def main():
   blocks+=f'    public static final DeferredBlock<SchoolInvertedSlopeBlock> {ident.upper()} = BLOCKS.registerBlock(\n            "{ident}", props -> new SchoolInvertedSlopeBlock({low:.15g},{rise:.15g},props),\n            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());\n'
   items+=f'    public static final DeferredItem<BlockItem> {ident.upper()} = ITEMS.registerSimpleBlockItem(ModBlocks.{ident.upper()});\n'
  for filename,section in (('ModBlocks.java',blocks),('ModItems.java',items)):
-  p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=p.read_text();begin='    // BEGIN SCHOOL INVERTED SLOPES';end='    // END SCHOOL INVERTED SLOPES';section+=end+'\n'
+  p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=module_read_text(p);begin='    // BEGIN SCHOOL INVERTED SLOPES';end='    // END SCHOOL INVERTED SLOPES';section+=end+'\n'
   if begin in s:a=s.index(begin);b=s.index(end)+len(end)+1;s=s[:a]+section+s[b:]
   else:anchor=s.index('    public static final DeferredBlock<' if filename=='ModBlocks.java' else '    public static final DeferredItem<');s=s[:anchor]+section+'\n'+s[anchor:]
-  p.write_text(s)
+  module_write_text(p, s)
  for locale in ('es_es','en_us'):
-  p=A/f'lang/{locale}.json';v=json.loads(p.read_text())
+  p=A/f'lang/{locale}.json';v=json.loads(module_read_text(p))
   for ident,*_ in pieces():
    family='interrumpida' if '_split_' in ident else 'continua';number=ident.rsplit('_',1)[1]
    v['block.lsmmod.'+ident]=f'Pendiente invertida sin baranda: {family} {number}' if locale=='es_es' else f'Inverted unrailed slope: {"split" if "_split_" in ident else "flight"} {number}'
   write(p,v)
- p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+x[0] for x in pieces()]));write(p,v)
+ p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';v=json.loads(module_read_text(p));v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+x[0] for x in pieces()]));write(p,v)
  write(ROOT/'tools/school_inverted_slope_layout.json',{'start_y':0,'transform':'inclined profile Ynew = 0.75 - Yoriginal; flat top Y=1','flat_top_y':1,'pieces':[{'id':ident,'column':col,'row':row,'lower_start':low,'rise':rise} for ident,col,row,low,rise in pieces()]})
 if __name__=='__main__':main()

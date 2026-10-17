@@ -1,11 +1,12 @@
 """Verify facility dimensions, physical grids, materials, states and legacy paths without Java."""
+from resource_modules import module_glob, module_read_bytes, module_read_text
 import hashlib,itertools,json,re
 from pathlib import Path
 from create_facility_expansion_assets import ROOT,A,D,J,DINING_FIXED,DINING_CLOSED,DINING_OPEN,MICROWAVE,GENERATED,main as generate
 from audit_block_states import audit
 from create_kiosk_entrance_assets import GATE_CLOSED,GATE_OPEN
 
-def read(p):return json.loads(p.read_text())
+def read(p):return json.loads(module_read_text(p))
 def inside(boxes,p):return any(all(b[i]<=p[i]<b[i+3] for i in range(3)) for b in boxes)
 def matches(c,state):return all(state[k] in v.split('|') for k,v in c.items())
 def resolved(ident,mask=3):
@@ -42,7 +43,7 @@ def main():
  for x,y in itertools.product(range(16),repeat=2):
   metal=inside([b for b,m in GATE_CLOSED if m=='metal'],(16+x+.5,y+.5,8.1));assert metal==(x in (0,5,10,15) or y in (0,5,10,15))
   assert inside([b for b,m in GATE_CLOSED if m=='glass'],(16+x+.5,y+.5,8.5))
- source=(ROOT/'tools/create_kiosk_entrance_assets.py').read_text();assert "'glass':'lsmmod:block/school_tinted_glass'" in source
+ source=module_read_text(ROOT/'tools/create_kiosk_entrance_assets.py');assert "'glass':'lsmmod:block/school_tinted_glass'" in source
  # Open moving leaf retreats into a checked cell; static upper glazing and wall do not move.
  assert DINING_CLOSED[:len(DINING_FIXED)]==DINING_OPEN[:len(DINING_FIXED)]
  for y in (1,20,39):
@@ -55,7 +56,7 @@ def main():
  assert inside([b for b,m,*_ in DINING_CLOSED if m=='window'],(12,20,2))
  assert inside([b for b,m,*_ in DINING_OPEN if m=='window'],(2,20,12))
  assert next(b for b,m,*_ in DINING_FIXED if m=='glass')==[0,40,0,32,48,8]
- for p in (A/'models/block').glob('dining_door_wide_part_*.json'):
+ for p in module_glob(A/'models/block', 'dining_door_wide_part_*.json'):
   m=read(p)
   assert m['textures']['bottom']=='lsmmod:block/dining_door_bottom'
   assert m['textures']['top']=='lsmmod:block/dining_door_top'
@@ -64,13 +65,13 @@ def main():
    for f,s in e['faces'].items():
     assert s['texture'] not in ('#glass','#window')
  # Material is light ONLY on the outer side facing the adjacent block; no interior light face.
- for p in (A/'models/block').glob('dining_door_wide_part_*.json'):
+ for p in module_glob(A/'models/block', 'dining_door_wide_part_*.json'):
   m=read(p)
   for e in m['elements']:
    for f,s in e['faces'].items():
     if s['texture']=='#light':assert f in ('east','west') and (e['to'][0]==16 if f=='east' else e['from'][0]==0)
  # Cot extension preserves headrest and old pairs; new tail reaches the third cell.
- cot=(J/'block/InfirmaryCotBlock.java').read_text();helper=(J/'block/InfirmaryCotExtendedShapes.java').read_text()
+ cot=module_read_text(J/'modules/facilities/block/InfirmaryCotBlock.java');helper=module_read_text(J/'modules/facilities/block/InfirmaryCotExtendedShapes.java')
  assert '.setValue(EXTENDED,false)' in cot and '.setValue(EXTENDED,true)' in cot and 'state.getValue(EXTENDED)?3:2' in cot
  assert 'SHAPES[0]=InfirmaryCotShapes.SHAPES[0]' in helper and 'SHAPES[2]=' in helper and 'Shapes.or' not in helper
  # Java method arguments require an explicit array creation, not a bare initializer.
@@ -80,19 +81,19 @@ def main():
   model=read(A/f'models/block/infirmary_cot_extended_{segment}.json');assert model['elements']
   assert all(0<=e['from'][2]<e['to'][2]<=16 for e in model['elements'])
  # Expanded statue reserves six cells, preserves original half models and has a single-drop condition.
- statue=(J/'block/SchoolSanMartinBlock.java').read_text();assert 'extends TwoTallBlock' in statue and '.setValue(EXPANDED,false)' in statue and '.setValue(EXPANDED,true)' in statue and 'super.getCollisionShape' in statue
+ statue=module_read_text(J/'modules/special_blocks/block/SchoolSanMartinBlock.java');assert 'extends TwoTallBlock' in statue and '.setValue(EXPANDED,false)' in statue and '.setValue(EXPANDED,true)' in statue and 'super.getCollisionShape' in statue
  loot=read(D/'lsmmod/loot_table/blocks/san_martin_de_porres.json')['pools'][0]['conditions'][1];assert loot['condition']=='minecraft:any_of' and len(loot['terms'])==2
  # Support uses virtual support faces and the exact existing collision/occlusion remains 12px.
- railing=(J/'block/SchoolWallRailingBlock.java').read_text();reg=(J/'registry/ModBlocks.java').read_text();assert 'getBlockSupportShape' in railing and 'return Shapes.block()' in railing and 'Block.box(0,0,0,16,12,16)' in railing
+ railing=module_read_text(J/'modules/building_blocks/block/SchoolWallRailingBlock.java');reg=module_read_text(J/'modules/building_blocks/registry/ModuleBlocks.java');assert 'getBlockSupportShape' in railing and 'return Shapes.block()' in railing and 'Block.box(0,0,0,16,12,16)' in railing
  assert re.search(r'"light_school_wall_railing".*?forceSolidOn\(\)',reg,re.S)
- door=(J/'block/SchoolFramedDiningDoorBlock.java').read_text();placement=door[door.index('getStateForPlacement'):door.index('private static boolean supported')]
+ door=module_read_text(J/'modules/windows_and_enclosures/block/SchoolFramedDiningDoorBlock.java');placement=door[door.index('getStateForPlacement'):door.index('private static boolean supported')]
  assert 'hit.' not in placement and 'context.getItemInHand()' in placement
  assert 'context.getClickLocation()' in placement and '.setValue(HINGE, rightHinge' in placement
  use=door[door.index('protected InteractionResult useWithoutItem'):door.index('private void notifyCells')];assert use.index('!level.isUnobstructed')<use.index('level.setBlock') and 'existing.isAir()' in use and 'level.hasChunkAt' in use
  assert 'COLLISIONS.computeIfAbsent' in door and 'SimpleBlockOutline.forState' in door
  # Dedicated translucent layer only for glass, avoiding opaque geometry sorting with the pane.
  pane=read(A/'models/block/school_trophy_gallery_glass.json');assert pane['render_type']=='minecraft:translucent' and all(set(e['faces'])<=set(('north','south')) for e in pane['elements'])
- source=(J/'block/SchoolFacilityShapes.java').read_text()
+ source=module_read_text(J/'modules/facilities/block/SchoolFacilityShapes.java')
  trophies=json.loads(re.search(r'double\[\]\[\] TROPHIES = (.*?);',source)[1].replace('{','[').replace('}',']'))
  assert [max(b[i+3] for b in trophies)-min(b[i] for b in trophies) for i in range(3)]==[96,64,12]
  award_profiles=set();metals=[];heights=set()
@@ -106,6 +107,6 @@ def main():
  assert metals.count('#gold')==18 and set(metals)=={'#gold','#silver','#bronze'}
  assert len(award_profiles)>=4 and len(heights)>=4
  assert max(b[3] for b,*_ in MICROWAVE)<=16 and max(b[4] for b,*_ in MICROWAVE)<=16
- generate();before={p:hashlib.sha256((ROOT/p).read_bytes()).digest() for p in GENERATED};generate();assert all(hashlib.sha256((ROOT/p).read_bytes()).digest()==h for p,h in before.items())
+ generate();before={p:hashlib.sha256(module_read_bytes(ROOT/p)).digest() for p in GENERATED};generate();assert all(hashlib.sha256(module_read_bytes(ROOT/p)).digest()==h for p,h in before.items())
  print('OK: 604 states; dining/bathroom framed doors, shared connected transom and unsplit window, two hinges and protected swing; 6x4x0.75 gallery, 18 gold and six silver/bronze; cot/statue legacy paths, shared caches and idempotence.')
 if __name__=='__main__':main()

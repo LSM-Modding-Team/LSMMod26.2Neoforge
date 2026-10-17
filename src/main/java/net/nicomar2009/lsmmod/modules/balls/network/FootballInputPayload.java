@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.balls.network;
 
-
-
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;

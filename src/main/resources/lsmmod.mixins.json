@@ -1,11 +1,11 @@
 {
   "required": true,
-  "package": "net.nicomar2009.lsmmod.mixin",
+  "package": "net.nicomar2009.lsmmod",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "CotRestPoseMixin",
-    "CurtainPaletteMigrationMixin",
-    "CurtainChunkMigrationMixin"
+    "modules.facilities.mixin.CotRestPoseMixin",
+    "modules.windows_and_enclosures.mixin.CurtainPaletteMigrationMixin",
+    "modules.windows_and_enclosures.mixin.CurtainChunkMigrationMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -14,8 +14,8 @@
     "requireAnnotations": true
   },
   "client": [
-    "CotRestRendererMixin",
-    "GlazingClientUpdatesMixin",
-    "SchoolBrowserStreamMixin"
+    "modules.facilities.mixin.CotRestRendererMixin",
+    "modules.windows_and_enclosures.mixin.GlazingClientUpdatesMixin",
+    "modules.technology.mixin.SchoolBrowserStreamMixin"
   ]
 }

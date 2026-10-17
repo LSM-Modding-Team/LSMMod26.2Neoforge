@@ -1,4 +1,5 @@
 """Remove saved visual connection properties, selecting unchanged door models through Fusion."""
+from resource_modules import module_glob, module_read_text, module_unlink, module_write_text
 from resource_json import resource_json
 from collections import defaultdict
 from pathlib import Path
@@ -6,8 +7,8 @@ import hashlib,json
 ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmod'
 IDS=('tall_classroom_entrance','tall_bathroom_door','tall_teachers_office_door','tall_dining_door','double_school_entrance')
 PROPERTIES=('frame_layout','top_connected','bottom_connected')
-def read(p):return json.loads(p.read_text(encoding='utf-8'))
-def write(p,data):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, data, ensure_ascii=False)+'\n',encoding='utf-8')
+def read(p):return json.loads(module_read_text(p, encoding='utf-8'))
+def write(p,data):p.parent.mkdir(parents=True,exist_ok=True);module_write_text(p, resource_json(p, data, ensure_ascii=False)+'\n',encoding='utf-8')
 def key(state):return ','.join(f'{k}={v}' for k,v in sorted(state.items()))
 def expand_variants(definition):
     """Recover all legacy selectors for generators and equivalence checks, never runtime states."""
@@ -46,6 +47,6 @@ def main(ids=IDS):
             write(target,{'loader':'fusion:model','type':'composite','models':[series]})
             variants[selector]=dict(transforms[0],model='lsmmod:block/'+name)
         write(path,{'variants':variants})
-        for target in (A/'models/block/school_door_dynamic').glob(ident+'_*.json'):
-            if target not in used:target.unlink()
+        for target in module_glob(A/'models/block/school_door_dynamic', ident+'_*.json'):
+            if target not in used:module_unlink(target)
 if __name__=='__main__':main()

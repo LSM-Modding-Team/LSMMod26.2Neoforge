@@ -1,4 +1,5 @@
 """Generate the two code-native pixel-art laptop models and texture atlases."""
+from resource_modules import module_read_text, module_write_text, output_path
 from resource_json import resource_json
 import json
 from pathlib import Path
@@ -9,7 +10,7 @@ ASSETS = ROOT / 'src/main/resources/assets/lsmmod'
 
 def write(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(resource_json(path, value, ensure_ascii=False) + '\n', encoding='utf-8')
+    module_write_text(path, resource_json(path, value, ensure_ascii=False) + '\n', encoding='utf-8')
 
 for name, luxury in [('laptop', False), ('moises_laptop', True)]:
     image = Image.new('RGB', (64, 64), '#d6ad39' if luxury else '#898d96')
@@ -41,7 +42,7 @@ for name, luxury in [('laptop', False), ('moises_laptop', True)]:
         draw.ellipse((43, 43, 53, 53), outline='#b8bdc5', width=1)
         draw.line((46, 46, 46, 50), fill='#cbd0d8')
         draw.line((50, 46, 50, 50), fill='#cbd0d8')
-    image.save(ASSETS / f'textures/block/{name}.png')
+    image.save(output_path(ASSETS / f'textures/block/{name}.png'))
 
     metal, deck, screen, lid = [0, 0, 8, 8], [8, 0, 16, 8], [0, 8, 8, 16], [8, 8, 16, 16]
     def box(start, end, overrides=None):
@@ -73,6 +74,6 @@ for name, luxury in [('laptop', False), ('moises_laptop', True)]:
 
 for language in ['es_es', 'en_us']:
     path = ASSETS / f'lang/{language}.json'
-    data = json.loads(path.read_text(encoding='utf-8'))
+    data = json.loads(module_read_text(path, encoding='utf-8'))
     data.update({'block.lsmmod.laptop': 'Laptop', 'block.lsmmod.moises_laptop': 'Laptop de Moisés' if language == 'es_es' else "Moisés\u2019 Laptop"})
     write(path, data)

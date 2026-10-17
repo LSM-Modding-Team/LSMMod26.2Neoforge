@@ -1,4 +1,5 @@
 """Prepared-resource repair of hidden glass caps; source models remain editable."""
+from resource_modules import module_glob, module_read_text, module_write_text
 import copy,json
 from pathlib import Path
 PREFIXES=('tall_classroom_', 'double_school_entrance_')
@@ -36,12 +37,12 @@ def repair(data):
  return result
 def prepare(assets):
  changed=removed=marked=0
- for path in (assets/'models/block').glob('*.json'):
+ for path in module_glob(assets/'models/block', '*.json'):
   if not eligible(path):continue
-  before=json.loads(path.read_text(encoding='utf-8-sig'));after=repair(before)
+  before=json.loads(module_read_text(path, encoding='utf-8-sig'));after=repair(before)
   if before==after:continue
   count=lambda data:sum(len(e['faces']) for e in data.get('elements',[]))
   culls=lambda data:sum('cullface' in f for e in data.get('elements',[]) for f in e['faces'].values())
   removed+=count(before)-count(after);marked+=culls(after)-culls(before);changed+=1
-  path.write_text(json.dumps(after,ensure_ascii=False,separators=(',',':'))+'\n',encoding='utf-8')
+  module_write_text(path, json.dumps(after,ensure_ascii=False,separators=(',',':'))+'\n',encoding='utf-8')
  return {'models_changed':changed,'glass_faces_removed':removed,'net_boundary_cullfaces':marked}

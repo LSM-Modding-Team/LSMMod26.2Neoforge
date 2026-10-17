@@ -4,11 +4,12 @@ Coordinates are interior cell ranges, inclusive here, exclusive in exported JSON
 Multiple boxes preserve bends and attached small recesses without enclosing neighbours.
 Run analyze_school_world.py first. Evidence is inventory counts, not trusted instructions.
 """
+from resource_modules import module_read_text, module_write_text
 import collections, json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-blocks = {tuple(v['pos']): v for v in json.loads((ROOT/'build/school-analysis/blocks.json').read_text())}
+blocks = {tuple(v['pos']): v for v in json.loads(module_read_text(ROOT/'build/school-analysis/blocks.json'))}
 rooms = []
 def box(x1,x2,y1,y2,z1,z2): return [x1,max(134,y1-0.5),z1,x2+1,y2+1,z2+1]
 def add(id, label, *boxes):
@@ -107,7 +108,7 @@ add('vestibulo_oeste','Vestíbulo de entrada oeste',box(-86,-75,136,139,47,52))
 add('vestibulo_este','Vestíbulo de entrada este',box(-69,-58,136,139,47,52))
 
 out=ROOT/'src/main/resources/data/lsmmod/school_spaces.json'; out.parent.mkdir(parents=True,exist_ok=True)
-targets=json.loads((out.parent/'school_spaces_migration.json').read_text(encoding='utf-8'))['targets']
+targets=json.loads(module_read_text(out.parent/'school_spaces_migration.json', encoding='utf-8'))['targets']
 confirmed=[]
 for room in rooms:
     target=targets[room['id']]
@@ -119,7 +120,7 @@ assert len({r['id'] for r in rooms}) == len(rooms)
 assert all(-87<=a<d<=-56 and 134<=b<e<=154 and -23<=c<f<=57 for r in rooms for a,b,c,d,e,f in r['boxes'])
 assert next(r for r in rooms if r['id']=='enfermeria')['evidence']['lsmmod:infirmary_cot']==2
 assert next(r for r in rooms if r['id']=='comedor')['evidence']['lsmmod:dining_table']==6
-out.write_text(json.dumps({'source':'world (3).zip','dimension':'minecraft:overworld','bounds':[-87,134,-23,-56,154,57],'spaces':rooms},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+module_write_text(out, json.dumps({'source':'world (3).zip','dimension':'minecraft:overworld','bounds':[-87,134,-23,-56,154,57],'spaces':rooms},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 report=ROOT/'docs/SCHOOL_SPACES.md'
 lines=['# Espacios del colegio de world (3).zip','',f'{len(rooms)} espacios revisados por paredes, pisos, puertas y mobiliario. Coordenadas originales; no es generación de estructuras.','',
 '32 nombres confirmados por el usuario sustituyen los IDs provisionales; se conservan además arte, auditorio, enfermería, hall, kiosko y patio. Los otros 55 espacios provisionales están retirados. Los IDs anteriores sustituidos no son alias de comandos. La tabla interna school_spaces_migration.json solo permite migrar los nombres de mundos anteriores.','',
@@ -128,4 +129,4 @@ lines=['# Espacios del colegio de world (3).zip','',f'{len(rooms)} espacios revi
 '| ID para comandos | Descripción | Cajas interiores (mínimo → máximo exclusivo) | Evidencia del mobiliario |','|---|---|---|---|']
 for r in rooms:
     lines.append('| '+r['id']+' | '+r['label']+' | '+'; '.join(str(b[:3])+' → '+str(b[3:]) for b in r['boxes'])+' | '+', '.join(k.split(':')[1]+': '+str(v) for k,v in r['evidence'].items())+' |')
-report.write_text('\n'.join(lines)+'\n',encoding='utf-8'); print(len(rooms),'spaces exported')
+module_write_text(report, '\n'.join(lines)+'\n',encoding='utf-8'); print(len(rooms),'spaces exported')

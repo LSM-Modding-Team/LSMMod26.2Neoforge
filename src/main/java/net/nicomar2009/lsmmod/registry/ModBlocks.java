@@ -4,12 +4,95 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.nicomar2009.lsmmod.LSMMod;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
-import net.minecraft.world.level.block.state.properties.BlockSetType;
-import net.minecraft.world.level.material.PushReaction;
 import net.nicomar2009.lsmmod.block.*;
+import net.nicomar2009.lsmmod.modules.lockers_and_storage.block.LostAndFoundBoxBlock;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolStairProjectingWindowBlock;
+import net.nicomar2009.lsmmod.modules.technology.block.GeneralSpeakerBlock;
+import net.nicomar2009.lsmmod.modules.slopes.block.YellowSchoolSlopeBlock;
+import net.nicomar2009.lsmmod.modules.facilities.block.WideBathroomBlock;
+import net.nicomar2009.lsmmod.modules.technology.block.WallProjectorBlock;
+import net.nicomar2009.lsmmod.modules.wall_blocks.block.WallDecorationBlock;
+import net.nicomar2009.lsmmod.modules.special_blocks.block.VaultingBoxBlock;
+import net.nicomar2009.lsmmod.modules.facilities.block.TrashBinBlock;
+import net.nicomar2009.lsmmod.modules.facilities.block.ToiletBlock;
+import net.nicomar2009.lsmmod.modules.tables_and_desks.block.TeachersDeskBlock;
+import net.nicomar2009.lsmmod.modules.technology.block.TallSpeakerBlock;
+import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.TallClassroomEntranceBlock;
+import net.nicomar2009.lsmmod.modules.facilities.block.TallBathroomBlock;
+import net.nicomar2009.lsmmod.modules.building_blocks.block.StreetSchoolBarsBlock;
+import net.nicomar2009.lsmmod.modules.chairs.block.StoolBlock;
+import net.nicomar2009.lsmmod.modules.technology.block.SpeakerBlock;
+import net.nicomar2009.lsmmod.modules.chairs.block.SofaBlock;
+import net.nicomar2009.lsmmod.modules.building_blocks.block.SchoolYellowBorderWallBlock;
+import net.nicomar2009.lsmmod.modules.building_blocks.block.SchoolWoodenHandrailBlock;
+import net.nicomar2009.lsmmod.modules.building_blocks.block.SchoolWallRailingBlock;
+import net.nicomar2009.lsmmod.modules.wall_blocks.block.SchoolWallDecorationBlock;
+import net.nicomar2009.lsmmod.modules.special_blocks.block.SchoolTrophyGalleryBlock;
+import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolTintedGlassBlock;
+import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolSlidingEntranceBlock;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolSlabProjectingWindowBlock;
+import net.nicomar2009.lsmmod.modules.facilities.block.SchoolSinkBlock;
+import net.nicomar2009.lsmmod.modules.special_blocks.block.SchoolShieldBlock;
+import net.nicomar2009.lsmmod.modules.shelving.block.SchoolShelvingBlock;
+import net.nicomar2009.lsmmod.modules.special_blocks.block.SchoolSanMartinBlock;
+import net.nicomar2009.lsmmod.modules.technology.block.SchoolRouterBlock;
+import net.nicomar2009.lsmmod.modules.facilities.block.SchoolRefrigeratorBlock;
+import net.nicomar2009.lsmmod.modules.slopes.block.SchoolRailingSlopeBlock;
+import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolProjectingWindowBlock;
+import net.nicomar2009.lsmmod.modules.facilities.block.SchoolPassiveAccessoryBlock;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableProjectingWindowBlock;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableGlassStairBlock;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableEntranceDoorBlock;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableDoubleEntranceBlock;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableCustomBlock;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableBlock;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableBathroomDoorBlock;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableBathroomColumnDoorBlock;
+import net.nicomar2009.lsmmod.modules.wall_blocks.block.SchoolNameSignBlock;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolMiniCubePaintableBlock;
+import net.nicomar2009.lsmmod.modules.slopes.block.SchoolInvertedSlopeBlock;
+import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolGlassBlock;
+import net.nicomar2009.lsmmod.modules.building_blocks.block.SchoolGateBlock;
+import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolFramedDiningDoorBlock;
+import net.nicomar2009.lsmmod.modules.facilities.block.SchoolDrainBlock;
+import net.nicomar2009.lsmmod.modules.wall_blocks.block.SchoolCrucifixBlock;
+import net.nicomar2009.lsmmod.modules.facilities.block.SchoolConnectedSinkBlock;
+import net.nicomar2009.lsmmod.modules.building_blocks.block.SchoolCircularColumnBlock;
+import net.nicomar2009.lsmmod.modules.technology.block.SchoolCabinetBlock;
+import net.nicomar2009.lsmmod.modules.technology.block.SchoolBellBlock;
+import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolBathroomDoor2x4Block;
+import net.nicomar2009.lsmmod.modules.facilities.block.RaisedDrinkingFountainBlock;
+import net.nicomar2009.lsmmod.modules.technology.block.ProjectorScreenBlock;
+import net.nicomar2009.lsmmod.modules.lockers_and_storage.block.NidoStorageBucketBlock;
+import net.nicomar2009.lsmmod.modules.technology.block.MonitorBlock;
+import net.nicomar2009.lsmmod.modules.special_blocks.block.ManuelTiradoBustBlock;
+import net.nicomar2009.lsmmod.modules.lockers_and_storage.block.LockerBlock;
+import net.nicomar2009.lsmmod.modules.technology.block.LaptopBlock;
+import net.nicomar2009.lsmmod.modules.tables_and_desks.block.KioskTableBlock;
+import net.nicomar2009.lsmmod.modules.facilities.block.InfirmaryCotBlock;
+import net.nicomar2009.lsmmod.modules.tables_and_desks.block.GrayComputerDeskBlock;
+import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.FullBathroomDoorBlock;
+import net.nicomar2009.lsmmod.modules.building_blocks.block.FloorTransitionBlock;
+import net.nicomar2009.lsmmod.modules.slopes.block.EntrancePavementSlopeBlock;
+import net.nicomar2009.lsmmod.modules.building_blocks.block.EntrancePavementSlabBlock;
+import net.nicomar2009.lsmmod.modules.tables_and_desks.block.ElementaryDeskBlock;
+import net.nicomar2009.lsmmod.modules.facilities.block.DrinkingFountainBlock;
+import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.DoubleSchoolEntranceBlock;
+import net.nicomar2009.lsmmod.modules.lockers_and_storage.block.DiningWallCabinetBlock;
+import net.nicomar2009.lsmmod.modules.tables_and_desks.block.DiningTableBlock;
+import net.nicomar2009.lsmmod.modules.tables_and_desks.block.DiningRoomCounterBlock;
+import net.nicomar2009.lsmmod.modules.tables_and_desks.block.DeskBlock;
+import net.nicomar2009.lsmmod.modules.tables_and_desks.block.ComputerDeskBlock;
+import net.nicomar2009.lsmmod.modules.lockers_and_storage.block.ChildrenLockerBlock;
+import net.nicomar2009.lsmmod.modules.chairs.block.ChairBlock;
+import net.nicomar2009.lsmmod.modules.technology.block.CeilingProjectorBlock;
+import net.nicomar2009.lsmmod.modules.lighting.block.CeilingLightBlock;
+import net.nicomar2009.lsmmod.modules.building_blocks.block.BathroomFloorBlock;
+import net.nicomar2009.lsmmod.modules.awnings.block.AwningSupportBlock;
+import net.nicomar2009.lsmmod.modules.awnings.block.AwningBlock;
+import net.nicomar2009.lsmmod.modules.tables_and_desks.block.ArtTableBlock;
 import net.nicomar2009.lsmmod.modules.balls.block.SportsGoalBlock;
 
 /** Registers the school furniture, statue and shield. */
@@ -19,652 +102,359 @@ public final class ModBlocks {
 
     // BEGIN SCHOOL RAILING SLOPES
     // BEGIN SHORT RAISED SLOPES
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SHORT_RAISED_1 = BLOCKS.registerBlock("school_inverted_slope_short_raised_1", props -> new SchoolInvertedSlopeBlock(0,-1,0.5,2,props), props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SHORT_RAISED_2 = BLOCKS.registerBlock("school_inverted_slope_short_raised_2", props -> new SchoolInvertedSlopeBlock(0,-1,0.5,2,props), props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SHORT_RAISED_3 = BLOCKS.registerBlock("school_inverted_slope_short_raised_3", props -> new SchoolInvertedSlopeBlock(0,-1,0.5,2,props), props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SHORT_RAISED_1 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_SHORT_RAISED_1;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SHORT_RAISED_2 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_SHORT_RAISED_2;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SHORT_RAISED_3 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_SHORT_RAISED_3;
     // END SHORT RAISED SLOPES
 
     // BEGIN SCHOOL INVERTED SLOPES
     // BEGIN SCHOOL SPLIT RAISED EXTRAS
     // BEGIN ENTRANCE PAVEMENT SHAPES
     // BEGIN DINING COUNTER
-    public static final DeferredBlock<DiningRoomCounterBlock> DINING_ROOM_COUNTER = BLOCKS.registerBlock("dining_room_counter", DiningRoomCounterBlock::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<DiningRoomCounterBlock> DINING_ROOM_COUNTER = net.nicomar2009.lsmmod.modules.tables_and_desks.registry.ModuleBlocks.DINING_ROOM_COUNTER;
     // END DINING COUNTER
 
     // BEGIN CONNECTED TINTED GLASS
-    public static final DeferredBlock<SchoolGlassBlock> SCHOOL_CONNECTED_TINTED_GLASS = BLOCKS.registerBlock("school_connected_tinted_glass", props -> new SchoolGlassBlock(props, new double[][]{{0,0,0,16,16,8}}), props -> props.strength(0.3F).sound(SoundType.GLASS).noOcclusion());
+    public static final DeferredBlock<SchoolGlassBlock> SCHOOL_CONNECTED_TINTED_GLASS = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.SCHOOL_CONNECTED_TINTED_GLASS;
     // END CONNECTED TINTED GLASS
 
-    public static final DeferredBlock<SchoolRefrigeratorBlock> SCHOOL_REFRIGERATOR = BLOCKS.registerBlock("school_refrigerator", SchoolRefrigeratorBlock::new, props -> props.strength(2.5F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolRefrigeratorBlock> SCHOOL_REFRIGERATOR = net.nicomar2009.lsmmod.modules.facilities.registry.ModuleBlocks.SCHOOL_REFRIGERATOR;
 
-    public static final DeferredBlock<DiningWallCabinetBlock> DINING_WALL_CABINET = BLOCKS.registerBlock("dining_wall_cabinet", DiningWallCabinetBlock::new, props -> props.strength(2F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<DiningWallCabinetBlock> DINING_WALL_CABINET = net.nicomar2009.lsmmod.modules.lockers_and_storage.registry.ModuleBlocks.DINING_WALL_CABINET;
 
-    public static final DeferredBlock<SchoolShelvingBlock> SCHOOL_SHELVING = BLOCKS.registerBlock("school_shelving", SchoolShelvingBlock::new, props -> props.strength(3F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolShelvingBlock> SCHOOL_SHELVING = net.nicomar2009.lsmmod.modules.shelving.registry.ModuleBlocks.SCHOOL_SHELVING;
 
-    public static final DeferredBlock<NidoStorageBucketBlock> NIDO_STORAGE_BUCKET = BLOCKS.registerBlock("nido_storage_bucket", NidoStorageBucketBlock::new, props -> props.strength(1.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<NidoStorageBucketBlock> NIDO_STORAGE_BUCKET = net.nicomar2009.lsmmod.modules.lockers_and_storage.registry.ModuleBlocks.NIDO_STORAGE_BUCKET;
 
-    public static final DeferredBlock<SchoolProjectingWindowBlock> SCHOOL_PROJECTING_WINDOW = BLOCKS.registerBlock("school_projecting_window", SchoolProjectingWindowBlock::new, props -> props.strength(0.5F).sound(SoundType.GLASS).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolProjectingWindowBlock> SCHOOL_PROJECTING_WINDOW = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.SCHOOL_PROJECTING_WINDOW;
 
-    public static final DeferredBlock<SchoolPaintableProjectingWindowBlock> SCHOOL_PAINTABLE_PROJECTING_WINDOW = BLOCKS.registerBlock("school_paintable_projecting_window", SchoolPaintableProjectingWindowBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolPaintableProjectingWindowBlock> SCHOOL_PAINTABLE_PROJECTING_WINDOW = net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlocks.SCHOOL_PAINTABLE_PROJECTING_WINDOW;
 
-    public static final DeferredBlock<SchoolNameSignBlock> SCHOOL_NAME_SIGN = BLOCKS.registerBlock("school_name_sign", SchoolNameSignBlock::new, props -> props.strength(1F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolNameSignBlock> SCHOOL_NAME_SIGN = net.nicomar2009.lsmmod.modules.wall_blocks.registry.ModuleBlocks.SCHOOL_NAME_SIGN;
 
-    public static final DeferredBlock<SchoolPaintableBathroomDoorBlock> BATHROOM_DOOR_WIDE_PAINTABLE = BLOCKS.registerBlock("bathroom_door_wide_paintable", SchoolPaintableBathroomDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolPaintableBathroomDoorBlock> BATHROOM_DOOR_WIDE_PAINTABLE = net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlocks.BATHROOM_DOOR_WIDE_PAINTABLE;
 
-    public static final DeferredBlock<SchoolPaintableEntranceDoorBlock> SCHOOL_ENTRANCE_DOOR_PAINTABLE = BLOCKS.registerBlock("school_entrance_door_paintable", SchoolPaintableEntranceDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolPaintableEntranceDoorBlock> SCHOOL_ENTRANCE_DOOR_PAINTABLE = net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlocks.SCHOOL_ENTRANCE_DOOR_PAINTABLE;
 
-    public static final DeferredBlock<SchoolPaintableGlassStairBlock> SCHOOL_PAINTABLE_GLASS_STAIRS = BLOCKS.registerBlock("school_paintable_glass_stairs", SchoolPaintableGlassStairBlock::new, props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().dynamicShape());
+    public static final DeferredBlock<SchoolPaintableGlassStairBlock> SCHOOL_PAINTABLE_GLASS_STAIRS = net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlocks.SCHOOL_PAINTABLE_GLASS_STAIRS;
 
-    public static final DeferredBlock<SchoolPaintableBathroomColumnDoorBlock> BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN = BLOCKS.registerBlock("bathroom_door_wide_paintable_column", SchoolPaintableBathroomColumnDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolPaintableBathroomColumnDoorBlock> BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN = net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlocks.BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN;
 
-    public static final DeferredBlock<SchoolPaintableDoubleEntranceBlock> DOUBLE_SCHOOL_ENTRANCE_PAINTABLE_SLAB = BLOCKS.registerBlock("double_school_entrance_paintable_slab", SchoolPaintableDoubleEntranceBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolPaintableDoubleEntranceBlock> DOUBLE_SCHOOL_ENTRANCE_PAINTABLE_SLAB = net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlocks.DOUBLE_SCHOOL_ENTRANCE_PAINTABLE_SLAB;
 
-    public static final DeferredBlock<SchoolBathroomDoor2x4Block> BATHROOM_DOOR_WIDE_2X4 = BLOCKS.registerBlock("bathroom_door_wide_2x4", SchoolBathroomDoor2x4Block::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolBathroomDoor2x4Block> BATHROOM_DOOR_WIDE_2X4 = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.BATHROOM_DOOR_WIDE_2X4;
 
-    public static final DeferredBlock<Block> SCHOOL_LABORATORY_TILE = BLOCKS.registerBlock("school_laboratory_tile", Block::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE));
+    public static final DeferredBlock<Block> SCHOOL_LABORATORY_TILE = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.SCHOOL_LABORATORY_TILE;
 
-    public static final DeferredBlock<Block> LABORATORY_TABLE_TILE = BLOCKS.registerBlock("laboratory_table_tile", Block::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE));
+    public static final DeferredBlock<Block> LABORATORY_TABLE_TILE = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.LABORATORY_TABLE_TILE;
 
-    public static final DeferredBlock<Block> AUDITORIUM_PARQUET = BLOCKS.registerBlock("auditorium_parquet", Block::new, props -> props.strength(1.8F,6F).sound(SoundType.WOOD));
+    public static final DeferredBlock<Block> AUDITORIUM_PARQUET = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.AUDITORIUM_PARQUET;
 
-    public static final DeferredBlock<Block> AUDITORIUM_STAGE = BLOCKS.registerBlock("auditorium_stage", Block::new, props -> props.strength(1.8F,6F).sound(SoundType.WOOD));
+    public static final DeferredBlock<Block> AUDITORIUM_STAGE = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.AUDITORIUM_STAGE;
 
-    public static final DeferredBlock<SchoolSlabProjectingWindowBlock> SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB = BLOCKS.registerBlock("school_paintable_projecting_window_slab", SchoolSlabProjectingWindowBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).noOcclusion().dynamicShape());
+    public static final DeferredBlock<SchoolSlabProjectingWindowBlock> SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB = net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlocks.SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB;
 
-    public static final DeferredBlock<SchoolStairProjectingWindowBlock> SCHOOL_PAINTABLE_PROJECTING_WINDOW_STAIRS = BLOCKS.registerBlock("school_paintable_projecting_window_stairs", SchoolStairProjectingWindowBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolStairProjectingWindowBlock> SCHOOL_PAINTABLE_PROJECTING_WINDOW_STAIRS = net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlocks.SCHOOL_PAINTABLE_PROJECTING_WINDOW_STAIRS;
 
     // BEGIN FACILITY EXPANSIONS
-    public static final DeferredBlock<SchoolFramedDiningDoorBlock> DINING_DOOR_WIDE = BLOCKS.registerBlock("dining_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
-    public static final DeferredBlock<SchoolFramedDiningDoorBlock> BATHROOM_DOOR_WIDE = BLOCKS.registerBlock("bathroom_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
-    public static final DeferredBlock<SchoolFramedDiningDoorBlock> INFIRMARY_DOOR = BLOCKS.registerBlock("infirmary_door", props -> new SchoolFramedDiningDoorBlock(props,true), props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
-    public static final DeferredBlock<SchoolFramedDiningDoorBlock> DINING_DOOR_WIDE_LIGHT = BLOCKS.registerBlock("dining_door_wide_light", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
-    public static final DeferredBlock<SchoolPassiveAccessoryBlock> SCHOOL_MICROWAVE = BLOCKS.registerBlock("school_microwave", props -> new SchoolPassiveAccessoryBlock(props,SchoolFacilityShapes.MICROWAVE), props -> props.strength(2F).sound(SoundType.METAL).noOcclusion());
-    public static final DeferredBlock<SchoolTrophyGalleryBlock> SCHOOL_TROPHY_GALLERY = BLOCKS.registerBlock("school_trophy_gallery", SchoolTrophyGalleryBlock::new, props -> props.strength(2F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolFramedDiningDoorBlock> DINING_DOOR_WIDE = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.DINING_DOOR_WIDE;
+    public static final DeferredBlock<SchoolFramedDiningDoorBlock> BATHROOM_DOOR_WIDE = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.BATHROOM_DOOR_WIDE;
+    public static final DeferredBlock<SchoolFramedDiningDoorBlock> INFIRMARY_DOOR = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.INFIRMARY_DOOR;
+    public static final DeferredBlock<SchoolFramedDiningDoorBlock> DINING_DOOR_WIDE_LIGHT = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.DINING_DOOR_WIDE_LIGHT;
+    public static final DeferredBlock<SchoolPassiveAccessoryBlock> SCHOOL_MICROWAVE = net.nicomar2009.lsmmod.modules.facilities.registry.ModuleBlocks.SCHOOL_MICROWAVE;
+    public static final DeferredBlock<SchoolTrophyGalleryBlock> SCHOOL_TROPHY_GALLERY = net.nicomar2009.lsmmod.modules.special_blocks.registry.ModuleBlocks.SCHOOL_TROPHY_GALLERY;
     // END FACILITY EXPANSIONS
 
     // BEGIN KIOSK ENTRANCE ACCESSORIES
-    public static final DeferredBlock<SchoolPassiveAccessoryBlock> SCHOOL_WOOD_PANEL = BLOCKS.registerBlock("school_wood_panel", props -> new SchoolPassiveAccessoryBlock(props, new double[][]{{0,0,8,16,16,16}}), props -> props.strength(2F).sound(SoundType.WOOD).noOcclusion());
-    public static final DeferredBlock<FullBathroomDoorBlock> SCHOOL_WOOD_DOOR = BLOCKS.registerBlock("school_wood_door", props -> new FullBathroomDoorBlock(3,props), props -> props.strength(2F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
-    public static final DeferredBlock<SchoolSlidingEntranceBlock> SCHOOL_SLIDING_ENTRANCE = BLOCKS.registerBlock("school_sliding_entrance", SchoolSlidingEntranceBlock::new, props -> props.strength(3F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
-    public static final DeferredBlock<RaisedDrinkingFountainBlock> DRINKING_FOUNTAIN_RAISED = BLOCKS.registerBlock("drinking_fountain_raised", RaisedDrinkingFountainBlock::new, props -> props.strength(2.5F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
-    public static final DeferredBlock<LostAndFoundBoxBlock> LOST_AND_FOUND_BOX = BLOCKS.registerBlock("lost_and_found_box", LostAndFoundBoxBlock::new, props -> props.strength(1.5F).sound(SoundType.WOOD).noOcclusion());
+    public static final DeferredBlock<SchoolPassiveAccessoryBlock> SCHOOL_WOOD_PANEL = net.nicomar2009.lsmmod.modules.wall_blocks.registry.ModuleBlocks.SCHOOL_WOOD_PANEL;
+    public static final DeferredBlock<FullBathroomDoorBlock> SCHOOL_WOOD_DOOR = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.SCHOOL_WOOD_DOOR;
+    public static final DeferredBlock<SchoolSlidingEntranceBlock> SCHOOL_SLIDING_ENTRANCE = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.SCHOOL_SLIDING_ENTRANCE;
+    public static final DeferredBlock<RaisedDrinkingFountainBlock> DRINKING_FOUNTAIN_RAISED = net.nicomar2009.lsmmod.modules.facilities.registry.ModuleBlocks.DRINKING_FOUNTAIN_RAISED;
+    public static final DeferredBlock<LostAndFoundBoxBlock> LOST_AND_FOUND_BOX = net.nicomar2009.lsmmod.modules.lockers_and_storage.registry.ModuleBlocks.LOST_AND_FOUND_BOX;
     // END KIOSK ENTRANCE ACCESSORIES
 
     // BEGIN SCHOOL CRUCIFIX
-    public static final DeferredBlock<SchoolCrucifixBlock> SCHOOL_CRUCIFIX = BLOCKS.registerBlock("school_crucifix", SchoolCrucifixBlock::new, props -> props.strength(1.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolCrucifixBlock> SCHOOL_CRUCIFIX = net.nicomar2009.lsmmod.modules.wall_blocks.registry.ModuleBlocks.SCHOOL_CRUCIFIX;
     // END SCHOOL CRUCIFIX
 
     // BEGIN DARK TILE DRAIN COLUMN
-    public static final DeferredBlock<Block> DARK_TILED_FLOOR = BLOCKS.registerBlock("dark_tiled_floor", Block::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<SchoolDrainBlock> SCHOOL_DRAIN = BLOCKS.registerBlock("school_drain", SchoolDrainBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
-    public static final DeferredBlock<SchoolCircularColumnBlock> SCHOOL_CIRCULAR_COLUMN = BLOCKS.registerBlock("school_circular_column", SchoolCircularColumnBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).noOcclusion().dynamicShape().requiresCorrectToolForDrops());
+    public static final DeferredBlock<Block> DARK_TILED_FLOOR = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.DARK_TILED_FLOOR;
+    public static final DeferredBlock<SchoolDrainBlock> SCHOOL_DRAIN = net.nicomar2009.lsmmod.modules.facilities.registry.ModuleBlocks.SCHOOL_DRAIN;
+    public static final DeferredBlock<SchoolCircularColumnBlock> SCHOOL_CIRCULAR_COLUMN = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.SCHOOL_CIRCULAR_COLUMN;
     // END DARK TILE DRAIN COLUMN
 
     // BEGIN CHILDREN LOCKER AND CEILING PROJECTOR
-    public static final DeferredBlock<ChildrenLockerBlock> CHILDREN_LOCKER = BLOCKS.registerBlock(
-            "children_locker", ChildrenLockerBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.WOOD).noOcclusion());
-    public static final DeferredBlock<CeilingProjectorBlock> CEILING_PROJECTOR = BLOCKS.registerBlock(
-            "ceiling_projector", CeilingProjectorBlock::new,
-            props -> props.strength(1.0F).sound(SoundType.METAL).noOcclusion());
+    public static final DeferredBlock<ChildrenLockerBlock> CHILDREN_LOCKER = net.nicomar2009.lsmmod.modules.lockers_and_storage.registry.ModuleBlocks.CHILDREN_LOCKER;
+    public static final DeferredBlock<CeilingProjectorBlock> CEILING_PROJECTOR = net.nicomar2009.lsmmod.modules.technology.registry.ModuleBlocks.CEILING_PROJECTOR;
     // END CHILDREN LOCKER AND CEILING PROJECTOR
 
-    public static final DeferredBlock<SchoolMiniCubePaintableBlock> SCHOOL_PAINTABLE_MINI_CUBE_BLOCK = BLOCKS.registerBlock("school_paintable_mini_cube_block", SchoolMiniCubePaintableBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).requiresCorrectToolForDrops().dynamicShape().noOcclusion());
+    public static final DeferredBlock<SchoolMiniCubePaintableBlock> SCHOOL_PAINTABLE_MINI_CUBE_BLOCK = net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlocks.SCHOOL_PAINTABLE_MINI_CUBE_BLOCK;
 
     // BEGIN CUSTOM PAINTABLE BLOCKS
-    public static final DeferredBlock<Block> SCHOOL_FOUNDATION = BLOCKS.registerBlock(
-            "school_foundation", Block::new,
-            props -> props.strength(3.0F, 8.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<SchoolPaintableCustomBlock> SCHOOL_PAINTABLE_CUSTOM_BLOCK = BLOCKS.registerBlock(
-            "school_paintable_custom_block", SchoolPaintableCustomBlock::new,
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().dynamicShape().noOcclusion());
+    public static final DeferredBlock<Block> SCHOOL_FOUNDATION = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.SCHOOL_FOUNDATION;
+    public static final DeferredBlock<SchoolPaintableCustomBlock> SCHOOL_PAINTABLE_CUSTOM_BLOCK = net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlocks.SCHOOL_PAINTABLE_CUSTOM_BLOCK;
     // END CUSTOM PAINTABLE BLOCKS
 
     // BEGIN PAINTABLE SCHOOL BLOCK
-    public static final DeferredBlock<SchoolPaintableBlock> SCHOOL_PAINTABLE_BLOCK = BLOCKS.registerBlock(
-            "school_paintable_block", SchoolPaintableBlock::new,
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<SchoolPaintableBlock> SCHOOL_PAINTABLE_BLOCK = net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlocks.SCHOOL_PAINTABLE_BLOCK;
     // END PAINTABLE SCHOOL BLOCK
 
     // BEGIN YELLOW SCHOOL BLOCK
-    public static final DeferredBlock<Block> YELLOW_SCHOOL_BLOCK = BLOCKS.registerBlock(
-            "yellow_school_block", Block::new,
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<Block> YELLOW_SCHOOL_BLOCK = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.YELLOW_SCHOOL_BLOCK;
     // END YELLOW SCHOOL BLOCK
 
     // BEGIN TILED PARQUET FLOOR
-    public static final DeferredBlock<FloorTransitionBlock> TILED_PARQUET_FLOOR = BLOCKS.registerBlock(
-            "tiled_parquet_floor", FloorTransitionBlock::new,
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<FloorTransitionBlock> TILED_PARQUET_FLOOR = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.TILED_PARQUET_FLOOR;
     // END TILED PARQUET FLOOR
 
     // BEGIN SCHOOL CABINET AND ROUTER
-    public static final DeferredBlock<SchoolCabinetBlock> SCHOOL_CABINET = BLOCKS.registerBlock(
-            "school_cabinet", SchoolCabinetBlock::new,
-            props -> props.strength(2.0F).sound(SoundType.WOOD).pushReaction(PushReaction.BLOCK));
-    public static final DeferredBlock<SchoolRouterBlock> SCHOOL_ROUTER = BLOCKS.registerBlock(
-            "school_router", SchoolRouterBlock::new,
-            props -> props.strength(0.5F).sound(SoundType.METAL).noOcclusion());
+    public static final DeferredBlock<SchoolCabinetBlock> SCHOOL_CABINET = net.nicomar2009.lsmmod.modules.technology.registry.ModuleBlocks.SCHOOL_CABINET;
+    public static final DeferredBlock<SchoolRouterBlock> SCHOOL_ROUTER = net.nicomar2009.lsmmod.modules.technology.registry.ModuleBlocks.SCHOOL_ROUTER;
     // END SCHOOL CABINET AND ROUTER
 
     // BEGIN SCHOOL SINK
-    public static final DeferredBlock<SchoolSinkBlock> SCHOOL_SINK = BLOCKS.registerBlock(
-            "school_sink", SchoolSinkBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolSinkBlock> SCHOOL_SINK = net.nicomar2009.lsmmod.modules.facilities.registry.ModuleBlocks.SCHOOL_SINK;
     // END SCHOOL SINK
 
     // BEGIN YELLOW SCHOOL SLOPES
-    public static final DeferredBlock<YellowSchoolSlopeBlock> YELLOW_SCHOOL_SLOPE_1 = BLOCKS.registerBlock(
-            "yellow_school_slope_1", props -> new YellowSchoolSlopeBlock(0.5,props),
-            props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
+    public static final DeferredBlock<YellowSchoolSlopeBlock> YELLOW_SCHOOL_SLOPE_1 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.YELLOW_SCHOOL_SLOPE_1;
 
-    public static final DeferredBlock<YellowSchoolSlopeBlock> YELLOW_SCHOOL_SLOPE_2 = BLOCKS.registerBlock(
-            "yellow_school_slope_2", props -> new YellowSchoolSlopeBlock(0.375,props),
-            props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
+    public static final DeferredBlock<YellowSchoolSlopeBlock> YELLOW_SCHOOL_SLOPE_2 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.YELLOW_SCHOOL_SLOPE_2;
 
-    public static final DeferredBlock<YellowSchoolSlopeBlock> YELLOW_SCHOOL_SLOPE_3 = BLOCKS.registerBlock(
-            "yellow_school_slope_3", props -> new YellowSchoolSlopeBlock(0.25,props),
-            props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
+    public static final DeferredBlock<YellowSchoolSlopeBlock> YELLOW_SCHOOL_SLOPE_3 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.YELLOW_SCHOOL_SLOPE_3;
 
-    public static final DeferredBlock<YellowSchoolSlopeBlock> YELLOW_SCHOOL_SLOPE_4 = BLOCKS.registerBlock(
-            "yellow_school_slope_4", props -> new YellowSchoolSlopeBlock(0.125,props),
-            props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
+    public static final DeferredBlock<YellowSchoolSlopeBlock> YELLOW_SCHOOL_SLOPE_4 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.YELLOW_SCHOOL_SLOPE_4;
     // END YELLOW SCHOOL SLOPES
 
     // BEGIN PLAYGROUND FLOORS
-    public static final DeferredBlock<Block> WHITE_PLAYGROUND_FLOOR = BLOCKS.registerBlock("white_playground_floor", Block::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<Block> GRAY_PLAYGROUND_FLOOR = BLOCKS.registerBlock("gray_playground_floor", Block::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<Block> GREEN_PLAYGROUND_FLOOR = BLOCKS.registerBlock("green_playground_floor", Block::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<Block> ORANGE_PLAYGROUND_FLOOR = BLOCKS.registerBlock("orange_playground_floor", Block::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<Block> WHITE_PLAYGROUND_FLOOR = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.WHITE_PLAYGROUND_FLOOR;
+    public static final DeferredBlock<Block> GRAY_PLAYGROUND_FLOOR = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.GRAY_PLAYGROUND_FLOOR;
+    public static final DeferredBlock<Block> GREEN_PLAYGROUND_FLOOR = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.GREEN_PLAYGROUND_FLOOR;
+    public static final DeferredBlock<Block> ORANGE_PLAYGROUND_FLOOR = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.ORANGE_PLAYGROUND_FLOOR;
     // END PLAYGROUND FLOORS
 
     // BEGIN CONNECTED SCHOOL SINK
-    public static final DeferredBlock<SchoolConnectedSinkBlock> SCHOOL_CONNECTED_SINK = BLOCKS.registerBlock(
-            "school_connected_sink", SchoolConnectedSinkBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolConnectedSinkBlock> SCHOOL_CONNECTED_SINK = net.nicomar2009.lsmmod.modules.facilities.registry.ModuleBlocks.SCHOOL_CONNECTED_SINK;
     // END CONNECTED SCHOOL SINK
 
     // BEGIN CLASSROOM SURFACES
-    public static final DeferredBlock<Block> CLASSROOM_WHITE_WALL = BLOCKS.registerBlock(
-            "classroom_white_wall", Block::new,
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<Block> CLASSROOM_WHITE_WALL = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.CLASSROOM_WHITE_WALL;
     // Kept as a registry alias for saved worlds and inventory stacks.
-    public static final DeferredBlock<Block> CLASSROOM_PAINTED_BLOCK = BLOCKS.registerBlock(
-            "classroom_painted_block", Block::new,
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<Block> SCHOOL_SYNTHETIC_GRASS = BLOCKS.registerBlock(
-            "school_synthetic_grass", Block::new,
-            props -> props.strength(.8F).sound(SoundType.MOSS));
-    public static final DeferredBlock<Block> RED_STREET_WALL = BLOCKS.registerBlock(
-            "red_street_wall", Block::new,
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<Block> CLASSROOM_PAINTED_BLOCK = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.CLASSROOM_PAINTED_BLOCK;
+    public static final DeferredBlock<Block> SCHOOL_SYNTHETIC_GRASS = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.SCHOOL_SYNTHETIC_GRASS;
+    public static final DeferredBlock<Block> RED_STREET_WALL = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.RED_STREET_WALL;
     // END CLASSROOM SURFACES
 
-    public static final DeferredBlock<SchoolWallDecorationBlock> SCHOOL_CLOCK = BLOCKS.registerBlock(
-            "school_clock", props -> new SchoolWallDecorationBlock(2,props),
-            props -> props.strength(.5F).sound(SoundType.METAL).noOcclusion());
-    public static final DeferredBlock<SchoolWallDecorationBlock> SCHOOL_FAN = BLOCKS.registerBlock(
-            "school_fan", props -> new SchoolWallDecorationBlock(6,props),
-            props -> props.strength(.8F).sound(SoundType.METAL).noOcclusion());
-    public static final DeferredBlock<SchoolWoodenHandrailBlock> SCHOOL_WOODEN_HANDRAIL = BLOCKS.registerBlock("school_wooden_handrail", SchoolWoodenHandrailBlock::new, props -> props.strength(2.0F).sound(SoundType.WOOD).noOcclusion());
+    public static final DeferredBlock<SchoolWallDecorationBlock> SCHOOL_CLOCK = net.nicomar2009.lsmmod.modules.wall_blocks.registry.ModuleBlocks.SCHOOL_CLOCK;
+    public static final DeferredBlock<SchoolWallDecorationBlock> SCHOOL_FAN = net.nicomar2009.lsmmod.modules.wall_blocks.registry.ModuleBlocks.SCHOOL_FAN;
+    public static final DeferredBlock<SchoolWoodenHandrailBlock> SCHOOL_WOODEN_HANDRAIL = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.SCHOOL_WOODEN_HANDRAIL;
 
-    public static final DeferredBlock<CeilingLightBlock> CEILING_LIGHT = BLOCKS.registerBlock(
-            "ceiling_light", CeilingLightBlock::new,
-            props -> props.strength(.5F).sound(SoundType.GLASS).noOcclusion().lightLevel(state -> state.getValue(CeilingLightBlock.LIT) ? 15 : 0));
+    public static final DeferredBlock<CeilingLightBlock> CEILING_LIGHT = net.nicomar2009.lsmmod.modules.lighting.registry.ModuleBlocks.CEILING_LIGHT;
 
-    public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_1 = BLOCKS.registerBlock("school_entrance_pavement_slope_1", props -> new EntrancePavementSlopeBlock(0.5,props), props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
-    public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_2 = BLOCKS.registerBlock("school_entrance_pavement_slope_2", props -> new EntrancePavementSlopeBlock(0.75,props), props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
-    public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_3 = BLOCKS.registerBlock("school_entrance_pavement_slope_3", props -> new EntrancePavementSlopeBlock(0,props), props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
-    public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_4 = BLOCKS.registerBlock("school_entrance_pavement_slope_4", props -> new EntrancePavementSlopeBlock(0.25,props), props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
-    public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_5 = BLOCKS.registerBlock("school_entrance_pavement_slope_5", props -> new EntrancePavementSlopeBlock(0.5,props), props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
-    public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_6 = BLOCKS.registerBlock("school_entrance_pavement_slope_6", props -> new EntrancePavementSlopeBlock(0.75,props), props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
-    public static final DeferredBlock<EntrancePavementSlabBlock> SCHOOL_ENTRANCE_PAVEMENT_SLAB = BLOCKS.registerBlock("school_entrance_pavement_slab", EntrancePavementSlabBlock::new, props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops());
+    public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_1 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLOPE_1;
+    public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_2 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLOPE_2;
+    public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_3 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLOPE_3;
+    public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_4 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLOPE_4;
+    public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_5 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLOPE_5;
+    public static final DeferredBlock<EntrancePavementSlopeBlock> SCHOOL_ENTRANCE_PAVEMENT_SLOPE_6 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLOPE_6;
+    public static final DeferredBlock<EntrancePavementSlabBlock> SCHOOL_ENTRANCE_PAVEMENT_SLAB = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.SCHOOL_ENTRANCE_PAVEMENT_SLAB;
     // END ENTRANCE PAVEMENT SHAPES
 
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_EXTRA_1 = BLOCKS.registerBlock(
-            "school_inverted_slope_split_raised_extra_1", props -> new SchoolInvertedSlopeBlock(0.571428571428571,0.714285714285714,0.5,2.0,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_EXTRA_2 = BLOCKS.registerBlock(
-            "school_inverted_slope_split_raised_extra_2", props -> new SchoolInvertedSlopeBlock(0.857142857142857,0.714285714285714,0.5,2.0,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_EXTRA_3 = BLOCKS.registerBlock(
-            "school_inverted_slope_split_raised_extra_3", props -> new SchoolInvertedSlopeBlock(0.142857142857143,0.714285714285714,0.5,1.0,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_EXTRA_1 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_EXTRA_1;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_EXTRA_2 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_EXTRA_2;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_EXTRA_3 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_EXTRA_3;
     // END SCHOOL SPLIT RAISED EXTRAS
 
     // BEGIN SCHOOL RAISED INVERTED SLOPES
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_1 = BLOCKS.registerBlock(
-            "school_inverted_slope_split_raised_1", props -> new SchoolInvertedSlopeBlock(0,0.714285714285714,0.5,1.0,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_2 = BLOCKS.registerBlock(
-            "school_inverted_slope_split_raised_2", props -> new SchoolInvertedSlopeBlock(0.285714285714286,0.714285714285714,0.5,2.0,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_3 = BLOCKS.registerBlock(
-            "school_inverted_slope_split_raised_3", props -> new SchoolInvertedSlopeBlock(0.428571428571429,0.714285714285714,0.5,1.0,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_4 = BLOCKS.registerBlock(
-            "school_inverted_slope_split_raised_4", props -> new SchoolInvertedSlopeBlock(0.714285714285714,0.714285714285714,0.5,2.0,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_1 = BLOCKS.registerBlock(
-            "school_inverted_slope_flight_raised_1", props -> new SchoolInvertedSlopeBlock(0,0.666666666666667,0.5,1.0,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_2 = BLOCKS.registerBlock(
-            "school_inverted_slope_flight_raised_2", props -> new SchoolInvertedSlopeBlock(0.333333333333333,0.666666666666667,0.5,2.0,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_3 = BLOCKS.registerBlock(
-            "school_inverted_slope_flight_raised_3", props -> new SchoolInvertedSlopeBlock(0.666666666666667,0.666666666666667,0.5,2.0,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_4 = BLOCKS.registerBlock(
-            "school_inverted_slope_flight_raised_4", props -> new SchoolInvertedSlopeBlock(0,0.666666666666667,0.5,1.0,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_5 = BLOCKS.registerBlock(
-            "school_inverted_slope_flight_raised_5", props -> new SchoolInvertedSlopeBlock(0.333333333333333,0.666666666666667,0.5,1.0,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_6 = BLOCKS.registerBlock(
-            "school_inverted_slope_flight_raised_6", props -> new SchoolInvertedSlopeBlock(0.666666666666666,0.666666666666667,0.5,2.0,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_1 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_1;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_2 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_2;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_3 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_3;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_4 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_RAISED_4;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_1 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_1;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_2 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_2;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_3 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_3;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_4 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_4;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_5 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_5;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_6 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_RAISED_6;
     // END SCHOOL RAISED INVERTED SLOPES
 
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_1 = BLOCKS.registerBlock(
-            "school_inverted_slope_split_1", props -> new SchoolInvertedSlopeBlock(0,0.714285714285714,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_2 = BLOCKS.registerBlock(
-            "school_inverted_slope_split_2", props -> new SchoolInvertedSlopeBlock(0.285714285714286,0.714285714285714,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_3 = BLOCKS.registerBlock(
-            "school_inverted_slope_split_3", props -> new SchoolInvertedSlopeBlock(0.428571428571429,0.714285714285714,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_4 = BLOCKS.registerBlock(
-            "school_inverted_slope_split_4", props -> new SchoolInvertedSlopeBlock(0.714285714285714,0.714285714285714,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_1 = BLOCKS.registerBlock(
-            "school_inverted_slope_flight_1", props -> new SchoolInvertedSlopeBlock(0,0.666666666666667,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_2 = BLOCKS.registerBlock(
-            "school_inverted_slope_flight_2", props -> new SchoolInvertedSlopeBlock(0.333333333333333,0.666666666666667,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_3 = BLOCKS.registerBlock(
-            "school_inverted_slope_flight_3", props -> new SchoolInvertedSlopeBlock(0.666666666666667,0.666666666666667,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_4 = BLOCKS.registerBlock(
-            "school_inverted_slope_flight_4", props -> new SchoolInvertedSlopeBlock(0,0.666666666666667,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_5 = BLOCKS.registerBlock(
-            "school_inverted_slope_flight_5", props -> new SchoolInvertedSlopeBlock(0.333333333333333,0.666666666666667,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_6 = BLOCKS.registerBlock(
-            "school_inverted_slope_flight_6", props -> new SchoolInvertedSlopeBlock(0.666666666666666,0.666666666666667,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_1 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_1;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_2 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_2;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_3 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_3;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_SPLIT_4 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_SPLIT_4;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_1 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_1;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_2 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_2;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_3 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_3;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_4 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_4;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_5 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_5;
+    public static final DeferredBlock<SchoolInvertedSlopeBlock> SCHOOL_INVERTED_SLOPE_FLIGHT_6 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_INVERTED_SLOPE_FLIGHT_6;
     // END SCHOOL INVERTED SLOPES
 
-    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_SPLIT_1 = BLOCKS.registerBlock(
-            "school_railing_slope_split_1", props -> new SchoolRailingSlopeBlock(0.75,0.357142857142857,0.357142857142857,true,false,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_SPLIT_2 = BLOCKS.registerBlock(
-            "school_railing_slope_split_2", props -> new SchoolRailingSlopeBlock(0.464285714285714,0.357142857142857,0.357142857142857,false,false,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_SPLIT_3 = BLOCKS.registerBlock(
-            "school_railing_slope_split_3", props -> new SchoolRailingSlopeBlock(0.321428571428571,0.357142857142857,0.357142857142857,false,false,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_SPLIT_4 = BLOCKS.registerBlock(
-            "school_railing_slope_split_4", props -> new SchoolRailingSlopeBlock(0.0357142857142856,0.357142857142857,0.357142857142857,true,false,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_1 = BLOCKS.registerBlock(
-            "school_railing_slope_flight_1", props -> new SchoolRailingSlopeBlock(0.75,0.333333333333333,0.333333333333333,true,false,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_2 = BLOCKS.registerBlock(
-            "school_railing_slope_flight_2", props -> new SchoolRailingSlopeBlock(0.416666666666667,0.333333333333333,0.333333333333333,false,false,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_3 = BLOCKS.registerBlock(
-            "school_railing_slope_flight_3", props -> new SchoolRailingSlopeBlock(0.083333333333333,0.333333333333333,0.333333333333333,true,false,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_4 = BLOCKS.registerBlock(
-            "school_railing_slope_flight_4", props -> new SchoolRailingSlopeBlock(0.75,0.333333333333333,0.333333333333333,false,false,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_5 = BLOCKS.registerBlock(
-            "school_railing_slope_flight_5", props -> new SchoolRailingSlopeBlock(0.416666666666667,0.333333333333333,0.333333333333333,true,false,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
-    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_6 = BLOCKS.registerBlock(
-            "school_railing_slope_flight_6", props -> new SchoolRailingSlopeBlock(0.0833333333333339,0.333333333333333,0.333333333333333,false,false,props),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_SPLIT_1 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_RAILING_SLOPE_SPLIT_1;
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_SPLIT_2 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_RAILING_SLOPE_SPLIT_2;
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_SPLIT_3 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_RAILING_SLOPE_SPLIT_3;
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_SPLIT_4 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_RAILING_SLOPE_SPLIT_4;
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_1 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_RAILING_SLOPE_FLIGHT_1;
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_2 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_RAILING_SLOPE_FLIGHT_2;
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_3 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_RAILING_SLOPE_FLIGHT_3;
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_4 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_RAILING_SLOPE_FLIGHT_4;
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_5 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_RAILING_SLOPE_FLIGHT_5;
+    public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_6 = net.nicomar2009.lsmmod.modules.slopes.registry.ModuleBlocks.SCHOOL_RAILING_SLOPE_FLIGHT_6;
     // END SCHOOL RAILING SLOPES
 
-    public static final DeferredBlock<SchoolWallRailingBlock> LIGHT_SCHOOL_WALL_RAILING = BLOCKS.registerBlock(
-            "light_school_wall_railing", SchoolWallRailingBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().forceSolidOn());
+    public static final DeferredBlock<SchoolWallRailingBlock> LIGHT_SCHOOL_WALL_RAILING = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.LIGHT_SCHOOL_WALL_RAILING;
 
-    public static final DeferredBlock<SchoolGlassBlock> SCHOOL_GLASS = BLOCKS.registerBlock(
-            "school_glass", props -> new SchoolGlassBlock(props, new double[][]{{0, 0, 0, 16, 16, 8}}),
-            props -> props.strength(0.3F).sound(SoundType.GLASS).noOcclusion());
+    public static final DeferredBlock<SchoolGlassBlock> SCHOOL_GLASS = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.SCHOOL_GLASS;
 
-    public static final DeferredBlock<DoubleSchoolEntranceBlock> DOUBLE_SCHOOL_ENTRANCE = BLOCKS.registerBlock(
-            "double_school_entrance", DoubleSchoolEntranceBlock::new,
-            props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<DoubleSchoolEntranceBlock> DOUBLE_SCHOOL_ENTRANCE = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.DOUBLE_SCHOOL_ENTRANCE;
 
-    public static final DeferredBlock<TallClassroomEntranceBlock> TALL_CLASSROOM_ENTRANCE = BLOCKS.registerBlock(
-            "tall_classroom_entrance", TallClassroomEntranceBlock::new,
-            props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<TallClassroomEntranceBlock> TALL_CLASSROOM_ENTRANCE = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.TALL_CLASSROOM_ENTRANCE;
 
-    public static final DeferredBlock<FullBathroomDoorBlock> TALL_BATHROOM_DOOR_FULL_3 = BLOCKS.registerBlock("tall_bathroom_door_full_3", props -> new FullBathroomDoorBlock(3,props), props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
-    public static final DeferredBlock<FullBathroomDoorBlock> TALL_BATHROOM_DOOR_FULL_4 = BLOCKS.registerBlock("tall_bathroom_door_full_4", props -> new FullBathroomDoorBlock(4,props), props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
-    public static final DeferredBlock<SchoolTintedGlassBlock> SCHOOL_TINTED_GLASS = BLOCKS.registerBlock("school_tinted_glass", SchoolTintedGlassBlock::new, props -> props.strength(0.3F).sound(SoundType.GLASS).noOcclusion());
+    public static final DeferredBlock<FullBathroomDoorBlock> TALL_BATHROOM_DOOR_FULL_3 = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.TALL_BATHROOM_DOOR_FULL_3;
+    public static final DeferredBlock<FullBathroomDoorBlock> TALL_BATHROOM_DOOR_FULL_4 = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.TALL_BATHROOM_DOOR_FULL_4;
+    public static final DeferredBlock<SchoolTintedGlassBlock> SCHOOL_TINTED_GLASS = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.SCHOOL_TINTED_GLASS;
 
-    public static final DeferredBlock<TallClassroomEntranceBlock> TALL_BATHROOM_DOOR = BLOCKS.registerBlock(
-            "tall_bathroom_door", TallClassroomEntranceBlock::new,
-            props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<TallClassroomEntranceBlock> TALL_BATHROOM_DOOR = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.TALL_BATHROOM_DOOR;
 
-    public static final DeferredBlock<TallClassroomEntranceBlock> TALL_TEACHERS_OFFICE_DOOR = BLOCKS.registerBlock(
-            "tall_teachers_office_door", TallClassroomEntranceBlock::new,
-            props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<TallClassroomEntranceBlock> TALL_TEACHERS_OFFICE_DOOR = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.TALL_TEACHERS_OFFICE_DOOR;
 
-    public static final DeferredBlock<TallClassroomEntranceBlock> TALL_DINING_DOOR = BLOCKS.registerBlock(
-            "tall_dining_door", TallClassroomEntranceBlock::new,
-            props -> props.strength(3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<TallClassroomEntranceBlock> TALL_DINING_DOOR = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.TALL_DINING_DOOR;
 
     public static final DeferredBlock<SportsGoalBlock> FOOTBALL_BASKETBALL_GOAL = net.nicomar2009.lsmmod.modules.balls.registry.ModuleBlocks.FOOTBALL_BASKETBALL_GOAL;
 
-    public static final DeferredBlock<ToiletBlock> TOILET = BLOCKS.registerBlock(
-            "toilet", ToiletBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<ToiletBlock> TOILET = net.nicomar2009.lsmmod.modules.facilities.registry.ModuleBlocks.TOILET;
 
-    public static final DeferredBlock<TallBathroomBlock> ADULT_MEN_URINAL = BLOCKS.registerBlock(
-            "adult_men_urinal", props -> new TallBathroomBlock(props, TallBathroomShapes.ADULT_URINAL,
-                    TallBathroomShapes.ADULT_URINAL, true),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<TallBathroomBlock> ADULT_MEN_URINAL = net.nicomar2009.lsmmod.modules.facilities.registry.ModuleBlocks.ADULT_MEN_URINAL;
 
-    public static final DeferredBlock<WideBathroomBlock> MEN_URINAL = BLOCKS.registerBlock(
-            "men_urinal", props -> new WideBathroomBlock(props, WideBathroomShapes.CHILD_URINAL, true),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<WideBathroomBlock> MEN_URINAL = net.nicomar2009.lsmmod.modules.facilities.registry.ModuleBlocks.MEN_URINAL;
 
-    public static final DeferredBlock<WideBathroomBlock> STANDALONE_TOILET = BLOCKS.registerBlock(
-            "standalone_toilet", props -> new WideBathroomBlock(props, WideBathroomShapes.STANDALONE_TOILET, false),
-            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<WideBathroomBlock> STANDALONE_TOILET = net.nicomar2009.lsmmod.modules.facilities.registry.ModuleBlocks.STANDALONE_TOILET;
 
-    public static final DeferredBlock<TrashBinBlock> GREEN_TRASH_BIN = BLOCKS.registerBlock(
-            "green_trash_bin", props -> new TrashBinBlock(props, TrashBinShapes.GREEN),
-            props -> props.strength(0.8F).sound(SoundType.WOOD).noOcclusion());
+    public static final DeferredBlock<TrashBinBlock> GREEN_TRASH_BIN = net.nicomar2009.lsmmod.modules.facilities.registry.ModuleBlocks.GREEN_TRASH_BIN;
 
-    public static final DeferredBlock<TrashBinBlock> BLACK_TRASH_BIN = BLOCKS.registerBlock(
-            "black_trash_bin", props -> new TrashBinBlock(props, TrashBinShapes.BLACK),
-            props -> props.strength(0.8F).sound(SoundType.WOOD).noOcclusion());
+    public static final DeferredBlock<TrashBinBlock> BLACK_TRASH_BIN = net.nicomar2009.lsmmod.modules.facilities.registry.ModuleBlocks.BLACK_TRASH_BIN;
 
-    public static final DeferredBlock<ProjectorScreenBlock> PROJECTOR_SCREEN = BLOCKS.registerBlock(
-            "projector_screen", ProjectorScreenBlock::new,
-            props -> props.strength(0.5F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<ProjectorScreenBlock> PROJECTOR_SCREEN = net.nicomar2009.lsmmod.modules.technology.registry.ModuleBlocks.PROJECTOR_SCREEN;
 
-    public static final DeferredBlock<WallProjectorBlock> WALL_PROJECTOR = BLOCKS.registerBlock(
-            "wall_projector", WallProjectorBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<WallProjectorBlock> WALL_PROJECTOR = net.nicomar2009.lsmmod.modules.technology.registry.ModuleBlocks.WALL_PROJECTOR;
 
-    public static final DeferredBlock<WallDecorationBlock> CLASSROOM_TIMETABLE = BLOCKS.registerBlock(
-            "classroom_timetable", props -> new WallDecorationBlock(props, SchoolDecorationShapes.TIMETABLE),
-            props -> props.strength(0.2F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<WallDecorationBlock> CLASSROOM_TIMETABLE = net.nicomar2009.lsmmod.modules.wall_blocks.registry.ModuleBlocks.CLASSROOM_TIMETABLE;
 
-    public static final DeferredBlock<WallDecorationBlock> FIRE_ALARM = BLOCKS.registerBlock(
-            "fire_alarm", props -> new WallDecorationBlock(props, net.nicomar2009.lsmmod.block.FireAlarmShapes.BOXES),
-            props -> props.strength(1.0F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<WallDecorationBlock> FIRE_ALARM = net.nicomar2009.lsmmod.modules.wall_blocks.registry.ModuleBlocks.FIRE_ALARM;
 
-    public static final DeferredBlock<WallDecorationBlock> EMERGENCY_BACKPACK = BLOCKS.registerBlock(
-            "emergency_backpack", props -> new WallDecorationBlock(props, SchoolDecorationShapes.BACKPACK),
-            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<WallDecorationBlock> EMERGENCY_BACKPACK = net.nicomar2009.lsmmod.modules.backpacks.registry.ModuleBlocks.EMERGENCY_BACKPACK;
 
-    public static final DeferredBlock<Block> SCHOOL_PARQUET = BLOCKS.registerBlock(
-            "school_parquet", Block::new,
-            props -> props.strength(2.0F,3.0F).sound(SoundType.WOOD));
+    public static final DeferredBlock<Block> SCHOOL_PARQUET = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.SCHOOL_PARQUET;
 
-    public static final DeferredBlock<BathroomFloorBlock> DARK_SCHOOL_TILED_FLOOR = BLOCKS.registerBlock(
-            "dark_school_tiled_floor", BathroomFloorBlock::new,
-            props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<BathroomFloorBlock> DARK_SCHOOL_TILED_FLOOR = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.DARK_SCHOOL_TILED_FLOOR;
 
-    public static final DeferredBlock<BathroomFloorBlock> LIGHT_SCHOOL_TILED_FLOOR = BLOCKS.registerBlock(
-            "light_school_tiled_floor", BathroomFloorBlock::new,
-            props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<BathroomFloorBlock> LIGHT_SCHOOL_TILED_FLOOR = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.LIGHT_SCHOOL_TILED_FLOOR;
 
-    public static final DeferredBlock<Block> CLASSROOM_FLOOR = BLOCKS.registerBlock(
-            "classroom_floor", Block::new,
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<Block> CLASSROOM_FLOOR = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.CLASSROOM_FLOOR;
 
-    public static final DeferredBlock<SchoolYellowBorderWallBlock> SCHOOL_ENTRANCE_PAVEMENT = BLOCKS.registerBlock(
-            "school_entrance_pavement", SchoolYellowBorderWallBlock::new,
-            props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<SchoolYellowBorderWallBlock> SCHOOL_ENTRANCE_PAVEMENT = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.SCHOOL_ENTRANCE_PAVEMENT;
 
-    public static final DeferredBlock<Block> STREET_SCHOOL_WALL = BLOCKS.registerBlock(
-            "street_school_wall", Block::new,
-            props -> props.strength(1.8F,6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
-    public static final DeferredBlock<StreetSchoolBarsBlock> STREET_SCHOOL_BARS = BLOCKS.registerBlock(
-            "street_school_bars", StreetSchoolBarsBlock::new,
-            props -> props.strength(5.0F,6.0F).sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops());
+    public static final DeferredBlock<Block> STREET_SCHOOL_WALL = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.STREET_SCHOOL_WALL;
+    public static final DeferredBlock<StreetSchoolBarsBlock> STREET_SCHOOL_BARS = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.STREET_SCHOOL_BARS;
 
-    public static final DeferredBlock<Block> LIGHT_SCHOOL_WALL = BLOCKS.registerBlock(
-            "light_school_wall", Block::new,
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<Block> LIGHT_SCHOOL_WALL = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.LIGHT_SCHOOL_WALL;
 
-    public static final DeferredBlock<Block> DARK_SCHOOL_WALL = BLOCKS.registerBlock(
-            "dark_school_wall", Block::new,
-            props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+    public static final DeferredBlock<Block> DARK_SCHOOL_WALL = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.DARK_SCHOOL_WALL;
 
-    public static final DeferredBlock<SchoolGateBlock> SCHOOL_GATE = BLOCKS.registerBlock(
-            "school_gate", SchoolGateBlock::new,
-            props -> props.strength(5.0F, 6.0F).sound(SoundType.METAL).noOcclusion()
-                    .pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolGateBlock> SCHOOL_GATE = net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks.SCHOOL_GATE;
 
     /** Block 1.1 */
-    public static final DeferredBlock<ChairBlock> HIGH_SCHOOL_CHAIR = BLOCKS.registerBlock(
-            "high_school_chair",
-            ChairBlock::new,
-            props -> props
-                    .strength(2.0F)
-                    .noOcclusion());
+    public static final DeferredBlock<ChairBlock> HIGH_SCHOOL_CHAIR = net.nicomar2009.lsmmod.modules.chairs.registry.ModuleBlocks.HIGH_SCHOOL_CHAIR;
 
     /** Block 1.2 */
-    public static final DeferredBlock<ChairBlock> ELEMENTARY_CHAIR = BLOCKS.registerBlock(
-            "elementary_chair",
-            ChairBlock::new,
-            props -> props
-                    .strength(2.0F)
-                    .noOcclusion());
+    public static final DeferredBlock<ChairBlock> ELEMENTARY_CHAIR = net.nicomar2009.lsmmod.modules.chairs.registry.ModuleBlocks.ELEMENTARY_CHAIR;
 
     /** Block 1.3 */
-    public static final DeferredBlock<DeskBlock> STUDENTS_DESK = BLOCKS.registerBlock(
-            "students_desk",
-            DeskBlock::new,
-            props -> props
-                    .strength(2.5F)
-                    .sound(SoundType.WOOD)
-                    .noOcclusion()
-                    // The RIGHT half has no block entity, so pistons must never move just one half
-                    .pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<DeskBlock> STUDENTS_DESK = net.nicomar2009.lsmmod.modules.tables_and_desks.registry.ModuleBlocks.STUDENTS_DESK;
 
     /** Block 1.4 */
-    public static final DeferredBlock<LockerBlock> LOCKER = BLOCKS.registerBlock(
-            "locker",
-            LockerBlock::new,
-            props -> props
-                    .strength(3.0F)
-                    .sound(SoundType.METAL)
-                    // The model is not a full cube, so neighbouring faces must not be culled
-                    .noOcclusion());
+    public static final DeferredBlock<LockerBlock> LOCKER = net.nicomar2009.lsmmod.modules.lockers_and_storage.registry.ModuleBlocks.LOCKER;
 
     /** Block 1.5 */
-    public static final DeferredBlock<ChairBlock> TEACHERS_CHAIR = BLOCKS.registerBlock(
-            "teachers_chair",
-            ChairBlock::new,
-            props -> props
-                    .strength(2.0F)
-                    .noOcclusion());
+    public static final DeferredBlock<ChairBlock> TEACHERS_CHAIR = net.nicomar2009.lsmmod.modules.chairs.registry.ModuleBlocks.TEACHERS_CHAIR;
 
-    public static final DeferredBlock<ChairBlock> ENGLISHROOMCHAIR = BLOCKS.registerBlock(
-            "englishroomchair",
-            props -> new ChairBlock(props, NewChairShapes.ENGLISHROOMCHAIR),
-            props -> props.strength(2.0F).noOcclusion());
+    public static final DeferredBlock<ChairBlock> ENGLISHROOMCHAIR = net.nicomar2009.lsmmod.modules.chairs.registry.ModuleBlocks.ENGLISHROOMCHAIR;
 
-    public static final DeferredBlock<ChairBlock> HALLCHAIR = BLOCKS.registerBlock(
-            "hallchair",
-            props -> new ChairBlock(props, NewChairShapes.HALLCHAIR),
-            props -> props.strength(2.0F).noOcclusion());
+    public static final DeferredBlock<ChairBlock> HALLCHAIR = net.nicomar2009.lsmmod.modules.chairs.registry.ModuleBlocks.HALLCHAIR;
 
-    public static final DeferredBlock<ChairBlock> PLASTICCHAIR_WHITE = BLOCKS.registerBlock(
-            "plasticchair_white",
-            props -> new ChairBlock(props, NewChairShapes.PLASTICCHAIR),
-            props -> props.strength(2.0F).noOcclusion());
+    public static final DeferredBlock<ChairBlock> PLASTICCHAIR_WHITE = net.nicomar2009.lsmmod.modules.chairs.registry.ModuleBlocks.PLASTICCHAIR_WHITE;
 
-    public static final DeferredBlock<ChairBlock> PLASTICCHAIR_RED = BLOCKS.registerBlock(
-            "plasticchair_red",
-            props -> new ChairBlock(props, NewChairShapes.PLASTICCHAIR),
-            props -> props.strength(2.0F).noOcclusion());
+    public static final DeferredBlock<ChairBlock> PLASTICCHAIR_RED = net.nicomar2009.lsmmod.modules.chairs.registry.ModuleBlocks.PLASTICCHAIR_RED;
 
-    public static final DeferredBlock<ChairBlock> PLASTICCHAIR_WHITE_ARMS = BLOCKS.registerBlock(
-            "plasticchair_white_arms",
-            props -> new ChairBlock(props, NewChairShapes.PLASTICCHAIR_ARMS),
-            props -> props.strength(2.0F).noOcclusion());
+    public static final DeferredBlock<ChairBlock> PLASTICCHAIR_WHITE_ARMS = net.nicomar2009.lsmmod.modules.chairs.registry.ModuleBlocks.PLASTICCHAIR_WHITE_ARMS;
 
-    public static final DeferredBlock<ChairBlock> PLASTICCHAIR_RED_ARMS = BLOCKS.registerBlock(
-            "plasticchair_red_arms",
-            props -> new ChairBlock(props, NewChairShapes.PLASTICCHAIR_ARMS),
-            props -> props.strength(2.0F).noOcclusion());
+    public static final DeferredBlock<ChairBlock> PLASTICCHAIR_RED_ARMS = net.nicomar2009.lsmmod.modules.chairs.registry.ModuleBlocks.PLASTICCHAIR_RED_ARMS;
 
-    public static final DeferredBlock<LaptopBlock> LAPTOP = BLOCKS.registerBlock(
-            "laptop", LaptopBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.METAL).noOcclusion());
+    public static final DeferredBlock<LaptopBlock> LAPTOP = net.nicomar2009.lsmmod.modules.technology.registry.ModuleBlocks.LAPTOP;
 
-    public static final DeferredBlock<LaptopBlock> MOISES_LAPTOP = BLOCKS.registerBlock(
-            "moises_laptop", LaptopBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.METAL).noOcclusion());
+    public static final DeferredBlock<LaptopBlock> MOISES_LAPTOP = net.nicomar2009.lsmmod.modules.technology.registry.ModuleBlocks.MOISES_LAPTOP;
 
-    public static final DeferredBlock<MonitorBlock> PC = BLOCKS.registerBlock(
-            "pc", MonitorBlock::new,
-            props -> props.strength(1.5F).sound(SoundType.METAL).noOcclusion());
+    public static final DeferredBlock<MonitorBlock> PC = net.nicomar2009.lsmmod.modules.technology.registry.ModuleBlocks.PC;
 
-    public static final DeferredBlock<ComputerDeskBlock> COMPUTER_DESK = BLOCKS.registerBlock(
-            "computer_desk", ComputerDeskBlock::new,
-            props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<ComputerDeskBlock> COMPUTER_DESK = net.nicomar2009.lsmmod.modules.tables_and_desks.registry.ModuleBlocks.COMPUTER_DESK;
 
-    public static final DeferredBlock<GrayComputerDeskBlock> GRAY_COMPUTER_DESK = BLOCKS.registerBlock(
-            "gray_computer_desk", GrayComputerDeskBlock::new,
-            props -> props.strength(2.5F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<GrayComputerDeskBlock> GRAY_COMPUTER_DESK = net.nicomar2009.lsmmod.modules.tables_and_desks.registry.ModuleBlocks.GRAY_COMPUTER_DESK;
 
-    public static final DeferredBlock<SchoolBellBlock> SCHOOL_BELL = BLOCKS.registerBlock(
-            "school_bell", SchoolBellBlock::new,
-            props -> props.strength(1.0F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.DESTROY));
+    public static final DeferredBlock<SchoolBellBlock> SCHOOL_BELL = net.nicomar2009.lsmmod.modules.technology.registry.ModuleBlocks.SCHOOL_BELL;
 
-    public static final DeferredBlock<DiningTableBlock> DINING_TABLE = BLOCKS.registerBlock(
-            "dining_table", DiningTableBlock::new,
-            props -> props.strength(2.5F).sound(SoundType.METAL).noOcclusion());
+    public static final DeferredBlock<DiningTableBlock> DINING_TABLE = net.nicomar2009.lsmmod.modules.tables_and_desks.registry.ModuleBlocks.DINING_TABLE;
 
-    public static final DeferredBlock<ChairBlock> DINING_CHAIR = BLOCKS.registerBlock(
-            "dining_chair",
-            props -> new ChairBlock(props, NewChairShapes.DINING_CHAIR),
-            props -> props.strength(2.0F).sound(SoundType.METAL).noOcclusion());
+    public static final DeferredBlock<ChairBlock> DINING_CHAIR = net.nicomar2009.lsmmod.modules.chairs.registry.ModuleBlocks.DINING_CHAIR;
 
-    public static final DeferredBlock<SofaBlock> SOFA = BLOCKS.registerBlock(
-            "sofa", SofaBlock::new,
-            props -> props.strength(1.0F).sound(SoundType.WOOL).noOcclusion());
+    public static final DeferredBlock<SofaBlock> SOFA = net.nicomar2009.lsmmod.modules.chairs.registry.ModuleBlocks.SOFA;
 
-    public static final DeferredBlock<SpeakerBlock> SPEAKER = BLOCKS.registerBlock(
-            "speaker", SpeakerBlock::new,
-            props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion());
+    public static final DeferredBlock<SpeakerBlock> SPEAKER = net.nicomar2009.lsmmod.modules.technology.registry.ModuleBlocks.SPEAKER;
 
-    public static final DeferredBlock<GeneralSpeakerBlock> GENERAL_SPEAKER = BLOCKS.registerBlock(
-            "general_speaker", GeneralSpeakerBlock::new,
-            props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<GeneralSpeakerBlock> GENERAL_SPEAKER = net.nicomar2009.lsmmod.modules.technology.registry.ModuleBlocks.GENERAL_SPEAKER;
 
-    public static final DeferredBlock<TallSpeakerBlock> TALL_SPEAKER = BLOCKS.registerBlock(
-            "tall_speaker", TallSpeakerBlock::new,
-            props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<TallSpeakerBlock> TALL_SPEAKER = net.nicomar2009.lsmmod.modules.technology.registry.ModuleBlocks.TALL_SPEAKER;
 
-    public static final DeferredBlock<DrinkingFountainBlock> DRINKING_FOUNTAIN = BLOCKS.registerBlock(
-            "drinking_fountain", DrinkingFountainBlock::new,
-            props -> props.strength(2.5F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.DESTROY));
+    public static final DeferredBlock<DrinkingFountainBlock> DRINKING_FOUNTAIN = net.nicomar2009.lsmmod.modules.facilities.registry.ModuleBlocks.DRINKING_FOUNTAIN;
 
-    public static final DeferredBlock<KioskTableBlock> KIOSK_TABLE = BLOCKS.registerBlock(
-            "kiosk_table", KioskTableBlock::new,
-            props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<KioskTableBlock> KIOSK_TABLE = net.nicomar2009.lsmmod.modules.tables_and_desks.registry.ModuleBlocks.KIOSK_TABLE;
 
-    public static final DeferredBlock<ArtTableBlock> ART_TABLE = BLOCKS.registerBlock(
-            "art_table", ArtTableBlock::new,
-            props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<ArtTableBlock> ART_TABLE = net.nicomar2009.lsmmod.modules.tables_and_desks.registry.ModuleBlocks.ART_TABLE;
 
-    public static final DeferredBlock<StoolBlock> STOOL = BLOCKS.registerBlock(
-            "stool", StoolBlock::new,
-            props -> props.strength(2.0F).sound(SoundType.WOOD).noOcclusion());
+    public static final DeferredBlock<StoolBlock> STOOL = net.nicomar2009.lsmmod.modules.chairs.registry.ModuleBlocks.STOOL;
 
-    public static final DeferredBlock<VaultingBoxBlock> VAULTING_BOX = BLOCKS.registerBlock(
-            "vaulting_box", VaultingBoxBlock::new,
-            props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<VaultingBoxBlock> VAULTING_BOX = net.nicomar2009.lsmmod.modules.special_blocks.registry.ModuleBlocks.VAULTING_BOX;
 
-    public static final DeferredBlock<DoorBlock> CLASSROOM_DOOR = BLOCKS.registerBlock(
-            "classroom_door", props -> new DoorBlock(BlockSetType.OAK, props),
-            props -> props.strength(3.0F).noOcclusion().pushReaction(PushReaction.DESTROY));
+    public static final DeferredBlock<DoorBlock> CLASSROOM_DOOR = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.CLASSROOM_DOOR;
 
-    public static final DeferredBlock<DoorBlock> DINING_DOOR = BLOCKS.registerBlock(
-            "dining_door", props -> new DoorBlock(BlockSetType.OAK, props),
-            props -> props.strength(3.0F).noOcclusion().pushReaction(PushReaction.DESTROY));
+    public static final DeferredBlock<DoorBlock> DINING_DOOR = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.DINING_DOOR;
 
-    public static final DeferredBlock<DoorBlock> TEACHERS_OFFICE_DOOR = BLOCKS.registerBlock(
-            "teachers_office_door", props -> new DoorBlock(BlockSetType.OAK, props),
-            props -> props.strength(3.0F).noOcclusion().pushReaction(PushReaction.DESTROY));
+    public static final DeferredBlock<DoorBlock> TEACHERS_OFFICE_DOOR = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.TEACHERS_OFFICE_DOOR;
 
-    public static final DeferredBlock<DoorBlock> BATHROOM_DOOR = BLOCKS.registerBlock(
-            "bathroom_door", props -> new DoorBlock(BlockSetType.OAK, props),
-            props -> props.strength(3.0F).noOcclusion().pushReaction(PushReaction.DESTROY));
+    public static final DeferredBlock<DoorBlock> BATHROOM_DOOR = net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleBlocks.BATHROOM_DOOR;
 
-    public static final DeferredBlock<ManuelTiradoBustBlock> MANUEL_TIRADO_BUST = BLOCKS.registerBlock(
-            "manuel_tirado_bust", ManuelTiradoBustBlock::new,
-            props -> props.strength(4.0F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<ManuelTiradoBustBlock> MANUEL_TIRADO_BUST = net.nicomar2009.lsmmod.modules.special_blocks.registry.ModuleBlocks.MANUEL_TIRADO_BUST;
 
-    public static final DeferredBlock<InfirmaryCotBlock> INFIRMARY_COT = BLOCKS.registerBlock(
-            "infirmary_cot", InfirmaryCotBlock::new,
-            props -> props.strength(2.5F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<InfirmaryCotBlock> INFIRMARY_COT = net.nicomar2009.lsmmod.modules.facilities.registry.ModuleBlocks.INFIRMARY_COT;
 
     private ModBlocks() {
     }
 
     /** Block 1.6 */
-    public static final DeferredBlock<TeachersDeskBlock> TEACHERS_DESK = BLOCKS.registerBlock(
-            "teachers_desk",
-            TeachersDeskBlock::new,
-            props -> props
-                    .strength(2.5F)
-                    .sound(SoundType.WOOD)
-                    .noOcclusion()
-                    // The RIGHT half has no block entity, so pistons must never move just one half
-                    .pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<TeachersDeskBlock> TEACHERS_DESK = net.nicomar2009.lsmmod.modules.tables_and_desks.registry.ModuleBlocks.TEACHERS_DESK;
 
     /** Block 1.7 */
-    public static final DeferredBlock<ElementaryDeskBlock> ELEMENTARY_DESK = BLOCKS.registerBlock(
-            "elementary_desk",
-            ElementaryDeskBlock::new,
-            props -> props
-                    .strength(2.5F)
-                    .sound(SoundType.WOOD)
-                    // The model is not a full cube, so neighbouring faces must not be culled
-                    .noOcclusion());
+    public static final DeferredBlock<ElementaryDeskBlock> ELEMENTARY_DESK = net.nicomar2009.lsmmod.modules.tables_and_desks.registry.ModuleBlocks.ELEMENTARY_DESK;
 
     /** Block 1.8 */
-    public static final DeferredBlock<SchoolSanMartinBlock> SAN_MARTIN_DE_PORRES = BLOCKS.registerBlock(
-            "san_martin_de_porres",
-            SchoolSanMartinBlock::new,
-            props -> props
-                    .strength(4.0f)
-                    .sound(SoundType.AMETHYST)
-                    .noOcclusion()
-                    .pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolSanMartinBlock> SAN_MARTIN_DE_PORRES = net.nicomar2009.lsmmod.modules.special_blocks.registry.ModuleBlocks.SAN_MARTIN_DE_PORRES;
 
-    public static final DeferredBlock<SchoolShieldBlock> SCHOOL_SHIELD = BLOCKS.registerBlock(
-            "school_shield", SchoolShieldBlock::new,
-            props -> props.strength(2.5F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<SchoolShieldBlock> SCHOOL_SHIELD = net.nicomar2009.lsmmod.modules.special_blocks.registry.ModuleBlocks.SCHOOL_SHIELD;
 
-    public static final DeferredBlock<AwningSupportBlock> AWNING_SUPPORT = BLOCKS.registerBlock(
-            "awning_support", AwningSupportBlock::new,
-            props -> props.strength(2.5F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<AwningSupportBlock> AWNING_SUPPORT = net.nicomar2009.lsmmod.modules.awnings.registry.ModuleBlocks.AWNING_SUPPORT;
 
-    public static final DeferredBlock<AwningBlock> PLAYGROUND_AWNING = BLOCKS.registerBlock(
-            "playground_awning", props -> new AwningBlock(props, "playground_awning"),
-            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<AwningBlock> PLAYGROUND_AWNING = net.nicomar2009.lsmmod.modules.awnings.registry.ModuleBlocks.PLAYGROUND_AWNING;
 
-    public static final DeferredBlock<AwningBlock> ELEMENTARY_PLAYGROUND_AWNING = BLOCKS.registerBlock(
-            "elementary_playground_awning", props -> new AwningBlock(props, "elementary_playground_awning"),
-            props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<AwningBlock> ELEMENTARY_PLAYGROUND_AWNING = net.nicomar2009.lsmmod.modules.awnings.registry.ModuleBlocks.ELEMENTARY_PLAYGROUND_AWNING;
 
     public static AwningBlock awningVariant(String id) {
         return switch (id) {

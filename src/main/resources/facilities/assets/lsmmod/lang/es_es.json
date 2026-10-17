@@ -1,0 +1,16 @@
+{
+  "block.lsmmod.drinking_fountain": "Bebedero",
+  "block.lsmmod.infirmary_cot": "Camilla de enfermería",
+  "block.lsmmod.green_trash_bin": "Tacho de basura verde",
+  "block.lsmmod.black_trash_bin": "Tacho de basura negro",
+  "block.lsmmod.toilet": "Inodoro con cubículo",
+  "block.lsmmod.men_urinal": "Urinario infantil",
+  "block.lsmmod.adult_men_urinal": "Urinario de varones para adultos",
+  "block.lsmmod.standalone_toilet": "Inodoro sin cubículo",
+  "block.lsmmod.school_sink": "Lavadero del colegio",
+  "block.lsmmod.school_connected_sink": "Lavadero continuo del colegio",
+  "block.lsmmod.school_drain": "Desagüe del colegio",
+  "block.lsmmod.drinking_fountain_raised": "Bebedero elevado",
+  "block.lsmmod.school_microwave": "Microondas del colegio",
+  "block.lsmmod.school_refrigerator": "Refrigeradora del comedor"
+}

@@ -1,6 +1,6 @@
 import net.nicomar2009.lsmmod.modules.balls.rules.FootballRules;
-import net.nicomar2009.lsmmod.rules.SchoolMediaRules;
-import net.nicomar2009.lsmmod.rules.SchoolStudyRules;
+import net.nicomar2009.lsmmod.modules.technology.rules.SchoolMediaRules;
+import net.nicomar2009.lsmmod.modules.technology.rules.SchoolStudyRules;
 import net.nicomar2009.lsmmod.modules.balls.block.SportsGoalShapes;
 
 /** Pure gameplay checks; no Minecraft classes, mod compilation or game launch. */

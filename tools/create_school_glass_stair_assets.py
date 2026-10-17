@@ -1,4 +1,5 @@
 """One glass stair with an editable 8px slab and shared glass/curtain geometry."""
+from resource_modules import module_glob, module_read_text, module_rglob, module_unlink, module_write_text
 import itertools,json,re
 from pathlib import Path
 from create_school_glass_assets import ROOT,A,D,T,write,item_and_loot
@@ -55,21 +56,21 @@ def retire():
  j=ROOT/'src/main/java/net/nicomar2009/lsmmod'
  for name in RETIRED:
   for directory in (A/'blockstates',A/'items',A/'models/block',A/'models/item',D/'lsmmod/loot_table/blocks'):
-   for path in directory.glob(name+'*.json'):path.unlink()
-  for path in (A/'models/block/school_glazing_dynamic').glob(name+'*.json'):path.unlink()
+   for path in module_glob(directory, name+'*.json'):module_unlink(path)
+  for path in module_glob(A/'models/block/school_glazing_dynamic', name+'*.json'):module_unlink(path)
   for filename in ('ModBlocks.java','ModItems.java'):
-   path=j/'registry'/filename;s=path.read_text()
+   path=j/'registry'/filename;s=module_read_text(path)
    s=re.sub(r'    public static final Deferred(?:Block|Item)<[^\n]+> '+name.upper()+r'\s*=.*?;\n', '',s,flags=re.S)
-   path.write_text(s)
+   module_write_text(path, s)
  for locale in ('es_es','en_us'):
-  path=A/f'lang/{locale}.json';data=json.loads(path.read_text())
+  path=A/f'lang/{locale}.json';data=json.loads(module_read_text(path))
   for name in RETIRED:data.pop('block.lsmmod.'+name,None)
   write(path,data)
- for path in (D/'minecraft/tags/block').rglob('*.json'):
-  data=json.loads(path.read_text());values=data.get('values',[])
+ for path in module_rglob(D/'minecraft/tags/block', '*.json'):
+  data=json.loads(module_read_text(path));values=data.get('values',[])
   filtered=[v for v in values if not isinstance(v,str) or v.removeprefix('lsmmod:') not in RETIRED]
   if filtered!=values:data['values']=filtered;write(path,data)
- for path in (A/'textures/block').glob('school_stair_glass_*.png'):path.unlink()
+ for path in module_glob(A/'textures/block', 'school_stair_glass_*.png'):module_unlink(path)
 
 def main():
  import shutil
@@ -112,16 +113,16 @@ def main():
  for filename,entry in (
   ('ModBlocks.java',f'    public static final DeferredBlock<SchoolPaintableGlassStairBlock> SCHOOL_PAINTABLE_GLASS_STAIRS = BLOCKS.registerBlock("{ID}", SchoolPaintableGlassStairBlock::new, props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().dynamicShape());'),
   ('ModItems.java','    public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_GLASS_STAIRS = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_GLASS_STAIRS);')):
-  path=j/'registry'/filename;s=path.read_text()
+  path=j/'registry'/filename;s=module_read_text(path)
   if ' SCHOOL_PAINTABLE_GLASS_STAIRS =' not in s:s=s.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1)
-  path.write_text(s)
- path=j/'registry/ModBlockEntities.java';s=path.read_text()
+  module_write_text(path, s)
+ path=j/'registry/ModBlockEntities.java';s=module_read_text(path)
  if ' SCHOOL_GLASS_STAIR_PAINT =' not in s:
-  entry='    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolGlassStairPaintEntity>> SCHOOL_GLASS_STAIR_PAINT = BLOCK_ENTITIES.register("school_glass_stair_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolGlassStairPaintEntity::new, ModBlocks.SCHOOL_PAINTABLE_GLASS_STAIRS.get()));\n\n'
-  s=s.replace('    // Only the LEFT half',entry+'    // Only the LEFT half',1);path.write_text(s)
+  entry='    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolGlassStairPaintEntity>> SCHOOL_GLASS_STAIR_PAINT = BLOCK_ENTITIES.register("school_glass_stair_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolGlassStairPaintEntity::new, ModBlocks.SCHOOL_PAINTABLE_GLASS_STAIRS.get()));\n\n'
+  s=s.replace('    // Only the LEFT half',entry+'    // Only the LEFT half',1);module_write_text(path, s)
  for locale,label in (('es_es','Escalera con cristal y base pintable'),('en_us','Glass Stairs with Paintable Base')):
-  path=A/f'lang/{locale}.json';d=json.loads(path.read_text());d['block.lsmmod.'+ID]=label;write(path,d)
- path=D/'minecraft/tags/block/mineable/pickaxe.json';d=json.loads(path.read_text())
+  path=A/f'lang/{locale}.json';d=json.loads(module_read_text(path));d['block.lsmmod.'+ID]=label;write(path,d)
+ path=D/'minecraft/tags/block/mineable/pickaxe.json';d=json.loads(module_read_text(path))
  if 'lsmmod:'+ID not in d['values']:d['values'].append('lsmmod:'+ID)
  write(path,d)
 

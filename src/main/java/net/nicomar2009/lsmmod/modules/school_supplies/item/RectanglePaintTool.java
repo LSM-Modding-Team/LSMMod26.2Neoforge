@@ -1,4 +1,6 @@
 package net.nicomar2009.lsmmod.modules.school_supplies.item;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolProjectingWindowPaintEntity;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolDoorFramePaintEntity;
 
 import net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolSandpaperItem;
 
@@ -15,9 +17,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.nicomar2009.lsmmod.block.SchoolPaint;
-import net.nicomar2009.lsmmod.block.SchoolPaintableBlockEntity;
-import net.nicomar2009.lsmmod.block.SchoolPaintableCustomBlockEntity;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaint;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableBlockEntity;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableCustomBlockEntity;
 
 /** Server-authoritative coplanar rectangles, one palette/update per changed block. */
 public final class RectanglePaintTool {
@@ -75,7 +77,7 @@ public final class RectanglePaintTool {
         if(player==null || player.isSpectator() || !player.mayBuild())return InteractionResult.FAIL;
         if(level.isClientSide())return InteractionResult.SUCCESS;
         var current=level.getBlockEntity(context.getClickedPos());
-        int divisions=current instanceof net.nicomar2009.lsmmod.block.SchoolDoorFramePaintEntity frame?16/frame.miniSize():current instanceof SchoolPaintableCustomBlockEntity?2:1;
+        int divisions=current instanceof net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolDoorFramePaintEntity frame?16/frame.miniSize():current instanceof SchoolPaintableCustomBlockEntity?2:1;
         End end=end(context,divisions);Direction face=context.getClickedFace();
         if(end==null)return fail(player,"target");
         String dimension=level.dimension().identifier().toString();
@@ -109,7 +111,7 @@ public final class RectanglePaintTool {
             if(!(level.getBlockEntity(pos) instanceof SchoolPaintableBlockEntity block))continue;
             if(!level.mayInteract(player,pos) || !player.mayUseItemAt(pos,face,stack))return fail(player,"denied");
             int[] colors=block.snapshot(),before=colors.clone();
-            if(block instanceof net.nicomar2009.lsmmod.block.SchoolDoorFramePaintEntity frame) {
+            if(block instanceof net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolDoorFramePaintEntity frame) {
                 int size=frame.miniSize()/4;
                 if(end.plane%size!=0)continue;
                 for(int qa=0;qa<4;qa+=size)for(int qb=0;qb<4;qb+=size) {
@@ -126,7 +128,7 @@ public final class RectanglePaintTool {
                     }
                     if(changed) {if(paint==null&&previous!=0)refunds[previous]++;count++;}
                 }
-            } else if(block instanceof net.nicomar2009.lsmmod.block.SchoolProjectingWindowPaintEntity wall) {
+            } else if(block instanceof net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolProjectingWindowPaintEntity wall) {
                 if(end.plane%2!=0)continue;
                 for(int qa=0;qa<2;qa++)for(int qb=0;qb<2;qb++) {
                     if(a*4+qa*2+1<u0||a*4+qa*2>u1||b*4+qb*2+1<v0||b*4+qb*2>v1)continue;

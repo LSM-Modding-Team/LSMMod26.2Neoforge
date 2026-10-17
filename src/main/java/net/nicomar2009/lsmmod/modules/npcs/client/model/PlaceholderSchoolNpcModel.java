@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.npcs.client.model;
 
-
-
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.player.PlayerModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;

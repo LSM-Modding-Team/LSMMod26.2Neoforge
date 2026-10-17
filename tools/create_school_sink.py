@@ -1,4 +1,5 @@
 """Decorative 24px pedestal sink using the original toilet porcelain, chrome and drain."""
+from resource_modules import module_read_text, module_write_text
 from create_bathroom_statue_assets import ROOT,ASSETS as A,DATA as D,solid_model
 from create_children_locker_and_projector import write,GENERATED
 from create_wide_bathroom_assets import clip
@@ -20,7 +21,7 @@ def main():
             if lo<hi:java.append('        {'+', '.join(str(v) for v in [b[0],lo-half*16,b[2],b[3],hi-half*16,b[5]])+'},')
         java.append('    };')
         for side,angle in [('north',0),('east',90),('south',180),('west',270)]:states[f'facing={side},half={name}']={'model':f'lsmmod:block/school_sink_{name}','y':angle}
-    java.append('}');p=ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolSinkShapes.java';p.write_text('\n'.join(java)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
+    java.append('}');p=ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/facilities/block/SchoolSinkShapes.java';module_write_text(p, '\n'.join(java)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
     write(A/'blockstates/school_sink.json',{'variants':states})
     item=solid_model(PARTS)
     for e in item['elements']:
@@ -34,11 +35,11 @@ def main():
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion().pushReaction(PushReaction.BLOCK));'''
     items='    public static final DeferredItem<BlockItem> SCHOOL_SINK = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_SINK);'
     for filename,body in [('ModBlocks.java',blocks),('ModItems.java',items)]:
-        p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=p.read_text();start='    // BEGIN SCHOOL SINK';end='    // END SCHOOL SINK';section=start+'\n'+body+'\n'+end
+        p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/filename;s=module_read_text(p);start='    // BEGIN SCHOOL SINK';end='    // END SCHOOL SINK';section=start+'\n'+body+'\n'+end
         if start in s:a=s.index(start);b=s.index(end)+len(end);s=s[:a]+section+s[b:]
         else:s=s.replace('    // BEGIN CLASSROOM SURFACES',section+'\n\n    // BEGIN CLASSROOM SURFACES',1)
-        p.write_text(s);GENERATED.append(str(p.relative_to(ROOT)))
+        module_write_text(p, s);GENERATED.append(str(p.relative_to(ROOT)))
     for locale,label in [('es_es','Lavadero del colegio'),('en_us','School Pedestal Sink')]:
-        p=A/f'lang/{locale}.json';v=json.loads(p.read_text());v['block.lsmmod.school_sink']=label;write(p,v)
-    p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:school_sink']));write(p,v)
+        p=A/f'lang/{locale}.json';v=json.loads(module_read_text(p));v['block.lsmmod.school_sink']=label;write(p,v)
+    p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(module_read_text(p));v['values']=list(dict.fromkeys(v['values']+['lsmmod:school_sink']));write(p,v)
 if __name__=='__main__':main()

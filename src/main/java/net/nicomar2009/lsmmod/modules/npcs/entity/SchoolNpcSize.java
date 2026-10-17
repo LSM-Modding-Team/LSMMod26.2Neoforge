@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.npcs.entity;
 
-
-
 /** Sixteen independent sizes per axis, with an exact vanilla-player option at level fourteen. */
 public final class SchoolNpcSize {
     public static final int PLAYER_LEVEL = 14;

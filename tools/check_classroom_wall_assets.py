@@ -1,4 +1,5 @@
 """Static resource/geometry checks for passive wall decorations. Never compiles Java."""
+from resource_modules import module_path, module_read_text
 import itertools
 import json
 import re
@@ -12,7 +13,7 @@ IDS = ("projector_screen", "wall_projector", "classroom_timetable", "emergency_b
 
 
 def read(path):
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(module_read_text(path, encoding="utf-8"))
 
 
 def rotate(x, z, angle):
@@ -27,7 +28,7 @@ def main():
             for face in element["faces"].values():
                 assert all(0 <= v <= 16 for v in face["uv"])
                 texture = model["textures"][face["texture"][1:]].split(":")[1]
-                Image.open(ASSETS / f"textures/{texture}.png").verify()
+                Image.open(module_path(ASSETS / f"textures/{texture}.png")).verify()
         variants = read(ASSETS / f"blockstates/{block_id}.json")["variants"]
         assert len(variants) == (48 if block_id == "projector_screen" else 8 if block_id == "wall_projector" else 4)
         for key, variant in variants.items():
@@ -40,7 +41,7 @@ def main():
             assert f"block.lsmmod.{block_id}" in read(ASSETS / f"lang/{language}.json")
         loot = read(ROOT / f"src/main/resources/data/lsmmod/loot_table/blocks/{block_id}.json")
         assert loot["pools"][0]["entries"][0]["name"] == f"lsmmod:{block_id}"
-    white = Image.open(ASSETS / "textures/block/projector_screen.png").convert("RGB")
+    white = Image.open(module_path(ASSETS / "textures/block/projector_screen.png")).convert("RGB")
     assert white.size == (16, 16) and white.tobytes() == bytes([255]) * (16*16*3)
     # The twelve tiles touch the supporting wall, cover exactly 64x48 pixels,
     # and remain one pixel thick in every direction without overlapping each other.
@@ -55,9 +56,9 @@ def main():
     screen_loot = read(ROOT / "src/main/resources/data/lsmmod/loot_table/blocks/projector_screen.json")
     assert next(c for c in screen_loot["pools"][0]["conditions"] if c["condition"] == "minecraft:block_state_property")["properties"] == {"column": "0", "row": "0"}
     # Check source/model agreement to catch invisible collision pieces and mismatched rotations.
-    geometry = (ROOT / "src/main/java/net/nicomar2009/lsmmod/block/SchoolDecorationShapes.java").read_text()
+    geometry = module_read_text(ROOT / "src/main/java/net/nicomar2009/lsmmod/modules/wall_blocks/block/SchoolDecorationShapes.java")
     for name, block_id in (("PROJECTOR", "wall_projector"), ("TIMETABLE", "classroom_timetable"), ("BACKPACK", "emergency_backpack"), ("BOXES", "fire_alarm")):
-        source_geometry = ((ROOT / "src/main/java/net/nicomar2009/lsmmod/block/FireAlarmShapes.java").read_text()
+        source_geometry = (module_read_text(ROOT / "src/main/java/net/nicomar2009/lsmmod/modules/wall_blocks/block/FireAlarmShapes.java")
                            if block_id == "fire_alarm" else geometry)
         section = re.search(name+r" = \{(.*?)\n    \};", source_geometry, re.S).group(1)
         boxes = [[float(v) for v in group.split(",")] for group in re.findall(r"\{([^{}]+)\}", section)]
@@ -96,11 +97,11 @@ def main():
     assert (min(p[0] for p in points)+max(p[0] for p in points))/2==16
     loot=read(ROOT/'src/main/resources/data/lsmmod/loot_table/blocks/wall_projector.json')
     assert next(c for c in loot['pools'][0]['conditions'] if c['condition']=='minecraft:block_state_property')['properties']=={'column':'0'}
-    source=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/WallProjectorBlock.java').read_text()
+    source=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/technology/block/WallProjectorBlock.java')
     assert 'SimpleBlockOutline.forState' in source and 'PROJECTOR_CELLS[column]' in source
     assert 'column < 2' in source and 'column < 4' not in source
     assert 'supported(level, target, facing)' in source and 'Block.UPDATE_SUPPRESS_DROPS' in source
-    screen=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/ProjectorScreenBlock.java').read_text()
+    screen=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/technology/block/ProjectorScreenBlock.java')
     assert 'IntegerProperty.create("row", 0, 2)' in screen and 'row < 2' not in screen
     timetable = read(ASSETS / "models/block/classroom_timetable.json")["elements"][0]
     assert [hi-lo for lo, hi in zip(timetable["from"], timetable["to"])] == [14, 7, 1]

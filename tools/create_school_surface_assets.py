@@ -1,4 +1,5 @@
 """Generate three opaque 16x16 vanilla cube surface assets (no build required)."""
+from resource_modules import module_read_text, module_write_text, output_path
 from resource_json import resource_json
 import json
 import random
@@ -18,7 +19,7 @@ SURFACES = {
 
 def write_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(resource_json(path, value, ensure_ascii=False) + "\n", encoding="utf-8")
+    module_write_text(path, resource_json(path, value, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 def texture(block_id, base):
@@ -39,7 +40,7 @@ def texture(block_id, base):
             image.putpixel((x, y), tuple(channel + shade for channel in base))
     path = ASSETS / "textures/block" / f"{block_id}.png"
     path.parent.mkdir(parents=True, exist_ok=True)
-    image.save(path)
+    image.save(output_path(path))
 
 
 def main():
@@ -59,12 +60,12 @@ def main():
                        "entries": [{"type": "minecraft:item", "name": f"lsmmod:{block_id}"}]}]})
     for locale, index in (("es_es", 1), ("en_us", 2)):
         path = ASSETS / "lang" / f"{locale}.json"
-        values = json.loads(path.read_text(encoding="utf-8"))
+        values = json.loads(module_read_text(path, encoding="utf-8"))
         for block_id, names in SURFACES.items():
             values[f"block.lsmmod.{block_id}"] = names[index]
         write_json(path, values)
     path = DATA / "minecraft/tags/block/mineable/pickaxe.json"
-    values = json.loads(path.read_text(encoding="utf-8"))
+    values = json.loads(module_read_text(path, encoding="utf-8"))
     for block_id in SURFACES:
         entry = f"lsmmod:{block_id}"
         if entry not in values["values"]:

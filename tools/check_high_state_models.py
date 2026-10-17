@@ -1,4 +1,5 @@
 """Exhaustive prepared-model equivalence for the >=256-state families, without Java."""
+from resource_modules import module_glob, module_is_file, module_read_text
 from resource_modules import source_assets
 import itertools,json,math
 from collections import Counter,defaultdict
@@ -8,7 +9,7 @@ from audit_block_states import audit
 ROOT=Path(__file__).resolve().parents[1];A=source_assets()
 DOMAINS={'facing':['north','east','south','west'],'half':['bottom','top'],'shape':['straight','inner_left','inner_right','outer_left','outer_right'],
  'curtain':['none']+[a+'_'+b for a,b in itertools.product(('single','left','middle','right'),repeat=2)],'type':['bottom','top','double']}
-def read(path):return json.loads(path.read_text(encoding='utf-8-sig'))
+def read(path):return json.loads(module_read_text(path, encoding='utf-8-sig'))
 def when_matches(when,state):
  for name,value in when.items():
   if name=='OR':
@@ -75,7 +76,7 @@ def verify(output,aliases):
   return [leaf for series in model['models']
           for entry in (series if isinstance(series,list) else [series])
           for leaf in leaves(entry if isinstance(entry,str) else entry['model'])]
- for path in (B/'models/block/fusion_high_states').glob('*.json'):
+ for path in module_glob(B/'models/block/fusion_high_states', '*.json'):
   model=read(path)
   if model.get('type')=='composite':
    native=leaves(model);assert len(native)==len(set(native)),(path,'repeated baked geometry')
@@ -91,7 +92,7 @@ def verify(output,aliases):
                       'yellow':'lsmmod:block/school_entrance_pavement_0',
                       'particle':'lsmmod:block/school_entrance_pavement_15'}
     for texture in textures.values():
-     assert (B/f'textures/{texture.split(":")[1]}.png').is_file(),texture
+     assert module_is_file(B/f'textures/{texture.split(":")[1]}.png'),texture
   domains=state_domains(rows[ident]);keys=list(domains)
   for values in itertools.product(*(domains[k] for k in keys)):
    state=dict(zip(keys,values));expected=source.select(state);actual=prepared.select(state)
@@ -104,12 +105,12 @@ def verify(output,aliases):
                    'SchoolWallRailingBlock':('POST','FACING')}.items():
   from audit_block_states import source
   java=source(cls);assert all(f in java for f in fields)
- helper=(J/'block/EntrancePavementConnections.java').read_text()
+ helper=module_read_text(J/'modules/building_blocks/block/EntrancePavementConnections.java')
  assert 'dy=-2;dy<=2' in helper and 'Math.abs(edge(state,side,0)' in helper
  assert 'if(join)mask|=1<<i' in helper and 'hasChunkAt' in helper
- bars=(J/'block/StreetSchoolBarsBlock.java').read_text();assert '(column%4)*3+row%3' in bars and 'REFRESHES' in bars and 'WeakHashMap' in bars
+ bars=module_read_text(J/'modules/building_blocks/block/StreetSchoolBarsBlock.java');assert '(column%4)*3+row%3' in bars and 'REFRESHES' in bars and 'WeakHashMap' in bars
  assert 'COLUMN' not in bars and 'ROW' not in bars
- migration=(J/'block/LegacyCurtainStates.java').read_text()
+ migration=module_read_text(J/'modules/windows_and_enclosures/block/LegacyCurtainStates.java')
  assert all('lsmmod:'+ident in migration for ident in PAVEMENT) and 'lsmmod:street_school_bars' in migration
  return checked
 if __name__=='__main__':

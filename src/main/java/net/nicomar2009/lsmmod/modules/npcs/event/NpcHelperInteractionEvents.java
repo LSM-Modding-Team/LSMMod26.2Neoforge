@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.npcs.event;
 
-
-
 import net.minecraft.world.InteractionResult;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;

@@ -1,12 +1,13 @@
 """Static preservation and finite cache checks for the blocks found in the last JFR."""
+from resource_modules import module_read_text
 import json,re,itertools,random,ast
 from pathlib import Path
 from check_chair_grid_rotations import grid
 ROOT=Path(__file__).resolve().parents[1];B=ROOT/'src/main/java/net/nicomar2009/lsmmod/block'
 def main():
- fixtures=json.loads((ROOT/'tools/fixtures/remaining_shape_boxes.json').read_text());count=0
+ fixtures=json.loads(module_read_text(ROOT/'tools/fixtures/remaining_shape_boxes.json'));count=0
  for name,values in fixtures.items():
-  source=(B/f'{name}.java').read_text()
+  source=module_read_text(B/f'{name}.java')
   current=[tuple(float(x.strip())/16 for x in v.split(',')) for v in re.findall(r'ExactVoxelShapes.box\(([\d., \-]+)\)',source)]
   expected=[tuple(v) for v in values];assert current==expected,(name,'coordinates changed');count+=len(current)
   coords,occupied=grid(current);rng=random.Random(574)
@@ -16,7 +17,7 @@ def main():
    assert (index in occupied)==any(all(b[i]<point[i]<b[i+3] for i in range(3)) for b in expected)
   assert 'forAllBoxes' not in source and 'Shapes.or' not in source,name
  # All 144 handrail combinations retain the same slice positions, including empty cells.
- handrail=(B/'SchoolWoodenHandrailBlock.java').read_text()
+ handrail=module_read_text(B/'SchoolWoodenHandrailBlock.java')
  assert 'Physical(state.getValue(COLUMN),state.getValue(ROW),state.getValue(FACING),state.getValue(RIGHT))' in handrail
  assert 'Math.min(16,column*4+(i+1)/4.0+16-row*16)' in handrail
  assert 'PHYSICAL.computeIfAbsent' in handrail
@@ -36,9 +37,9 @@ def main():
   assert key&15==mask and bool(key&16)==post
  assert len(keys)==34
  for name in ['SchoolWoodenHandrailBlock','SchoolWallRailingBlock','SchoolInvertedSlopeBlock','EntrancePavementSlopeBlock','SportsGoalBlock','TallBathroomBlock','TrashBinBlock','WallDecorationBlock','DoubleSchoolEntranceBlock']:
-  source=(B/f'{name}.java').read_text();assert 'Shapes.or' not in source and 'forAllBoxes' not in source,name
+  source=module_read_text(B/f'{name}.java');assert 'Shapes.or' not in source and 'forAllBoxes' not in source,name
  for name in ['create_computer_desk_assets.py','create_gray_computer_desk_assets.py','create_dining_assets.py']:
-  text=(ROOT/'tools'/name).read_text();ast.parse(text)
+  text=module_read_text(ROOT/'tools'/name);ast.parse(text)
   if name!='create_dining_assets.py':assert 'forAllBoxes' not in text and 'ExactVoxelShapes.union' in text
  print(f'OK: {count} native boxes unchanged / 6000 occupancy samples; 144 handrail profiles, 256 rail states / 34 physical keys; direct rotations and generator compatibility checked statically.')
 if __name__=='__main__':main()

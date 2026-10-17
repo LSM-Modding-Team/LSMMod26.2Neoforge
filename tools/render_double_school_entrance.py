@@ -1,4 +1,5 @@
 """External source-model preview; not an in-game screenshot."""
+from resource_modules import output_path
 from resource_json import preview_path
 from PIL import Image,ImageDraw
 from create_double_school_entrance import ROOT,cell_model
@@ -20,5 +21,5 @@ def main():
     draw=ImageDraw.Draw(canvas)
     draw.text((20,25),'Puerta 3 x 3: cerrada; hojas de 24 px',fill='white')
     draw.text((500,25),'Abierta: cristal superior fijo',fill='white')
-    canvas.save(preview_path('double_school_entrance.png'))
+    canvas.save(output_path(preview_path('double_school_entrance.png')))
 if __name__=='__main__':main()

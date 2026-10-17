@@ -1,4 +1,5 @@
 """Generate a vanilla-resolution 4x4 crest slab from a deterministic pixel drawing."""
+from resource_modules import module_path, module_write_text, output_path
 from resource_json import preview_path
 from resource_json import resource_json
 import json
@@ -8,10 +9,10 @@ ROOT=Path(__file__).resolve().parents[1]
 ASSETS=ROOT/'src/main/resources/assets/lsmmod'
 BLOCKS=ASSETS/'textures/block'
 
-def write(path,value):path.write_text(resource_json(path, value, ensure_ascii=False)+'\n')
+def write(path,value):module_write_text(path, resource_json(path, value, ensure_ascii=False)+'\n')
 
 def crest():
- floor=Image.open(BLOCKS/'classroom_floor.png').convert('RGBA')
+ floor=Image.open(module_path(BLOCKS/'classroom_floor.png')).convert('RGBA')
  canvas=Image.new('RGBA',(64,64))
  for row in range(4):
   for col in range(4):canvas.paste(floor,(col*16,row*16))
@@ -44,14 +45,14 @@ def main():
  for row in range(4):
   for col in range(4):
    name=f'school_shield_{row}_{col}'
-   canvas.crop((col*16,row*16,(col+1)*16,(row+1)*16)).save(BLOCKS/f'{name}.png')
+   canvas.crop((col*16,row*16,(col+1)*16,(row+1)*16)).save(output_path(BLOCKS/f'{name}.png'))
    faces={side:{'texture':'#floor','uv':[0,0,16,8] if side in ('north','south','east','west') else [0,0,16,16],'cullface':side} for side in ('north','south','east','west','down')}
    faces['up']={'texture':'#crest','uv':[0,0,16,16]}
    write(ASSETS/f'models/block/{name}.json',{'parent':'minecraft:block/block','textures':{'floor':'lsmmod:block/classroom_floor','crest':'lsmmod:block/'+name,'particle':'lsmmod:block/classroom_floor'},'elements':[{'from':[0,0,0],'to':[16,8,16],'faces':faces}]})
    for facing,turn in [('north',0),('east',90),('south',180),('west',270)]:
     states[f'column={col},facing={facing},row={row}']={'model':'lsmmod:block/'+name,'y':turn}
  write(ASSETS/'blockstates/school_shield.json',{'variants':states})
- canvas.save(ASSETS/'textures/item/school_shield.png')
+ canvas.save(output_path(ASSETS/'textures/item/school_shield.png'))
  (ROOT/'previews').mkdir(exist_ok=True)
- canvas.resize((512,512),Image.Resampling.NEAREST).save(preview_path('school_shield_4x4.png'))
+ canvas.resize((512,512),Image.Resampling.NEAREST).save(output_path(preview_path('school_shield_4x4.png')))
 if __name__=='__main__':main()

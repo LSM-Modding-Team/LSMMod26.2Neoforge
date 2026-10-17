@@ -1,4 +1,5 @@
 """External preview of horizontal glass separators; not a Minecraft screenshot."""
+from resource_modules import module_path, module_read_text, output_path
 from resource_json import preview_path
 import json,math,zipfile,io
 from pathlib import Path
@@ -24,8 +25,8 @@ def render(model,center,scale):
             texture=model['textures'][face['texture'][1:]];namespace,name=texture.split(':')
             if namespace=='minecraft':
                 with zipfile.ZipFile(ROOT/'.build-tools/gradle/caches/neoformruntime/artifacts/minecraft_26.2_client.jar') as jar:
-                    tex=np.array(Image.open(io.BytesIO(jar.read('assets/minecraft/textures/'+name+'.png'))).convert('RGBA'))
-            else:tex=np.array(Image.open(A/f'textures/{name}.png').convert('RGBA'))
+                    tex=np.array(Image.open(module_path(io.BytesIO(jar.read('assets/minecraft/textures/'+name+'.png')))).convert('RGBA'))
+            else:tex=np.array(Image.open(module_path(A/f'textures/{name}.png')).convert('RGBA'))
             surfaces.append((p[:,2].mean(),p,uv,tex))
     for _,poly,uv,tex in sorted(surfaces,key=lambda x:x[0]):
         for tri in [(0,1,2),(0,2,3)]:
@@ -62,7 +63,7 @@ def main():
                 pieces.extend(elements)
                 continue
             suffix='' if layout==3 else f'_horizontal_{layout}'
-            m=json.loads((A/f'models/block/{stem}{suffix}.json').read_text())
+            m=json.loads(module_read_text(A/f'models/block/{stem}{suffix}.json'))
             for e in m['elements']:
                 for k in ('from','to'):e[k][0]+=16*index
                 # Emulate culling of touching side faces in the game.
@@ -71,7 +72,7 @@ def main():
                 pieces.append(e)
             if family.startswith('tall_classroom_transom'):
                 for row in range(2):
-                    wood=json.loads((A/f'models/block/tall_classroom_entrance_{index%2}_{row}.json').read_text())
+                    wood=json.loads(module_read_text(A/f'models/block/tall_classroom_entrance_{index%2}_{row}.json'))
                     for e in wood['elements']:
                         for k in ('from','to'):e[k][0]+=16*index;e[k][1]+=16*(row-2)
                         pieces.append(e)
@@ -79,6 +80,6 @@ def main():
         center=[length*8,-8 if family.startswith('tall_classroom_transom') else 8,8]
         canvas.paste(render(m,center,5.5),(480*(panel%2),600*(panel//2)))
         labels.text((20+480*(panel%2),25+600*(panel//2)),label,fill='white')
-    canvas.save(preview_path('school_glass_horizontal_spacing.png'))
+    canvas.save(output_path(preview_path('school_glass_horizontal_spacing.png')))
 
 if __name__=='__main__':main()

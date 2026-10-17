@@ -1,4 +1,5 @@
 """Render final models, slab paint squares and the taller bathroom door offline."""
+from resource_modules import module_read_text, output_path
 import itertools,json
 from PIL import Image,ImageDraw
 from create_extended_school_doors import A,DOUBLE,BATHROOM
@@ -10,7 +11,7 @@ from resource_json import preview_path
 
 def scene(ident,opened=False,right=False,facing='north',paint=0):
     columns,rows=(3,3) if ident==DOUBLE else (2,4);elements=[];turn=('north','east','south','west').index(facing)
-    entries=json.loads((A/f'blockstates/{ident}.json').read_text())['multipart']
+    entries=json.loads(module_read_text(A/f'blockstates/{ident}.json'))['multipart']
     for column,row,depth in itertools.product(range(columns),range(rows),range(2)):
         state=dict(facing=facing,open=str(opened).lower(),powered='false',hinge='right' if right else 'left',column=str(column),row=str(row),depth=str(depth))
         def predicate(condition):
@@ -49,6 +50,6 @@ def main():
             origin,scale=framing(elements,size=(480,580));offset=(i%3*480,i//3*620+25)
             canvas.paste(render(elements,origin,scale,size=(480,580),azimuth=120 if i==2 else -65,elevation=12,minecraft_orientation=True),offset)
             draw.text((offset[0]+10,offset[1]-18),label,fill=(25,25,25))
-        canvas.save(preview_path(ident+'_review.png'))
+        canvas.save(output_path(preview_path(ident+'_review.png')))
 
 if __name__=='__main__':main()

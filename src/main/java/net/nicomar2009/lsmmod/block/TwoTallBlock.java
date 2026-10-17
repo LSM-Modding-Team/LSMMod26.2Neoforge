@@ -1,6 +1,5 @@
 package net.nicomar2009.lsmmod.block;
 
-import net.minecraft.client.OptionInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;

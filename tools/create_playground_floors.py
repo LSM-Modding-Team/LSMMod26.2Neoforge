@@ -1,4 +1,5 @@
 """Muted playground concrete with subtle vanilla pixel grain and reusable paints."""
+from resource_modules import module_read_text, module_write_text, output_path
 import json,random
 from PIL import Image
 from create_paintable_school_block import ROOT,A,write
@@ -11,7 +12,7 @@ def main():
         for y in range(16):
             for x in range(16):
                 delta=rng.choice((-3,-2,-1,0,0,0,1,2,3));image.putpixel((x,y),tuple(c+delta for c in base))
-        image.save(A/f'textures/block/{name}.png')
+        image.save(output_path(A/f'textures/block/{name}.png'))
         write(A/f'blockstates/{name}.json',{'variants':{'':{'model':'lsmmod:block/'+name}}})
         write(A/f'models/block/{name}.json',{'parent':'minecraft:block/cube_all','textures':{'all':'lsmmod:block/'+name}})
         write(A/f'models/item/{name}.json',{'parent':'lsmmod:block/'+name})
@@ -22,13 +23,13 @@ def main():
         color=name.split('_')[0]
         es={'white':'claro','gray':'gris','green':'verde','orange':'naranja'}[color]
         for locale,label in [('es_es','Suelo '+es+' del patio'),('en_us',color.capitalize()+' Playground Floor')]:
-            p=A/f'lang/{locale}.json';d=json.loads(p.read_text());d['block.lsmmod.'+name]=label;write(p,d)
+            p=A/f'lang/{locale}.json';d=json.loads(module_read_text(p));d['block.lsmmod.'+name]=label;write(p,d)
     for file,body in [('ModBlocks.java','\n'.join(blocks)),('ModItems.java','\n'.join(items))]:
-        p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/file;s=p.read_text();start='    // BEGIN PLAYGROUND FLOORS';end='    // END PLAYGROUND FLOORS';section=start+'\n'+body+'\n'+end
+        p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/file;s=module_read_text(p);start='    // BEGIN PLAYGROUND FLOORS';end='    // END PLAYGROUND FLOORS';section=start+'\n'+body+'\n'+end
         if start in s:a=s.index(start);b=s.index(end)+len(end);s=s[:a]+section+s[b:]
         else:s=s.replace('    // BEGIN CLASSROOM SURFACES',section+'\n\n    // BEGIN CLASSROOM SURFACES',1)
-        p.write_text(s)
-    p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';d=json.loads(p.read_text());d['values']=list(dict.fromkeys(d['values']+['lsmmod:'+n for n in names]));write(p,d)
+        module_write_text(p, s)
+    p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';d=json.loads(module_read_text(p));d['values']=list(dict.fromkeys(d['values']+['lsmmod:'+n for n in names]));write(p,d)
     from create_paintable_school_block import main as paints
     from create_custom_paintable_blocks import main as custom
     paints();custom()

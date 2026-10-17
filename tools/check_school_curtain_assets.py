@@ -1,4 +1,5 @@
 """Static checks only: endpoint limits, persistent chains, multipart selection and free-volume geometry."""
+from resource_modules import module_is_file, module_path, module_read_text
 import itertools,json,hashlib
 from pathlib import Path
 from PIL import Image
@@ -6,7 +7,7 @@ from create_school_glass_assets import A, ROOT
 from create_school_glass_stair_assets import QUARTERS,ID
 from create_school_curtain_assets import IDS, PARTS, base_parts
 
-def read(path):return json.loads(path.read_text())
+def read(path):return json.loads(module_read_text(path))
 def matches(when,state):return all(state.get(k) in v.split('|') for k,v in when.items())
 def intersects(a,b):return all(max(a[i],b[i])<min(a[i+3],b[i+3]) for i in range(3))
 def rotate(box):return [16-box[5],box[1],box[0],16-box[2],box[4],box[3]]
@@ -54,7 +55,7 @@ def main():
                         for face in e['faces'].values():
                             assert all(0<=v<=16 for v in face['uv'])
                             texture=model['textures'][face['texture'][1:]]
-                            assert (A/f"textures/{texture.split(':')[1]}.png").is_file()
+                            assert module_is_file(A/f"textures/{texture.split(':')[1]}.png")
                     tested+=1
     # Every size, direction, endpoint order and member recovers the same rectangle.
     def marker(i,size):return 'single' if size==1 else 'left' if i==0 else 'right' if i==size-1 else 'middle'
@@ -87,7 +88,7 @@ def main():
     model=read(A/'models/block/school_curtain_full_middle_vertical_middle.json')
     assert min(e['from'][1] for e in model['elements'])==0
     root=ROOT/'src/main/java/net/nicomar2009/lsmmod'
-    manager=(root/'block/SchoolCurtains.java').read_text();item=(root/'item/SchoolCurtainItem.java').read_text()
+    manager=module_read_text(root/'modules/windows_and_enclosures/block/SchoolCurtains.java');item=module_read_text(root/'modules/windows_and_enclosures/item/SchoolCurtainItem.java')
     assert 'MAX_LENGTH=4, MAX_HEIGHT=8' in manager and 'TallClassroomEntranceBlock' not in manager
     assert 'tag.putLong(START' in item and 'tag.putString(DIMENSION' in item and 'tag.putString(OWNER' in item
     assert item.index('// Validate every target')<item.index('level.setBlock(target')<item.index('stack.shrink(1)')
@@ -98,14 +99,14 @@ def main():
     assert 'for(int y=0;y<height;y++)for(int i=0;i<length;i++)' in item
     assert 'level.hasChunkAt' in manager and 'level.scheduleTick' in manager
     for name in ('SchoolGlassBlock.java','SchoolGlassStairBlock.java'):
-        s=(root/'block'/name).read_text()
+        s=module_read_text(root/'block'/name)
         assert 'SchoolCurtains.CURTAIN,CurtainLayout.NONE' in s
         assert 'SchoolCurtains.tick(level,pos)' in s and 'SchoolCurtains.remove' in s
         assert 'affectNeighborsAfterRemoval' in s and 'SimpleBlockOutline.forState' in s
-    door=(root/'block/TallClassroomEntranceBlock.java').read_text();assert 'SchoolCurtains.CURTAIN' not in door
-    assert 'SCHOOL_CURTAIN' in (root/'registry/ModItems.java').read_text()
+    door=module_read_text(root/'modules/windows_and_enclosures/block/TallClassroomEntranceBlock.java');assert 'SchoolCurtains.CURTAIN' not in door
+    assert 'SCHOOL_CURTAIN' in module_read_text(root/'registry/ModItems.java')
     for folder,name in (('block','school_curtain'),('block','school_curtain_rail'),('block','school_curtain_hem'),('item','school_curtain')):
-        im=Image.open(A/f'textures/{folder}/{name}.png');assert im.size==(16,16);im.verify()
+        im=Image.open(module_path(A/f'textures/{folder}/{name}.png'));assert im.size==(16,16);im.verify()
     assert read(A/'items/school_curtain.json')['model']['model']=='lsmmod:item/school_curtain'
     for locale in ('en_us','es_es'):
         text=read(A/f'lang/{locale}.json')

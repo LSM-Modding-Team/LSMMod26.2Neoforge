@@ -1,4 +1,5 @@
 """Generate the gray 2x1x2 desk, using the interactive classroom chair's exact gray."""
+from resource_modules import module_read_text, module_write_text
 from resource_json import resource_json
 import copy
 import json
@@ -8,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 A = ROOT / 'src/main/resources/assets/lsmmod'
 def write(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(resource_json(path, data, ensure_ascii=False) + '\n', encoding='utf-8')
+    module_write_text(path, resource_json(path, data, ensure_ascii=False) + '\n', encoding='utf-8')
 
 def box(start, end, texture='gray', uv=None):
     return {'from':start, 'to':end, 'faces':{face:{'texture':'#'+texture, 'uv':uv or [0,0,16,16]}
@@ -28,7 +29,7 @@ equipment = [box([5,13,9],[21,13.7,15],'equipment',[0,8,8,16]),
              box([22,18,10],[24,18.3,13],'equipment',[8,0,16,8]),
              box([22.2,18.3,10.2],[23.8,18.8,12.8],'equipment',[8,0,16,8]),
              box([22.85,18.8,10.7],[23.15,18.9,11.3],'equipment',[0,8,8,16])]
-pc = json.loads((A / 'models/block/pc.json').read_text(encoding='utf-8'))
+pc = json.loads(module_read_text(A / 'models/block/pc.json', encoding='utf-8'))
 for element in pc['elements']:
     part = copy.deepcopy(element)
     part['from'] = [6+element['from'][0]*.85, 18+element['from'][1]*.85, element['from'][2]*.85]
@@ -104,7 +105,7 @@ java += '''        for (int c=0; c<2; c++) for (int h=0; h<2; h++) for (int p=0;
     private GrayComputerDeskShapes() {}
 }
 '''
-(ROOT / 'src/main/java/net/nicomar2009/lsmmod/block/GrayComputerDeskShapes.java').write_text(java, encoding='utf-8')
+module_write_text(ROOT / 'src/main/java/net/nicomar2009/lsmmod/modules/tables_and_desks/block/GrayComputerDeskShapes.java', java, encoding='utf-8')
 write(A / 'blockstates/gray_computer_desk.json', {'variants':variants})
 # Keep the inventory model within vanilla element bounds, centered about x=8.
 item = copy.deepcopy(furniture + [retracted_tray])
@@ -123,6 +124,6 @@ write(ROOT / 'src/main/resources/data/lsmmod/loot_table/blocks/gray_computer_des
     {'rolls':1,'conditions':[root,occupied],'entries':[{'type':'minecraft:item','name':'lsmmod:pc'}]}]})
 for language, label in [('es_es','Escritorio gris de computación'),('en_us','Gray computer desk')]:
     path = A / f'lang/{language}.json'
-    data = json.loads(path.read_text(encoding='utf-8'))
+    data = json.loads(module_read_text(path, encoding='utf-8'))
     data['block.lsmmod.gray_computer_desk'] = label
     write(path, data)

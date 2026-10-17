@@ -1,4 +1,5 @@
 """Correct the toilet cubicle and add an adult urinal, preserving the child fixture."""
+from resource_modules import module_read_text, module_write_text
 from copy import deepcopy
 import json
 
@@ -42,7 +43,7 @@ def main():
         java += ["        {"+", ".join(str(v) for v in p[0])+"}," for p in parts]
         java.append("    };")
     java.append("}")
-    (ROOT / "src/main/java/net/nicomar2009/lsmmod/block/TallBathroomShapes.java").write_text("\n".join(java)+"\n")
+    module_write_text(ROOT / "src/main/java/net/nicomar2009/lsmmod/modules/facilities/block/TallBathroomShapes.java", "\n".join(java)+"\n")
     for block_id, closed, opened in (("toilet", TOILET_CLOSED, TOILET_OPEN), ("adult_men_urinal", ADULT, ADULT)):
         variants = {}
         for half in ("lower", "upper"):
@@ -66,10 +67,10 @@ def main():
             "entries": [{"type": "minecraft:item", "name": f"lsmmod:{block_id}"}]}]})
     for locale, names in (("es_es", {"toilet": "Inodoro con cubículo", "men_urinal": "Urinario infantil", "adult_men_urinal": "Urinario de varones para adultos"}),
                           ("en_us", {"toilet": "Toilet Cubicle", "men_urinal": "Children's Urinal", "adult_men_urinal": "Adult Men's Urinal"})):
-        p = ASSETS / f"lang/{locale}.json"; values = json.loads(p.read_text())
+        p = ASSETS / f"lang/{locale}.json"; values = json.loads(module_read_text(p))
         for key, value in names.items(): values[f"block.lsmmod.{key}"] = value
         write_json(p, values)
-    p = DATA / "minecraft/tags/block/mineable/pickaxe.json"; value = json.loads(p.read_text())
+    p = DATA / "minecraft/tags/block/mineable/pickaxe.json"; value = json.loads(module_read_text(p))
     if "lsmmod:adult_men_urinal" not in value["values"]: value["values"].append("lsmmod:adult_men_urinal")
     write_json(p, value)
 

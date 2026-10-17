@@ -1,4 +1,5 @@
 """Full tiled cube with a 4px parquet strip on top, using existing textures without recoloring."""
+from resource_modules import module_read_text, module_write_text
 from resource_json import resource_json
 import json
 from pathlib import Path
@@ -9,7 +10,7 @@ GENERATED=[]
 
 def write(path, value):
     path.parent.mkdir(parents=True,exist_ok=True)
-    path.write_text(resource_json(path, value, ensure_ascii=False)+'\n',encoding='utf-8')
+    module_write_text(path, resource_json(path, value, ensure_ascii=False)+'\n',encoding='utf-8')
     GENERATED.append(str(path.relative_to(ROOT)))
 
 
@@ -31,15 +32,15 @@ def main():
             props -> props.strength(1.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());'''
     item='    public static final DeferredItem<BlockItem> TILED_PARQUET_FLOOR = ITEMS.registerSimpleBlockItem(ModBlocks.TILED_PARQUET_FLOOR);'
     for file,body in [('ModBlocks.java',block),('ModItems.java',item)]:
-        p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/file;s=p.read_text()
+        p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/file;s=module_read_text(p)
         start='    // BEGIN TILED PARQUET FLOOR';end='    // END TILED PARQUET FLOOR'
         section=start+'\n'+body+'\n'+end
         if start in s:a=s.index(start);b=s.index(end)+len(end);s=s[:a]+section+s[b:]
         else:marker='    // BEGIN CLASSROOM SURFACES';s=s.replace(marker,section+'\n\n'+marker,1)
-        p.write_text(s);GENERATED.append(str(p.relative_to(ROOT)))
+        module_write_text(p, s);GENERATED.append(str(p.relative_to(ROOT)))
     for locale,name in [('es_es','Suelo de baldosas con borde de parquet'),('en_us','Tiled Floor with Parquet Border')]:
-        p=A/f'lang/{locale}.json';d=json.loads(p.read_text());d['block.lsmmod.'+ID]=name;write(p,d)
-    p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';d=json.loads(p.read_text())
+        p=A/f'lang/{locale}.json';d=json.loads(module_read_text(p));d['block.lsmmod.'+ID]=name;write(p,d)
+    p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';d=json.loads(module_read_text(p))
     d['values']=list(dict.fromkeys(d['values']+['lsmmod:'+ID]));write(p,d)
 
 

@@ -1,4 +1,5 @@
 """Horizontal glazing layouts: change only visible glass/frame, never supports or doors."""
+from resource_modules import module_read_text
 import json
 from create_school_glass_assets import A, T, write, model
 from create_bathroom_statue_assets import solid_model
@@ -39,7 +40,7 @@ def main():
     generated=set()
     for name in IDS:
         path=A/f'blockstates/{name}.json'
-        definition=json.loads(path.read_text())
+        definition=json.loads(module_read_text(path))
         if 'variants' in definition:
             if name=='tall_classroom_entrance':
                 from compact_school_door_assets import expand_variants
@@ -50,7 +51,7 @@ def main():
             for part in definition['multipart']:
                 if 'curtain' in part.get('when',{}):continue
                 state=part['when'];value=part['apply']
-                data=json.loads((A/f"models/{value['model'].split(':')[1]}.json").read_text())
+                data=json.loads(module_read_text(A/f"models/{value['model'].split(':')[1]}.json"))
                 if data.get('loader')=='fusion:model' and data.get('type')=='composite':
                     for entry in data['models'][0]:
                         mask=entry['condition']['mask']
@@ -67,7 +68,7 @@ def main():
             for layout in range(8):
                 target=stem if layout==3 or not eligible else f'{stem}_horizontal_{layout}'
                 if target!=stem and target not in generated:
-                    old=json.loads((A/f'models/block/{stem}.json').read_text())
+                    old=json.loads(module_read_text(A/f'models/block/{stem}.json'))
                     preserved=[e for e in old['elements'] if all(f['texture'] not in ('#glass','#frame') for f in e['faces'].values())]
                     bottom=state['bottom_connected']=='true';top=state['top_connected']=='true'
                     if name=='school_glass':low,high,occluders=0,16,[]

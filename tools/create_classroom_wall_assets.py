@@ -1,4 +1,5 @@
 """Create four passive school decorations, their resources, and matching collision boxes."""
+from resource_modules import module_read_text, module_write_text, output_path
 from resource_json import resource_json
 import json
 import random
@@ -44,13 +45,13 @@ BACKPACK = [
 
 def write_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(resource_json(path, value, ensure_ascii=False) + "\n", encoding="utf-8")
+    module_write_text(path, resource_json(path, value, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 def save_texture(name, image):
     path = ASSETS / "textures/block" / f"{name}.png"
     path.parent.mkdir(parents=True, exist_ok=True)
-    image.save(path)
+    image.save(output_path(path))
 
 
 def grain(base, seed, spread=2):
@@ -189,8 +190,8 @@ def java_geometry():
         lines.append("        },")
     lines.append("    };")
     lines.append("}")
-    path = ROOT / "src/main/java/net/nicomar2009/lsmmod/block/SchoolDecorationShapes.java"
-    path.write_text("\n".join(lines)+"\n", encoding="utf-8")
+    path = ROOT / "src/main/java/net/nicomar2009/lsmmod/modules/wall_blocks/block/SchoolDecorationShapes.java"
+    module_write_text(path, "\n".join(lines)+"\n", encoding="utf-8")
 
 
 def main():
@@ -230,12 +231,12 @@ def main():
                                                   "entries": [{"type": "minecraft:item", "name": f"lsmmod:{block_id}"}]}]})
     for locale, index in (("es_es", 0), ("en_us", 1)):
         path = ASSETS / "lang" / f"{locale}.json"
-        values = json.loads(path.read_text(encoding="utf-8"))
+        values = json.loads(module_read_text(path, encoding="utf-8"))
         for block_id, names in NAMES.items(): values[f"block.lsmmod.{block_id}"] = names[index]
         write_json(path, values)
     for tool, ids in (("pickaxe", ("wall_projector",)), ("axe", ("projector_screen", "classroom_timetable"))):
         path = DATA / "minecraft/tags/block/mineable" / f"{tool}.json"
-        values = json.loads(path.read_text(encoding="utf-8"))
+        values = json.loads(module_read_text(path, encoding="utf-8"))
         for block_id in ids:
             if f"lsmmod:{block_id}" not in values["values"]: values["values"].append(f"lsmmod:{block_id}")
         write_json(path, values)

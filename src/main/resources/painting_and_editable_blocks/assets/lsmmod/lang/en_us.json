@@ -1,0 +1,14 @@
+{
+  "block.lsmmod.school_paintable_block": "School Paintable Block",
+  "block.lsmmod.school_paintable_custom_block": "Custom Paintable School Block",
+  "config.jade.plugin_lsmmod.painted_wall_name": "Painted block face: name and icon",
+  "block.lsmmod.school_paintable_projecting_window": "Paintable Half with Projecting Window",
+  "block.lsmmod.bathroom_door_wide_paintable": "Wide Bathroom Door with Paintable Frame",
+  "block.lsmmod.school_paintable_mini_cube_block": "Paintable 4px Mini Cube Block",
+  "block.lsmmod.school_entrance_door_paintable": "School Entrance Door with Paintable Frame",
+  "block.lsmmod.school_paintable_glass_stairs": "Glass Stairs with Paintable Base",
+  "block.lsmmod.bathroom_door_wide_paintable_column": "Wide Bathroom Door with Paintable Column",
+  "block.lsmmod.double_school_entrance_paintable_slab": "Double School Entrance with Paintable Slab",
+  "block.lsmmod.school_paintable_projecting_window_slab": "Paintable Slab with Projecting Window",
+  "block.lsmmod.school_paintable_projecting_window_stairs": "Paintable Stair with Projecting Window"
+}

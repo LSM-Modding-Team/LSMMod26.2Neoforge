@@ -1,4 +1,5 @@
 """Static geometry, two-cell assembly and connected light tile regressions; no Java compilation."""
+from resource_modules import module_path, module_read_text
 import itertools
 import json
 from PIL import Image
@@ -7,7 +8,7 @@ from create_bathroom_statue_assets import solid_model
 from check_bathroom_statue_assets import mesh
 
 
-def read(path): return json.loads(path.read_text())
+def read(path): return json.loads(module_read_text(path))
 
 
 def main():
@@ -61,7 +62,7 @@ def main():
         point = (16, y, .5)
         assert any(inside(b, point) for b, *_ in FIXTURES['toilet'][0])
         assert not any(inside(b, point) for b, *_ in FIXTURES['toilet'][1])
-    tiles = {(x,z): Image.open(ASSETS / f'textures/block/light_school_tiled_floor_{x}_{z}.png') for x,z in itertools.product(range(3),repeat=2)}
+    tiles = {(x,z): Image.open(module_path(ASSETS / f'textures/block/light_school_tiled_floor_{x}_{z}.png')) for x,z in itertools.product(range(3),repeat=2)}
     assert len(read(ASSETS / 'blockstates/light_school_tiled_floor.json')['variants']) == 9
     for bx,bz in itertools.product(range(-4,5),repeat=2):
         tile = tiles[bx%3,bz%3]
@@ -69,7 +70,7 @@ def main():
             joint = (bx*16+x)%24 == 0 or (bz*16+y)%24 == 0
             assert (tile.getpixel((x,y)) == (173,177,182)) == joint
             assert min(tile.getpixel((x,y))) >= 173
-    source = (ROOT / 'src/main/java/net/nicomar2009/lsmmod/block/WideBathroomBlock.java').read_text()
+    source = module_read_text(ROOT / 'src/main/java/net/nicomar2009/lsmmod/modules/facilities/block/WideBathroomBlock.java')
     assert 'SimpleBlockOutline.forState' in source and 'Shapes.rotateHorizontal' in source and 'ExactVoxelShapes.union' in source
     assert 'BlockEntity' not in source and 'Shapes.or' not in source
     from audit_block_states import audit

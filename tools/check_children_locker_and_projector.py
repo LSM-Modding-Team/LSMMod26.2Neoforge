@@ -1,8 +1,9 @@
 """Static geometry/resource checks; no Java build or Minecraft execution."""
+from resource_modules import module_is_file, module_path, module_read_text
 import json
 from PIL import Image
 from create_children_locker_and_projector import ROOT,A,D
-def read(path):return json.loads(path.read_text())
+def read(path):return json.loads(module_read_text(path))
 def solid(model,point):return any(all(a<=v<=b for a,v,b in zip(e['from'],point,e['to'])) for e in model['elements'])
 def main():
     for half in ('lower','upper'):
@@ -21,13 +22,13 @@ def main():
     assert max(e['to'][1] for e in projector['elements'])==16 and min(e['from'][1] for e in projector['elements'])==7
     assert len(read(A/'blockstates/ceiling_projector.json')['variants'])==4
     for model in [projector,item]:
-        for texture in model['textures'].values():assert (A/('textures/'+texture.split(':')[1]+'.png')).is_file()
-    clock=Image.open(A/'textures/block/school_clock_face.png');assert clock.size==(64,64) and clock.mode=='RGB'
+        for texture in model['textures'].values():assert module_is_file(A/('textures/'+texture.split(':')[1]+'.png'))
+    clock=Image.open(module_path(A/'textures/block/school_clock_face.png'));assert clock.size==(64,64) and clock.mode=='RGB'
     java=ROOT/'src/main/java/net/nicomar2009/lsmmod/block'
     for name in ('ChildrenLockerBlock','CeilingProjectorBlock'):
-        source=(java/f'{name}.java').read_text()
+        source=module_read_text(java/f'{name}.java')
         assert 'EntityBlock' not in source and 'scheduleTick' not in source
         assert 'Shapes.rotateHorizontal' in source and 'SimpleBlockOutline.forState' in source
-    assert (A/'blockstates/wall_projector.json').is_file()
+    assert module_is_file(A/'blockstates/wall_projector.json')
     print('OK: two open 16px cubbies / 32px item, eight orientations/halves, lower-only loot; four ceiling orientations, ceiling mount, resources present and 64px clock dial; no entities/tickers.')
 if __name__=='__main__':main()

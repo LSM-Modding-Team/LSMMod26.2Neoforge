@@ -1,4 +1,5 @@
 """Three shared raised underside pieces: 48px run, lower edge y=8..56px."""
+from resource_modules import module_read_text, module_write_text
 from resource_json import resource_json
 import json
 from pathlib import Path
@@ -8,7 +9,7 @@ IDS=[f'school_inverted_slope_short_raised_{i}' for i in range(1,4)]
 GENERATED=[]
 def write(path,value):
  path.parent.mkdir(parents=True,exist_ok=True)
- path.write_text(resource_json(path, value, ensure_ascii=False)+'\n' if not isinstance(value,str) else value)
+ module_write_text(path, resource_json(path, value, ensure_ascii=False)+'\n' if not isinstance(value,str) else value)
  GENERATED.append(str(path.relative_to(ROOT)))
 def main():
  # Native north: back underside .5b, front underside 1.5b; roof 2b.
@@ -30,7 +31,7 @@ def main():
   write(A/f'items/{ident}.json',{'model':{'type':'minecraft:model','model':'lsmmod:block/'+ident}})
   write(D/f'lsmmod/loot_table/blocks/{ident}.json',{'type':'minecraft:block','pools':[{'rolls':1,'conditions':[{'condition':'minecraft:survives_explosion'}],'entries':[{'type':'minecraft:item','name':'lsmmod:'+ident}]}]})
  for filename in ('ModBlocks.java','ModItems.java'):
-  p=J/filename;s=p.read_text();begin='    // BEGIN SHORT RAISED SLOPES';end='    // END SHORT RAISED SLOPES'
+  p=J/filename;s=module_read_text(p);begin='    // BEGIN SHORT RAISED SLOPES';end='    // END SHORT RAISED SLOPES'
   if filename=='ModBlocks.java':body='\n'.join(f'    public static final DeferredBlock<SchoolInvertedSlopeBlock> {i.upper()} = BLOCKS.registerBlock("{i}", props -> new SchoolInvertedSlopeBlock(0,-1,0.5,2,props), props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());' for i in IDS)
   else:body='\n'.join(f'    public static final DeferredItem<BlockItem> {i.upper()} = ITEMS.registerSimpleBlockItem(ModBlocks.{i.upper()});' for i in IDS)
   section=begin+'\n'+body+'\n'+end
@@ -38,10 +39,10 @@ def main():
   else:s=s.replace('    // BEGIN SCHOOL INVERTED SLOPES',section+'\n\n    // BEGIN SCHOOL INVERTED SLOPES',1)
   write(p,s)
  for locale in ('en_us','es_es'):
-  p=A/f'lang/{locale}.json';v=json.loads(p.read_text())
+  p=A/f'lang/{locale}.json';v=json.loads(module_read_text(p))
   for n,ident in enumerate(IDS,1):v['block.lsmmod.'+ident]=(f'Short raised inverted slope {n}' if locale=='en_us' else f'Pendiente invertida elevada corta {n}')
   write(p,v)
- p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+i for i in IDS]));write(p,v)
+ p=D/'minecraft/tags/block/mineable/pickaxe.json';v=json.loads(module_read_text(p));v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+i for i in IDS]));write(p,v)
  write(ROOT/'tools/school_short_raised_slope_layout.json',{'length_pixels':48,'height_pixels':64,'underside_start_pixels':8,'underside_end_pixels':56,'placements':{face:[{'id':ident,'offset':[dx*n,n,dz*n]} for n,ident in enumerate(IDS)] for face,dx,dz in [('north',0,-1),('east',1,0),('south',0,1),('west',-1,0)]}})
- Path('/tmp/short-slopes-generated.json').write_text(json.dumps(GENERATED))
+ module_write_text(Path('/tmp/short-slopes-generated.json'), json.dumps(GENERATED))
 if __name__=='__main__':main()

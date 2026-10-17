@@ -1,3 +1,4 @@
+from resource_modules import module_read_text
 import bpy, json, math, sys
 from pathlib import Path
 from mathutils import Vector
@@ -14,7 +15,7 @@ def material(tex):
     img=mat.node_tree.nodes.new('ShaderNodeTexImage');img.image=bpy.data.images.load(str(assets/('textures/'+tex.split(':')[1]+'.png')));img.interpolation='Closest'
     mat.node_tree.links.new(img.outputs['Color'],bs.inputs['Base Color']);mat.node_tree.links.new(img.outputs['Alpha'],bs.inputs['Alpha']);materials[tex]=mat;return mat
 for kind,color,offset in [('folder','blue',-6.2),('notebook','red',6.2)]:
-    model=json.loads((assets/f'models/item/{kind}.json').read_text()); textures=model['textures'];textures['cover']=f'lsmmod:item/stationery/cover_{color}'
+    model=json.loads(module_read_text(assets/f'models/item/{kind}.json')); textures=model['textures'];textures['cover']=f'lsmmod:item/stationery/cover_{color}'
     for e in model['elements']:
         a,b=e['from'],e['to']; vs=[(x-8+offset,-z+8,y-1) for x in [a[0],b[0]] for y in [a[1],b[1]] for z in [a[2],b[2]]]
         mesh=bpy.data.meshes.new(kind);active_faces={k:v for k,v in faces.items() if k in e['faces']};mesh.from_pydata(vs,[],list(active_faces.values()));mesh.update();ob=bpy.data.objects.new(kind,mesh);bpy.context.collection.objects.link(ob)

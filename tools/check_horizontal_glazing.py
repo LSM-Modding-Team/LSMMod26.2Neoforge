@@ -1,4 +1,5 @@
 """Static regression for parity spacing and transparent frame faces; no Java execution."""
+from resource_modules import module_read_text
 import json
 from pathlib import Path
 from create_school_glass_assets import A, ROOT
@@ -18,12 +19,12 @@ def main():
     sources=['school_glass_0_0']
     sources += [f'tall_classroom_transom_{h}_{o}_{t}_{b}' for h in (0,1) for o in (0,1) for t in (0,1) for b in (0,1)]
     for stem in sources:
-        base=json.loads((A/f'models/block/{stem}.json').read_text())
+        base=json.loads(module_read_text(A/f'models/block/{stem}.json'))
         preserved=lambda m:[e for e in m['elements'] if all(f['texture'] not in ('#glass','#frame') for f in e['faces'].values())]
         y=4 if '_top_straight_' in stem else 11 if stem!='school_glass_0_0' else 8
         for layout in range(8):
             target=stem if layout==3 else f'{stem}_horizontal_{layout}'
-            m=json.loads((A/f'models/block/{target}.json').read_text())
+            m=json.loads(module_read_text(A/f'models/block/{target}.json'))
             assert preserved(m)==preserved(base),(stem,layout,'support or door changed')
             expected=set()
             if layout&1:expected.add((0,1))
@@ -47,11 +48,11 @@ def main():
         assert centers==expected,(length,centers,expected)
     # Adding/removing the final block changes the distant beginning of the row as well.
     assert layouts(4)[1]!=layouts(5)[1] and layouts(5)[1]!=layouts(6)[1]
-    java=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolGlazing.java').read_text()
+    java=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/windows_and_enclosures/block/SchoolGlazing.java')
     assert 'length % 2 == 0 ? 32 : 24' in java and 'index < length' in java
     assert 'level.hasChunkAt' in java and 'Block.UPDATE_CLIENTS' in java
     for file in ('SchoolGlassBlock.java','SchoolGlassStairBlock.java','TallClassroomEntranceBlock.java'):
-        s=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block'/file).read_text()
+        s=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/block'/file)
         assert 'SchoolGlazing.refreshHorizontal' in s
         if file=='TallClassroomEntranceBlock.java':assert 'SchoolGlazing.FRAME_LAYOUT' not in s
         assert 'SchoolGlazing.mirrorLayout' in s and 'SimpleBlockOutline.forState' in s

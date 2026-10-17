@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.balls.client;
 
-
-
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;

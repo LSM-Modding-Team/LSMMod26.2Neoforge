@@ -1,4 +1,5 @@
 """Crisp 64px pixel dial, all twelve readable numbers; existing OBJ/UV unchanged."""
+from resource_modules import output_path
 import math
 from pathlib import Path
 from PIL import Image,ImageDraw
@@ -26,6 +27,6 @@ def create_clock_face(path):
     d.line((32,32,45,19),fill=(38,40,36),width=2)
     d.line((32,34,35,45),fill=(126,66,54),width=1)
     d.ellipse((30,30,34,34),fill=(33,35,31));d.point((31,31),fill=(157,161,149))
-    path=Path(path);path.parent.mkdir(parents=True,exist_ok=True);image.save(path)
+    path=Path(path);path.parent.mkdir(parents=True,exist_ok=True);image.save(output_path(path))
 if __name__=='__main__':
     create_clock_face(Path(__file__).resolve().parents[1]/'src/main/resources/assets/lsmmod/textures/block/school_clock_face.png')

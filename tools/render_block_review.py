@@ -4,6 +4,7 @@ python tools/render_block_review.py school_microwave
 python tools/render_block_review.py school_refrigerator --grid 2 3 1
 For non-column/row/depth assemblies, OBJ, rotated parts or dynamic states use the family renderer.
 """
+from resource_modules import module_read_text, output_path
 import argparse
 import itertools
 import json
@@ -42,7 +43,7 @@ def review(ident, grid, state, output):
             raise ValueError('Select the base orientation with x=0,y=0; otherwise use the family renderer.') from error
         validate(models)
         renderer.add(scene, models, (16*column, 16*row, 16*depth))
-    definition = json.loads((renderer.A/f'items/{ident}.json').read_text())['model']
+    definition = json.loads(module_read_text(renderer.A/f'items/{ident}.json'))['model']
     if definition['type'] != 'minecraft:model':
         raise ValueError('Dynamic item definitions require the family renderer.')
     models = renderer.load(definition['model'])
@@ -63,7 +64,7 @@ def review(ident, grid, state, output):
         draw.text((index*420+12, 8), label, fill=(30, 30, 30))
     draw.text((12, 635), ident+' / render externo; no es una captura de Minecraft.', fill=(30, 30, 30))
     output.parent.mkdir(parents=True, exist_ok=True)
-    canvas.save(output)
+    canvas.save(output_path(output))
     print(output)
 
 

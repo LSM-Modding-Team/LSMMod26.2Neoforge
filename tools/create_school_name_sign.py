@@ -1,4 +1,5 @@
 """Ten-by-three wall lettering: exact ASCII wording, one-pixel relief, existing rectangular lifecycle."""
+from resource_modules import module_exists, module_read_text, module_write_text, output_path
 import copy,json
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont
@@ -17,7 +18,7 @@ TEXTURES={'gold':'lsmmod:block/school_name_sign_gold','particle':'#gold'}
 def lettering():
     # Rasterize serif strokes at half-pixel geometry precision; the material itself remains a 16px texture.
     candidates=(ROOT/'.build-tools/fonts/LiberationSerif-Regular.ttf',Path('/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf'),Path('C:/Windows/Fonts/times.ttf'))
-    font_path=next((path for path in candidates if path.exists()),None)
+    font_path=next((path for path in candidates if module_exists(path)),None)
     if font_path is None:raise RuntimeError('Install Liberation Serif or provide .build-tools/fonts/LiberationSerif-Regular.ttf')
     mask=Image.new('L',(WIDTH*DENSITY,HEIGHT*DENSITY))
     for text,size,top in ((LINES[0],36,14),(LINES[1],28,54)):
@@ -55,7 +56,7 @@ def complete_model(mask):
 
 def main():
     model=complete_model(lettering())
-    Image.new('RGB',(16,16),GOLD).save(A/'textures/block/school_name_sign_gold.png')
+    Image.new('RGB',(16,16),GOLD).save(output_path(A/'textures/block/school_name_sign_gold.png'))
     variants={}
     for row in range(3):
         for column in range(10):
@@ -71,7 +72,7 @@ def main():
     item['display']={'gui':{'rotation':[0,180,0],'scale':[1,1,1]}}
     write(A/f'models/item/{ID}.json',item)
     basic(ID,controller={'column':'0','row':'0'})
-    (J/'block/SchoolNameSignBlock.java').write_text('''package net.nicomar2009.lsmmod.block;
+    module_write_text(J/'modules/wall_blocks/block/SchoolNameSignBlock.java', '''package net.nicomar2009.lsmmod.block;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -93,11 +94,11 @@ public class SchoolNameSignBlock extends SchoolRectangularBlock {
         ('ModBlocks.java','    public static final DeferredBlock<SchoolNameSignBlock> SCHOOL_NAME_SIGN = BLOCKS.registerBlock("school_name_sign", SchoolNameSignBlock::new, props -> props.strength(1F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));'),
         ('ModItems.java','    public static final DeferredItem<BlockItem> SCHOOL_NAME_SIGN = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_NAME_SIGN);'),
     ):
-        path=J/'registry'/filename;text=path.read_text()
-        if ' SCHOOL_NAME_SIGN =' not in text:path.write_text(text.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
+        path=J/'registry'/filename;text=module_read_text(path)
+        if ' SCHOOL_NAME_SIGN =' not in text:module_write_text(path, text.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
     for locale,label in (('es_es','Letrero Colegio Libertador San Martin'),('en_us','Colegio Libertador San Martin Sign')):
-        path=A/f'lang/{locale}.json';data=json.loads(path.read_text());data['block.lsmmod.'+ID]=label;write(path,data)
-    path=D/'minecraft/tags/block/mineable/pickaxe.json';data=json.loads(path.read_text())
+        path=A/f'lang/{locale}.json';data=json.loads(module_read_text(path));data['block.lsmmod.'+ID]=label;write(path,data)
+    path=D/'minecraft/tags/block/mineable/pickaxe.json';data=json.loads(module_read_text(path))
     if 'lsmmod:'+ID not in data['values']:data['values'].append('lsmmod:'+ID)
     write(path,data)
 

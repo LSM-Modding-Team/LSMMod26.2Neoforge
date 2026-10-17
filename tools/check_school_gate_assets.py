@@ -1,4 +1,5 @@
 """Check gate resources and the complete closed/open geometry without compiling Java."""
+from resource_modules import module_path, module_read_text
 import itertools
 import json
 from pathlib import Path
@@ -10,7 +11,7 @@ ASSETS = ROOT / "src/main/resources/assets/lsmmod"
 
 
 def read(path):
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(module_read_text(path, encoding="utf-8"))
 
 
 def rotate(x, z, degrees):
@@ -31,7 +32,7 @@ def main():
             assert all(0 <= a < b <= 16 for a, b in zip(element["from"], element["to"])), key
             for face in element["faces"].values():
                 texture_id = model["textures"][face["texture"][1:]]
-                image = Image.open(ASSETS / "textures" / (texture_id.split(":")[1] + ".png"))
+                image = Image.open(module_path(ASSETS / "textures" / (texture_id.split(":")[1] + ".png")))
                 assert image.size == (16, 16)
                 assert all(0 <= v <= 16 for v in face["uv"])
         if not visible:
@@ -66,10 +67,10 @@ def main():
     for row in range(4):
         original = Image.new("RGBA", (96, 16))
         for column in range(6):
-            original.paste(Image.open(ASSETS / f"textures/block/school_gate_closed_{column}_{row}.png"), (16*column, 0))
+            original.paste(Image.open(module_path(ASSETS / f"textures/block/school_gate_closed_{column}_{row}.png")), (16*column, 0))
         for column in (0, 5):
             for depth, (offset, length) in enumerate(((0, 8), (8, 16), (24, 16), (40, 8))):
-                strip = Image.open(ASSETS / f"textures/block/school_gate_open_{column}_{row}_{depth}.png")
+                strip = Image.open(module_path(ASSETS / f"textures/block/school_gate_open_{column}_{row}_{depth}.png"))
                 start = 8 if depth == 0 else 0
                 for u in range(length):
                     x = offset+u if column == 0 else 95-offset-u
@@ -79,7 +80,7 @@ def main():
     conditions = loot["pools"][0]["conditions"]
     controller = next(c for c in conditions if c["condition"] == "minecraft:block_state_property")
     assert controller["properties"] == {"column": "2", "row": "0", "depth": "0"}
-    java=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolGateBlock.java').read_text()
+    java=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/building_blocks/block/SchoolGateBlock.java')
     assert 'IntegerProperty.create("column", 0, 5)' in java
     assert 'IntegerProperty.create("row", 0, 3)' in java and 'IntegerProperty.create("depth", 0, 3)' in java
     assert 'z2 = depth == 3 ? 8 : 16' in java
@@ -92,7 +93,7 @@ def main():
         for c,r,d in itertools.product(range(6),range(4),range(4)):
             x=rx*(c-2)-fx*d;z=rz*(c-2)-fz*d
             assert (x+rx*(2-c)+fx*d,z+rz*(2-c)+fz*d)==(0,0)
-    floor = Image.open(ASSETS / "textures/block/classroom_floor.png")
+    floor = Image.open(module_path(ASSETS / "textures/block/classroom_floor.png"))
     assert floor.size == (16, 16)
     # Four tile interiors divided by grout only at x/y = 0 and 8.
     for y in range(16):

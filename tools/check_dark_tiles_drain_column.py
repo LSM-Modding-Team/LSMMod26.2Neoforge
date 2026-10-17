@@ -1,10 +1,11 @@
 """Check the 28px cylinder, circular base, neighbor cuts, face colors and railing height."""
+from resource_modules import module_glob, module_read_bytes, module_read_text
 import hashlib,itertools,json,re
 from pathlib import Path
 from create_dark_tiles_drain_column import ROOT,A,CIRCLE,FIXED,BASE_CIRCLE,BASE_FIXED,DRAIN,COLORS,connectors,outer_boxes,vertical,GENERATED,main as generate
 from audit_block_states import audit
 
-def read(p):return json.loads(p.read_text())
+def read(p):return json.loads(module_read_text(p))
 def inside(boxes,p):return any(all(b[i]<=p[i]<b[i+3] for i in range(3)) for b in boxes)
 def rotate(b,side):
  for _ in range(side):b=[16-b[5],b[1],b[0],16-b[2],b[4],b[3]]
@@ -93,10 +94,10 @@ def main():
   mesh=resolve(choose(root['models'][0],base,0,0)['model']);assert min(e['from'][1] for e in mesh['elements'])==(8 if base else 0)
  base=resolve(root['models'][1]['model']);assert all(e['to'][1]<=8 for e in base['elements'])
  item=resolve('lsmmod:item/school_circular_column');assert all(all(0<=e['from'][i]<e['to'][i]<=16 for i in range(3)) for e in item['elements'])
- source=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolCircularColumnBlock.java').read_text();assert 'SchoolDrainColumnShapes.FIXED' in source and 'SchoolDrainColumnShapes.OUTER' in source and ' ? 12 : 16' in source and 'forState' not in source and '1<<20' in source and 'SchoolDrainColumnShapes.BASE_OUTER' in source
+ source=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/building_blocks/block/SchoolCircularColumnBlock.java');assert 'SchoolDrainColumnShapes.FIXED' in source and 'SchoolDrainColumnShapes.OUTER' in source and ' ? 12 : 16' in source and 'forState' not in source and '1<<20' in source and 'SchoolDrainColumnShapes.BASE_OUTER' in source
  ids=set()
- for p in (ROOT/'src/main/java/net/nicomar2009/lsmmod/compat/jade').glob('*Provider.java'):ids.update(re.findall(r'fromNamespaceAndPath\(LSMMod.MOD_ID,\s*"([a-z_]+)"\)',p.read_text()))
+ for p in module_glob(ROOT/'src/main/java/net/nicomar2009/lsmmod/compat/jade', '*Provider.java'):ids.update(re.findall(r'fromNamespaceAndPath\(LSMMod.MOD_ID,\s*"([a-z_]+)"\)',module_read_text(p)))
  for locale in ('en_us','es_es'):assert all(read(A/f'lang/{locale}.json').get('config.jade.plugin_lsmmod.'+i) for i in ids)
- generate();before={p:hashlib.sha256((ROOT/p).read_bytes()).digest() for p in GENERATED};generate();assert all(hashlib.sha256((ROOT/p).read_bytes()).digest()==h for p,h in before.items())
+ generate();before={p:hashlib.sha256(module_read_bytes(ROOT/p)).digest() for p in GENERATED};generate();assert all(hashlib.sha256(module_read_bytes(ROOT/p)).digest()==h for p,h in before.items())
  print(f'OK: {count} render/profile/physical cases; shaft diameter 28px (-6..22), circular 34px/8px base, wall material continuity, railing cuts at 12px, preserved holes, six states, cached base-aware, color-independent physics and idempotent generator.')
 if __name__=='__main__':main()

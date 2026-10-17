@@ -1,0 +1,29 @@
+{
+  "values": [
+    "lsmmod:classroom_floor",
+    "lsmmod:light_school_wall",
+    "lsmmod:dark_school_wall",
+    "lsmmod:school_gate",
+    "lsmmod:light_school_wall_railing",
+    "lsmmod:street_school_wall",
+    "lsmmod:street_school_bars",
+    "lsmmod:school_entrance_pavement",
+    "lsmmod:dark_school_tiled_floor",
+    "lsmmod:school_entrance_pavement_slab",
+    "lsmmod:classroom_painted_block",
+    "lsmmod:classroom_white_wall",
+    "lsmmod:school_foundation",
+    "lsmmod:light_school_tiled_floor",
+    "lsmmod:yellow_school_block",
+    "lsmmod:tiled_parquet_floor",
+    "lsmmod:white_playground_floor",
+    "lsmmod:gray_playground_floor",
+    "lsmmod:green_playground_floor",
+    "lsmmod:orange_playground_floor",
+    "lsmmod:dark_tiled_floor",
+    "lsmmod:school_circular_column",
+    "lsmmod:red_street_wall",
+    "lsmmod:school_laboratory_tile",
+    "lsmmod:laboratory_table_tile"
+  ]
+}

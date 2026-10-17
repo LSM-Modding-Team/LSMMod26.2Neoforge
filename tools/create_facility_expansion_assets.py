@@ -1,4 +1,5 @@
 """Opaque 3x3 entrance grids, 3-cell cot, 2x3 statue/door, microwave and trophy display."""
+from resource_modules import module_glob, module_read_text, module_unlink, module_write_text, output_path
 from resource_json import resource_json
 import copy,json,re
 from pathlib import Path
@@ -16,7 +17,7 @@ DINING_CLOSED=DINING_FIXED+DINING_LEAF
 DINING_OPEN=DINING_FIXED+[([b[2],b[1],b[0],b[5],b[4],b[3]],mat) for b,mat in DINING_LEAF]
 
 def write(p,v):
- p.parent.mkdir(parents=True,exist_ok=True);p.write_text(v if isinstance(v,str) else resource_json(p, v, ensure_ascii=False)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
+ p.parent.mkdir(parents=True,exist_ok=True);module_write_text(p, v if isinstance(v,str) else resource_json(p, v, ensure_ascii=False)+'\n');GENERATED.append(str(p.relative_to(ROOT)))
 def basic(ident,root=None,controller=None):
  write(A/f'items/{ident}.json',{'model':{'type':'minecraft:model','model':'lsmmod:'+(root or 'item/'+ident)}})
  cond=[{'condition':'minecraft:survives_explosion'}]
@@ -59,7 +60,7 @@ def layered_item(ident,layers,textures,width,height):
  write(A/f'models/item/{ident}.json',{'loader':'fusion:model','type':'composite','textures':textures,'models':[references]})
 
 def cot():
- source=json.loads((A/'models/block/infirmary_cot_1.json').read_text());states={}
+ source=json.loads(module_read_text(A/'models/block/infirmary_cot_1.json'));states={}
  for segment in range(3):
   for extended in (False,True):
    name=f'infirmary_cot_{min(segment,1)}'
@@ -80,7 +81,7 @@ def cot():
    for n,f in enumerate(('south','west','north','east')):states[f'facing={f},segment={segment},extended={str(extended).lower()}']={'model':'lsmmod:block/'+name,'y':n*90}
  write(A/'blockstates/infirmary_cot.json',{'variants':states})
  # Item shows the extended mattress without changing the inclined headrest.
- item=json.loads((A/'models/block/infirmary_cot_0.json').read_text());elements=copy.deepcopy(item['elements'])
+ item=json.loads(module_read_text(A/'models/block/infirmary_cot_0.json'));elements=copy.deepcopy(item['elements'])
  for e in source['elements']:
   e=copy.deepcopy(e)
   for k in ('from','to'):e[k][2]=16+e[k][2]*2
@@ -91,7 +92,7 @@ def cot():
   if 'rotation' in e:e['rotation']['origin']=[8+(e['rotation']['origin'][0]-8)/3,e['rotation']['origin'][1]/3,8+(e['rotation']['origin'][2]-24)/3]
  write(A/'models/block/infirmary_cot_item.json',item)
  # Preserve the original two physical grids; extend only the former tail's Z span.
- source_java=(J/'block/InfirmaryCotShapes.java').read_text();tail=source_java[source_java.index('SHAPES[1][0]'):source_java.index('for (int segment')]
+ source_java=module_read_text(J/'modules/facilities/block/InfirmaryCotShapes.java');tail=source_java[source_java.index('SHAPES[1][0]'):source_java.index('for (int segment')]
  boxes=[list(map(float,v.split(','))) for v in re.findall(r'ExactVoxelShapes.box\(([\d., \-]+)\)',tail)]
  arrays=[]
  for segment in range(2):
@@ -102,7 +103,7 @@ def cot():
   arrays.append(local)
  java='package net.nicomar2009.lsmmod.block;\n\n/** Extended cot reuses the original angled headrest and shares direct grid rotations. */\npublic final class InfirmaryCotExtendedShapes {\n public static final net.minecraft.world.phys.shapes.VoxelShape[][] SHAPES=new net.minecraft.world.phys.shapes.VoxelShape[3][];\n static {\n  SHAPES[0]=InfirmaryCotShapes.SHAPES[0];\n'
  for i,boxes in enumerate(arrays,1):java+=f'  SHAPES[{i}]=SharedChairRotations.horizontal(ExactVoxelShapes.pixels(new double[][] '+json.dumps(boxes).replace('[','{').replace(']','}')+'));\n'
- write(J/'block/InfirmaryCotExtendedShapes.java',java+' }\n private InfirmaryCotExtendedShapes() {}\n}\n')
+ write(J/'modules/facilities/block/InfirmaryCotExtendedShapes.java',java+' }\n private InfirmaryCotExtendedShapes() {}\n}\n')
 
 def main():
  cot()
@@ -110,7 +111,7 @@ def main():
  GENERATED.extend(rebuild_san_martin())
  # Solid enclosure collision; the centered sculpture is decorative inside it.
  statue=[([0,0,0,32,40,16],'white')]
- loot=json.loads((D/'lsmmod/loot_table/blocks/san_martin_de_porres.json').read_text());loot['pools'][0]['conditions']=[{'condition':'minecraft:survives_explosion'},{'condition':'minecraft:any_of','terms':[{'condition':'minecraft:block_state_property','block':'lsmmod:san_martin_de_porres','properties':{'expanded':'true','column':'0','row':'0'}},{'condition':'minecraft:block_state_property','block':'lsmmod:san_martin_de_porres','properties':{'expanded':'false','half':'lower'}}]}];write(D/'lsmmod/loot_table/blocks/san_martin_de_porres.json',loot)
+ loot=json.loads(module_read_text(D/'lsmmod/loot_table/blocks/san_martin_de_porres.json'));loot['pools'][0]['conditions']=[{'condition':'minecraft:survives_explosion'},{'condition':'minecraft:any_of','terms':[{'condition':'minecraft:block_state_property','block':'lsmmod:san_martin_de_porres','properties':{'expanded':'true','column':'0','row':'0'}},{'condition':'minecraft:block_state_property','block':'lsmmod:san_martin_de_porres','properties':{'expanded':'false','half':'lower'}}]}];write(D/'lsmmod/loot_table/blocks/san_martin_de_porres.json',loot)
  # Six columns, four shelves, 12px total depth; 18 gold and six silver/bronze awards.
  trophies=[([0,0,10.5,96,64,12],'wood')]
  for x in (0,95):trophies.append(([x,0,0,x+1,64,10.5],'wood'))
@@ -139,9 +140,9 @@ def main():
   image=Image.new('RGB',(16,16))
   for y in range(16):
    for x in range(16):image.putpixel((x,y),tuple(c+((x*3+y*5)%5-2) for c in color))
-  image.save(A/f'textures/block/school_trophy_{material}.png')
+  image.save(output_path(A/f'textures/block/school_trophy_{material}.png'))
  glass=mesh([([0,0,0,16,16,.125],'glass')],{'glass':'lsmmod:block/school_glass','particle':'lsmmod:block/school_glass'});glass['render_type']='minecraft:translucent';glass['elements']=[e for e in glass['elements'] if any(f in ('north','south') for f in e['faces'])];write(A/'models/block/school_trophy_gallery_glass.json',glass)
- old=json.loads((A/'blockstates/school_trophy_gallery.json').read_text())['variants'];multipart=[]
+ old=json.loads(module_read_text(A/'blockstates/school_trophy_gallery.json'))['variants'];multipart=[]
  for key,value in old.items():multipart.append({'when':dict(t.split('=') for t in key.split(',')),'apply':value})
  for turn,f in enumerate(('north','east','south','west')):multipart.append({'when':{'facing':f},'apply':{'model':'lsmmod:block/school_trophy_gallery_glass','y':turn*90}})
  write(A/'blockstates/school_trophy_gallery.json',{'multipart':multipart})
@@ -215,7 +216,7 @@ def main():
  arrays={'STATUE':[b for b,*_ in statue],'TROPHIES':[b for b,*_ in trophies]+[[0,0,0,96,64,.125]],'MICROWAVE':[b for b,*_ in MICROWAVE],'DINING_CLOSED':[b for b,*_ in DINING_CLOSED],'DINING_OPEN':[b for b,*_ in DINING_OPEN],'INFIRMARY_CLOSED':[b for b,*_ in INFIRMARY_CLOSED],'INFIRMARY_OPEN':[b for b,*_ in INFIRMARY_OPEN]}
  java='package net.nicomar2009.lsmmod.block;\n\n/** Model-identical facility boxes; per-cell grids and rotations are cached. */\npublic final class SchoolFacilityShapes {\n private SchoolFacilityShapes() {}\n'
  for name,boxes in arrays.items():java+=' public static final double[][] '+name+' = '+json.dumps(boxes).replace('[','{').replace(']','}')+';\n'
- write(J/'block/SchoolFacilityShapes.java',java+'}\n')
+ write(J/'modules/facilities/block/SchoolFacilityShapes.java',java+'}\n')
  registrations='''    public static final DeferredBlock<SchoolFramedDiningDoorBlock> DINING_DOOR_WIDE = BLOCKS.registerBlock("dining_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
     public static final DeferredBlock<SchoolFramedDiningDoorBlock> BATHROOM_DOOR_WIDE = BLOCKS.registerBlock("bathroom_door_wide", SchoolFramedDiningDoorBlock::new, props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
     public static final DeferredBlock<SchoolFramedDiningDoorBlock> INFIRMARY_DOOR = BLOCKS.registerBlock("infirmary_door", props -> new SchoolFramedDiningDoorBlock(props,true), props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
@@ -223,18 +224,18 @@ def main():
     public static final DeferredBlock<SchoolPassiveAccessoryBlock> SCHOOL_MICROWAVE = BLOCKS.registerBlock("school_microwave", props -> new SchoolPassiveAccessoryBlock(props,SchoolFacilityShapes.MICROWAVE), props -> props.strength(2F).sound(SoundType.METAL).noOcclusion());
     public static final DeferredBlock<SchoolTrophyGalleryBlock> SCHOOL_TROPHY_GALLERY = BLOCKS.registerBlock("school_trophy_gallery", SchoolTrophyGalleryBlock::new, props -> props.strength(2F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));'''
  for filename,body in [('ModBlocks.java',registrations),('ModItems.java','\n'.join(f'    public static final DeferredItem<BlockItem> {i.upper()} = ITEMS.registerSimpleBlockItem(ModBlocks.{i.upper()});' for i in IDS))]:
-  p=J/'registry'/filename;s=p.read_text();a='    // BEGIN FACILITY EXPANSIONS';z='    // END FACILITY EXPANSIONS';section=a+'\n'+body+'\n'+z
+  p=J/'registry'/filename;s=module_read_text(p);a='    // BEGIN FACILITY EXPANSIONS';z='    // END FACILITY EXPANSIONS';section=a+'\n'+body+'\n'+z
   if a in s:start=s.index(a);end=s.index(z)+len(z);s=s[:start]+section+s[end:]
   else:s=s.replace('    // BEGIN KIOSK ENTRANCE ACCESSORIES',section+'\n\n    // BEGIN KIOSK ENTRANCE ACCESSORIES',1)
   if filename=='ModBlocks.java':s=s.replace('DeferredBlock<TwoTallBlock> SAN_MARTIN_DE_PORRES','DeferredBlock<SchoolSanMartinBlock> SAN_MARTIN_DE_PORRES').replace('"san_martin_de_porres",\n            TwoTallBlock::new','"san_martin_de_porres",\n            SchoolSanMartinBlock::new')
   write(p,s)
  for locale,names in [('es_es',['Puerta del comedor con marco (2×3)','Puerta del baño con marco (2×3)','Microondas del colegio','Galería de trofeos del colegio','Puerta de enfermería','Puerta del comedor con frente claro']),('en_us',['Framed Dining Door (2×3)','Framed Bathroom Door (2×3)','School Microwave','School Trophy Gallery','Infirmary Door','Dining Door with Light Front'])]:
-  p=A/f'lang/{locale}.json';v=json.loads(p.read_text());v.update({'block.lsmmod.'+i:n for i,n in zip(IDS,names)});write(p,v)
+  p=A/f'lang/{locale}.json';v=json.loads(module_read_text(p));v.update({'block.lsmmod.'+i:n for i,n in zip(IDS,names)});write(p,v)
  for tool,ids in [('axe',['dining_door_wide','bathroom_door_wide','school_trophy_gallery','infirmary_door','dining_door_wide_light']),('pickaxe',['school_microwave'])]:
-  p=D/f'minecraft/tags/block/mineable/{tool}.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+i for i in ids]));write(p,v)
- Path('/tmp/facility-generated.json').write_text(json.dumps(GENERATED))
+  p=D/f'minecraft/tags/block/mineable/{tool}.json';v=json.loads(module_read_text(p));v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+i for i in ids]));write(p,v)
+ module_write_text(Path('/tmp/facility-generated.json'), json.dumps(GENERATED))
  # Retire unused cells when changed geometry produces a different shared model count.
  for prefix in ('dining_door_wide_part_','bathroom_door_wide_part_','school_trophy_gallery_part_','infirmary_door_part_','dining_door_wide_light_part_'):
-  for p in (A/'models/block').glob(prefix+'*.json'):
-   if str(p.relative_to(ROOT)) not in GENERATED:p.unlink()
+  for p in module_glob(A/'models/block', prefix+'*.json'):
+   if str(p.relative_to(ROOT)) not in GENERATED:module_unlink(p)
 if __name__=='__main__':main()

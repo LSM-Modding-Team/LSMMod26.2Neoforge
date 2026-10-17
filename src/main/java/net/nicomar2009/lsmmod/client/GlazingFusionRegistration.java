@@ -1,4 +1,13 @@
 package net.nicomar2009.lsmmod.client;
+import net.nicomar2009.lsmmod.modules.facilities.client.SinkConnectionsPredicate;
+import net.nicomar2009.lsmmod.modules.windows_and_enclosures.client.SchoolGlazingPredicate;
+import net.nicomar2009.lsmmod.modules.windows_and_enclosures.client.ProjectingWindowPredicate;
+import net.nicomar2009.lsmmod.modules.windows_and_enclosures.client.ProjectingWindowLayoutPredicate;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.client.PaintedMiniCubePredicate;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.client.PaintedFacePredicate;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.client.PaintedDoorFramePredicate;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.client.PaintedCubeFacePredicate;
+import net.nicomar2009.lsmmod.modules.building_blocks.client.ColumnPartPredicate;
 
 import com.supermartijn642.fusion.api.model.predicates.FusionModelPredicateRegistry;
 import net.minecraft.resources.Identifier;

@@ -3,6 +3,7 @@
 Native model/OBJ files are untouched. Physical state properties remain physical;
 only pavement borders and bars panel phase are selected from neighboring blocks.
 """
+from resource_modules import module_read_text, module_write_text
 from collections import defaultdict
 from pathlib import Path
 import itertools,hashlib,json,math
@@ -14,8 +15,8 @@ PAVEMENT=('school_entrance_pavement', 'school_entrance_pavement_slab',*(f'school
 GLASS=()
 BORDER=('north','east','south','west','up','down')
 def canonical(data):return json.dumps(data,sort_keys=True,separators=(',',':'),ensure_ascii=False)
-def read(path):return json.loads(path.read_text(encoding='utf-8-sig'))
-def write(path,data):path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(data,separators=(',',':'),ensure_ascii=False)+'\n',encoding='utf-8')
+def read(path):return json.loads(module_read_text(path, encoding='utf-8-sig'))
+def write(path,data):path.parent.mkdir(parents=True,exist_ok=True);module_write_text(path, json.dumps(data,separators=(',',':'),ensure_ascii=False)+'\n',encoding='utf-8')
 def key(state):return ','.join(f'{k}={v}' for k,v in sorted(state.items()))
 def transform(apply):return {k:v for k,v in apply.items() if k!='model'}
 def index(state,fields):

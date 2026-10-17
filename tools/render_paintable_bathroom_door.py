@@ -1,4 +1,5 @@
 """Review the actual bathroom leaf, editable frame, palette selection and carved surfaces."""
+from resource_modules import module_read_text, output_path
 from resource_json import preview_path
 import itertools
 import json
@@ -17,7 +18,7 @@ def frame_cells(right=False,removed=(),transom=False):
 
 def scene(opened=False,right=False,paint=0,removed=(),facing='north',leaf_only=False,ident=ID):
     cells=frame_cells(right,removed);result=[]
-    definition=json.loads((A/f'blockstates/{ident}.json').read_text())['multipart']
+    definition=json.loads(module_read_text(A/f'blockstates/{ident}.json'))['multipart']
     turn=('north','east','south','west').index(facing)
     for column,row,depth in itertools.product(range(2),range(3),range(2)):
         state={'facing':facing,'column':str(column),'row':str(row),'depth':str(depth),
@@ -40,7 +41,7 @@ def scene(opened=False,right=False,paint=0,removed=(),facing='north',leaf_only=F
 
 
 def item_scene(ident=ID):
-    item=[];definition=json.loads((A/f'items/{ident}.json').read_text())['model']
+    item=[];definition=json.loads(module_read_text(A/f'items/{ident}.json'))['model']
     add(item,load(definition['model']));return item
 
 
@@ -58,13 +59,13 @@ def review():
         canvas.paste(render(elements,origin,scale,size=(480,580),azimuth=angle,elevation=12,minecraft_orientation=True),offset)
         draw.text((offset[0]+10,offset[1]-18),label,fill=(25,25,25))
     draw.text((10,1840),'Render externo de modelos finales; no es una prueba en Minecraft.',fill=(25,25,25))
-    canvas.save(preview_path(f'{ID}_review.png'))
+    canvas.save(output_path(preview_path(f'{ID}_review.png')))
     palette=Image.new('RGB',(1680,2340),(194,194,194));draw=ImageDraw.Draw(palette)
     for paint in range(13):
         elements=scene(paint=paint);origin,scale=framing(elements,size=(420,520));offset=(paint%4*420,paint//4*580+25)
         palette.paste(render(elements,origin,scale,size=(420,520),azimuth=-65,elevation=12,minecraft_orientation=True),offset)
         draw.text((offset[0]+10,offset[1]-18),f'Pintura {paint} / material real',fill=(25,25,25))
-    palette.save(preview_path(f'{ID}_palette_review.png'))
+    palette.save(output_path(preview_path(f'{ID}_palette_review.png')))
     editing=Image.new('RGB',(1440,620),(194,194,194));draw=ImageDraw.Draw(editing)
     cases=(('Cuadrados independientes de 8x8 px',scene(paint=lambda xyz,face:9 if sum(v//2 for v in xyz)%2 else 4)),
            ('Marco retirado / hoja conservada',scene(removed=frame_cells())),
@@ -73,7 +74,7 @@ def review():
         origin,scale=framing(elements,size=(480,580));offset=(index*480,25)
         editing.paste(render(elements,origin,scale,size=(480,580),azimuth=-65,elevation=12,minecraft_orientation=True),offset)
         draw.text((offset[0]+10,8),label,fill=(25,25,25))
-    editing.save(preview_path(f'{ID}_editing_review.png'))
+    editing.save(output_path(preview_path(f'{ID}_editing_review.png')))
 
 
 def review_entrance():
@@ -89,12 +90,12 @@ def review_entrance():
         origin,scale=framing(elements,size=(480,580));offset=(index%3*480,index//3*620+25)
         canvas.paste(render(elements,origin,scale,size=(480,580),azimuth=120 if index==5 else -65,elevation=12,minecraft_orientation=True),offset)
         draw.text((offset[0]+10,offset[1]-18),label,fill=(25,25,25))
-    canvas.save(preview_path(ENTRANCE_ID+'_review.png'))
+    canvas.save(output_path(preview_path(ENTRANCE_ID+'_review.png')))
 
 def column_scene(opened=False,right=False,paint=0,facing='north',ident=None):
     from create_paintable_bathroom_door import COLUMN_ID
     ident=ident or COLUMN_ID;result=[];turn=('north','east','south','west').index(facing)
-    entries=json.loads((A/f'blockstates/{ident}.json').read_text())['multipart']
+    entries=json.loads(module_read_text(A/f'blockstates/{ident}.json'))['multipart']
     for column,row,depth in itertools.product(range(2),range(3),range(2)):
         state=dict(facing=facing,open=str(opened).lower(),hinge='right' if right else 'left',column=str(column),row=str(row),depth=str(depth))
         def predicate(condition):
@@ -134,7 +135,7 @@ def review_column():
         origin,scale=framing(elements,size=(480,580));offset=(index%3*480,index//3*620+25)
         canvas.paste(render(elements,origin,scale,size=(480,580),azimuth=120 if index==4 else -65,elevation=12,minecraft_orientation=True),offset)
         draw.text((offset[0]+10,offset[1]-18),label,fill=(25,25,25))
-    canvas.save(preview_path(COLUMN_ID+'_review.png'))
+    canvas.save(output_path(preview_path(COLUMN_ID+'_review.png')))
 
 
 if __name__=='__main__':

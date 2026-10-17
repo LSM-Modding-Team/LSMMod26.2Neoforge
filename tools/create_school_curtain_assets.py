@@ -1,4 +1,5 @@
 """Curtain item and multipart overlays entirely inside the empty glass/stair volume."""
+from resource_modules import module_read_text, output_path
 import json, random
 from PIL import Image, ImageDraw
 from create_school_glass_assets import A, ROOT, write
@@ -68,7 +69,7 @@ def translations():
         'message.lsmmod.curtain.target':('Solo puedes colocar cortinas en el cristal del colegio y sus escaleras.','Curtains only attach to school glass and its stairs.'),
     }
     for locale,index in (('es_es',0),('en_us',1)):
-        p=A/f'lang/{locale}.json';value=json.loads(p.read_text())
+        p=A/f'lang/{locale}.json';value=json.loads(module_read_text(p))
         value.update({key:labels[index] for key,labels in messages.items()});write(p,value)
 
 def main():
@@ -78,13 +79,13 @@ def main():
         for x in range(16):
             color=palette[x%4];noise=rng.choice((-1,0,0,1))
             cloth.putpixel((x,y),tuple(c+noise for c in color))
-    cloth.save(A/'textures/block/school_curtain.png')
-    Image.new('RGB',(16,16),(221,211,194)).save(A/'textures/block/school_curtain_rail.png')
-    Image.new('RGB',(16,16),(171,135,100)).save(A/'textures/block/school_curtain_hem.png')
+    cloth.save(output_path(A/'textures/block/school_curtain.png'))
+    Image.new('RGB',(16,16),(221,211,194)).save(output_path(A/'textures/block/school_curtain_rail.png'))
+    Image.new('RGB',(16,16),(171,135,100)).save(output_path(A/'textures/block/school_curtain_hem.png'))
     icon=Image.new('RGBA',(16,16),(0,0,0,0));draw=ImageDraw.Draw(icon)
     draw.rectangle((1,2,14,3),fill=(221,211,194,255))
     for x in range(2,14):draw.line((x,4,x,13-(x%3==0)),fill=(*palette[x%4],255))
-    icon.save(A/'textures/item/school_curtain.png')
+    icon.save(output_path(A/'textures/item/school_curtain.png'))
     write(A/'models/item/school_curtain.json',{'parent':'minecraft:item/generated','textures':{'layer0':'lsmmod:item/school_curtain'}})
     write(A/'items/school_curtain.json',{'model':{'type':'minecraft:model','model':'lsmmod:item/school_curtain'}})
     for name,bounds in mounts().items():
@@ -93,7 +94,7 @@ def main():
                 suffix='' if vertical=='single' else '_vertical_'+vertical
                 write(A/f'models/block/school_curtain_{name}_{part}{suffix}.json',curtain_model(bounds,part,vertical))
     for block in IDS:
-        path=A/f'blockstates/{block}.json';parts=base_parts(json.loads(path.read_text()))
+        path=A/f'blockstates/{block}.json';parts=base_parts(json.loads(module_read_text(path)))
         for facing,angle in (('north',0),('east',90),('south',180),('west',270)):
             for part in PARTS:
                 for vertical in PARTS:

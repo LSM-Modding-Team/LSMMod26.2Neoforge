@@ -1,5 +1,6 @@
 package net.nicomar2009.lsmmod.block;
 
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.regex.Pattern;
@@ -38,8 +39,8 @@ public final class SimpleBlockOutlineCheck {
                 || SimpleBlockOutline.boundingBox(legs).clip(from,to,BlockPos.ZERO) == null) {
             throw new AssertionError("Selection must use the envelope without filling physical gaps");
         }
-        Path blocks = Path.of(args[0], "src/main/java/net/nicomar2009/lsmmod/block");
-        try (var files = Files.list(blocks)) {
+        Path blocks = Path.of(args[0], "src/main/java/net/nicomar2009/lsmmod/modules");
+        try (var files = Files.walk(blocks)) {
             for (Path file : files.filter(p -> p.toString().endsWith(".java")).sorted().toList()) {
                 var unions = UNION.matcher(Files.readString(file));
                 int group = 0;

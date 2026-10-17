@@ -1,4 +1,5 @@
 """Render final models/UV/materials offline; these previews are not Minecraft screenshots."""
+from resource_modules import module_path, module_read_text, output_path
 from resource_json import preview_path
 import argparse
 import copy
@@ -19,7 +20,7 @@ def load(ident, mask=3, predicate=None):
     path = A/f'models/{name}.json' if namespace=='lsmmod' else VANILLA/(Path(name).name+'.json')
     if namespace=='minecraft' and name=='block/block':
         return [{}]
-    data = json.loads(path.read_text())
+    data = json.loads(module_read_text(path))
     if data.get('type')=='composite':
         result = []
         for group in data['models']:
@@ -58,7 +59,7 @@ def add(scene, models, offset=(0,0,0)):
 
 
 def block(ident, state, mask=3):
-    definition = json.loads((A/f'blockstates/{ident}.json').read_text())
+    definition = json.loads(module_read_text(A/f'blockstates/{ident}.json'))
     if 'multipart' in definition:
         applies = [p['apply'] for p in definition['multipart']
                    if all(str(state.get(k)) in v.split('|') for k,v in p.get('when',{}).items())]
@@ -116,7 +117,7 @@ def small_door(ident):
 def texture(ident):
     namespace, name = ident.split(':',1)
     path = A/f'textures/{name}.png' if namespace=='lsmmod' else VANILLA/(Path(name).name+'.png')
-    return np.array(Image.open(path).convert('RGBA'))
+    return np.array(Image.open(module_path(path)).convert('RGBA'))
 
 
 def render(scene, center, scale, size=(420,560), azimuth=-70, elevation=15, minecraft_orientation=False,
@@ -225,7 +226,7 @@ def sheet(items, filename):
     for (label,*_),im in zip(items,images):
         canvas.paste(im,(x,32));draw.text((x+12,10),label,fill='black');x+=im.width
     draw.text((12,height-16),'Render externo de modelos y texturas finales; no es una captura de Minecraft.',fill='black')
-    canvas.save(preview_path(filename))
+    canvas.save(output_path(preview_path(filename)))
 
 
 def main():

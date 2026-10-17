@@ -1,4 +1,5 @@
 """Read Java property domains without compiling; fail rather than guess unknown declarations."""
+from resource_modules import module_exists, module_read_text
 import argparse,json,math,re
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
@@ -12,9 +13,9 @@ STANDARD={'HORIZONTAL_FACING':('facing',4),'DOUBLE_BLOCK_HALF':('half',2),'HALF'
  'DOOR_HINGE':('hinge',2),'SLAB_TYPE':('type',3),'STAIRS_SHAPE':('shape',5)}
 def source(cls):
  p=J/f'block/{cls}.java'
- if not p.exists() and cls.startswith('SportsGoal'):p=J/f'modules/balls/block/{cls}.java'
- if not p.exists():raise ValueError(f'Unknown source class: {cls}')
- return p.read_text(encoding='utf-8')
+ if not module_exists(p) and cls.startswith('SportsGoal'):p=J/f'modules/balls/block/{cls}.java'
+ if not module_exists(p):raise ValueError(f'Unknown source class: {cls}')
+ return module_read_text(p, encoding='utf-8')
 def parent(cls):return re.search(r'class\s+\w+\s+extends\s+(\w+)',source(cls))[1]
 def property_domain(cls,field):
  if '.' in field:cls,field=field.split('.',1)
@@ -28,7 +29,7 @@ def property_domain(cls,field):
  if m:return m[1],2
  m=re.search(r'EnumProperty.create\("([^"]+)",\s*(\w+).class\)',expr)
  if m:
-  enum=(J/f'block/{m[2]}.java').read_text();constants=re.findall(r'^\s{4}([A-Z_]+)\(',enum,re.M)
+  enum=module_read_text(J/f'block/{m[2]}.java');constants=re.findall(r'^\s{4}([A-Z_]+)\(',enum,re.M)
   if not constants:
    declaration=re.search(r'\benum\s+\w+(?:\s+implements\s+[\w.,\s]+)?\s*\{([^;]+);',enum)
    if declaration and re.fullmatch(r'\s*[A-Z_]+(?:\s*,\s*[A-Z_]+)*\s*',declaration[1]):
@@ -61,7 +62,7 @@ def domains(cls):
    out[key]=count
  return out
 def audit():
- reg=(J/'registry/ModBlocks.java').read_text(encoding='utf-8') + (J/'modules/balls/registry/ModuleBlocks.java').read_text(encoding='utf-8')
+ reg='\n'.join(module_read_text(p,encoding='utf-8') for p in (J/'modules').glob('*/registry/ModuleBlocks.java'))
  entries=re.findall(r'DeferredBlock<(\w+)>\s+\w+\s*=\s*BLOCKS.registerBlock\(\s*"([^"]+)"',reg)
  if len(entries)!=len(re.findall(r'=\s*BLOCKS.registerBlock\(',reg)):raise ValueError('Unrecognized block registration')
  result=[]

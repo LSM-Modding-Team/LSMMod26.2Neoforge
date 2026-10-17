@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.musical_instruments.item;
 
-
-
 import java.util.function.Supplier;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.Entity;

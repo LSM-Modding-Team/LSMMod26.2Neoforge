@@ -1,4 +1,5 @@
 """Generate the school monitor's code-native model and pixel texture."""
+from resource_modules import module_read_text, module_write_text, output_path
 from resource_json import resource_json
 import json
 from pathlib import Path
@@ -9,7 +10,7 @@ ASSETS = ROOT / 'src/main/resources/assets/lsmmod'
 
 def write(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(resource_json(path, data, ensure_ascii=False) + '\n', encoding='utf-8')
+    module_write_text(path, resource_json(path, data, ensure_ascii=False) + '\n', encoding='utf-8')
 
 image = Image.new('RGB', (64, 64), '#35383c')
 draw = ImageDraw.Draw(image)
@@ -32,7 +33,7 @@ draw.rectangle((32, 32, 63, 63), fill='#292c30')
 draw.line((35, 36, 60, 36), fill='#484b50')
 draw.rectangle((44, 53, 50, 54), fill='#888d92')
 draw.rectangle((57, 55, 58, 56), fill='#85b98a')
-image.save(ASSETS / 'textures/block/pc.png')
+image.save(output_path(ASSETS / 'textures/block/pc.png'))
 
 def box(start, end, faces=None):
     result = {side: {'texture': '#atlas', 'uv': [0, 0, 8, 8]}
@@ -68,12 +69,12 @@ write(ROOT / 'src/main/resources/data/lsmmod/loot_table/blocks/pc.json', {
     'entries': [{'type': 'minecraft:item', 'name': 'lsmmod:pc'}]}]})
 for language, label in [('es_es', 'PC escolar'), ('en_us', 'School PC')]:
     path = ASSETS / f'lang/{language}.json'
-    data = json.loads(path.read_text(encoding='utf-8'))
+    data = json.loads(module_read_text(path, encoding='utf-8'))
     data['block.lsmmod.pc'] = label
     write(path, data)
 
 source = ROOT / 'src/main/java/net/nicomar2009/lsmmod/block'
-java = (source / 'LaptopBlock.java').read_text(encoding='utf-8')
+java = module_read_text(source / 'LaptopBlock.java', encoding='utf-8')
 java = java.replace('LaptopBlock', 'MonitorBlock').replace(
     'Open decorative laptop. No inventory, sound or interaction behavior yet.',
     'Decorative school PC represented only by its monitor, stand and base.')
@@ -82,4 +83,4 @@ java = java.replace(
     'Shapes.or(Block.box(4, 0, 5, 12, 1, 12), Block.box(6.75, 1, 7, 9.25, 5, 9),\n'
     '                Block.box(1, 4, 6, 15, 14, 8.55), Block.box(2, 5, 5, 14, 13, 6),\n'
     '                Block.box(4, 6, 4.5, 12, 12, 5))')
-(source / 'MonitorBlock.java').write_text(java, encoding='utf-8')
+module_write_text(source / 'MonitorBlock.java', java, encoding='utf-8')

@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.npcs.util;
 
-
-
 /** Descriptions of the shipped placeholder portrait layers, independent of Jade/client classes. */
 public final class NpcAppearanceCatalog {
     private NpcAppearanceCatalog() { }

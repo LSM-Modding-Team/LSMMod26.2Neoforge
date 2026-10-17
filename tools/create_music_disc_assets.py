@@ -1,4 +1,5 @@
 """Generate seven school record labels using the existing 16px vinyl silhouette."""
+from resource_modules import module_path, module_write_text, output_path
 from PIL import Image, ImageColor
 from resource_json import ROOT, resource_json
 
@@ -18,20 +19,20 @@ DESIGNS = {
 
 
 def main():
-    original = Image.open(ASSETS / 'textures/item/lsm_anthem.png').convert('RGBA')
+    original = Image.open(module_path(ASSETS / 'textures/item/lsm_anthem.png')).convert('RGBA')
     for ident, (*colors, motif) in DESIGNS.items():
         image = original.copy()
         palette = dict(zip('ABC', colors))
         for xy, code in zip(LABEL, motif):
             image.putpixel(xy, ImageColor.getrgb(palette[code]) + (255,))
-        image.save(ASSETS / f'textures/item/{ident}.png')
+        image.save(output_path(ASSETS / f'textures/item/{ident}.png'))
         resources = {
             f'models/item/{ident}.json': {'parent': 'minecraft:item/generated', 'textures': {'layer0': f'lsmmod:item/{ident}'}},
             f'items/{ident}.json': {'model': {'type': 'minecraft:model', 'model': f'lsmmod:item/{ident}'}},
         }
         for filename, data in resources.items():
             path = ASSETS / filename
-            path.write_text(resource_json(path, data) + '\n', encoding='utf-8')
+            module_write_text(path, resource_json(path, data) + '\n', encoding='utf-8')
     print('Generated seven unique labels, models and item definitions.')
 
 

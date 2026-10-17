@@ -1,3 +1,4 @@
+from resource_modules import module_glob, module_read_text, module_unlink, module_write_text
 from resource_json import resource_json
 """Retire connection properties and encode only the 17 valid curtain layouts.
 
@@ -10,11 +11,11 @@ import json,hashlib
 R=Path(__file__).resolve().parents[1];A=R/'src/main/resources/assets/lsmmod'
 IDS=('school_glass',)
 CONNECTIONS=('frame_layout','top_connected','bottom_connected')
-def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, v, ensure_ascii=False)+'\n',encoding='utf-8')
+def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);module_write_text(p, resource_json(p, v, ensure_ascii=False)+'\n',encoding='utf-8')
 def main():
  used=set()
  for ident in IDS:
-  path=A/f'blockstates/{ident}.json';definition=json.loads(path.read_text(encoding='utf-8'));parts=definition['multipart'];groups=defaultdict(list);overlays=[]
+  path=A/f'blockstates/{ident}.json';definition=json.loads(module_read_text(path, encoding='utf-8'));parts=definition['multipart'];groups=defaultdict(list);overlays=[]
   for part in parts:
    when=dict(part.get('when',{}));apply=part['apply']
    if 'curtain' in when:
@@ -23,7 +24,7 @@ def main():
    if not any(k in when for k in CONNECTIONS):
     model_path=A/f"models/{apply['model'].split(':')[1]}.json"
     if 'school_glazing_dynamic/' in apply['model']:
-     series=json.loads(model_path.read_text(encoding='utf-8'))['models'][0]
+     series=json.loads(module_read_text(model_path, encoding='utf-8'))['models'][0]
      digest=hashlib.sha256(json.dumps(series,sort_keys=True).encode()).hexdigest()[:16]
      name='school_glazing_dynamic/'+ident+'_'+digest
      target=A/f'models/block/{name}.json';write(target,{'loader':'fusion:model','type':'composite','models':[series]});used.add(target)
@@ -45,6 +46,6 @@ def main():
    if uvlock:apply['uvlock']=uvlock
    overlays.append({'when':json.loads(key),'apply':apply})
   write(path,{'multipart':overlays})
- for path in (A/'models/block/school_glazing_dynamic').glob('*.json'):
-  if path not in used and any(path.stem.startswith(ident+'_') for ident in IDS):path.unlink()
+ for path in module_glob(A/'models/block/school_glazing_dynamic', '*.json'):
+  if path not in used and any(path.stem.startswith(ident+'_') for ident in IDS):module_unlink(path)
 if __name__=='__main__':main()

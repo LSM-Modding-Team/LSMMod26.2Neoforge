@@ -1,4 +1,5 @@
 """Inspect the final cabinet block cells and item using their actual textures."""
+from resource_modules import output_path
 from resource_json import preview_path
 from PIL import Image, ImageDraw
 from render_texture_review import ROOT, add, block, load, render
@@ -19,7 +20,7 @@ def main():
         ImageDraw.Draw(canvas).text((420*index+18, 18), label, fill=(30, 30, 30))
     canvas.paste(render(item, [8, 8, 8], 29, size=(420, 620), azimuth=-60, elevation=12), (1260, 0))
     ImageDraw.Draw(canvas).text((1278, 18), 'Item', fill=(30, 30, 30))
-    canvas.save(preview_path('dining_wall_cabinet_review.png'))
+    canvas.save(output_path(preview_path('dining_wall_cabinet_review.png')))
 
 
 if __name__ == '__main__':

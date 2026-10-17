@@ -1,4 +1,5 @@
 """Generate the red fabric-covered portable speaker item from the reference."""
+from resource_modules import module_write_text, output_path
 import json
 import math
 from pathlib import Path
@@ -12,7 +13,7 @@ ASSETS = ROOT / 'src/main/resources/assets/lsmmod'
 
 def write(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(resource_json(path, value) + '\n')
+    module_write_text(path, resource_json(path, value) + '\n')
 
 
 def box(lo, hi, material):
@@ -52,7 +53,7 @@ def generate():
                 image.putpixel((x, y), color)
         path = ASSETS / f'textures/item/portable_speaker_{material}.png'
         path.parent.mkdir(parents=True, exist_ok=True)
-        image.save(path)
+        image.save(output_path(path))
 
     elements = []
     # Horizontal cylinder approximated with half-pixel circular cross-section.

@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.school_supplies.item;
 
-
-
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;

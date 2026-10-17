@@ -1,4 +1,5 @@
 """Static geometry/resource checks; does not compile or launch Minecraft."""
+from resource_modules import module_is_file, module_path, module_read_text
 import json
 import re
 from ast import literal_eval
@@ -7,7 +8,7 @@ from PIL import Image
 from create_sports_goal_assets import ROOT, ASSETS, PARTS, ID, OWNERS, clips, coordinates, index as encode
 
 def main():
-    manifest = json.loads((ROOT/'tools/sports_goal_geometry.json').read_text())
+    manifest = json.loads(module_read_text(ROOT/'tools/sports_goal_geometry.json'))
     occupied = manifest['occupied']
     assert len(occupied) == len(set(occupied)) and 0 in occupied
     assert len(manifest['cells']) == 162
@@ -15,7 +16,7 @@ def main():
               if d == 2 or r == 3 or c in (0,8)}
     legacy |= {encode(c,r,0) for r in (4,5) for c in (3,4,5)}
     assert set(occupied) == legacy
-    java = (ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/balls/block/SportsGoalShapes.java').read_text()
+    java = module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/balls/block/SportsGoalShapes.java')
     saved = java.split('OCCUPIED = ',1)[1].split(';',1)[0]
     assert literal_eval(saved.replace('{','[').replace('}',']')) == occupied
     calls = java.split('CELLS = ',1)[1].split(';',1)[0]
@@ -43,7 +44,7 @@ def main():
     bounds = [p[0] for p in PARTS]
     assert [min(b[a] for b in bounds) for a in range(3)] == [8, 0, 0]
     assert [max(b[a+3] for b in bounds) for a in range(3)] == [136, 96, 48]
-    variants = json.loads((ASSETS/f'blockstates/{ID}.json').read_text())['variants']
+    variants = json.loads(module_read_text(ASSETS/f'blockstates/{ID}.json'))['variants']
     assert len(variants) == 648
     for index in range(162):
         cell = manifest['cells'][str(index)]
@@ -58,13 +59,13 @@ def main():
             assert rotated == b
         for facing in ['north','east','south','west']:
             model = variants[f'cell={index},facing={facing}']['model'].split(':')[1]
-            data = json.loads((ASSETS/f'models/{model}.json').read_text())
+            data = json.loads(module_read_text(ASSETS/f'models/{model}.json'))
             assert data['elements'] == cell['elements']
             for element in data['elements']:
                 assert all(-16 <= element['from'][a] < element['to'][a] <= 32 for a in range(3))
                 for face in element['faces'].values():
                     texture = data['textures'][face['texture'][1:]].split(':')[1]
-                    assert (ASSETS/f'textures/{texture}.png').is_file()
+                    assert module_is_file(ASSETS/f'textures/{texture}.png')
                     assert all(0 <= v <= 16 for v in face['uv'])
         # All four coordinate transforms invert to the controller.
         for f in [(0,-1),(1,0),(0,1),(-1,0)]:
@@ -76,7 +77,7 @@ def main():
     nets = [b for b,material,*_ in PARTS if material=='net']
     assert any(b[2]==46 for b in nets) and any(b[0]==9.875 for b in nets)
     assert any(b[0]==134 for b in nets) and any(b[1]==45.875 for b in nets)
-    alpha = Image.open(ASSETS/'textures/block/sports_goal_net.png').getchannel('A')
+    alpha = Image.open(module_path(ASSETS/'textures/block/sports_goal_net.png')).getchannel('A')
     assert set(alpha.tobytes()) == {0,255}
     # Five-sided net: lower vertical back, sloping upper back and short flat roof.
     assert any(b[2]==30 and b[1]==46 and material=='frame' for b,material,*_ in PARTS)
@@ -132,12 +133,12 @@ def main():
     assert not any(b[0]<90 and b[3]>54 and b[1]>=48 and b[2]<=14 for b in nets)
     basket = [b for b,material,*_ in PARTS if material=='basket_net']
     assert min(b[0] for b in basket if b[1]==64) > min(b[0] for b in basket if b[1]==71)
-    texture = Image.open(ASSETS/'textures/block/sports_goal_basket_net.png')
+    texture = Image.open(module_path(ASSETS/'textures/block/sports_goal_basket_net.png'))
     assert set(texture.getchannel('A').tobytes()) == {0,255}
     assert texture.getpixel((4,4))[3] == 255 and texture.getpixel((4,3))[3] == 0
     # Mirroring preserves the occupied-cell layout and the single controller.
     assert {encode(8-coordinates(i)[0],coordinates(i)[1],coordinates(i)[2]) for i in occupied} == set(occupied)
-    loot=json.loads((ROOT/f'src/main/resources/balls/data/lsmmod/loot_table/blocks/{ID}.json').read_text())
+    loot=json.loads(module_read_text(ROOT/f'src/main/resources/balls/data/lsmmod/loot_table/blocks/{ID}.json'))
     assert loot['pools'][0]['conditions'][1]['properties']=={'cell':'0'}
     print(f'OK: five-sided net, rigid frame and open-mouth material probes in 4 orientations; {len(occupied)} saved logical cells; 648 variants; collision, native bounds, rotations, UVs, cutout nets and single drop.')
 

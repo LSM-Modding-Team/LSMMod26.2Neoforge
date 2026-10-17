@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.uniforms.event;
 
-
-
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.decoration.ArmorStand;

@@ -1,4 +1,5 @@
 """An independent opaque tinted variant with the normal school's dynamic joins."""
+from resource_modules import module_read_text
 import copy
 import json
 from create_school_glass_assets import A, D, ROOT
@@ -22,7 +23,7 @@ def main():
         entries.append({'model':'lsmmod:block/'+name,'condition':{'type':'lsmmod:glazing_mask','mask':mask}})
     write(A/f'models/block/{ID}.json', {'loader':'fusion:model','type':'composite','textures':textures,'models':[entries]})
     # The same 17 curtain layouts and their overlays as normal school_glass.
-    normal = json.loads((A/'blockstates/school_glass.json').read_text())['multipart']
+    normal = json.loads(module_read_text(A/'blockstates/school_glass.json'))['multipart']
     parts = [copy.deepcopy(p) for p in normal if 'curtain' in p.get('when',{})]
     for turn,facing in enumerate(('north','east','south','west')):
         parts.append({'when':{'facing':facing},'apply':{'model':'lsmmod:block/'+ID,'y':turn*90}})
@@ -37,7 +38,7 @@ def main():
         ('ModItems.java','    public static final DeferredItem<BlockItem> SCHOOL_CONNECTED_TINTED_GLASS = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_CONNECTED_TINTED_GLASS);'),
     ]:
         p = J/filename
-        source = p.read_text()
+        source = module_read_text(p)
         a,z = '    // BEGIN CONNECTED TINTED GLASS','    // END CONNECTED TINTED GLASS'
         section = a+'\n'+line+'\n'+z
         if a in source:
@@ -46,7 +47,7 @@ def main():
             source = source.replace('    // BEGIN FACILITY EXPANSIONS',section+'\n\n    // BEGIN FACILITY EXPANSIONS',1)
         write(p,source)
     for locale,name in [('es_es','Cristal tintado conectado del colegio'),('en_us','Connected School Tinted Glass')]:
-        p = A/f'lang/{locale}.json';values = json.loads(p.read_text())
+        p = A/f'lang/{locale}.json';values = json.loads(module_read_text(p))
         values['block.lsmmod.'+ID] = name;write(p,values)
 
 

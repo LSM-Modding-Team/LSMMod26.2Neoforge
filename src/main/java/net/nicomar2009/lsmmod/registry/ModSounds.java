@@ -2,47 +2,23 @@ package net.nicomar2009.lsmmod.registry;
 
 import java.util.List;
 
-import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.nicomar2009.lsmmod.LSMMod;
 
 public class ModSounds {
     public static final DeferredRegister<SoundEvent> SOUNDS = ModRegistries.SOUNDS;
 
     public record SpeakerTrack(DeferredHolder<SoundEvent, SoundEvent> sound, int durationTicks) {}
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> SCHOOL_BELL =
-            SOUNDS.register("school_bell", () ->
-                    SoundEvent.createVariableRangeEvent(
-                            Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "school_bell")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> SCHOOL_BELL = net.nicomar2009.lsmmod.modules.technology.registry.ModuleSounds.SCHOOL_BELL;
 
     public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_KICK = net.nicomar2009.lsmmod.modules.balls.registry.ModuleSounds.FOOTBALL_KICK;
     public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_WALL = net.nicomar2009.lsmmod.modules.balls.registry.ModuleSounds.FOOTBALL_WALL;
     public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_NET = net.nicomar2009.lsmmod.modules.balls.registry.ModuleSounds.FOOTBALL_NET;
     public static final DeferredHolder<SoundEvent, SoundEvent> FOOTBALL_FRAME = net.nicomar2009.lsmmod.modules.balls.registry.ModuleSounds.FOOTBALL_FRAME;
 
-
-
-    public static final List<SpeakerTrack> PORTABLE_SPEAKER_TRACKS = List.of(
-            speakerTrack("bby_wow", 340),
-            speakerTrack("delincuente", 200),
-            speakerTrack("bailan_rochas_y_chetas", 260),
-            speakerTrack("4k", 240),
-            speakerTrack("el_efecto", 450),
-            speakerTrack("pa_que_retozen", 200),
-            speakerTrack("equis", 255),
-            speakerTrack("si_te_dejas_llevar", 346),
-            speakerTrack("cuatro_babys", 308),
-            speakerTrack("dile_que_tu_me_quieres", 380),
-            speakerTrack("se_preparo", 220));
-
-    private static SpeakerTrack speakerTrack(String name, int durationTicks) {
-        String id = "portable_speaker." + name;
-        return new SpeakerTrack(SOUNDS.register(id, () -> SoundEvent.createVariableRangeEvent(
-                Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, id))), durationTicks);
-    }
+    public static final List<SpeakerTrack> PORTABLE_SPEAKER_TRACKS = net.nicomar2009.lsmmod.modules.technology.registry.ModuleSounds.PORTABLE_SPEAKER_TRACKS;
 
     public static final DeferredHolder<SoundEvent, SoundEvent> MY_DISC = net.nicomar2009.lsmmod.modules.music_discs.registry.ModuleSounds.MY_DISC;
 

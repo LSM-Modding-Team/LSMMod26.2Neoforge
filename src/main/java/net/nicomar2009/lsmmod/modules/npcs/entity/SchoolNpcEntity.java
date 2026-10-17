@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.npcs.entity;
+import net.nicomar2009.lsmmod.modules.technology.rules.SchoolStudyRules;
 
 import net.nicomar2009.lsmmod.modules.npcs.entity.SchoolNpcSize;
 import net.nicomar2009.lsmmod.modules.npcs.entity.SchoolNpcStat;
@@ -10,7 +11,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import net.nicomar2009.lsmmod.event.PortableSpeakerPlayback;
+import net.nicomar2009.lsmmod.modules.technology.event.PortableSpeakerPlayback;
 import net.nicomar2009.lsmmod.modules.npcs.entity.goal.InvestigateSpeakerGoal;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -327,7 +328,7 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
         if (!isTeacher() || player.isCreative() || player.isSpectator()) return false;
         String id = player.getUUID().toString();
         if (seesPlayer(player)) observedUniforms.put(id, hasCompleteSchoolUniform(player));
-        return net.nicomar2009.lsmmod.rules.SchoolStudyRules.teacherHostile(
+        return net.nicomar2009.lsmmod.modules.technology.rules.SchoolStudyRules.teacherHostile(
                 witnessedAttackers.contains(id), observedUniforms.getOrDefault(id, false),
                 player.hasEffect(net.nicomar2009.lsmmod.registry.ModEffects.STUDIOUS));
     }

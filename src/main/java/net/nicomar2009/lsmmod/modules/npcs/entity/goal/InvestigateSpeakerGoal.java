@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.npcs.entity.goal;
 
-
-
 import java.util.EnumSet;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;

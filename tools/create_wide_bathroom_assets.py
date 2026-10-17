@@ -1,4 +1,5 @@
 """Two-wide sanitary fixtures, shared original porcelain materials and one controller drop."""
+from resource_modules import module_read_text, module_write_text
 from copy import deepcopy
 import json
 from create_bathroom_statue_assets import ROOT, ASSETS, DATA, TOILET, URINAL, solid_model, write_json
@@ -58,7 +59,7 @@ def main():
             java += ['        {'+', '.join(str(v) for v in p[0])+'},' for p in parts]
             java += ['    };']
         java += ['}']
-        (ROOT / f'src/main/java/net/nicomar2009/lsmmod/block/{class_name}.java').write_text('\n'.join(java)+'\n')
+        module_write_text(ROOT / f'src/main/java/net/nicomar2009/lsmmod/block/{class_name}.java', '\n'.join(java)+'\n')
     for block_id, (closed, opened, height) in FIXTURES.items():
         variants = {}
         for is_open, parts in ((False, closed), (True, opened)) if height == 2 else ((False, closed),):
@@ -91,8 +92,8 @@ def main():
                 'block': f'lsmmod:{block_id}', 'properties': controller}],
             'entries': [{'type': 'minecraft:item', 'name': f'lsmmod:{block_id}'}]}]})
     for locale, name in (('es_es', 'Inodoro sin cubículo'), ('en_us', 'Standalone Toilet')):
-        p = ASSETS / f'lang/{locale}.json'; values = json.loads(p.read_text()); values['block.lsmmod.standalone_toilet'] = name; write_json(p, values)
-    p = DATA / 'minecraft/tags/block/mineable/pickaxe.json'; value = json.loads(p.read_text())
+        p = ASSETS / f'lang/{locale}.json'; values = json.loads(module_read_text(p)); values['block.lsmmod.standalone_toilet'] = name; write_json(p, values)
+    p = DATA / 'minecraft/tags/block/mineable/pickaxe.json'; value = json.loads(module_read_text(p))
     value['values'] = list(dict.fromkeys(value['values']+['lsmmod:standalone_toilet']))
     write_json(p, value)
 

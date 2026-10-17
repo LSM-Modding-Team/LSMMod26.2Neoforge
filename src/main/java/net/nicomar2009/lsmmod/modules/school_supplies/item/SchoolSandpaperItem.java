@@ -6,8 +6,8 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
-import net.nicomar2009.lsmmod.block.SchoolPaint;
-import net.nicomar2009.lsmmod.block.SchoolPaintableBlockEntity;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaint;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableBlockEntity;
 import net.nicomar2009.lsmmod.registry.ModItems;
 
 public class SchoolSandpaperItem extends Item {

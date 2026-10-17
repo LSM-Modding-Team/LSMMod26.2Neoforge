@@ -1,4 +1,5 @@
 """Generate connected school glazing and one three-block-tall operable classroom door."""
+from resource_modules import module_read_text, module_unlink, module_write_text, output_path
 from resource_json import resource_json
 import json
 from pathlib import Path
@@ -9,7 +10,7 @@ D=ROOT/'src/main/resources/data'
 
 def write(path,value):
     path.parent.mkdir(parents=True,exist_ok=True)
-    path.write_text(resource_json(path, value, ensure_ascii=False)+'\n')
+    module_write_text(path, resource_json(path, value, ensure_ascii=False)+'\n')
 
 def cube(bounds,material,uv=None,mirror=False):
     faces={f:{'texture':'#'+material,'uv': uv or [0,0,16,16]} for f in ['north','south','east','west','up','down']}
@@ -37,19 +38,19 @@ def textures():
     draw.line([(3,2),(4,5),(3,9),(4,13)],fill=(241,242,228,140))
     draw.line([(11,1),(10,4),(11,7)],fill=(242,243,233,132))
     draw.line([(7,11),(8,13),(8,15)],fill=(191,204,201,120))
-    glass.save(p/'school_glass.png')
-    Image.new('RGBA',(16,16),(207,217,214,100)).save(p/'school_glass_edge.png')
+    glass.save(output_path(p/'school_glass.png'))
+    Image.new('RGBA',(16,16),(207,217,214,100)).save(output_path(p/'school_glass_edge.png'))
     # Native 16x4 pixels keep the shallow transom reflections in proportion.
     transom=Image.new('RGBA',(16,4),(214,224,221,82));draw=ImageDraw.Draw(transom)
     draw.line((3,1,5,1),fill=(243,244,234,136))
     draw.line((11,2,12,2),fill=(236,239,229,112))
-    transom.save(p/'school_transom_glass.png')
+    transom.save(output_path(p/'school_transom_glass.png'))
     support=Image.new('RGB',(16,16),(203,200,181));draw=ImageDraw.Draw(support)
     for x,y in [(2,2),(11,4),(5,9),(12,13)]:draw.rectangle((x,y,x+1,y+1),fill=(198,196,179))
-    support.save(p/'school_glass_support.png')
+    support.save(output_path(p/'school_glass_support.png'))
     frame=Image.new('RGB',(16,16),(58,43,35));draw=ImageDraw.Draw(frame)
     for x in (2,9,14):draw.line((x,0,x,15),fill=(67,49,39))
-    draw.line((0,1,15,1),fill=(85,64,49));frame.save(p/'school_glass_frame.png')
+    draw.line((0,1,15,1),fill=(85,64,49));frame.save(output_path(p/'school_glass_frame.png'))
 
 def transom_parts(top,bottom):
     parts=[cube([1,8 if bottom else 9,0,15,16 if top else 15,8],'glass'),
@@ -140,7 +141,7 @@ def main():
     # The item depicts one complete door, rather than a single row or a double door.
     full=[]
     for row in range(3):
-        m=json.loads((A/f'models/block/tall_classroom_entrance_0_{row}.json').read_text())
+        m=json.loads(module_read_text(A/f'models/block/tall_classroom_entrance_0_{row}.json'))
         for part in m['elements']:
             e=json.loads(json.dumps(part))
             for k in ('from','to'):e[k]=[5+e[k][0]/3,(e[k][1]+16*row)/3,5+e[k][2]/3]
@@ -151,17 +152,17 @@ def main():
     for old in PART_IDS.values():
         if old=='tall_classroom_entrance':continue
         for path in [A/f'blockstates/{old}.json',A/f'items/{old}.json',A/f'models/item/{old}.json',D/f'lsmmod/loot_table/blocks/{old}.json']:
-            path.unlink(missing_ok=True)
+            module_unlink(path, missing_ok=True)
     names={'school_glass':('Cristal del colegio','School Glass'),
            'tall_classroom_entrance':('Puerta alta de aula','Tall Classroom Door')}
     for locale,index in [('es_es',0),('en_us',1)]:
-        p=A/f'lang/{locale}.json';v=json.loads(p.read_text())
+        p=A/f'lang/{locale}.json';v=json.loads(module_read_text(p))
         for old in PART_IDS.values():
             if old!='tall_classroom_entrance':v.pop('block.lsmmod.'+old,None)
         for name,n in names.items():v['block.lsmmod.'+name]=n[index]
         write(p,v)
     for tag,ids in [('axe',['tall_classroom_entrance'])]:
-        p=D/f'minecraft/tags/block/mineable/{tag}.json';v=json.loads(p.read_text())
+        p=D/f'minecraft/tags/block/mineable/{tag}.json';v=json.loads(module_read_text(p))
         v['values']=[x for x in v['values'] if x.removeprefix('lsmmod:') not in set(PART_IDS.values())-{'tall_classroom_entrance'}]
         for name in ids:
             if 'lsmmod:'+name not in v['values']:v['values'].append('lsmmod:'+name)

@@ -1,4 +1,5 @@
 """Independent 24px projecting panes: two-pixel thickness, five poses, nine lattice phases."""
+from resource_modules import module_exists, module_path, module_read_text, module_unlink, module_write_text, output_path
 import copy
 import json
 from PIL import Image
@@ -137,7 +138,7 @@ def fragment(model, part, pose):
 
 
 def layout_rules():
-    rules=json.loads((A/'projecting_window_layouts.json').read_text())
+    rules=json.loads(module_read_text(A/'projecting_window_layouts.json'))
     seen=set()
     for rule in rules:
         w,h=rule['width']*16,rule['height']*16;c,r=rule['columns'],rule['rows']
@@ -188,10 +189,10 @@ def layout_models():
     stair_id='school_paintable_projecting_window_stairs'
     for ident in (ID,PAINTABLE_ID,slab_id,stair_id):
         directory=A/f'models/block/{ident}/layouts'
-        if directory.exists():shutil.rmtree(directory)
+        if module_exists(directory):shutil.rmtree(directory)
     rules=layout_rules();choices=[];half_choices={'left':[],'right':[]};slab_choices={'bottom':[],'top':[]};stair_choices={kind+'_'+side:[] for kind in ('bottom','top') for side in ('left','right')}
     for side in half_choices:
-        groups=json.loads((A/f'models/block/{PAINTABLE_ID}/phase_0_{side}.json').read_text())['models'][:6]
+        groups=json.loads(module_read_text(A/f'models/block/{PAINTABLE_ID}/phase_0_{side}.json'))['models'][:6]
         write(A/f'models/block/{PAINTABLE_ID}/wall_{side}.json',{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]),'models':groups})
     for rule in rules:
         width,height=rule['width']*16,rule['height']*16
@@ -256,7 +257,7 @@ def layout_models():
         legacy=f'{ident}/legacy{("_"+side) if side else ""}'
         # A build may re-run only this step on already generated resources.
         # Never replace the legacy model with a wrapper referencing itself.
-        value=json.loads(source.read_text())
+        value=json.loads(module_read_text(source))
         first=value.get('models',[[]])[0]
         wrapped=bool(first and isinstance(first[0],dict) and first[0].get('condition',{}).get('key')=='fallback')
         if not wrapped:write(A/f'models/block/{legacy}.json',value)
@@ -277,13 +278,13 @@ def prepare_layouts(assets):
 
 
 def main():
-    Image.new('RGB', (16, 16), (17, 18, 19)).save(A/f'textures/block/{ID}_frame.png')
+    Image.new('RGB', (16, 16), (17, 18, 19)).save(output_path(A/f'textures/block/{ID}_frame.png'))
     # Vanilla 26.2 tinted-glass extraction, retained as the reproducible color reference.
     # Source: github.com/InventivetalentDev/minecraft-assets/tree/26.2/assets/minecraft/textures/block
-    glass = Image.open(ROOT/'tools/fixtures/projecting_window_tinted_reference.png').convert('RGBA')
+    glass = Image.open(module_path(ROOT/'tools/fixtures/projecting_window_tinted_reference.png')).convert('RGBA')
     glass.putdata([tuple(max(0, channel-4) for channel in glass.getpixel((x, y))[:3])+(glass.getpixel((x, y))[3],)
                    for y in range(glass.height) for x in range(glass.width)])
-    glass.save(A/f'textures/block/{ID}_glass.png')
+    glass.save(output_path(A/f'textures/block/{ID}_glass.png'))
     base = pane_models(); roots = []
     for phase in range(9):
         groups = []
@@ -322,15 +323,15 @@ def main():
         ('ModBlocks.java', '    public static final DeferredBlock<SchoolPaintableProjectingWindowBlock> SCHOOL_PAINTABLE_PROJECTING_WINDOW = BLOCKS.registerBlock("school_paintable_projecting_window", SchoolPaintableProjectingWindowBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));'),
         ('ModItems.java', '    public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_PROJECTING_WINDOW = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_PROJECTING_WINDOW);'),
     ):
-        path = J/'registry'/filename; text = path.read_text()
+        path = J/'registry'/filename; text = module_read_text(path)
         symbol=entry.split(' = ',1)[0].rsplit(' ',1)[-1]
         if f' {symbol} =' not in text:
-            path.write_text(text.replace('    // BEGIN FACILITY EXPANSIONS', entry+'\n\n    // BEGIN FACILITY EXPANSIONS', 1))
+            module_write_text(path, text.replace('    // BEGIN FACILITY EXPANSIONS', entry+'\n\n    // BEGIN FACILITY EXPANSIONS', 1))
     for locale, name in (('es_es', 'Ventana proyectante del colegio'), ('en_us', 'School Projecting Window')):
-        path = A/f'lang/{locale}.json'; data = json.loads(path.read_text()); data['block.lsmmod.'+ID] = name
+        path = A/f'lang/{locale}.json'; data = json.loads(module_read_text(path)); data['block.lsmmod.'+ID] = name
         data['block.lsmmod.'+PAINTABLE_ID]='Mitad pintable con ventana proyectante' if locale=='es_es' else 'Paintable Half with Projecting Window'
         write(path, data)
-    path = D/'minecraft/tags/block/mineable/pickaxe.json'; data = json.loads(path.read_text())
+    path = D/'minecraft/tags/block/mineable/pickaxe.json'; data = json.loads(module_read_text(path))
     if 'lsmmod:'+ID not in data['values']: data['values'].append('lsmmod:'+ID)
     if 'lsmmod:'+PAINTABLE_ID not in data['values']: data['values'].append('lsmmod:'+PAINTABLE_ID)
     write(path, data)
@@ -394,35 +395,35 @@ def slab_models(adaptive=True):
         write(A/f'models/block/{name}.json',value);groups.append(['lsmmod:block/'+name])
     write(A/f'models/block/{SLAB_ID}_pane_0.json',{'loader':'fusion:model','type':'composite','textures':TEXTURES,'models':groups})
     for suffix in ('','_solid','_translucent'):
-        (A/f'models/block/{SLAB_ID}_pane_1{suffix}.json').unlink(missing_ok=True)
+        module_unlink(A/f'models/block/{SLAB_ID}_pane_1{suffix}.json', missing_ok=True)
     write(A/f'models/item/{SLAB_ID}_slab.json',{'parent':'minecraft:block/block','render_type':'minecraft:solid',
         'textures':{'surface':PAINTS[0],'particle':'#surface'},'elements':[{'from':[0,0,0],'to':[16,8,16],
         'faces':{face:{'texture':'#surface','uv':[0,0,16,16]} for face in SIDES}}]})
     write(A/f'models/item/{SLAB_ID}.json',{'loader':'fusion:model','type':'composite','textures':{'particle':PAINTS[0]},
         'models':[['lsmmod:item/'+SLAB_ID+'_slab'],['lsmmod:block/'+SLAB_ID+'_pane_0']]})
     basic(SLAB_ID)
-    path=D/f'lsmmod/loot_table/blocks/{SLAB_ID}.json';loot=json.loads(path.read_text())
+    path=D/f'lsmmod/loot_table/blocks/{SLAB_ID}.json';loot=json.loads(module_read_text(path))
     loot['pools'][0]['entries'][0]['functions']=[{'function':'minecraft:set_count','count':2,
         'conditions':[{'condition':'minecraft:block_state_property','block':'lsmmod:'+SLAB_ID,'properties':{'type':'double'}}]}]
     write(path,loot)
     for filename,entry in (
         ('ModBlocks.java',f'    public static final DeferredBlock<SchoolSlabProjectingWindowBlock> SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB = BLOCKS.registerBlock("{SLAB_ID}", SchoolSlabProjectingWindowBlock::new, props -> props.strength(1.8F,6F).sound(SoundType.STONE).noOcclusion().dynamicShape());'),
         ('ModItems.java','    public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB);')):
-        path=J/'registry'/filename;text=path.read_text()
-        if ' SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB =' not in text:path.write_text(text.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
-    path=J/'registry/ModBlockEntities.java';text=path.read_text()
+        path=J/'registry'/filename;text=module_read_text(path)
+        if ' SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB =' not in text:module_write_text(path, text.replace('    // BEGIN FACILITY EXPANSIONS',entry+'\n\n    // BEGIN FACILITY EXPANSIONS',1))
+    path=J/'registry/ModBlockEntities.java';text=module_read_text(path)
     if ' SCHOOL_SLAB_PROJECTING_WINDOW_PAINT =' not in text:
-        entry='    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.block.SchoolSlabProjectingWindowPaintEntity>> SCHOOL_SLAB_PROJECTING_WINDOW_PAINT = BLOCK_ENTITIES.register("school_slab_projecting_window_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.block.SchoolSlabProjectingWindowPaintEntity::new, ModBlocks.SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB.get()));\n\n'
-        path.write_text(text.replace('    // Only the LEFT half',entry+'    // Only the LEFT half',1))
+        entry='    public static final Supplier<BlockEntityType<net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolSlabProjectingWindowPaintEntity>> SCHOOL_SLAB_PROJECTING_WINDOW_PAINT = BLOCK_ENTITIES.register("school_slab_projecting_window_paint", () -> new BlockEntityType<>(net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolSlabProjectingWindowPaintEntity::new, ModBlocks.SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB.get()));\n\n'
+        module_write_text(path, text.replace('    // Only the LEFT half',entry+'    // Only the LEFT half',1))
     for locale,label in (('es_es','Losa pintable con ventana proyectante'),('en_us','Paintable Slab with Projecting Window')):
-        path=A/f'lang/{locale}.json';data=json.loads(path.read_text());data['block.lsmmod.'+SLAB_ID]=label;write(path,data)
-    path=D/'minecraft/tags/block/mineable/pickaxe.json';data=json.loads(path.read_text())
+        path=A/f'lang/{locale}.json';data=json.loads(module_read_text(path));data['block.lsmmod.'+SLAB_ID]=label;write(path,data)
+    path=D/'minecraft/tags/block/mineable/pickaxe.json';data=json.loads(module_read_text(path))
     if 'lsmmod:'+SLAB_ID not in data['values']:data['values'].append('lsmmod:'+SLAB_ID)
     write(path,data)
     for registry in ('block','item'):
         tag=D/f'minecraft/tags/{registry}/slabs.json'
         tag.parent.mkdir(parents=True,exist_ok=True)
-        data=json.loads(tag.read_text()) if tag.exists() else {'values':[]}
+        data=json.loads(module_read_text(tag)) if module_exists(tag) else {'values':[]}
         if 'lsmmod:'+SLAB_ID not in data['values']:data['values'].append('lsmmod:'+SLAB_ID)
         write(tag,data)
     if adaptive:layout_models()
@@ -476,9 +477,9 @@ def stair_models(adaptive=True):
           'models':[['lsmmod:item/'+STAIR_ID+'_solid'],*layers]})
     basic(STAIR_ID)
     for locale,label in [('es_es','Escalera pintable con ventana proyectante'),('en_us','Paintable Stair with Projecting Window')]:
-        path=A/f'lang/{locale}.json';data=json.loads(path.read_text());data['block.lsmmod.'+STAIR_ID]=label;write(path,data)
+        path=A/f'lang/{locale}.json';data=json.loads(module_read_text(path));data['block.lsmmod.'+STAIR_ID]=label;write(path,data)
     path=D/'minecraft/tags/block/mineable/pickaxe.json'
-    data=json.loads(path.read_text())
+    data=json.loads(module_read_text(path))
     if 'lsmmod:'+STAIR_ID not in data['values']:data['values'].append('lsmmod:'+STAIR_ID)
     write(path,data)
     if adaptive:layout_models()

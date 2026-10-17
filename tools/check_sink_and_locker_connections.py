@@ -1,4 +1,5 @@
 """Static joins, narrow sanitary material widths and 24px sink collision/resource coverage."""
+from resource_modules import module_read_bytes, module_read_text
 import json,sys,hashlib
 from pathlib import Path
 from create_school_sink import ROOT,A,PARTS,main as generate,GENERATED
@@ -6,7 +7,7 @@ from create_wide_bathroom_assets import widened
 from create_bathroom_statue_assets import TOILET,URINAL
 
 
-def read(p):return json.loads(p.read_text())
+def read(p):return json.loads(module_read_text(p))
 
 
 def main():
@@ -18,7 +19,7 @@ def main():
     for e in locker['elements']:
         if e['from'][0]==0:assert e['faces']['west']['cullface']=='west'
         if e['to'][0]==16:assert e['faces']['east']['cullface']=='east'
-    source=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/ChildrenLockerBlock.java').read_text()
+    source=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/lockers_and_storage/block/ChildrenLockerBlock.java')
     assert 'neighbor.getValue(HALF)==state.getValue(HALF)' in source and 'side.getAxis()!=state.getValue(FACING).getAxis()' in source
     assert 'builder.add(FACING,HALF)' in source and 'BooleanProperty' not in source
     for original in (TOILET,URINAL):
@@ -41,8 +42,8 @@ def main():
     rows={r['id']:r for r in audit()};assert rows['children_locker']['states']==rows['school_sink']['states']==8
     loot=read(ROOT/'src/main/resources/data/lsmmod/loot_table/blocks/school_sink.json')
     assert loot['pools'][0]['conditions'][1]['properties']=={'half':'lower'}
-    generate();before={p:hashlib.sha256(Path(p).read_bytes()).digest() for p in GENERATED};generate()
-    assert all(hashlib.sha256(Path(p).read_bytes()).digest()==h for p,h in before.items())
+    generate();before={p:hashlib.sha256(module_read_bytes(Path(p))).digest() for p in GENERATED};generate()
+    assert all(hashlib.sha256(module_read_bytes(Path(p))).digest()==h for p,h in before.items())
     print('OK: lockers touch horizontally with 1px shared seam/no extra states; sanitary bodies narrowed 12.5% while partitions unchanged; sink 24px, hollow basin, exact physical cells, original porcelain and one drop; generator idempotent.')
 
 

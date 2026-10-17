@@ -1,4 +1,5 @@
 """Verify elevated inclined profiles, integer flat tops, resources and collision."""
+from resource_modules import module_read_text
 import json,math
 import numpy as np
 from create_school_raised_inverted_slopes import ROOT,A,pieces,OFFSET,top_height
@@ -11,9 +12,9 @@ def main():
   top=np.isclose(old[:,1],1);expected=old.copy();expected[:,1]+=OFFSET;expected[top,1]=top_height(ident)
   assert np.allclose(v,expected,atol=1e-10)
   assert np.array_equal(uv,old_uv) and faces==old_faces
-  model=json.loads((A/f'models/block/{ident}.json').read_text());original=json.loads((A/f'models/block/{source}.json').read_text())
+  model=json.loads(module_read_text(A/f'models/block/{ident}.json'));original=json.loads(module_read_text(A/f'models/block/{source}.json'))
   model['model']=original['model'];assert model==original
-  states=json.loads((A/f'blockstates/{ident}.json').read_text())['variants'];assert len(states)==4
+  states=json.loads(module_read_text(A/f'blockstates/{ident}.json'))['variants'];assert len(states)==4
   assert math.isclose(v[:,1].max(),top_height(ident))
   assert top_height(ident) in (1,2)
   assert np.all(v[~top,1]<top_height(ident))
@@ -24,12 +25,12 @@ def main():
    assert np.allclose((v-old)[top],[0,top_height(ident)-1,0],atol=1e-10)
   for i in range(32):
    original_floor=low-rise*(i+1)/32;assert math.isclose(original_floor+.5-original_floor,.5)
-  loot=json.loads((ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ident}.json').read_text());assert loot['pools'][0]['entries'][0]['name']=='lsmmod:'+ident
- s=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolInvertedSlopeBlock.java').read_text()
+  loot=json.loads(module_read_text(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ident}.json'));assert loot['pools'][0]['entries'][0]['name']=='lsmmod:'+ident
+ s=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/slopes/block/SchoolInvertedSlopeBlock.java')
  assert 'this(lowerStart,rise,0,properties)' in s
  assert 'lowerStart-rise*t1+verticalOffset' in s and '1,topHeight,1-t0' in s
  assert 'this(lowerStart,rise,verticalOffset,1+verticalOffset,properties)' in s
- registry=(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java').read_text()
+ registry=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java')
  for ident,source,col,row,low,rise in plan:
   assert f'new SchoolInvertedSlopeBlock({low:.15g},{rise:.15g},0.5,{top_height(ident):.1f},props)' in registry
  flight=[top_height(x[0]) for x in plan if '_flight_' in x[0]];assert flight==[1,2,2,1,1,2]

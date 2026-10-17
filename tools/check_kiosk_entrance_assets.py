@@ -1,9 +1,10 @@
 """Static geometry, state coverage, group layout and source-regression checks."""
+from resource_modules import module_read_bytes, module_read_text
 import copy,hashlib,itertools,json,re
 from create_kiosk_entrance_assets import ROOT,A,D,J,IDS,GATE_CLOSED,GATE_OPEN,GENERATED,main as generate
 from audit_block_states import audit
 
-def read(p):return json.loads(p.read_text())
+def read(p):return json.loads(module_read_text(p))
 def inside(boxes,p):return any(all(b[i]<=p[i]<b[i+3] for i in range(3)) for b in boxes)
 def turn(point,n):
  x,y,z=point
@@ -45,7 +46,7 @@ def main():
    for surface in e['faces'].values():assert all(0<=n<=16 for n in surface['uv'])
  # Existing left/right table geometry, texture mapping and facing conventions survive.
  for col,part in [(0,'left'),(2,'right')]:assert read(A/f'models/block/kiosk_table_part_{col}.json')==read(A/f'models/block/kiosk_table_{part}.json')
- table=(J/'block/KioskTableBlock.java').read_text();assert 'return match(level.getBlockState(previous)' in table and '?2:3' in table and 'SharedChairRotations.horizontal' in table and 'EntityBlock' not in table
+ table=module_read_text(J/'modules/tables_and_desks/block/KioskTableBlock.java');assert 'return match(level.getBlockState(previous)' in table and '?2:3' in table and 'SharedChairRotations.horizontal' in table and 'EntityBlock' not in table
  middle=read(A/'models/block/kiosk_table_part_1.json');assert all(e['from'][1]>=8 for e in middle['elements'])
  # Loot controllers: one item for all 24 entrance cells / two fountain cells / three table cells.
  for ident,properties in [('school_sliding_entrance',{'column':'0','row':'0'}),('drinking_fountain_raised',{'half':'lower'}),('kiosk_table',{'part':'left'}),('school_wood_door',{'row':'0'})]:
@@ -53,10 +54,10 @@ def main():
  panel=read(A/'models/block/school_wood_panel.json');assert min(e['from'][2] for e in panel['elements'])==8 and max(e['to'][2] for e in panel['elements'])==16
  box=read(A/'models/block/lost_and_found_box.json');assert all(all(0<=e['from'][i]<e['to'][i]<=16 for i in range(3)) for e in box['elements'])
  # Placement and movement preflight every part before changing any world cells.
- rect=(J/'block/SchoolRectangularBlock.java').read_text();use=rect[rect.index('protected InteractionResult useWithoutItem'):rect.index('protected BlockState updateShape')]
+ rect=module_read_text(J/'block/SchoolRectangularBlock.java');use=rect[rect.index('protected InteractionResult useWithoutItem'):rect.index('protected BlockState updateShape')]
  assert use.index('!level.isUnobstructed')<use.index('level.setBlock') and 'level.mayInteract' in use and 'player.mayUseItemAt' in use
  assert 'sharedRotations.computeIfAbsent' in rect and 'SimpleBlockOutline.forState' in rect and 'Shapes.or' not in rect and 'EntityBlock' not in rect
  for locale in ('en_us','es_es'):assert all(read(A/f'lang/{locale}.json').get('block.lsmmod.'+i) for i in IDS)
- generate();before={p:hashlib.sha256((ROOT/p).read_bytes()).digest() for p in GENERATED};generate();assert all(hashlib.sha256((ROOT/p).read_bytes()).digest()==h for p,h in before.items())
+ generate();before={p:hashlib.sha256(module_read_bytes(ROOT/p)).digest() for p in GENERATED};generate();assert all(hashlib.sha256(module_read_bytes(ROOT/p)).digest()==h for p,h in before.items())
  print('OK: 348 block states fully covered, 4096 center-opening samples, telescopic pockets, four orientations, exact raised fountain, retained legacy table ends, single-drop controllers, cached grids and idempotent generator.')
 if __name__=='__main__':main()

@@ -1,11 +1,12 @@
 """Generate the lowered wall and connected railing, using existing textures."""
+from resource_modules import module_exists, module_read_text, module_write_text
 from resource_json import resource_json
 import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 A=ROOT/'src/main/resources/assets/lsmmod'
 ID='light_school_wall_railing'
-def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, v, ensure_ascii=False)+'\n')
+def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);module_write_text(p, resource_json(p, v, ensure_ascii=False)+'\n')
 def element(lo,hi,texture):
  return {'from':lo,'to':hi,'faces':{side:{'texture':'#'+texture,'uv':[0,0,16,16]} for side in ('north','south','east','west','up','down')}}
 def model(name,elements):write(A/f'models/block/{name}.json',{'parent':'minecraft:block/block','textures':{'wall':'lsmmod:block/light_school_wall','metal':'lsmmod:block/school_gate_edge','particle':'lsmmod:block/light_school_wall'},'elements':elements})
@@ -27,7 +28,7 @@ def main():
  write(A/f'items/{ID}.json',{'model':{'type':'minecraft:model','model':'lsmmod:item/'+ID}})
  write(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ID}.json',{'type':'minecraft:block','pools':[{'rolls':1,'conditions':[{'condition':'minecraft:survives_explosion'}],'entries':[{'type':'minecraft:item','name':'lsmmod:'+ID}]}]})
  for locale,label in (('es_es','Muro escolar claro con baranda'),('en_us','Light School Wall with Railing')):
-  p=A/f'lang/{locale}.json';data=json.loads(p.read_text());data['block.lsmmod.'+ID]=label;write(p,data)
+  p=A/f'lang/{locale}.json';data=json.loads(module_read_text(p));data['block.lsmmod.'+ID]=label;write(p,data)
  for tag in ('fences','mineable/pickaxe'):
-  p=ROOT/f'src/main/resources/data/minecraft/tags/block/{tag}.json';data=json.loads(p.read_text()) if p.exists() else {'values':[]};data['values']=list(dict.fromkeys(data['values']+['lsmmod:'+ID]));write(p,data)
+  p=ROOT/f'src/main/resources/data/minecraft/tags/block/{tag}.json';data=json.loads(module_read_text(p)) if module_exists(p) else {'values':[]};data['values']=list(dict.fromkeys(data['values']+['lsmmod:'+ID]));write(p,data)
 if __name__=='__main__':main()

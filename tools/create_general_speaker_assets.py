@@ -1,4 +1,5 @@
 """Two-cell general speaker with a gray upper horn, based on the tall speaker."""
+from resource_modules import module_path, module_read_text, module_write_text, output_path
 import copy
 import json
 from PIL import Image, ImageDraw
@@ -9,24 +10,24 @@ ASSETS = RESOURCES / 'assets/lsmmod'
 
 
 def write(path, data):
-    path.write_text(resource_json(path, data) + '\n', encoding='utf-8')
+    module_write_text(path, resource_json(path, data) + '\n', encoding='utf-8')
 
 
 def main():
-    front = Image.open(ASSETS / 'textures/block/tall_speaker_front.png').convert('RGBA')
+    front = Image.open(module_path(ASSETS / 'textures/block/tall_speaker_front.png')).convert('RGBA')
     for x in range(7, 10):
         front.putpixel((x, 30), front.getpixel((6, 30)))
-    front.save(ASSETS / 'textures/block/general_speaker_front.png')
+    front.save(output_path(ASSETS / 'textures/block/general_speaker_front.png'))
     horn = Image.new('RGBA', (16, 8), (105, 120, 129, 255))
     draw = ImageDraw.Draw(horn)
     draw.rectangle((0, 0, 15, 0), fill=(151, 166, 174, 255))
     draw.rectangle((0, 7, 15, 7), fill=(56, 65, 73, 255))
     draw.rectangle((2, 2, 13, 5), fill=(55, 67, 76, 255))
     draw.rectangle((3, 3, 12, 4), fill=(15, 21, 27, 255))
-    horn.save(ASSETS / 'textures/block/general_speaker_horn.png')
+    horn.save(output_path(ASSETS / 'textures/block/general_speaker_horn.png'))
     models = {}
     for half in ('lower', 'upper'):
-        model = json.loads((ASSETS / f'models/block/tall_speaker_{half}.json').read_text())
+        model = json.loads(module_read_text(ASSETS / f'models/block/tall_speaker_{half}.json'))
         model['textures'].update(front='lsmmod:block/general_speaker_front', horn='lsmmod:block/general_speaker_horn')
         body = model['elements'][0]
         body['faces']['north'], body['faces']['south'] = body['faces']['south'], body['faces']['north']
@@ -54,7 +55,7 @@ def main():
     write(ASSETS / 'models/item/general_speaker.json', {'parent': 'lsmmod:block/general_speaker'})
     write(ASSETS / 'items/general_speaker.json', {'model': {'type': 'minecraft:model', 'model': 'lsmmod:item/general_speaker'}})
     loot = RESOURCES / 'data/lsmmod/loot_table/blocks/general_speaker.json'
-    data = json.loads((loot.parent / 'tall_speaker.json').read_text())
+    data = json.loads(module_read_text(loot.parent / 'tall_speaker.json'))
     text = json.dumps(data).replace('lsmmod:tall_speaker', 'lsmmod:general_speaker')
     write(loot, json.loads(text))
 

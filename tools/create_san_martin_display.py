@@ -1,4 +1,5 @@
 """Rebuild San Martin as a centered 1x2 sculpture in a white 2x2.5x1 display."""
+from resource_modules import module_glob, module_unlink, module_write_text, output_path
 from resource_json import resource_json
 import copy
 import json
@@ -133,7 +134,7 @@ def parts():
 
 def write(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(resource_json(path, data, ensure_ascii=False)+'\n')
+    module_write_text(path, resource_json(path, data, ensure_ascii=False)+'\n')
     GENERATED.append(str(path.relative_to(ROOT)))
 
 
@@ -148,7 +149,7 @@ def textures():
                 if material == 'broom': delta = -14 if x % 3 == 0 else 2
                 if material not in ('habit', 'cream', 'broom', 'base'): delta //= 3
                 image.putpixel((x, y), tuple(max(0, min(255, c+delta)) for c in color))
-        image.save(A/f'textures/block/{ID}_{material}.png')
+        image.save(output_path(A/f'textures/block/{ID}_{material}.png'))
     face = Image.new('RGB', (16, 16), COLORS['skin'])
     d = ImageDraw.Draw(face)
     d.rectangle((0, 0, 15, 1), fill=COLORS['hair'])
@@ -162,12 +163,12 @@ def textures():
     d.line((7, 11, 9, 11), fill=(89, 57, 41))
     d.line((6, 13, 10, 13), fill=(81, 49, 39))
     d.line((6, 14, 10, 14), fill=(120, 81, 56))
-    face.save(A/f'textures/block/{ID}_face.png')
+    face.save(output_path(A/f'textures/block/{ID}_face.png'))
     glass = Image.new('RGBA', (16, 16), (210, 226, 229, 12))
     d = ImageDraw.Draw(glass)
     d.line((2, 2, 5, 5), fill=(237, 248, 250, 48))
     d.line((10, 10, 13, 13), fill=(237, 248, 250, 40))
-    glass.save(A/f'textures/block/{ID}_glass.png')
+    glass.save(output_path(A/f'textures/block/{ID}_glass.png'))
 
 
 def face_uv(original, exposed, face, material):
@@ -246,7 +247,7 @@ def generate():
     write(A/f'blockstates/{ID}.json', {'multipart': states})
     write(A/f'models/item/{ID}.json', {'loader': 'fusion:model', 'type': 'composite',
           'textures': TEXTURES, 'models': [[f'lsmmod:item/{ID}_item_solid', f'lsmmod:item/{ID}_item_translucent']]})
-    for path in (A/'models/block').glob(ID+'_part_*.json'): path.unlink()
+    for path in module_glob(A/'models/block', ID+'_part_*.json'): module_unlink(path)
     return list(GENERATED)
 
 

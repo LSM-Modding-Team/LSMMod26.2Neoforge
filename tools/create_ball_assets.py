@@ -1,4 +1,5 @@
 """Generate four textured stepped spheres using ordinary Minecraft cuboids."""
+from resource_modules import module_write_text, output_path
 from pathlib import Path
 import json, math
 from PIL import Image,ImageDraw
@@ -25,7 +26,7 @@ for name in ['plastic_ball','football_ball','basketball_ball','volleyball_ball']
   d.rectangle((0,0,15,15),fill='#eeeee6')
   d.polygon([(0,0),(6,0),(15,9),(15,15)],fill='#e6c13d');d.polygon([(0,4),(0,10),(6,15),(12,15)],fill='#3370ad')
   d.line([(0,2),(15,13)],fill='#d2d2c9');d.line([(2,0),(15,11)],fill='#d2d2c9')
- im.save(A/f'textures/item/{name}.png')
+ im.save(output_path(A/f'textures/item/{name}.png'))
  elements=[]
  for y in range(8):
   Y=y*2
@@ -37,6 +38,6 @@ for name in ['plastic_ball','football_ball','basketball_ball','volleyball_ball']
    elements.append({'from':[lo,Y,Z],'to':[hi,Y+2,Z+2],'faces':faces})
 
  model={'textures':{'ball':f'lsmmod:item/{name}','particle':f'lsmmod:item/{name}'},'elements':elements,'display':{'gui':{'rotation':[25,35,0],'scale':[.65,.65,.65]},'ground':{'scale':[1,1,1]},'firstperson_righthand':{'translation':[0,1,0],'scale':[.5,.5,.5]},'thirdperson_righthand':{'scale':[.4,.4,.4]}}}
- (A/f'models/item/{name}.json').write_text(json.dumps(model,separators=(',',':'),ensure_ascii=False)+'\n')
- (A/f'items/{name}.json').write_text(json.dumps({'model':{'type':'minecraft:model','model':f'lsmmod:item/{name}'}},indent=2)+'\n')
+ module_write_text(A/f'models/item/{name}.json', json.dumps(model,separators=(',',':'),ensure_ascii=False)+'\n')
+ module_write_text(A/f'items/{name}.json', json.dumps({'model':{'type':'minecraft:model','model':f'lsmmod:item/{name}'}},indent=2)+'\n')
 print('Generated four voxel-sphere models, four 16x16 RGBA textures and four item definitions.')

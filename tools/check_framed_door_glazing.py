@@ -1,4 +1,5 @@
 """Verify connected half-height transoms, single-pane rendering and material-only variants."""
+from resource_modules import module_is_file, module_read_text
 import itertools
 import json
 from create_school_glass_assets import A, ROOT
@@ -7,7 +8,7 @@ from audit_block_states import audit
 
 
 def read(path):
-    return json.loads(path.read_text())
+    return json.loads(module_read_text(path))
 
 def check_paintable_entrance():
     import numpy as np
@@ -53,9 +54,9 @@ def check_paintable_entrance():
     loot=read(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ENTRANCE_ID}.json')
     assert loot['pools'][0]['conditions'][1]['properties']=={'column':'0','row':'0','depth':'0'}
     java=ROOT/'src/main/java/net/nicomar2009/lsmmod'
-    assert 'hasTransomGlazing() {return true;}' not in (java/'block/SchoolPaintableEntranceDoorBlock.java').read_text()
-    assert 'hasTransomGlazing() { return false; }' in (java/'block/SchoolPaintableBathroomDoorBlock.java').read_text()
-    assert 'ModBlocks.SCHOOL_ENTRANCE_DOOR_PAINTABLE.get()' in (java/'registry/ModBlockEntities.java').read_text()
+    assert 'hasTransomGlazing() {return true;}' not in module_read_text(java/'modules/painting_and_editable_blocks/block/SchoolPaintableEntranceDoorBlock.java')
+    assert 'hasTransomGlazing() { return false; }' in module_read_text(java/'modules/painting_and_editable_blocks/block/SchoolPaintableBathroomDoorBlock.java')
+    assert 'ModBlocks.SCHOOL_ENTRANCE_DOOR_PAINTABLE.get()' in module_read_text(java/'registry/ModBlockEntities.java')
     print('OK: unchanged entrance leaf/UV, 2x3 assembly and 192 states; solid paintable 32x8x16px header and shared 8px editing, no upper glass, both hinges/orientations, full item frame and single drop. Minecraft interactions remain uncompiled.')
 
 
@@ -131,8 +132,8 @@ def check_paintable_bathroom():
         mask=rng.getrandbits(64);signed=mask if mask<2**63 else mask-2**64
         assert signed&((1<<64)-1)==mask
     java=ROOT/'src/main/java/net/nicomar2009/lsmmod'
-    entity=(java/'block/SchoolDoorFramePaintEntity.java').read_text()
-    block=(java/'block/SchoolPaintableBathroomDoorBlock.java').read_text()
+    entity=module_read_text(java/'modules/painting_and_editable_blocks/block/SchoolDoorFramePaintEntity.java')
+    block=module_read_text(java/'modules/painting_and_editable_blocks/block/SchoolPaintableBathroomDoorBlock.java')
     assert 'extends SchoolFramedDiningDoorBlock implements EntityBlock' in block
     assert 'hasTransomGlazing() { return false; }' in block and 'SimpleBlockOutline.forState' not in block
     assert 'removed|=1L<<cube' in entity and 'level.removeBlock' not in entity
@@ -218,12 +219,12 @@ def check_paintable_column():
     assert loot['pools'][0]['conditions'][1]['properties']=={'column':'0','row':'0','depth':'0'}
     assert loot['pools'][0]['entries'][0]['name']=='lsmmod:'+COLUMN_ID
     java=ROOT/'src/main/java/net/nicomar2009/lsmmod'
-    entity=(java/'block/SchoolBathroomColumnPaintEntity.java').read_text()
-    block=(java/'block/SchoolPaintableBathroomColumnDoorBlock.java').read_text()
+    entity=module_read_text(java/'modules/painting_and_editable_blocks/block/SchoolBathroomColumnPaintEntity.java')
+    block=module_read_text(java/'modules/painting_and_editable_blocks/block/SchoolPaintableBathroomColumnDoorBlock.java')
     assert 'extends SchoolPaintableCustomBlockEntity' in entity and 'loadWholeFaces(input)' in entity and 'else super.loadAdditional(input)' in entity
     assert 'extends SchoolFramedDiningDoorBlock implements EntityBlock' in block and 'hasTransomGlazing' not in block
     assert 'columnCell(state)?new SchoolBathroomColumnPaintEntity(pos,state):null' in block
-    rectangle=(java/'item/RectanglePaintTool.java').read_text()
+    rectangle=module_read_text(java/'item/RectanglePaintTool.java')
     assert 'block instanceof SchoolPaintableCustomBlockEntity small' in rectangle
     assert 'end=new End(end.plane,a,a+3,b,b+3)' not in rectangle
     print('OK: 192 states preserve original geometry, leaf/UV and glass; 8x8px independent paint squares, continuous UVs and six-face legacy migration, all materials, both hinges/all orientations, complete item and single drop. Java/Minecraft remain uncompiled.')
@@ -244,7 +245,7 @@ def check_extended_doors():
         definition=read(A/f'blockstates/{ident}.json')['multipart']
         for entry in definition:
             path=A/f"models/{entry['apply']['model'].split(':')[1]}.json"
-            assert path.is_file()
+            assert module_is_file(path)
             for m in load(entry['apply']['model']):
                 for e in m.get('elements',[]):
                     assert all(0<=e['from'][axis]<e['to'][axis]<=16 for axis in range(3)),(ident,e)
@@ -284,14 +285,14 @@ def check_extended_doors():
             cells=[(right_vector[0]*column-facing[0]*depth,row,right_vector[1]*column-facing[1]*depth) for column,row,depth in itertools.product(range(2),range(4),range(2)) if depth==0 or opened and column==int(right)]
             assert len(cells)==len(set(cells))==(12 if opened else 8)
     java=ROOT/'src/main/java/net/nicomar2009/lsmmod/block'
-    base=(java/'SchoolFramedDiningDoorBlock.java').read_text()
+    base=module_read_text(java/'SchoolFramedDiningDoorBlock.java')
     assert 'row < 3' not in base and '.setValue(ROW,' not in base and 'state.getValue(ROW)' not in base
-    assert 'hasTransomGlazing() {return false;}' in (java/'SchoolBathroomDoor2x4Block.java').read_text()
-    assert 'new double[]{0,0,0,32,64,4}' in (java/'SchoolBathroomDoor2x4Block.java').read_text()
+    assert 'hasTransomGlazing() {return false;}' in module_read_text(java/'SchoolBathroomDoor2x4Block.java')
+    assert 'new double[]{0,0,0,32,64,4}' in module_read_text(java/'SchoolBathroomDoor2x4Block.java')
     assert 'rows()==4?128:0' in base and 'b[a]>=40?b[a]+16:b[a]*1.4' in base
     assert 'rows()-1,0' in base and 'public int rows() {return 3;}' in base
-    assert 'return false;' in (java/'SchoolPaintableDoubleEntranceBlock.java').read_text()
-    assert 'extends SchoolPaintableCustomBlockEntity' in (java/'SchoolEntranceSlabPaintEntity.java').read_text()
+    assert 'return false;' in module_read_text(java/'SchoolPaintableDoubleEntranceBlock.java')
+    assert 'extends SchoolPaintableCustomBlockEntity' in module_read_text(java/'SchoolEntranceSlabPaintEntity.java')
     print('OK: double leaves match original renders, 40 exposed independent slab squares and full-depth header; 2x4 bathroom fragments match complete door in both hinges/openings, unique 8/12 cells, old state domains and single drops preserved. Static/offline only.')
 
 
@@ -364,14 +365,14 @@ def main():
         assert loot['pools'][0]['conditions'][1]['properties'] == {'column':'0','row':'0','depth':'0'}
         assert loot['pools'][0]['entries'][0]['name'] == 'lsmmod:'+ident
     java = ROOT/'src/main/java/net/nicomar2009/lsmmod/block'
-    shared = (java/'SchoolGlazing.java').read_text()
+    shared = module_read_text(java/'SchoolGlazing.java')
     assert 'instanceof SchoolFramedDiningDoorBlock' in shared
     assert 'state.getValue(SchoolFramedDiningDoorBlock.DEPTH)==0' in shared
     assert 'isFramedTransom(state)||state.getBlock() instanceof TallClassroomEntranceBlock' in shared
     assert 'adjacent(level.getBlockState(start.relative(right.getOpposite())),level.getBlockState(start),facing)' in shared
     assert shared.count('length-1)),level.getBlockState(start.relative(right,length)),facing)') == 2
-    assert 'SchoolGlazing.isFramedTransom(neighbor)' in (java/'SchoolGlassBlock.java').read_text()
-    door = (java/'SchoolFramedDiningDoorBlock.java').read_text()
+    assert 'SchoolGlazing.isFramedTransom(neighbor)' in module_read_text(java/'SchoolGlassBlock.java')
+    door = module_read_text(java/'SchoolFramedDiningDoorBlock.java')
     assert 'SchoolGlazing.refreshHorizontal(level, cell(origin,facing,column,rows()-1,0))' in door
     assert 'SimpleBlockOutline.forState' in door and 'COLLISIONS.computeIfAbsent' in door
     print(f'OK: 32 dynamic glazing masks; 8px transom matches school-glass footprint, connected caps/top frame removed; {count} facing/open/hinge assemblies have a single dining pane or a solid bathroom leaf; native textures, restored white front, shared caches and single drops.')

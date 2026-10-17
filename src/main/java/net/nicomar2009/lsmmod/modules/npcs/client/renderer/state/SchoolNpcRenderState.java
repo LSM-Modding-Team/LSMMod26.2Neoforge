@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.npcs.client.renderer.state;
 
-
-
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 
 /** Synced roles are available for future texture selection, without adding skins now. */

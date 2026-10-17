@@ -1,14 +1,15 @@
 """Static regression for glass caps, partial aprons, inherited doors and OBJ slots."""
+from resource_modules import module_glob, module_is_file, module_read_text
 import copy,json,tempfile
 from pathlib import Path
 from repair_door_glazing_faces import repair,eligible,covered,GLASS,NORMALS
 from optimize_model_resources import ROOT,prepare
 A=ROOT/'src/main/resources/assets/lsmmod'
-def read(path):return json.loads(path.read_text(encoding='utf-8-sig'))
+def read(path):return json.loads(module_read_text(path, encoding='utf-8-sig'))
 def faces(elements):return sum(len(e['faces']) for e in elements)
 def main():
  checked=removed=0
- for path in (A/'models/block').glob('*.json'):
+ for path in module_glob(A/'models/block', '*.json'):
   if not eligible(path):continue
   before=read(path);after=repair(before);assert repair(after)==after
   original=before.get('elements',[]);remaining=after.get('elements',[])
@@ -36,17 +37,17 @@ def main():
   output=Path(t)/'resources';report,aliases=prepare(output);B=output/'assets/lsmmod'
   assert report['door_glazing_faces']['glass_faces_removed']==removed and removed>0
   # Actual NeoForge resolveSlot -> Fusion getMaterial uses the MTL token verbatim.
-  slots=[line.split()[1] for line in (B/'models/block/school_entrance_pavement_shapes.mtl').read_text().splitlines() if line.startswith('map_Kd ')]
+  slots=[line.split()[1] for line in module_read_text(B/'models/block/school_entrance_pavement_shapes.mtl').splitlines() if line.startswith('map_Kd ')]
   assert slots==['gray','yellow']
   for ident in ['school_entrance_pavement_slab',*[f'school_entrance_pavement_slope_{i}' for i in range(1,7)]]:
    for apply in read(B/f'blockstates/{ident}.json')['variants'].values():
     textures=read(B/f'models/{apply["model"].split(":")[1]}.json')['textures']
     for slot in slots:
      assert slot in textures
-     assert (B/f'textures/{textures[slot].split(":")[1]}.png').is_file()
+     assert module_is_file(B/f'textures/{textures[slot].split(":")[1]}.png')
   # Every inherited tall-door variant still reaches the repaired native parent.
   for ident in ('tall_bathroom_door','tall_teachers_office_door','tall_dining_door'):
-   roots=[read(p) for p in (B/'models/block/school_door_dynamic').glob(ident+'_*.json')]
+   roots=[read(p) for p in module_glob(B/'models/block/school_door_dynamic', ident+'_*.json')]
    assert roots
    for root in roots:
     for entry in root['models'][0]:

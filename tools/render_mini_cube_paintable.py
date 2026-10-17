@@ -1,4 +1,5 @@
 """Review the actual shared 4px geometry, paint selectors, cut surfaces and inventory model."""
+from resource_modules import output_path
 from resource_json import preview_path
 import itertools
 from PIL import Image,ImageDraw
@@ -31,6 +32,6 @@ def review():
         canvas.paste(render(elements,[8,8,8],18,size=(480,450),azimuth=-65,elevation=20,minecraft_orientation=True),offset)
         draw.text((offset[0]+10,offset[1]-18),label,fill=(25,25,25))
     draw.text((10,980),'Render externo de modelos finales; sin compilar ni ejecutar Minecraft.',fill=(25,25,25))
-    canvas.save(preview_path(f'{FINE_ID}_review.png'))
+    canvas.save(output_path(preview_path(f'{FINE_ID}_review.png')))
 
 if __name__=='__main__':review()

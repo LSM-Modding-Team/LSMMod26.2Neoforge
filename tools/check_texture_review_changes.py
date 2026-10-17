@@ -1,4 +1,5 @@
 """Check source-texture sampling, invisible cell caps and opaque joins."""
+from resource_modules import module_glob, module_path, module_read_bytes, module_read_text
 import hashlib
 import itertools
 import json
@@ -11,7 +12,7 @@ from audit_block_states import audit
 def main():
     samples = 0
     for ident,original in [('dining_door_wide','dining_door'),('bathroom_door_wide','bathroom_door')]:
-        source = {half:Image.open(A/f'textures/block/{original}_{half}.png').convert('RGBA') for half in ('bottom','top')}
+        source = {half:Image.open(module_path(A/f'textures/block/{original}_{half}.png')).convert('RGBA') for half in ('bottom','top')}
         for right in (False,True):
             scene = door(ident,False,right)
             wood = [e for e in scene if any(f['texture'] in ('lsmmod:block/'+original+'_bottom','lsmmod:block/'+original+'_top') for f in e['faces'].values())]
@@ -24,7 +25,7 @@ def main():
                     lo,hi = e['from'],e['to'];u0,v0,u1,v1 = material['uv']
                     t = (hi[0]-x)/(hi[0]-lo[0]) if face=='north' else (x-lo[0])/(hi[0]-lo[0])
                     u = u0+(u1-u0)*t;v = v0+(v1-v0)*(hi[1]-y)/(hi[1]-lo[1])
-                    actual = Image.open(A/f"textures/{material['texture'].split(':')[1]}.png").convert('RGBA').getpixel((min(15,int(u)),min(15,int(v))))
+                    actual = Image.open(module_path(A/f"textures/{material['texture'].split(':')[1]}.png")).convert('RGBA').getpixel((min(15,int(u)),min(15,int(v))))
                     half,end = ('bottom',20) if y<20 else ('top',40)
                     expected = source[half].getpixel((min(15,int((32-x if right else x)*16/24)),min(15,int((end-y)*16/20))))
                     assert actual==expected,(ident,right,face,x,y,actual,expected)
@@ -42,21 +43,21 @@ def main():
     rows = {r['id']:r for r in audit()}
     assert rows[ID]['states']==rows['school_glass']['states']==68
     assert rows['school_tinted_glass']['states']==4
-    wrapper = json.loads((A/f'models/block/{ID}.json').read_text())
+    wrapper = json.loads(module_read_text(A/f'models/block/{ID}.json'))
     assert {e['condition']['mask'] for e in wrapper['models'][0]}==set(range(32))
     for mask in range(32):
         model, = load('lsmmod:block/'+ID,mask)
         assert model['elements'] and model['render_type']=='minecraft:solid'
         assert model['textures']['glass']=='lsmmod:block/school_tinted_glass'
         assert all(0<=e['from'][i]<e['to'][i]<=16 for e in model['elements'] for i in range(3))
-    tinted = Image.open(A/'textures/block/school_tinted_glass.png').convert('RGBA')
+    tinted = Image.open(module_path(A/'textures/block/school_tinted_glass.png')).convert('RGBA')
     assert tinted.getextrema()[3]==(255,255)
-    wood = Image.open(A/'textures/block/school_wood.png').convert('RGB')
+    wood = Image.open(module_path(A/'textures/block/school_wood.png')).convert('RGB')
     assert max(wood.getcolors(256))[1]==(150,108,62)
-    models = list((A/'models/block').glob(ID+'*.json'))
-    before = {p:hashlib.sha256(p.read_bytes()).digest() for p in models}
+    models = list(module_glob(A/'models/block', ID+'*.json'))
+    before = {p:hashlib.sha256(module_read_bytes(p)).digest() for p in models}
     generate()
-    assert all(hashlib.sha256(p.read_bytes()).digest()==h for p,h in before.items())
+    assert all(hashlib.sha256(module_read_bytes(p)).digest()==h for p,h in before.items())
     print(f'OK: {samples} source-texture samples match both small doors, front/back and both hinges; no invented wood caps; 32 opaque tinted joins, 68 curtain-compatible states, original independent glass retained; light school wood and generator idempotent.')
 
 

@@ -6,9 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RESOURCES = ROOT / 'src/main/resources'
-# Only migrated modules participate; scaffolds remain deliberately unopened.
-MODULES = ('npcs', 'balls', 'school_supplies', 'uniforms', 'music_discs',
-           'musical_instruments', 'books_notebooks_and_folders')
+MODULES = ('awnings', 'backpacks', 'balls', 'books_notebooks_and_folders', 'building_blocks', 'chairs', 'facilities', 'lighting', 'lockers_and_storage', 'music_discs', 'musical_instruments', 'npcs', 'painting_and_editable_blocks', 'school_supplies', 'shelving', 'slopes', 'special_blocks', 'tables_and_desks', 'technology', 'uniforms', 'wall_blocks', 'windows_and_enclosures')
 _snapshot = None
 
 
@@ -69,38 +67,305 @@ def source_assets():
     return Path(_snapshot.name) / 'assets/lsmmod'
 
 
-def output_path(path):
-    """Keep mixed generators writing existing resources in their owning module."""
+_LAYOUT = json.loads((ROOT / 'tools/module_layout.json').read_text())
+_JAVA = ROOT / 'src/main/java/net/nicomar2009/lsmmod'
+_index = None
+
+
+def _normalize(path):
     path = Path(path)
+    return path if path.is_absolute() else ROOT / path
+
+
+def _resource_relative(path):
     try:
-        relative = path.relative_to(RESOURCES)
+        relative = _normalize(path).relative_to(RESOURCES)
+    except (ValueError, TypeError):
+        return None
+    if relative.parts and relative.parts[0] in MODULES:
+        relative = Path(*relative.parts[1:])
+    return relative
+
+
+def _sources(relative):
+    global _index
+    if _index is None:
+        _index = {}
+        for base in roots():
+            if not base.exists():
+                continue
+            for path in base.rglob('*'):
+                if not path.is_file():
+                    continue
+                rel = path.relative_to(base)
+                if base == RESOURCES and rel.parts[0] in MODULES:
+                    continue
+                _index.setdefault(rel.as_posix(), []).append(path)
+    return _index.get(Path(relative).as_posix(), [])
+
+
+def _owner(relative):
+    key = Path(relative).as_posix()
+    if key in _LAYOUT['resource_overrides']:
+        return _LAYOUT['resource_overrides'][key]
+    if key.startswith('assets/lsmmod/sounds/'):
+        return 'technology'
+    parts = Path(relative).parts
+    if key.startswith(('assets/lsmmod/models/', 'assets/lsmmod/textures/')):
+        name = '/'.join(parts[4:]).rsplit('.', 1)[0]
+    else:
+        name = Path(relative).stem
+    for prefix, owner in sorted({**_LAYOUT['blocks'], **_LAYOUT['prefixes']}.items(), key=lambda item: -len(item[0])):
+        if name == prefix or name.startswith((prefix + '_', prefix + '/', prefix + '.')):
+            return owner
+    return None
+
+
+def _java_path(path):
+    path = _normalize(path)
+    try:
+        rel = path.relative_to(_JAVA).as_posix()
     except ValueError:
         return path
-    if relative.parts[0] in MODULES:
+    return _JAVA / _LAYOUT['classes'].get(rel, rel)
+
+
+def module_path(path):
+    """Resolve a source file; external files and prepared output are passed through."""
+    if not isinstance(path, (str, Path)):
         return path
-    matches = [RESOURCES / name / relative for name in MODULES if (RESOURCES / name / relative).is_file()]
-    if path.exists() or not matches:
+    path = _normalize(path)
+    relative = _resource_relative(path)
+    if relative is None:
+        return _java_path(path)
+    matches = _sources(relative)
+    if path in matches:
         return path
-    if len(matches) != 1:
-        raise ValueError(f'Use write_resource for shared dictionaries: {relative}')
-    return matches[0]
+    if len(matches) == 1:
+        return matches[0]
+    return path
+
+
+def output_path(path):
+    """Resolve physical output ownership, including resources first created by a generator."""
+    if not isinstance(path, (str, Path)):
+        return path
+    path = _normalize(path)
+    relative = _resource_relative(path)
+    if relative is None:
+        destination = _java_path(path)
+    else:
+        matches = _sources(relative)
+        if len(matches) == 1:
+            destination = matches[0]
+        elif len(matches) > 1:
+            raise ValueError(f'Use write_resource for shared dictionaries: {relative}')
+        else:
+            owner = _owner(relative)
+            destination = RESOURCES / owner / relative if owner else path
+            _sources(relative)
+            _index[relative.as_posix()] = [destination]
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    return destination
+
+
+def _shared(relative):
+    return relative is not None and (relative.name == 'sounds.json' or 'lang' in relative.parts or 'tags' in relative.parts)
+
+
+def module_read_text(path, *args, **kwargs):
+    path = _normalize(path)
+    relative = _resource_relative(path)
+    matches = _sources(relative) if relative is not None else []
+    if _shared(relative) and len(matches) > 1:
+        merged = {}
+        for source in matches:
+            value = json.loads(source.read_text(*args, **kwargs))
+            if 'tags' in relative.parts:
+                values = merged.get('values', []) + value.get('values', [])
+                merged.update(value)
+                merged['values'] = values
+            else:
+                overlap = merged.keys() & value.keys()
+                if overlap:
+                    raise ValueError(f'Duplicate dictionary keys: {relative}: {overlap}')
+                merged.update(value)
+        return json.dumps(merged, ensure_ascii=False)
+    return module_path(path).read_text(*args, **kwargs)
+
+
+def _field_end(text, start):
+    depth = 0
+    quoted = escaped = False
+    for index in range(start, len(text)):
+        char = text[index]
+        if quoted:
+            if escaped:
+                escaped = False
+            elif char == '\\':
+                escaped = True
+            elif char == '"':
+                quoted = False
+        elif char == '"':
+            quoted = True
+        elif char in '([{':
+            depth += 1
+        elif char in ')]}':
+            depth -= 1
+        elif char == ';' and depth == 0:
+            return index + 1
+    raise ValueError('Unterminated Java field')
+
+
+def _write_java(path, text, *args, **kwargs):
+    import re
+    path = _java_path(path)
+    if path.parent == _JAVA / 'registry' and path.exists():
+        # Generators may replace a facade section; route its concrete declarations to owners.
+        existing = path.read_text()
+        aliases = dict(re.findall(r'public static final [^=;\n]+?\s+(\w+)\s*=\s*(net\.nicomar2009\.lsmmod\.modules\.[\w.]+)\s*;', existing))
+        edits = []
+        for match in re.finditer(r'    public static final ([^=;\n]+?)\s+(\w+)\s*=\s*', text):
+            name = match[2]
+            if name not in aliases:
+                continue
+            end = _field_end(text, match.end())
+            alias = aliases[name]
+            expression = text[match.end():end - 1]
+            if expression == alias:
+                continue
+            owner = ROOT / 'src/main/java' / (alias.rsplit('.', 1)[0].replace('.', '/') + '.java')
+            source = owner.read_text()
+            declaration = re.search(r'    public static final [^=;\n]+?\s+' + re.escape(name) + r'\s*=\s*', source)
+            if declaration is None:
+                raise ValueError(f'Missing owning declaration: {owner}: {name}')
+            owner_end = _field_end(source, declaration.end())
+            updated = source[:declaration.start()] + text[match.start():end] + source[owner_end:]
+            if updated != source:
+                owner.write_text(updated)
+            edits.append((match.start(), end, f'    public static final {match[1]} {name} = {alias};'))
+        for start, end, replacement in reversed(edits):
+            text = text[:start] + replacement + text[end:]
+        # Facades are stable compatibility API; old generator sections may span unrelated fields.
+        # Only module-owned declarations above are editable by these generators.
+        return path.write_text(existing, *args, **kwargs)
+    if _JAVA in path.parents and 'modules' in path.relative_to(_JAVA).parts:
+        package = 'net.nicomar2009.lsmmod.' + path.parent.relative_to(_JAVA).as_posix().replace('/', '.')
+        text = re.sub(r'^package [^;]+;', 'package ' + package + ';', text, count=1)
+        # Generated classes historically used implicit peers in the old block package.
+        if 'import net.nicomar2009.lsmmod.block.*;' not in text:
+            text = text.replace(';', ';\nimport net.nicomar2009.lsmmod.block.*;', 1)
+        for old, new in _LAYOUT['classes'].items():
+            fqn = 'net.nicomar2009.lsmmod.' + new[:-5].replace('/', '.')
+            name = Path(old).stem
+            if re.search(r'\b' + name + r'\b', text) and name != path.stem and fqn.rsplit('.', 1)[0] != package and f'import {fqn};' not in text:
+                text = text.replace(';', ';\nimport ' + fqn + ';', 1)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    return path.write_text(text, *args, **kwargs)
 
 
 def write_resource(path, data):
-    """Route generated dictionaries to their existing owners without duplicate keys."""
     from resource_json import resource_json
-    path = Path(path)
-    relative = path.relative_to(RESOURCES)
+    relative = _resource_relative(path)
+    if relative is None or not _shared(relative):
+        destination = output_path(path)
+        destination.write_text(resource_json(destination, data) + '\n', encoding='utf-8')
+        return
+    sources = _sources(relative)
+    owners = {}
+    for source in sources:
+        value = json.loads(source.read_text())
+        for key in value.get('values', []) if 'tags' in relative.parts else value:
+            owners[json.dumps(key, sort_keys=True) if 'tags' in relative.parts else key] = source
     fragments = {}
-    if relative.name == 'sounds.json' or 'lang' in relative.parts:
-        for name in MODULES:
-            candidate = RESOURCES / name / relative
-            if candidate.exists():
-                current = json.loads(candidate.read_text())
-                selected = {key: data.pop(key) for key in list(data) if key in current}
-                if selected:
-                    fragments[candidate] = {**current, **selected}
-    fragments[output_path(path)] = data
-    for destination, value in fragments.items():
+    if 'tags' in relative.parts:
+        for value in data.get('values', []):
+            key = json.dumps(value, sort_keys=True)
+            ident = value if isinstance(value, str) else value.get('id', '')
+            owner = _LAYOUT['blocks'].get(ident.removeprefix('lsmmod:')) if ident.startswith('lsmmod:') else None
+            destination = owners.get(key) or (RESOURCES / owner / relative if owner else RESOURCES / relative)
+            fragments.setdefault(destination, {**data, 'values': []})['values'].append(value)
+    else:
+        for key, value in data.items():
+            ident = key.split('.lsmmod.', 1)[-1].split('.')[0]
+            owner = _LAYOUT['blocks'].get(ident)
+            destination = owners.get(key) or (RESOURCES / owner / relative if owner else RESOURCES / relative)
+            fragments.setdefault(destination, {})[key] = value
+    for destination, fragment in fragments.items():
         destination.parent.mkdir(parents=True, exist_ok=True)
-        destination.write_text(resource_json(destination, value) + '\n', encoding='utf-8')
+        if destination.exists():
+            current = json.loads(destination.read_text())
+            if 'tags' not in relative.parts:
+                fragment = {**current, **fragment}
+            else:
+                fragment['values'] = [json.loads(v) for v in dict.fromkeys(json.dumps(v, sort_keys=True) for v in current.get('values', []) + fragment['values'])]
+        destination.write_text(resource_json(destination, fragment) + '\n', encoding='utf-8')
+    # A partial generator write updates its entries without erasing unrelated fragments.
+    for source in sources:
+        if source not in fragments:
+            fragments[source] = json.loads(source.read_text())
+    _index[relative.as_posix()] = list(fragments)
+
+
+def module_write_text(path, text, *args, **kwargs):
+    path = Path(path)
+    if path.suffix == '.java':
+        return _write_java(path, text, *args, **kwargs)
+    relative = _resource_relative(path)
+    if _shared(relative):
+        write_resource(path, json.loads(text))
+        return len(text)
+    return output_path(path).write_text(text, *args, **kwargs)
+
+
+def module_read_bytes(path):
+    relative = _resource_relative(path)
+    if _shared(relative):
+        return module_read_text(path, encoding='utf-8').encode('utf-8')
+    return module_path(path).read_bytes()
+
+
+def module_write_bytes(path, data):
+    return output_path(path).write_bytes(data)
+
+
+def module_exists(path):
+    relative = _resource_relative(path)
+    return bool(_sources(relative)) if relative is not None and _sources(relative) else module_path(path).exists()
+
+
+def module_is_file(path):
+    return module_exists(path) and (bool(_sources(_resource_relative(path))) if _resource_relative(path) is not None else module_path(path).is_file())
+
+
+def module_stat(path, *args, **kwargs):
+    return module_path(path).stat(*args, **kwargs)
+
+
+def module_unlink(path, *args, **kwargs):
+    actual = module_path(path)
+    relative = _resource_relative(path)
+    result = actual.unlink(*args, **kwargs)
+    if relative is not None and _index is not None:
+        _index[relative.as_posix()] = [p for p in _sources(relative) if p != actual]
+    return result
+
+
+def module_glob(path, pattern, *, recursive=False):
+    path = _normalize(path)
+    relative = _resource_relative(path)
+    if relative is None:
+        yield from (path.rglob(pattern) if recursive else path.glob(pattern))
+        return
+    found = set()
+    for base in roots():
+        directory = base / relative
+        for candidate in directory.rglob(pattern) if recursive else directory.glob(pattern):
+            suffix = candidate.relative_to(directory)
+            if suffix not in found:
+                found.add(suffix)
+                yield path / suffix
+
+
+def module_rglob(path, pattern):
+    return module_glob(path, pattern, recursive=True)

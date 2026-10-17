@@ -1,4 +1,5 @@
 """One-block masonry counter: dark tiled plinth, light wall and light tiled worktop."""
+from resource_modules import module_glob, module_path, module_read_text, module_unlink, module_write_text, output_path
 from resource_json import resource_json
 import json
 from PIL import Image
@@ -10,12 +11,12 @@ J = ROOT / 'src/main/java/net/nicomar2009/lsmmod'
 
 def write(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(value if isinstance(value, str) else resource_json(path, value, ensure_ascii=False)+'\n')
+    module_write_text(path, value if isinstance(value, str) else resource_json(path, value, ensure_ascii=False)+'\n')
 
 
 def main():
     # Preserve the nine saved phases, but share one dark, 2px-thick top model.
-    Image.new('RGB', (16,16), (22,31,37)).save(A/'textures/block/dining_room_counter.png')
+    Image.new('RGB', (16,16), (22,31,37)).save(output_path(A/'textures/block/dining_room_counter.png'))
     faces = {f:{'texture':'#top','uv':[0,0,16,16]} for f in ('north','south','east','west','up','down')}
     for face in ('north','south','east','west'):
         faces[face]['uv'] = [0,0,16,2]
@@ -27,8 +28,8 @@ def main():
     variants = {f'tile_x={x},tile_z={z}':{'model':'lsmmod:block/'+ID} for x in range(3) for z in range(3)}
     write(A/f'blockstates/{ID}.json', {'variants':variants})
     write(A/f'models/item/{ID}.json', {'parent':'lsmmod:block/'+ID})
-    for path in (A/'models/block').glob(ID+'_*.json'):
-        path.unlink()
+    for path in module_glob(A/'models/block', ID+'_*.json'):
+        module_unlink(path)
     write(A / f'items/{ID}.json', {'model': {'type': 'minecraft:model', 'model': 'lsmmod:item/' + ID}})
     write(D / f'lsmmod/loot_table/blocks/{ID}.json', {'type': 'minecraft:block', 'pools': [{
         'rolls': 1, 'conditions': [{'condition': 'minecraft:survives_explosion'}],
@@ -38,7 +39,7 @@ def main():
         ('ModItems.java', '    public static final DeferredItem<BlockItem> DINING_ROOM_COUNTER = ITEMS.registerSimpleBlockItem(ModBlocks.DINING_ROOM_COUNTER);'),
     ):
         p = J / 'registry' / filename
-        source = p.read_text()
+        source = module_read_text(p)
         start, end = '    // BEGIN DINING COUNTER', '    // END DINING COUNTER'
         section = start + '\n' + line + '\n' + end
         if start in source:
@@ -48,18 +49,18 @@ def main():
         write(p, source)
     for locale, name in [('es_es', 'Cubierta del mostrador del comedor'), ('en_us', 'Dining Room Countertop')]:
         p = A / f'lang/{locale}.json'
-        values = json.loads(p.read_text())
+        values = json.loads(module_read_text(p))
         values['block.lsmmod.' + ID] = name
         write(p, values)
     p = D / 'minecraft/tags/block/mineable/pickaxe.json'
-    values = json.loads(p.read_text())
+    values = json.loads(module_read_text(p))
     values['values'] = list(dict.fromkeys(values['values'] + ['lsmmod:' + ID]))
     write(p, values)
     # All three red chair variants share this material. Read the bell's actual paint.
-    bell = Image.open(A / 'textures/block/school_bell.png').convert('RGBA')
+    bell = Image.open(module_path(A / 'textures/block/school_bell.png')).convert('RGBA')
     red = max((count, color) for count, color in bell.getcolors(bell.width*bell.height)
               if color[3] and color[0] > 2*color[1] and color[0] > 2*color[2])[1]
-    Image.new('RGB', (16, 16), red[:3]).save(A / 'textures/block/chair_red.png')
+    Image.new('RGB', (16, 16), red[:3]).save(output_path(A / 'textures/block/chair_red.png'))
 
 
 if __name__ == '__main__':

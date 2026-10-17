@@ -1,4 +1,5 @@
 """Static exact-grid rotation checks for the declared chair collision profiles."""
+from resource_modules import module_exists, module_read_text
 from pathlib import Path
 import re,bisect,itertools
 ROOT=Path(__file__).resolve().parents[1];B=ROOT/'src/main/java/net/nicomar2009/lsmmod/block'
@@ -13,14 +14,14 @@ def main():
  profiles=[]
  for file in ('ChairBlock.java','NewChairShapes.java','StoolBlock.java'):
   p=B/file
-  if not p.exists():continue
-  for name,body in re.findall(r'(?:public|private) static final VoxelShape (\w+) = (?:Shapes.or|ExactVoxelShapes.union)\((.*?)\);',p.read_text(),re.S):
+  if not module_exists(p):continue
+  for name,body in re.findall(r'(?:public|private) static final VoxelShape (\w+) = (?:Shapes.or|ExactVoxelShapes.union)\((.*?)\);',module_read_text(p),re.S):
    boxes=[tuple(float(x.strip())/16 for x in values.split(',')) for values in re.findall(r'(?:Block.box|ExactVoxelShapes.box)\(([\d., \-]+)\)',body)]
    assert boxes,(file,name);profiles.append((file,name,boxes))
  sofa=B/'SofaShapes.java'
- if sofa.exists():
+ if module_exists(sofa):
   corners={}
-  for name,body in re.findall(r'\{ // (\w+)\n(.*?)\n        \}',sofa.read_text(),re.S):
+  for name,body in re.findall(r'\{ // (\w+)\n(.*?)\n        \}',module_read_text(sofa),re.S):
    boxes=[tuple(float(x.strip())/16 for x in values.split(',')) for values in re.findall(r'\{([\d., \-]+)\}',body)]
    assert boxes,('SofaShapes.java',name)
    assert all(all(b[i]<b[i+3] for i in range(3)) for b in boxes),name
@@ -46,7 +47,7 @@ def main():
    coords,occupied,boxes=rotated_coords,direct,turned;count+=1
   assert occupied==original_cells
   assert all(abs(a-b)<1e-12 for old,new in zip(original_coords,coords) for a,b in zip(old,new))
- java=(B/'SharedChairRotations.java').read_text();chair=(B/'ChairBlock.java').read_text()
+ java=module_read_text(B/'SharedChairRotations.java');chair=module_read_text(B/'ChairBlock.java')
  assert all(f'OctahedralGroup.BLOCK_ROT_Y_{angle}' in java for angle in (90,180,270))
  assert 'Shapes.or' not in java and '.optimize()' not in java
  assert 'BY_IDENTITY' in java and 'BY_BOXES' in java and 'cached.clone()' in java

@@ -1,4 +1,5 @@
 """Four interrupted and six independently placed smooth railing slopes."""
+from resource_modules import module_read_text, module_write_text
 from resource_json import resource_json
 import json,math
 from pathlib import Path
@@ -13,7 +14,7 @@ def pieces():
   h=flight_height(i);row=math.floor(h+.75)
   yield f'school_railing_slope_flight_{i+1}',i,row,.75+h-row,flight_height(i+1)-h,i%2==0
 
-def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(resource_json(p, v, ensure_ascii=False)+'\n')
+def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);module_write_text(p, resource_json(p, v, ensure_ascii=False)+'\n')
 def obj(low,rise,post,band=False):
  vertices=[];uv=[];faces=[]
  def prism(x0,x1,t0,t1,b0,b1,h0,h1,material):
@@ -45,12 +46,12 @@ def obj(low,rise,post,band=False):
  for material,indices in faces:out+=['usemtl '+material,'f '+' '.join(f'{i}/{i}' for i in indices)]
  return '\n'.join(out)+'\n'
 def main():
- (A/'models/block/school_railing_slopes.mtl').write_text('newmtl wall\nKd 1 1 1\nd 1\nmap_Kd #wall\nnewmtl metal\nKd 1 1 1\nd 1\nmap_Kd #metal\n')
+ module_write_text(A/'models/block/school_railing_slopes.mtl', 'newmtl wall\nKd 1 1 1\nd 1\nmap_Kd #wall\nnewmtl metal\nKd 1 1 1\nd 1\nmap_Kd #metal\n')
  registrations='    // BEGIN SCHOOL RAILING SLOPES\n';items=registrations
  for ident,column,row,low,rise,post in pieces():
   band=False
   halves=(rise/2,rise/2)
-  (A/f'models/block/{ident}.obj').write_text(obj(low,rise,post,False))
+  module_write_text(A/f'models/block/{ident}.obj', obj(low,rise,post,False))
   write(A/f'models/block/{ident}.json',{'loader':'neoforge:obj','model':f'lsmmod:models/block/{ident}.obj','automatic_culling':False,'flip_v':True,'shade_quads':True,'textures':{'wall':'lsmmod:block/light_school_wall','metal':'lsmmod:block/school_gate_edge','particle':'lsmmod:block/light_school_wall'}})
   write(A/f'blockstates/{ident}.json',{'variants':{f'facing={face}':{'model':'lsmmod:block/'+ident,'y':angle} for face,angle in (('north',0),('east',90),('south',180),('west',270))}})
   write(A/f'models/item/{ident}.json',{'parent':'lsmmod:block/'+ident})
@@ -59,16 +60,16 @@ def main():
   registrations+=f'    public static final DeferredBlock<SchoolRailingSlopeBlock> {ident.upper()} = BLOCKS.registerBlock(\n            "{ident}", props -> new SchoolRailingSlopeBlock({low:.15g},{halves[0]:.15g},{halves[1]:.15g},{str(post).lower()},{str(band).lower()},props),\n            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());\n'
   items+=f'    public static final DeferredItem<BlockItem> {ident.upper()} = ITEMS.registerSimpleBlockItem(ModBlocks.{ident.upper()});\n'
  for name,section in (('ModBlocks.java',registrations),('ModItems.java',items)):
-  p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/name;s=p.read_text();begin='    // BEGIN SCHOOL RAILING SLOPES';end='    // END SCHOOL RAILING SLOPES';section+=end+'\n'
+  p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/name;s=module_read_text(p);begin='    // BEGIN SCHOOL RAILING SLOPES';end='    // END SCHOOL RAILING SLOPES';section+=end+'\n'
   if begin in s:a=s.index(begin);b=s.index(end)+len(end)+1;s=s[:a]+section+s[b:]
   else:anchor=s.index('    public static final DeferredBlock<' if name=='ModBlocks.java' else '    public static final DeferredItem<');s=s[:anchor]+section+'\n'+s[anchor:]
-  p.write_text(s)
+  module_write_text(p, s)
  for locale in ('es_es','en_us'):
-  p=A/f'lang/{locale}.json';v=json.loads(p.read_text())
+  p=A/f'lang/{locale}.json';v=json.loads(module_read_text(p))
   for ident,*_ in pieces():
    family='tramo interrumpido' if '_split_' in ident else 'tramo de 6 bloques y 5 niveles';number=ident.rsplit('_',1)[1]
    v['block.lsmmod.'+ident]=f'Pendiente con baranda: {family} {number}' if locale=='es_es' else f'Railing slope: {"split" if "_split_" in ident else "6 blocks / 5 levels"} {number}'
   write(p,v)
- p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';v=json.loads(p.read_text());v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+x[0] for x in pieces()]));write(p,v)
+ p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';v=json.loads(module_read_text(p));v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+x[0] for x in pieces()]));write(p,v)
  write(ROOT/'tools/school_railing_slope_layout.json',{'split':{'length':7,'rise':5,'pillar_columns':[2,3,4]},'flight':{'length':6,'rise':FLIGHT_RISE,'wall_top_height':4.75,'rail_top_height':5.25,'flat_bottom':True,'level_end_length':0},'pieces':[{'id':ident,'column':col,'row':row,'low':low,'rise':rise,'post':post,'half_rises':list(flight_halves(col)) if '_flight_' in ident else [rise/2,rise/2]} for ident,col,row,low,rise,post in pieces()]})
 if __name__=='__main__':main()

@@ -1,4 +1,5 @@
 """Static regression of exact wall-only Y reflection, start and profile continuity."""
+from resource_modules import module_is_file, module_read_text
 import json,math
 import numpy as np
 from create_school_inverted_slopes import A,ROOT,pieces
@@ -22,9 +23,9 @@ def main():
    for j in range(1,len(p)-1):volume+=p[0]@np.cross(p[j],p[j+1])/6
   assert math.isclose(volume,source_low+rise/2+.25,abs_tol=1e-8)
   assert np.isclose(v[:,1].max(),1) and np.isclose(v[:,1].min(),low-rise)
-  states=json.loads((A/f'blockstates/{ident}.json').read_text())['variants'];assert len(states)==4
-  model=json.loads((A/f'models/block/{ident}.json').read_text());assert set(model['textures'])=={'wall','particle'}
-  assert (A/f'items/{ident}.json').is_file()
+  states=json.loads(module_read_text(A/f'blockstates/{ident}.json'))['variants'];assert len(states)==4
+  model=json.loads(module_read_text(A/f'models/block/{ident}.json'));assert set(model['textures'])=={'wall','particle'}
+  assert module_is_file(A/f'items/{ident}.json')
   # Exact collision envelope differs from the inclined underside by <= half a pixel.
   assert rise/32<=1/32
  for group in (plan[:2],plan[2:4],plan[4:]):
@@ -32,7 +33,7 @@ def main():
  assert plan[0][2]+plan[0][3]==0 and plan[4][2]+plan[4][3]==0
  assert math.isclose(plan[3][2]+plan[3][3]-plan[3][4],-5)
  assert math.isclose(plan[-1][2]+plan[-1][3]-plan[-1][4],-4)
- s=(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolInvertedSlopeBlock.java').read_text()
+ s=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/slopes/block/SchoolInvertedSlopeBlock.java')
  assert 'SimpleBlockOutline.forState' in s and 'protected VoxelShape getCollisionShape' in s
  assert '1,topHeight,1-t0' in s
  assert 'this(lowerStart,rise,0,properties)' in s

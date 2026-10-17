@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.balls.ball;
 
-
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;

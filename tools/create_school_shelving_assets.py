@@ -1,4 +1,5 @@
 """Two-wide, three-high shelving; white desk boards and four permanent metal uprights."""
+from resource_modules import module_read_text, module_write_text
 import copy
 import json
 from create_bathroom_statue_assets import solid_model
@@ -52,7 +53,7 @@ def main():
     write(A/f'models/item/{ID}.json', item)
     basic(ID, controller={'column': '0', 'row': '0'})
     boxes = json.dumps([box for box, *_ in parts()]).replace('[', '{').replace(']', '}')
-    (J/'block/SchoolShelvingBlock.java').write_text('''package net.nicomar2009.lsmmod.block;
+    module_write_text(J/'modules/shelving/block/SchoolShelvingBlock.java', '''package net.nicomar2009.lsmmod.block;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
@@ -91,17 +92,17 @@ public class SchoolShelvingBlock extends WideBathroomBlock {
         ('ModItems.java', '    public static final DeferredItem<BlockItem> SCHOOL_SHELVING = ITEMS.registerSimpleBlockItem(ModBlocks.SCHOOL_SHELVING);'),
     ):
         path = J/'registry'/filename
-        text = path.read_text()
+        text = module_read_text(path)
         if ' SCHOOL_SHELVING =' not in text:
-            path.write_text(text.replace('    // BEGIN FACILITY EXPANSIONS', entry+'\n\n    // BEGIN FACILITY EXPANSIONS', 1))
+            module_write_text(path, text.replace('    // BEGIN FACILITY EXPANSIONS', entry+'\n\n    // BEGIN FACILITY EXPANSIONS', 1))
     for locale, name in (('es_es', 'Estantería metálica con niveles blancos'),
                          ('en_us', 'Metal Shelving with White Shelves')):
         path = A/f'lang/{locale}.json'
-        data = json.loads(path.read_text())
+        data = json.loads(module_read_text(path))
         data['block.lsmmod.'+ID] = name
         write(path, data)
     path = D/'minecraft/tags/block/mineable/pickaxe.json'
-    data = json.loads(path.read_text())
+    data = json.loads(module_read_text(path))
     if 'lsmmod:'+ID not in data['values']:
         data['values'].append('lsmmod:'+ID)
         write(path, data)

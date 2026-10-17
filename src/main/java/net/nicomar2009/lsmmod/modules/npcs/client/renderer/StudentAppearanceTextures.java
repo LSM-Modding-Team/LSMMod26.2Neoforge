@@ -1,7 +1,5 @@
 package net.nicomar2009.lsmmod.modules.npcs.client.renderer;
 
-
-
 import com.mojang.blaze3d.platform.NativeImage;
 import java.io.IOException;
 import java.util.HashMap;

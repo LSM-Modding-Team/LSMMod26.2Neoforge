@@ -1,4 +1,5 @@
 """External model preview with alpha compositing; not a Minecraft screenshot."""
+from resource_modules import module_path, module_read_text, output_path
 from resource_json import preview_path
 import json,math,zipfile,io
 from pathlib import Path
@@ -24,8 +25,8 @@ def render(model,center,scale):
             texture=model['textures'][face['texture'][1:]];namespace,name=texture.split(':')
             if namespace=='minecraft':
                 with zipfile.ZipFile(ROOT/'.build-tools/gradle/caches/neoformruntime/artifacts/minecraft_26.2_client.jar') as jar:
-                    tex=np.array(Image.open(io.BytesIO(jar.read('assets/minecraft/textures/'+name+'.png'))).convert('RGBA'))
-            else:tex=np.array(Image.open(A/f'textures/{name}.png').convert('RGBA'))
+                    tex=np.array(Image.open(module_path(io.BytesIO(jar.read('assets/minecraft/textures/'+name+'.png')))).convert('RGBA'))
+            else:tex=np.array(Image.open(module_path(A/f'textures/{name}.png')).convert('RGBA'))
             surfaces.append((p[:,2].mean(),p,uv,tex))
     for _,poly,uv,tex in sorted(surfaces,key=lambda x:x[0]):
         for tri in [(0,1,2),(0,2,3)]:
@@ -47,7 +48,7 @@ def render(model,center,scale):
 
 def main():
     canvas=Image.new('RGB',(960,600),(112,130,128));labels=ImageDraw.Draw(canvas)
-    base=json.loads((A/'models/block/projector_screen.json').read_text())
+    base=json.loads(module_read_text(A/'models/block/projector_screen.json'))
     pieces=[]
     for column in range(4):
         for row in range(3):
@@ -57,7 +58,7 @@ def main():
                 pieces.append(e)
     textures=dict(base['textures']);detail=[]
     for column in range(2):
-        m=json.loads((A/f'models/block/wall_projector_{column}.json').read_text());textures.update(m['textures'])
+        m=json.loads(module_read_text(A/f'models/block/wall_projector_{column}.json'));textures.update(m['textures'])
         for original in m['elements']:
             e=json.loads(json.dumps(original))
             for k in ('from','to'):e[k][0]+=16*column
@@ -69,6 +70,6 @@ def main():
     canvas.paste(render({'textures':textures,'elements':detail},[16,8,8],15),(480,0))
     labels.text((20,20),'Pantalla 4 x 3 / proyector centrado encima',fill='white')
     labels.text((500,20),'Proyector en 2 celdas / escala original',fill='white')
-    canvas.save(preview_path('projector_screen_4x3_centered.png'))
+    canvas.save(output_path(preview_path('projector_screen_4x3_centered.png')))
 
 if __name__=='__main__':main()

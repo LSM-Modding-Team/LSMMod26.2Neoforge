@@ -1,0 +1,13 @@
+{
+  "block.lsmmod.students_desk": "Student's Desk",
+  "container.lsmmod.students_desk": "Student's Desk",
+  "block.lsmmod.elementary_desk": "Elementary Desk",
+  "container.lsmmod.elementary_desk": "Elementary Desk",
+  "block.lsmmod.teachers_desk": "Teacher's Desk",
+  "block.lsmmod.computer_desk": "Computer desk",
+  "block.lsmmod.gray_computer_desk": "Gray computer desk",
+  "block.lsmmod.dining_table": "Dining Table",
+  "block.lsmmod.kiosk_table": "Kiosk Table",
+  "block.lsmmod.art_table": "Art Classroom Table",
+  "block.lsmmod.dining_room_counter": "Dining Room Countertop"
+}

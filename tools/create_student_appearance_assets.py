@@ -1,18 +1,19 @@
 """Create vanilla-scale 2D skin layers: 64 skin tones, 8 eyes, 32 male cuts, 32 female cuts in two hair modes, 8 glasses."""
+from resource_modules import module_read_text, output_path
 from pathlib import Path
 import json
 from PIL import Image, ImageDraw, ImageChops
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'src/main/resources/npcs/assets/lsmmod/textures/entity/student_appearance'
 OUT.mkdir(parents=True,exist_ok=True)
-DATA=json.loads((ROOT/'tools/student_appearance_palette.json').read_text())
+DATA=json.loads(module_read_text(ROOT/'tools/student_appearance_palette.json'))
 DARK,MID='#2e2117','#493526'
 HEAD=[(8,0,16,8),(16,0,24,8),(0,8,8,16),(8,8,16,16),(16,8,24,16),(24,8,32,16)]
 def canvas():
  im=Image.new('RGBA',(64,64));return im,ImageDraw.Draw(im)
 def rect(d,b,c):
  x,y,X,Y=b;d.rectangle((x,y,X-1,Y-1),fill=c)
-def save(im,name):im.resize((256,256),Image.Resampling.NEAREST).save(OUT/(name+'.png'))
+def save(im,name):im.resize((256,256),Image.Resampling.NEAREST).save(output_path(OUT/(name+'.png')))
 for i,c in enumerate(DATA['skinColors']):
  im,d=canvas()
  for b in HEAD:rect(d,b,c)
