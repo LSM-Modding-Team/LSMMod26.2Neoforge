@@ -25,7 +25,7 @@ def main():
         assert not list(module_rglob(A, old+'*.json')) and not list(module_rglob(A, old+'*.png'))
         new = floors[old.startswith('light_')]
         for filename in ('ModBlocks.java', 'ModItems.java'):
-            source = module_registry_text(J/'registry'/filename)
+            source = module_registry_text(J/'modules/building_blocks/registry'/filename.replace('Mod','Module',1))
             assert re.search(r'addAlias\([^;]*"'+old+r'"\),\s*'+new.upper()+r'\.getId\(\)\)', source)
     # Every saved tile phase now shares exactly the same thin upper surface.
     states = read(A/f'blockstates/{ID}.json')['variants']

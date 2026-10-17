@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.building_blocks.registry;
+import net.nicomar2009.lsmmod.LSMMod;
 import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.minecraft.world.item.*;

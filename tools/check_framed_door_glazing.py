@@ -56,7 +56,7 @@ def check_paintable_entrance():
     java=ROOT/'src/main/java/net/nicomar2009/lsmmod'
     assert 'hasTransomGlazing() {return true;}' not in module_read_text(java/'modules/painting_and_editable_blocks/block/SchoolPaintableEntranceDoorBlock.java')
     assert 'hasTransomGlazing() { return false; }' in module_read_text(java/'modules/painting_and_editable_blocks/block/SchoolPaintableBathroomDoorBlock.java')
-    assert 'ModBlocks.SCHOOL_ENTRANCE_DOOR_PAINTABLE.get()' in module_read_text(java/'registry/ModBlockEntities.java')
+    assert 'ModuleBlocks.SCHOOL_ENTRANCE_DOOR_PAINTABLE.get()' in module_read_text(java/'modules/painting_and_editable_blocks/registry/ModuleBlockEntities.java')
     print('OK: unchanged entrance leaf/UV, 2x3 assembly and 192 states; solid paintable 32x8x16px header and shared 8px editing, no upper glass, both hinges/orientations, full item frame and single drop. Minecraft interactions remain uncompiled.')
 
 
