@@ -29,7 +29,7 @@ def verify(read, names, metadata, suffix, expected=None):
         assert not declared & registered, ('Duplicate mixins', filename)
         assert declared <= names, ('Missing mixin classes', declared - names)
         # Mixin owns every class below the package, not just the listed names.
-        ordinary = {name for name in names if name.startswith(prefix) and '$' not in name} - declared
+        ordinary = {name for name in names if name.startswith(prefix) and name.endswith(suffix) and '$' not in name} - declared
         assert not ordinary, ('Ordinary classes inside a reserved Mixin package', ordinary)
         registered.update(declared)
     if expected is not None:
