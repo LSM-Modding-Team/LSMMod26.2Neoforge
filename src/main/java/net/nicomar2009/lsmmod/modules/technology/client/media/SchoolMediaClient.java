@@ -18,7 +18,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.nicomar2009.lsmmod.LSMMod;
-import net.nicomar2009.lsmmod.media.*;
+import net.nicomar2009.lsmmod.modules.technology.media.*;
 import net.nicomar2009.lsmmod.modules.technology.network.SchoolMediaPayloads;
 import net.nicomar2009.lsmmod.modules.technology.rules.SchoolMediaRules;
 

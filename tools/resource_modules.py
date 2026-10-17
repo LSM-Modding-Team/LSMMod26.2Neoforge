@@ -369,3 +369,14 @@ def module_glob(path, pattern, *, recursive=False):
 
 def module_rglob(path, pattern):
     return module_glob(path, pattern, recursive=True)
+
+
+def module_registry_text(path, *args, **kwargs):
+    """Static checks inspect concrete registrations in their owning modules."""
+    actual = module_path(path)
+    text = module_read_text(path, *args, **kwargs)
+    if actual.parent == _JAVA / 'registry' and actual.name.startswith('Mod'):
+        module_name = 'Module' + actual.name[3:]
+        owners = sorted((_JAVA / 'modules').glob('*/registry/' + module_name))
+        return '\n'.join(p.read_text(*args, **kwargs) for p in owners) + '\n' + text
+    return text

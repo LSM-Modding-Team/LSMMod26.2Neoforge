@@ -1,12 +1,12 @@
 """Static checks of nine individual sloped walls, rail junctions and placements."""
-from resource_modules import module_exists, module_read_text
+from resource_modules import module_exists, module_registry_text
 import json,math
 import numpy as np
 from create_school_railing_slopes import A,ROOT,pieces,FLIGHT_RISE,flight_halves,flight_height
 
 def mesh(path):
  vertices=[];uvs=[];faces=[];material=None
- for line in module_read_text(path).splitlines():
+ for line in module_registry_text(path).splitlines():
   f=line.split()
   if not f:continue
   if f[0]=='v':vertices.append(tuple(map(float,f[1:])))
@@ -19,7 +19,7 @@ def main():
  plan=list(pieces());assert len(plan)==10
  assert [p[1] for p in plan[:4]]==[0,1,5,6]
  assert [p[1] for p in plan[4:]]==list(range(6))
- reg=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java')
+ reg=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java')
  for ident,col,row,low,rise,post in plan:
   assert 0<low and rise>0
   vertices,uv,faces=mesh(A/f'models/block/{ident}.obj')
@@ -47,7 +47,7 @@ def main():
    assert vertices[:24,1].min()==0
    assert math.isclose(rise,2/3)
    a,b=flight_halves(col);assert max(a,b)*2/32<=1/32
-  states=json.loads(module_read_text(A/f'blockstates/{ident}.json'))['variants'];assert len(states)==4
+  states=json.loads(module_registry_text(A/f'blockstates/{ident}.json'))['variants'];assert len(states)==4
   assert all('half' not in key for key in states)
   assert ident in reg
   for folder in ('models/item','items'):assert module_exists(A/f'{folder}/{ident}.json')
@@ -71,12 +71,12 @@ def main():
  for group in (split,flight):
   assert math.isclose(height(group[0],0),.75)
   assert math.isclose(height(group[-1],1),(.75+FLIGHT_RISE) if group is flight else 5.75)
- source=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/slopes/block/SchoolRailingSlopeBlock.java')
+ source=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/slopes/block/SchoolRailingSlopeBlock.java')
  assert 'HALF' not in source and 'SimpleBlockOutline.forState' in source
  assert 'protected VoxelShape getCollisionShape' in source
  assert 'context.getHorizontalDirection()' in source
  assert 'super.getCollisionShape' not in source
- flat=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/building_blocks/block/SchoolWallRailingBlock.java')
+ flat=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/building_blocks/block/SchoolWallRailingBlock.java')
  assert 'SchoolRailingSlopeBlock.connectsFlat' in flat
  print('OK: 10 pieces, 80 states, outward planar faces, atlas-safe UVs, continuous wall/rail endpoints, 7x5 split and 6 blocks / 5 levels, slope starts at boundaries, flat bottoms, wall top 4 blocks 12 px / rail top 5 blocks 4 px, no inversion.')
 if __name__=='__main__':main()

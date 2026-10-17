@@ -1,10 +1,10 @@
 """Dynamic connection masks, hollow trough, exact cells and bounded states/shapes."""
-from resource_modules import module_read_bytes, module_read_text
+from resource_modules import module_read_bytes, module_registry_text
 import json,hashlib
 from pathlib import Path
 from create_school_connected_sink import ROOT,A,GENERATED,main as generate,parts
 
-def read(p):return json.loads(module_read_text(p))
+def read(p):return json.loads(module_registry_text(p))
 def main():
     from audit_block_states import audit
     row=next(r for r in audit() if r['id']=='school_connected_sink');assert row['states']==8 and set(row['domains'])=={'facing','half'}
@@ -28,10 +28,10 @@ def main():
     for length in range(1,6):
         masks=[(1 if i else 0)|(2 if i<length-1 else 0) for i in range(length)]
         assert sum(int(not(m&1))+int(not(m&2)) for m in masks)==2
-    source=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/facilities/block/SchoolConnectedSinkBlock.java')
+    source=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/facilities/block/SchoolConnectedSinkBlock.java')
     assert 'SchoolConnectedSinkShapes.BOXES[half][mask]' in source and 'OUTLINES[' in source and 'forState' not in source
     assert 'other.getValue(FACING)==state.getValue(FACING)' in source and 'other.getValue(HALF)==state.getValue(HALF)' in source
-    registry=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java');registration=registry.split('SCHOOL_CONNECTED_SINK =')[1].split(';')[0];assert '.dynamicShape()' in registration
+    registry=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java');registration=registry.split('SCHOOL_CONNECTED_SINK =')[1].split(';')[0];assert '.dynamicShape()' in registration
     loot=read(ROOT/'src/main/resources/data/lsmmod/loot_table/blocks/school_connected_sink.json');assert loot['pools'][0]['conditions'][1]['properties']=={'half':'lower'}
     generate();before={p:hashlib.sha256(module_read_bytes(Path(p))).digest() for p in GENERATED};generate();assert all(hashlib.sha256(module_read_bytes(Path(p))).digest()==h for p,h in before.items())
     print('OK: 4 masks x 2 halves, hollow continuous troughs of 1..5 units, original bathroom-floor gray, 24px height, exact cached collision/outline profiles, 8 states and one paired drop; generator idempotent.')

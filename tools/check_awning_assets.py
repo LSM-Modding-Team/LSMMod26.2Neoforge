@@ -1,9 +1,9 @@
 """Check retained cloth resources and one-pixel supports without compilation."""
-from resource_modules import module_exists, module_read_text, module_rglob
+from resource_modules import module_exists, module_registry_text, module_rglob
 import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmod'
-def read(p):return json.loads(module_read_text(p))
+def read(p):return json.loads(module_registry_text(p))
 def main():
  variants=read(ROOT/'tools/awning_variants.json');assert [v[0] for v in variants]==['playground_awning','elementary_playground_awning']
  for ident,*_ in variants:
@@ -23,17 +23,17 @@ def main():
    assert e['from'][1]==13 and e['to'][1]==14
   assert [e['from'][2] for e in elements[:3]]==[0,0,0]
   assert [e['to'][2] for e in elements[:3]]==[16,16,16]
- support=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/awnings/block/AwningSupportBlock.java');assert 'SimpleBlockOutline.forState' in support and 'getCollisionShape' in support
+ support=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/awnings/block/AwningSupportBlock.java');assert 'SimpleBlockOutline.forState' in support and 'getCollisionShape' in support
  assert 'new double[]{2,7.5,13}' in support and 'new double[]{0,15}' in support
  for name in ('ModBlocks.java','ModItems.java'):
-  s=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/name)
+  s=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/name)
   assert ' AWNING =' not in s and 'WHITE_AWNING' not in s and 'BLACK_AWNING' not in s
  # No references anywhere in active resources to the deleted base or colour variants.
  removed=['awning']+[color+'_awning' for color in ('white','orange','magenta','light_blue','yellow','lime','pink','gray','light_gray','cyan','purple','blue','brown','green','red','black')]
  for ident in removed:
   assert not module_exists(A/f'blockstates/{ident}.json') and not module_exists(A/f'models/block/{ident}')
  for p in module_rglob(A/'models', '*.json'):
-  s=module_read_text(p)
+  s=module_registry_text(p)
   assert 'lsmmod:block/awning/' not in s and '"lsmmod:item/awning"' not in s and '"lsmmod:block/awning"' not in s
  print('OK: only two awnings, 4624 cloth states with resolved models; 1024 support states, five 1x1px rods touching both block edges, cached collision / simple selection; removed base and 16 colours.')
 if __name__=='__main__':main()

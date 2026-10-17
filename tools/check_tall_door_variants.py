@@ -1,14 +1,14 @@
 """Static resource and registration regression for the three tall door variants."""
-from resource_modules import module_is_file, module_read_text
+from resource_modules import module_is_file, module_registry_text
 import json
 from create_tall_door_variants import A,ROOT,VARIANTS
 
-def read(p):return json.loads(module_read_text(p))
+def read(p):return json.loads(module_registry_text(p))
 def main():
     from compact_school_door_assets import expand_variants
     source=expand_variants(read(A/'blockstates/tall_classroom_entrance.json'))
-    registrations=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java')
-    items=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModItems.java')
+    registrations=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java')
+    items=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModItems.java')
     checked=0
     for base in VARIANTS:
         name='tall_'+base;states=expand_variants(read(A/f'blockstates/{name}.json'))

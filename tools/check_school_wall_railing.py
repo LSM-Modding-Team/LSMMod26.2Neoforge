@@ -1,21 +1,21 @@
 """Static geometry, state, placement and alternating-support checks."""
-from resource_modules import module_exists, module_is_file, module_read_text
+from resource_modules import module_exists, module_is_file, module_registry_text
 import itertools,json
 from create_school_wall_railing_assets import A,ROOT,ID
 
 def main():
- states=json.loads(module_read_text(A/f'blockstates/{ID}.json'))['multipart']
+ states=json.loads(module_registry_text(A/f'blockstates/{ID}.json'))['multipart']
  assert len(states)==11
  for n in ('','_post','_arm','_center','_isolated','_inventory'):
-  model=json.loads(module_read_text(A/f'models/block/{ID+n}.json'))
+  model=json.loads(module_registry_text(A/f'models/block/{ID+n}.json'))
   assert model['textures']['metal']=='lsmmod:block/school_gate_edge'
   assert model['textures']['wall']=='lsmmod:block/light_school_wall'
   for e in model['elements']:
    assert all(0<=a<b<=20 for a,b in zip(e['from'],e['to']))
    assert len(e['faces'])==6
- base=json.loads(module_read_text(A/f'models/block/{ID}.json'))['elements'][0]
+ base=json.loads(module_registry_text(A/f'models/block/{ID}.json'))['elements'][0]
  assert base['from']==[0,0,0] and base['to']==[16,12,16]
- source=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/building_blocks/block/SchoolWallRailingBlock.java')
+ source=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/building_blocks/block/SchoolWallRailingBlock.java')
  assert 'extends FenceBlock' in source and 'super.updateShape' in source
  assert 'protected VoxelShape getCollisionShape' in source and 'SimpleBlockOutline.forState' in source
  assert 'super.getCollisionShape' not in source
@@ -36,7 +36,7 @@ def main():
   for p in selected:assert module_is_file(A/('models/block/'+p['model'].split(':block/')[1]+'.json'))
   count+=1
  for name in ('ModBlocks.java','ModItems.java'):
-  text=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/name)
+  text=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/name)
   assert 'CLASSROOM_FLOOR_STAIRS' not in text and 'SCHOOL_SLOPE' not in text
   assert 'LIGHT_SCHOOL_WALL_RAILING' in text
  assert not module_exists(ROOT/'src/main/java/net/nicomar2009/lsmmod/block/SchoolTiledStairBlock.java')

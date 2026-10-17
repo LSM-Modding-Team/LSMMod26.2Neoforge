@@ -1,12 +1,12 @@
 """Static checks only: door profile, stair resources/materials and shared glass joins."""
-from resource_modules import module_exists, module_glob, module_path, module_read_bytes, module_read_text, module_write_text
+from resource_modules import module_exists, module_glob, module_path, module_read_bytes, module_registry_text, module_write_text
 import json
 from pathlib import Path
 from PIL import Image
 from create_school_glass_assets import A,D,ROOT
 from create_school_glass_stair_assets import QUARTERS
 
-def read(p):return json.loads(module_read_text(p))
+def read(p):return json.loads(module_registry_text(p))
 
 def check_projecting_windows():
     """Compare anchored cell fragments against whole panes with the inverted outward opening."""
@@ -16,7 +16,7 @@ def check_projecting_windows():
     from render_school_projecting_window import scene
     from render_texture_review import add, load, render
     source=ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/windows_and_enclosures/block/SchoolProjectingWindowBlock.java'
-    text=module_read_text(source)
+    text=module_registry_text(source)
     assert 'extends SchoolGlassBlock' not in text and 'SchoolCurtains.CURTAIN' not in text
     assert 'SimpleBlockOutline.forState' not in text  # Pane selection depends on the world.
     for phase in range(9):
@@ -85,7 +85,7 @@ def check_projecting_windows():
                         for layer in ('solid','translucent'):
                             stem=f'{PAINTABLE_ID}/phase_{phase}_{side}_part_{index}' if mixed else f'{ID}/phase_{phase}_part_{index}'
                             path=A/f'models/block/{stem}_{layer}_{pose}.json'
-                            if module_exists(path):add(assembled,[json.loads(module_read_text(path))],(x*16,y*16,0))
+                            if module_exists(path):add(assembled,[json.loads(module_registry_text(path))],(x*16,y*16,0))
             for original in whole:
                 e=copy.deepcopy(original)
                 for key in ('from','to'):e[key][0]+=shift
@@ -384,10 +384,10 @@ def main():
                 glass=next(e for e in model['elements'] if e['faces']['north']['texture']=='#glass')
                 assert glass['from'][1]==9 and glass['to'][1]==(16 if top else 15)
                 assert glass['to'][2]-glass['from'][2]==8
-    stair=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/windows_and_enclosures/block/SchoolGlassStairBlock.java')
+    stair=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/windows_and_enclosures/block/SchoolGlassStairBlock.java')
     assert 'extends StairBlock' in stair and 'super.getStateForPlacement(context)' in stair
     assert 'super.updateShape' in stair and 'return super.getShape' in stair and 'SimpleBlockOutline.forState' in stair
-    joins=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/windows_and_enclosures/block/SchoolGlazing.java')
+    joins=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/windows_and_enclosures/block/SchoolGlazing.java')
     assert 'a.footprint()!=b.footprint()' in joins and 'a.high()==16&&reachesBottom(neighbor,b)' in joins
     loot=read(D/'lsmmod/loot_table/blocks/tall_classroom_entrance.json')
     assert loot['pools'][0]['conditions'][1]['properties']=={'row':'0'}
@@ -399,7 +399,7 @@ def check_paintable_stairs():
     from check_custom_paintable_blocks import coords,visible
     from render_school_glass import stair_scene,item_scene
     import itertools
-    registry=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java')
+    registry=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java')
     assert registry.count('DeferredBlock<SchoolPaintableGlassStairBlock>')==1
     for retired in RETIRED:
         assert retired not in registry
@@ -447,7 +447,7 @@ def check_paintable_stairs():
     item=item_scene()
     assert any(next(iter(e['faces'].values()))['texture']=='minecraft:block/light_gray_concrete' and e['from']==[0,0,0] and e['to']==[16,8,16] for e in item)
     assert any(e['render_type']=='minecraft:translucent' for e in item)
-    source=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/painting_and_editable_blocks/block/SchoolGlassStairPaintEntity.java')
+    source=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/painting_and_editable_blocks/block/SchoolGlassStairPaintEntity.java')
     assert 'extends SchoolPaintableCustomBlockEntity' in source and 'return false;' in source and '0xcc:0x33' in source
     assert read(D/f'lsmmod/loot_table/blocks/{ID}.json')['pools'][0]['entries'][0]['name']=='lsmmod:'+ID
     print('OK: one editable glass stair; all slab masks, corners, facings, glass joins, curtains, item and retired resources checked.')

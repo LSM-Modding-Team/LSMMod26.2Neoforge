@@ -1,5 +1,5 @@
 """Check counter surfaces, tile continuity, renamed floor resources and shared chair paint."""
-from resource_modules import module_path, module_read_bytes, module_read_text, module_rglob
+from resource_modules import module_path, module_read_bytes, module_registry_text, module_rglob
 import hashlib
 import itertools
 import json
@@ -10,7 +10,7 @@ from create_dining_counter_assets import ROOT, A, D, J, ID, main as generate
 
 
 def read(path):
-    return json.loads(module_read_text(path))
+    return json.loads(module_registry_text(path))
 
 
 def main():
@@ -25,7 +25,7 @@ def main():
         assert not list(module_rglob(A, old+'*.json')) and not list(module_rglob(A, old+'*.png'))
         new = floors[old.startswith('light_')]
         for filename in ('ModBlocks.java', 'ModItems.java'):
-            source = module_read_text(J/'registry'/filename)
+            source = module_registry_text(J/'registry'/filename)
             assert re.search(r'addAlias\([^;]*"'+old+r'"\),\s*'+new.upper()+r'\.getId\(\)\)', source)
     # Every saved tile phase now shares exactly the same thin upper surface.
     states = read(A/f'blockstates/{ID}.json')['variants']
@@ -38,7 +38,7 @@ def main():
     assert 'cullface' not in element['faces']['down']
     assert model['textures']['top'] == 'lsmmod:block/'+ID
     assert Image.open(module_path(A/f'textures/block/{ID}.png')).getcolors(256) == [(256,(22,31,37))]
-    counter = module_read_text(J/'modules/tables_and_desks/block/DiningRoomCounterBlock.java')
+    counter = module_registry_text(J/'modules/tables_and_desks/block/DiningRoomCounterBlock.java')
     assert 'extends BathroomFloorBlock' in counter and 'Block.box(0,14,0,16,16,16)' in counter
     assert counter.count('return TOP;') == 2
     assert 'lsmmod:'+ID in read(D/'minecraft/tags/block/mineable/pickaxe.json')['values']

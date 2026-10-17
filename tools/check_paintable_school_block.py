@@ -2,7 +2,7 @@
 
 Does not compile Java or substitute for a client/server interaction test.
 """
-from resource_modules import module_is_file, module_path, module_read_text, module_rglob
+from resource_modules import module_is_file, module_path, module_registry_text, module_rglob
 import itertools
 import json
 from pathlib import Path
@@ -11,7 +11,7 @@ from resource_modules import source_assets
 A = source_assets()
 
 def read(path):
-    return json.loads(module_read_text(path, encoding='utf-8'))
+    return json.loads(module_registry_text(path, encoding='utf-8'))
 
 def check_projecting_half():
     """Paint palettes must affect only the fixed half, across both profiles and all hinge poses."""
@@ -82,7 +82,7 @@ def check_projecting_half():
             difference=np.abs(np.asarray(render(split,**options)).astype(int)-np.asarray(render(whole,**options)).astype(int))
             assert difference.max()<=1,('Changed UV or square seam',side,angle,difference.max())
     java=ROOT/'src/main/java/net/nicomar2009/lsmmod'
-    entity=module_read_text(java/'modules/painting_and_editable_blocks/block/SchoolProjectingWindowPaintEntity.java')
+    entity=module_registry_text(java/'modules/painting_and_editable_blocks/block/SchoolProjectingWindowPaintEntity.java')
     assert 'extends SchoolPaintableCustomBlockEntity' in entity and 'loadWholeFaces(input)' in entity
     assert 'getIntOr("paint_bits",0)==0' in entity and 'removeCube(Direction face,Vec3 hit) {return false;}' in entity
     variants=read(A/f'blockstates/{PAINTABLE_ID}.json')['variants'];assert len(variants)==8
@@ -132,7 +132,7 @@ def check_laboratory_auditorium():
         for group in model.get('models',[]):
             colors={e['condition']['paint'] for e in group if isinstance(e,dict) and isinstance(e.get('condition',{}).get('paint'),int) and e['condition']['paint']>=0}
             if colors and max(colors)>0:assert {13,14,15}<=colors,(path,'new paints missing')
-    registry=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModItems.java')
+    registry=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModItems.java')
     for ident in MATERIALS[:3]:assert ident+'_paint' in registry
     assert 'auditorium_stage_paint' not in registry
     print('OK: four opaque block/item/drop sets; two tile rows/columns and reference colors, narrow parquet grain, dark wool only on stage top; stable paint IDs 13–15 fit four-bit storage and every active paint library includes them.')
@@ -152,19 +152,19 @@ def main():
     border=Image.open(module_path(A/'textures/block/school_entrance_pavement_0.png')).getpixel((0,0))
     assert yellow.mode=='RGB' and yellow.size==(16,16)
     assert border==(255,211,0) and {yellow.getpixel((x,y)) for x in range(16) for y in range(16)}=={border}
-    enum=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/painting_and_editable_blocks/block/SchoolPaint.java')
+    enum=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/painting_and_editable_blocks/block/SchoolPaint.java')
     import re
     assert re.findall(r'^    ([A-Z_]+)\(',enum,re.M)==['UNPAINTED','LIGHT','DARK','STREET','WHITE','FLOOR','YELLOW','PLAYGROUND_WHITE','PLAYGROUND_GRAY','PLAYGROUND_GREEN','PLAYGROUND_ORANGE','DARK_TILED','RED_STREET','LABORATORY_TILE','LABORATORY_TABLE_TILE','AUDITORIUM_PARQUET']
     assert read(A/'blockstates/yellow_school_block.json')['variants']=={'':{'model':'lsmmod:block/yellow_school_block'}}
     assert read(A/'models/block/yellow_school_block.json')['parent']=='minecraft:block/cube_all'
-    assert 'case YELLOW -> ModItems.YELLOW_SCHOOL_PAINT.get();' in module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/school_supplies/item/SchoolSandpaperItem.java')
-    assert 'case YELLOW -> ModBlocks.YELLOW_SCHOOL_BLOCK.get();' in module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/painting_and_editable_blocks/compat/jade/PaintedWallNameProvider.java')
-    assert 'id.equals("yellow_school_block")' in module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModCreativeTabs.java')
+    assert 'case YELLOW -> ModItems.YELLOW_SCHOOL_PAINT.get();' in module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/school_supplies/item/SchoolSandpaperItem.java')
+    assert 'case YELLOW -> ModBlocks.YELLOW_SCHOOL_BLOCK.get();' in module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/modules/painting_and_editable_blocks/compat/jade/PaintedWallNameProvider.java')
+    assert 'id.equals("yellow_school_block")' in module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModCreativeTabs.java')
     grass=Image.open(module_path(A/'textures/block/school_synthetic_grass.png'))
     assert grass.mode == 'RGB' and grass.size == (16,16)
     averages=tuple(sum(pixel[c] for pixel in (grass.getpixel((x,y)) for y in range(16) for x in range(16)))/256 for c in range(3))
     assert all(abs(actual-target)<2 for actual,target in zip(averages,(83,126,62)))
-    blocks=module_read_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java')
+    blocks=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java')
     grass_registration=blocks.split('SCHOOL_SYNTHETIC_GRASS =',1)[1].split(';',1)[0]
     assert 'SoundType.MOSS' in grass_registration
     state = read(A/'blockstates/school_paintable_block.json')
@@ -191,8 +191,8 @@ def main():
                 found[face] = leaf['textures'][surface['texture'][1:]]
         assert found == dict(zip(SIDES, (PAINTS[color] for color in colors)))
     java = ROOT/'src/main/java/net/nicomar2009/lsmmod'
-    blocks = module_read_text(java/'registry/ModBlocks.java')
-    items = module_read_text(java/'registry/ModItems.java')
+    blocks = module_registry_text(java/'registry/ModBlocks.java')
+    items = module_registry_text(java/'registry/ModItems.java')
     assert '"classroom_white_wall"' in blocks and '"classroom_painted_block"' in blocks
     assert 'CLASSROOM_WHITE_WALL' in items and 'CLASSROOM_PAINTED_BLOCK' in items
     white = read(A/'models/block/classroom_white_wall.json')
