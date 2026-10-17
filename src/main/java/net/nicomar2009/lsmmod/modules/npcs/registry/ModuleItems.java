@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.npcs.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -10,10 +11,10 @@ import static net.nicomar2009.lsmmod.registry.ModRegistries.ITEMS;
 
 public final class ModuleItems {
     public static final DeferredItem<SpawnEggItem> STUDENT_SPAWN_EGG =
-            ITEMS.registerItem("student_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(ModEntities.STUDENT.get())));
+            ITEMS.registerItem("student_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(ModuleEntities.STUDENT.get())));
 
     public static final DeferredItem<SpawnEggItem> TEACHER_SPAWN_EGG =
-            ITEMS.registerItem("teacher_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(ModEntities.TEACHER.get())));
+            ITEMS.registerItem("teacher_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(ModuleEntities.TEACHER.get())));
 
     public static final DeferredItem<SpawnEggItem> STUDENT_1P_SPAWN_EGG =
             registerClassroomEgg("student_1p_spawn_egg", "primary", 1);
@@ -58,10 +59,13 @@ public final class ModuleItems {
             classroom.putInt("Grade", grade);
             CompoundTag entityData = new CompoundTag();
             entityData.put("StudentData", classroom);
-            return new SpawnEggItem(props.spawnEgg(ModEntities.STUDENT.get())
-                    .component(DataComponents.ENTITY_DATA, TypedEntityData.of(ModEntities.STUDENT.get(), entityData)));
+            return new SpawnEggItem(props.spawnEgg(ModuleEntities.STUDENT.get())
+                    .component(DataComponents.ENTITY_DATA, TypedEntityData.of(ModuleEntities.STUDENT.get(), entityData)));
         });
     }
+
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
 
     private ModuleItems() {}
 }

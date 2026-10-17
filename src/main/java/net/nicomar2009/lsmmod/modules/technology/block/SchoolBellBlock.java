@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.technology.block;
+import net.nicomar2009.lsmmod.modules.technology.registry.ModuleSounds;
 import net.nicomar2009.lsmmod.block.SimpleBlockOutline;
 
 import net.minecraft.core.BlockPos;
@@ -24,7 +25,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.nicomar2009.lsmmod.registry.ModSounds;
 
 /** Right-clickable school bell attached exclusively to a supported vertical wall. */
 public class SchoolBellBlock extends Block {
@@ -56,7 +56,7 @@ public class SchoolBellBlock extends Block {
                                                Player player, BlockHitResult hit) {
         if (player.isSpectator() || !level.mayInteract(player, pos)) return InteractionResult.PASS;
         if (!level.isClientSide()) {
-            level.playSound(null, pos, ModSounds.SCHOOL_BELL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.playSound(null, pos, ModuleSounds.SCHOOL_BELL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
         }
         return InteractionResult.SUCCESS;
     }

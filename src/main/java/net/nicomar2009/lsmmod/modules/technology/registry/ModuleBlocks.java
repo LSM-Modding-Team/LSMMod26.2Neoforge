@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.technology.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -66,5 +67,8 @@ public final class ModuleBlocks {
     public static final DeferredBlock<TallSpeakerBlock> TALL_SPEAKER = BLOCKS.registerBlock(
             "tall_speaker", TallSpeakerBlock::new,
             props -> props.strength(2.5F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.BLOCK));
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
+
     private ModuleBlocks() {}
 }

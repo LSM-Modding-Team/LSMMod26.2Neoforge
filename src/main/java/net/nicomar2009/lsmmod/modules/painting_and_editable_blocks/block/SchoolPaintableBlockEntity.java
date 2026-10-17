@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlockEntities;
 
 import java.util.Arrays;
 import net.minecraft.core.BlockPos;
@@ -13,12 +14,11 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.nicomar2009.lsmmod.registry.ModBlockEntities;
 
 public class SchoolPaintableBlockEntity extends BlockEntity {
     private final int[] paints = new int[6];
     public SchoolPaintableBlockEntity(BlockPos pos, BlockState state) {
-        this(ModBlockEntities.SCHOOL_PAINTABLE.get(), pos, state);
+        this(ModuleBlockEntities.SCHOOL_PAINTABLE.get(), pos, state);
     }
     protected SchoolPaintableBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) { super(type, pos, state); }
     public SchoolPaint paint(Direction face) { return SchoolPaint.fromId(paints[face.ordinal()]); }

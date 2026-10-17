@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.building_blocks.block;
+import net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleBlocks;
 import net.nicomar2009.lsmmod.block.SimpleBlockOutline;
 import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableCustomBlockEntity;
 import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableBlockEntity;
@@ -15,9 +16,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.nicomar2009.lsmmod.registry.ModBlocks;
 
 /** One state, no entity: neighbor-selected base and wall-colored quadrant joins. */
 public class SchoolCircularColumnBlock extends Block {
@@ -32,7 +31,7 @@ public class SchoolCircularColumnBlock extends Block {
     public static int wallPaint(BlockGetter level,BlockPos pos,int side,int quarter) {
         if(level==null || pos==null) return -1;
         Direction direction=SIDES[side];BlockPos neighbor=pos.relative(direction);BlockState other=level.getBlockState(neighbor);
-        if(other.is(ModBlocks.LIGHT_SCHOOL_WALL.get()) || other.is(ModBlocks.LIGHT_SCHOOL_WALL_RAILING.get())) return SchoolPaint.LIGHT.ordinal();
+        if(other.is(ModuleBlocks.LIGHT_SCHOOL_WALL.get()) || other.is(ModuleBlocks.LIGHT_SCHOOL_WALL_RAILING.get())) return SchoolPaint.LIGHT.ordinal();
         if(level.getBlockEntity(neighbor) instanceof SchoolPaintableBlockEntity painted) {
             Direction face=direction.getOpposite();
             if(painted instanceof SchoolPaintableCustomBlockEntity custom) {
@@ -49,7 +48,7 @@ public class SchoolCircularColumnBlock extends Block {
     /** The railing's masonry ends at y=12px; its wooden bars are never copied. */
     public static int wallHeight(BlockGetter level,BlockPos pos,int side,int quarter) {
         if(wallPaint(level,pos,side,quarter)<0) return 0;
-        return level.getBlockState(pos.relative(SIDES[side])).is(ModBlocks.LIGHT_SCHOOL_WALL_RAILING.get()) ? 12 : 16;
+        return level.getBlockState(pos.relative(SIDES[side])).is(ModuleBlocks.LIGHT_SCHOOL_WALL_RAILING.get()) ? 12 : 16;
     }
     private static int geometryKey(BlockGetter level,BlockPos pos) {
         int key=hasBase(level,pos) ? 1<<20 : 0;

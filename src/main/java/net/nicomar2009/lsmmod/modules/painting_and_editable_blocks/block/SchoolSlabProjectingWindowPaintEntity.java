@@ -1,14 +1,14 @@
 package net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlockEntities;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.nicomar2009.lsmmod.registry.ModBlockEntities;
 
 /** Bottom, top or double slab, using the shared world-space 24-square palette. */
 public class SchoolSlabProjectingWindowPaintEntity extends SchoolPaintableCustomBlockEntity {
-    public SchoolSlabProjectingWindowPaintEntity(BlockPos pos,BlockState state) {super(ModBlockEntities.SCHOOL_SLAB_PROJECTING_WINDOW_PAINT.get(),pos,state);}
+    public SchoolSlabProjectingWindowPaintEntity(BlockPos pos,BlockState state) {super(ModuleBlockEntities.SCHOOL_SLAB_PROJECTING_WINDOW_PAINT.get(),pos,state);}
     @Override public int occupied() {return switch(getBlockState().getValue(SchoolSlabProjectingWindowBlock.TYPE)){case TOP->0xcc;case DOUBLE->0xff;default->0x33;};}
     @Override public boolean hasCube(int cube) {return cube>=0&&cube<8&&(occupied()&(1<<cube))!=0;}
     @Override public boolean removeCube(Direction face,Vec3 hit) {return false;}

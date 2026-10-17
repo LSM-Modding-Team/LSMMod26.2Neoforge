@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.windows_and_enclosures.event;
+import net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleCurtainItems;
 
 import net.minecraft.world.InteractionResult;
 import net.minecraft.network.chat.Component;
@@ -10,14 +11,13 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.PistonEvent;
 import net.nicomar2009.lsmmod.LSMMod;
 import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolCurtains;
-import net.nicomar2009.lsmmod.registry.ModItems;
 
 /** Invalid targets must not activate a door or another block before Item.useOn runs. */
 @EventBusSubscriber(modid=LSMMod.MOD_ID)
 public final class SchoolCurtainEvents {
     private SchoolCurtainEvents() { }
     @SubscribeEvent public static void block(PlayerInteractEvent.RightClickBlock event) {
-        if(event.getItemStack().is(ModItems.SCHOOL_CURTAIN.get())
+        if(event.getItemStack().is(ModuleCurtainItems.SCHOOL_CURTAIN.get())
                 && !SchoolCurtains.canAttach(event.getLevel().getBlockState(event.getPos()))) {
             if(!event.getLevel().isClientSide())
                 event.getEntity().sendOverlayMessage(Component.translatable("message.lsmmod.curtain.target"));

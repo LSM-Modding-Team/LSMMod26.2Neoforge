@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -82,5 +83,8 @@ public final class ModuleBlocks {
     public static final DeferredBlock<DoorBlock> BATHROOM_DOOR = BLOCKS.registerBlock(
             "bathroom_door", props -> new DoorBlock(BlockSetType.OAK, props),
             props -> props.strength(3.0F).noOcclusion().pushReaction(PushReaction.DESTROY));
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
+
     private ModuleBlocks() {}
 }

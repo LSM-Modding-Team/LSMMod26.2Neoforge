@@ -1,12 +1,12 @@
 package net.nicomar2009.lsmmod.modules.awnings.block;
-import net.nicomar2009.lsmmod.registry.ModBlocks;
+import net.nicomar2009.lsmmod.modules.awnings.registry.ModuleBlockEntities;
+import net.nicomar2009.lsmmod.modules.awnings.registry.ModuleBlocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.nicomar2009.lsmmod.registry.ModBlockEntities;
 
 /** Persistent ownership; rendering is entirely determined by block states. */
 public class AwningBlockEntity extends BlockEntity {
@@ -15,11 +15,11 @@ public class AwningBlockEntity extends BlockEntity {
     private BlockPos second;
     private int width = 4; // Old four-wide structures have no saved width.
     private String variant = "playground_awning";
-    public AwningBlock awning() { return net.nicomar2009.lsmmod.registry.ModBlocks.awningVariant(variant); }
+    public AwningBlock awning() { return ModuleBlocks.awningVariant(variant); }
     boolean removalHandled;
 
     public AwningBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.AWNING.get(), pos, state);
+        super(ModuleBlockEntities.AWNING.get(), pos, state);
         supportRoot = pos;
         if (state.getBlock() instanceof AwningBlock cloth) variant = cloth.variant();
     }

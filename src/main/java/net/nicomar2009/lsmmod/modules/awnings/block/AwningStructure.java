@@ -1,4 +1,6 @@
 package net.nicomar2009.lsmmod.modules.awnings.block;
+import net.nicomar2009.lsmmod.modules.awnings.registry.ModuleItems;
+import net.nicomar2009.lsmmod.modules.awnings.registry.ModuleBlocks;
 
 import net.nicomar2009.lsmmod.modules.awnings.item.AwningSupportItem;
 import java.util.ArrayList;
@@ -16,8 +18,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.nicomar2009.lsmmod.registry.ModBlocks;
-import net.nicomar2009.lsmmod.registry.ModItems;
 
 /** Server-side preflight, atomic placement and bounded ownership-based dismantling. */
 public final class AwningStructure {
@@ -48,7 +48,7 @@ public final class AwningStructure {
             BlockPos pos = AwningSupportBlock.cell(root, axis, c);
             if (!loaded(level,pos)) return false;
             BlockState state = level.getBlockState(pos);
-            if (!state.is(ModBlocks.AWNING_SUPPORT.get()) || state.getValue(AwningSupportBlock.COLUMN) != c
+            if (!state.is(ModuleBlocks.AWNING_SUPPORT.get()) || state.getValue(AwningSupportBlock.COLUMN) != c
                     || state.getValue(AwningSupportBlock.FACING) != axis
                     || state.getValue(AwningSupportBlock.WIDTH) != width
                     || !(level.getBlockEntity(pos) instanceof AwningBlockEntity part)
@@ -88,7 +88,7 @@ public final class AwningStructure {
     public static InteractionResult place(UseOnContext context, AwningBlock awning) {
         Level level = context.getLevel(); Player player = context.getPlayer();
         BlockPos clicked = context.getClickedPos(); BlockState clickedState = level.getBlockState(clicked);
-        if (!clickedState.is(ModBlocks.AWNING_SUPPORT.get())) return fail(player,"support_only");
+        if (!clickedState.is(ModuleBlocks.AWNING_SUPPORT.get())) return fail(player,"support_only");
         if (level.isClientSide()) return InteractionResult.SUCCESS;
         if (player == null || !player.mayBuild()) return fail(player,"permission");
         Direction axis = clickedState.getValue(AwningSupportBlock.FACING);
@@ -161,7 +161,7 @@ public final class AwningStructure {
                     level.setBlock(cell.pos,Blocks.AIR.defaultBlockState(),Block.UPDATE_ALL|Block.UPDATE_SUPPRESS_DROPS);
                 }
             }
-            if (drop) Block.popResource(level,part.getBlockPos(),new ItemStack(ModItems.awningVariant(awning.variant())));
+            if (drop) Block.popResource(level,part.getBlockPos(),new ItemStack(ModuleItems.awningVariant(awning.variant())));
         } finally { REMOVING.remove(a); }
     }
     public static void removed(Level level, AwningBlockEntity part, boolean drop) {
@@ -169,13 +169,13 @@ public final class AwningStructure {
         part.removalHandled = true;
         BlockState old=part.getBlockState();
         removeCloth(level,part,drop);
-        if (!old.is(ModBlocks.AWNING_SUPPORT.get())) return;
+        if (!old.is(ModuleBlocks.AWNING_SUPPORT.get())) return;
         int width=part.width();
         BlockPos root=part.supportRoot(); Direction axis=old.getValue(AwningSupportBlock.FACING);
         if (!REMOVING.add(root)) return;
         try {
             for (BlockPos pos:bar(root,axis,width)) {
-                if (loaded(level,pos) && level.getBlockState(pos).is(ModBlocks.AWNING_SUPPORT.get())
+                if (loaded(level,pos) && level.getBlockState(pos).is(ModuleBlocks.AWNING_SUPPORT.get())
                         && level.getBlockEntity(pos) instanceof AwningBlockEntity other && other.supportRoot().equals(root)) {
                     other.removalHandled = true;
                     other.unlink();
@@ -191,7 +191,7 @@ public final class AwningStructure {
         BlockState state=part.getBlockState();
         int width=part.width();
         AwningBlock awning=part.awning();
-        if (state.is(ModBlocks.AWNING_SUPPORT.get())) {
+        if (state.is(ModuleBlocks.AWNING_SUPPORT.get())) {
             Direction axis=state.getValue(AwningSupportBlock.FACING);
             for (BlockPos pos:bar(part.supportRoot(),axis,width)) if (!loaded(level,pos)) return;
             if (!completeBar(level,part.supportRoot(),axis,width)) {

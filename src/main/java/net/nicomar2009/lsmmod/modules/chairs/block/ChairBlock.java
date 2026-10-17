@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.chairs.block;
+import net.nicomar2009.lsmmod.modules.chairs.registry.ModuleEntities;
 import net.nicomar2009.lsmmod.block.SimpleBlockOutline;
 import net.nicomar2009.lsmmod.block.SharedChairRotations;
 import net.nicomar2009.lsmmod.block.ExactVoxelShapes;
@@ -22,7 +23,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.nicomar2009.lsmmod.modules.chairs.entity.SeatEntity;
-import net.nicomar2009.lsmmod.registry.ModEntities;
 
 import java.util.List;
 
@@ -124,7 +124,7 @@ public class ChairBlock extends Block {
             // entity at 7/16 of the block puts the player's seat exactly at pixel 7.
             double seatY = pos.getY() + getSeatHeightPixels() / 16.0D;
 
-            SeatEntity seat = new SeatEntity(ModEntities.SEAT.get(), level);
+            SeatEntity seat = new SeatEntity(ModuleEntities.SEAT.get(), level);
             seat.setPos(pos.getX() + 0.5D, seatY, pos.getZ() + 0.5D);
             level.addFreshEntity(seat);
             player.startRiding(seat);

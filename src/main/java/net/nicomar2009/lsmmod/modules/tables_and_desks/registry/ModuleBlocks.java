@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.tables_and_desks.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -67,5 +68,8 @@ public final class ModuleBlocks {
                     .sound(SoundType.WOOD)
                     // The model is not a full cube, so neighbouring faces must not be culled
                     .noOcclusion());
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
+
     private ModuleBlocks() {}
 }

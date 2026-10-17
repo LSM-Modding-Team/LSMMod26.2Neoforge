@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.uniforms.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -19,6 +20,9 @@ public final class ModuleItems {
 
     public static final DeferredItem<SchoolUniformItem> UNIFORM_SHOES =
             ITEMS.registerItem("uniform_shoes", props -> new SchoolUniformItem(props, ArmorType.BOOTS, "uniform_shoes"));
+
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
 
     private ModuleItems() {}
 }

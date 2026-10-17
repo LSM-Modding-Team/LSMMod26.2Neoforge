@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.slopes.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -176,5 +177,8 @@ public final class ModuleBlocks {
     public static final DeferredBlock<SchoolRailingSlopeBlock> SCHOOL_RAILING_SLOPE_FLIGHT_6 = BLOCKS.registerBlock(
             "school_railing_slope_flight_6", props -> new SchoolRailingSlopeBlock(0.0833333333333339,0.333333333333333,0.333333333333333,false,false,props),
             props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
+
     private ModuleBlocks() {}
 }

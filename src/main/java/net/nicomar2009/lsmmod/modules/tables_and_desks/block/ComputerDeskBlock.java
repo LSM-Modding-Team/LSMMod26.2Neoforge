@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.tables_and_desks.block;
+import net.nicomar2009.lsmmod.modules.technology.registry.ModuleItems;
 import net.nicomar2009.lsmmod.block.TwoTallBlock;
 import net.nicomar2009.lsmmod.block.SimpleBlockOutline;
 
@@ -22,10 +23,8 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.util.RandomSource;
-import net.nicomar2009.lsmmod.registry.ModItems;
 
 /** One fixed PC slot, persisted in block state and shared by both vertical halves. */
 public class ComputerDeskBlock extends TwoTallBlock {
@@ -56,7 +55,7 @@ public class ComputerDeskBlock extends TwoTallBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
                                           Player player, InteractionHand hand, BlockHitResult hit) {
-        if (!stack.is(ModItems.PC.get())) return InteractionResult.FAIL;
+        if (!stack.is(ModuleItems.PC.get())) return InteractionResult.FAIL;
         if (state.getValue(HAS_PC)) return InteractionResult.SUCCESS;
         if (!level.isClientSide()) {
             if (!setOccupied(level, pos, state, true)) return InteractionResult.FAIL;
@@ -70,7 +69,7 @@ public class ComputerDeskBlock extends TwoTallBlock {
                                                Player player, BlockHitResult hit) {
         if (!player.isShiftKeyDown() || !state.getValue(HAS_PC)) return InteractionResult.PASS;
         if (!level.isClientSide() && setOccupied(level, pos, state, false)) {
-            ItemStack pc = new ItemStack(ModItems.PC.get());
+            ItemStack pc = new ItemStack(ModuleItems.PC.get());
             if (!player.getInventory().add(pc)) player.drop(pc, false);
         }
         return InteractionResult.SUCCESS;

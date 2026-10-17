@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.technology.client;
+import net.nicomar2009.lsmmod.modules.technology.registry.ModuleSounds;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +15,6 @@ import net.neoforged.neoforge.client.network.event.RegisterClientPayloadHandlers
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.nicomar2009.lsmmod.LSMMod;
 import net.nicomar2009.lsmmod.modules.technology.network.SpeakerSoundPayload;
-import net.nicomar2009.lsmmod.registry.ModSounds;
 
 /** Moves an existing audio stream instead of restarting it on inventory transfers. */
 @EventBusSubscriber(modid = LSMMod.MOD_ID, value = Dist.CLIENT)
@@ -42,7 +42,7 @@ public final class PortableSpeakerSounds {
             if (current != null) current.finish();
             return;
         }
-        if (payload.start() && payload.track() >= 0 && payload.track() < ModSounds.PORTABLE_SPEAKER_TRACKS.size()) {
+        if (payload.start() && payload.track() >= 0 && payload.track() < ModuleSounds.PORTABLE_SPEAKER_TRACKS.size()) {
             if (current != null) current.finish();
             current = new MovingClip(payload);
             PLAYING.put(payload.id(), current);
@@ -59,7 +59,7 @@ public final class PortableSpeakerSounds {
         private int remaining;
 
         MovingClip(SpeakerSoundPayload payload) {
-            super(ModSounds.PORTABLE_SPEAKER_TRACKS.get(payload.track()).sound().get(),
+            super(ModuleSounds.PORTABLE_SPEAKER_TRACKS.get(payload.track()).sound().get(),
                     SoundSource.RECORDS, RandomSource.create());
             id = payload.id();
             level = Minecraft.getInstance().level;

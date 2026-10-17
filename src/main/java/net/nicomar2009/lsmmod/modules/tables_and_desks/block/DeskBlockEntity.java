@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.tables_and_desks.block;
+import net.nicomar2009.lsmmod.modules.tables_and_desks.registry.ModuleBlockEntities;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -12,7 +13,6 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.nicomar2009.lsmmod.registry.ModBlockEntities;
 
 /**
  * Inventory of the students' desk. Behaves like a barrel: 27 slots (3 rows), no extra features.
@@ -24,7 +24,7 @@ public class DeskBlockEntity extends RandomizableContainerBlockEntity {
     private NonNullList<ItemStack> items = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY);
 
     public DeskBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.STUDENTS_DESK.get(), pos, state);
+        super(ModuleBlockEntities.STUDENTS_DESK.get(), pos, state);
     }
 
     @Override

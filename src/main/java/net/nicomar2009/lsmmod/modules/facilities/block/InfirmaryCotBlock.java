@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.facilities.block;
+import net.nicomar2009.lsmmod.modules.facilities.registry.ModuleEntities;
 import net.nicomar2009.lsmmod.block.SimpleBlockOutline;
 
 import net.minecraft.core.BlockPos;
@@ -31,7 +32,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.nicomar2009.lsmmod.modules.facilities.entity.CotRestEntity;
-import net.nicomar2009.lsmmod.registry.ModEntities;
 
 /** Three-cell cot; old two-cell pairs retain their original shapes and serialized segments. */
 public class InfirmaryCotBlock extends Block {
@@ -70,7 +70,7 @@ public class InfirmaryCotBlock extends Block {
                 return InteractionResult.CONSUME;
             }
         }
-        CotRestEntity rest=new CotRestEntity(ModEntities.COT_REST.get(),level);
+        CotRestEntity rest=new CotRestEntity(ModuleEntities.COT_REST.get(),level);
         rest.setPos(root.getX()+0.5D,root.getY()+13.0D/16.0D,root.getZ()+0.5D);
         rest.setYRot(state.getValue(FACING).toYRot());
         if(!level.addFreshEntity(rest))return InteractionResult.CONSUME;

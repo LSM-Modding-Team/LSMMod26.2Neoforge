@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.balls.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -7,7 +8,7 @@ import static net.nicomar2009.lsmmod.registry.ModRegistries.ITEMS;
 
 public final class ModuleItems {
     public static final DeferredItem<BlockItem> FOOTBALL_BASKETBALL_GOAL =
-            ITEMS.registerSimpleBlockItem(ModBlocks.FOOTBALL_BASKETBALL_GOAL);
+            ITEMS.registerSimpleBlockItem(ModuleBlocks.FOOTBALL_BASKETBALL_GOAL);
 
     public static final DeferredItem<Item> PLASTIC_BALL = ball("plastic_ball", net.nicomar2009.lsmmod.modules.balls.ball.BallKind.PLASTIC);
 
@@ -20,6 +21,9 @@ public final class ModuleItems {
     private static DeferredItem<Item> ball(String id, net.nicomar2009.lsmmod.modules.balls.ball.BallKind kind) {
         return ITEMS.registerItem(id, props -> new net.nicomar2009.lsmmod.modules.balls.ball.BallItem(props.stacksTo(16), kind));
     }
+
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
 
     private ModuleItems() {}
 }

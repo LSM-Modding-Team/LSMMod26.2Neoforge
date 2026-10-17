@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlockEntities;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.StairBlock;
@@ -7,12 +8,11 @@ import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
-import net.nicomar2009.lsmmod.registry.ModBlockEntities;
 
 /** Four removable 8px cubes in the solid stair half; glass and curtains remain fixed. */
 public class SchoolGlassStairPaintEntity extends SchoolPaintableCustomBlockEntity {
     public SchoolGlassStairPaintEntity(BlockPos pos,BlockState state) {
-        super(ModBlockEntities.SCHOOL_GLASS_STAIR_PAINT.get(),pos,state);restrictOccupancy(slabMask(state));
+        super(ModuleBlockEntities.SCHOOL_GLASS_STAIR_PAINT.get(),pos,state);restrictOccupancy(slabMask(state));
     }
     public static int slabMask(BlockState state) {return state.getValue(StairBlock.HALF)==Half.TOP?0xcc:0x33;}
     @Override public int occupied() {return super.occupied()&slabMask(getBlockState());}

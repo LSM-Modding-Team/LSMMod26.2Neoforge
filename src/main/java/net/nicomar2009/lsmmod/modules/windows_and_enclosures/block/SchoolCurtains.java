@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.windows_and_enclosures.block;
+import net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleCurtainItems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +9,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.nicomar2009.lsmmod.registry.ModItems;
 
 /** Curtain state never replaces glass, changes collision, or attaches to doors. */
 public final class SchoolCurtains {
@@ -114,7 +113,7 @@ public final class SchoolCurtains {
             BlockState state=originalAt(level,target,pos,old);
             if(compatible(old,state)&&part(state)==axisPart(x,width)&&vertical(state)==axisPart(y,height))clear(level,target);
         }
-        if(drop)Block.popResource(level,pos,new ItemStack(ModItems.SCHOOL_CURTAIN.get()));
+        if(drop)Block.popResource(level,pos,new ItemStack(ModuleCurtainItems.SCHOOL_CURTAIN.get()));
         return true;
     }
     public static void tick(ServerLevel level,BlockPos pos) {

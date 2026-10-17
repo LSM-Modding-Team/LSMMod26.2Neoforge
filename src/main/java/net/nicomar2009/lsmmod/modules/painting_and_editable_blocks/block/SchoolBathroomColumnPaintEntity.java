@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlockEntities;
 import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolFramedDiningDoorBlock;
 
 import net.minecraft.core.BlockPos;
@@ -6,12 +7,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.phys.Vec3;
-import net.nicomar2009.lsmmod.registry.ModBlockEntities;
 
 /** Twenty-four 8px paint squares, constrained to the original 8x40x16px side column. */
 public class SchoolBathroomColumnPaintEntity extends SchoolPaintableCustomBlockEntity {
     public SchoolBathroomColumnPaintEntity(BlockPos pos,BlockState state) {
-        super(ModBlockEntities.SCHOOL_BATHROOM_COLUMN_PAINT.get(),pos,state);
+        super(ModuleBlockEntities.SCHOOL_BATHROOM_COLUMN_PAINT.get(),pos,state);
     }
     @Override public int occupied() {
         double[] b=bounds(getBlockState());int mask=0;

@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.building_blocks.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -114,5 +115,13 @@ public final class ModuleBlocks {
             "school_gate", SchoolGateBlock::new,
             props -> props.strength(5.0F, 6.0F).sound(SoundType.METAL).noOcclusion()
                     .pushReaction(PushReaction.BLOCK));
+    public static void addAliases() {
+        BLOCKS.addAlias(net.minecraft.resources.Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "bathroom_floor"), DARK_SCHOOL_TILED_FLOOR.getId());
+        BLOCKS.addAlias(net.minecraft.resources.Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "light_bathroom_floor"), LIGHT_SCHOOL_TILED_FLOOR.getId());
+    }
+
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
+
     private ModuleBlocks() {}
 }

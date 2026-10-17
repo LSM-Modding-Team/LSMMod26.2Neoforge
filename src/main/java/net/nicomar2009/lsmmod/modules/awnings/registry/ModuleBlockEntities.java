@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.awnings.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.nicomar2009.lsmmod.modules.awnings.block.AwningBlockEntity;
@@ -9,6 +10,9 @@ import static net.nicomar2009.lsmmod.registry.ModRegistries.BLOCK_ENTITIES;
 public final class ModuleBlockEntities {
     public static final Supplier<BlockEntityType<AwningBlockEntity>> AWNING = BLOCK_ENTITIES.register(
             "awning", () -> new BlockEntityType<>(AwningBlockEntity::new,
-                    ModBlocks.awningEntityBlocks()));
+                    ModuleBlocks.awningEntityBlocks()));
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
+
     private ModuleBlockEntities() {}
 }

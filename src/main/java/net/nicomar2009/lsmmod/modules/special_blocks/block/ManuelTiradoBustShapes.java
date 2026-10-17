@@ -1,6 +1,5 @@
 package net.nicomar2009.lsmmod.modules.special_blocks.block;
 import net.nicomar2009.lsmmod.block.ExactVoxelShapes;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 /** Collision shapes matching the three vertical model cells. */

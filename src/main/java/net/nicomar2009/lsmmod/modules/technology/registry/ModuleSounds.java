@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.technology.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import java.util.List;
 import net.minecraft.resources.Identifier;
@@ -14,7 +15,7 @@ public final class ModuleSounds {
                     SoundEvent.createVariableRangeEvent(
                             Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "school_bell")));
 
-    public static final List<ModSounds.SpeakerTrack> PORTABLE_SPEAKER_TRACKS = List.of(
+    public static final List<ModuleSounds.SpeakerTrack> PORTABLE_SPEAKER_TRACKS = List.of(
             speakerTrack("bby_wow", 340),
             speakerTrack("delincuente", 200),
             speakerTrack("bailan_rochas_y_chetas", 260),
@@ -27,10 +28,15 @@ public final class ModuleSounds {
             speakerTrack("dile_que_tu_me_quieres", 380),
             speakerTrack("se_preparo", 220));
 
-    private static ModSounds.SpeakerTrack speakerTrack(String name, int durationTicks) {
+    private static ModuleSounds.SpeakerTrack speakerTrack(String name, int durationTicks) {
         String id = "portable_speaker." + name;
-        return new ModSounds.SpeakerTrack(SOUNDS.register(id, () -> SoundEvent.createVariableRangeEvent(
+        return new ModuleSounds.SpeakerTrack(SOUNDS.register(id, () -> SoundEvent.createVariableRangeEvent(
                 Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, id))), durationTicks);
     }
+    public record SpeakerTrack(DeferredHolder<SoundEvent, SoundEvent> sound, int durationTicks) {}
+
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
+
     private ModuleSounds() {}
 }

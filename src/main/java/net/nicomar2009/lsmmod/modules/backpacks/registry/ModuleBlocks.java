@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.backpacks.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -13,5 +14,8 @@ public final class ModuleBlocks {
     public static final DeferredBlock<WallDecorationBlock> EMERGENCY_BACKPACK = BLOCKS.registerBlock(
             "emergency_backpack", props -> new WallDecorationBlock(props, SchoolDecorationShapes.BACKPACK),
             props -> props.strength(0.8F).sound(SoundType.WOOL).noOcclusion().pushReaction(PushReaction.BLOCK));
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
+
     private ModuleBlocks() {}
 }

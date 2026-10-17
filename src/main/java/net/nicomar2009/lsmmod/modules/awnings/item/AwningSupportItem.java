@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.awnings.item;
+import net.nicomar2009.lsmmod.modules.awnings.registry.ModuleItems;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -12,7 +13,6 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.nicomar2009.lsmmod.registry.ModItems;
 
 /** Sneak-use selects the width stored on this stack, before placing a support. */
 public class AwningSupportItem extends BlockItem {
@@ -28,7 +28,7 @@ public class AwningSupportItem extends BlockItem {
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
     }
     public static ItemStack returnedSupport(int width) {
-        ItemStack stack = new ItemStack(ModItems.AWNING_SUPPORT.get());
+        ItemStack stack = new ItemStack(ModuleItems.AWNING_SUPPORT.get());
         setWidth(stack, width);
         return stack;
     }

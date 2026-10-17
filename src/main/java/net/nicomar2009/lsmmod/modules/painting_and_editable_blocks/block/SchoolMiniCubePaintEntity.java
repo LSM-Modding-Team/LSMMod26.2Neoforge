@@ -1,15 +1,15 @@
 package net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlockEntities;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.nicomar2009.lsmmod.registry.ModBlockEntities;
 
 /** Independent 4x4x4 grid; reuse fine storage, hit targeting and tool integration. */
 public class SchoolMiniCubePaintEntity extends SchoolDoorFramePaintEntity {
-    public SchoolMiniCubePaintEntity(BlockPos pos,BlockState state) {super(ModBlockEntities.SCHOOL_MINI_CUBE_PAINT.get(),pos,state);}
+    public SchoolMiniCubePaintEntity(BlockPos pos,BlockState state) {super(ModuleBlockEntities.SCHOOL_MINI_CUBE_PAINT.get(),pos,state);}
     @Override public int miniSize() {return 4;}
     @Override public long occupied() {return ~removedMask();}
     @Override public boolean removeCube(Direction face,Vec3 hit) {

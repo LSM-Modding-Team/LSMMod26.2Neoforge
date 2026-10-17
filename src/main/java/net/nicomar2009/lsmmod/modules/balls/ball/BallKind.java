@@ -1,12 +1,12 @@
 package net.nicomar2009.lsmmod.modules.balls.ball;
+import net.nicomar2009.lsmmod.modules.balls.registry.ModuleEntities;
+import net.nicomar2009.lsmmod.modules.balls.registry.ModuleItems;
 
 import net.nicomar2009.lsmmod.modules.balls.ball.BallEntity;
 
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
-import net.nicomar2009.lsmmod.registry.ModEntities;
-import net.nicomar2009.lsmmod.registry.ModItems;
 
 public enum BallKind {
     PLASTIC(18, 16, 5, 0.035, 0.982, 0.945, 0.32, 0.10, 0.55),
@@ -30,11 +30,11 @@ public enum BallKind {
         });
     }
     public EntityType<BallEntity> entityType() {
-        return switch (this) { case PLASTIC -> ModEntities.PLASTIC_BALL.get(); case FOOTBALL -> ModEntities.FOOTBALL_BALL.get();
-            case BASKETBALL -> ModEntities.BASKETBALL_BALL.get(); case VOLLEYBALL -> ModEntities.VOLLEYBALL_BALL.get(); };
+        return switch (this) { case PLASTIC -> ModuleEntities.PLASTIC_BALL.get(); case FOOTBALL -> ModuleEntities.FOOTBALL_BALL.get();
+            case BASKETBALL -> ModuleEntities.BASKETBALL_BALL.get(); case VOLLEYBALL -> ModuleEntities.VOLLEYBALL_BALL.get(); };
     }
     public Item item() {
-        return switch (this) { case PLASTIC -> ModItems.PLASTIC_BALL.get(); case FOOTBALL -> ModItems.FOOTBALL_BALL.get();
-            case BASKETBALL -> ModItems.BASKETBALL_BALL.get(); case VOLLEYBALL -> ModItems.VOLLEYBALL_BALL.get(); };
+        return switch (this) { case PLASTIC -> ModuleItems.PLASTIC_BALL.get(); case FOOTBALL -> ModuleItems.FOOTBALL_BALL.get();
+            case BASKETBALL -> ModuleItems.BASKETBALL_BALL.get(); case VOLLEYBALL -> ModuleItems.VOLLEYBALL_BALL.get(); };
     }
 }

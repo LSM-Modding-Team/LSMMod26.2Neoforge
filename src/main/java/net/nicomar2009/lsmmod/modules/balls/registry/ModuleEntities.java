@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.balls.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -19,6 +20,9 @@ public final class ModuleEntities {
         return ENTITIES.registerEntityType(name, net.nicomar2009.lsmmod.modules.balls.ball.BallEntity::new,
                 MobCategory.MISC, builder -> builder.sized(0.5F, 0.5F).clientTrackingRange(name.equals("football_ball") ? 16 : 8).updateInterval(1));
     }
+
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
 
     private ModuleEntities() {}
 }

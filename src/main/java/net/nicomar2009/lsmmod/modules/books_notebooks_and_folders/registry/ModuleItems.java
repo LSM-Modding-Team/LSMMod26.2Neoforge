@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.books_notebooks_and_folders.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -18,6 +19,9 @@ public final class ModuleItems {
         }
         return java.util.List.copyOf(variants);
     }
+
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
 
     private ModuleItems() {}
 }

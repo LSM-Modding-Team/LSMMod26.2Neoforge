@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.npcs.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -21,6 +22,9 @@ public final class ModuleEntities {
         event.put(STUDENT.get(), net.nicomar2009.lsmmod.modules.npcs.entity.StudentEntity.createAttributes().build());
         event.put(TEACHER.get(), net.nicomar2009.lsmmod.modules.npcs.entity.TeacherEntity.createAttributes().build());
     }
+
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
 
     private ModuleEntities() {}
 }

@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.musical_instruments.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
@@ -37,6 +38,9 @@ public final class ModuleSounds {
             SOUNDS.register("melodica", () ->
                     SoundEvent.createVariableRangeEvent(
                             Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "melodica")));
+
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
 
     private ModuleSounds() {}
 }

@@ -1,16 +1,16 @@
 package net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlockEntities;
 import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolProjectingWindowBlock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.nicomar2009.lsmmod.registry.ModBlockEntities;
 
 /** Four 8px paint squares per face, constrained to the fixed wall; glass is never paintable. */
 public class SchoolProjectingWindowPaintEntity extends SchoolPaintableCustomBlockEntity {
     public SchoolProjectingWindowPaintEntity(BlockPos pos,BlockState state) {
-        super(ModBlockEntities.SCHOOL_PROJECTING_WINDOW_PAINT.get(),pos,state);
+        super(ModuleBlockEntities.SCHOOL_PROJECTING_WINDOW_PAINT.get(),pos,state);
     }
     @Override public boolean canPaintAt(Direction face,Vec3 hit) {
         BlockState state=getBlockState();Direction right=state.getValue(SchoolProjectingWindowBlock.FACING).getClockWise();

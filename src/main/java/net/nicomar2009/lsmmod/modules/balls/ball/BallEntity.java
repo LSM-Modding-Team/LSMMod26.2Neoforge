@@ -1,4 +1,6 @@
 package net.nicomar2009.lsmmod.modules.balls.ball;
+import net.nicomar2009.lsmmod.modules.balls.registry.ModuleSounds;
+import net.nicomar2009.lsmmod.modules.balls.registry.ModuleEntities;
 
 import net.nicomar2009.lsmmod.modules.balls.ball.BallKind;
 import net.nicomar2009.lsmmod.modules.balls.ball.FootballActions;
@@ -29,8 +31,6 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import net.nicomar2009.lsmmod.registry.ModEntities;
-import net.nicomar2009.lsmmod.registry.ModSounds;
 import net.nicomar2009.lsmmod.modules.balls.block.SportsGoalBlock;
 import net.nicomar2009.lsmmod.modules.balls.rules.FootballRules;
 
@@ -54,9 +54,9 @@ public final class BallEntity extends Entity implements ItemSupplier {
     private FootballRules.Spin spin = new FootballRules.Spin(0, 0);
     public BallEntity(EntityType<? extends BallEntity> type, Level level) { super(type, level); }
     public BallKind kind() {
-        if (getType() == ModEntities.FOOTBALL_BALL.get()) return BallKind.FOOTBALL;
-        if (getType() == ModEntities.BASKETBALL_BALL.get()) return BallKind.BASKETBALL;
-        if (getType() == ModEntities.VOLLEYBALL_BALL.get()) return BallKind.VOLLEYBALL;
+        if (getType() == ModuleEntities.FOOTBALL_BALL.get()) return BallKind.FOOTBALL;
+        if (getType() == ModuleEntities.BASKETBALL_BALL.get()) return BallKind.BASKETBALL;
+        if (getType() == ModuleEntities.VOLLEYBALL_BALL.get()) return BallKind.VOLLEYBALL;
         return BallKind.PLASTIC;
     }
     @Override protected void defineSynchedData(SynchedEntityData.Builder builder) {
@@ -139,7 +139,7 @@ public final class BallEntity extends Entity implements ItemSupplier {
         Vec3 aim = new Vec3(direction.x(), direction.y(), direction.z());
         if (aim.lengthSqr() < 0.000001) aim = new Vec3(-Math.sin(yawRadians), 0, Math.cos(yawRadians));
         setDeltaMovement(aim.scale(speed)); hurtMarked = true;
-        playFootballSound(ModSounds.FOOTBALL_KICK.get(), speed);
+        playFootballSound(ModuleSounds.FOOTBALL_KICK.get(), speed);
         String message = kind == FootballRules.Strike.HEADER ? "football_header" : kind == FootballRules.Strike.VOLLEY ? "football_volley" : "football_shot";
         double finalBar = FootballRules.charge(held, relativeSpeed) * FootballRules.strikePower(kind);
         player.sendOverlayMessage(Component.translatable("message.lsmmod." + message, (int) Math.round(finalBar * 100)));
@@ -169,9 +169,9 @@ public final class BallEntity extends Entity implements ItemSupplier {
         int index = contact.ordinal();
         if (speed < 0.12 || impactSoundCooldown[index] > 0) return;
         SoundEvent sound = switch (contact) {
-            case NET -> ModSounds.FOOTBALL_NET.get();
-            case FRAME -> ModSounds.FOOTBALL_FRAME.get();
-            case NONE -> ModSounds.FOOTBALL_WALL.get();
+            case NET -> ModuleSounds.FOOTBALL_NET.get();
+            case FRAME -> ModuleSounds.FOOTBALL_FRAME.get();
+            case NONE -> ModuleSounds.FOOTBALL_WALL.get();
         };
         playFootballSound(sound, speed); impactSoundCooldown[index] = 3;
     }

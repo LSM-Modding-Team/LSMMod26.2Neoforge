@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.school_supplies.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaint;
 
 import net.minecraft.world.item.*;
@@ -61,6 +62,9 @@ public final class ModuleItems {
 
     public static final DeferredItem<RulerItem> NETHERITE_RULER =
             ITEMS.registerItem("netherite_ruler", props -> new RulerItem(props.fireResistant(), ToolMaterial.NETHERITE));
+
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
 
     private ModuleItems() {}
 }

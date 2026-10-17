@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.music_discs.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -108,6 +109,9 @@ public final class ModuleItems {
                     .stacksTo(1)
                     .rarity(Rarity.RARE)
                     .jukeboxPlayable(HIMNOPERU_SONG));
+
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
 
     private ModuleItems() {}
 }

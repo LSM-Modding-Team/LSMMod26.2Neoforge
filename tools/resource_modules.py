@@ -70,6 +70,7 @@ def source_assets():
 _LAYOUT = json.loads((ROOT / 'tools/module_layout.json').read_text())
 _JAVA = ROOT / 'src/main/java/net/nicomar2009/lsmmod'
 _index = None
+_registry_ref_owners = {}
 
 
 def _normalize(path):
@@ -175,6 +176,8 @@ def _shared(relative):
 
 def module_read_text(path, *args, **kwargs):
     path = _normalize(path)
+    if _is_registry_catalog(path):
+        return _registry_catalog(path)
     relative = _resource_relative(path)
     matches = _sources(relative) if relative is not None else []
     if _shared(relative) and len(matches) > 1:
@@ -220,35 +223,32 @@ def _field_end(text, start):
 def _write_java(path, text, *args, **kwargs):
     import re
     path = _java_path(path)
-    if path.parent == _JAVA / 'registry' and path.exists():
-        # Generators may replace a facade section; route its concrete declarations to owners.
-        existing = path.read_text()
-        aliases = dict(re.findall(r'public static final [^=;\n]+?\s+(\w+)\s*=\s*(net\.nicomar2009\.lsmmod\.modules\.[\w.]+)\s*;', existing))
-        edits = []
+    if _is_registry_catalog(path):
+        fields = _registry_fields(path.name)
+        updates = {}
         for match in re.finditer(r'    public static final ([^=;\n]+?)\s+(\w+)\s*=\s*', text):
             name = match[2]
-            if name not in aliases:
-                continue
+            if name not in fields:
+                raise ValueError(f'Add new registrations in their owning module: {path.name}: {name}')
+            owner, original = fields[name]
             end = _field_end(text, match.end())
-            alias = aliases[name]
-            expression = text[match.end():end - 1]
-            if expression == alias:
+            declaration = text[match.start():end]
+            expression = text[match.end():end - 1].strip()
+            alias = 'net.nicomar2009.lsmmod.' + owner.relative_to(_JAVA).with_suffix('').as_posix().replace('/', '.') + '.' + name
+            if declaration == original or expression == alias:
                 continue
-            owner = ROOT / 'src/main/java' / (alias.rsplit('.', 1)[0].replace('.', '/') + '.java')
+            updates[name] = (owner, declaration)
+        for name, (owner, declaration) in updates.items():
             source = owner.read_text()
-            declaration = re.search(r'    public static final [^=;\n]+?\s+' + re.escape(name) + r'\s*=\s*', source)
-            if declaration is None:
-                raise ValueError(f'Missing owning declaration: {owner}: {name}')
-            owner_end = _field_end(source, declaration.end())
-            updated = source[:declaration.start()] + text[match.start():end] + source[owner_end:]
+            field = re.search(r'    public static final [^=;\n]+?\s+' + re.escape(name) + r'\s*=\s*', source)
+            end = _field_end(source, field.end())
+            declaration = _qualify_registry_refs(declaration)
+            updated = source[:field.start()] + declaration + source[end:]
             if updated != source:
                 owner.write_text(updated)
-            edits.append((match.start(), end, f'    public static final {match[1]} {name} = {alias};'))
-        for start, end, replacement in reversed(edits):
-            text = text[:start] + replacement + text[end:]
-        # Facades are stable compatibility API; old generator sections may span unrelated fields.
-        # Only module-owned declarations above are editable by these generators.
-        return path.write_text(existing, *args, **kwargs)
+        # Catalogs are transient tooling views; central bootstrap files never gain content fields.
+        return len(text)
+    text = _qualify_registry_refs(text)
     if _JAVA in path.parents and 'modules' in path.relative_to(_JAVA).parts:
         package = 'net.nicomar2009.lsmmod.' + path.parent.relative_to(_JAVA).as_posix().replace('/', '.')
         text = re.sub(r'^package [^;]+;', 'package ' + package + ';', text, count=1)
@@ -373,10 +373,55 @@ def module_rglob(path, pattern):
 
 def module_registry_text(path, *args, **kwargs):
     """Static checks inspect concrete registrations in their owning modules."""
-    actual = module_path(path)
-    text = module_read_text(path, *args, **kwargs)
-    if actual.parent == _JAVA / 'registry' and actual.name.startswith('Mod'):
-        module_name = 'Module' + actual.name[3:]
-        owners = sorted((_JAVA / 'modules').glob('*/registry/' + module_name))
-        return '\n'.join(p.read_text(*args, **kwargs) for p in owners) + '\n' + text
-    return text
+    return module_read_text(path, *args, **kwargs)
+
+
+def _is_registry_catalog(path):
+    return path.parent == _JAVA / 'registry' and path.name in _LAYOUT['registry_sections']
+
+
+def _registry_fields(filename):
+    import re
+    fields = {}
+    for owner in sorted((_JAVA / 'modules').glob('*/registry/Module*' + filename[3:])):
+        allowed = {'Module' + filename[3:]}
+        if filename == 'ModItems.java':
+            allowed.add('ModuleCurtainItems.java')
+        if owner.name not in allowed:
+            continue
+        source = owner.read_text()
+        for match in re.finditer(r'    public static final [^=;\n]+?\s+(\w+)\s*=\s*', source):
+            name = match[1]
+            if name in fields:
+                raise ValueError(f'Duplicate registry constant: {filename}: {name}')
+            fields[name] = (owner, source[match.start():_field_end(source, match.end())])
+    return fields
+
+
+def _registry_catalog(path):
+    """Adapt legacy generator section APIs without storing a second registry catalog."""
+    sections = '\n'.join('    ' + marker for marker in _LAYOUT['registry_sections'][path.name])
+    fields = '\n\n'.join(declaration for owner, declaration in _registry_fields(path.name).values())
+    return ('package net.nicomar2009.lsmmod.registry;\npublic final class ' + path.stem + ' {\n'
+            + sections + '\n' + fields + '\n    private ' + path.stem + '() {}\n}\n')
+
+
+def _qualify_registry_refs(text):
+    import re
+    kinds = {'ModBlocks': 'BLOCKS', 'ModItems': 'ITEMS', 'ModBlockEntities': 'BLOCK_ENTITIES',
+             'ModEntities': 'ENTITIES', 'ModSounds': 'SOUNDS'}
+    def target(match):
+        kind, name = match.group(1), match.group(2)
+        if name == kinds[kind]:
+            return 'net.nicomar2009.lsmmod.registry.ModRegistries.' + name
+        if kind == 'ModSounds' and name == 'SpeakerTrack':
+            return 'net.nicomar2009.lsmmod.modules.technology.registry.ModuleSounds.SpeakerTrack'
+        if name in ('awningVariant', 'awningEntityBlocks'):
+            return 'net.nicomar2009.lsmmod.modules.awnings.registry.Module' + kind[3:] + '.' + name
+        if kind not in _registry_ref_owners:
+            _registry_ref_owners[kind] = {key: value[0] for key, value in _registry_fields(kind + '.java').items()}
+        if name not in _registry_ref_owners[kind]:
+            return match[0]
+        owner = _registry_ref_owners[kind][name]
+        return 'net.nicomar2009.lsmmod.' + owner.relative_to(_JAVA).with_suffix('').as_posix().replace('/', '.') + '.' + name
+    return re.sub(r'(?<![\w.])(?:net\.nicomar2009\.lsmmod\.registry\.)?(ModBlocks|ModItems|ModBlockEntities|ModEntities|ModSounds)\.(\w+)', target, text)

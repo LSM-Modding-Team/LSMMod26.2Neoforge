@@ -1,10 +1,10 @@
 package net.nicomar2009.lsmmod.modules.school_supplies.item;
+import net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleSounds;
 
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.sounds.SoundSource;
-import net.nicomar2009.lsmmod.registry.ModSounds;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -33,7 +33,7 @@ public class RulerItem extends Item {
     public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (!attacker.level().isClientSide()) {
             attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(),
-                    ModSounds.RULER_HIT.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                    ModuleSounds.RULER_HIT.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
         }
     }
 }

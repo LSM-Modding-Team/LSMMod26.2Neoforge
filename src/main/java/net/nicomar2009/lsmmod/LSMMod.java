@@ -32,7 +32,7 @@ public class LSMMod {
         ModItems.register(modEventBus);
         ModEntities.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
-        ModSounds.SOUNDS.register(modEventBus);
+        ModSounds.register(modEventBus);
         net.nicomar2009.lsmmod.registry.ModEffects.EFFECTS.register(modEventBus);
         modEventBus.addListener(net.nicomar2009.lsmmod.modules.technology.network.SchoolStudyPayload::register);
         modEventBus.addListener(net.nicomar2009.lsmmod.modules.school_supplies.network.PaintCopyPayload::register);

@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlockEntities;
 import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolProjectingWindowBlock;
 
 import net.minecraft.core.BlockPos;
@@ -6,12 +7,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.phys.Vec3;
-import net.nicomar2009.lsmmod.registry.ModBlockEntities;
 
 /** Fixed L-shaped solid, with the shared world-space 24-square paint palette. */
 public class SchoolStairProjectingWindowPaintEntity extends SchoolPaintableCustomBlockEntity {
     public SchoolStairProjectingWindowPaintEntity(BlockPos pos,BlockState state) {
-        super(ModBlockEntities.SCHOOL_STAIR_PROJECTING_WINDOW_PAINT.get(),pos,state);
+        super(ModuleBlockEntities.SCHOOL_STAIR_PROJECTING_WINDOW_PAINT.get(),pos,state);
     }
     public static int solidMask(BlockState state) {
         boolean left=state.getValue(SchoolProjectingWindowBlock.WALL_LEFT);

@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.lockers_and_storage.block;
+import net.nicomar2009.lsmmod.modules.lockers_and_storage.registry.ModuleBlockEntities;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -12,7 +13,6 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.nicomar2009.lsmmod.registry.ModBlockEntities;
 
 /** Inventory of the locker: 54 slots (6 rows, same size as a double chest) and nothing else. */
 public class LockerBlockEntity extends RandomizableContainerBlockEntity {
@@ -21,7 +21,7 @@ public class LockerBlockEntity extends RandomizableContainerBlockEntity {
     private NonNullList<ItemStack> items = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY);
 
     public LockerBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.LOCKER.get(), pos, state);
+        super(ModuleBlockEntities.LOCKER.get(), pos, state);
     }
 
     @Override

@@ -1,11 +1,11 @@
 package net.nicomar2009.lsmmod.modules.uniforms.client;
+import net.nicomar2009.lsmmod.modules.uniforms.registry.ModuleItems;
 
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
-import net.nicomar2009.lsmmod.registry.ModItems;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -22,6 +22,6 @@ public final class ClientSetup {
                 // A complete resource path: reuse the same PNG that the item already loads.
                 return Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "textures/item/uniform_pants.png");
             }
-        }, ModItems.UNIFORM_PANTS.get());
+        }, ModuleItems.UNIFORM_PANTS.get());
     }
 }

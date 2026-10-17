@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlockEntities;
 
 import java.util.Arrays;
 import net.minecraft.core.BlockPos;
@@ -7,14 +8,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import net.nicomar2009.lsmmod.registry.ModBlockEntities;
 
 /** Twenty-four colors and eight occupancy bits; no ticking or combinatorial block states. */
 public class SchoolPaintableCustomBlockEntity extends SchoolPaintableBlockEntity {
     private final int[] squares = new int[24];
     private int occupied = 255;
     public SchoolPaintableCustomBlockEntity(BlockPos pos, BlockState state) {
-        this(ModBlockEntities.SCHOOL_PAINTABLE_CUSTOM.get(),pos,state);
+        this(ModuleBlockEntities.SCHOOL_PAINTABLE_CUSTOM.get(),pos,state);
     }
     protected SchoolPaintableCustomBlockEntity(net.minecraft.world.level.block.entity.BlockEntityType<?> type,BlockPos pos,BlockState state) {super(type,pos,state);}
     protected void loadWholeFaces(ValueInput input) {

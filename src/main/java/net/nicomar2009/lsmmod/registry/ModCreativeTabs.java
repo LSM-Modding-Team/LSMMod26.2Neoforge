@@ -26,22 +26,22 @@ public final class ModCreativeTabs {
     private enum Group { DEFAULT, BLOCKS, FUNCTIONAL_BLOCKS, ITEMS, ENTITIES }
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> LSM_TAB = tab(
-            "lsm_mod", "itemGroup.lsm_mod", () -> new ItemStack(ModItems.UNIFORM_POLO.get()), Group.DEFAULT);
+            "lsm_mod", "itemGroup.lsm_mod", () -> new ItemStack(net.nicomar2009.lsmmod.modules.uniforms.registry.ModuleItems.UNIFORM_POLO.get()), Group.DEFAULT);
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> SCHOOL_BLOCKS = tab(
-            "school_blocks", "itemGroup.lsmmod.school_blocks", () -> new ItemStack(ModItems.LIGHT_SCHOOL_WALL.get()), Group.BLOCKS);
+            "school_blocks", "itemGroup.lsmmod.school_blocks", () -> new ItemStack(net.nicomar2009.lsmmod.modules.building_blocks.registry.ModuleItems.LIGHT_SCHOOL_WALL.get()), Group.BLOCKS);
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> SCHOOL_FUNCTIONAL_BLOCKS = tab(
-            "school_functional_blocks", "itemGroup.lsmmod.school_functional_blocks", () -> new ItemStack(ModItems.LOCKER.get()), Group.FUNCTIONAL_BLOCKS);
+            "school_functional_blocks", "itemGroup.lsmmod.school_functional_blocks", () -> new ItemStack(net.nicomar2009.lsmmod.modules.lockers_and_storage.registry.ModuleItems.LOCKER.get()), Group.FUNCTIONAL_BLOCKS);
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> SCHOOL_ITEMS = tab(
-            "school_items", "itemGroup.lsmmod.school_items", () -> new ItemStack(ModItems.GUITAR.get()), Group.ITEMS);
+            "school_items", "itemGroup.lsmmod.school_items", () -> new ItemStack(net.nicomar2009.lsmmod.modules.musical_instruments.registry.ModuleItems.GUITAR.get()), Group.ITEMS);
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> SCHOOL_ENTITIES = tab(
-            "school_entities", "itemGroup.lsmmod.school_entities", () -> new ItemStack(ModItems.STUDENT_SPAWN_EGG.get()), Group.ENTITIES);
+            "school_entities", "itemGroup.lsmmod.school_entities", () -> new ItemStack(net.nicomar2009.lsmmod.modules.npcs.registry.ModuleItems.STUDENT_SPAWN_EGG.get()), Group.ENTITIES);
 
     private static DeferredHolder<CreativeModeTab, CreativeModeTab> tab(
             String id, String title, Supplier<ItemStack> icon, Group group) {
         return TABS.register(id, () -> CreativeModeTab.builder()
                 .title(Component.translatable(title))
                 .icon(icon)
-                .displayItems((parameters, output) -> ModItems.ITEMS.getEntries().forEach(entry -> {
+                .displayItems((parameters, output) -> ModRegistries.ITEMS.getEntries().forEach(entry -> {
                     if (entry.getId().getPath().equals("classroom_painted_block")) return; // Legacy registry alias.
                     Item item = entry.get();
                     if (category(item, entry.getId().getPath()) == group) output.accept(item);

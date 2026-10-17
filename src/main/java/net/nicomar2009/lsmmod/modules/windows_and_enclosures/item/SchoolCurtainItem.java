@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.windows_and_enclosures.item;
+import net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleCurtainItems;
 
 import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
@@ -24,7 +25,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.CurtainPart;
 import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolCurtains;
 import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolGlassBlock;
-import net.nicomar2009.lsmmod.registry.ModItems;
 
 /** Two clicks attach one curtain to a bounded 4 by 8 rectangle of compatible glass. */
 public final class SchoolCurtainItem extends Item {
@@ -74,7 +74,7 @@ public final class SchoolCurtainItem extends Item {
             for(BlockPos p:SchoolCurtains.cells(level,end,endState))
                 if(!level.mayInteract(player,p))return fail(player,"denied");
             if(SchoolCurtains.remove(level,end,endState,false) && !player.isCreative()) {
-                ItemStack returned=new ItemStack(ModItems.SCHOOL_CURTAIN.get());
+                ItemStack returned=new ItemStack(ModuleCurtainItems.SCHOOL_CURTAIN.get());
                 if(!player.getInventory().add(returned))player.drop(returned,false);
             }
             return InteractionResult.SUCCESS;

@@ -1,7 +1,6 @@
 package net.nicomar2009.lsmmod.modules.tables_and_desks.block;
 import net.nicomar2009.lsmmod.block.ExactVoxelShapes;
 
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 

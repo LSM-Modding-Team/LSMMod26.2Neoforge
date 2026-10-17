@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.technology.item;
+import net.nicomar2009.lsmmod.modules.technology.registry.ModuleSounds;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -12,7 +13,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
-import net.nicomar2009.lsmmod.registry.ModSounds;
 
 /** Plays one clip per use and saves each speaker's shuffled playlist on its stack. */
 public final class PortableSpeakerItem extends Item {
@@ -30,11 +30,11 @@ public final class PortableSpeakerItem extends Item {
             CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
             CompoundTag playlist = data.getCompound("PortableSpeakerPlaylist").orElseGet(CompoundTag::new);
             SpeakerPlaylist.Selection selection = SpeakerPlaylist.next(
-                    ModSounds.PORTABLE_SPEAKER_TRACKS.size(),
+                    ModuleSounds.PORTABLE_SPEAKER_TRACKS.size(),
                     playlist.getIntArray("Order").orElseGet(() -> new int[0]),
                     playlist.getIntOr("Index", 0), playlist.getIntOr("Last", -1),
                     player.getRandom()::nextInt);
-            ModSounds.SpeakerTrack track = ModSounds.PORTABLE_SPEAKER_TRACKS.get(selection.track());
+            ModuleSounds.SpeakerTrack track = ModuleSounds.PORTABLE_SPEAKER_TRACKS.get(selection.track());
             playlist.putIntArray("Order", selection.order());
             playlist.putInt("Index", selection.nextIndex());
             playlist.putInt("Last", selection.track());

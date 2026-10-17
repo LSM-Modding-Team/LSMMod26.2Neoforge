@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.wall_blocks.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -6,7 +7,6 @@ import net.minecraft.world.level.material.PushReaction;
 import net.nicomar2009.lsmmod.block.*;
 import net.nicomar2009.lsmmod.modules.wall_blocks.block.WallDecorationBlock;
 import net.nicomar2009.lsmmod.modules.wall_blocks.block.SchoolWallDecorationBlock;
-import net.nicomar2009.lsmmod.modules.special_blocks.block.SchoolShieldBlock;
 import net.nicomar2009.lsmmod.modules.facilities.block.SchoolPassiveAccessoryBlock;
 import net.nicomar2009.lsmmod.modules.wall_blocks.block.SchoolNameSignBlock;
 import net.nicomar2009.lsmmod.modules.wall_blocks.block.SchoolDecorationShapes;
@@ -38,6 +38,9 @@ public final class ModuleBlocks {
             "fire_alarm", props -> new WallDecorationBlock(props, net.nicomar2009.lsmmod.modules.wall_blocks.block.FireAlarmShapes.BOXES),
             props -> props.strength(1.0F).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.BLOCK));
 
+
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
 
     private ModuleBlocks() {}
 }

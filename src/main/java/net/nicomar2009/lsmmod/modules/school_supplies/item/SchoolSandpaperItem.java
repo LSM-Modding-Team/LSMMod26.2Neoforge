@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.school_supplies.item;
+import net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems;
 
 import net.nicomar2009.lsmmod.modules.school_supplies.item.RectanglePaintTool;
 
@@ -8,7 +9,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaint;
 import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolPaintableBlockEntity;
-import net.nicomar2009.lsmmod.registry.ModItems;
 
 public class SchoolSandpaperItem extends Item {
     public SchoolSandpaperItem(Properties properties) { super(properties.stacksTo(1)); }
@@ -17,18 +17,18 @@ public class SchoolSandpaperItem extends Item {
     }
     public static void refund(net.minecraft.world.entity.player.Player player,SchoolPaint color) {
         Item item=switch(color) {
-            case LIGHT -> ModItems.LIGHT_SCHOOL.get(); case DARK -> ModItems.DARK_SCHOOL.get();
-            case STREET -> ModItems.STREET_SCHOOL.get(); case WHITE -> ModItems.CLASSROOM_WHITE.get();
-            case FLOOR -> ModItems.CLASSROOM_FLOOR_PAINT.get(); case YELLOW -> ModItems.YELLOW_SCHOOL_PAINT.get();
-            case PLAYGROUND_WHITE -> ModItems.WHITE_PLAYGROUND_FLOOR_PAINT.get();
-            case PLAYGROUND_GRAY -> ModItems.GRAY_PLAYGROUND_FLOOR_PAINT.get();
-            case PLAYGROUND_GREEN -> ModItems.GREEN_PLAYGROUND_FLOOR_PAINT.get();
-            case PLAYGROUND_ORANGE -> ModItems.ORANGE_PLAYGROUND_FLOOR_PAINT.get();
-            case DARK_TILED -> ModItems.DARK_TILED_FLOOR_PAINT.get();
-            case RED_STREET -> ModItems.RED_STREET_WALL_PAINT.get();
-            case LABORATORY_TILE -> ModItems.SCHOOL_LABORATORY_TILE_PAINT.get();
-            case LABORATORY_TABLE_TILE -> ModItems.LABORATORY_TABLE_TILE_PAINT.get();
-            case AUDITORIUM_PARQUET -> ModItems.AUDITORIUM_PARQUET_PAINT.get();
+            case LIGHT -> ModuleItems.LIGHT_SCHOOL.get(); case DARK -> ModuleItems.DARK_SCHOOL.get();
+            case STREET -> ModuleItems.STREET_SCHOOL.get(); case WHITE -> ModuleItems.CLASSROOM_WHITE.get();
+            case FLOOR -> ModuleItems.CLASSROOM_FLOOR_PAINT.get(); case YELLOW -> ModuleItems.YELLOW_SCHOOL_PAINT.get();
+            case PLAYGROUND_WHITE -> ModuleItems.WHITE_PLAYGROUND_FLOOR_PAINT.get();
+            case PLAYGROUND_GRAY -> ModuleItems.GRAY_PLAYGROUND_FLOOR_PAINT.get();
+            case PLAYGROUND_GREEN -> ModuleItems.GREEN_PLAYGROUND_FLOOR_PAINT.get();
+            case PLAYGROUND_ORANGE -> ModuleItems.ORANGE_PLAYGROUND_FLOOR_PAINT.get();
+            case DARK_TILED -> ModuleItems.DARK_TILED_FLOOR_PAINT.get();
+            case RED_STREET -> ModuleItems.RED_STREET_WALL_PAINT.get();
+            case LABORATORY_TILE -> ModuleItems.SCHOOL_LABORATORY_TILE_PAINT.get();
+            case LABORATORY_TABLE_TILE -> ModuleItems.LABORATORY_TABLE_TILE_PAINT.get();
+            case AUDITORIUM_PARQUET -> ModuleItems.AUDITORIUM_PARQUET_PAINT.get();
             default -> throw new IllegalArgumentException("Unpainted faces cannot yield paint");
         };
         ItemStack recovered=new ItemStack(item);

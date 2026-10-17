@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.technology.media;
+import net.nicomar2009.lsmmod.modules.technology.registry.ModuleBlocks;
 import net.nicomar2009.lsmmod.modules.technology.rules.SchoolMediaRules;
 import net.nicomar2009.lsmmod.modules.technology.block.WallProjectorBlock;
 import net.nicomar2009.lsmmod.block.TwoTallBlock;
@@ -16,7 +17,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.nicomar2009.lsmmod.block.*;
-import net.nicomar2009.lsmmod.registry.ModBlocks;
 import net.nicomar2009.lsmmod.modules.technology.rules.SchoolMediaRules.Role;
 
 /** Canonical positions keep every cell of a desk, screen or projector in one circuit. */
@@ -24,11 +24,11 @@ public final class SchoolMediaDevices {
     private SchoolMediaDevices() { }
     public static Role role(BlockState state) {
         // Check the restricted speaker before its regular SpeakerBlock superclass.
-        if (state.is(ModBlocks.GENERAL_SPEAKER.get())) return Role.GENERAL_SPEAKER;
+        if (state.is(ModuleBlocks.GENERAL_SPEAKER.get())) return Role.GENERAL_SPEAKER;
         if (state.getBlock() instanceof SchoolCabinetBlock) return Role.AUDIO_CONTROLLER;
-        if (state.is(ModBlocks.MOISES_LAPTOP.get())) return Role.MOISES_LAPTOP;
+        if (state.is(ModuleBlocks.MOISES_LAPTOP.get())) return Role.MOISES_LAPTOP;
         if (state.getBlock() instanceof LaptopBlock) return Role.LAPTOP;
-        if (state.is(ModBlocks.PC.get()) || state.getBlock() instanceof ComputerDeskBlock
+        if (state.is(ModuleBlocks.PC.get()) || state.getBlock() instanceof ComputerDeskBlock
                 && state.getValue(ComputerDeskBlock.HAS_PC)) return Role.PC;
         if (state.getBlock() instanceof CeilingProjectorBlock || state.getBlock() instanceof WallProjectorBlock) return Role.PROJECTOR;
         if (state.getBlock() instanceof ProjectorScreenBlock) return Role.SCREEN;

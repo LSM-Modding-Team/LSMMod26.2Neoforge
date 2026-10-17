@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.npcs.entity;
+import net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleSounds;
 import net.nicomar2009.lsmmod.modules.technology.rules.SchoolStudyRules;
 
 import net.nicomar2009.lsmmod.modules.npcs.entity.SchoolNpcSize;
@@ -31,8 +32,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.sounds.SoundSource;
-import net.nicomar2009.lsmmod.registry.ModItems;
-import net.nicomar2009.lsmmod.registry.ModSounds;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -313,10 +312,10 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
     }
 
     public static boolean hasCompleteSchoolUniform(Player player) {
-        return player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.FAKE_SCHOOL_HAIRCUT.get())
-                && player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.UNIFORM_POLO.get())
-                && player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.UNIFORM_PANTS.get())
-                && player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.UNIFORM_SHOES.get());
+        return player.getItemBySlot(EquipmentSlot.HEAD).is(net.nicomar2009.lsmmod.modules.uniforms.registry.ModuleItems.FAKE_SCHOOL_HAIRCUT.get())
+                && player.getItemBySlot(EquipmentSlot.CHEST).is(net.nicomar2009.lsmmod.modules.uniforms.registry.ModuleItems.UNIFORM_POLO.get())
+                && player.getItemBySlot(EquipmentSlot.LEGS).is(net.nicomar2009.lsmmod.modules.uniforms.registry.ModuleItems.UNIFORM_PANTS.get())
+                && player.getItemBySlot(EquipmentSlot.FEET).is(net.nicomar2009.lsmmod.modules.uniforms.registry.ModuleItems.UNIFORM_SHOES.get());
     }
 
     private boolean seesPlayer(Player player) {
@@ -358,8 +357,8 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
     }
 
     protected final void enforceTeacherEquipment() {
-        if (!getMainHandItem().is(ModItems.WOODEN_RULER.get())) {
-            setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.WOODEN_RULER.get()));
+        if (!getMainHandItem().is(net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.WOODEN_RULER.get())) {
+            setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(net.nicomar2009.lsmmod.modules.school_supplies.registry.ModuleItems.WOODEN_RULER.get()));
         }
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             if (slot != EquipmentSlot.MAINHAND && !getItemBySlot(slot).isEmpty()) setItemSlot(slot, ItemStack.EMPTY);
@@ -396,7 +395,7 @@ public abstract class SchoolNpcEntity extends PathfinderMob {
         if (hurt) {
             setLastHurtMob(target);
             if (isTeacher()) level.playSound(null, target.getX(), target.getY(), target.getZ(),
-                    ModSounds.RULER_HIT.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
+                    ModuleSounds.RULER_HIT.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
         }
         return hurt;
     }

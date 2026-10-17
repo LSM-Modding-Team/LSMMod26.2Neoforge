@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block;
+import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlockEntities;
 import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolFramedDiningDoorBlock;
 
 import java.util.Arrays;
@@ -8,7 +9,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import net.nicomar2009.lsmmod.registry.ModBlockEntities;
 
 /** Six 4x4 face palettes and 64 occupancy bits; only the original fixed frame is editable. */
 public class SchoolDoorFramePaintEntity extends SchoolPaintableBlockEntity {
@@ -18,7 +18,7 @@ public class SchoolDoorFramePaintEntity extends SchoolPaintableBlockEntity {
     private long collisionMask;
     private net.minecraft.world.phys.shapes.VoxelShape collision;
     public SchoolDoorFramePaintEntity(BlockPos pos,BlockState state) {
-        this(ModBlockEntities.SCHOOL_DOOR_FRAME_PAINT.get(),pos,state);
+        this(ModuleBlockEntities.SCHOOL_DOOR_FRAME_PAINT.get(),pos,state);
     }
     protected SchoolDoorFramePaintEntity(net.minecraft.world.level.block.entity.BlockEntityType<?> type,BlockPos pos,BlockState state) {super(type,pos,state);}
     public int miniSize() {return 8;}

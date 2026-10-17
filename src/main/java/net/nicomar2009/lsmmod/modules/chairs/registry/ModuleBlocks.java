@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.chairs.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -74,5 +75,8 @@ public final class ModuleBlocks {
     public static final DeferredBlock<StoolBlock> STOOL = BLOCKS.registerBlock(
             "stool", StoolBlock::new,
             props -> props.strength(2.0F).sound(SoundType.WOOD).noOcclusion());
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
+
     private ModuleBlocks() {}
 }

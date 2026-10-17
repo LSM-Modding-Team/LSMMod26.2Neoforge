@@ -1,4 +1,5 @@
 package net.nicomar2009.lsmmod.modules.school_supplies.registry;
+import net.nicomar2009.lsmmod.registry.ModRegistries;
 
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
@@ -12,6 +13,9 @@ public final class ModuleSounds {
             SOUNDS.register("ruler_hit", () ->
                     SoundEvent.createVariableRangeEvent(
                             Identifier.fromNamespaceAndPath(LSMMod.MOD_ID, "ruler_hit")));
+
+    /** Initializes this module before the shared registry is bound to the event bus. */
+    public static void initialize() {}
 
     private ModuleSounds() {}
 }
