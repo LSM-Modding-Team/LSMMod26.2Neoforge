@@ -22,5 +22,35 @@
     "height": 3,
     "columns": 2,
     "rows": 2
+  },
+  {
+    "width": 6.5,
+    "height": 4.5,
+    "columns": 4,
+    "rows": 3
+  },
+  {
+    "width": 4,
+    "height": 4.5,
+    "columns": 3,
+    "rows": 3
+  },
+  {
+    "width": 2.5,
+    "height": 4.5,
+    "columns": 2,
+    "rows": 3
+  },
+  {
+    "width": 6,
+    "height": 3,
+    "columns": 4,
+    "rows": 2
+  },
+  {
+    "width": 6,
+    "height": 4.5,
+    "columns": 4,
+    "rows": 3
   }
 ]
