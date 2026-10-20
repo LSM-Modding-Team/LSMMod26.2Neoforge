@@ -12,7 +12,7 @@ import json
 from windows_and_enclosures.create_school_glass_assets import A, T, write, model
 from facilities.create_bathroom_statue_assets import solid_model
 
-IDS=('school_glass','tall_classroom_entrance')
+IDS=('school_glass',)
 
 def glazing(layout, low, high, bottom, top, occluders):
     posts=[]
@@ -50,10 +50,7 @@ def main():
         path=A/f'blockstates/{name}.json'
         definition=json.loads(module_read_text(path))
         if 'variants' in definition:
-            if name=='tall_classroom_entrance':
-                from windows_and_enclosures.compact_school_door_assets import expand_variants
-                original=expand_variants(definition)
-            else:original=definition['variants']
+            original=definition['variants']
         else:
             original={}
             for part in definition['multipart']:

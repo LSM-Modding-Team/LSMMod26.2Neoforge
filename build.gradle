@@ -222,9 +222,8 @@ def ordinaryResourceTree = { File root, boolean common ->
     def root = module == 'common' ? file('src/main/resources') : module == 'generated' ?
             file('src/generated/resources') : file("src/main/resources/${module}")
     def title = module.split('_').collect { it.capitalize() }.join('')
-    def extra = ['tools/windows_and_enclosures/repair_door_glazing_faces.py']
     registerResourceStage("prepare${title}Resources", 'module', "modules/${module}",
-            ['--module', module], ordinaryResourceTree(root, module == 'common'), extra)
+            ['--module', module], ordinaryResourceTree(root, module == 'common'), [])
 }
 // Ownership is checked here too; other modules' JSON bodies are not parsed.
 def allResourceJson = files(fileTree('src/main/resources') {

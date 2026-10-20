@@ -14,9 +14,29 @@ import math
 import hashlib
 from PIL import Image
 from facilities.create_bathroom_statue_assets import solid_model, crop_face_uv
-from facilities.create_school_refrigerator_assets import A, J, D, ROOT, write
-from create_facility_expansion_assets import basic
+from resource_json import resource_json
 from painting_and_editable_blocks.create_paintable_school_block import PAINTS, SIDES
+
+# Keep resource preparation independent of manual furniture and retired door generators.
+ROOT = _Path(__file__).resolve().parents[2]
+A = ROOT / 'src/main/resources/assets/lsmmod'
+J = ROOT / 'src/main/java/net/nicomar2009/lsmmod'
+D = ROOT / 'src/main/resources/data'
+
+
+def write(path, value):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    module_write_text(path, value if isinstance(value, str) else resource_json(path, value, ensure_ascii=False) + '\n')
+
+
+def basic(ident):
+    write(A / f'items/{ident}.json', {
+        'model': {'type': 'minecraft:model', 'model': 'lsmmod:item/' + ident}})
+    write(D / f'lsmmod/loot_table/blocks/{ident}.json', {
+        'type': 'minecraft:block', 'pools': [{
+            'rolls': 1, 'conditions': [{'condition': 'minecraft:survives_explosion'}],
+            'entries': [{'type': 'minecraft:item', 'name': 'lsmmod:' + ident}]}]})
+
 
 ID = 'school_projecting_window'
 PAINTABLE_ID = 'school_paintable_projecting_window'

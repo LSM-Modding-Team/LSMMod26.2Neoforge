@@ -52,9 +52,6 @@ def sources(base):
 
 def transform(relative, value):
     if relative.is_relative_to('assets/lsmmod/models'):
-        if relative.parent == Path('assets/lsmmod/models/block') and relative.stem.startswith(('tall_classroom_', 'double_school_entrance_')):
-            from windows_and_enclosures.repair_door_glazing_faces import repair
-            value = repair(value)
         if (relative.is_relative_to('assets/lsmmod/models/block') and 'loader' not in value
                 and value.get('render_type') == 'minecraft:solid' and value.get('elements')):
             value = dict(value, loader='fusion:model', type='base')
@@ -244,9 +241,7 @@ def main():
     args = parser.parse_args()
     code = ['tools/prepare_resource_graph.py', 'tools/resource_modules.py', 'tools/model_resource_rules.py',
             'tools/resource_preparation.json']
-    if args.stage == 'module':
-        code.append('tools/windows_and_enclosures/repair_door_glazing_faces.py')
-    elif args.stage == 'windows':
+    if args.stage == 'windows':
         code.extend(RECIPE['window_tools'])
     elif args.stage == 'high-state':
         code.append('tools/prepare_high_state_models.py')

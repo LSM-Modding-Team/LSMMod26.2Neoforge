@@ -190,10 +190,4 @@ if __name__=='__main__':
     horizontal_main()
     from windows_and_enclosures.create_school_curtain_assets import main as curtain_main
     curtain_main()
-    from windows_and_enclosures.create_tall_door_variants import main as tall_variants_main
-    tall_variants_main()
-    from windows_and_enclosures.create_double_school_entrance import main as double_entrance_main
-    double_entrance_main()
 
-    from windows_and_enclosures.compact_school_door_assets import main as compact_doors
-    compact_doors()

@@ -18,7 +18,7 @@ def write(path,value):
     path.parent.mkdir(parents=True,exist_ok=True)
     module_write_text(path, resource_json(path, value, ensure_ascii=False)+'\n')
 def main():
-    from windows_and_enclosures.compact_school_door_assets import expand_variants,main as compact_doors
+    from windows_and_enclosures.legacy_school_door_selectors import expand_variants
     source={'variants':expand_variants(json.loads(module_read_text(A/'blockstates/tall_classroom_entrance.json')))}
     for base in VARIANTS:
         name='tall_'+base
@@ -41,5 +41,4 @@ def main():
         data.update({'block.lsmmod.tall_'+base:label for base,label in zip(VARIANTS,labels)});write(path,data)
     path=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/axe.json';data=json.loads(module_read_text(path))
     data['values']=list(dict.fromkeys(data['values']+['lsmmod:tall_'+base for base in VARIANTS]));write(path,data)
-    compact_doors(tuple('tall_'+base for base in VARIANTS))
 if __name__=='__main__':main()

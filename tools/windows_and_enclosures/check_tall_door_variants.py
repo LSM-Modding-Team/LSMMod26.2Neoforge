@@ -13,7 +13,7 @@ from windows_and_enclosures.create_tall_door_variants import A,ROOT,VARIANTS
 
 def read(p):return json.loads(module_registry_text(p))
 def main():
-    from windows_and_enclosures.compact_school_door_assets import expand_variants
+    from windows_and_enclosures.legacy_school_door_selectors import expand_variants
     source=expand_variants(read(A/'blockstates/tall_classroom_entrance.json'))
     registrations=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModBlocks.java')
     items=module_registry_text(ROOT/'src/main/java/net/nicomar2009/lsmmod/registry/ModItems.java')

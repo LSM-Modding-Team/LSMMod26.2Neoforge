@@ -59,9 +59,6 @@ def prepare(output, *, json_only=False, timings=False):
  prepare_layouts(assets,documents=documents,sizes=sizes)
  checkpoint('generate window layouts in memory')
  before=sorted(documents);raw_bytes=sum(sizes.values());del sizes
- from windows_and_enclosures.repair_door_glazing_faces import prepare as repair_door_faces
- door_faces=repair_door_faces(assets,documents=documents)
- checkpoint('repair door glazing in memory')
  # Models stay in memory from source/generation through the final write.
  groups=defaultdict(list)
  for p,d in documents.items():groups[canonical(d)].append(p)
@@ -128,7 +125,6 @@ def prepare(output, *, json_only=False, timings=False):
                      if 'variants' in states[assets/f'blockstates/{ident}.json'])
  after=list(models.rglob('*.json'));report={'models_before':len(before),'models_after':len(after),'identical_models_shared':len(aliases),'fusion_models':fusion_count,'variants_before':variants_before,'variants_after':variants_after,'model_bytes_before':raw_bytes,'model_bytes_after':sum(p.stat().st_size for p in after),'state_properties_changed':False,'neoforge_obj_models':obj_count}
  report['high_state_models']=high_states
- report['door_glazing_faces']=door_faces
  report['state_properties_changed']=True
  write(output/'lsmmod_model_optimization.json',report)
  checkpoint('write optimization report')

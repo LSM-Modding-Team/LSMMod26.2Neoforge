@@ -56,7 +56,7 @@ def main():
     apron=[e for e in wood(False) if e['from'][1]==32]
     assert all(e['faces']['north']['uv'][0]>e['faces']['north']['uv'][2] for e in apron)
     checked=0;seen=set()
-    from windows_and_enclosures.compact_school_door_assets import expand_variants
+    from windows_and_enclosures.legacy_school_door_selectors import expand_variants
     compact=read(A/f'blockstates/{NAME}.json');assert len(compact['variants'])==288
     states=expand_variants(compact);assert len(states)==9216
     for key,v in states.items():

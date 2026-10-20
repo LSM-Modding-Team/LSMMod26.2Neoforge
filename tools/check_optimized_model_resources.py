@@ -12,9 +12,6 @@ def resolve(base,ident,aliases,trail=()):
  assert ident not in trail, ('cycle',ident)
  p=base/'models'/f'{ident.split(":",1)[1]}.json';assert module_exists(p),p
  d=read(p)
- if base==A:
-  from windows_and_enclosures.repair_door_glazing_faces import eligible,repair
-  if eligible(p):d=repair(d)
  parent=d.pop('parent',None)
  out=resolve(base,parent,aliases,trail+(ident,)) if parent else {}
  if d.get('loader')=='fusion:model' and d.get('type')=='base':d.pop('type');d.pop('loader')
@@ -52,6 +49,6 @@ def main():
   # Dedicated-server metadata never requires the client model library.
   metadata=module_read_text(ROOT/'src/main/templates/META-INF/neoforge.mods.toml', encoding='utf-8').split('modId="fusion"')[1]
   assert 'type="required"' in metadata and 'side="CLIENT"' in metadata and 'versionRange="[1.3.16]"' in metadata
-  print('OK: every model preserves geometry, UV, textures and transforms except the explicit door glass-cap/cullface repair;',high_count,'high-state selections,',count,'other variant selectors and all item references preserved.')
+  print('OK: every model preserves geometry, UV, textures and transforms;',high_count,'high-state selections,',count,'other variant selectors and all item references preserved.')
   print(json.dumps(report))
 if __name__=='__main__':main()
