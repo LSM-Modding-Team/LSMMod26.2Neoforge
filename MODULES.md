@@ -13,6 +13,7 @@ Son 22 módulos internos del mismo mod `lsmmod`, no mods independientes ni subpr
 - Java: `src/main/java/net/nicomar2009/lsmmod/modules/<module>/`.
 - Recursos: `src/main/resources/<module>/`.
 - Herramientas de cada familia: `tools/<module>/` (generadores, comprobaciones, renders y sus datos/fixtures). Las utilidades generales y los generadores que abarcan varios módulos permanecen en `tools/`. Los imports entre familias indican el módulo propietario; los scripts se pueden ejecutar directamente por su nueva ruta.
+- Preparación: cada módulo tiene su propia tarea `prepare<Module>Resources` y salida; los diccionarios compartidos y las familias derivadas se preparan en etapas separadas. La deduplicación global es explícita y no forma parte del arranque normal. Contrato: [ASSETS](docs/ASSETS.md#rendimiento-y-compatibilidad).
 - Los archivos `.gitkeep` conservan las carpetas vacías de recursos en Git y no se incluyen en los recursos preparados del mod.
 
 | Módulo | Nombre |

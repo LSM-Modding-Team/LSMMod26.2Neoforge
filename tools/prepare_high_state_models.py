@@ -118,9 +118,9 @@ class Builder:
    if part.get('when'):entry['condition']={'type':'lsmmod:model_properties','properties':part['when']}
    groups[canonical(transform(part['apply']))].append([entry])
   return {'multipart':[{'apply':dict(json.loads(turns),model=self.model(ident,{'type':'composite','models':series}))} for turns,series in groups.items()]}
-def prepare(assets, *, retained_models=None, model_writer=None):
+def prepare(assets, *, retained_models=None, model_writer=None, targets=None):
  builder=Builder(assets,model_writer);counts={}
- for ident in (*TARGETS,'school_entrance_pavement'):
+ for ident in ((*TARGETS,'school_entrance_pavement') if targets is None else targets):
   path=assets/f'blockstates/{ident}.json';definition=read(path)
   # Owned generated output is freshly copied by optimize_model_resources; no source changes.
   if any('fusion_high_states/' in canonical(part) for part in definition.values()):raise ValueError('High-state models must be generated from original resources')

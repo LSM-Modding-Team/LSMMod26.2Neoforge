@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "window_ids": [
+    "school_projecting_window",
+    "school_paintable_projecting_window",
+    "school_paintable_projecting_window_slab",
+    "school_paintable_projecting_window_stairs"
+  ],
+  "high_state_blocks": [
+    "elementary_playground_awning",
+    "playground_awning",
+    "awning_support",
+    "school_gate",
+    "football_basketball_goal",
+    "school_entrance_pavement_slab",
+    "street_school_bars",
+    "double_school_entrance",
+    "light_school_wall_railing",
+    "school_entrance_pavement_slope_1",
+    "school_entrance_pavement_slope_2",
+    "school_entrance_pavement_slope_3",
+    "school_entrance_pavement_slope_4",
+    "school_entrance_pavement_slope_5",
+    "school_entrance_pavement_slope_6",
+    "school_entrance_pavement"
+  ],
+  "window_tools": [
+    "tools/create_facility_expansion_assets.py",
+    "tools/create_kiosk_entrance_assets.py",
+    "tools/facilities/create_bathroom_statue_assets.py",
+    "tools/facilities/create_school_refrigerator_assets.py",
+    "tools/facilities/create_tall_bathroom_assets.py",
+    "tools/facilities/create_wide_bathroom_assets.py",
+    "tools/painting_and_editable_blocks/create_framed_door_glazing.py",
+    "tools/painting_and_editable_blocks/create_paintable_school_block.py",
+    "tools/painting_and_editable_blocks/create_school_glass_stair_assets.py",
+    "tools/painting_and_editable_blocks/framed_door_texture_uv.py",
+    "tools/resource_json.py",
+    "tools/resource_modules.py",
+    "tools/special_blocks/create_san_martin_display.py",
+    "tools/windows_and_enclosures/compact_school_door_assets.py",
+    "tools/windows_and_enclosures/compact_school_glazing_assets.py",
+    "tools/windows_and_enclosures/create_double_school_entrance.py",
+    "tools/windows_and_enclosures/create_horizontal_glazing_assets.py",
+    "tools/windows_and_enclosures/create_infirmary_door_assets.py",
+    "tools/windows_and_enclosures/create_school_curtain_assets.py",
+    "tools/windows_and_enclosures/create_school_glass_assets.py",
+    "tools/windows_and_enclosures/create_school_projecting_window_assets.py",
+    "tools/windows_and_enclosures/create_tall_door_variants.py"
+  ]
+}

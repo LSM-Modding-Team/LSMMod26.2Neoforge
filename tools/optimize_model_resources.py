@@ -5,6 +5,7 @@ Source IDs and block-state properties never change. Writes only to an explicit o
 import argparse,hashlib,json,sys,time
 from collections import defaultdict
 from pathlib import Path
+from model_resource_rules import compact
 ROOT=Path(__file__).resolve().parents[1]
 def canonical(v):return json.dumps(v,sort_keys=True,separators=(',',':'),ensure_ascii=False)
 def serialized(v):return json.dumps(v,ensure_ascii=False,separators=(',',':'))+'\n'
@@ -24,18 +25,6 @@ def replace(v,aliases):
  if isinstance(v,list):return [replace(x,aliases) for x in v]
  if isinstance(v,dict):return {k:replace(x,aliases) for k,x in v.items()}
  return v
-def compact(variants):
- # Most tables have neither property. Avoid constructing a second state table.
- if not variants or not {'powered','waterlogged'} & {part.split('=',1)[0] for part in next(iter(variants)).split(',')}:
-  return variants
- current={tuple(sorted(tuple(t.split('=',1)) for t in key.split(',') if t)):value for key,value in variants.items()}
- # Properties affect game logic, but not necessarily rendering: retain all visual dependencies.
- for prop in ('powered','waterlogged'):
-  if not current or any(prop not in dict(key) for key in current):continue
-  domain={dict(key)[prop] for key in current};groups=defaultdict(list)
-  for key,value in current.items():groups[tuple((k,v) for k,v in key if k!=prop)].append((dict(key)[prop],value))
-  if all({p for p,v in items}==domain and len({canonical(v) for p,v in items})==1 for items in groups.values()):current={key:items[0][1] for key,items in groups.items()}
- return {','.join(k+'='+v for k,v in key):value for key,value in current.items()}
 def prepare(output, *, json_only=False, timings=False):
  started=time.perf_counter()
  def checkpoint(label):

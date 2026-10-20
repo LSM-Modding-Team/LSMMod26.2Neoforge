@@ -11,6 +11,7 @@ from resource_modules import module_exists, module_path, module_read_text, modul
 import copy
 import json
 import math
+import hashlib
 from PIL import Image
 from facilities.create_bathroom_statue_assets import solid_model, crop_face_uv
 from facilities.create_school_refrigerator_assets import A, J, D, ROOT, write
@@ -199,10 +200,21 @@ def layout_fragment(model,part,pose):
     return value
 
 
-def layout_models(*, read_text=module_read_text, write_model=write, clear_existing=True):
+def layout_models(*, read_text=module_read_text, write_model=write, clear_existing=True, share_geometry=False):
     """Generate table-driven variants in the selected resource tree, idempotently."""
     import shutil,math
     write=write_model
+    shared_geometry={}
+    def geometry_name(name,value):
+        if not share_geometry:
+            write(A/f'models/block/{name}.json',value)
+            return name
+        signature=json.dumps(value,sort_keys=True,separators=(',',':'),ensure_ascii=False)
+        if signature not in shared_geometry:
+            shared=f'{ID}/layouts/shared/'+hashlib.sha256(signature.encode('utf-8')).hexdigest()[:32]
+            write(A/f'models/block/{shared}.json',value)
+            shared_geometry[signature]=shared
+        return shared_geometry[signature]
     slab_id='school_paintable_projecting_window_slab'
     stair_id='school_paintable_projecting_window_stairs'
     for ident in LAYOUT_IDS:
@@ -251,7 +263,7 @@ def layout_models(*, read_text=module_read_text, write_model=write, clear_existi
                                         value=layout_fragment(model,part,pose)
                                         if not value['elements']:continue
                                         name=f'{prefix}/layouts/{key}{suffix}_part_{index}_{layer}_{pose}'
-                                        write(A/f'models/block/{name}.json',value)
+                                        name=geometry_name(name,value)
                                         series.append({'model':'lsmmod:block/'+name,'condition':{'type':'lsmmod:projecting_window_layout','key':key,'part':index,'pose':pose}})
                                     if series:groups.append(series)
                             name=f'{prefix}/layouts/{key}{suffix}'
@@ -284,14 +296,14 @@ def layout_models(*, read_text=module_read_text, write_model=write, clear_existi
     write(A/'projecting_window_baked_layouts.json',rules)
 
 
-def prepare_layouts(assets, *, documents=None, sizes=None):
+def prepare_layouts(assets, *, documents=None, sizes=None, share_geometry=False):
     """Refresh table-derived models in an isolated build tree, never source files."""
     global A
     previous=A
     try:
         A=assets
         if documents is None:
-            layout_models()
+            layout_models(share_geometry=share_geometry)
         else:
             def read_text(path):
                 return json.dumps(documents[path]) if path.is_relative_to(assets/'models') else module_read_text(path)
@@ -302,7 +314,7 @@ def prepare_layouts(assets, *, documents=None, sizes=None):
                         sizes[path]=len((json.dumps(value,ensure_ascii=False,separators=(',',':'))+'\n').encode('utf-8'))
                 else:
                     write(path,value)
-            layout_models(read_text=read_text,write_model=write_model,clear_existing=False)
+            layout_models(read_text=read_text,write_model=write_model,clear_existing=False,share_geometry=share_geometry)
     finally:
         A=previous
 

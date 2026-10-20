@@ -179,8 +179,91 @@ dependencies {
     compileOnly "maven.modrinth:jade:${jade_version_id}"
 }
 
-// Optimize the resource graph before packaging or development runs. Source assets stay editable.
+// Development uses independently cached stages. Global deduplication is explicit.
+def resourceRecipe = new groovy.json.JsonSlurper().parse(file('tools/resource_preparation.json'))
+def stageTools = ['tools/prepare_resource_graph.py', 'tools/resource_modules.py',
+                  'tools/model_resource_rules.py', 'tools/resource_preparation.json', 'tools/module_layout.json']
+def preparationTasks = []
+def stagePythonExecutable = providers.gradleProperty('pythonExecutable').getOrElse(
+        System.getProperty('os.name').toLowerCase().contains('win') ? 'python' : 'python3')
+def registerResourceStage = { String taskName, String stage, String key, List arguments, Object sources, List extraTools ->
+    def directory = layout.buildDirectory.dir("generated/preparedResources/${key}")
+    def state = layout.buildDirectory.file("resourcePreparationState/${key}.json")
+    def producer = tasks.register(taskName, Exec) {
+        group = 'resources'
+        description = "Prepare ${key} resources without rebuilding other stages."
+        inputs.files(sources).withPropertyName('resourceSources').withPathSensitivity(PathSensitivity.RELATIVE)
+        inputs.files(stageTools + extraTools).withPropertyName('preparationTools').withPathSensitivity(PathSensitivity.RELATIVE)
+        inputs.property('pythonExecutable', stagePythonExecutable)
+        outputs.dir(directory)
+        localState.register(state)
+        outputs.cacheIf('Each stage has deterministic, independently owned output') { true }
+        workingDir layout.projectDirectory.asFile
+        commandLine([stagePythonExecutable, '-X', 'utf8', 'tools/prepare_resource_graph.py', '--stage', stage,
+                     '--output', directory.get().asFile.absolutePath, '--state', state.get().asFile.absolutePath] + arguments)
+    }
+    sourceSets.main.output.dir([builtBy: producer], directory)
+    preparationTasks.add(producer)
+    return producer
+}
+def ordinaryResourceTree = { File root, boolean common ->
+    fileTree(root) {
+        include '**/*.json'
+        exclude '**/.cache/**', '**/lang/**', '**/tags/**', '**/sounds.json'
+        if (common) exclude(resourceModuleNames.collect { "${it}/**" })
+        resourceRecipe.window_ids.each { id ->
+            exclude "assets/lsmmod/models/block/${id}.json", "assets/lsmmod/models/block/${id}/**"
+        }
+        exclude 'assets/lsmmod/projecting_window_layouts.json', 'assets/lsmmod/projecting_window_baked_layouts.json'
+        resourceRecipe.high_state_blocks.each { id -> exclude "assets/lsmmod/blockstates/${id}.json" }
+    }
+}
+(['common'] + resourceModuleNames + ['generated']).each { module ->
+    def root = module == 'common' ? file('src/main/resources') : module == 'generated' ?
+            file('src/generated/resources') : file("src/main/resources/${module}")
+    def title = module.split('_').collect { it.capitalize() }.join('')
+    def extra = ['tools/windows_and_enclosures/repair_door_glazing_faces.py']
+    registerResourceStage("prepare${title}Resources", 'module', "modules/${module}",
+            ['--module', module], ordinaryResourceTree(root, module == 'common'), extra)
+}
+// Ownership is checked here too; other modules' JSON bodies are not parsed.
+def allResourceJson = files(fileTree('src/main/resources') {
+    include '**/*.json'
+    exclude '**/.cache/**'
+}, fileTree('src/generated/resources') {
+    include '**/*.json'
+    exclude '**/.cache/**'
+})
+registerResourceStage('prepareSharedResources', 'shared', 'shared', [], allResourceJson, [])
+def windowSources = files(['src/main/resources', 'src/generated/resources'].collect { root ->
+    fileTree(root) {
+        include '**/projecting_window_layouts.json'
+        resourceRecipe.window_ids.each { id ->
+            include "**/models/block/${id}.json", "**/models/block/${id}/**/*.json"
+        }
+        exclude '**/layouts/**', '**/.cache/**'
+    }
+})
+registerResourceStage('prepareProjectingWindowResources', 'windows', 'projecting_windows', [],
+        windowSources, resourceRecipe.window_tools)
+resourceRecipe.high_state_blocks.each { id ->
+    def title = id.split('_').collect { it.capitalize() }.join('')
+    def relative = "assets/lsmmod/blockstates/${id}.json"
+    def roots = ['src/main/resources'] + resourceModuleNames.collect { "src/main/resources/${it}" } + ['src/generated/resources']
+    def inputs = files(roots.collect { root -> fileTree(root) { include relative } })
+    registerResourceStage("prepare${title}Selectors", 'high-state', "selectors/${id}",
+            ['--block', id], inputs, ['tools/prepare_high_state_models.py'])
+}
+tasks.register('prepareModResources') {
+    group = 'resources'
+    description = 'Prepare only resource modules and derived families whose inputs changed.'
+    dependsOn preparationTasks, 'syncNonModelResources'
+}
+
+// Optional release-only global model deduplication. Never required by normal runs.
 var optimizeModelResources = tasks.register('optimizeModelResources', Exec) {
+    group = 'resources'
+    description = 'Explicit release-only global model deduplication; not used by normal runs.'
     inputs.files(fileTree('src/main/resources') {
         include '**/*.json'
         exclude '**/.cache/**'
@@ -197,7 +280,7 @@ var optimizeModelResources = tasks.register('optimizeModelResources', Exec) {
         include '**/*.json'
         exclude '**/.cache/**'
     }).withPropertyName('generatedModelResources').withPathSensitivity(PathSensitivity.RELATIVE)
-    outputs.dir(layout.buildDirectory.dir('generated/optimizedModelGraph'))
+    outputs.dir(layout.buildDirectory.dir('generated/releaseOptimizedModelGraph'))
     // Exec tasks otherwise ignore the build cache, even when global caching is enabled.
     outputs.cacheIf('Resource preparation has deterministic, relocatable output') { true }
     def pythonExecutable = providers.gradleProperty('pythonExecutable').getOrElse(
@@ -205,7 +288,7 @@ var optimizeModelResources = tasks.register('optimizeModelResources', Exec) {
     inputs.property('pythonExecutable', pythonExecutable)
     workingDir layout.projectDirectory.asFile
     commandLine pythonExecutable, '-X', 'utf8', 'tools/optimize_model_resources.py', '--json-only', '--timings', '--output',
-            layout.buildDirectory.dir('generated/optimizedModelGraph').get().asFile.absolutePath
+            layout.buildDirectory.dir('generated/releaseOptimizedModelGraph').get().asFile.absolutePath
 }
 
 // Texture/audio edits only synchronize files; they do not rebuild the model graph.
@@ -225,12 +308,11 @@ var syncNonModelResources = tasks.register('syncNonModelResources', Sync) {
     into(layout.buildDirectory.dir('generated/nonModelResources'))
     duplicatesStrategy = DuplicatesStrategy.FAIL
 }
-tasks.named('processResources') { dependsOn optimizeModelResources, syncNonModelResources }
-sourceSets.main.output.dir([builtBy: optimizeModelResources], layout.buildDirectory.dir('generated/optimizedModelGraph'))
+tasks.named('processResources') { dependsOn 'prepareModResources' }
 sourceSets.main.output.dir([builtBy: syncNonModelResources], layout.buildDirectory.dir('generated/nonModelResources'))
 // Output directories are also included directly in the JAR, bypassing resource filters.
 tasks.named('jar') {
-    exclude '.lsmmod-optimized-resources', 'lsmmod_model_optimization.json'
+    exclude '.lsmmod-optimized-resources', '.lsmmod-prepared-resources', 'lsmmod_model_optimization.json'
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -253,6 +335,20 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
 // Include the output of "generateModMetadata" as an input directory for the build
 // this works with both building through Gradle and the IDE.
 sourceSets.main.resources.srcDir generateModMetadata
+// Explicit release path; ordinary `jar`/`runClient` use the prepared module outputs.
+tasks.register('optimizedJar', Jar) {
+    group = 'build'
+    description = 'Create a release JAR with global model deduplication.'
+    dependsOn optimizeModelResources, syncNonModelResources, generateModMetadata, tasks.named('compileJava')
+    archiveClassifier = 'optimized'
+    duplicatesStrategy = DuplicatesStrategy.FAIL
+    from(sourceSets.main.output.classesDirs)
+    from(layout.buildDirectory.dir('generated/releaseOptimizedModelGraph'))
+    from(layout.buildDirectory.dir('generated/nonModelResources'))
+    from(generateModMetadata)
+    exclude '.lsmmod-optimized-resources', '.lsmmod-prepared-resources', 'lsmmod_model_optimization.json'
+}
+
 // To avoid having to run "generateModMetadata" manually, make it run on every project reload
 neoForge.ideSyncTask generateModMetadata
 
