@@ -48,7 +48,7 @@ def decision(models,fields,kind='state',start=0,root=True):
    {'model':branch(right,False)}]]}
  return branch(list(groups.items()),root)
 class Builder:
- def __init__(self,assets):self.assets=assets;self.written=set()
+ def __init__(self,assets,model_writer=None):self.assets=assets;self.written=set();self.write_model=model_writer or write
  def model(self,ident,body):
   data=body if isinstance(body,dict) else {'type':'composite','models':[body]}
   data=dict(data,loader='fusion:model')
@@ -61,7 +61,7 @@ class Builder:
                      'yellow':'lsmmod:block/school_entrance_pavement_0',
                      'particle':'lsmmod:block/school_entrance_pavement_15'}
   name=f'block/fusion_high_states/{ident}_{hashlib.sha256(canonical(data).encode()).hexdigest()[:20]}'
-  path=self.assets/f'models/{name}.json';write(path,data);self.written.add(path)
+  path=self.assets/f'models/{name}.json';self.write_model(path,data);self.written.add(path)
   return 'lsmmod:'+name
  def selection(self,ident,entries,kind='state'):
   fields=[{'name':name,'values':sorted({state[name] for state,apply in entries})} for name in sorted(entries[0][0])]
@@ -94,7 +94,7 @@ class Builder:
     outer={k:v for k,v in when.items() if k!='waterlogged'};entry={'when':outer,'apply':apply};signature=canonical(entry)
     if signature not in seen:base.append(entry);seen.add(signature)
   empty='lsmmod:block/fusion_high_states/empty_curtain'
-  write(self.assets/'models/block/fusion_high_states/empty_curtain.json',{'parent':'minecraft:block/block','textures':{'particle':'lsmmod:block/school_curtain'},'elements':[],'render_type':'minecraft:cutout'})
+  self.write_model(self.assets/'models/block/fusion_high_states/empty_curtain.json',{'parent':'minecraft:block/block','textures':{'particle':'lsmmod:block/school_curtain'},'elements':[],'render_type':'minecraft:cutout'})
   for grouping,entries in groups.items():
    descriptor=json.loads(grouping);entries.append(({'curtain':'none'},{'model':empty}))
    model=self.selection(ident,entries)
@@ -118,16 +118,19 @@ class Builder:
    if part.get('when'):entry['condition']={'type':'lsmmod:model_properties','properties':part['when']}
    groups[canonical(transform(part['apply']))].append([entry])
   return {'multipart':[{'apply':dict(json.loads(turns),model=self.model(ident,{'type':'composite','models':series}))} for turns,series in groups.items()]}
-def prepare(assets):
- builder=Builder(assets);counts={}
+def prepare(assets, *, retained_models=None, model_writer=None):
+ builder=Builder(assets,model_writer);counts={}
  for ident in (*TARGETS,'school_entrance_pavement'):
   path=assets/f'blockstates/{ident}.json';definition=read(path)
   # Owned generated output is freshly copied by optimize_model_resources; no source changes.
   if any('fusion_high_states/' in canonical(part) for part in definition.values()):raise ValueError('High-state models must be generated from original resources')
   before=len(definition.get('variants',definition.get('multipart')))
   if 'variants' in definition:result=builder.variants(ident,definition)
-  elif ident in GLASS:result=builder.curtains(ident,definition)
+  elif ident in GLASS:
+   result=builder.curtains(ident,definition)
+   if retained_models is not None:retained_models.add(assets/'models/block/fusion_high_states/empty_curtain.json')
   elif ident=='street_school_bars':result=builder.bars(ident,definition)
   else:result=builder.multipart(ident,definition)
   after=len(result.get('variants',result.get('multipart')));write(path,result);counts[ident]={'selectors_before':before,'selectors_after':after}
+ if retained_models is not None:retained_models.update(builder.written)
  return {'blocks':counts,'generated_models':len(builder.written)+1,'selectors_before':sum(c['selectors_before'] for c in counts.values()),'selectors_after':sum(c['selectors_after'] for c in counts.values())}

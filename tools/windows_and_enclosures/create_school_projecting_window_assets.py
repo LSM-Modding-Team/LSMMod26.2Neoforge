@@ -199,7 +199,7 @@ def layout_fragment(model,part,pose):
     return value
 
 
-def layout_models(*, read_text=module_read_text, write_model=write):
+def layout_models(*, read_text=module_read_text, write_model=write, clear_existing=True):
     """Generate table-driven variants in the selected resource tree, idempotently."""
     import shutil,math
     write=write_model
@@ -207,7 +207,7 @@ def layout_models(*, read_text=module_read_text, write_model=write):
     stair_id='school_paintable_projecting_window_stairs'
     for ident in LAYOUT_IDS:
         directory=A/f'models/block/{ident}/layouts'
-        if module_exists(directory):shutil.rmtree(directory)
+        if clear_existing and module_exists(directory):shutil.rmtree(directory)
     rules=layout_rules();choices=[];half_choices={'left':[],'right':[]};slab_choices={'bottom':[],'top':[]};stair_choices={kind+'_'+side:[] for kind in ('bottom','top') for side in ('left','right')}
     for side in half_choices:
         groups=json.loads(read_text(A/f'models/block/{PAINTABLE_ID}/phase_0_{side}.json'))['models'][:6]
@@ -294,7 +294,7 @@ def prepare_layouts(assets, *, documents=None, sizes=None):
             layout_models()
         else:
             def read_text(path):
-                return json.dumps(documents[path]) if path in documents else module_read_text(path)
+                return json.dumps(documents[path]) if path.is_relative_to(assets/'models') else module_read_text(path)
             def write_model(path,value):
                 if path.is_relative_to(assets/'models'):
                     documents[path]=copy.deepcopy(value)
@@ -302,7 +302,7 @@ def prepare_layouts(assets, *, documents=None, sizes=None):
                         sizes[path]=len((json.dumps(value,ensure_ascii=False,separators=(',',':'))+'\n').encode('utf-8'))
                 else:
                     write(path,value)
-            layout_models(read_text=read_text,write_model=write_model)
+            layout_models(read_text=read_text,write_model=write_model,clear_existing=False)
     finally:
         A=previous
 
