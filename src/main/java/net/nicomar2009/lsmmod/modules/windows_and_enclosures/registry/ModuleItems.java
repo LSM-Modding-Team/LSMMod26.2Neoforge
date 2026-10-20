@@ -27,6 +27,8 @@ public final class ModuleItems {
 
     public static final DeferredItem<BlockItem> SCHOOL_GLASS = ITEMS.registerSimpleBlockItem(ModuleBlocks.SCHOOL_GLASS);
 
+    public static final DeferredItem<BlockItem> SCHOOL_CONTINUOUS_GLASS = ITEMS.registerSimpleBlockItem(ModuleBlocks.SCHOOL_CONTINUOUS_GLASS);
+
     public static final DeferredItem<BlockItem> DOUBLE_SCHOOL_ENTRANCE = ITEMS.registerSimpleBlockItem(ModuleBlocks.DOUBLE_SCHOOL_ENTRANCE);
 
     public static final DeferredItem<BlockItem> TALL_CLASSROOM_ENTRANCE = ITEMS.registerSimpleBlockItem(ModuleBlocks.TALL_CLASSROOM_ENTRANCE);

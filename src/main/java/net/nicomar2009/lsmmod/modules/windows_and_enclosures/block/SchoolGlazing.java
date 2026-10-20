@@ -15,6 +15,9 @@ public final class SchoolGlazing {
     /** Bits: left edge, right edge, middle post. Collision stays unchanged. */
     public static final IntegerProperty FRAME_LAYOUT = IntegerProperty.create("frame_layout", 0, 7);
     private SchoolGlazing() {}
+    private static boolean continuous(BlockState state) {
+        return state.getBlock() instanceof SchoolContinuousGlassBlock;
+    }
     public static boolean isFramedTransom(BlockState state) {
         return state.getBlock() instanceof SchoolFramedDiningDoorBlock door && door.hasTransomGlazing()
                 && door.row(state)==door.rows()-1
@@ -72,6 +75,7 @@ public final class SchoolGlazing {
         return null;
     }
     private static boolean connects(BlockState state,BlockState neighbor,Direction side,Direction facing) {
+        if(continuous(state)!=continuous(neighbor))return false;
         Pane a=pane(state,facing),b=pane(neighbor,facing);
         if(!side.getAxis().isVertical()||a==null||b==null||a.footprint()!=b.footprint()
                 ||a.start()!=b.start()||a.end()!=b.end())return false;
@@ -85,6 +89,7 @@ public final class SchoolGlazing {
         return connects(state,neighbor,side,defaultFacing(state));
     }
     private static boolean sameRow(BlockState state,BlockState other,Direction facing) {
+        if(continuous(state)!=continuous(other))return false;
         Pane a=pane(state,facing),b=pane(other,facing);
         if(a==null||b==null||a.footprint()!=3||b.footprint()!=3)return false;
         boolean overlap=a.low()==b.low()&&a.high()==b.high()
@@ -143,7 +148,13 @@ public final class SchoolGlazing {
         int mask=3;
         // Map renderers may supply a cached state after the live block has changed.
         if(current==null||!level.hasChunkAt(pos)||!current.equals(pane(level.getBlockState(pos),facing)))return mask;
-        if(current.footprint()==3) {
+        if(continuous(state)) {
+            if(!level.getBlockState(pos).is(state.getBlock()))return mask;
+            BlockPos leftPos=pos.relative(right.getOpposite()),rightPos=pos.relative(right);
+            mask=0;
+            if(!level.hasChunkAt(leftPos)||!adjacent(level.getBlockState(leftPos),state,facing))mask|=1;
+            if(!level.hasChunkAt(rightPos)||!adjacent(state,level.getBlockState(rightPos),facing))mask|=2;
+        } else if(current.footprint()==3) {
             BlockPos start=pos;
             int index=0;
             while(level.hasChunkAt(start.relative(right.getOpposite()))
@@ -179,6 +190,18 @@ public final class SchoolGlazing {
         BlockState state=level.getBlockState(pos);
         if(!isGlass(state)||side&&!hasSidePane(state))return;
         Direction facing=side?sideFacing(state):defaultFacing(state),right=facing.getClockWise();
+        if(continuous(state)) {
+            // Only neighboring perimeter cells can change; never scan the row.
+            level.sendBlockUpdated(pos,state,state,Block.UPDATE_CLIENTS);
+            for(Direction direction:new Direction[]{right,right.getOpposite(),Direction.UP,Direction.DOWN}) {
+                BlockPos target=pos.relative(direction);
+                if(!level.hasChunkAt(target))continue;
+                BlockState neighbor=level.getBlockState(target);
+                if(neighbor.is(state.getBlock())&&neighbor.getValue(SchoolGlassBlock.FACING)==facing)
+                    level.sendBlockUpdated(target,neighbor,neighbor,Block.UPDATE_CLIENTS);
+            }
+            return;
+        }
         Pane current=pane(state,facing);
         if(current==null||current.footprint()!=3) {
             if(state.hasProperty(FRAME_LAYOUT)&&state.getValue(FRAME_LAYOUT)!=3)

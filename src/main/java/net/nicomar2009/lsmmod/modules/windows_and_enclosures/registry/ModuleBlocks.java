@@ -12,6 +12,7 @@ import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolTintedG
 import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolSlidingEntranceBlock;
 import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolProjectingWindowBlock;
 import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolGlassBlock;
+import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolContinuousGlassBlock;
 import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolFramedDiningDoorBlock;
 import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolBathroomDoor2x4Block;
 import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.FullBathroomDoorBlock;
@@ -40,6 +41,10 @@ public final class ModuleBlocks {
 
     public static final DeferredBlock<SchoolGlassBlock> SCHOOL_GLASS = BLOCKS.registerBlock(
             "school_glass", props -> new SchoolGlassBlock(props, new double[][]{{0, 0, 0, 16, 16, 8}}),
+            props -> props.strength(0.3F).sound(SoundType.GLASS).noOcclusion());
+
+    public static final DeferredBlock<SchoolContinuousGlassBlock> SCHOOL_CONTINUOUS_GLASS = BLOCKS.registerBlock(
+            "school_continuous_glass", SchoolContinuousGlassBlock::new,
             props -> props.strength(0.3F).sound(SoundType.GLASS).noOcclusion());
 
     public static final DeferredBlock<DoubleSchoolEntranceBlock> DOUBLE_SCHOOL_ENTRANCE = BLOCKS.registerBlock(

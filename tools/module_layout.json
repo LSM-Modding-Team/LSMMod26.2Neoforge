@@ -178,7 +178,8 @@
     "school_shield": "special_blocks",
     "awning_support": "awnings",
     "playground_awning": "awnings",
-    "elementary_playground_awning": "awnings"
+    "elementary_playground_awning": "awnings",
+    "school_continuous_glass": "windows_and_enclosures"
   },
   "classes": {
     "block/ArtTableBlock.java": "modules/tables_and_desks/block/ArtTableBlock.java",

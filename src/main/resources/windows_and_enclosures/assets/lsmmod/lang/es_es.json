@@ -29,5 +29,6 @@
   "block.lsmmod.infirmary_door": "Puerta de enfermería",
   "block.lsmmod.dining_door_wide_light": "Puerta del comedor con frente claro",
   "block.lsmmod.school_projecting_window": "Ventana proyectante del colegio",
-  "block.lsmmod.bathroom_door_wide_2x4": "Puerta ancha de baño de 2×4"
+  "block.lsmmod.bathroom_door_wide_2x4": "Puerta ancha de baño de 2×4",
+  "block.lsmmod.school_continuous_glass": "Cristal continuo del colegio"
 }
