@@ -1,5 +1,6 @@
 """Compose internal module sources into the unchanged Minecraft resource namespace."""
 import json
+import os
 import shutil
 import tempfile
 from pathlib import Path
@@ -22,19 +23,19 @@ def source_path(relative):
     return matches[0]
 
 
-def compose(output):
+def compose(output, *, skip_directories=()):
     output = Path(output)
+    skip_directories = set(skip_directories)
+    directories = set()
     for base in roots():
         if not base.exists():
             continue
-        for path in sorted(base.rglob('*')):
-            if not path.is_file() or path.suffix == '.bbmodel' or path.name == '.gitkeep' or '.cache' in path.parts:
-                continue
+        for path in _resource_files(base, skip_directories):
             relative = path.relative_to(base)
-            if base == RESOURCES and relative.parts[0] in MODULES:
-                continue
             destination = output / relative
-            destination.parent.mkdir(parents=True, exist_ok=True)
+            if destination.parent not in directories:
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                directories.add(destination.parent)
             if destination.exists():
                 # Shared JSON dictionaries and tags are merged, never silently overwritten.
                 if relative.suffix != '.json':
@@ -56,6 +57,20 @@ def compose(output):
                 destination.write_text(json.dumps(left, ensure_ascii=False, indent=2) + '\n')
             else:
                 shutil.copyfile(path, destination)
+
+
+def _resource_files(base, skip_directories):
+    """Prune module roots before descent instead of visiting every source twice."""
+    for directory, names, files in os.walk(base):
+        parent = Path(directory)
+        names[:] = sorted(name for name in names if name != '.cache'
+                          and not (parent == RESOURCES and name in MODULES)
+                          and (parent / name).relative_to(base) not in skip_directories)
+        for name in sorted(files):
+            if name not in ('.gitkeep', '.cache') and not name.endswith('.bbmodel'):
+                path = parent / name
+                if path.is_file():
+                    yield path
 
 
 def source_assets():

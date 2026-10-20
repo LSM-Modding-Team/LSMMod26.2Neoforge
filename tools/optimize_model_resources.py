@@ -15,6 +15,9 @@ def replace(v,aliases):
  if isinstance(v,dict):return {k:replace(x,aliases) for k,x in v.items()}
  return v
 def compact(variants):
+ # Most tables have neither property. Avoid constructing a second state table.
+ if not variants or not {'powered','waterlogged'} & {part.split('=',1)[0] for part in next(iter(variants)).split(',')}:
+  return variants
  current={tuple(sorted(tuple(t.split('=',1)) for t in key.split(',') if t)):value for key,value in variants.items()}
  # Properties affect game logic, but not necessarily rendering: retain all visual dependencies.
  for prop in ('powered','waterlogged'):
@@ -34,15 +37,17 @@ def prepare(output):
   shutil.rmtree(output)
  output.mkdir(parents=True);(output/'.lsmmod-optimized-resources').touch()
  from resource_modules import compose
- compose(output)
+ from windows_and_enclosures.create_school_projecting_window_assets import prepare_layouts,LAYOUT_IDS
+ # These directories are fully regenerated next; copying them only to delete
+ # them again needlessly touches thousands of source and destination files.
+ compose(output,skip_directories={Path(f'assets/lsmmod/models/block/{ident}/layouts') for ident in LAYOUT_IDS})
  assets=output/'assets/lsmmod'
- from windows_and_enclosures.create_school_projecting_window_assets import prepare_layouts
  prepare_layouts(assets)
- models=assets/'models';before=list(models.rglob('*.json'));raw_bytes=sum(p.stat().st_size for p in before)
+ models=assets/'models';before=sorted(models.rglob('*.json'));raw_bytes=sum(p.stat().st_size for p in before)
  from windows_and_enclosures.repair_door_glazing_faces import prepare as repair_door_faces
  door_faces=repair_door_faces(assets)
  # Reuse parsed models through deduplication, reference repair and parent sharing.
- documents={p:json.loads(p.read_text(encoding='utf-8-sig')) for p in sorted(models.rglob('*.json'))}
+ documents={p:json.loads(p.read_text(encoding='utf-8-sig')) for p in before}
  groups=defaultdict(list)
  for p,d in documents.items():groups[canonical(d)].append(p)
  aliases={}
@@ -50,11 +55,20 @@ def prepare(output):
   keep=min(paths,key=lambda p:(len(str(p)),str(p)));ident=model_identifier(keep,models)
   for p in paths:
    if p!=keep:aliases[model_identifier(p,models)]=ident;p.unlink();del documents[p]
+ del groups
+ dirty=set()
+ states={}
+ dirty_states=set()
  # Replace exact duplicates in every reference, including model parents and modern item definitions.
  for p in assets.rglob('*.json'):
   d=documents[p] if p in documents else json.loads(p.read_text(encoding='utf-8-sig'));new=replace(d,aliases)
-  if p in documents:documents[p]=new
-  if new!=d:write(p,new)
+  if p.parent==assets/'blockstates':
+   states[p]=new
+   if new!=d:dirty_states.add(p)
+  if p in documents:
+   documents[p]=new
+   if new!=d:dirty.add(p)
+  elif new!=d and p not in states:write(p,new)
  # Use Fusion only for opaque, explicit cuboids: transparency and OBJ rendering stay on NeoForge.
  shared=defaultdict(list)
  for p,d in documents.items():
@@ -64,22 +78,33 @@ def prepare(output):
  fusion_count=0
  for geometry,items in shared.items():
   if len(items)==1:
-   p,d=items[0];d['loader']='fusion:model';d['type']='base';write(p,d);fusion_count+=1
+   p,d=items[0];d['loader']='fusion:model';d['type']='base';dirty.add(p);fusion_count+=1
    continue
   digest=hashlib.sha256(geometry.encode()).hexdigest()[:20];ident='lsmmod:block/fusion_shared/'+digest
-  write(models/f'block/fusion_shared/{digest}.json',{'loader':'fusion:model','type':'base','parent':json.loads(geometry)['parent'],'elements':json.loads(geometry)['elements']})
+  shape=json.loads(geometry);path=models/f'block/fusion_shared/{digest}.json'
+  documents[path]={'loader':'fusion:model','type':'base','parent':shape['parent'],'elements':shape['elements']};dirty.add(path)
   for p,d in items:
    # Child textures override shared material names; inherited positions, faces and UVs are unchanged.
-   d.pop('elements');d['parent']=ident;d['loader']='fusion:model';d['type']='base';write(p,d);fusion_count+=1
+   d.pop('elements');d['parent']=ident;d['loader']='fusion:model';d['type']='base';dirty.add(p);fusion_count+=1
+ # A model may need both alias replacement and geometry sharing; serialize once.
+ for p in sorted(dirty):write(p,documents[p])
+ obj_count=sum(d.get('loader')=='neoforge:obj' for d in documents.values())
+ del shared,documents,dirty
  variants_before=variants_after=0
- for p in (assets/'blockstates').glob('*.json'):
-  d=json.loads(p.read_text(encoding='utf-8-sig'))
+ for p,d in states.items():
   if 'variants' in d:
-   variants_before+=len(d['variants']);d['variants']=compact(d['variants']);variants_after+=len(d['variants']);write(p,d)
+   variants_before+=len(d['variants']);variants=compact(d['variants']);variants_after+=len(variants)
+   if variants!=d['variants']:dirty_states.add(p)
+   d['variants']=variants
+  if p in dirty_states:write(p,d)
  from prepare_high_state_models import prepare as prepare_high_states
  high_states=prepare_high_states(assets)
- after=list(models.rglob('*.json'));report={'models_before':len(before),'models_after':len(after),'identical_models_shared':len(aliases),'fusion_models':fusion_count,'variants_before':variants_before,'variants_after':variants_after,'model_bytes_before':raw_bytes,'model_bytes_after':sum(p.stat().st_size for p in after),'state_properties_changed':False,'neoforge_obj_models':sum(json.loads(p.read_text(encoding='utf-8-sig')).get('loader')=='neoforge:obj' for p in after)}
- report['variants_after']=sum(len(json.loads(p.read_text(encoding='utf-8-sig')).get('variants',{})) for p in (assets/'blockstates').glob('*.json'))
+ # High-state preparation creates Fusion models only. Its selector counts let
+ # the report reuse parsed tables instead of reopening every model and state.
+ variants_after+=sum(counts['selectors_after']-counts['selectors_before']
+                     for ident,counts in high_states['blocks'].items()
+                     if 'variants' in states[assets/f'blockstates/{ident}.json'])
+ after=list(models.rglob('*.json'));report={'models_before':len(before),'models_after':len(after),'identical_models_shared':len(aliases),'fusion_models':fusion_count,'variants_before':variants_before,'variants_after':variants_after,'model_bytes_before':raw_bytes,'model_bytes_after':sum(p.stat().st_size for p in after),'state_properties_changed':False,'neoforge_obj_models':obj_count}
  report['high_state_models']=high_states
  report['door_glazing_faces']=door_faces
  report['state_properties_changed']=True

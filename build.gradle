@@ -178,19 +178,26 @@ dependencies {
 
 // Optimize the resource graph before packaging or development runs. Source assets stay editable.
 var optimizeModelResources = tasks.register('optimizeModelResources', Exec) {
-    inputs.dir('src/main/resources')
-    inputs.file('tools/resource_modules.py')
-    inputs.file('tools/module_layout.json')
+    inputs.files(fileTree('src/main/resources') {
+        exclude '**/*.bbmodel', '**/.gitkeep', '**/.cache/**'
+    }).withPropertyName('sourceModelResources').withPathSensitivity(PathSensitivity.RELATIVE)
+    // Imported generators affect the prepared graph too, not only the entry script.
+    inputs.files(fileTree('tools') {
+        include '**/*.py', '**/*.json', '**/*.png', 'requirements.txt'
+        exclude '**/check_*.py', '**/render_*.py', 'build/**'
+    }).withPropertyName('resourcePreparationTools').withPathSensitivity(PathSensitivity.RELATIVE)
+    inputs.file('tools/module_layout.json').withPathSensitivity(PathSensitivity.RELATIVE)
     // An optional directory still fails validation when its configured path is missing.
     // A file tree is empty before datagen and tracks generated files when they exist.
-    inputs.files(fileTree('src/generated/resources')).withPropertyName('generatedModelResources')
-    inputs.file('tools/optimize_model_resources.py')
-    inputs.file('tools/windows_and_enclosures/create_school_projecting_window_assets.py')
-    inputs.file('tools/prepare_high_state_models.py')
-    inputs.file('tools/windows_and_enclosures/repair_door_glazing_faces.py')
+    inputs.files(fileTree('src/generated/resources') {
+        exclude '**/*.bbmodel', '**/.gitkeep', '**/.cache/**'
+    }).withPropertyName('generatedModelResources').withPathSensitivity(PathSensitivity.RELATIVE)
     outputs.dir(layout.buildDirectory.dir('generated/optimizedResources'))
+    // Exec tasks otherwise ignore the build cache, even when global caching is enabled.
+    outputs.cacheIf('Resource preparation has deterministic, relocatable output') { true }
     def pythonExecutable = providers.gradleProperty('pythonExecutable').getOrElse(
             System.getProperty('os.name').toLowerCase().contains('win') ? 'python' : 'python3')
+    inputs.property('pythonExecutable', pythonExecutable)
     workingDir layout.projectDirectory.asFile
     commandLine pythonExecutable, '-X', 'utf8', 'tools/optimize_model_resources.py', '--output',
             layout.buildDirectory.dir('generated/optimizedResources').get().asFile.absolutePath

@@ -10,6 +10,7 @@ if _tools not in _sys.path:
 from resource_modules import module_exists, module_path, module_read_text, module_unlink, module_write_text, output_path
 import copy
 import json
+import math
 from PIL import Image
 from facilities.create_bathroom_statue_assets import solid_model, crop_face_uv
 from facilities.create_school_refrigerator_assets import A, J, D, ROOT, write
@@ -18,6 +19,8 @@ from painting_and_editable_blocks.create_paintable_school_block import PAINTS, S
 
 ID = 'school_projecting_window'
 PAINTABLE_ID = 'school_paintable_projecting_window'
+LAYOUT_IDS = (ID, PAINTABLE_ID, 'school_paintable_projecting_window_slab',
+              'school_paintable_projecting_window_stairs')
 TEXTURES = {'frame': f'lsmmod:block/{ID}_frame', 'glass': f'lsmmod:block/{ID}_glass', 'particle': '#frame'}
 AXES = (((0, 16, 0),), ((0, 8, -16), (8, 16, 8)), ((0, 16, -8),))
 PANES = {'solid': [([0, 0, 14, 1, 24, 16], 'frame'), ([23, 0, 14, 24, 24, 16], 'frame'),
@@ -163,8 +166,14 @@ def layout_key(rule,start,x,y,start_y=0):
 def layout_parts(rule,start,x,y,start_y=0):
     w,h=rule['width']*16,rule['height']*16;pw,ph=w/rule['columns'],h/rule['rows']
     result=[]
-    for row in range(rule['rows']):
-        for column in range(rule['columns']):
+    # Include one neighboring panel at either boundary to absorb float rounding.
+    # The original intersection checks below still decide which fragments exist.
+    columns=range(max(0,math.floor((x*16-start)/pw)-1),
+                  min(rule['columns'],math.ceil(((x+1)*16-start)/pw)+1))
+    rows=range(max(0,math.floor((y*16-start_y)/ph)-1),
+               min(rule['rows'],math.ceil(((y+1)*16-start_y)/ph)+1))
+    for row in rows:
+        for column in columns:
             ox,oy=start+column*pw-x*16,start_y+row*ph-y*16
             lo,hi=max(0,start-x*16,ox),min(16,start+w-x*16,ox+pw)
             bottom,top=max(0,oy),min(16,oy+ph)
@@ -195,7 +204,7 @@ def layout_models():
     import shutil,math
     slab_id='school_paintable_projecting_window_slab'
     stair_id='school_paintable_projecting_window_stairs'
-    for ident in (ID,PAINTABLE_ID,slab_id,stair_id):
+    for ident in LAYOUT_IDS:
         directory=A/f'models/block/{ident}/layouts'
         if module_exists(directory):shutil.rmtree(directory)
     rules=layout_rules();choices=[];half_choices={'left':[],'right':[]};slab_choices={'bottom':[],'top':[]};stair_choices={kind+'_'+side:[] for kind in ('bottom','top') for side in ('left','right')}
