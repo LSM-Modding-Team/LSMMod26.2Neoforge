@@ -2,7 +2,7 @@
 from resource_modules import module_read_text
 import json,re,itertools,random,ast
 from pathlib import Path
-from check_chair_grid_rotations import grid
+from chairs.check_chair_grid_rotations import grid
 ROOT=Path(__file__).resolve().parents[1];B=ROOT/'src/main/java/net/nicomar2009/lsmmod/block'
 def main():
  fixtures=json.loads(module_read_text(ROOT/'tools/fixtures/remaining_shape_boxes.json'));count=0
@@ -39,7 +39,7 @@ def main():
  for name in ['SchoolWoodenHandrailBlock','SchoolWallRailingBlock','SchoolInvertedSlopeBlock','EntrancePavementSlopeBlock','SportsGoalBlock','TallBathroomBlock','TrashBinBlock','WallDecorationBlock','DoubleSchoolEntranceBlock']:
   source=module_read_text(B/f'{name}.java');assert 'Shapes.or' not in source and 'forAllBoxes' not in source,name
  for name in ['create_computer_desk_assets.py','create_gray_computer_desk_assets.py','create_dining_assets.py']:
-  text=module_read_text(ROOT/'tools'/name);ast.parse(text)
+  text=module_read_text(ROOT/'tools/tables_and_desks'/name);ast.parse(text)
   if name!='create_dining_assets.py':assert 'forAllBoxes' not in text and 'ExactVoxelShapes.union' in text
  print(f'OK: {count} native boxes unchanged / 6000 occupancy samples; 144 handrail profiles, 256 rail states / 34 physical keys; direct rotations and generator compatibility checked statically.')
 if __name__=='__main__':main()

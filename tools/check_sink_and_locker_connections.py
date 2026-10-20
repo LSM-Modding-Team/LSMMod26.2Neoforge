@@ -2,9 +2,9 @@
 from resource_modules import module_read_bytes, module_read_text
 import json,sys,hashlib
 from pathlib import Path
-from create_school_sink import ROOT,A,PARTS,main as generate,GENERATED
-from create_wide_bathroom_assets import widened
-from create_bathroom_statue_assets import TOILET,URINAL
+from facilities.create_school_sink import ROOT,A,PARTS,main as generate,GENERATED
+from facilities.create_wide_bathroom_assets import widened
+from facilities.create_bathroom_statue_assets import TOILET,URINAL
 
 
 def read(p):return json.loads(module_read_text(p))

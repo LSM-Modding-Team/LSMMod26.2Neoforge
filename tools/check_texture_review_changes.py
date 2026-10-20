@@ -5,7 +5,7 @@ import itertools
 import json
 from PIL import Image
 from render_texture_review import ROOT, A, door, load
-from create_connected_tinted_glass import ID, main as generate
+from windows_and_enclosures.create_connected_tinted_glass import ID, main as generate
 from audit_block_states import audit
 
 

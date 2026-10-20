@@ -4,7 +4,7 @@ from resource_json import resource_json
 import copy,json,random,re,hashlib
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont
-from create_bathroom_statue_assets import solid_model
+from facilities.create_bathroom_statue_assets import solid_model
 ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmod';D=ROOT/'src/main/resources/data';J=ROOT/'src/main/java/net/nicomar2009/lsmmod';GENERATED=[]
 IDS=['school_wood_panel','school_wood_door','school_sliding_entrance','drinking_fountain_raised','lost_and_found_box']
 

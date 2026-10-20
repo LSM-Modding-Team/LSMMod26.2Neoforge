@@ -4,7 +4,7 @@ from resource_json import resource_json
 import copy,json,re
 from pathlib import Path
 from PIL import Image
-from create_bathroom_statue_assets import solid_model
+from facilities.create_bathroom_statue_assets import solid_model
 from create_kiosk_entrance_assets import rotated
 ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/lsmmod';D=ROOT/'src/main/resources/data';J=ROOT/'src/main/java/net/nicomar2009/lsmmod';GENERATED=[]
 IDS=['dining_door_wide','bathroom_door_wide','school_microwave','school_trophy_gallery','infirmary_door','dining_door_wide_light']
@@ -107,7 +107,7 @@ def cot():
 
 def main():
  cot()
- from create_san_martin_display import generate as rebuild_san_martin
+ from special_blocks.create_san_martin_display import generate as rebuild_san_martin
  GENERATED.extend(rebuild_san_martin())
  # Solid enclosure collision; the centered sculpture is decorative inside it.
  statue=[([0,0,0,32,40,16],'white')]
@@ -188,7 +188,7 @@ def main():
           if face==('west' if op else 'north'):u0,u1=u1,u0
           s['uv']=[u0,(32-e['to'][1]-row*16)*16/26,u1,(32-e['from'][1]-row*16)*16/26]
          if s['texture'] in ('#bottom','#top'):
-          from framed_door_texture_uv import leaf_face
+          from painting_and_editable_blocks.framed_door_texture_uv import leaf_face
           leaf_face(e,face,s,col,row,depth,op,right)
        value['elements']=[e for e in value['elements'] if e['faces']]
        if not value['elements']:continue
@@ -197,20 +197,20 @@ def main():
         name=f'dining_door_wide_part_{len(shared)}';shared[key]=name;write(A/f'models/block/{name}.json',value)
        for turn,f in enumerate(('north','east','south','west')):
         multipart.append({'when':{'facing':f,'open':str(op).lower(),'hinge':'right' if right else 'left','row':str(row),'column':str(col),'depth':str(depth)},'apply':{'model':'lsmmod:block/'+shared[key],'y':turn*90}})
- from create_framed_door_glazing import add_visual_parts
+ from painting_and_editable_blocks.create_framed_door_glazing import add_visual_parts
  add_visual_parts(multipart,tex,write)
  write(A/'blockstates/dining_door_wide.json',{'multipart':multipart})
  # Keep opaque wood and both kinds of glass in their own inventory layers as well.
  layered_item('dining_door_wide',[(layer,[p for p in DINING_CLOSED if p[1] in materials]) for layer,materials in [('solid',('white','bottom','top')),('translucent',('glass',)),('cutout',('window',))]],tex,32,48)
- from framed_door_texture_uv import fix_item
+ from painting_and_editable_blocks.framed_door_texture_uv import fix_item
  fix_item(write)
- from create_framed_door_glazing import item_transom
+ from painting_and_editable_blocks.create_framed_door_glazing import item_transom
  item_transom(write)
  basic('dining_door_wide',controller={'column':'0','row':'0','depth':'0'})
- from create_framed_door_glazing import bathroom_variant
+ from painting_and_editable_blocks.create_framed_door_glazing import bathroom_variant
  bathroom_variant(multipart,tex,write)
  basic('bathroom_door_wide',controller={'column':'0','row':'0','depth':'0'})
- from create_infirmary_door_assets import generate,INFIRMARY_CLOSED,INFIRMARY_OPEN
+ from windows_and_enclosures.create_infirmary_door_assets import generate,INFIRMARY_CLOSED,INFIRMARY_OPEN
  generate(multipart,tex,write,clipped,mesh,layered_item,basic)
  # One generated geometry source for physical cells and models.
  arrays={'STATUE':[b for b,*_ in statue],'TROPHIES':[b for b,*_ in trophies]+[[0,0,0,96,64,.125]],'MICROWAVE':[b for b,*_ in MICROWAVE],'DINING_CLOSED':[b for b,*_ in DINING_CLOSED],'DINING_OPEN':[b for b,*_ in DINING_OPEN],'INFIRMARY_CLOSED':[b for b,*_ in INFIRMARY_CLOSED],'INFIRMARY_OPEN':[b for b,*_ in INFIRMARY_OPEN]}

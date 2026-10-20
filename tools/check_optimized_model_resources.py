@@ -13,7 +13,7 @@ def resolve(base,ident,aliases,trail=()):
  p=base/'models'/f'{ident.split(":",1)[1]}.json';assert module_exists(p),p
  d=read(p)
  if base==A:
-  from repair_door_glazing_faces import eligible,repair
+  from windows_and_enclosures.repair_door_glazing_faces import eligible,repair
   if eligible(p):d=repair(d)
  parent=d.pop('parent',None)
  out=resolve(base,parent,aliases,trail+(ident,)) if parent else {}

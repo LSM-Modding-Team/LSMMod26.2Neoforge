@@ -1,0 +1,60 @@
+"""Elevated inverted flight/split profiles with flat tops aligned to full blocks."""
+
+# Allow direct execution while keeping cross-module imports explicit.
+import sys as _sys
+from pathlib import Path as _Path
+_tools = str(_Path(__file__).resolve().parents[1])
+if _tools not in _sys.path:
+    _sys.path.insert(0, _tools)
+
+from resource_modules import module_read_text, module_write_text
+import json
+from slopes.create_school_inverted_slopes import ROOT,A,pieces as originals
+from slopes.create_school_railing_slopes import write
+OFFSET=.5
+
+def pieces():
+ for source,col,row,low,rise in originals():
+  family='flight' if '_flight_' in source else 'split'
+  yield source.replace(f'_{family}_',f'_{family}_raised_'),source,col,row,low,rise
+
+def top_height(ident):
+ family='flight' if '_flight_' in ident else 'split'
+ number=int(ident.rsplit('_',1)[1])
+ return 1.0 if number in ({1,4,5} if family=='flight' else {1,3}) else 2.0
+
+def shift_obj(text,top):
+ out=[]
+ for line in text.splitlines():
+  f=line.split()
+  if f and f[0]=='v':
+   x,y,z=map(float,f[1:]);line='v '+' '.join(f'{v:.12g}' for v in (x,top if abs(y-1)<1e-10 else y+OFFSET,z))
+  out.append(line)
+ return '\n'.join(out)+'\n'
+
+def main():
+ blocks='    // BEGIN SCHOOL RAISED INVERTED SLOPES\n';items=blocks
+ for ident,source,col,row,low,rise in pieces():
+  module_write_text(A/f'models/block/{ident}.obj', shift_obj(module_read_text(A/f'models/block/{source}.obj'),top_height(ident)))
+  model=json.loads(module_read_text(A/f'models/block/{source}.json'));model['model']=f'lsmmod:models/block/{ident}.obj';model['textures'].update(wall='lsmmod:block/classroom_white_wall',particle='lsmmod:block/classroom_white_wall');write(A/f'models/block/{ident}.json',model)
+  states=json.loads(module_read_text(A/f'blockstates/{source}.json'))
+  for value in states['variants'].values():value['model']='lsmmod:block/'+ident
+  write(A/f'blockstates/{ident}.json',states)
+  write(A/f'models/item/{ident}.json',{'parent':'lsmmod:block/'+ident})
+  write(A/f'items/{ident}.json',{'model':{'type':'minecraft:model','model':'lsmmod:item/'+ident}})
+  write(ROOT/f'src/main/resources/data/lsmmod/loot_table/blocks/{ident}.json',{'type':'minecraft:block','pools':[{'rolls':1,'conditions':[{'condition':'minecraft:survives_explosion'}],'entries':[{'type':'minecraft:item','name':'lsmmod:'+ident}]}]})
+  blocks+=f'    public static final DeferredBlock<SchoolInvertedSlopeBlock> {ident.upper()} = BLOCKS.registerBlock(\n            "{ident}", props -> new SchoolInvertedSlopeBlock({low:.15g},{rise:.15g},0.5,{top_height(ident):.1f},props),\n            props -> props.strength(1.5F).sound(SoundType.STONE).noOcclusion());\n'
+  items+=f'    public static final DeferredItem<BlockItem> {ident.upper()} = ITEMS.registerSimpleBlockItem(ModBlocks.{ident.upper()});\n'
+ for name,section in (('ModBlocks.java',blocks),('ModItems.java',items)):
+  p=ROOT/'src/main/java/net/nicomar2009/lsmmod/registry'/name;s=module_read_text(p);begin='    // BEGIN SCHOOL RAISED INVERTED SLOPES';end='    // END SCHOOL RAISED INVERTED SLOPES';section+=end+'\n'
+  if begin in s:a=s.index(begin);b=s.index(end)+len(end)+1;s=s[:a]+section+s[b:]
+  else:anchor=s.index('    public static final DeferredBlock<' if name=='ModBlocks.java' else '    public static final DeferredItem<');s=s[:anchor]+section+'\n'+s[anchor:]
+  module_write_text(p, s)
+ for locale in ('es_es','en_us'):
+  p=A/f'lang/{locale}.json';v=json.loads(module_read_text(p))
+  for ident,*_ in pieces():
+   number=ident.rsplit('_',1)[1];family='split' if '_split_' in ident else 'flight';v['block.lsmmod.'+ident]=f'Pendiente invertida elevada 8 px: {family} {number}' if locale=='es_es' else f'Raised Inverted {family.title()} Slope (+8 px): {number}'
+  write(p,v)
+ p=ROOT/'src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json';v=json.loads(module_read_text(p));v['values']=list(dict.fromkeys(v['values']+['lsmmod:'+x[0] for x in pieces()]));write(p,v)
+ write(ROOT/'tools/slopes/school_raised_inverted_slope_layout.json',{'vertical_offset':OFFSET,'pixels':8,'pieces':[{'id':ident,'source':source,'column':col,'row':row,'flat_top_y':top_height(ident)} for ident,source,col,row,low,rise in pieces()]})
+if __name__=='__main__':main()

@@ -34,7 +34,7 @@ Arte: pelo negro corto sin cubrir cara/orejas, polo rojo de manga corta con cuel
 
 Pantalón: cintura UV30–32 del torso y piernas20–32; cuello/pecho transparentes. ClientSetup.registerItemExtensions conserva para UNIFORM_PANTS la ruta equipada completa `lsmmod:textures/item/uniform_pants.png` para evitar el recurso magenta; no retirar ese override al regenerar equipment. Cambiarlo requiere reiniciar el mod, no solo F3+T. Confirmación visual en juego pendiente.
 
-Generador: `python tools/create_uniform_assets.py`. Neutralidad del set exacto: SchoolNpcEntity. Revisa equipo/ítem con renders, ambas anchuras de brazo, ranuras/protección y permisos de equipamiento cuando se permita jugar.
+Generador: `python tools/uniforms/create_uniform_assets.py`. Neutralidad del set exacto: SchoolNpcEntity. Revisa equipo/ítem con renders, ambas anchuras de brazo, ranuras/protección y permisos de equipamiento cuando se permita jugar.
 
 ### Diseño de otras prendas
 

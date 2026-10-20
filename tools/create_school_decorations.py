@@ -39,7 +39,7 @@ def main():
  atlas=Image.new('RGB',(16,16));draw=ImageDraw.Draw(atlas)
  for (x,y),color in { (0,0):(95,98,94),(4,0):(144,147,143),(8,0):(168,168,157),(12,0):(219,221,215),(0,8):(67,71,69),(4,8):(240,242,237),(8,8):(155,160,155)}.items():draw.rectangle((x,y,x+3,y+7),fill=color)
  atlas.save(output_path(A/'textures/block/school_decoration_surface.png'))
- from improve_school_clock import create_clock_face
+ from wall_blocks.improve_school_clock import create_clock_face
  create_clock_face(A/'textures/block/school_clock_face.png')
  module_write_text(A/'models/block/school_decorations.mtl', ''.join(f'newmtl {mat}\nKd 1 1 1\nd 1\nmap_Kd #surface\n' for mat in UV)+'newmtl clock\nKd 1 1 1\nd 1\nmap_Kd #clock_face\n')
  m=Mesh();m.disk(8,8,7,0,1.75,'rim');m.ring(8,8,7,.65,1.75,'rim');m.disk(8,8,6.35,1.75,2,'rim',front='clock');m.save(output_path('school_clock'))

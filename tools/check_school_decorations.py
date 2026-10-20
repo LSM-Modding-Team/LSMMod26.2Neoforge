@@ -18,8 +18,8 @@ def mesh(name):
 
 
 def check_name_sign():
- from create_school_name_sign import ID,TEXT,LINES,DENSITY,WIDTH,HEIGHT,lettering,complete_model
- from render_school_name_sign import scene
+ from wall_blocks.create_school_name_sign import ID,TEXT,LINES,DENSITY,WIDTH,HEIGHT,lettering,complete_model
+ from wall_blocks.render_school_name_sign import scene
  from render_texture_review import add,load,render
  from audit_block_states import domains
  assert TEXT=='COLEGIO LIBERTADOR SAN MARTIN' and LINES==('COLEGIO','LIBERTADOR SAN MARTIN') and TEXT.isascii()

@@ -36,10 +36,10 @@ def prepare(output):
  from resource_modules import compose
  compose(output)
  assets=output/'assets/lsmmod'
- from create_school_projecting_window_assets import prepare_layouts
+ from windows_and_enclosures.create_school_projecting_window_assets import prepare_layouts
  prepare_layouts(assets)
  models=assets/'models';before=list(models.rglob('*.json'));raw_bytes=sum(p.stat().st_size for p in before)
- from repair_door_glazing_faces import prepare as repair_door_faces
+ from windows_and_enclosures.repair_door_glazing_faces import prepare as repair_door_faces
  door_faces=repair_door_faces(assets)
  # Reuse parsed models through deduplication, reference repair and parent sharing.
  documents={p:json.loads(p.read_text(encoding='utf-8-sig')) for p in sorted(models.rglob('*.json'))}

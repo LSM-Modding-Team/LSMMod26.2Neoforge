@@ -25,7 +25,7 @@ Sin marca = decidido; *(propuesta)* = ajustable; *(a confirmar)* = supuesto. Dat
 | Diamante / `diamond_ruler` | DIAMOND | 6.5 | 1561 | 10 |
 | Netherite / `netherite_ruler` | NETHERITE | 7.5 | 2031 | 15 |
 
-Todas: daño 0.5 menor que la espada equivalente, velocidad 1.6 ataques/s, alcance de entidades +1.5 bloques en la mano principal y barrido vanilla. Reparación y comportamiento de herramienta se heredan de `ToolMaterial`; netherite resiste fuego. Fuente de tiers para recursos: `tools/ruler_tiers.json`.
+Todas: daño 0.5 menor que la espada equivalente, velocidad 1.6 ataques/s, alcance de entidades +1.5 bloques en la mano principal y barrido vanilla. Reparación y comportamiento de herramienta se heredan de `ToolMaterial`; netherite resiste fuego. Fuente de tiers para recursos: `tools/school_supplies/ruler_tiers.json`.
 
 ## Pelotas (item, juguete y proyectil)
 
@@ -76,8 +76,8 @@ Revisión estática y comprobaciones de reglas/geometría; compilación del mod 
 uno de once fragmentos finales Ogg Vorbis mono, con volumen de discos. Cada
 parlante conserva en `CUSTOM_DATA` su identidad y un orden aleatorio completo;
 al terminar el ciclo se sortea otro, sin repetición inmediata entre ciclos.
-Cortes/duraciones: `tools/portable_speaker_tracks.json`. Generador de modelo/texturas:
-`tools/create_portable_speaker_assets.py`.
+Cortes/duraciones: `tools/technology/portable_speaker_tracks.json`. Generador de modelo/texturas:
+`tools/technology/create_portable_speaker_assets.py`.
 
 El audio sigue al stack real en inventario/cursor, suelo, inventarios de entidades,
 contenedores de bloques cargados y contenedores portátiles anidados (componentes
@@ -90,7 +90,7 @@ Apaciguar alumnos, canciones externas y receta siguen pendientes. La versión de
 esta conversación compiló antes de integrar master; integración actual revisada
 estáticamente, pendiente de compilación y prueba en Minecraft.
 
-**Arte implementado:** folder oficio de tapa dura sin liga, inspirado en ARTESCO; cuaderno college de tapa flexible fina, color sólido, lomo encolado y sin espiral, inspirado en Bakan/Stanford. Dos modelos padre (`folder`, `notebook`), 16 variantes por tipo (`<color>_folder`, `<color>_notebook`) y atlas de tapas compartidos entre ambos. Hojas y etiquetas usan un atlas independiente para conservar su color. Items decorativos registrados en la pestaña LSM Mod; recetas, consumo y Estudioso siguen pendientes. Regenerar con `python tools/create_stationery_assets.py`; preview con `blender -b --python tools/render_stationery_assets.py`.
+**Arte implementado:** folder oficio de tapa dura sin liga, inspirado en ARTESCO; cuaderno college de tapa flexible fina, color sólido, lomo encolado y sin espiral, inspirado en Bakan/Stanford. Dos modelos padre (`folder`, `notebook`), 16 variantes por tipo (`<color>_folder`, `<color>_notebook`) y atlas de tapas compartidos entre ambos. Hojas y etiquetas usan un atlas independiente para conservar su color. Items decorativos registrados en la pestaña LSM Mod; recetas, consumo y Estudioso siguen pendientes. Regenerar con `python tools/books_notebooks_and_folders/create_stationery_assets.py`; preview con `blender -b --python tools/books_notebooks_and_folders/render_stationery_assets.py`.
 
 Dirección de cada uno y quién queda afectado: [MECHANICS_SPECS](MECHANICS_SPECS.md). Aquí los valores.
 
@@ -161,7 +161,7 @@ Los otros dos legendarios del diseño son **bloques**: el ataúd de Manuel Tirad
 
 ## Discos y música
 
-Implementado: los discos escolares se reproducen en la gramola y aparecen en la pestaña de objetos, después del himno y la marcha, en orden de 5to a 1ro de Secundaria. Los siete discos de esta colección tienen etiquetas de vinilo únicas de 16×16 px, pila máxima de uno y rareza rara; el himno y la marcha del colegio conservan sus texturas. Generador: `tools/create_music_disc_assets.py`; revisión externa del ítem generado: `tools/render_music_discs.py`. Los cinco Ogg originales se conservan completos; la duración de la canción sigue el archivo, sin recortes, silencios ni cambios de tempo.
+Implementado: los discos escolares se reproducen en la gramola y aparecen en la pestaña de objetos, después del himno y la marcha, en orden de 5to a 1ro de Secundaria. Los siete discos de esta colección tienen etiquetas de vinilo únicas de 16×16 px, pila máxima de uno y rareza rara; el himno y la marcha del colegio conservan sus texturas. Generador: `tools/music_discs/create_music_disc_assets.py`; revisión externa del ítem generado: `tools/music_discs/render_music_discs.py`. Los cinco Ogg originales se conservan completos; la duración de la canción sigue el archivo, sin recortes, silencios ni cambios de tempo.
 
 | Salón | Disco (ID) | Duración (s) |
 |---|---|---|

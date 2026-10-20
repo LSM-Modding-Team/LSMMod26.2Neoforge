@@ -2,7 +2,7 @@
 from resource_modules import module_read_text
 from pathlib import Path
 import argparse,json,re,itertools,random
-from check_chair_grid_rotations import grid
+from chairs.check_chair_grid_rotations import grid
 ROOT=Path(__file__).resolve().parents[1];B=ROOT/'src/main/java/net/nicomar2009/lsmmod/block'
 def boxes(s):
  return [tuple(float(x.strip())/16 for x in v.split(',')) for v in re.findall(r'(?:Block|ExactVoxelShapes).box\(([\d., \-]+)\)',s)]

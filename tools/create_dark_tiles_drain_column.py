@@ -4,9 +4,9 @@ from resource_json import resource_json
 import json, math, random, copy
 from pathlib import Path
 from PIL import Image
-from create_bathroom_statue_assets import solid_model
+from facilities.create_bathroom_statue_assets import solid_model
 ROOT=Path(__file__).resolve().parents[1]; A=ROOT/'src/main/resources/assets/lsmmod'; D=ROOT/'src/main/resources/data'; J=ROOT/'src/main/java/net/nicomar2009/lsmmod'; GENERATED=[]
-from create_paintable_school_block import PAINTS
+from painting_and_editable_blocks.create_paintable_school_block import PAINTS
 COLORS=PAINTS
 DRAIN=[([0,0,0,16,8,16],'gray'),([8,8,0,16,16,16],'gray',{'up':'tile'})]+[([0,15,z,8,16,z+1],'metal') for z in (0,3,6,9,12,15)]
 # Half-pixel circular grids, sharing cardinal sectors in all four directions.
