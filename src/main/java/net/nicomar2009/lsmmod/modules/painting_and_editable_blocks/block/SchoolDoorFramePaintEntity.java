@@ -1,6 +1,5 @@
 package net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block;
-import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.registry.ModuleBlockEntities;
-import net.nicomar2009.lsmmod.modules.windows_and_enclosures.block.SchoolFramedDiningDoorBlock;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import java.util.Arrays;
 import net.minecraft.core.BlockPos;
@@ -10,16 +9,13 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
-/** Six 4x4 face palettes and 64 occupancy bits; only the original fixed frame is editable. */
+/** Shared 4px editable-cube storage retained for the independent minicube block. */
 public class SchoolDoorFramePaintEntity extends SchoolPaintableBlockEntity {
     private final int[] squares=new int[96];
     private long removed;
     private BlockState collisionState;
     private long collisionMask;
     private net.minecraft.world.phys.shapes.VoxelShape collision;
-    public SchoolDoorFramePaintEntity(BlockPos pos,BlockState state) {
-        this(ModuleBlockEntities.SCHOOL_DOOR_FRAME_PAINT.get(),pos,state);
-    }
     protected SchoolDoorFramePaintEntity(net.minecraft.world.level.block.entity.BlockEntityType<?> type,BlockPos pos,BlockState state) {super(type,pos,state);}
     public int miniSize() {return 8;}
     /** Keep fine storage for old paint and partial cuts, while editing four 8px squares per face. */
@@ -29,7 +25,7 @@ public class SchoolDoorFramePaintEntity extends SchoolPaintableBlockEntity {
         return new int[]{start,start+1,start+4,start+5};
     }
     protected long removedMask() {return removed;}
-    public long occupied() {return SchoolPaintableBathroomDoorBlock.initialFrame(getBlockState())&~removed;}
+    public long occupied() {return ~removed;}
     public net.minecraft.world.phys.shapes.VoxelShape collision(BlockState state,java.util.function.Supplier<net.minecraft.world.phys.shapes.VoxelShape> build) {
         long mask=occupied();
         if(collision==null||collisionState!=state||collisionMask!=mask) {collision=build.get();collisionState=state;collisionMask=mask;}
@@ -41,8 +37,8 @@ public class SchoolDoorFramePaintEntity extends SchoolPaintableBlockEntity {
     }
     public SchoolPaint squarePaint(Direction localFace,int quadrant) {return SchoolPaint.fromId(squares[localFace.ordinal()*16+quadrant]);}
     private int turns() {
-        if(!getBlockState().hasProperty(SchoolFramedDiningDoorBlock.FACING))return 0;
-        return switch(getBlockState().getValue(SchoolFramedDiningDoorBlock.FACING)) {case EAST->1;case SOUTH->2;case WEST->3;default->0;};
+        if(!getBlockState().hasProperty(BlockStateProperties.HORIZONTAL_FACING))return 0;
+        return switch(getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING)) {case EAST->1;case SOUTH->2;case WEST->3;default->0;};
     }
     public Direction worldFace(Direction face) {
         if(face.getAxis().isHorizontal())for(int i=0;i<turns();i++)face=face.getClockWise();return face;
@@ -100,7 +96,7 @@ public class SchoolDoorFramePaintEntity extends SchoolPaintableBlockEntity {
             for(int dx=0;dx<2;dx++)for(int dy=0;dy<2;dy++)for(int dz=0;dz<2;dz++)removed|=1L<<(x+dx+4*(y+dy)+16*(z+dz));
         }
         changed();
-        // Keep the controller/leaf even when the last masonry cube has been removed.
+        // The concrete editable block decides whether an empty occupancy removes it.
         if(level!=null) {
             level.updateNeighborsAt(worldPosition,getBlockState().getBlock());
             for(Direction direction:Direction.values()) {
@@ -113,20 +109,11 @@ public class SchoolDoorFramePaintEntity extends SchoolPaintableBlockEntity {
         }
         return true;
     }
-    /** Hide internal faces, including seams with other cells of this same door. */
+    /** Hide internal cube faces; concrete blocks handle neighboring block profiles. */
     public boolean exposed(int cube,Direction face,net.minecraft.world.level.BlockGetter view) {
         if(!hasCube(cube))return false;
         int x=(cube&3)+face.getStepX(),y=((cube>>2)&3)+face.getStepY(),z=((cube>>4)&3)+face.getStepZ();
         if(x>=0&&x<4&&y>=0&&y<4&&z>=0&&z<4)return !hasCube(x+4*y+16*z);
-        BlockPos neighbor=worldPosition.relative(worldFace(face));BlockState other=view.getBlockState(neighbor),state=getBlockState();
-        int column=state.getValue(SchoolFramedDiningDoorBlock.COLUMN)+face.getStepX();
-        int row=state.getValue(SchoolFramedDiningDoorBlock.ROW)+face.getStepY();
-        int depth=state.getValue(SchoolFramedDiningDoorBlock.DEPTH)+face.getStepZ();
-        if(other.is(state.getBlock())&&other.getValue(SchoolFramedDiningDoorBlock.FACING)==state.getValue(SchoolFramedDiningDoorBlock.FACING)
-                &&other.getValue(SchoolFramedDiningDoorBlock.HINGE)==state.getValue(SchoolFramedDiningDoorBlock.HINGE)
-                &&other.getValue(SchoolFramedDiningDoorBlock.COLUMN)==column&&other.getValue(SchoolFramedDiningDoorBlock.ROW)==row
-                &&other.getValue(SchoolFramedDiningDoorBlock.DEPTH)==depth&&view.getBlockEntity(neighbor) instanceof SchoolDoorFramePaintEntity entity)
-            return !entity.hasCube(Math.floorMod(x,4)+4*Math.floorMod(y,4)+16*Math.floorMod(z,4));
         return true;
     }
     @Override protected void saveAdditional(ValueOutput output) {

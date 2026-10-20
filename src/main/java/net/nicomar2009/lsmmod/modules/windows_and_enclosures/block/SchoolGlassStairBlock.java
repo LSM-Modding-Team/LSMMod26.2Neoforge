@@ -34,6 +34,8 @@ public class SchoolGlassStairBlock extends StairBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {
         super.createBlockStateDefinition(builder);builder.add(SchoolCurtains.CURTAIN);
     }
+    public boolean continuousConnections() {return false;}
+
     private BlockState connections(BlockState state, LevelReader level, BlockPos pos) {return state;}
 
     @Override

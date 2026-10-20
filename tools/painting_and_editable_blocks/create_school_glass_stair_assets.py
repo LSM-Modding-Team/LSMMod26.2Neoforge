@@ -22,7 +22,7 @@ RETIRED=('supported_school_glass','mixed_school_glass','supported_school_glass_r
 QUARTERS={'straight':[(0,0),(1,0)],'outer_left':[(0,0)],'outer_right':[(1,0)],
  'inner_left':[(0,0),(1,0),(0,1)],'inner_right':[(0,0),(1,0),(1,1)]}
 
-def glass_parts(half,shape,mask):
+def glass_parts(half,shape,mask,continuous=False):
  low,high=(8,16) if half=='bottom' else (0,8)
  bottom,top=bool(mask&16),bool(mask&8)
  if shape=='straight':return repair_glass_caps(glazing(mask&7,low,high,bottom,top,[]),mask)
@@ -31,10 +31,14 @@ def glass_parts(half,shape,mask):
   xs=[x for x,z in QUARTERS[shape] if z==zrow]
   if not xs:continue
   x0,x1=min(xs)*8,(max(xs)+1)*8
-  parts.extend([([x0,low,zrow*8,x0+1,high,zrow*8+8],'frame'),([x1-1,low,zrow*8,x1,high,zrow*8+8],'frame')])
-  if not bottom:parts.append(([x0+1,low,zrow*8,x1-1,low+1,zrow*8+8],'frame'))
-  if not top:parts.append(([x0+1,high-1,zrow*8,x1-1,high,zrow*8+8],'frame'))
-  parts.append(([x0+1,low if bottom else low+1,zrow*8,x1-1,high if top else high-1,zrow*8+8],'glass'))
+  left=not continuous or x0>0 or bool(mask&1)
+  right=not continuous or x1<16 or bool(mask&2)
+  if left:parts.append(([x0,low,zrow*8,x0+1,high,zrow*8+8],'frame'))
+  if right:parts.append(([x1-1,low,zrow*8,x1,high,zrow*8+8],'frame'))
+  start,end=x0+int(left),x1-int(right)
+  if not bottom:parts.append(([start,low,zrow*8,end,low+1,zrow*8+8],'frame'))
+  if not top:parts.append(([start,high-1,zrow*8,end,high,zrow*8+8],'frame'))
+  parts.append(([start,low if bottom else low+1,zrow*8,end,high if top else high-1,zrow*8+8],'glass'))
  opaque=solid_model([p for p in parts if p[1]!='glass'])['elements']
  transparent=[e for e in solid_model(parts)['elements'] if next(iter(e['faces'].values()))['texture']=='#glass']
  for e in opaque+transparent:

@@ -9,7 +9,7 @@ from pathlib import Path
 import itertools,hashlib,json,math
 TARGETS=('elementary_playground_awning','playground_awning',
  'awning_support','school_gate','football_basketball_goal',
- 'school_entrance_pavement_slab','street_school_bars','double_school_entrance','light_school_wall_railing',
+ 'school_entrance_pavement_slab','street_school_bars','light_school_wall_railing',
  *(f'school_entrance_pavement_slope_{i}' for i in range(1,7)))
 PAVEMENT=('school_entrance_pavement', 'school_entrance_pavement_slab',*(f'school_entrance_pavement_slope_{i}' for i in range(1,7)))
 GLASS=()

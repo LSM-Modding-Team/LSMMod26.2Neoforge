@@ -1,9 +1,7 @@
 package net.nicomar2009.lsmmod.modules.school_supplies.item;
 import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolSlabProjectingWindowPaintEntity;
 import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolProjectingWindowPaintEntity;
-import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolEntranceSlabPaintEntity;
 import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolDoorFramePaintEntity;
-import net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolBathroomColumnPaintEntity;
 
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
@@ -23,8 +21,6 @@ public class SchoolHammerItem extends Item {
         }
         if(!(level.getBlockEntity(pos) instanceof SchoolPaintableCustomBlockEntity block)) return InteractionResult.PASS;
         if(block instanceof net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolProjectingWindowPaintEntity
-                ||block instanceof net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolBathroomColumnPaintEntity
-                ||block instanceof net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolEntranceSlabPaintEntity
                 ||block instanceof net.nicomar2009.lsmmod.modules.painting_and_editable_blocks.block.SchoolSlabProjectingWindowPaintEntity)return InteractionResult.PASS;
         if(player==null||player.isSpectator()||!level.mayInteract(player,pos)
                 ||!player.mayUseItemAt(pos,context.getClickedFace(),context.getItemInHand())) return InteractionResult.FAIL;

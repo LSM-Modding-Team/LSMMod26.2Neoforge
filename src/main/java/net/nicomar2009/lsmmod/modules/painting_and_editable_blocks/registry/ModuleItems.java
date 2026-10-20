@@ -9,15 +9,9 @@ import static net.nicomar2009.lsmmod.registry.ModRegistries.ITEMS;
 public final class ModuleItems {
     public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_PROJECTING_WINDOW = ITEMS.registerSimpleBlockItem(ModuleBlocks.SCHOOL_PAINTABLE_PROJECTING_WINDOW);
 
-    public static final DeferredItem<BlockItem> BATHROOM_DOOR_WIDE_PAINTABLE = ITEMS.registerSimpleBlockItem(ModuleBlocks.BATHROOM_DOOR_WIDE_PAINTABLE);
-
-    public static final DeferredItem<BlockItem> SCHOOL_ENTRANCE_DOOR_PAINTABLE = ITEMS.registerSimpleBlockItem(ModuleBlocks.SCHOOL_ENTRANCE_DOOR_PAINTABLE);
-
     public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_GLASS_STAIRS = ITEMS.registerSimpleBlockItem(ModuleBlocks.SCHOOL_PAINTABLE_GLASS_STAIRS);
 
-    public static final DeferredItem<BlockItem> BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN = ITEMS.registerSimpleBlockItem(ModuleBlocks.BATHROOM_DOOR_WIDE_PAINTABLE_COLUMN);
-
-    public static final DeferredItem<BlockItem> DOUBLE_SCHOOL_ENTRANCE_PAINTABLE_SLAB = ITEMS.registerSimpleBlockItem(ModuleBlocks.DOUBLE_SCHOOL_ENTRANCE_PAINTABLE_SLAB);
+    public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_CONTINUOUS_GLASS_STAIRS = ITEMS.registerSimpleBlockItem(ModuleBlocks.SCHOOL_PAINTABLE_CONTINUOUS_GLASS_STAIRS);
 
     public static final DeferredItem<BlockItem> SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB = ITEMS.registerSimpleBlockItem(ModuleBlocks.SCHOOL_PAINTABLE_PROJECTING_WINDOW_SLAB);
 

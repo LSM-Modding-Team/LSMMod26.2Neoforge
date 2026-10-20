@@ -16,51 +16,28 @@ public final class SchoolGlazing {
     public static final IntegerProperty FRAME_LAYOUT = IntegerProperty.create("frame_layout", 0, 7);
     private SchoolGlazing() {}
     private static boolean continuous(BlockState state) {
-        return state.getBlock() instanceof SchoolContinuousGlassBlock;
+        return state.getBlock() instanceof SchoolGlassBlock glass && glass.continuousConnections()
+                || state.getBlock() instanceof SchoolGlassStairBlock stair && stair.continuousConnections();
     }
-    public static boolean isFramedTransom(BlockState state) {
-        return state.getBlock() instanceof SchoolFramedDiningDoorBlock door && door.hasTransomGlazing()
-                && door.row(state)==door.rows()-1
-                && state.getValue(SchoolFramedDiningDoorBlock.DEPTH)==0;
-    }
+
     public static boolean isGlass(BlockState state) {
-        return hasSidePane(state) || isFramedTransom(state) || state.getBlock() instanceof SchoolGlassBlock || state.getBlock() instanceof SchoolGlassStairBlock
-                || (state.getBlock() instanceof TallClassroomEntranceBlock && state.getValue(TallClassroomEntranceBlock.ROW)==2)
-                || (state.getBlock() instanceof DoubleSchoolEntranceBlock door && door.hasTransomGlazing() && state.getValue(DoubleSchoolEntranceBlock.ROW)==2 && state.getValue(DoubleSchoolEntranceBlock.DEPTH)==0);
+        return state.getBlock() instanceof SchoolGlassBlock || state.getBlock() instanceof SchoolGlassStairBlock;
     }
-    public static boolean hasSidePane(BlockState state) {
-        return state.getBlock() instanceof SchoolFramedDiningDoorBlock door && door.hasSideGlazing()
-                && state.getValue(SchoolFramedDiningDoorBlock.DEPTH)==0
-                && door.row(state)>=1
-                && state.getValue(SchoolFramedDiningDoorBlock.COLUMN)==(rightHinge(state)?0:1);
-    }
-    private static boolean rightHinge(BlockState state) {
-        return state.getValue(SchoolFramedDiningDoorBlock.HINGE)==net.minecraft.world.level.block.state.properties.DoorHingeSide.RIGHT;
-    }
-    public static Direction sideFacing(BlockState state) {
-        Direction facing=state.getValue(SchoolGlassBlock.FACING);
-        return rightHinge(state)?facing.getCounterClockWise():facing.getClockWise();
-    }
+
     private static Direction defaultFacing(BlockState state) {
-        return hasSidePane(state)&&!isFramedTransom(state)?sideFacing(state):state.getValue(SchoolGlassBlock.FACING);
+        return state.getValue(SchoolGlassBlock.FACING);
     }
-    /** Pane extent in its own facing coordinates; side glazing occupies the rear half only. */
-    private record Pane(int low, int high, int start, int end, int footprint, boolean transom) {}
-    private static final Pane FULL=new Pane(0,16,0,16,3,false);
-    private static final Pane UPPER=new Pane(8,16,0,16,3,false);
-    private static final Pane TRANSOM=new Pane(8,16,0,16,3,true);
-    private static final Pane SIDE_LEFT=new Pane(0,16,8,16,3,false);
-    private static final Pane SIDE_RIGHT=new Pane(0,16,0,8,3,false);
+    /** Pane extents and quarter footprints for flat glazing and vanilla stair corners. */
+    private record Pane(int low, int high, int start, int end, int footprint) {}
+    private static final Pane FULL=new Pane(0,16,0,16,3);
     private static final Pane[][] STAIRS=new Pane[2][12];
     static {
         for(int footprint:new int[]{1,2,3,7,11}) {
-            STAIRS[0][footprint]=new Pane(0,8,0,16,footprint,false);
-            STAIRS[1][footprint]=new Pane(8,16,0,16,footprint,false);
+            STAIRS[0][footprint]=new Pane(0,8,0,16,footprint);
+            STAIRS[1][footprint]=new Pane(8,16,0,16,footprint);
         }
     }
     private static Pane pane(BlockState state,Direction facing) {
-        if(hasSidePane(state)&&sideFacing(state)==facing)
-            return rightHinge(state)?SIDE_RIGHT:SIDE_LEFT;
         if(!isGlass(state)||state.getValue(SchoolGlassBlock.FACING)!=facing)return null;
         if(state.getBlock() instanceof SchoolGlassStairBlock) {
             int footprint=switch(state.getValue(StairBlock.SHAPE)) {
@@ -68,8 +45,6 @@ public final class SchoolGlazing {
             };
             return STAIRS[state.getValue(StairBlock.HALF)==Half.TOP?0:1][footprint];
         }
-        if(isFramedTransom(state)||state.getBlock() instanceof TallClassroomEntranceBlock||state.getBlock() instanceof DoubleSchoolEntranceBlock)
-            return isFramedTransom(state)?TRANSOM:UPPER;
         if(state.getBlock() instanceof SchoolGlassBlock)
             return FULL;
         return null;
@@ -91,14 +66,18 @@ public final class SchoolGlazing {
     private static boolean sameRow(BlockState state,BlockState other,Direction facing) {
         if(continuous(state)!=continuous(other))return false;
         Pane a=pane(state,facing),b=pane(other,facing);
-        if(a==null||b==null||a.footprint()!=3||b.footprint()!=3)return false;
-        boolean overlap=a.low()==b.low()&&a.high()==b.high()
-                ||(a.transom()||b.transom())&&a.high()==16&&b.high()==16;
-        return overlap;
+        return a!=null&&b!=null&&(continuous(state)||a.footprint()==3&&b.footprint()==3)
+                &&a.low()==b.low()&&a.high()==b.high();
     }
     /** Consecutive cells connect only when their visible glass actually reaches the shared edge. */
     private static boolean adjacent(BlockState left,BlockState right,Direction facing) {
-        return sameRow(left,right,facing)&&pane(left,facing).end()==16&&pane(right,facing).start()==0;
+        if(!sameRow(left,right,facing))return false;
+        Pane a=pane(left,facing),b=pane(right,facing);
+        if(continuous(left)) {
+            int edge=(a.footprint()>>1)&5;
+            return edge!=0&&edge==(b.footprint()&5);
+        }
+        return a.end()==16&&b.start()==0;
     }
     public static boolean connectsHorizontal(BlockState state,BlockState neighbor,Direction side) {
         if(!side.getAxis().isHorizontal()||!isGlass(state))return false;
@@ -116,8 +95,6 @@ public final class SchoolGlazing {
         if(state.getBlock() instanceof SchoolGlassStairBlock && neighbor.getBlock() instanceof SchoolGlassStairBlock)
             return state.getValue(StairBlock.HALF)==neighbor.getValue(StairBlock.HALF)
                     && state.getValue(StairBlock.SHAPE)==neighbor.getValue(StairBlock.SHAPE);
-        // Door leaves are only four pixels thick; stair supports span sixteen pixels.
-        // Keep exposed support/frame faces, also when either door is open.
         return false;
     }
 
@@ -137,13 +114,13 @@ public final class SchoolGlazing {
         return result;
     }
 
-    /** Pure visual masks for the front transom and perpendicular rear-half pane. */
+    /** World-dependent perimeter masks; continuous variants only inspect direct neighbors. */
     public static int visualMask(net.minecraft.world.level.LevelReader level,BlockPos pos,BlockState state) {
         return visualMask(level,pos,state,false);
     }
     public static int visualMask(net.minecraft.world.level.LevelReader level,BlockPos pos,BlockState state,boolean side) {
-        if(!isGlass(state)||side&&!hasSidePane(state))return 3;
-        Direction facing=side?sideFacing(state):defaultFacing(state),right=facing.getClockWise();
+        if(!isGlass(state)||side)return 3;
+        Direction facing=defaultFacing(state),right=facing.getClockWise();
         Pane current=pane(state,facing);
         int mask=3;
         // Map renderers may supply a cached state after the live block has changed.
@@ -184,12 +161,12 @@ public final class SchoolGlazing {
                 |(pane.start()<8&&pane.end()>8&&(x+8-first)%spacing==0?4:0);
     }
 
-    /** Refresh both orientations independently, retaining normal glass frame-layout states. */
+    /** Refresh normal frame layouts or the local perimeter of continuous glazing. */
     public static void refreshHorizontal(ServerLevel level,BlockPos pos) { refreshHorizontal(level,pos,false); }
     public static void refreshHorizontal(ServerLevel level,BlockPos pos,boolean side) {
         BlockState state=level.getBlockState(pos);
-        if(!isGlass(state)||side&&!hasSidePane(state))return;
-        Direction facing=side?sideFacing(state):defaultFacing(state),right=facing.getClockWise();
+        if(!isGlass(state)||side)return;
+        Direction facing=defaultFacing(state),right=facing.getClockWise();
         if(continuous(state)) {
             // Only neighboring perimeter cells can change; never scan the row.
             level.sendBlockUpdated(pos,state,state,Block.UPDATE_CLIENTS);
@@ -197,7 +174,7 @@ public final class SchoolGlazing {
                 BlockPos target=pos.relative(direction);
                 if(!level.hasChunkAt(target))continue;
                 BlockState neighbor=level.getBlockState(target);
-                if(neighbor.is(state.getBlock())&&neighbor.getValue(SchoolGlassBlock.FACING)==facing)
+                if(continuous(neighbor)&&neighbor.getValue(SchoolGlassBlock.FACING)==facing)
                     level.sendBlockUpdated(target,neighbor,neighbor,Block.UPDATE_CLIENTS);
             }
             return;

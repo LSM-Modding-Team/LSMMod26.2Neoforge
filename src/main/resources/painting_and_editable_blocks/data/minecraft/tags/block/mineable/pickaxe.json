@@ -3,13 +3,10 @@
     "lsmmod:school_paintable_block",
     "lsmmod:school_paintable_custom_block",
     "lsmmod:school_paintable_projecting_window",
-    "lsmmod:bathroom_door_wide_paintable",
     "lsmmod:school_paintable_mini_cube_block",
-    "lsmmod:school_entrance_door_paintable",
     "lsmmod:school_paintable_glass_stairs",
-    "lsmmod:bathroom_door_wide_paintable_column",
-    "lsmmod:double_school_entrance_paintable_slab",
     "lsmmod:school_paintable_projecting_window_slab",
-    "lsmmod:school_paintable_projecting_window_stairs"
+    "lsmmod:school_paintable_projecting_window_stairs",
+    "lsmmod:school_paintable_continuous_glass_stairs"
   ]
 }
