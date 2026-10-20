@@ -199,9 +199,10 @@ def layout_fragment(model,part,pose):
     return value
 
 
-def layout_models():
+def layout_models(*, read_text=module_read_text, write_model=write):
     """Generate table-driven variants in the selected resource tree, idempotently."""
     import shutil,math
+    write=write_model
     slab_id='school_paintable_projecting_window_slab'
     stair_id='school_paintable_projecting_window_stairs'
     for ident in LAYOUT_IDS:
@@ -209,7 +210,7 @@ def layout_models():
         if module_exists(directory):shutil.rmtree(directory)
     rules=layout_rules();choices=[];half_choices={'left':[],'right':[]};slab_choices={'bottom':[],'top':[]};stair_choices={kind+'_'+side:[] for kind in ('bottom','top') for side in ('left','right')}
     for side in half_choices:
-        groups=json.loads(module_read_text(A/f'models/block/{PAINTABLE_ID}/phase_0_{side}.json'))['models'][:6]
+        groups=json.loads(read_text(A/f'models/block/{PAINTABLE_ID}/phase_0_{side}.json'))['models'][:6]
         write(A/f'models/block/{PAINTABLE_ID}/wall_{side}.json',{'loader':'fusion:model','type':'composite','textures':dict(TEXTURES,particle=PAINTS[0]),'models':groups})
     for rule in rules:
         width,height=rule['width']*16,rule['height']*16
@@ -274,7 +275,7 @@ def layout_models():
         legacy=f'{ident}/legacy{("_"+side) if side else ""}'
         # A build may re-run only this step on already generated resources.
         # Never replace the legacy model with a wrapper referencing itself.
-        value=json.loads(module_read_text(source))
+        value=json.loads(read_text(source))
         first=value.get('models',[[]])[0]
         wrapped=bool(first and isinstance(first[0],dict) and first[0].get('condition',{}).get('key')=='fallback')
         if not wrapped:write(A/f'models/block/{legacy}.json',value)
@@ -283,13 +284,25 @@ def layout_models():
     write(A/'projecting_window_baked_layouts.json',rules)
 
 
-def prepare_layouts(assets):
+def prepare_layouts(assets, *, documents=None, sizes=None):
     """Refresh table-derived models in an isolated build tree, never source files."""
     global A
     previous=A
     try:
         A=assets
-        layout_models()
+        if documents is None:
+            layout_models()
+        else:
+            def read_text(path):
+                return json.dumps(documents[path]) if path in documents else module_read_text(path)
+            def write_model(path,value):
+                if path.is_relative_to(assets/'models'):
+                    documents[path]=copy.deepcopy(value)
+                    if sizes is not None:
+                        sizes[path]=len((json.dumps(value,ensure_ascii=False,separators=(',',':'))+'\n').encode('utf-8'))
+                else:
+                    write(path,value)
+            layout_models(read_text=read_text,write_model=write_model)
     finally:
         A=previous
 

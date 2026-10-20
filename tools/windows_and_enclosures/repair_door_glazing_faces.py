@@ -43,14 +43,16 @@ def repair(data):
   if element['faces']:kept.append(element)
  if 'elements' in result:result['elements']=kept
  return result
-def prepare(assets):
+def prepare(assets, *, documents=None):
  changed=removed=marked=0
- for path in module_glob(assets/'models/block', '*.json'):
+ paths=documents if documents is not None else module_glob(assets/'models/block', '*.json')
+ for path in paths:
   if not eligible(path):continue
-  before=json.loads(module_read_text(path, encoding='utf-8-sig'));after=repair(before)
+  before=documents[path] if documents is not None else json.loads(module_read_text(path, encoding='utf-8-sig'));after=repair(before)
   if before==after:continue
   count=lambda data:sum(len(e['faces']) for e in data.get('elements',[]))
   culls=lambda data:sum('cullface' in f for e in data.get('elements',[]) for f in e['faces'].values())
   removed+=count(before)-count(after);marked+=culls(after)-culls(before);changed+=1
-  module_write_text(path, json.dumps(after,ensure_ascii=False,separators=(',',':'))+'\n',encoding='utf-8')
+  if documents is not None:documents[path]=after
+  else:module_write_text(path, json.dumps(after,ensure_ascii=False,separators=(',',':'))+'\n',encoding='utf-8')
  return {'models_changed':changed,'glass_faces_removed':removed,'net_boundary_cullfaces':marked}

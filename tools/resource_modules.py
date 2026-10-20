@@ -23,7 +23,7 @@ def source_path(relative):
     return matches[0]
 
 
-def compose(output, *, skip_directories=()):
+def compose(output, *, skip_directories=(), model_documents=None, model_sizes=None, json_only=False):
     output = Path(output)
     skip_directories = set(skip_directories)
     directories = set()
@@ -32,7 +32,18 @@ def compose(output, *, skip_directories=()):
             continue
         for path in _resource_files(base, skip_directories):
             relative = path.relative_to(base)
+            if json_only and path.suffix != '.json':
+                continue
             destination = output / relative
+            if (model_documents is not None and relative.suffix == '.json'
+                    and relative.parts[:3] == ('assets', 'lsmmod', 'models')):
+                if destination in model_documents:
+                    raise ValueError(f'Duplicate resource: {relative}')
+                raw = path.read_bytes()
+                model_documents[destination] = json.loads(raw)
+                if model_sizes is not None:
+                    model_sizes[destination] = len(raw)
+                continue
             if destination.parent not in directories:
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 directories.add(destination.parent)

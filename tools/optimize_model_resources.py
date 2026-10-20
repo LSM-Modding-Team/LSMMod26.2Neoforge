@@ -2,12 +2,13 @@
 
 Source IDs and block-state properties never change. Writes only to an explicit output directory.
 """
-import argparse,copy,hashlib,json,shutil
+import argparse,copy,hashlib,json,shutil,sys,time
 from collections import defaultdict
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def canonical(v):return json.dumps(v,sort_keys=True,separators=(',',':'),ensure_ascii=False)
-def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,separators=(',',':'))+'\n',encoding='utf-8')
+def serialized(v):return json.dumps(v,ensure_ascii=False,separators=(',',':'))+'\n'
+def write(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(serialized(v),encoding='utf-8')
 def model_identifier(path,models):return 'lsmmod:'+path.relative_to(models).with_suffix('').as_posix()
 def replace(v,aliases):
  if isinstance(v,str):return aliases.get(v,v)
@@ -26,12 +27,18 @@ def compact(variants):
   for key,value in current.items():groups[tuple((k,v) for k,v in key if k!=prop)].append((dict(key)[prop],value))
   if all({p for p,v in items}==domain and len({canonical(v) for p,v in items})==1 for items in groups.values()):current={key:items[0][1] for key,items in groups.items()}
  return {','.join(k+'='+v for k,v in key):value for key,value in current.items()}
-def prepare(output):
+def prepare(output, *, json_only=False, timings=False):
+ started=time.perf_counter()
+ def checkpoint(label):
+  nonlocal started
+  now=time.perf_counter()
+  if timings:print(f'Resource preparation: {label}: {now-started:.3f}s',file=sys.stderr,flush=True)
+  started=now
  output=output.resolve()
  if output in (ROOT,ROOT/'src',ROOT/'src/main/resources') or ROOT/'src' in output.parents:raise ValueError('Output cannot overwrite sources')
  if output.exists():
   owned=(output/'.lsmmod-optimized-resources').exists()
-  expected=output==(ROOT/'build/generated/optimizedResources').resolve()
+  expected=output in {(ROOT/'build/generated/optimizedResources').resolve(),(ROOT/'build/generated/optimizedModelGraph').resolve()}
   empty=output.is_dir() and not any(output.iterdir())
   if not (owned or expected or empty):raise ValueError('Refusing to clear an unowned output directory')
   shutil.rmtree(output)
@@ -40,35 +47,37 @@ def prepare(output):
  from windows_and_enclosures.create_school_projecting_window_assets import prepare_layouts,LAYOUT_IDS
  # These directories are fully regenerated next; copying them only to delete
  # them again needlessly touches thousands of source and destination files.
- compose(output,skip_directories={Path(f'assets/lsmmod/models/block/{ident}/layouts') for ident in LAYOUT_IDS})
+ documents={};sizes={}
+ compose(output,skip_directories={Path(f'assets/lsmmod/models/block/{ident}/layouts') for ident in LAYOUT_IDS},
+         model_documents=documents,model_sizes=sizes,json_only=json_only)
+ checkpoint('read and compose sources')
  assets=output/'assets/lsmmod'
- prepare_layouts(assets)
- models=assets/'models';before=sorted(models.rglob('*.json'));raw_bytes=sum(p.stat().st_size for p in before)
+ prepare_layouts(assets,documents=documents,sizes=sizes)
+ checkpoint('generate window layouts in memory')
+ models=assets/'models';before=sorted(documents);raw_bytes=sum(sizes.values());del sizes
  from windows_and_enclosures.repair_door_glazing_faces import prepare as repair_door_faces
- door_faces=repair_door_faces(assets)
- # Reuse parsed models through deduplication, reference repair and parent sharing.
- documents={p:json.loads(p.read_text(encoding='utf-8-sig')) for p in before}
+ door_faces=repair_door_faces(assets,documents=documents)
+ checkpoint('repair door glazing in memory')
+ # Models stay in memory from source/generation through the final write.
  groups=defaultdict(list)
  for p,d in documents.items():groups[canonical(d)].append(p)
  aliases={}
  for paths in groups.values():
   keep=min(paths,key=lambda p:(len(str(p)),str(p)));ident=model_identifier(keep,models)
   for p in paths:
-   if p!=keep:aliases[model_identifier(p,models)]=ident;p.unlink();del documents[p]
+   if p!=keep:aliases[model_identifier(p,models)]=ident;del documents[p]
  del groups
- dirty=set()
  states={}
  dirty_states=set()
  # Replace exact duplicates in every reference, including model parents and modern item definitions.
+ for p,d in documents.items():documents[p]=replace(d,aliases)
  for p in assets.rglob('*.json'):
-  d=documents[p] if p in documents else json.loads(p.read_text(encoding='utf-8-sig'));new=replace(d,aliases)
+  d=json.loads(p.read_text(encoding='utf-8-sig'));new=replace(d,aliases)
   if p.parent==assets/'blockstates':
    states[p]=new
    if new!=d:dirty_states.add(p)
-  if p in documents:
-   documents[p]=new
-   if new!=d:dirty.add(p)
-  elif new!=d and p not in states:write(p,new)
+  if new!=d and p not in states:write(p,new)
+ checkpoint('deduplicate models and rewrite references')
  # Use Fusion only for opaque, explicit cuboids: transparency and OBJ rendering stay on NeoForge.
  shared=defaultdict(list)
  for p,d in documents.items():
@@ -78,18 +87,22 @@ def prepare(output):
  fusion_count=0
  for geometry,items in shared.items():
   if len(items)==1:
-   p,d=items[0];d['loader']='fusion:model';d['type']='base';dirty.add(p);fusion_count+=1
+   p,d=items[0];d['loader']='fusion:model';d['type']='base';fusion_count+=1
    continue
   digest=hashlib.sha256(geometry.encode()).hexdigest()[:20];ident='lsmmod:block/fusion_shared/'+digest
   shape=json.loads(geometry);path=models/f'block/fusion_shared/{digest}.json'
-  documents[path]={'loader':'fusion:model','type':'base','parent':shape['parent'],'elements':shape['elements']};dirty.add(path)
+  documents[path]={'loader':'fusion:model','type':'base','parent':shape['parent'],'elements':shape['elements']}
   for p,d in items:
    # Child textures override shared material names; inherited positions, faces and UVs are unchanged.
-   d.pop('elements');d['parent']=ident;d['loader']='fusion:model';d['type']='base';dirty.add(p);fusion_count+=1
+   d.pop('elements');d['parent']=ident;d['loader']='fusion:model';d['type']='base';fusion_count+=1
  # A model may need both alias replacement and geometry sharing; serialize once.
- for p in sorted(dirty):write(p,documents[p])
+ directories=set()
+ for p in sorted(documents):
+  if p.parent not in directories:p.parent.mkdir(parents=True,exist_ok=True);directories.add(p.parent)
+  p.write_text(serialized(documents[p]),encoding='utf-8')
  obj_count=sum(d.get('loader')=='neoforge:obj' for d in documents.values())
- del shared,documents,dirty
+ del shared,documents,directories
+ checkpoint('share geometry and write final models')
  variants_before=variants_after=0
  for p,d in states.items():
   if 'variants' in d:
@@ -99,6 +112,7 @@ def prepare(output):
   if p in dirty_states:write(p,d)
  from prepare_high_state_models import prepare as prepare_high_states
  high_states=prepare_high_states(assets)
+ checkpoint('compact blockstates and high-state models')
  # High-state preparation creates Fusion models only. Its selector counts let
  # the report reuse parsed tables instead of reopening every model and state.
  variants_after+=sum(counts['selectors_after']-counts['selectors_before']
@@ -109,6 +123,7 @@ def prepare(output):
  report['door_glazing_faces']=door_faces
  report['state_properties_changed']=True
  write(output/'lsmmod_model_optimization.json',report)
+ checkpoint('write optimization report')
  return report,aliases
 if __name__=='__main__':
- parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);args=parser.parse_args();report,_=prepare(args.output);print(json.dumps(report))
+ parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);parser.add_argument('--json-only',action='store_true');parser.add_argument('--timings',action='store_true');args=parser.parse_args();report,_=prepare(args.output,json_only=args.json_only,timings=args.timings);print(json.dumps(report))
