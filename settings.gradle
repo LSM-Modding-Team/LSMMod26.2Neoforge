@@ -8,7 +8,7 @@ plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
 }
 
-// Door contract plus Minecraft 26.2 compatibility: LSMcore f2e543e9267b3213f27de79adc54e53e2e72bd04.
+// Door contract plus Minecraft 26.2 compatibility: LSMcore e78829f342580c4b13bd38735a930bfda00ba8f5.
 def coreDirectory = file(providers.gradleProperty('lsmcore_dir').getOrElse('../LSMcore'))
 if (!new File(coreDirectory, 'settings.gradle').isFile()) {
     throw new GradleException('Clone https://github.com/LSM-Modding-Team/LSMcore beside LSMMod or set -Plsmcore_dir=...')

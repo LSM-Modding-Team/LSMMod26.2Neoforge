@@ -25,8 +25,10 @@ public final class AssemblyDoorBlock extends Block implements EntityBlock {
     public static Optional<DoorView> view(BlockGetter level,BlockPos pos) {
         if(!(level.getBlockEntity(pos) instanceof DoorPieceEntity piece))return Optional.empty();
         // Navigation/collision regions wrap the real level; use the linked entity to resolve it.
-        var view=piece.getLevel() instanceof ServerLevel server?DoorService.at(server,pos):client.at(pos);
-        return view.filter(v->piece.matches(v.record(),v.record().structure().plan().slots().get(pos).part()));
+        try {
+            var view=piece.getLevel() instanceof ServerLevel server?DoorService.at(server,pos):client.at(pos);
+            return view.filter(v->piece.matches(v.record(),v.record().structure().plan().slots().get(pos).part()));
+        }catch(IllegalArgumentException unavailable) {return Optional.empty();}
     }
     @Override public BlockEntity newBlockEntity(BlockPos pos,BlockState state) {return new DoorPieceEntity(pos,state);}
     @Override protected VoxelShape getShape(BlockState state,BlockGetter level,BlockPos pos,CollisionContext context) {

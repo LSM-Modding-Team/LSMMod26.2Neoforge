@@ -1,40 +1,34 @@
 /**
- * School door consumer of Core 37cec9c and PaintingMod 0c6ccb9 (26.2 / NeoForge 26.2.0.88 / Java 25).
- * Registrations, textures and authoring geometry belong only to windows_and_enclosures in LSMMod.
- * IDs deliberately differ from retired doors: dimensions, saved membership and paint schema are incompatible.
- * No legacy block/world/schematic migration is performed. The existing gate/sliding entrance are unchanged.
+ * School door consumer for Minecraft 26.2, NeoForge 26.2.0.88 and Java 25.
+ * All four stable block/item IDs remain in windows_and_enclosures; Core and PaintingMod register none.
  *
- * <p>One item installs the entire structure, including Core's conservative sweep reservations. Facing follows
- * the player's horizontal direction; sneak-placement reflects local X. Core transforms exterior hinges and
- * all surfaces, so glass/trim/handles share each leaf's exact 90-degree pose. The supplied open example is
- * reproduced by solving the rigid transform, not copying group origins or adding an opening translation.
+ * <p>New placement uses BlockPlaceContext's resolved target, including replaceable blocks and face offsets.
+ * Singles anchor the bottom hinge cell; the double anchors local column 0, the exterior doorright corner.
+ * DoorPlacement.anchored normalizes the FULL transformed anchor cube. The player's facing, click side and
+ * closed-footprint obstruction scores choose orientation/reflection; sneaking optionally inverts reflection
+ * without changing the anchor destination. Required cells occupy exactly three levels, never the arc.
  *
- * <p>Manual clicks trace current Core geometry. Redstone FOLLOW_POWER is edge-driven per leaf: all three
- * rows of each exterior column control its adjacent leaf in the double (column 0 doorright, column 2 doorleft);
- * column 1 and sweep proxies are neutral. Singles use all required envelope cells. Manual use may override
- * the current signal until its next change. A blocked edge retains Core's previous power memory; another
- * neighbor notification or manual click is needed to retry. No polling ticker is installed.
+ * <p>Schema 2 opts explicitly into Core's VANILLA motion: instantaneous independent 90-degree poses,
+ * no entity/arc/target-obstacle veto, no pushing or destruction of neighbors. Core's derived DoorBody
+ * entities provide selection, collision and moving-surface rendering beyond the closed footprint. Fixed
+ * panels keep their carrier meshes. Entity render extraction applies the same Core transform, with no
+ * visual interpolation. No invisible sweep blocks or independent opening/collision state are stored.
  *
- * <p>Opening AND closing reject any live nonspectator entity intersecting Core's conservative continuous-arc
- * AABBs, and reject a target pose intersecting the other leaf. Contact without penetration is allowed.
- * Placement rejects occupied/fluid/unloaded reserved cells; movement verifies every stamped reservation.
- * Empty corner space can therefore be reserved, and a nearby entity can block even outside the precise arc.
- * No neighboring blocks are removed and no entities are pushed. Breaking/replacing a stamped piece retires
- * the entire structure through Core, with one survival/integrity-loss drop, none for creative/failed placement.
- * Core's durable drop claim remains at-most-once across a crash, as documented by its public contract.
+ * <p>Manual use is server ray-traced. FOLLOW_POWER remains per leaf: the three exterior-column cells
+ * adjacent to each double leaf control that leaf (0 doorright, 2 doorleft); column 1 is neutral. Singles
+ * use all required cells. Real neighbor edges drive power; no redstone polling is introduced. Painting
+ * tools do not toggle entity surfaces. Only paintablewall exposes PaintingMod patches, without carving.
+ * Painting/cleaning/sanding send data/model updates only and never change the opening state.
  *
- * <p>Only the six planar faces of paintablewall expose 8px cells. Core owns all structure/leaf state;
- * PaintingMod owns the public cell/paint/clipboard codecs and tool workflow. LSM persists one PaintLayer per
- * UUID in an atomically replaced dimension-specific file. Carrier entities save UUID/slot links only;
- * their synchronized paint values are derived render snapshots, never another persisted authority.
- * Removal copies PaintData to the sole recovered item, replacement binds it to a fresh structure UUID.
- * Painting/cleaning/sanding never call a Core mutation or send redstone neighbor notifications. The external
- * provider registration makes PaintingMod's hammer reject all carriers; the unmarked wood panel is excluded.
- * Source-material face, UVs, tint and layer survive placement rotation/reflection. Unavailable paint/geometry
- * blocks edits rather than resetting data. Initial chunk-watch and subsequent BE updates carry snapshots.
+ * <p>Only exact known schema-1 snapshots opt into upgrade: namespace/type, closed cells, envelope,
+ * controller, removal policy, surfaces, old pivots/turns and input policies must match the frozen legacy
+ * signature. Core keeps origin/UUID/open/powered states and journals removal of verified old proxies.
+ * Paint remains in its existing UUID-keyed authority, untouched. Unknown/custom records are preserved.
+ * Rendering-only 0.125px rebates and darker joint edges separate closed leaves/panels while original
+ * selection/collision boxes keep the seam physically continuous. UV density is preserved, not stretched.
  *
- * <p>External review is tools/windows_and_enclosures/render_assembly_doors.py. It renders active geometry and
- * inventory models, closed/open/independent leaf combinations, reflected orientations, DEFAULT wall paint,
- * and the supplied open example next to the solved pose. This is not an in-game or compilation check.
+ * <p>Authoring fixtures drive the generated geometry/material catalog and inventory models. External renders
+ * cover the available geometry, both poses, independent double leaves, items and mirrors. Static API
+ * inspection is not compilation or an in-game check.
  */
 package net.nicomar2009.lsmmod.modules.windows_and_enclosures.door;

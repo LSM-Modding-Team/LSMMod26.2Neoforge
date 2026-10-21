@@ -38,29 +38,65 @@ public final class DoorIntegration implements DoorAdapter {
     public static Block[] blocks() {return DoorCatalog.STYLES.keySet().stream().map(id->net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(DoorCatalog.id(id))).toArray(Block[]::new);}
     private static Block block(DoorRecord r) {return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(r.structure().definition().type());}
     public static void feedback(ServerPlayer player,Exception e) {
-        player.sendOverlayMessage(Component.translatable(e instanceof IOException?"message.lsmmod.assembly_door.storage":"message.lsmmod.assembly_door.blocked"));
+        String code=e instanceof IOException?"storage_unavailable":e.getMessage();
+        String key=switch(code==null?"":code) {
+            case "space_occupied","occupied_structure" -> "occupied";
+            case "permission" -> "permission";
+            case "incomplete","pending_chunks" -> "chunks";
+            case "storage_unavailable","unknown_structure","structure_broken","structure_pending","not_synchronized" -> "unavailable";
+            default -> "blocked";
+        };
+        player.sendOverlayMessage(Component.translatable("message.lsmmod.assembly_door."+key));
         if(e instanceof IOException)net.nicomar2009.lsmmod.LSMMod.LOGGER.error("Door persistence failed",e);
     }
     public static net.minecraft.world.InteractionResult place(BlockPlaceContext context,AssemblyDoorBlock block) {
         if(!(context.getPlayer() instanceof ServerPlayer player))return net.minecraft.world.InteractionResult.SUCCESS;
         try {
             var definition=DoorCatalog.STYLES.get(block.style()).definition();
-            // Sneak-place reflects local X before rotating. Anchor remains the clicked bottom corner.
-            int turns=switch(player.getDirection().getOpposite()) {case EAST->1;case SOUTH->2;case WEST->3;default->0;};
+            // North-native front follows the player's direction, as with a vanilla door.
+            var facing=player.getDirection();
+            int turns=switch(facing) {case EAST->1;case SOUTH->2;case WEST->3;default->0;};
+            var style=DoorCatalog.STYLES.get(block.style());
+            var anchor=anchor(definition);
+            boolean mirror=chooseMirror(context,definition,anchor,turns);
             var paintTag=context.getItemInHand().getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag();
             var schema=DoorRecord.placing(definition,new DoorPlacement(BlockPos.ZERO,new DoorOrientation(0,false)));
             var paint=paintTag.contains("assembly_door_paint")?PaintData.load(paintTag.getCompoundOrEmpty("assembly_door_paint"),DoorCatalog.patches(schema)):PaintData.EMPTY;
             PLACEMENT_PAINT.set(paint);
-            var placement=new DoorPlacement(context.getClickedPos(),new DoorOrientation(turns,player.isShiftKeyDown()));
+            var placement=DoorPlacement.anchored(context.getClickedPos(),anchor,new DoorOrientation(turns,mirror));
             var result=DoorService.place(player,definition,placement,context);
             if(result.accepted()) {
                 if(!player.isCreative())context.getItemInHand().shrink(1);
-                var anchor=DoorTransform.box(placement,null,false,new DoorBox(0,0,0,1,1,1));
-                power(player.level(),new BlockPos((int)Math.round(anchor.minX()),(int)Math.round(anchor.minY()),(int)Math.round(anchor.minZ())));
+                power(player.level(),context.getClickedPos());
                 return net.minecraft.world.InteractionResult.SUCCESS;
             }
         } catch(java.io.UncheckedIOException e) {feedback(player,e.getCause());} catch(IOException|IllegalArgumentException e) {feedback(player,e);}finally {PLACEMENT_PAINT.remove();}
         return net.minecraft.world.InteractionResult.FAIL;
+    }
+    /** Singles: bottom hinge cell. Double: local column 0, the doorright exterior corner. */
+    public static BlockPos anchor(DoorDefinition definition) {
+        if(definition.leaves().size()==2)return BlockPos.ZERO;
+        var pivot=definition.leaves().getFirst().pivot();
+        return new BlockPos((int)Math.floor(pivot.x()),0,(int)Math.floor(pivot.z()));
+    }
+    private static boolean chooseMirror(BlockPlaceContext context,DoorDefinition definition,BlockPos anchor,int turns) {
+        var level=context.getLevel();int[] scores=new int[2];
+        for(int m=0;m<2;m++) {
+            var p=DoorPlacement.anchored(context.getClickedPos(),anchor,new DoorOrientation(turns,m==1));
+            for(var cell:definition.cells()) {
+                var o=cell.offset();var b=DoorTransform.box(p,null,false,new DoorBox(o.getX(),o.getY(),o.getZ(),o.getX()+1,o.getY()+1,o.getZ()+1));
+                var pos=new BlockPos((int)Math.round(b.minX()),(int)Math.round(b.minY()),(int)Math.round(b.minZ()));
+                if(!level.hasChunkAt(pos)||!level.getBlockState(pos).canBeReplaced(context))scores[m]++;
+            }
+        }
+        boolean selected;
+        if(scores[0]!=scores[1])selected=scores[1]<scores[0];
+        else {
+            var relative=context.getClickLocation().subtract(net.minecraft.world.phys.Vec3.atLowerCornerOf(context.getClickedPos()));
+            var across=new DoorOrientation(turns,false).apply(new DoorPoint(1,0,0));
+            selected=(relative.x-.5)*across.x()+(relative.z-.5)*across.z()<0;
+        }
+        return context.getPlayer().isShiftKeyDown()?!selected:selected;
     }
     @Override public boolean matches(ServerLevel level,DoorRecord r,DoorPlan.Slot slot) {
         return slot!=null&&level.getBlockState(slot.position()).is(block(r))&&level.getBlockEntity(slot.position()) instanceof DoorPieceEntity piece&&piece.matches(r,slot.part());
@@ -82,26 +118,23 @@ public final class DoorIntegration implements DoorAdapter {
     @Override public boolean authorize(ServerLevel level,ServerPlayer actor,DoorAction action,DoorRecord r,Set<BlockPos> affected) {
         // Null actor is Core-authorized redstone or integrity cleanup; Core posts DoorPermissionEvent.
         if(r.phase()!=DoorRecord.Phase.PLACING&&r.removal()!=DoorRecord.Removal.FAILED_PLACEMENT&&!r.dropsClaimed()&&!DoorCatalog.patches(r).isEmpty()) {
-            try {DoorPaintStore.get(level,r);}catch(IOException|IllegalArgumentException e) {return false;}
+            try {DoorPaintStore.get(level,r);}catch(IOException|IllegalArgumentException e) {throw new IllegalArgumentException("storage_unavailable",e);}
         }
         return actor==null||affected.stream().filter(level::hasChunkAt).allMatch(p->level.mayInteract(actor,p));
     }
-    @Override public boolean canMove(ServerLevel level,DoorRecord r,DoorMotion motion) {
-        for(var box:motion.conservativeSweep()) {
-            // Same rule for opening and closing; touching the boundary is allowed, penetration is not.
-            if(!level.getEntities((net.minecraft.world.entity.Entity)null,box.aabb().deflate(1e-6),e->e.isAlive()&&!e.isSpectator()).isEmpty())return false;
-        }
-        // Discrete Core physics: reject overlap in the target pose with the current other leaf.
-        // The closed leaves share an intentional zero-width seam; no entity pushing is performed.
-        for(var surface:r.structure().definition().surfaces()) {
-            if(surface.leaf()==null||surface.leaf().equals(motion.leaf()))continue;
-            var leaf=r.structure().definition().leaf(surface.leaf());
-            for(var box:surface.collision()) {
-                var other=DoorTransform.box(r.structure().placement(),leaf,r.leaves().get(leaf.id()).open(),box).aabb();
-                if(motion.targetCollision().stream().anyMatch(b->b.aabb().deflate(1e-6).intersects(other)))return false;
-            }
-        }
-        return true;
+    @Override public net.minecraft.world.entity.EntityType<net.nicomar2009.lsmcore.door.entity.DoorBody> bodyType() {return net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleDoorEntities.BODY.get();}
+    @Override public boolean allowsEntityUse(ServerPlayer player,net.minecraft.world.InteractionHand hand) {
+        var item=player.getItemInHand(hand).getItem();
+        return !(item instanceof net.nicomar2009.paintingmod.tool.PaintItem||item instanceof net.nicomar2009.paintingmod.tool.SandpaperItem||item instanceof net.nicomar2009.paintingmod.tool.PaintCleanerItem||item instanceof net.nicomar2009.paintingmod.tool.HammerItem);
+    }
+    @Override public boolean canMove(ServerLevel level,DoorRecord r,DoorMotion motion) {return true;}
+    @Override public Optional<DoorDefinition> upgrade(DoorRecord r) {
+        var style=DoorCatalog.STYLES.get(r.structure().definition().type().getPath());
+        if(!r.structure().definition().type().getNamespace().equals("lsmmod")||style==null||r.structure().definition().schema()!=1)return Optional.empty();
+        // Preserve unknown/custom snapshots: only the exact known v1 definitions can be upgraded.
+        var old=r.structure().definition();var next=style.definition();
+        if(!old.cells().equals(next.cells())||!old.envelope().equals(next.envelope())||!old.controller().equals(next.controller())||old.removalPolicy()!=next.removalPolicy()||old.motionPolicy()!=DoorDefinition.MotionPolicy.RESTRICTIVE||!DoorCatalog.knownLegacy(r))return Optional.empty();
+        return Optional.of(next);
     }
     public static void invalidate(ServerLevel level,DoorRecord r) {
         for(var pos:r.structure().plan().slots().keySet())if(level.hasChunkAt(pos)) {
@@ -128,7 +161,8 @@ public final class DoorIntegration implements DoorAdapter {
      * Sweep proxies never supply redstone. Placement orientation maps these cells through Core.
      */
     public static void power(ServerLevel level,BlockPos pos) {
-        var view=DoorService.at(level,pos);if(view.isEmpty())return;var r=view.get().record();
+        Optional<DoorView> view;try {view=DoorService.at(level,pos);}catch(IllegalArgumentException unavailable) {return;}
+        if(view.isEmpty())return;var r=view.get().record();
         if(r.phase()!=DoorRecord.Phase.ACTIVE||!POWER_BUSY.add(r.id()))return;
         try {
             boolean doubled=r.structure().definition().leaves().size()==2;
@@ -149,7 +183,10 @@ public final class DoorIntegration implements DoorAdapter {
     @SubscribeEvent(priority=net.neoforged.bus.api.EventPriority.LOWEST) public static void breaking(BreakBlockEvent event) {
         if(!(event.getState().getBlock() instanceof AssemblyDoorBlock)||!(event.getPlayer() instanceof ServerPlayer player))return;
         // Always suppress vanilla per-piece removal, including rejected Core transactions.
-        event.setCanceled(true);event.setNotifyClient(true);var view=DoorService.at(player.level(),event.getPos());
-        if(view.isPresent())try {DoorService.breakPiece(player,event.getPos(),view.get().record().revision());}catch(IOException|IllegalArgumentException e) {feedback(player,e);}
+        event.setCanceled(true);event.setNotifyClient(true);
+        try {var view=DoorService.at(player.level(),event.getPos());
+            if(view.isPresent())DoorService.breakPiece(player,event.getPos(),view.get().record().revision());
+            else throw new IllegalArgumentException("unknown_structure");
+        }catch(IOException|IllegalArgumentException e) {feedback(player,e);}
     }
 }

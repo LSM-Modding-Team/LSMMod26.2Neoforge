@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: LSM-Modding-Team/LSMcore
-          ref: f2e543e9267b3213f27de79adc54e53e2e72bd04
+          ref: e78829f342580c4b13bd38735a930bfda00ba8f5
           path: .composite/LSMcore
           persist-credentials: false
 

@@ -45,7 +45,7 @@ public final class DoorPieceEntity extends BlockEntity {
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
         var tag=saveWithoutMetadata(registries);
         if(level instanceof net.minecraft.server.level.ServerLevel server) {
-            var view=DoorService.at(server,worldPosition);
+            java.util.Optional<DoorView> view;try {view=DoorService.at(server,worldPosition);}catch(IllegalArgumentException unavailable) {return tag;}
             if(view.isPresent()&&matches(view.get().record(),view.get().record().structure().plan().slots().get(worldPosition).part())&&!DoorCatalog.patches(view.get().record()).isEmpty()) {
                 try {tag.put("paint_snapshot",DoorPaintStore.get(server,view.get().record()).save(DoorCatalog.patches(view.get().record())));}
                 catch(java.io.IOException|IllegalArgumentException e) {net.nicomar2009.lsmmod.LSMMod.LOGGER.error("Door paint unavailable",e);}

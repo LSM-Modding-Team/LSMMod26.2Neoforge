@@ -48,6 +48,7 @@ def main():
         else:rgb=(203+noise//2,202+noise//2,193+noise//2);alpha=255
         px[x,y]=(*rgb,alpha)
       img.save(textures/f'assembly_door_{mat}.png')
+    prior=json.loads((A/'assembly_doors.json').read_text())
     catalog={}
     for src,ident,width,es,en in SPECS:
       d=json.loads((FIX/(src+'.bbmodel')).read_text());groups={g['uuid']:g['name'] for g in d['groups']}
@@ -61,7 +62,18 @@ def main():
       # Solve T(c)=R(c-p)+p: p=(-14.5,13.5), NOT the outliner origin (-24,12).
       # Normalize X/Y by +16 for all models. Opposite hinges reflect about the leaf span midpoint.
       leaves=([dict(id='doorright',pivot=[1.5,0,13.5],turn=-1),dict(id='doorleft',pivot=[46.5,0,13.5],turn=1)] if width==3 and src=='windowedschooldoor' else [dict(id='door',pivot=[22.5 if width==2 else 30.5,0,13.5],turn=1)])
-      catalog[ident]=dict(width=width,leaves=leaves,surfaces=surfaces)
+      # Render-only rebates leave the physical/selection boxes intact, including the central seam.
+      seam=24 if width==2 or src=='windowedschooldoor' else 32
+      for surface in surfaces:
+        lo=surface['box'][:3].copy();hi=surface['box'][3:].copy()
+        if hi[0]==seam and not surface['paintable']:hi[0]-=.125
+        if lo[0]==seam and not surface['paintable']:lo[0]+=.125
+        surface['render_box']=lo+hi;surface['faces']=faces(lo,hi,surface['material'])
+        if surface['box'][3]==seam and not surface['paintable']:surface['faces']['east']['texture']='#trim'
+        if surface['box'][0]==seam and not surface['paintable']:surface['faces']['west']['texture']='#trim'
+      original=prior[ident]
+      legacy=original.get('legacy',dict(leaves=original['leaves'],surfaces=[{k:v for k,v in x.items() if k in ('id','leaf','box')} for x in original['surfaces']]))
+      catalog[ident]=dict(width=width,leaves=leaves,surfaces=surfaces,legacy=legacy)
       # Tiny material swatches supply baked texture/layer handles; the dynamic model replaces their quads.
       swatches=[]
       for i,mat in enumerate(MATERIALS):
@@ -73,7 +85,7 @@ def main():
       # Fit the complete assembled geometry into one inventory model without changing its proportions.
       elements=[]
       for s in surfaces:
-        lo=s['box'][:3];hi=s['box'][3:];scale=1/3
+        lo=s['render_box'][:3];hi=s['render_box'][3:];scale=1/3
         elements.append({'from':[v*scale for v in lo],'to':[v*scale for v in hi],'faces':s['faces']})
       write(A/f'models/item/{ident}.json',{'parent':'minecraft:block/block','textures':tex,'elements':elements,'render_type':'minecraft:translucent','display':{'gui':{'rotation':[20,145,0],'translation':[0,0,0],'scale':[.85,.85,.85]},'ground':{'scale':[.35,.35,.35]},'fixed':{'rotation':[0,180,0],'scale':[.75,.75,.75]}}})
       write(A/f'items/{ident}.json',{'model':{'type':'minecraft:model','model':'lsmmod:item/'+ident}})

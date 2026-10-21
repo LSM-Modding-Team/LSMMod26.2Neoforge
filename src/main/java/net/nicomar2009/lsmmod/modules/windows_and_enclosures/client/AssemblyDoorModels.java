@@ -80,17 +80,21 @@ public final class AssemblyDoorModels {
             for(var part:swatches)for(var q:all(part))materials.putIfAbsent(q.materialInfo().tintIndex(),q);
             var r=view.record();var style=DoorCatalog.style(r);var placement=r.structure().placement();
             for(var surface:r.structure().definition().surfaces()) {
-                var data=style.surfaces().get(surface.id());if(data.get("paintable").getAsBoolean())continue;
+                var data=style.surfaces().get(surface.id());if(data==null)continue;if(data.get("paintable").getAsBoolean()||surface.leaf()!=null&&r.structure().definition().motionPolicy()==DoorDefinition.MotionPolicy.VANILLA)continue;
                 var leaf=surface.leaf()==null?null:r.structure().definition().leaf(surface.leaf());boolean open=leaf!=null&&r.leaves().get(leaf.id()).open();
                 String material=data.get("material").getAsString();int index=List.of("wood","trim","glass","handle","wall","checker").indexOf(material);var source=materials.get(index);if(source==null)continue;
                 for(Direction face:Direction.values()) {
-                    var uv=data.getAsJsonObject("faces").getAsJsonObject(face.getSerializedName()).getAsJsonArray("uv");
-                    var points=corners(surface.selection(),face);float u0=uv.get(0).getAsFloat()/16,v0=uv.get(1).getAsFloat()/16,u1=uv.get(2).getAsFloat()/16,v1=uv.get(3).getAsFloat()/16;
-                    var sprite=source.materialInfo().sprite();
+                    var faceData=data.getAsJsonObject("faces").getAsJsonObject(face.getSerializedName());
+                    var faceSource=materials.get(List.of("wood","trim","glass","handle","wall","checker").indexOf(faceData.get("texture").getAsString().substring(1)));
+                    var uv=faceData.getAsJsonArray("uv");
+                    var renderBox=surface.selection();
+                    if(data.has("render_box")) {var a=data.getAsJsonArray("render_box");renderBox=new DoorBox(a.get(0).getAsDouble()/16,a.get(1).getAsDouble()/16,a.get(2).getAsDouble()/16,a.get(3).getAsDouble()/16,a.get(4).getAsDouble()/16,a.get(5).getAsDouble()/16);}
+                    var points=corners(renderBox,face);float u0=uv.get(0).getAsFloat()/16,v0=uv.get(1).getAsFloat()/16,u1=uv.get(2).getAsFloat()/16,v1=uv.get(3).getAsFloat()/16;
+                    var sprite=faceSource.materialInfo().sprite();
                     float[] us={u0,u0,u1,u1},vs={v0,v1,v1,v0};var polygon=new ArrayList<Vertex>();
                     for(int i=0;i<4;i++)polygon.add(new Vertex(vec(DoorTransform.point(placement,leaf,open,point(points.get(i)))),sprite.getU(us[i]),sprite.getV(vs[i])));
                     var normal=vec(DoorTransform.point(placement,leaf,open,point(points.get(0).add(PaintFrame.vector(face))))).subtract(polygon.get(0).point());
-                    emit(polygon,direction(normal),source,-1,source.materialInfo().shade(),pos,result);
+                    emit(polygon,direction(normal),faceSource,-1,faceSource.materialInfo().shade(),pos,result);
                 }
             }
             if(paint!=null) {
@@ -135,7 +139,7 @@ public final class AssemblyDoorModels {
     private static DoorPoint point(Vec3 p) {return new DoorPoint(p.x,p.y,p.z);}
     private static Vec3 vec(DoorPoint p) {return new Vec3(p.x(),p.y(),p.z());}
     private static Direction direction(Vec3 v) {for(var d:Direction.values())if(v.dot(PaintFrame.vector(d))>.99)return d;throw new IllegalArgumentException("normal");}
-    private static List<Vec3> corners(DoorBox b,Direction face) {
+    static List<Vec3> corners(DoorBox b,Direction face) {
         double x=b.minX(),y=b.minY(),z=b.minZ(),X=b.maxX(),Y=b.maxY(),Z=b.maxZ();
         return switch(face) {
             case NORTH->List.of(new Vec3(X,Y,z),new Vec3(X,y,z),new Vec3(x,y,z),new Vec3(x,Y,z));

@@ -12,7 +12,7 @@ CAT=json.loads((A/'assembly_doors.json').read_text())
 def scene(ident,opened=(),mirror=False,finish=None):
  d=CAT[ident];out=[];tex={m:'lsmmod:block/assembly_door_'+m for m in ['wood','trim','glass','handle','wall','checker']}
  for s in d['surfaces']:
-  e={'from':s['box'][:3],'to':s['box'][3:],'faces':copy.deepcopy(s['faces'])}
+  e={'from':s.get('render_box',s['box'])[:3],'to':s.get('render_box',s['box'])[3:],'faces':copy.deepcopy(s['faces'])}
   if finish and s['paintable']:
    for face in e['faces'].values():face['texture']='#'+finish
   if s['leaf'] in opened:
@@ -55,6 +55,28 @@ def main():
   add(exact,[{'textures':tex,'elements':[part],'render_type':'minecraft:translucent' if s['material']=='glass' else 'minecraft:solid'}])
  tiles.append(('SUPPLIED OPEN EXAMPLE (element transforms)',render(exact,(24,24,3),5,size=(360,350),azimuth=-35,elevation=25)))
  tiles.append(('SOLVED RIGID PIVOT (no translation)',render(scene(ident,('doorright',)),(24,24,3),5,size=(360,350),azimuth=-35,elevation=25)))
+ # Static placement review: full anchor cube transformed independently of the model/sweep bounds.
+ anchors=[]
+ for ident in ['school_solid_assembly_door','school_double_windowed_assembly_door','school_windowed_panel_assembly_door']:
+  d=CAT[ident];anchor=0 if len(d['leaves'])==2 else int(d['leaves'][0]['pivot'][0]//16)
+  for mirrored in (False,True):
+   for turns in range(4):
+    def transform(x,z):
+     if mirrored:x=-x
+     for _ in range(turns):x,z=-z,x
+     return x,z
+    cube=[transform(x,z) for x in (anchor,anchor+1) for z in (0,1)]
+    origin=(-min(p[0] for p in cube)*16,0,-min(p[1] for p in cube)*16)
+    assembled=scene(ident,mirror=mirrored)
+    for element in assembled:
+     for key in ('from','to'):element[key]=[v+origin[i] for i,v in enumerate(element[key])]
+     element['rotation']={'axis':'y','angle':-turns*90,'origin':list(origin)}
+    image=render(assembled,(8,24,8),4,size=(360,350),azimuth=-55,elevation=22)
+    anchors.append((ident.replace('school_','').replace('_assembly_door','')+f' anchor {anchor}; turn {turns}; mirror {mirrored}',image))
+ anchor_sheet=Image.new('RGB',(4*360,6*380),(220,220,220));anchor_draw=ImageDraw.Draw(anchor_sheet)
+ for i,(label,image) in enumerate(anchors):
+  x=i%4*360;y=i//4*380;anchor_sheet.paste(image,(x,y));anchor_draw.text((x+4,y+352),label,fill=(15,15,15))
+ anchor_sheet.save(preview_path('assembly_doors_anchors_review.png'))
  cols=4;w,h=360,380;sheet=Image.new('RGB',(cols*w,((len(tiles)+cols-1)//cols)*h),(220,220,220));draw=ImageDraw.Draw(sheet)
  for i,(label,img) in enumerate(tiles):
   x=i%cols*w;y=i//cols*h;sheet.paste(img,(x,y));draw.text((x+5,y+352),label.replace('school_','').replace('_assembly_door',''),fill=(15,15,15))

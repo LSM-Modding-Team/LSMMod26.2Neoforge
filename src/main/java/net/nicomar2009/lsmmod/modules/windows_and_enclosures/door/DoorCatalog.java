@@ -13,7 +13,7 @@ import net.nicomar2009.paintingmod.api.*;
 
 /** Materials stay in LSM; immutable geometry snapshots and all leaf states belong to Core. */
 public final class DoorCatalog {
-    public record Style(DoorDefinition definition, Map<String,JsonObject> surfaces) {}
+    public record Style(DoorDefinition definition, Map<String,JsonObject> surfaces,JsonObject legacy) {}
     public static final Map<String,Style> STYLES=load();
     public static Identifier id(String path) { return Identifier.fromNamespaceAndPath("lsmmod",path); }
     private DoorCatalog() {}
@@ -37,17 +37,34 @@ public final class DoorCatalog {
                     var box=new DoorBox(b[0],b[1],b[2],b[3],b[4],b[5]);String name=s.get("id").getAsString();
                     surfaces.add(new DoorSurface(name,"cell_0_0",s.get("leaf").isJsonNull()?null:s.get("leaf").getAsString(),box,List.of(box)));appearance.put(name,s);
                 }
-                result.put(entry.getKey(),new Style(new DoorDefinition(id(entry.getKey()),new DoorBox(0,0,0,width,3,1),"cell_0_0",cells,leaves,surfaces,DoorRemovalPolicy.ANY_BREAK),Map.copyOf(appearance)));
+                result.put(entry.getKey(),new Style(new DoorDefinition(id(entry.getKey()),new DoorBox(0,0,0,width,3,1),"cell_0_0",cells,leaves,surfaces,DoorRemovalPolicy.ANY_BREAK,DoorDefinition.MotionPolicy.VANILLA,2),Map.copyOf(appearance),data.getAsJsonObject("legacy")));
             }
             return Map.copyOf(result);
         } catch(java.io.IOException e) { throw new IllegalStateException(e); }
+    }
+    public static boolean knownLegacy(DoorRecord r) {
+        var style=style(r);if(style==null||style.legacy()==null)return false;var definition=r.structure().definition();
+        var surfaces=style.legacy().getAsJsonArray("surfaces");if(surfaces.size()!=definition.surfaces().size())return false;
+        for(var raw:surfaces) {
+            var expected=raw.getAsJsonObject();var match=definition.surfaces().stream().filter(v->v.id().equals(expected.get("id").getAsString())).findFirst();if(match.isEmpty())return false;
+            var s=match.get();var a=expected.getAsJsonArray("box");var box=new DoorBox(a.get(0).getAsDouble()/16,a.get(1).getAsDouble()/16,a.get(2).getAsDouble()/16,a.get(3).getAsDouble()/16,a.get(4).getAsDouble()/16,a.get(5).getAsDouble()/16);
+            String leaf=expected.get("leaf").isJsonNull()?null:expected.get("leaf").getAsString();
+            if(!Objects.equals(s.leaf(),leaf)||!s.part().equals("cell_0_0")||!s.selection().equals(box)||!s.collision().equals(List.of(box)))return false;
+        }
+        var leaves=style.legacy().getAsJsonArray("leaves");if(leaves.size()!=definition.leaves().size())return false;
+        for(var raw:leaves) {
+            var e=raw.getAsJsonObject();var candidate=definition.leaves().stream().filter(l->l.id().equals(e.get("id").getAsString())).findFirst();if(candidate.isEmpty())return false;var l=candidate.get();var p=e.getAsJsonArray("pivot");
+            if(!l.pivot().equals(new DoorPoint(p.get(0).getAsDouble()/16,0,p.get(2).getAsDouble()/16))||l.turn()!=e.get("turn").getAsInt()||!l.manual()||l.redstone()!=DoorLeaf.Redstone.FOLLOW_POWER)return false;
+        }
+        return true;
     }
     public static Style style(DoorRecord r) {return STYLES.get(r.structure().definition().type().getPath());}
     /** All six faces of ONLY paintablewall; dimensions are counts of 8px cells. */
     public static List<PaintSurface> patches(DoorRecord record) {
         var result=new ArrayList<PaintSurface>();var p=record.structure().placement();var o=p.orientation();
         for(var s:record.structure().definition().surfaces()) {
-            var appearance=style(record).surfaces().get(s.id());
+            var style=style(record);if(style==null)continue;var appearance=style.surfaces().get(s.id());
+            if(appearance==null)continue;
             if(!appearance.get("paintable").getAsBoolean()||s.leaf()!=null)continue;
             var b=s.selection();
             for(Direction face:Direction.values()) {
