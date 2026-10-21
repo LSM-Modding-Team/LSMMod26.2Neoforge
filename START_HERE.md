@@ -2,6 +2,16 @@
 
 Mod `lsmmod` del colegio Libertador San Martín. Minecraft **26.2**, NeoForge **26.2.0.88**, Java **25**. Versiones reales: `gradle.properties` y `build.gradle`. Instrucciones de trabajo: [AGENTS.md](AGENTS.md).
 
+## Dependencia de desarrollo
+
+LSMMod requiere PaintingMod. Clona ambos repositorios como carpetas vecinas:
+`LSMMod26.2Neoforge/` y `PaintingMod/` (rama `main`). El build compuesto incluye
+`../PaintingMod`; otra ubicación se configura con `-Ppaintingmod_dir=/ruta/PaintingMod`.
+Gradle resuelve la dependencia desde sus fuentes, sin copiar JARs ni publicar en Maven.
+PaintingMod sigue siendo independiente y puede desarrollarse desde su propio repositorio.
+Para jugar fuera del entorno de desarrollo, instala ambos JARs y Fusion en `mods/`.
+El workflow obtiene PaintingMod en `.composite/PaintingMod` y pasa esa ruta a Gradle.
+
 ## Estado
 
 Entrega: [GitHub Actions → Build](https://github.com/LSM-Modding-Team/LSMMod26.2Neoforge/actions/workflows/build.yml)

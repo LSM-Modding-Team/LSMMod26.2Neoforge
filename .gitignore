@@ -61,3 +61,6 @@ libs/*.jar
 **/backups/
 **/archive/
 **/archives/
+
+# Local source checkouts for composite builds.
+.composite/

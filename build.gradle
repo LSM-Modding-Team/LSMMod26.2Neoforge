@@ -149,6 +149,9 @@ configurations {
 }
 
 dependencies {
+    // settings.gradle substitutes this module with the local PaintingMod build.
+    // Keep it on both compile and runtime classpaths; do not embed it in LSM's JAR.
+    implementation "net.nicomar2009.paintingmod:paintingmod:${paintingmod_version}"
     // Optional client browser. Keep it separate from LSM's jar and dedicated servers.
     compileOnly "de.keksuccino:rinku-neoforge:${rinku_version}"
     localRuntime "de.keksuccino:rinku-neoforge:${rinku_version}"
@@ -321,6 +324,7 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             minecraft_version      : minecraft_version,
             minecraft_version_range: minecraft_version_range,
             neo_version            : neo_version,
+            paintingmod_version    : paintingmod_version,
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_license            : mod_license,

@@ -7,3 +7,17 @@ pluginManagement {
 plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
 }
+
+// Consume PaintingMod from source without publishing or copying dependency JARs.
+def paintingModDirectory = file(providers.gradleProperty('paintingmod_dir').getOrElse('../PaintingMod'))
+if (!new File(paintingModDirectory, 'settings.gradle').isFile()) {
+    throw new GradleException("PaintingMod checkout not found at ${paintingModDirectory}. " +
+            "Clone https://github.com/LSM-Modding-Team/PaintingMod beside this repository, " +
+            "or set -Ppaintingmod_dir=/path/to/PaintingMod.")
+}
+includeBuild(paintingModDirectory) {
+    dependencySubstitution {
+        // The publication artifact ID differs from PaintingMod's root project name.
+        substitute module('net.nicomar2009.paintingmod:paintingmod') using project(':')
+    }
+}
