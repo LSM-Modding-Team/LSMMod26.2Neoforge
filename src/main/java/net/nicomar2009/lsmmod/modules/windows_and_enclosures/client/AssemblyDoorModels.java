@@ -38,7 +38,7 @@ public final class AssemblyDoorModels {
     @SubscribeEvent public static void changed(DoorClientChangedEvent event) {
         var mc=Minecraft.getInstance();if(mc.level==null||event.chunk==null)return;
         // Core publishes immutable geometry before this event. Invalidate only its affected chunk.
-        int x=event.chunk.getMinBlockX(),z=event.chunk.getMinBlockZ();
+        int x=event.chunk.x()<<4,z=event.chunk.z()<<4;
         for(int y=mc.level.getMinY();y<mc.level.getMaxY();y+=16)mc.level.setSectionDirtyWithNeighbors(x>>4,y>>4,z>>4);
     }
     private record Vertex(Vec3 point,float u,float v) {
