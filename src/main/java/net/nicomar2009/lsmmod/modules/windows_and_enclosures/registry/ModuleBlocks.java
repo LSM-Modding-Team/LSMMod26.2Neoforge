@@ -30,6 +30,11 @@ public final class ModuleBlocks {
 
     public static final DeferredBlock<SchoolTintedGlassBlock> SCHOOL_TINTED_GLASS = BLOCKS.registerBlock("school_tinted_glass", SchoolTintedGlassBlock::new, props -> props.strength(0.3F).sound(SoundType.GLASS).noOcclusion());
 
+    public static final DeferredBlock<net.nicomar2009.lsmmod.modules.windows_and_enclosures.door.AssemblyDoorBlock> SOLID_ASSEMBLY_DOOR = BLOCKS.registerBlock("school_solid_assembly_door", props -> new net.nicomar2009.lsmmod.modules.windows_and_enclosures.door.AssemblyDoorBlock(props,"school_solid_assembly_door"), props -> props.strength(3F).sound(SoundType.WOOD).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<net.nicomar2009.lsmmod.modules.windows_and_enclosures.door.AssemblyDoorBlock> DINING_ASSEMBLY_DOOR = BLOCKS.registerBlock("school_dining_assembly_door", props -> new net.nicomar2009.lsmmod.modules.windows_and_enclosures.door.AssemblyDoorBlock(props,"school_dining_assembly_door"), props -> props.strength(3F).sound(SoundType.WOOD).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<net.nicomar2009.lsmmod.modules.windows_and_enclosures.door.AssemblyDoorBlock> WINDOWED_PANEL_ASSEMBLY_DOOR = BLOCKS.registerBlock("school_windowed_panel_assembly_door", props -> new net.nicomar2009.lsmmod.modules.windows_and_enclosures.door.AssemblyDoorBlock(props,"school_windowed_panel_assembly_door"), props -> props.strength(3F).sound(SoundType.WOOD).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<net.nicomar2009.lsmmod.modules.windows_and_enclosures.door.AssemblyDoorBlock> DOUBLE_WINDOWED_ASSEMBLY_DOOR = BLOCKS.registerBlock("school_double_windowed_assembly_door", props -> new net.nicomar2009.lsmmod.modules.windows_and_enclosures.door.AssemblyDoorBlock(props,"school_double_windowed_assembly_door"), props -> props.strength(3F).sound(SoundType.WOOD).noOcclusion().dynamicShape().pushReaction(PushReaction.BLOCK));
+
     /** Initializes this module before the shared registry is bound to the event bus. */
     public static void initialize() {}
 

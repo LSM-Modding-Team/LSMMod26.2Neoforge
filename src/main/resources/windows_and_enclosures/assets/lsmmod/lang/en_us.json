@@ -13,5 +13,11 @@
   "block.lsmmod.school_sliding_entrance": "School Sliding Entrance",
   "block.lsmmod.school_connected_tinted_glass": "Connected School Tinted Glass",
   "block.lsmmod.school_projecting_window": "School Projecting Window",
-  "block.lsmmod.school_continuous_glass": "Continuous School Glass"
+  "block.lsmmod.school_continuous_glass": "Continuous School Glass",
+  "message.lsmmod.assembly_door.blocked": "Door action blocked: check space, entities, loaded chunks and permissions.",
+  "message.lsmmod.assembly_door.storage": "Door data could not be saved. Action canceled.",
+  "block.lsmmod.school_solid_assembly_door": "School door with paintable wall",
+  "block.lsmmod.school_dining_assembly_door": "Dining glass door with paintable wall",
+  "block.lsmmod.school_windowed_panel_assembly_door": "Windowed school door with wood panel",
+  "block.lsmmod.school_double_windowed_assembly_door": "Double windowed school door"
 }

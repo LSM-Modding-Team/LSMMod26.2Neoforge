@@ -128,7 +128,14 @@ config="${mod_id}.windows_and_enclosures.mixins.json"
     ordering="AFTER"
     side="CLIENT"
 
-# PaintingMod is required independently; it has no dependency on LSMMod.
+# Required source integrations; neither dependency imports LSMMod.
+[[dependencies.${mod_id}]]
+    modId="lsmcore"
+    type="required"
+    versionRange="[${lsmcore_version},)"
+    ordering="AFTER"
+    side="BOTH"
+
 [[dependencies.${mod_id}]]
     modId="paintingmod"
     type="required"

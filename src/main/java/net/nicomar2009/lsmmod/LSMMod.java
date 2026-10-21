@@ -42,6 +42,7 @@ public class LSMMod {
                 event.registrar("1").playToClient(
                         net.nicomar2009.lsmmod.modules.technology.network.SpeakerSoundPayload.TYPE,
                         net.nicomar2009.lsmmod.modules.technology.network.SpeakerSoundPayload.CODEC));
+        modEventBus.addListener(net.nicomar2009.lsmmod.modules.windows_and_enclosures.door.DoorIntegration::setup);
         LOGGER.info("LSM Mod loaded");
     }
 }

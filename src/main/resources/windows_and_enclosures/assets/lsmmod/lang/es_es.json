@@ -13,5 +13,11 @@
   "block.lsmmod.school_sliding_entrance": "Entrada deslizable del colegio",
   "block.lsmmod.school_connected_tinted_glass": "Cristal tintado conectado del colegio",
   "block.lsmmod.school_projecting_window": "Ventana proyectante del colegio",
-  "block.lsmmod.school_continuous_glass": "Cristal continuo del colegio"
+  "block.lsmmod.school_continuous_glass": "Cristal continuo del colegio",
+  "message.lsmmod.assembly_door.blocked": "Acción bloqueada: comprueba espacio, entidades, chunks cargados y permisos.",
+  "message.lsmmod.assembly_door.storage": "No se pudieron guardar los datos de la puerta. Acción cancelada.",
+  "block.lsmmod.school_solid_assembly_door": "Puerta escolar con pared pintable",
+  "block.lsmmod.school_dining_assembly_door": "Puerta acristalada de comedor con pared pintable",
+  "block.lsmmod.school_windowed_panel_assembly_door": "Puerta escolar con ventanilla y panel de madera",
+  "block.lsmmod.school_double_windowed_assembly_door": "Puerta doble escolar con ventanillas"
 }

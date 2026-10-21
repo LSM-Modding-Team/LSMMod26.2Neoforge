@@ -11,6 +11,7 @@ public final class ModBlockEntities {
         net.nicomar2009.lsmmod.modules.tables_and_desks.registry.ModuleBlockEntities.initialize();
         net.nicomar2009.lsmmod.modules.lockers_and_storage.registry.ModuleBlockEntities.initialize();
         net.nicomar2009.lsmmod.modules.awnings.registry.ModuleBlockEntities.initialize();
+        net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleDoorEntities.initialize();
         ModRegistries.BLOCK_ENTITIES.register(modEventBus);
         modEventBus.addListener(net.nicomar2009.lsmmod.modules.lockers_and_storage.registry.ModuleBlockEntities::registerCapabilities);
     }

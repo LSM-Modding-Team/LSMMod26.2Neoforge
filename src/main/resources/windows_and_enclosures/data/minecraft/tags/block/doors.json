@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "lsmmod:school_solid_assembly_door",
+    "lsmmod:school_dining_assembly_door",
+    "lsmmod:school_windowed_panel_assembly_door",
+    "lsmmod:school_double_windowed_assembly_door"
+  ]
+}

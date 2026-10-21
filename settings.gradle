@@ -8,6 +8,18 @@ plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
 }
 
+// Door contract: LSMcore commit 37cec9cda43cd67fbf0f54f813dfdcdfead394d7 or compatible newer API.
+def coreDirectory = file(providers.gradleProperty('lsmcore_dir').getOrElse('../LSMcore'))
+if (!new File(coreDirectory, 'settings.gradle').isFile()) {
+    throw new GradleException('Clone https://github.com/LSM-Modding-Team/LSMcore beside LSMMod or set -Plsmcore_dir=...')
+}
+includeBuild(coreDirectory) {
+    dependencySubstitution {
+        substitute module('net.nicomar2009.lsmcore:lsmcore') using project(':')
+    }
+}
+
+// Paint provider contract: PaintingMod commit 0c6ccb952e548384d0a0b0c9f12a9acf91d45221.
 // Consume PaintingMod from source without publishing or copying dependency JARs.
 def paintingModDirectory = file(providers.gradleProperty('paintingmod_dir').getOrElse('../PaintingMod'))
 if (!new File(paintingModDirectory, 'settings.gradle').isFile()) {
