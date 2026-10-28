@@ -6,10 +6,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import net.minecraft.core.*;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.phys.Vec3;
 import net.nicomar2009.lsmcore.door.geometry.*;
 import net.nicomar2009.lsmcore.door.model.*;
-import net.nicomar2009.paintingmod.api.*;
 
 /** Materials stay in LSM; immutable geometry snapshots and all leaf states belong to Core. */
 public final class DoorCatalog {
@@ -59,26 +57,10 @@ public final class DoorCatalog {
         return true;
     }
     public static Style style(DoorRecord r) {return STYLES.get(r.structure().definition().type().getPath());}
-    /** All six faces of ONLY paintablewall; dimensions are counts of 8px cells. */
-    public static List<PaintSurface> patches(DoorRecord record) {
-        var result=new ArrayList<PaintSurface>();var p=record.structure().placement();var o=p.orientation();
-        for(var s:record.structure().definition().surfaces()) {
-            var style=style(record);if(style==null)continue;var appearance=style.surfaces().get(s.id());
-            if(appearance==null)continue;
-            if(!appearance.get("paintable").getAsBoolean()||s.leaf()!=null)continue;
-            var b=s.selection();
-            for(Direction face:Direction.values()) {
-                Vec3 origin;Direction u,v;int width,height;
-                switch(face.getAxis()) {
-                    case Z -> {origin=new Vec3(b.minX(),b.minY(),face==Direction.NORTH?b.minZ():b.maxZ());u=Direction.EAST;v=Direction.UP;width=(int)Math.round((b.maxX()-b.minX())*2);height=6;}
-                    case X -> {origin=new Vec3(face==Direction.WEST?b.minX():b.maxX(),b.minY(),b.minZ());u=Direction.SOUTH;v=Direction.UP;width=(int)Math.round((b.maxZ()-b.minZ())*2);height=6;}
-                    default -> {origin=new Vec3(b.minX(),face==Direction.DOWN?b.minY():b.maxY(),b.minZ());u=Direction.EAST;v=Direction.SOUTH;width=(int)Math.round((b.maxX()-b.minX())*2);height=(int)Math.round((b.maxZ()-b.minZ())*2);}
-                }
-                var mask=new BitSet(width*height);mask.set(0,width*height);
-                var frame=new PaintFrame(origin,u,v,face).placed(Vec3.atLowerCornerOf(p.origin()),o.quarterTurns(),o.mirrored());
-                result.add(new PaintSurface(s.id()+"/"+face.getSerializedName(),id("assembly_wall_"+face.getSerializedName()),frame,face,width,height,mask,id("assembly_door_wall"),id("assembly_door_checker")));
-            }
-        }
-        return List.copyOf(result);
+    /** Whether the structure can have archived surface data from an earlier integration. */
+    public static boolean hasPaintableWall(DoorRecord record) {
+        var style = style(record);
+        return style != null && style.surfaces().values().stream()
+                .anyMatch(surface -> surface.has("paintable") && surface.get("paintable").getAsBoolean());
     }
 }

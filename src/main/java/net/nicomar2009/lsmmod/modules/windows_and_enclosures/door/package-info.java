@@ -1,6 +1,6 @@
 /**
  * School door consumer for Minecraft 26.2, NeoForge 26.2.0.88 and Java 25.
- * All four stable block/item IDs remain in windows_and_enclosures; Core and PaintingMod register none.
+ * All four stable block/item IDs remain in windows_and_enclosures; Core registers none.
  *
  * <p>New placement uses BlockPlaceContext's resolved target, including replaceable blocks and face offsets.
  * Singles anchor the bottom hinge cell; the double anchors local column 0, the exterior doorright corner.
@@ -17,13 +17,13 @@
  * <p>Manual use is server ray-traced. FOLLOW_POWER remains per leaf: the three exterior-column cells
  * adjacent to each double leaf control that leaf (0 doorright, 2 doorleft); column 1 is neutral. Singles
  * use all required cells. Real neighbor edges drive power; no redstone polling is introduced. Painting
- * tools do not toggle entity surfaces. Only paintablewall exposes PaintingMod patches, without carving.
- * Painting/cleaning/sanding send data/model updates only and never change the opening state.
+ * native paint tools do not toggle entity surfaces. Fixed walls render their base material.
+ * Existing surface data is archived verbatim; no external painting provider is registered.
  *
  * <p>Only exact known schema-1 snapshots opt into upgrade: namespace/type, closed cells, envelope,
  * controller, removal policy, surfaces, old pivots/turns and input policies must match the frozen legacy
  * signature. Core keeps origin/UUID/open/powered states and journals removal of verified old proxies.
- * Paint remains in its existing UUID-keyed authority, untouched. Unknown/custom records are preserved.
+ * Archived surface data remains in its existing UUID-keyed file, untouched. Unknown/custom records are preserved.
  * Rendering-only 0.125px rebates and darker joint edges separate closed leaves/panels while original
  * selection/collision boxes keep the seam physically continuous. UV density is preserved, not stretched.
  *

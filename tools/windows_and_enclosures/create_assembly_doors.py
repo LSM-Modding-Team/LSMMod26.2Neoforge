@@ -1,6 +1,6 @@
 """Authoritative Blockbench geometry -> Core catalog, materials and inventory models.
 No build, game launch or automated checks. Runtime poses are supplied exclusively by Core.
-Reviewed APIs: Core 37cec9c, PaintingMod 0c6ccb9.
+Reviewed API: Core 37cec9c.
 """
 import json
 from pathlib import Path

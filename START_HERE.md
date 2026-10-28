@@ -4,13 +4,17 @@ Mod `lsmmod` del colegio Libertador San Martín. Minecraft **26.2**, NeoForge **
 
 ## Dependencia de desarrollo
 
-LSMMod requiere PaintingMod. Clona ambos repositorios como carpetas vecinas:
-`LSMMod26.2Neoforge/` y `PaintingMod/` (rama `main`). El build compuesto incluye
-`../PaintingMod`; otra ubicación se configura con `-Ppaintingmod_dir=/ruta/PaintingMod`.
+LSMMod requiere LSMcore. Clona ambos repositorios como carpetas vecinas:
+`LSMMod26.2Neoforge/` y `LSMcore/`. El build compuesto incluye `../LSMcore`;
+otra ubicación se configura con `-Plsmcore_dir=/ruta/LSMcore`.
 Gradle resuelve la dependencia desde sus fuentes, sin copiar JARs ni publicar en Maven.
-PaintingMod sigue siendo independiente y puede desarrollarse desde su propio repositorio.
-Para jugar fuera del entorno de desarrollo, instala ambos JARs y Fusion en `mods/`.
-El workflow obtiene PaintingMod en `.composite/PaintingMod` y pasa esa ruta a Gradle.
+Para jugar instala los JARs de LSMMod, LSMcore y Fusion (cliente) en `mods/`.
+El workflow obtiene Core en `.composite/LSMcore` y pasa esa ruta a Gradle.
+
+Las paredes de las puertas nuevas usan su material base y no exponen un proveedor
+externo de pintura. Los archivos de pintura existentes se conservan sin interpretar;
+al recuperar y recolocar una puerta se transportan como NBT archivado. El sistema de
+pintura propio de los demás bloques de LSMMod conserva su funcionamiento.
 
 ## Estado
 

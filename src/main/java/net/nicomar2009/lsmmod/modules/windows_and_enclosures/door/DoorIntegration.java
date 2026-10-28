@@ -20,19 +20,16 @@ import net.nicomar2009.lsmcore.door.geometry.*;
 import net.nicomar2009.lsmcore.door.integration.*;
 import net.nicomar2009.lsmcore.door.model.*;
 import net.nicomar2009.lsmcore.door.server.DoorService;
-import net.nicomar2009.paintingmod.api.*;
 
 /** Owner world writes only; Core owns transactions, membership, poses, permissions and the single drop claim. */
 @EventBusSubscriber(modid="lsmmod")
 public final class DoorIntegration implements DoorAdapter {
-    private static final ThreadLocal<PaintData> PLACEMENT_PAINT=new ThreadLocal<>();
+    private static final ThreadLocal<net.minecraft.nbt.CompoundTag> PLACEMENT_DATA=new ThreadLocal<>();
     private static final Set<UUID> POWER_BUSY=new HashSet<>();
     public static void setup(net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent event) {
         event.enqueueWork(()->{
             var adapter=new DoorIntegration();
             DoorCatalog.STYLES.keySet().forEach(id->Doors.register(DoorCatalog.id(id),adapter));
-            // Register every carrier, including swept proxies: tools must never open/carve these blocks.
-            PaintProviders.register(DoorCatalog.id("assembly_door_paint"),new DoorPainting(),blocks());
         });
     }
     public static Block[] blocks() {return DoorCatalog.STYLES.keySet().stream().map(id->net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(DoorCatalog.id(id))).toArray(Block[]::new);}
@@ -60,9 +57,7 @@ public final class DoorIntegration implements DoorAdapter {
             var anchor=anchor(definition);
             boolean mirror=chooseMirror(context,definition,anchor,turns);
             var paintTag=context.getItemInHand().getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag();
-            var schema=DoorRecord.placing(definition,new DoorPlacement(BlockPos.ZERO,new DoorOrientation(0,false)));
-            var paint=paintTag.contains("assembly_door_paint")?PaintData.load(paintTag.getCompoundOrEmpty("assembly_door_paint"),DoorCatalog.patches(schema)):PaintData.EMPTY;
-            PLACEMENT_PAINT.set(paint);
+            PLACEMENT_DATA.set(paintTag);
             var placement=DoorPlacement.anchored(context.getClickedPos(),anchor,new DoorOrientation(turns,mirror));
             var result=DoorService.place(player,definition,placement,context);
             if(result.accepted()) {
@@ -70,7 +65,7 @@ public final class DoorIntegration implements DoorAdapter {
                 power(player.level(),context.getClickedPos());
                 return net.minecraft.world.InteractionResult.SUCCESS;
             }
-        } catch(java.io.UncheckedIOException e) {feedback(player,e.getCause());} catch(IOException|IllegalArgumentException e) {feedback(player,e);}finally {PLACEMENT_PAINT.remove();}
+        } catch(java.io.UncheckedIOException e) {feedback(player,e.getCause());} catch(IOException|IllegalArgumentException e) {feedback(player,e);}finally {PLACEMENT_DATA.remove();}
         return net.minecraft.world.InteractionResult.FAIL;
     }
     /** Singles: bottom hinge cell. Double: local column 0, the doorright exterior corner. */
@@ -107,7 +102,7 @@ public final class DoorIntegration implements DoorAdapter {
     @Override public void place(ServerLevel level,DoorRecord r,DoorPlan.Slot slot) {
         if(matches(level,r,slot))return;
         if(!level.getBlockState(slot.position()).canBeReplaced())throw new IllegalArgumentException("space_occupied");
-        if(!DoorCatalog.patches(r).isEmpty())try {DoorPaintStore.initialize(level,r,Optional.ofNullable(PLACEMENT_PAINT.get()).orElse(PaintData.EMPTY));}catch(IOException e) {throw new java.io.UncheckedIOException(e);}
+        if(DoorCatalog.hasPaintableWall(r))try {DoorPaintStore.initialize(level,r,PLACEMENT_DATA.get());}catch(IOException e) {throw new java.io.UncheckedIOException(e);}
         level.setBlock(slot.position(),block(r).defaultBlockState(),Block.UPDATE_CLIENTS|Block.UPDATE_KNOWN_SHAPE);
         if(!(level.getBlockEntity(slot.position()) instanceof DoorPieceEntity piece))throw new IllegalStateException("missing_carrier");
         piece.stamp(r,slot.part());level.sendBlockUpdated(slot.position(),piece.getBlockState(),piece.getBlockState(),Block.UPDATE_CLIENTS);
@@ -117,15 +112,15 @@ public final class DoorIntegration implements DoorAdapter {
     }
     @Override public boolean authorize(ServerLevel level,ServerPlayer actor,DoorAction action,DoorRecord r,Set<BlockPos> affected) {
         // Null actor is Core-authorized redstone or integrity cleanup; Core posts DoorPermissionEvent.
-        if(r.phase()!=DoorRecord.Phase.PLACING&&r.removal()!=DoorRecord.Removal.FAILED_PLACEMENT&&!r.dropsClaimed()&&!DoorCatalog.patches(r).isEmpty()) {
-            try {DoorPaintStore.get(level,r);}catch(IOException|IllegalArgumentException e) {throw new IllegalArgumentException("storage_unavailable",e);}
-        }
         return actor==null||affected.stream().filter(level::hasChunkAt).allMatch(p->level.mayInteract(actor,p));
     }
     @Override public net.minecraft.world.entity.EntityType<net.nicomar2009.lsmcore.door.entity.DoorBody> bodyType() {return net.nicomar2009.lsmmod.modules.windows_and_enclosures.registry.ModuleDoorEntities.BODY.get();}
     @Override public boolean allowsEntityUse(ServerPlayer player,net.minecraft.world.InteractionHand hand) {
         var item=player.getItemInHand(hand).getItem();
-        return !(item instanceof net.nicomar2009.paintingmod.tool.PaintItem||item instanceof net.nicomar2009.paintingmod.tool.SandpaperItem||item instanceof net.nicomar2009.paintingmod.tool.PaintCleanerItem||item instanceof net.nicomar2009.paintingmod.tool.HammerItem);
+        return !(item instanceof net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolPaintItem
+                ||item instanceof net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolSandpaperItem
+                ||item instanceof net.nicomar2009.lsmmod.modules.school_supplies.item.PaintCleanerItem
+                ||item instanceof net.nicomar2009.lsmmod.modules.school_supplies.item.SchoolHammerItem);
     }
     @Override public boolean canMove(ServerLevel level,DoorRecord r,DoorMotion motion) {return true;}
     @Override public Optional<DoorDefinition> upgrade(DoorRecord r) {
@@ -146,14 +141,14 @@ public final class DoorIntegration implements DoorAdapter {
         var r=after==null?before:after;invalidate(level,r);
         if(before!=null&&after!=null)for(var entry:after.leaves().entrySet())if(entry.getValue().open()!=before.leaves().get(entry.getKey()).open())
             level.playSound(null,r.structure().plan().controller(),entry.getValue().open()?SoundEvents.WOODEN_DOOR_OPEN:SoundEvents.WOODEN_DOOR_CLOSE,SoundSource.BLOCKS,.7F,1F);
-        if(after==null&&!DoorCatalog.patches(r).isEmpty())try {DoorPaintStore.remove(level,r.id());}catch(IOException e) {net.nicomar2009.lsmmod.LSMMod.LOGGER.error("Cannot retire door paint",e);}
+        // Retain archived surface files: removing the external provider must not erase saved data.
     }
     @Override public void drops(ServerLevel level,DoorRecord removed) {
         ItemStack stack=new ItemStack(block(removed));
-        if(!DoorCatalog.patches(removed).isEmpty())try {
-            var tag=new net.minecraft.nbt.CompoundTag();tag.put("assembly_door_paint",DoorPaintStore.get(level,removed).data().save(DoorCatalog.patches(removed)));
-            stack.set(DataComponents.CUSTOM_DATA,CustomData.of(tag));
-        }catch(IOException|IllegalArgumentException e) {throw new IllegalStateException("Refusing to discard unavailable paint",e);}
+        if(DoorCatalog.hasPaintableWall(removed))try {
+            var tag=DoorPaintStore.itemData(level,removed);
+            if(!tag.isEmpty())stack.set(DataComponents.CUSTOM_DATA,CustomData.of(tag));
+        }catch(IOException e) {throw new IllegalStateException("Refusing to discard archived door data",e);}
         Block.popResource(level,removed.structure().plan().controller(),stack);
     }
     /** Input cells: all three rows of column 0 => doorright; column 2 => doorleft.

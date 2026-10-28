@@ -15,14 +15,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Checkout PaintingMod source dependency
-        uses: actions/checkout@v4
-        with:
-          repository: LSM-Modding-Team/PaintingMod
-          ref: 0c6ccb952e548384d0a0b0c9f12a9acf91d45221
-          path: .composite/PaintingMod
-          persist-credentials: false
-
       - name: Checkout LSMcore source dependency
         uses: actions/checkout@v4
         with:
@@ -51,7 +43,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build and check mod
-        run: bash gradlew build --no-daemon --max-workers=4 -Ppaintingmod_dir=.composite/PaintingMod -Plsmcore_dir=.composite/LSMcore
+        run: bash gradlew build --no-daemon --max-workers=4 -Plsmcore_dir=.composite/LSMcore
 
       - name: Verify packaged Mixin configurations
         run: python tools/check_mixin_configs.py --jar build/libs/lsmmod-*.jar

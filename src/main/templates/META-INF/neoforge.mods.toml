@@ -128,7 +128,7 @@ config="${mod_id}.windows_and_enclosures.mixins.json"
     ordering="AFTER"
     side="CLIENT"
 
-# Required source integrations; neither dependency imports LSMMod.
+# Required source integration; Core does not import LSMMod.
 [[dependencies.${mod_id}]]
     modId="lsmcore"
     type="required"
@@ -136,9 +136,3 @@ config="${mod_id}.windows_and_enclosures.mixins.json"
     ordering="AFTER"
     side="BOTH"
 
-[[dependencies.${mod_id}]]
-    modId="paintingmod"
-    type="required"
-    versionRange="[${paintingmod_version},)"
-    ordering="AFTER"
-    side="BOTH"
